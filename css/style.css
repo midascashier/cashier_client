@@ -1,0 +1,28 @@
+#main {
+    border:2px solid red;
+    overflow: hidden;
+}
+
+#header {
+    border: 2px solid blue;
+}
+
+#content {
+    border:3px solid green;
+    overflow: hidden;
+}
+
+
+#customerInfo {
+    float: left;
+    width: 70%;
+}
+
+#methods {
+    float: left;
+    width: 40%;
+}
+
+div {
+    border: 1px solid #000000;
+}
