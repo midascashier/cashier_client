@@ -84,11 +84,10 @@ let _transactionResponse = {
 
 let CHANGE_EVENT = 'change';
 
-let cashierStore = assign({}, EventEmitter.prototype, {
-	emitChange: function()
-	{
+let CashierStore = assign({}, EventEmitter.prototype, {
+	emitChange: function () {
 		this.emit(CHANGE_EVENT);
 	}
 });
 
-module.exports = cashierStore;
+module.exports = CashierStore;
