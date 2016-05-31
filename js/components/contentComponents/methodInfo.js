@@ -13,24 +13,26 @@ let MethodInfo = React.createClass({
               <div className="title">Visa Deposit Limits</div>
               <div className="table-responsive">
                 <table className="table">
-                  <tr>
-                    <td>Min. Deposit:</td>
-                    <td><span>$10</span></td>
-                  </tr>
-                  <tr>
-                    <td rowSpan="3">Max. Deposit:</td>
-                    <td><span>$640 / 24 hours</span></td>
-                  </tr>
-                  <tr>
-                    <td><span>$1,500 / 7 Days</span></td>
-                  </tr>
-                  <tr>
-                    <td><span>$2000 / 24 hours</span></td>
-                  </tr>
-                  <tr>
-                    <td>Remaining Limit:</td>
-                    <td><span>$640.00</span></td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <td>Min. Deposit:</td>
+                      <td><span>$10</span></td>
+                    </tr>
+                    <tr>
+                      <td rowSpan="3">Max. Deposit:</td>
+                      <td><span>$640 / 24 hours</span></td>
+                    </tr>
+                    <tr>
+                      <td><span>$1,500 / 7 Days</span></td>
+                    </tr>
+                    <tr>
+                      <td><span>$2000 / 24 hours</span></td>
+                    </tr>
+                    <tr>
+                      <td>Remaining Limit:</td>
+                      <td><span>$640.00</span></td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
               <div className="row">
