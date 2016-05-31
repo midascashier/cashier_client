@@ -4,7 +4,7 @@ let TransactionHistory = React.createClass({
 	render() {
 		return (
 			<div id="transactionHistory">
-				<a href="">Transaction History</a>
+				<p><a href="#">Transaction History</a></p>
 			</div>
 		)
 	}
