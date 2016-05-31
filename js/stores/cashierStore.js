@@ -79,6 +79,7 @@ let _transaction = {
 
 let _transactionResponse = {
 	transactionId: 0,
+	message: '',
 	status: ''
 };
 
