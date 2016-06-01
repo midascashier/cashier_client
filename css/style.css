@@ -1,0 +1,33 @@
+#main {
+    border:0px solid red;
+    overflow: hidden;
+}
+
+#header {
+    border: 0px solid blue;
+}
+
+#depositContent {
+    border:0px solid green;
+    overflow: hidden;
+}
+
+
+#customerInfo {
+    float: left;
+    width: 70%;
+}
+
+#methods {
+    float: left;
+    width: 40%;
+}
+
+#infoMethod{
+    float: left;
+    width: 40%;
+}
+
+div {
+    border: 0px solid #000000;
+}
