@@ -7,7 +7,6 @@ let Client = React.createClass({
 	render() {
 		return (
 			<div id="main">
-				<Test />
 				<Link to={`/deposit/`}>Deposit</Link> | <Link to={`/withdraw/`}>Withdraw</Link>
 				<Header />
 				<div>{this.props.children}</div>
