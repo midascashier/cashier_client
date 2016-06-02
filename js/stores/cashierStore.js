@@ -89,11 +89,11 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		this.emit(CHANGE_EVENT);
 	},
 
-	setCurrentStep: function(step){
-		_UI.currentStep=step;
+	setCurrentStep: function (step) {
+		_UI.currentStep = step;
 	},
 
-	getCurrentStep: function(){
+	getCurrentStep: function () {
 		return _UI.currentStep;
 	}
 

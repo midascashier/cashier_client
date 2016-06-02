@@ -1,6 +1,6 @@
 import React from 'react'
 import {Header} from './header'
-import { Link } from 'react-router'
+import {Link} from 'react-router'
 
 let Client = React.createClass({
 	render() {

@@ -4,7 +4,7 @@ let Methods = React.createClass({
 	render() {
 		return (
 			<div>
-					{this.props.children}
+				{this.props.children}
 			</div>
 		)
 	}

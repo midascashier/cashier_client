@@ -17,6 +17,7 @@
     "react-router": "^2.4.0",
     "webpack": "^1.13.0"
   },
+
   "devDependencies": {},
   "scripts": {
     "start": "webpack-dev-server --hot --progress --colors --history-api-fallback",

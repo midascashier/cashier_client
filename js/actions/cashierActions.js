@@ -1,7 +1,5 @@
 let CashierDispatcher = require('../dispatcher/cashierDispatcher');
 
-let CashierActions = {
-
-}
+let CashierActions = {}
 
 module.exports = CashierActions
