@@ -1,9 +1,14 @@
 import React from 'react'
 import {Header} from './header'
 import {Link} from 'react-router'
-import {Test} from '../../dev/validate-form.js'
+import {CashierStore} from '../stores/CashierStore';
+
 
 let Client = React.createClass({
+	getInitialState: function () {
+		CashierStore.setLanguage("EN");
+		return null;
+	},
 	render() {
 		return (
 			<div id="main">

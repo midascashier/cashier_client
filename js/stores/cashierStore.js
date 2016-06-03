@@ -89,6 +89,10 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		this.emit(CHANGE_EVENT);
 	},
 
+	setLanguage: function(lang) {
+		_UI.currentStep = lang;
+	},
+
 	setCurrentStep: function (step) {
 		_UI.currentStep = step;
 	},
