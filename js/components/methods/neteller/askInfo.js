@@ -1,6 +1,6 @@
 import React from 'react'
 import {InfoMethod} from './infoMethod'
-import {CashierStore} from '../../../stores/CashierStore';
+import {CashierStore} from '../../../stores/CashierStore'
 
 const AskInfo = React.createClass({
 	getInitialState: function () {
