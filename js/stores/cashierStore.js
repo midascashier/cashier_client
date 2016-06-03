@@ -90,7 +90,11 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	setLanguage: function(lang) {
-		_UI.currentStep = lang;
+		_UI.language = lang;
+	},
+
+	getLanguage: function(){
+		return (_UI.language) ? _UI.language : 'ES';
 	},
 
 	setCurrentStep: function (step) {
