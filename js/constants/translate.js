@@ -1,7 +1,7 @@
 /**
  * Created by jobando on 03-Jun-16.
  */
-import {CashierStore} from '../stores/cashierStore'
+import {CashierStore} from '../stores/CashierStore'
 import {EN} from './language/EN'
 import {ES} from './language/ES'
 
@@ -10,11 +10,10 @@ import {ES} from './language/ES'
  *
  * @param key
  * @param defaultText default text if it does not exist
- * @param values to replace elements in the text
  *
  * @returns {string}
  */
-export function translate(key, defaultText = '', values = []) {
+export function translate(key, defaultText = '') {
   var currentLang = CashierStore.getLanguage();
   switch (currentLang) {
     case "ES":
@@ -23,6 +22,9 @@ export function translate(key, defaultText = '', values = []) {
     default:
       var langTags = EN();
   }
-  var text = langTags[key];
-  return (text) ? text : defaultText;
+  var content = langTags[key];
+  content = (content) ? content : defaultText;
+  content = (content) ? content : key;
+
+  return content;
 };
