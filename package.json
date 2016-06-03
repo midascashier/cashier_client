@@ -6,6 +6,7 @@
     "eventemitter3": "^1.2.0",
     "events": "^1.1.0",
     "flux": "^2.1.1",
+    "form-data-to-object": "^0.2.0",
     "history": "^2.1.1",
     "object-assign": "^4.1.0",
     "react": "^15.1.0",
@@ -26,4 +27,3 @@
   "author": "",
   "license": "ISC"
 }
-
