@@ -5,10 +5,9 @@ import {CompanyInfo} from './companyInfo'
 let Info = React.createClass({
 	render() {
 		return (
-			<div id="headerInfo">
+			<div id="headerInfo" className="header-top">
 				<CustomerInfo />
 				<CompanyInfo />
-				<br />
 			</div>
 		)
 	}

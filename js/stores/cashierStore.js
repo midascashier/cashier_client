@@ -36,7 +36,8 @@ let _bonuses = {
 };
 
 let _processors = {
-	processors: []
+  deposit: [],
+  withdraw: []
 };
 
 let _payAccounts = {
@@ -89,20 +90,40 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		this.emit(CHANGE_EVENT);
 	},
 
-	setLanguage: function(lang) {
-		_UI.language = lang;
-	},
-
+	/**
+	 * get current language
+	 *
+	 * @returns {string}
+   */
 	getLanguage: function(){
 		return (_UI.language) ? _UI.language : 'EN';
 	},
 
+	/**
+	 * set current step
+	 *
+	 * @param step
+   */
 	setCurrentStep: function (step) {
 		_UI.currentStep = step;
 	},
 
+	/**
+	 * get current step
+	 *
+	 * @returns {string}
+   */
 	getCurrentStep: function () {
 		return _UI.currentStep;
+	},
+
+	/**
+	 * get origin url path
+	 *
+	 * @returns {string}
+   */
+	getOriginPath: function(){
+		return window.location.origin;
 	}
 
 });

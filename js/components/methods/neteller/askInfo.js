@@ -21,8 +21,9 @@ const AskInfo = React.createClass({
 	},
 	render() {
 		return (
-			<div id="methods">
-				<h3>Neteller Ask Info</h3>
+			<div id="askAmount">
+				<p>Plese Enter the Deposit Information</p>
+				<h3>Neteller</h3>
 				<Formsy.Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="login">
 					<MyInput name="email" title="Neteller Account: " validations="isEmail" validationError="This is not a valid email" required />
 					<MyInput name="amount" title="Amount: " type="number" step="any" validations="isNumeric" validationError="This is not a valid amount" required />
@@ -35,7 +36,7 @@ const AskInfo = React.createClass({
 let NetellerAskInfo = React.createClass({
 	render() {
 		return (
-			<div>
+			<div id="askInfo">
 				<AskInfo />
 				<InfoMethod />
 			</div>

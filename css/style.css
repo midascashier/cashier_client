@@ -14,18 +14,17 @@
     font-style: normal;}
 
 
+/*titles*/
+
 h2, h3{font-weight: normal;line-height: normal; letter-spacing: 1px; }
 
 h2, h3, .steps, .btn-welcome {font-family: "BebasNeueRegular", Arial, Helvetica, sans-serif; font-size: 33px;}
 
-h2, h3{text-shadow: 1px 1px 5px #4a577d;}
-.title{ /* color: #6d6d6d;*/ color:#1976D2; font-size: 26px; font-weight:bold;}
+h2, h3{/*text-shadow: 1px 1px 5px #4a577d;*/}
+.title{ /* color: #6d6d6d;*/ color:#1976D2; font-size: 26px; font-weight:bold; margin-bottom: 5px;}
 
 h4, h5, .title, .header-top{font-family: "Oswald-Light", Arial, Helvetica, sans-serif; letter-spacing:.5px;}
 
-/*titles*/
-h2{ font-weight:bold;}
-h4{ background:red; text-align:center;}
 
 /*links*/
 a{ color:#777; text-decoration:underline;}
@@ -53,19 +52,17 @@ button.btn-welcome:hover, button.btn-welcome:focus, .btn-green, .btn-green:focus
 .mainCallAction{}
 
 /*form*/
-form{ /*text-align:left;*/}
+form{}
 select{ margin-bottom:20px;}
-.checkbox input[type=checkbox]{/*margin-top: 7px;*/}
-.form-horizontal{ /*padding:15px 25px;*/}
+.checkbox input[type=checkbox]{}
 
 /*tables*/
 table{ margin: 0 auto; border:0; border-radius:3px; overflow:hidden; }
 table.table{ width:95%;}
 .table-responsive{ border:none;}
-table tr:nth-child(even){/* background:#EEE;*/ }
-table{width:85%;/* border:1px solid #DDD;*/ text-align:left; margin-top:15px; margin-bottom:20px;}
+table tr:nth-child(even){ }
+table{width:85%; text-align:left; margin-top:15px; margin-bottom:20px;}
 table tr th{background: #1d1d1d; color: #FFF;}
-/*table tr th, table tr td{padding: 4px 32px;}*/
 table tr td span{ color:#333;}
 
 /*list*/
@@ -127,23 +124,23 @@ body{ background:#EEE; font-family:'Segoe UI',Arial,sans-serif; color:#777;}
 .steps .step2.inactive{ background-image:url(../images/step2_inactive.jpg)}
 .steps .step3.inactive{ background-image:url(../images/step3_inactive.jpg);}
 
-.steps div[class^="step"] p span{ font-size:60px; vertical-align: sub; margin-right:10px;}
+.steps div[class^="step"] p span{ font-size:56px; vertical-align: sub; margin-right:10px;}
 
 /*steps*/
 /*.div[class^="col"]{ padding:0;}*/
 
 /*box*/
 .box, .method{border-radius: 4px;}
-.box{ /*text-align:center;*/ overflow: hidden; margin-bottom:20px; min-height:250px;}
+.box{ overflow: hidden; margin-bottom:20px; min-height:250px;}
 .box, table{margin-top: 15px;}
 .box .title{ padding:5px 0; background:#1d1d1d; color:#FFF; font-size:20px;}
-.box p{/*padding: 10px 15px 0;*/}
 
 /*infoCol*/
-/*.rejected-page */.infoCol{/*margin: 35px 0 15px;*/ padding:10px; overflow:hidden;}
-/*.rejected-page*/ .infoCol ul, /*.card-detail .modules*/.infoCol ol{ text-align:left; /*width:80%; margin-top:15px;*/ /*margin:0 auto 20px;*/ line-height: 2;}
-/*.rejected-page*/ .infoCol ul li{ font-weight:bold;}
-/*.rejected-page */.infoCol p a{ font-weight:normal;}
+/*.rejected-page */.infoCol{ padding:10px; overflow:hidden;}
+/*.rejected-page*/ .infoCol ul, /*.card-detail .modules*/.infoCol{ /*text-align:left;*//*width:80%; margin-top:15px;*//*margin:0 auto 20px;*/line-height: 2; margin-bottom:20px;}
+
+/*.rejected-page*/ .infoCol ul li{/* font-weight:bold;*/}
+/*.rejected-page */.infoCol p a{ /*font-weight:normal;*/}
 
 /*alerts*/
 /*Alerts-Messages--------------------------*/
@@ -158,7 +155,7 @@ body{ background:#EEE; font-family:'Segoe UI',Arial,sans-serif; color:#777;}
 /*-----welcome*/
 .welcome-page{background-image:url(../images/bg-welcome.jpg); width:auto; background-position:bottom; background-repeat: no-repeat; background-size: cover;}
 .welcome-page .welcome-info{text-align:center; color:#FFF; }
-.welcome-page .welcome-info h2{ margin-top:35px; font-weight:normal;}
+.welcome-page .welcome-info h2{ margin-top:35px; font-weight:normal; text-shadow: 1px 1px 5px #4a577d;}
 .welcome-page .welcome-info h2 span:first-child{ font-size:56px; line-height:1;}
 .welcome-page .welcome-info h2>span+span{ display:block; font-size:90px;}
 .welcome-page .welcome-info .title{ margin-top:21px; font-size: 32px; color:#FFF; text-shadow: 1px 1px 5px #4a577d;}
@@ -167,15 +164,15 @@ body{ background:#EEE; font-family:'Segoe UI',Arial,sans-serif; color:#777;}
 /*-----Method*/
 .modules { text-align:center;}
 .modules a span{ font-weight:bold;}
-.modules .box .processors{ /*padding:10px 15px 15px;*/ overflow-y: scroll; height:300px;}
-.modules .box .processors .method{ border:1px solid #ccc; padding:15px 10px; margin-bottom:15px; /*height:70px;*/}
+.modules .box .processors{ overflow-y: scroll; height:300px;}
+.modules .box .processors .method{ border:1px solid #ccc; padding:15px 10px; margin-bottom:15px; text-align:center;}
 .modules .box .processors .method img{ width:100px;}
 .modules .box .processors .method i{ font-size:25px; position: absolute; right:18px; bottom: 53px;}
 .modules .box .processors .method.active{ border:1px solid #01b300;}
 .modules .box .processors .method.active i{color:#01b300;}
 
 .modules .deposit-limits{ text-align:center;}
-.modules .deposit-limits .title{ margin-top:13px; }
+/*.modules .deposit-limits .title{ margin-top:13px; }*/
 .modules .deposit-limits table tr:first-child, .modules .withdraw-limits table tr:first-child, .modules .deposit-limits table tr:last-child, .modules .withdraw-limits table tr:last-child{/*background:#EEE;*/}
 .modules .deposit-limits table tr:nth-child(even), .withdraw-limits table tr:nth-child(even){ /*background:none!important;*/}
 
@@ -183,34 +180,24 @@ body{ background:#EEE; font-family:'Segoe UI',Arial,sans-serif; color:#777;}
 .success-page{}
 .success-page .box img{background-size: cover; width: 100%;}
 .success-page i[class^="fa fa-check"] {font-size:7em;}
-.success-page .success-message{text-align:center;/* line-height:2;*/}
+.success-page .success-message{text-align:center;}
 .success-page .success-message i{ margin-top:8px; margin-bottom:10px}
 .success-page .success-message .title{ margin-bottom:20px; font-size:30px;}
 .success-page .success-message button, .rejected-page button{margin: 10px 0 10px;}
 
 /*rejected*/
-.rejected-page{ text-align:center;}
-.rejected-page .rejected-message{ line-height:2;}
-.rejected-page .rejected-message p{ font-size:15px;}
+.rejected-page{}
+.rejected-message{ line-height:2; text-align:center;}
+.rejected-message p{ font-size:15px;}
 
 /*rejected-invalid*/
 
 /*rejected-insufficient*/
-.rejected-page {}
 .rejected-page input+small{ display:block; font-style: italic;}
 
 /*debit_card_new*/
-.card-detail .modules img{ width:150px;}
-.card-detail .modules table th{ text-align:center; padding: 5px 0;}
-.card-detail .modules ol{margin-top: 15px;}
-
-
-
-
-
-
-
-
+.card-details img{ width:150px;}
+.card-details table th{ text-align:center; padding: 5px 0;}
 
 /*--------------------------------------*/
 

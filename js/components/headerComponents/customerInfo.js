@@ -1,10 +1,18 @@
 import React from 'react'
+import {translate} from '../../constants/translate'
 
 let CustomerInfo = React.createClass({
 	render() {
 		return (
-			<div id="customerInfo">
-				<b>User:</b> Test | <b>Mail:</b> test@test.com | <b>Balance:</b> 100.10
+			<div id="customerInfo" className="col-xs-6">
+				<div className="row">
+					<div className="col-sm-12">
+						<div className="row">
+							<div className="col-sm-6">{translate('CUSTOMER_INFO_USER')}:<span>test1</span></div>
+							<div className="col-sm-6">{translate('CUSTOMER_INFO_EMAIL')}:<span>test@gmail.com</span></div>
+						</div>
+					</div>
+				</div>
 			</div>
 		)
 	}
