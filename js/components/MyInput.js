@@ -11,7 +11,7 @@ const MyInput = React.createClass({
 		return (
 			<div className={className}>
 				<label htmlFor={this.props.name}>{this.props.title}</label>
-				<input
+				<input className="form-control"
 					type={this.props.type || 'text'}
 					name={this.props.name}
 					onChange={this.changeValue}
