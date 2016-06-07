@@ -11,8 +11,6 @@ import {NetellerTicket} from './components/methods/neteller/ticketMethod'
 import {VisaInfo} from './components/methods/visa/infoMethod'
 import {TransactionHistoryContent} from './components/TransactionHistoryContent'
 
-render(<Client />, document.getElementById('app'));
-
 render((
 	<Router history={browserHistory}>
 		<Route path="/" component={Client}>
