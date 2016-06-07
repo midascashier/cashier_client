@@ -1,16 +1,16 @@
 let Dispatcher = require('flux').Dispatcher;
-let assign = require('object-assign');
+import assign from 'object-assign';
 
 let CashierDispatcher = assign(new Dispatcher(), {
-	handleViewAction: function (action) {
+	handleServerAction: function (action) {
 		switch (action.action) {
 			default :
 			{
-				this.dispatch({actionType: action.action});
+				this.dispatch({actionType: action.action, data: action.data});
 				break;
 			}
 		}
 	}
 });
 
-module.exports = CashierDispatcher;
+module.exports.CashierDispatcher = CashierDispatcher;

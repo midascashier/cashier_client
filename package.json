@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
+    "babel-plugin-transform-es2015-arrow-functions": "^6.8.0",
     "eventemitter3": "^1.2.0",
     "events": "^1.1.0",
     "flux": "^2.1.1",
@@ -23,7 +24,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --hot --progress --colors --history-api-fallback",
-    "build": "webpack"
+    "build": "webpack --progress --colors"
   },
   "author": "",
   "license": "ISC"

@@ -1,12 +1,17 @@
-let AppActions = require('../actions/AppActions');
+//let AppActions = require('../actions/AppActions');
 import { rabbitConfig } from '../../config/rabbitConfig';
+import {CashierActions} from '../actions/cashierActions';
 /**
  * Stomp class
  */
-class stomp {
+class CashierStomp {
+	/**
+	 * Constructor
+	 */
 	constructor(){
 		this.ws = new WebSocket(`ws://${rabbitConfig.get('ip')}:${rabbitConfig.get('port')}/ws`);
-		this.client = Stomp.over(this.ws);
+		this.stompClient = Stomp.over(this.ws);
+		this.replyQueue=Math.random().toString(36).substring(7);
 	}
 
 	/**
@@ -17,30 +22,37 @@ class stomp {
 	}
 
 	/**
+	 * callback function to process messages
+	 *
+	 * @param msg
+	 */
+	processMessage(msg) {
+		if (msg.body) {
+			console.log(msg.body);
+		}
+	}
+
+	/**
 	 * callback function if the connection OK, after that subscribe and keep listening to reply queue
 	 */
-	on_connect() {
-		let callback = function(msg) {
-			if (msg.body) {
-				AppActions.receiveResponse(msg.body);
-			}
-		};
-
-		let subscription = this.subscribe("/queue/test", callback);
+	on_connect(){
+		this.stompClient.send(this.replyQueue,{"exclusive":true,"auto-delete":true},"");
+		this.stompClient.subscribe("/queue/"+this.replyQueue, this.processMessage);
+		CashierActions.login(loginInfo);
 	}
 
 	/**
 	 * Create Rabbit Connection
 	 */
 	connection(){
-		this.client.connect(rabbitConfig.get('user'), rabbitConfig.get('pass'), this.on_connect, this.on_error, rabbitConfig.get('virtual'));
+		this.stompClient.connect(rabbitConfig.get('user'), rabbitConfig.get('pass'), this.on_connect.bind(this), this.on_error, rabbitConfig.get('virtual'));
 	}
 
 	/**
 	 * disconnect from rabbit
 	 */
 	disconnect() {
-		this.client.disconnect();
+		this.stompClient.disconnect();
 	}
 
 	/**
@@ -48,9 +60,12 @@ class stomp {
 	 * @param message
 	 * @param queue
 	 */
-	send(message, queue){
-		this.client.send(`/queue/${queue}`,{"reply-to": "test", "correlation_id": "test"}, message);
+	send(queue, headers, message){
+		if (!headers){
+			headers={"reply-to": this.replyQueue};
+		}
+		this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));
 	}
 }
 
-module.exports = stomp;
+module.exports.CashierStomp = CashierStomp;

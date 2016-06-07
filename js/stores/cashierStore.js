@@ -1,8 +1,10 @@
 /**
  * Created by jocampo on 5/27/2016.
  */
-let EventEmitter = ('events');
-let assign = require('object-assign');
+import {CashierDispatcher} from '../dispatcher/cashierDispatcher';
+let EventEmitter = require('events').EventEmitter;
+import assign from 'object-assign';
+import {CashierStomp} from '../stomp/cashierStomp';
 
 let _customer = {
 	customerId: 0,
@@ -84,8 +86,10 @@ let _transactionResponse = {
 };
 
 let CHANGE_EVENT = 'change';
+let stomp ="";
 
-let CashierStore = assign({}, EventEmitter.prototype, {
+
+	let CashierStore = assign({}, EventEmitter.prototype, {
 	emitChange: function () {
 		this.emit(CHANGE_EVENT);
 	},
@@ -127,5 +131,32 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	}
 
 });
+/**
+ * this function send the request to stomp
+ * @param action
+ * @param data
+ */
+function sendRequest(data, headers, rabbitQueue) {
+	stomp.send(data, "",rabbitQueue);
+}
+
+CashierDispatcher.register(function(payload){
+		let action = payload.actionType;
+		let data = payload.data;
+		switch (action){
+			case "LOGIN":{
+				let rabbitQueue="customer";
+				sendRequest(rabbitQueue,'',data);
+				break;
+			}
+			case "STOMPCONNECTION":{
+				stomp = new CashierStomp();
+				stomp.connection();
+				break;
+			}
+		}
+		return true;
+	}
+);
 
 module.exports.CashierStore = CashierStore;

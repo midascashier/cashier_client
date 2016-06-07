@@ -1,5 +1,19 @@
-let CashierDispatcher = require('../dispatcher/cashierDispatcher');
+import {CashierDispatcher} from '../dispatcher/cashierDispatcher';
 
-let CashierActions = {}
+let CashierActions = {
+	login: function(data){
+		CashierDispatcher.handleServerAction({
+			action:'LOGIN',
+			data: data
+		});
+	},
 
-module.exports = CashierActions
+	stompConnection: function(){
+		CashierDispatcher.handleServerAction({
+			action:'STOMPCONNECTION'
+		});
+	}
+
+}
+
+module.exports.CashierActions = CashierActions

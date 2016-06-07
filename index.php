@@ -1,3 +1,11 @@
+	<?php
+	  $_POST['companyId']=9;
+	  $_POST['f']="authCustomer";
+	  $_POST['remoteAddr']=$_SERVER['REMOTE_ADDR'];
+	  $_POST['remoteHost']=$_SERVER['REMOTE_HOST'];
+	  $_POST['userAgent']=$_SERVER['HTTP_USER_AGENT'];
+	  $_POST['platform']="";
+	?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +22,10 @@
       <div id="app"></div>
 		</div>
 	</div>
+	<script>
+	  var loginInfo = <?php echo json_encode($_POST) ?>;
+	</script>
+	<script src="/js/stomp/stomp.js"></script>
 	<script src="/js/index.js"></script>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="/js/libs/jquery.min.js"></script>

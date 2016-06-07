@@ -1,11 +1,17 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {translate} from '../constants/translate'
+import {CashierActions} from '../actions/cashierActions'
+
 
 let Client = React.createClass({
 	getInitialState: function () {
+		if (loginInfo.username && loginInfo.password){
+			CashierActions.stompConnection();
+		}
 		return null;
 	},
+
 	render() {
 		return (
 			<div id="main">
