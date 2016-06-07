@@ -1,36 +1,47 @@
 import React from 'react'
-import {Link} from 'react-router'
-import {translate} from '../constants/translate'
+import {CashierStore} from '../stores/CashierStore'
 import {Header} from './header'
 import {MethodsWithdrawList} from './contentComponents/methodsWithdrawList'
 
 let WithdrawContent = React.createClass({
 	render() {
-		return (
+    return (
         <div id="withdrawContent">
           <Header />
           <div id="internal-content" className="internal-content">
             <div className="row">
               <div className="col-sm-12">
                 <div className="modules">
-                  <div className="row">
 
-                    <div className="col-sm-6 ">
-                      <p><Link to={`/transaction_history/`}>{translate('METHOD_TRANSACTION_HISTORY')}</Link></p>
-                      <MethodsWithdrawList />
-                    </div>
+                  {(() => {
+                    if(CashierStore.getCurrentStep() == 'infoMethod'){
+                      return (
+                          <div className="row">
+                            <div className="col-sm-12">
+                              {this.props.children}
+                            </div>
+                          </div>
+                      )
+                    }else{
+                      return (
+                          <div className="row">
+                            <div className="col-sm-6">
+                              <MethodsWithdrawList />
+                            </div>
+                            <div className="col-sm-6">
+                              {this.props.children}
+                            </div>
+                          </div>
+                      )
+                    }
+                  })()}
 
-                    <div className="col-sm-6">
-                      {this.props.children}
-                    </div>
-
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-		)
+    )
 	}
 });
 
