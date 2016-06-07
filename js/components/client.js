@@ -9,15 +9,16 @@ let Client = React.createClass({
 	render() {
 		return (
 			<div id="main">
-        <Link to={`/welcome/`}>{translate('WELCOME')}</Link> |
-        <Link to={`/deposit/`}>{translate('DEPOSIT')}</Link> |
-        <Link to={`/withdraw/`}>{translate('WITHDRAW')}</Link>
-				<div id="children" className="internal-content">
-					<div className="row">
-						<div className="col-sm-12">
-							{this.props.children}
-						</div>
-					</div>
+				<div>
+					<Link to={`/welcome/`}>{translate('WELCOME')}</Link> |
+					<Link to={`/deposit/`}>{translate('DEPOSIT')}</Link> |
+					<Link to={`/withdraw/`}>{translate('WITHDRAW')}</Link>
+				</div>
+
+				<div id="mainContent" className="global">
+          <div className="container">
+            {this.props.children}
+          </div>
 				</div>
 			</div>
 		)
