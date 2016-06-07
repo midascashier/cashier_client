@@ -224,3 +224,5 @@ div[class*="col-"] > div[class*="col-"]:before {
     display: block;
     color: #fff;
 }
+
+[hidden] {display: none!important;}

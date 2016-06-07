@@ -17,15 +17,7 @@
 	<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-	<div class="global">
-		<div class="container">
-      <div id="app"></div>
-		</div>
-	</div>
-	<script>
-	  var loginInfo = <?php echo json_encode($_POST) ?>;
-	</script>
-	<script src="/js/stomp/stomp.js"></script>
+	<div id="app"></div>
 	<script src="/js/index.js"></script>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="/js/libs/jquery.min.js"></script>

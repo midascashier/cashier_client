@@ -12,6 +12,7 @@ let _langTags = {
   STEPS_DEPOSIT_METHOD: 'Depósito',
   STEPS_HOW_MUCH: '¿Cuánto quiere depositar?',
   STEPS_BILLING_INFO: 'Revise Su Información',
+  STEPS_INSTRUCTIONS: 'Instruciones',
   CUSTOMER_INFO_USER: 'Cuenta',
   CUSTOMER_INFO_EMAIL: 'Correo',
   CUSTOMER_INFO_BALANCE: 'Balance Disponible',
