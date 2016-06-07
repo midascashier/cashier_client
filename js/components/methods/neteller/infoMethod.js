@@ -17,15 +17,49 @@ const InfoMethod = React.createClass({
 	},
 	render() {
 		return (
-			<div id="infoLimits">
-				<h3>Neteller Deposit Limits</h3>
-				Min.Deposit $10
-				<hr/>
-				<br/>
-				Max. Deposit $640 / 24 Hours<br/>
-				<hr />
-				Remaining Limit: $640<br /><br/><br/><br/>
-				<b><Link to={`/deposit/neteller/${this.state.next_step}`}>{this.state.button_text} >></Link></b>
+			<div id="infoLimits" className="row">
+        <p><a href="#">Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></a></p>
+        <div className="col-sm-12">
+          <div className="title">Neteller Deposit Limits</div>
+          <div className="table-responsive">
+            <table className="table table-striped">
+              <tbody>
+                <tr>
+                  <td>Min. Deposit:</td>
+                  <td><span>$10</span></td>
+                </tr>
+                <tr>
+                  <td>Max. Deposit:</td>
+                  <td><span>$640 / 24 hours</span></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><span>$1,500 / 7 Days</span></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><span>$2000 / 24 hours</span></td>
+                </tr>
+                <tr>
+                  <td>Remaining Limit:</td>
+                  <td><span>$640.00</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="row">
+            <div className="col-sm-12">
+              <div className="row">
+                <div className="col-sm-6">
+                  <b><Link to={`/deposit/neteller/${this.state.next_step}`}>{this.state.button_text} >></Link></b>
+                </div>
+                <div className="col-sm-6">
+                  <img src={CashierStore.getOriginPath() + '/images/ssl.png'} alt="ssl"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 			</div>
 		)
 	}

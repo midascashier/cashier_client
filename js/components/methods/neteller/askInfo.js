@@ -3,7 +3,8 @@ import {InfoMethod} from './infoMethod'
 import {CashierStore} from '../../../stores/CashierStore'
 import Formsy from 'formsy-react'
 import {MyInput} from '../../MyInput'
-
+import {translate} from '../../../constants/translate'
+import {Link} from 'react-router'
 
 const AskInfo = React.createClass({
 	getInitialState: function () {
@@ -21,13 +22,30 @@ const AskInfo = React.createClass({
 	},
 	render() {
 		return (
-			<div id="askAmount">
-				<p>Plese Enter the Deposit Information</p>
-				<h3>Neteller</h3>
-				<Formsy.Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="login">
-					<MyInput name="email" title="Neteller Account: " validations="isEmail" validationError="This is not a valid email" required />
-					<MyInput name="amount" title="Amount: " type="number" step="any" validations="isNumeric" validationError="This is not a valid amount" required />
-				</Formsy.Form>
+			<div id="askAmount" className="box">
+        <div className="row">
+          <div className="col-sm-12">
+            <div className="row">
+              <div className="col-sm-12">
+                <p>Plese Enter the Deposit Information</p>
+              </div>
+              <div className="col-sm-12">
+                <div className="infoCol">
+                  <div className="col-sm-12">
+                    <div className="row">
+                      <div className="col-sm-12">
+                        <Formsy.Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="login">
+                          <MyInput name="email" title="Neteller Account: " validations="isEmail" validationError="This is not a valid email" required />
+                          <MyInput name="amount" title="Amount: " type="number" step="any" validations="isNumeric" validationError="This is not a valid amount" required />
+                        </Formsy.Form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 			</div>
 		)
 	}
@@ -37,8 +55,13 @@ let NetellerAskInfo = React.createClass({
 	render() {
 		return (
 			<div id="askInfo">
-				<AskInfo />
-				<InfoMethod />
+        <div className="col-sm-6">
+          <p><Link to={`/transaction_history/`}>{translate('METHOD_TRANSACTION_HISTORY')}</Link></p>
+          <AskInfo />
+        </div>
+        <div className="col-sm-6">
+          <InfoMethod />
+        </div>
 			</div>
 		)
 	}
