@@ -17,7 +17,6 @@ let DepositContent = React.createClass({
                 <div className="col-sm-6 ">
                   <p><Link to={`/transaction_history/`}>{translate('METHOD_TRANSACTION_HISTORY')}</Link></p>
                   <MethodsDepositList />
-                  DEPOSIT
                 </div>
 
                 <div className="col-sm-6">

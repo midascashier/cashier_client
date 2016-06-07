@@ -17,11 +17,9 @@ let WithdrawContent = React.createClass({
                 <div className="col-sm-6 ">
                   <p><Link to={`/transaction_history/`}>{translate('METHOD_TRANSACTION_HISTORY')}</Link></p>
                   <MethodsWithdrawList />
-                  WITHDRAW
                 </div>
 
                 <div className="col-sm-6">
-                  <p><a href="#">Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></a></p>
                   {this.props.children}
                 </div>
 
