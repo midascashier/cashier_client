@@ -18,6 +18,9 @@
 </head>
 <body>
 	<div id="app"></div>
+	<script>
+  	  var loginInfo = <?php echo json_encode($_POST) ?>;
+  	</script>
 	<script src="/js/index.js"></script>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="/js/libs/jquery.min.js"></script>
