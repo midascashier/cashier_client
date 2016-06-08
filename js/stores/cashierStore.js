@@ -3,7 +3,7 @@
  */
 let EventEmitter = require('events').EventEmitter
 import assign from 'object-assign'
-import cashierActions from '../constants/cashierActions'
+import actions from '../constants/actions'
 import {CashierDispatcher} from '../dispatcher/cashierDispatcher'
 import {CashierStomp} from '../stomp/cashierStomp'
 
@@ -146,12 +146,12 @@ CashierDispatcher.register(function(payload){
 		let action = payload.actionType;
 		let data = payload.data;
 		switch (action){
-			case cashierActions.STOMP_CONNECTION: {
+			case actions.STOMP_CONNECTION: {
 				stomp = new CashierStomp();
 				stomp.connection();
 				break;
 			}
-			case cashierActions.LOGIN: {
+			case actions.LOGIN: {
 				let rabbitQueue="customer";
 				sendRequest(rabbitQueue,'',data);
 				break;
