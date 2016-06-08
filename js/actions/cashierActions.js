@@ -24,4 +24,4 @@ let CashierActions = {
 
 }
 
-module.exports.CashierActions = CashierActions
+module.exports.CashierActions = CashierActions;

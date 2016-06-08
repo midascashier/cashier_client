@@ -31,7 +31,6 @@ let _application = {
   remoteAddr: "127.0.0.1",
   remoteHost: "localhost",
   userAgent: navigator.userAgent,
-
 	remoteAddress: '',
 	referrer: '',
 	xForwardedFor: '',
@@ -143,15 +142,18 @@ let stomp ="";
 /**.
  * this function send the request to stomp
  *
- * @param queue rabbit Queue
+ * @param rabbitQueue rabbit Queue
  * @param headers
- * @param request request params
+ * @param rabbitRequest request params
  */
-function sendRequest(queue, headers, request) {
-  request = Object.assign(request, _application);
-	stomp.send(queue, headers, request);
+function sendRequest(rabbitQueue, headers, rabbitRequest) {
+  rabbitRequest = Object.assign(rabbitRequest, _application);
+	stomp.send(rabbitQueue, headers, rabbitRequest);
 }
 
+/**
+ * register action
+ */
 CashierDispatcher.register(function(payload){
 		let action = payload.actionType;
 		let data = payload.data;
@@ -163,14 +165,24 @@ CashierDispatcher.register(function(payload){
 			}
 			case actions.LOGIN: {
 				let rabbitQueue="customer";
-				sendRequest(rabbitQueue,'',data);
+				sendRequest(rabbitQueue, '', data);
         console.log(data);
 				break;
 			}
-			case actions.LOGIN_RESPONSE:{
+			case actions.LOGIN_RESPONSE: {
 				_application.sid = data.response.sid;
         console.log(_application.sid);
+        break;
 			}
+      case actions.COUNTRIES: {
+        let rabbitQueue="customer";
+        sendRequest(rabbitQueue, '', data);
+        break;
+      }
+      case actions.COUNTRIES_RESPONSE: {
+       _UI.countries = data.response.countries;
+        break;
+      }
 		}
 		return true;
 	}
