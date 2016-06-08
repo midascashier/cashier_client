@@ -1,4 +1,3 @@
-//let AppActions = require('../actions/AppActions');
 import { rabbitConfig } from '../../config/rabbitConfig';
 import {CashierActions} from '../actions/cashierActions';
 /**
@@ -61,8 +60,9 @@ class CashierStomp {
 	 * @param queue
 	 */
 	send(queue, headers, message){
+		let correlation_id=message.f+"Reponse";
 		if (!headers){
-			headers={"reply-to": this.replyQueue};
+			headers={"reply-to": this.replyQueue, "correlation_id": correlation_id};
 		}
 		this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));
 	}
