@@ -42,7 +42,7 @@ class CashierStomp {
 	on_connect(){
 		this.stompClient.send(this.replyQueue,{"exclusive":true,"auto-delete":true},"");
 		this.stompClient.subscribe("/queue/"+this.replyQueue, this.processMessage);
-		CashierActions.login(loginInfo);
+		CashierActions.connectionSuccess();
 	}
 
 	/**
