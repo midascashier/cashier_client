@@ -31,6 +31,7 @@ let _application = {
 	xForwardedFor: '',
 	userAgent: '',
 	countries: [],
+	sid: '',
 	countryStates: []
 };
 
@@ -155,6 +156,9 @@ CashierDispatcher.register(function(payload){
 				let rabbitQueue="customer";
 				sendRequest(rabbitQueue,'',data);
 				break;
+			}
+			case cashierActions.LOGIN_RESPONSE:{
+				_application.sid = data.response.sid;
 			}
 		}
 		return true;
