@@ -169,7 +169,6 @@ CashierDispatcher.register(function(payload){
 				sendRequest(rabbitQueue, '', data);
         console.log(data);
 				sendRequest(rabbitQueue,'',data);
-				//getCustomerInfo();
 				break;
 			}
 			case actions.LOGIN_RESPONSE: {
@@ -188,7 +187,6 @@ CashierDispatcher.register(function(payload){
        _UI.countries = data.response.countries;
         break;
       }
-			}
 		}
 		return true;
 	}
