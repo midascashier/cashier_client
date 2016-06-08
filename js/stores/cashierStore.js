@@ -1,10 +1,11 @@
 /**
  * Created by jocampo on 5/27/2016.
  */
-import {CashierDispatcher} from '../dispatcher/cashierDispatcher';
-let EventEmitter = require('events').EventEmitter;
-import assign from 'object-assign';
-import {CashierStomp} from '../stomp/cashierStomp';
+let EventEmitter = require('events').EventEmitter
+import assign from 'object-assign'
+import cashierActions from '../constants/cashierActions'
+import {CashierDispatcher} from '../dispatcher/cashierDispatcher'
+import {CashierStomp} from '../stomp/cashierStomp'
 
 let _customer = {
 	customerId: 0,
@@ -131,6 +132,7 @@ let stomp ="";
 	}
 
 });
+
 /**
  * this function send the request to stomp
  * @param action
@@ -144,14 +146,14 @@ CashierDispatcher.register(function(payload){
 		let action = payload.actionType;
 		let data = payload.data;
 		switch (action){
-			case "LOGIN":{
-				let rabbitQueue="customer";
-				sendRequest(rabbitQueue,'',data);
-				break;
-			}
-			case "STOMPCONNECTION":{
+			case cashierActions.STOMP_CONNECTION: {
 				stomp = new CashierStomp();
 				stomp.connection();
+				break;
+			}
+			case cashierActions.LOGIN: {
+				let rabbitQueue="customer";
+				sendRequest(rabbitQueue,'',data);
 				break;
 			}
 		}
