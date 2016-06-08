@@ -6,6 +6,7 @@ import assign from 'object-assign'
 import actions from '../constants/actions'
 import {CashierDispatcher} from '../dispatcher/cashierDispatcher'
 import {CashierStomp} from '../stomp/cashierStomp'
+import {browserHistory} from 'react-router'
 
 let _customer = {
 	customerId: 0,
@@ -164,12 +165,14 @@ CashierDispatcher.register(function(payload){
 			case actions.LOGIN: {
 				let rabbitQueue="customer";
 				sendRequest(rabbitQueue,'',data);
-        console.log(data);
+				//getCustomerInfo();
 				break;
 			}
 			case actions.LOGIN_RESPONSE:{
 				_application.sid = data.response.sid;
-        console.log(_application.sid);
+        if (_application.sid){
+					browserHistory.push('/deposit')
+				}
 			}
 		}
 		return true;
