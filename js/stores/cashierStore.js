@@ -77,6 +77,7 @@ let _UI = {
 	currentStep: '',
 	processorId: 0,
 	payAccountId: 0,
+  countryInfo: null,
   countries: [],
   countryStates: []
 };
@@ -156,38 +157,65 @@ function sendRequest(rabbitQueue, headers, rabbitRequest) {
  * register action
  */
 CashierDispatcher.register(function(payload){
-		let action = payload.actionType;
-		let data = payload.data;
-		switch (action){
-			case actions.STOMP_CONNECTION: {
-				stomp = new CashierStomp();
-				stomp.connection();
-				break;
-			}
-			case actions.LOGIN: {
-				let rabbitQueue="customer";
-				sendRequest(rabbitQueue, '', data);
-				break;
-			}
-			case actions.LOGIN_RESPONSE: {
-				_application.sid = data.response.sid;
-        if (_application.sid){
-          browserHistory.push('/deposit')
-        }
-        break;
-			}
-      case actions.COUNTRIES: {
-        let rabbitQueue="customer";
-        sendRequest(rabbitQueue, '', data);
-        break;
+  let action = payload.actionType;
+  let data = payload.data;
+
+  //register error
+  if(data && data.state === 'error'){
+    console.log(data);
+    return false;
+  }
+
+  switch(action){
+    case actions.STOMP_CONNECTION:
+    {
+      stomp = new CashierStomp();
+      stomp.connection();
+      break;
+    }
+    case actions.LOGIN:
+    {
+      let rabbitQueue = "customer";
+      sendRequest(rabbitQueue, '', data);
+      break;
+    }
+    case actions.LOGIN_RESPONSE:
+    {
+      _application.sid = data.response.sid;
+      if(_application.sid){
+        browserHistory.push('/deposit')
       }
-      case actions.COUNTRIES_RESPONSE: {
-       _UI.countries = data.response.countries;
-        break;
-      }
-		}
-		return true;
-	}
+      break;
+    }
+    case actions.COUNTRIES:
+    {
+      let rabbitQueue = "customer";
+      data.f = 'countries';
+      sendRequest(rabbitQueue, '', data);
+      break;
+    }
+    case actions.COUNTRIES_RESPONSE:
+    {
+      _UI.countries = data.response.countries;
+      break;
+    }
+    case actions.STATES:
+    {
+      let rabbitQueue = "customer";
+      data.f = 'states';
+      data.country = 'US';
+      sendRequest(rabbitQueue, '', data);
+      break;
+    }
+    case actions.STATES_RESPONSE:
+    {
+      _UI.countryInfo = data.response.countryInfo;
+      _UI.countryStates = data.response.states;
+      break;
+    }
+  }
+  return true;
+  }
 );
 
 module.exports.CashierStore = CashierStore;
