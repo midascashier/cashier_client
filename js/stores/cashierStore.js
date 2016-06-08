@@ -203,6 +203,7 @@ CashierDispatcher.register(function(payload){
     {
       let rabbitQueue = "customer";
       data.f = 'states';
+      data.country = 'US';
       sendRequest(rabbitQueue, '', data);
       break;
     }

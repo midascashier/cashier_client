@@ -27,7 +27,10 @@ class CashierStomp {
 	 */
 	processMessage(msg) {
 		if (msg.body) {
-			let action = msg.headers["correlation-id"].toUpperCase();
+			let action;
+			if(msg.headers["correlation-id"]){
+				action = msg.headers["correlation-id"].toUpperCase();
+			}
 			let data = JSON.parse(msg.body);
 			CashierActions.responses(action, data);
 		}
