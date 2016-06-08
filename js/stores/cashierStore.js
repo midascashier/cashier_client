@@ -167,8 +167,6 @@ CashierDispatcher.register(function(payload){
 			case actions.LOGIN: {
 				let rabbitQueue="customer";
 				sendRequest(rabbitQueue, '', data);
-        console.log(data);
-				sendRequest(rabbitQueue,'',data);
 				break;
 			}
 			case actions.LOGIN_RESPONSE: {
