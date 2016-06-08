@@ -22,17 +22,21 @@ let _company = {
 };
 
 let _application = {
-	platform: '',
-	acuityTec: '',
-	iOvation: '',
-	remoteHost: '',
+  sys_access_pass: "1",
+  sid: null,
+  tuid: null,
+  format: "json",
+  lang: "en",
+  platform: "desktop",
+  remoteAddr: "127.0.0.1",
+  remoteHost: "localhost",
+  userAgent: navigator.userAgent,
+
 	remoteAddress: '',
 	referrer: '',
 	xForwardedFor: '',
-	userAgent: '',
-	countries: [],
-	sid: '',
-	countryStates: []
+  acuityTec: '',
+  iOvation: ''
 };
 
 let _bonuses = {
@@ -72,7 +76,9 @@ let _UI = {
 	currentView: '',
 	currentStep: '',
 	processorId: 0,
-	payAccountId: 0
+	payAccountId: 0,
+  countries: [],
+  countryStates: []
 };
 
 let _transaction = {
@@ -134,13 +140,16 @@ let stomp ="";
 
 });
 
-/**
+/**.
  * this function send the request to stomp
- * @param action
- * @param data
+ *
+ * @param queue rabbit Queue
+ * @param headers
+ * @param request request params
  */
-function sendRequest(data, headers, rabbitQueue) {
-	stomp.send(data, "",rabbitQueue);
+function sendRequest(queue, headers, request) {
+  request = Object.assign(request, _application);
+	stomp.send(queue, headers, request);
 }
 
 CashierDispatcher.register(function(payload){
@@ -155,10 +164,12 @@ CashierDispatcher.register(function(payload){
 			case actions.LOGIN: {
 				let rabbitQueue="customer";
 				sendRequest(rabbitQueue,'',data);
+        console.log(data);
 				break;
 			}
-			case cashierActions.LOGIN_RESPONSE:{
+			case actions.LOGIN_RESPONSE:{
 				_application.sid = data.response.sid;
+        console.log(_application.sid);
 			}
 		}
 		return true;

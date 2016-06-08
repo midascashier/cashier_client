@@ -1,13 +1,6 @@
 	<?php
 	  $_POST['companyId']=9;
 	  $_POST['f']="authCustomer";
-	  $_POST['remoteAddr']="127.0.0.1";
-	  $_POST['remoteHost']="midas-jorge";
-	  $_POST['userAgent']="Chrome";
-	  $_POST['format']="json";
-	  $_POST['platform']="desktop";
-	  $_POST['lang']="en";
-	  $_POST['sys_access_pass']="1";
 	?>
 <!DOCTYPE html>
 <html>
