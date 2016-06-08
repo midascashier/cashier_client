@@ -40,7 +40,7 @@ const AskInfo = React.createClass({
                       </div>
                       <div className="col-sm-9">
                         <Formsy.Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="login">
-                          <MyInput className="form-group" name="email" title="Neteller Account:" validations="isEmail" validationError="This is not a valid email" required />
+                          <MyInput name="email" title="Neteller Account:" validations="isEmail" validationError="This is not a valid email" required />
                           <MyInput name="amount" title="Amount:" type="number" step="any" validations="isNumeric" validationError="This is not a valid amount" required />
                         </Formsy.Form>
                       </div>
