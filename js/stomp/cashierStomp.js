@@ -60,7 +60,7 @@ class CashierStomp {
 	 * @param queue
 	 */
 	send(queue, headers, message){
-		let correlation_id=message.f+"Reponse";
+		let correlation_id=message.f+"Response";
 		if (!headers){
 			headers={"reply-to": this.replyQueue, "correlation_id": correlation_id};
 		}
