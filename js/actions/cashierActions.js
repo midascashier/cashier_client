@@ -1,10 +1,10 @@
-import cashierActions from '../constants/cashierActions'
+import actions from '../constants/actions'
 import {CashierDispatcher} from '../dispatcher/cashierDispatcher';
 
 let CashierActions = {
 	login: function(data){
 		CashierDispatcher.handleServerAction({
-			action: cashierActions.LOGIN,
+			action: actions.LOGIN,
 			data: data
 		});
 	},
@@ -18,7 +18,7 @@ let CashierActions = {
 
 	stompConnection: function(){
 		CashierDispatcher.handleServerAction({
-			action: cashierActions.STOMP_CONNECTION
+			action: actions.STOMP_CONNECTION
 		});
 	}
 
