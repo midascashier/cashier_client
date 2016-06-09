@@ -213,6 +213,20 @@ CashierDispatcher.register(function(payload){
       _UI.countryStates = data.response.states;
       break;
     }
+    case actions.PROCESSORS:
+    {
+      let rabbitQueue = "customer";
+      data.f = 'states';
+      data.country = 'US';
+      sendRequest(rabbitQueue, '', data);
+      break;
+    }
+    case actions.PROCESSORS_RESPONSE:
+    {
+      _processors.deposit = data.response.processors.deposit;
+      _processors.withdraw = data.response.processors.withdraw;
+      break;
+    }
   }
   return true;
   }
