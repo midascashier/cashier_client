@@ -9,19 +9,12 @@ let CashierActions = {
 		});
 	},
 
-	responses: function (action, data) {
+	login_response: function(data){
 		CashierDispatcher.handleServerAction({
-			action: action,
+			action: actions.LOGIN_RESPONSE,
 			data: data
 		});
-	},
-
-	stompConnection: function(){
-		CashierDispatcher.handleServerAction({
-			action: actions.STOMP_CONNECTION
-		});
 	}
-
 }
 
 module.exports.CashierActions = CashierActions;

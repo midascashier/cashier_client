@@ -5,8 +5,7 @@ let EventEmitter = require('events').EventEmitter
 import assign from 'object-assign'
 import actions from '../constants/actions'
 import {CashierDispatcher} from '../dispatcher/cashierDispatcher'
-import {CashierStomp} from '../stomp/cashierStomp'
-import {browserHistory} from 'react-router'
+import {stompConnection} from '../services/customerService'
 
 let _customer = {
 	customerId: 0,
@@ -95,8 +94,6 @@ let _transactionResponse = {
 };
 
 let CHANGE_EVENT = 'change';
-let stomp ="";
-
 
 	let CashierStore = assign({}, EventEmitter.prototype, {
 	emitChange: function () {
@@ -111,6 +108,15 @@ let stomp ="";
 	getLanguage: function(){
 		return (_UI.language) ? _UI.language : 'EN';
 	},
+
+	/**
+		 * get application object
+	   *
+		 * @returns {string}
+		 */
+		getApplication: function(){
+			return (_application);
+		},
 
 	/**
 	 * set current step
@@ -141,17 +147,6 @@ let stomp ="";
 
 });
 
-/**.
- * this function send the request to stomp
- *
- * @param rabbitQueue rabbit Queue
- * @param headers
- * @param rabbitRequest request params
- */
-function sendRequest(rabbitQueue, headers, rabbitRequest) {
-  rabbitRequest = Object.assign(rabbitRequest, _application);
-	stomp.send(rabbitQueue, headers, rabbitRequest);
-}
 
 /**
  * register action
@@ -167,52 +162,16 @@ CashierDispatcher.register(function(payload){
   }
 
   switch(action){
-    case actions.STOMP_CONNECTION:
-    {
-      stomp = new CashierStomp();
-      stomp.connection();
-      break;
-    }
     case actions.LOGIN:
     {
-      let rabbitQueue = "customer";
-      sendRequest(rabbitQueue, '', data);
+			stompConnection(data);
       break;
     }
-    case actions.LOGIN_RESPONSE:
-    {
-      _application.sid = data.response.sid;
-      if(_application.sid){
-        browserHistory.push('/deposit')
-      }
-      break;
-    }
-    case actions.COUNTRIES:
-    {
-      let rabbitQueue = "customer";
-      data.f = 'countries';
-      sendRequest(rabbitQueue, '', data);
-      break;
-    }
-    case actions.COUNTRIES_RESPONSE:
-    {
-      _UI.countries = data.response.countries;
-      break;
-    }
-    case actions.STATES:
-    {
-      let rabbitQueue = "customer";
-      data.f = 'states';
-      data.country = 'US';
-      sendRequest(rabbitQueue, '', data);
-      break;
-    }
-    case actions.STATES_RESPONSE:
-    {
-      _UI.countryInfo = data.response.countryInfo;
-      _UI.countryStates = data.response.states;
-      break;
-    }
+		case actions.LOGIN_RESPONSE:
+		{
+			_application.sid=data.response.sid;
+			break;
+		}
   }
   return true;
   }

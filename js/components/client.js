@@ -6,9 +6,9 @@ import {CashierActions} from '../actions/cashierActions'
 
 let Client = React.createClass({
 	getInitialState: function () {
-		if (loginInfo.username && loginInfo.password){
-			CashierActions.stompConnection();
-		}
+		//if (loginInfo.username && loginInfo.password){
+			CashierActions.login(loginInfo);
+		//}
 		return null;
 	},
 
