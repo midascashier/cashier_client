@@ -47,10 +47,6 @@ let _processors = {
   withdraw: []
 };
 
-let _payAccounts = {
-	payAccounts: []
-};
-
 let _processor = {
 	processorId: 0,
 	displayName: '',
@@ -58,16 +54,108 @@ let _processor = {
 	fees: []
 };
 
+/**
+ * PayAccount Object Data
+ *
+ * @type {{Object}}
+ * @private
+ */
 let _payAccount = {
-	payAccountId: 0,
-	displayName: '',
-	personal: [],
-	secure: [],
-	address: [],
-	bank: [],
-	extra: [],
-	limits: []
+  payAccountId: null,
+  customerId: null,
+  processorClassId: null,
+  processorId: null,
+  processorSkinId: null,
+  processorIdRoot: null,
+  processorRootName: null,
+  typesSupported: null,
+  displayName: null,
+  isActive: null,
+  isAllowed: null,
+  type: null,
+	personal: {
+    firstName: null,
+    middleName: null,
+    lastName: null,
+    lastName2: null,
+    phone: null,
+    email: null,
+    personalId: null,
+    personalIdType: null
+  },
+	secure: {
+    account: null,
+    password: null,
+    extra1: null,
+    extra2: null,
+    extra3: null
+  },
+	address: {
+    country: null,
+    countryName: null,
+    state: null,
+    stateName: null,
+    city: null,
+    address1: null,
+    address2: null,
+    zip: null
+  },
+	bank: {
+    id: null,
+    alias: null,
+    name: null,
+    address: null,
+    city: null,
+    state: null,
+    stateName: null,
+    country: null,
+    countryName: null,
+    zip: null,
+    phone: null,
+    transferNumber: null,
+    accountNumber: null,
+    accountType: null,
+    swift: null,
+    iban: null
+  },
+	extra: {
+    ssn: null,
+    dob: null,
+    dobDay: null,
+    dobMonth: null,
+    dobYear: null
+  },
+  limits: {
+    available: null,
+    type: null,
+    remaining: null,
+    enabled: null,
+    enabledOn: null,
+    minAmount: null,
+    maxAmount: null,
+    availableWithdraw: null,
+    remainingWithdraw: null,
+    enabledWithdraw: null,
+    enabledOnWithdraw: null,
+    minAmountWithdraw: null,
+    maxAmountWithdraw: null,
+    depositLimits: {},
+    withdrawLimits: {},
+    /**
+     * After all the limits validations are made, this is the flag that says if the pay account passes or not.
+     */
+    limitsPassed: false
+  }
+};
 
+/**
+ * PayAccount list
+ *
+ * @type {{payAccounts: Array}}
+ * @private
+ */
+let _payAccounts = {
+  payAccounts: []
 };
 
 let _UI = {
