@@ -191,7 +191,7 @@ let _UI = {
 	processorId: 0,
 	payAccountId: 0,
   countryInfo: null,
-  countries: [],
+  countries: {},
   countryStates: []
 };
 
@@ -316,6 +316,9 @@ CashierDispatcher.register(function(payload){
 				_customer.personalInformation.stateName = data.response.customerInfo.stateName;
 				_customer.personalInformation.city = data.response.customerInfo.city;
 				_customer.personalInformation.postalCode = data.response.customerInfo.postalCode;
+				break;
+			case actions.COUNTRIES_RESPONSE:
+				_UI.countries=data.response.countries;
 				break;
       case actions.PROCESSORS:
         stompConnection(data);

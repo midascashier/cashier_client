@@ -20,6 +20,11 @@ exports.processResponse = (action, data) => {
 				CashierActions.customerInfo_response(data);
 			}
 			break;
+		case actions.COUNTRIES_RESPONSE:
+			if (data){
+				CashierActions.countries_response(data);
+			}
+			break;
     case actions.PROCESSORS_RESPONSE:
       if (data){
         CashierActions.getCustomerProcessors_response(data);

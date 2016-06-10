@@ -31,6 +31,15 @@ let CashierActions = {
     });
   }
 
+	},
+
+	countries_response: function(data){
+		CashierDispatcher.handleServerAction({
+			action: actions.COUNTRIES_RESPONSE,
+			data: data
+		});
+	}
+	
 };
 
 module.exports.CashierActions = CashierActions;
