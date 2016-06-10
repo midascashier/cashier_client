@@ -1,12 +1,18 @@
-import {StompService} from './stompService'
 import {CashierStore} from '../stores/CashierStore'
 import assign from 'object-assign'
+import {prepareConnection, sendMessage} from './stompService'
 
 /**
+ *Starts connection with RabbitMQ and then do the login
  *
- * @type {*|StompService}
+ * @param loginInfo
  */
-let stomp = new StompService();
+exports.stompConnection = (loginInfo) => {
+	prepareConnection()
+		.then(()=> {
+			customerLogin(loginInfo);
+		});
+};
 
 /**
  *sends login information to RabbitMQ to be process
@@ -18,19 +24,7 @@ let customerLogin = (loginInfo) => {
 	let queue = "customer";
 	let application = CashierStore.getApplication();
 	let rabbitRequest = Object.assign(loginInfo, application);
-	stomp.sendMessage(queue, "", rabbitRequest);
-};
-
-/**
- *Starts connection with RabbitMQ and then do the login
- *
- * @param loginInfo
- */
-exports.stompConnection = (loginInfo) => {
-	stomp.prepareConnection()
-		.then(()=> {
-			customerLogin(loginInfo);
-		});
+	sendMessage(queue, "", rabbitRequest);
 };
 
 /**
@@ -41,7 +35,7 @@ exports.getCustomerInfo = () => {
 	let f = {f: "customerInfo"};
 	let application = CashierStore.getApplication();
 	let rabbitRequest = Object.assign(f, application);
-	stomp.sendMessage(queue, "", rabbitRequest);
+	sendMessage(queue, "", rabbitRequest);
 };
 
 /**

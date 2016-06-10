@@ -1,7 +1,7 @@
 import {CashierActions} from '../actions/cashierActions'
 import {getCustomerInfo, getCustomerProcessors} from '../services/customerService'
+import {getCountries} from './applicationService'
 import actions from '../constants/actions'
-
 
 exports.processResponse = (action, data) => {
 	switch (action) {
@@ -11,6 +11,7 @@ exports.processResponse = (action, data) => {
 				if (data.response.sid) {
 					getCustomerInfo();
 					getCustomerProcessors();
+					getCountries();
 				}
 			}
 			break;
