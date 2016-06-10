@@ -1,5 +1,6 @@
 import React from 'react'
 import {translate} from '../../constants/translate'
+import {CashierStore} from '../../stores/CashierStore'
 
 let CustomerInfo = React.createClass({
 	render() {
@@ -8,8 +9,8 @@ let CustomerInfo = React.createClass({
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="row">
-							<div className="col-sm-6">{translate('CUSTOMER_INFO_USER')}:<span>test1</span></div>
-							<div className="col-sm-6">{translate('CUSTOMER_INFO_EMAIL')}:<span>test@gmail.com</span></div>
+							<div className="col-sm-6">{translate('CUSTOMER_INFO_USER')}:<span>{CashierStore.getCustomer().username}</span></div>
+							<div className="col-sm-6">{translate('CUSTOMER_INFO_EMAIL')}:<span>{CashierStore.getCustomer().personalInformation.email}</span></div>
 						</div>
 					</div>
 				</div>

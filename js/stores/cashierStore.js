@@ -259,18 +259,16 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return window.location.origin;
 	},
 
-	/**
-	 * get customer
-	 *
-	 * @returns {string}
-	 */
+  /**
+   * get customer
+   *
+   * @returns {{companyId: number, customerId: number, username: string, password: string, currency: string, currencySymbol: string, balance: string, balanceBP: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array}}
+   */
 	getCustomer: function () {
 		return _customer;
 	}
 
-
 });
-
 
 /**
  * register action
