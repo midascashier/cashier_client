@@ -14,7 +14,15 @@ let CashierActions = {
 			action: actions.LOGIN_RESPONSE,
 			data: data
 		});
+	},
+
+	customerInfo_response: function(data){
+		CashierDispatcher.handleServerAction({
+			action: actions.CUSTOMER_INFO_RESPONSE,
+			data: data
+		});
 	}
-}
+
+};
 
 module.exports.CashierActions = CashierActions;

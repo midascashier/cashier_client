@@ -5,10 +5,9 @@ let CashierDispatcher = assign(new Dispatcher(), {
 	handleServerAction: function (action) {
 		switch (action.action) {
 			default :
-			{
 				this.dispatch({actionType: action.action, data: action.data});
 				break;
-			}
+
 		}
 	}
 });
