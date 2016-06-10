@@ -28,8 +28,6 @@ let _customer = {
     mobile: '',
     phone: '',
     fax: '',
-    docsOnFile: '',
-    isAgent: '',
     personalId: '',
     addressOne: '',
     addressTwo: '',
@@ -288,7 +286,35 @@ CashierDispatcher.register(function(payload){
 				_application.sid = data.response.sid;
 				break;
 			case actions.CUSTOMER_INFO_RESPONSE:
-				//data.response.customerInfo.username
+				_customer.companyId = data.response.customerInfo.companyId;
+				_customer.customerId = data.response.customerInfo.customerId;
+				_customer.username = data.response.customerInfo.username;
+				_customer.password = data.response.customerInfo.password;
+				_customer.currency = data.response.customerInfo.currency;
+				_customer.currencySymbol = data.response.customerInfo.currencySymbol;
+				_customer.balance = data.response.customerInfo.balance;
+				_customer.balanceBP = data.response.customerInfo.balanceBP;
+				_customer.personalInformation.level = data.response.customerInfo.vip;
+				_customer.personalInformation.firstName = data.response.customerInfo.firstName;
+				_customer.personalInformation.middleName = data.response.customerInfo.middleName;
+				_customer.personalInformation.lastName = data.response.customerInfo.lastName;
+				_customer.personalInformation.secondLastName = data.response.customerInfo.secondLastName;
+				_customer.personalInformation.dateOfBirth = data.response.customerInfo.dateOfBirth;
+				_customer.personalInformation.ssn = data.response.customerInfo.ssn;
+				_customer.personalInformation.email = data.response.customerInfo.email;
+				_customer.personalInformation.mobile = data.response.customerInfo.mobile;
+				_customer.personalInformation.phone = data.response.customerInfo.phone;
+				_customer.personalInformation.fax = data.response.customerInfo.fax;
+				_customer.personalInformation.personalId = data.response.customerInfo.personalId;
+				_customer.personalInformation.addressOne = data.response.customerInfo.addressOne;
+				_customer.personalInformation.addressTwo = data.response.customerInfo.addressTwo;
+				_customer.personalInformation.country = data.response.customerInfo.country;
+				_customer.personalInformation.countryName = data.response.customerInfo.countryName;
+				_customer.personalInformation.countryPhoneCode = data.response.customerInfo.countryPhoneCode;
+				_customer.personalInformation.state = data.response.customerInfo.state;
+				_customer.personalInformation.stateName = data.response.customerInfo.stateName;
+				_customer.personalInformation.city = data.response.customerInfo.city;
+				_customer.personalInformation.postalCode = data.response.customerInfo.postalCode;
 				break;
 			default:
 				console.log("Store No Action");
