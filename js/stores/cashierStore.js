@@ -28,6 +28,8 @@ let _customer = {
     mobile: '',
     phone: '',
     fax: '',
+    docsOnFile: '',
+    isAgent: '',
     personalId: '',
     addressOne: '',
     addressTwo: '',
@@ -63,17 +65,12 @@ let _application = {
 	remoteAddress: '',
 	referrer: '',
 	xForwardedFor: '',
-  acuityTec: '',
-  iOvation: ''
+  atDeviceId: '',
+  ioBB: ''
 };
 
 let _bonuses = {
 	bonus: []
-};
-
-let _processors = {
-  deposit: [],
-  withdraw: []
 };
 
 let _processor = {
@@ -280,6 +277,10 @@ CashierDispatcher.register(function(payload){
 
 		switch (action) {
 			case actions.LOGIN:
+				_application.ioBB = data.ioBB;
+				_application.atDeviceId = data.atDeviceId;
+				_customer.username = data.username;
+				_customer.password = data.password;
 				stompConnection(data);
 				break;
 			case actions.LOGIN_RESPONSE:
