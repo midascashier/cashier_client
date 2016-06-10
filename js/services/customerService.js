@@ -37,3 +37,14 @@ exports.getCustomerInfo = () => {
 	let rabbitRequest = Object.assign(f, application);
 	sendMessage(queue, "", rabbitRequest);
 };
+
+/**
+ * function to get Customer Processors
+ */
+exports.getCustomerProcessors = () => {
+  let queue = "customer";
+  let f = {f: "processors"};
+  let application = CashierStore.getApplication();
+  let rabbitRequest = Object.assign(f, application);
+  sendMessage(queue, "", rabbitRequest);
+};

@@ -2,6 +2,7 @@ import actions from '../constants/actions'
 import {CashierDispatcher} from '../dispatcher/cashierDispatcher';
 
 let CashierActions = {
+  
 	login: function(data){
 		CashierDispatcher.handleServerAction({
 			action: actions.LOGIN,
@@ -22,6 +23,20 @@ let CashierActions = {
 			data: data
 		});
 	},
+
+  getCustomerProcessors_response: function(data){
+    CashierDispatcher.handleServerAction({
+      action: actions.PROCESSORS_RESPONSE,
+      data: data
+    });
+  },
+
+  countries_response: function(data){
+    CashierDispatcher.handleServerAction({
+      action: actions.COUNTRIES_RESPONSE,
+      data: data
+    });
+  },
 
 	countries_response: function(data){
 		CashierDispatcher.handleServerAction({

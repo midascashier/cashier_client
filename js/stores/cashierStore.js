@@ -334,6 +334,13 @@ CashierDispatcher.register(function (payload) {
 				_UI.countryStates = data.response.states;
 				_UI.countryInfo = data.response.countryInfo;
 				break;
+      case actions.PROCESSORS:
+        stompConnection(data);
+        break;
+      case actions.PROCESSORS_RESPONSE:
+        _customer.depositProcessors = data.response.processors.deposit;
+        _customer.withdrawProcessors = data.response.processors.withdraw;
+        break;
 			default:
 				console.log("Store No Action");
 				break;
