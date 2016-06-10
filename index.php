@@ -1,8 +1,6 @@
 	<?php
 	  $_POST['companyId']=9;
 	  $_POST['f']="authCustomer";
-	  $_POST['username']="midasbkr";
-	  $_POST['password']="t3st0m1das";
 	?>
 <!DOCTYPE html>
 <html>
@@ -19,7 +17,7 @@
 	<script>
   	  var loginInfo = <?php echo json_encode($_POST) ?>;
   	</script>
-  <script src="/js/libs/stomp.js"></script>
+    <script src="/js/libs/stomp.js"></script>
 	<script src="/js/index.js"></script>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="/js/libs/jquery.min.js"></script>

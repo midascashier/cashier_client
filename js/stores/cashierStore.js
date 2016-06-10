@@ -278,12 +278,16 @@ CashierDispatcher.register(function(payload){
   switch(action){
     case actions.LOGIN:
     {
+      _application.iOvation = data.ioBB;
+      _application.acuityTec = data.atDeviceId;
+      _customer.username = data.username;
+      _customer.password = data.password;
 			stompConnection(data);
       break;
     }
 		case actions.LOGIN_RESPONSE:
 		{
-			_application.sid=data.response.sid;
+			_application.sid = data.response.sid;
 			break;
 		}
   }
