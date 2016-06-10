@@ -3,49 +3,49 @@ import {CashierDispatcher} from '../dispatcher/cashierDispatcher';
 
 let CashierActions = {
   
-	login: function(data){
+	login: (data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.LOGIN,
 			data: data
 		});
 	},
 
-	login_response: function(data){
+	login_response: (data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.LOGIN_RESPONSE,
 			data: data
 		});
 	},
 
-	customerInfo_response: function(data){
+	customerInfo_response: (data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.CUSTOMER_INFO_RESPONSE,
 			data: data
 		});
 	},
 
-  getCustomerProcessors_response: function(data){
+  getCustomerProcessors_response: (data) => {
     CashierDispatcher.handleServerAction({
       action: actions.PROCESSORS_RESPONSE,
       data: data
     });
   },
 
-  countries_response: function(data){
+  countries_response: (data) => {
     CashierDispatcher.handleServerAction({
       action: actions.COUNTRIES_RESPONSE,
       data: data
     });
   },
 
-	countries_response: function(data){
+	countries_response: (data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.COUNTRIES_RESPONSE,
 			data: data
 		});
 	},
 
-	states_response: function(data){
+	states_response: (data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.STATES_RESPONSE,
 			data: data

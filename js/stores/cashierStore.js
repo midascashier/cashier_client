@@ -210,7 +210,7 @@ let _transactionResponse = {
 let CHANGE_EVENT = 'change';
 
 let CashierStore = assign({}, EventEmitter.prototype, {
-	emitChange: function () {
+	emitChange: () => {
 		this.emit(CHANGE_EVENT);
 	},
 
@@ -219,16 +219,16 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {string}
 	 */
-	getLanguage: function () {
+	getLanguage: () => {
 		return (_UI.language) ? _UI.language : 'EN';
 	},
 
 	/**
 	 * get application object
 	 *
-	 * @returns {string}
+	 * @returns {{sys_access_pass: string, sid: null, tuid: null, format: string, lang: string, platform: string, remoteAddr: string, remoteHost: string, userAgent: string, remoteAddress: string, referrer: string, xForwardedFor: string, atDeviceId: string, ioBB: string}}
 	 */
-	getApplication: function () {
+	getApplication: () => {
 		return (_application);
 	},
 
@@ -237,7 +237,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @param step
 	 */
-	setCurrentStep: function (step) {
+	setCurrentStep: (step) => {
 		_UI.currentStep = step;
 	},
 
@@ -246,7 +246,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {string}
 	 */
-	getCurrentStep: function () {
+	getCurrentStep: () => {
 		return _UI.currentStep;
 	},
 
@@ -255,7 +255,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {string}
 	 */
-	getOriginPath: function () {
+	getOriginPath: () => {
 		return window.location.origin;
 	},
 
@@ -264,7 +264,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
    *
    * @returns {{companyId: number, customerId: number, username: string, password: string, currency: string, currencySymbol: string, balance: string, balanceBP: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array}}
    */
-	getCustomer: function () {
+	getCustomer: () => {
 		return _customer;
 	}
 
@@ -273,7 +273,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 /**
  * register action
  */
-CashierDispatcher.register(function (payload) {
+CashierDispatcher.register((payload) => {
 		let action = payload.actionType;
 		let data = payload.data;
 
