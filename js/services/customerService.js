@@ -46,5 +46,5 @@ exports.getCustomerProcessors = () => {
   let f = {f: "processors"};
   let application = CashierStore.getApplication();
   let rabbitRequest = Object.assign(f, application);
-  stomp.sendMessage(queue, "", rabbitRequest);
+  sendMessage(queue, "", rabbitRequest);
 };
