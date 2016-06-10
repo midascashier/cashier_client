@@ -8,11 +8,42 @@ import {CashierDispatcher} from '../dispatcher/cashierDispatcher'
 import {stompConnection} from '../services/customerService'
 
 let _customer = {
+  companyId: 0,
 	customerId: 0,
 	username: '',
 	password: '',
+  currency: '',
+  currencySymbol: '',
 	balance: '',
-	personalInformation: []
+  balanceBP: '',
+	personalInformation: {
+    level: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    secondLastName: '',
+    dateOfBirth: '',
+    ssn: '',
+    email: '',
+    mobile: '',
+    phone: '',
+    fax: '',
+    docsOnFile: '',
+    isAgent: '',
+    personalId: '',
+    addressOne: '',
+    addressTwo: '',
+    country: '',
+    countryName: '',
+    countryPhoneCode: '',
+    state: '',
+    stateName: '',
+    city: '',
+    postalCode: ''
+  },
+  depositProcessors: [],
+  withdrawProcessors: [],
+  pendingP2PTransactions: []
 };
 
 let _company = {
@@ -40,11 +71,6 @@ let _application = {
 
 let _bonuses = {
 	bonus: []
-};
-
-let _processors = {
-  deposit: [],
-  withdraw: []
 };
 
 let _processor = {
