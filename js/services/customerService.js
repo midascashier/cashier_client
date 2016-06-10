@@ -9,18 +9,6 @@ import assign from 'object-assign'
 let stomp = new StompService();
 
 /**
- *Starts connection with RabbitMQ and then do the login
- *
- * @param loginInfo
- */
-exports.stompConnection = (loginInfo) => {
-	stomp.prepareConnection()
-		.then(()=> {
-			customerLogin(loginInfo);
-		});
-};
-
-/**
  *sends login information to RabbitMQ to be process
  *
  * @param application
@@ -34,6 +22,18 @@ let customerLogin = (loginInfo) => {
 };
 
 /**
+ *Starts connection with RabbitMQ and then do the login
+ *
+ * @param loginInfo
+ */
+exports.stompConnection = (loginInfo) => {
+	stomp.prepareConnection()
+		.then(()=> {
+			customerLogin(loginInfo);
+		});
+};
+
+/**
  * function to get Customer Information
  */
 exports.getCustomerInfo = () => {
@@ -42,4 +42,15 @@ exports.getCustomerInfo = () => {
 	let application = CashierStore.getApplication();
 	let rabbitRequest = Object.assign(f, application);
 	stomp.sendMessage(queue, "", rabbitRequest);
+};
+
+/**
+ * function to get Customer Processors
+ */
+exports.getCustomerProcessors = () => {
+  let queue = "customer";
+  let f = {f: "processors"};
+  let application = CashierStore.getApplication();
+  let rabbitRequest = Object.assign(f, application);
+  stomp.sendMessage(queue, "", rabbitRequest);
 };

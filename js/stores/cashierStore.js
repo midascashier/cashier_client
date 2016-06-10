@@ -317,6 +317,13 @@ CashierDispatcher.register(function(payload){
 				_customer.personalInformation.city = data.response.customerInfo.city;
 				_customer.personalInformation.postalCode = data.response.customerInfo.postalCode;
 				break;
+      case actions.PROCESSORS:
+        stompConnection(data);
+        break;
+      case actions.PROCESSORS_RESPONSE:
+        _customer.depositProcessors = data.response.processors.deposit;
+        _customer.withdrawProcessors = data.response.processors.withdraw;
+        break;
 			default:
 				console.log("Store No Action");
 				break;
