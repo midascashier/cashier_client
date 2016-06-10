@@ -8,11 +8,42 @@ import {CashierDispatcher} from '../dispatcher/cashierDispatcher'
 import {stompConnection} from '../services/customerService'
 
 let _customer = {
+  companyId: 0,
 	customerId: 0,
 	username: '',
 	password: '',
+  currency: '',
+  currencySymbol: '',
 	balance: '',
-	personalInformation: []
+  balanceBP: '',
+	personalInformation: {
+    level: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    secondLastName: '',
+    dateOfBirth: '',
+    ssn: '',
+    email: '',
+    mobile: '',
+    phone: '',
+    fax: '',
+    docsOnFile: '',
+    isAgent: '',
+    personalId: '',
+    addressOne: '',
+    addressTwo: '',
+    country: '',
+    countryName: '',
+    countryPhoneCode: '',
+    state: '',
+    stateName: '',
+    city: '',
+    postalCode: ''
+  },
+  depositProcessors: [],
+  withdrawProcessors: [],
+  pendingP2PTransactions: []
 };
 
 let _company = {
@@ -22,20 +53,20 @@ let _company = {
 };
 
 let _application = {
-	sys_access_pass: "1",
-	sid: null,
-	tuid: null,
-	format: "json",
-	lang: "en",
-	platform: "desktop",
-	remoteAddr: "127.0.0.1",
-	remoteHost: "localhost",
-	userAgent: navigator.userAgent,
+  sys_access_pass: "1",
+  sid: null,
+  tuid: null,
+  format: "json",
+  lang: "en",
+  platform: "desktop",
+  remoteAddr: "127.0.0.1",
+  remoteHost: "localhost",
+  userAgent: navigator.userAgent,
 	remoteAddress: '',
 	referrer: '',
 	xForwardedFor: '',
-	acuityTec: '',
-	iOvation: ''
+  acuityTec: '',
+  iOvation: ''
 };
 
 let _bonuses = {
@@ -43,8 +74,8 @@ let _bonuses = {
 };
 
 let _processors = {
-	deposit: [],
-	withdraw: []
+  deposit: [],
+  withdraw: []
 };
 
 let _processor = {
@@ -61,91 +92,91 @@ let _processor = {
  * @private
  */
 let _payAccount = {
-	payAccountId: null,
-	customerId: null,
-	processorClassId: null,
-	processorId: null,
-	processorSkinId: null,
-	processorIdRoot: null,
-	processorRootName: null,
-	typesSupported: null,
-	displayName: null,
-	isActive: null,
-	isAllowed: null,
-	type: null,
+  payAccountId: null,
+  customerId: null,
+  processorClassId: null,
+  processorId: null,
+  processorSkinId: null,
+  processorIdRoot: null,
+  processorRootName: null,
+  typesSupported: null,
+  displayName: null,
+  isActive: null,
+  isAllowed: null,
+  type: null,
 	personal: {
-		firstName: null,
-		middleName: null,
-		lastName: null,
-		lastName2: null,
-		phone: null,
-		email: null,
-		personalId: null,
-		personalIdType: null
-	},
+    firstName: null,
+    middleName: null,
+    lastName: null,
+    lastName2: null,
+    phone: null,
+    email: null,
+    personalId: null,
+    personalIdType: null
+  },
 	secure: {
-		account: null,
-		password: null,
-		extra1: null,
-		extra2: null,
-		extra3: null
-	},
+    account: null,
+    password: null,
+    extra1: null,
+    extra2: null,
+    extra3: null
+  },
 	address: {
-		country: null,
-		countryName: null,
-		state: null,
-		stateName: null,
-		city: null,
-		address1: null,
-		address2: null,
-		zip: null
-	},
+    country: null,
+    countryName: null,
+    state: null,
+    stateName: null,
+    city: null,
+    address1: null,
+    address2: null,
+    zip: null
+  },
 	bank: {
-		id: null,
-		alias: null,
-		name: null,
-		address: null,
-		city: null,
-		state: null,
-		stateName: null,
-		country: null,
-		countryName: null,
-		zip: null,
-		phone: null,
-		transferNumber: null,
-		accountNumber: null,
-		accountType: null,
-		swift: null,
-		iban: null
-	},
+    id: null,
+    alias: null,
+    name: null,
+    address: null,
+    city: null,
+    state: null,
+    stateName: null,
+    country: null,
+    countryName: null,
+    zip: null,
+    phone: null,
+    transferNumber: null,
+    accountNumber: null,
+    accountType: null,
+    swift: null,
+    iban: null
+  },
 	extra: {
-		ssn: null,
-		dob: null,
-		dobDay: null,
-		dobMonth: null,
-		dobYear: null
-	},
-	limits: {
-		available: null,
-		type: null,
-		remaining: null,
-		enabled: null,
-		enabledOn: null,
-		minAmount: null,
-		maxAmount: null,
-		availableWithdraw: null,
-		remainingWithdraw: null,
-		enabledWithdraw: null,
-		enabledOnWithdraw: null,
-		minAmountWithdraw: null,
-		maxAmountWithdraw: null,
-		depositLimits: {},
-		withdrawLimits: {},
-		/**
-		 * After all the limits validations are made, this is the flag that says if the pay account passes or not.
-		 */
-		limitsPassed: false
-	}
+    ssn: null,
+    dob: null,
+    dobDay: null,
+    dobMonth: null,
+    dobYear: null
+  },
+  limits: {
+    available: null,
+    type: null,
+    remaining: null,
+    enabled: null,
+    enabledOn: null,
+    minAmount: null,
+    maxAmount: null,
+    availableWithdraw: null,
+    remainingWithdraw: null,
+    enabledWithdraw: null,
+    enabledOnWithdraw: null,
+    minAmountWithdraw: null,
+    maxAmountWithdraw: null,
+    depositLimits: {},
+    withdrawLimits: {},
+    /**
+     * After all the limits validations are made, this is the flag that says if the pay account passes or not.
+     */
+    limitsPassed: false
+  }
 };
 
 /**
@@ -155,7 +186,7 @@ let _payAccount = {
  * @private
  */
 let _payAccounts = {
-	payAccounts: []
+  payAccounts: []
 };
 
 let _UI = {
@@ -164,9 +195,9 @@ let _UI = {
 	currentStep: '',
 	processorId: 0,
 	payAccountId: 0,
-	countryInfo: null,
-	countries: [],
-	countryStates: []
+  countryInfo: null,
+  countries: [],
+  countryStates: []
 };
 
 let _transaction = {
@@ -183,7 +214,7 @@ let _transactionResponse = {
 
 let CHANGE_EVENT = 'change';
 
-let CashierStore = assign({}, EventEmitter.prototype, {
+	let CashierStore = assign({}, EventEmitter.prototype, {
 	emitChange: function () {
 		this.emit(CHANGE_EVENT);
 	},
@@ -192,25 +223,25 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * get current language
 	 *
 	 * @returns {string}
-	 */
-	getLanguage: function () {
+   */
+	getLanguage: function(){
 		return (_UI.language) ? _UI.language : 'EN';
 	},
 
 	/**
-	 * get application object
-	 *
-	 * @returns {string}
-	 */
-	getApplication: function () {
-		return (_application);
-	},
+		 * get application object
+	   *
+		 * @returns {string}
+		 */
+		getApplication: function(){
+			return (_application);
+		},
 
 	/**
 	 * set current step
 	 *
 	 * @param step
-	 */
+   */
 	setCurrentStep: function (step) {
 		_UI.currentStep = step;
 	},
@@ -219,7 +250,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * get current step
 	 *
 	 * @returns {string}
-	 */
+   */
 	getCurrentStep: function () {
 		return _UI.currentStep;
 	},
@@ -228,8 +259,8 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * get origin url path
 	 *
 	 * @returns {string}
-	 */
-	getOriginPath: function () {
+   */
+	getOriginPath: function(){
 		return window.location.origin;
 	}
 
@@ -239,15 +270,15 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 /**
  * register action
  */
-CashierDispatcher.register(function (payload) {
-		let action = payload.actionType;
-		let data = payload.data;
+CashierDispatcher.register(function(payload){
+  let action = payload.actionType;
+  let data = payload.data;
 
-		//register error
-		if (data && data.state === 'error') {
-			console.log(data);
-			return false;
-		}
+  //register error
+  if(data && data.state === 'error'){
+    console.log(data);
+    return false;
+  }
 
 		switch (action) {
 			case actions.LOGIN:
