@@ -16,6 +16,7 @@ let _customer = {
 	currencySymbol: '',
 	balance: '',
 	balanceBP: '',
+  lang: '',
 	personalInformation: {
 		level: '',
 		firstName: '',
@@ -220,6 +221,10 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * @returns {string}
 	 */
 	getLanguage: () => {
+    if(!_UI.language && _customer.lang){
+      var culture = _customer.lang.split('-');
+      _UI.language = culture[0].toUpperCase();
+    }
 		return (_UI.language) ? _UI.language : 'EN';
 	},
 
@@ -303,6 +308,7 @@ CashierDispatcher.register((payload) => {
 				_customer.currencySymbol = data.response.customerInfo.currencySymbol;
 				_customer.balance = data.response.customerInfo.balance;
 				_customer.balanceBP = data.response.customerInfo.balanceBP;
+        _customer.lang = data.response.customerInfo.lang;
 				_customer.personalInformation.level = data.response.customerInfo.vip;
 				_customer.personalInformation.firstName = data.response.customerInfo.firstName;
 				_customer.personalInformation.middleName = data.response.customerInfo.middleName;
