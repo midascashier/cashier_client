@@ -65,8 +65,8 @@ let _application = {
 	remoteAddress: '',
 	referrer: '',
 	xForwardedFor: '',
-  acuityTec: '',
-  iOvation: ''
+  atDeviceId: '',
+  ioBB: ''
 };
 
 let _bonuses = {
@@ -278,8 +278,8 @@ CashierDispatcher.register(function(payload){
   switch(action){
     case actions.LOGIN:
     {
-      _application.iOvation = data.ioBB;
-      _application.acuityTec = data.atDeviceId;
+      _application.ioBB = data.ioBB;
+      _application.atDeviceId = data.atDeviceId;
       _customer.username = data.username;
       _customer.password = data.password;
 			stompConnection(data);
