@@ -53,11 +53,19 @@ let processMessage = (msg) => {
 	}
 };
 
+/**
+ * create and subscrtibe to reply-to queue
+ */
 let prepareReplyQueue = () => {
 	stompClient.send(replyQueue, {"exclusive": true, "auto-delete": true}, "");
 	let suscriptionID = stompClient.subscribe("/queue/" + replyQueue, processMessage);
 }
 
+/**
+ * waits for the connection and then prepare reply queue
+ *
+ * @returns {Promise}
+ */
 exports.prepareConnection = () => {
 	let p = new Promise((resolve, error) => {
 		if (stompClient.connected) {

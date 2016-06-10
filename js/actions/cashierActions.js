@@ -28,6 +28,13 @@ let CashierActions = {
 			action: actions.COUNTRIES_RESPONSE,
 			data: data
 		});
+	},
+
+	states_response: function(data){
+		CashierDispatcher.handleServerAction({
+			action: actions.STATES_RESPONSE,
+			data: data
+		});
 	}
 	
 };
