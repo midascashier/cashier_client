@@ -24,7 +24,7 @@ exports.processResponse = (action, data) => {
 			break;
     case actions.COMPANY_INFO_RESPONSE:
       if (data){
-        CashierActions.company_response(data);
+        CashierActions.companyInfo_response(data);
       }
       break;
 		case actions.COUNTRIES_RESPONSE:
