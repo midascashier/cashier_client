@@ -31,6 +31,13 @@ let CashierActions = {
     });
   },
 
+  company_response: function(data){
+    CashierDispatcher.handleServerAction({
+      action: actions.COMPANY_INFO_RESPONSE,
+      data: data
+    });
+  },
+
   countries_response: function(data){
     CashierDispatcher.handleServerAction({
       action: actions.COUNTRIES_RESPONSE,

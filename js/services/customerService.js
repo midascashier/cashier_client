@@ -32,9 +32,9 @@ let customerLogin = (loginInfo) => {
  */
 exports.getCustomerInfo = () => {
 	let queue = "customer";
-	let f = {f: "customerInfo"};
+	let data = {f: "customerInfo"};
 	let application = CashierStore.getApplication();
-	let rabbitRequest = Object.assign(f, application);
+	let rabbitRequest = Object.assign(data, application);
 	sendMessage(queue, "", rabbitRequest);
 };
 
@@ -43,8 +43,8 @@ exports.getCustomerInfo = () => {
  */
 exports.getCustomerProcessors = () => {
   let queue = "customer";
-  let f = {f: "processors"};
+  let data = {f: "processors"};
   let application = CashierStore.getApplication();
-  let rabbitRequest = Object.assign(f, application);
+  let rabbitRequest = Object.assign(data, application);
   sendMessage(queue, "", rabbitRequest);
 };

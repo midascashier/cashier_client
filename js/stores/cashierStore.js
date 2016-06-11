@@ -47,6 +47,12 @@ let _customer = {
 	pendingP2PTransactions: []
 };
 
+/**
+ * company information
+ *
+ * @type {{companyId: number, companyName: string, companyLabel: Array}}
+ * @private
+ */
 let _company = {
 	companyId: 0,
 	companyName: '',
@@ -331,6 +337,14 @@ CashierDispatcher.register(function (payload) {
 				_customer.personalInformation.city = data.response.customerInfo.city;
 				_customer.personalInformation.postalCode = data.response.customerInfo.postalCode;
 				break;
+      case actions.COMPANY_INFO:
+        stompConnection(data);
+        break;
+      case actions.COMPANY_INFO_RESPONSE:
+        _company.companyId = _customer.companyInformation.companyId;
+        _company.companyName = data.response.companyInformation.name;
+        _company.companyLabel = data.response.companyInformation.labels;
+        break;
 			case actions.COUNTRIES_RESPONSE:
 				_UI.countries = data.response.countries;
 				break;
