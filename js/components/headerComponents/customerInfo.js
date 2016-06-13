@@ -4,6 +4,7 @@ import {CashierStore} from '../../stores/CashierStore'
 
 let CustomerInfo = React.createClass({
 	render() {
+		console.log(CashierStore.getCustomer());
 		return (
 			<div id="customerInfo" className="col-xs-6">
 				<div className="row">
