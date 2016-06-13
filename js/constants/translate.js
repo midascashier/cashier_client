@@ -13,9 +13,9 @@ import {ES} from './language/ES'
  *
  * @returns {string}
  */
-export function translate(key, defaultText = '') {
+export function translate(key, defaultText = ''){
   var currentLang = CashierStore.getLanguage();
-  switch (currentLang) {
+  switch(currentLang){
     case "ES":
       var langTags = ES();
       break;
