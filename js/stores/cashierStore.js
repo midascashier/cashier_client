@@ -217,8 +217,23 @@ let _transactionResponse = {
 let CHANGE_EVENT = 'change';
 
 let CashierStore = assign({}, EventEmitter.prototype, {
-	emitChange: () => {
+	emitChange() {
 		this.emit(CHANGE_EVENT);
+	},
+
+	removeChangeListener: function (callback) {
+		this.removeListener(CHANGE_EVENT, callback);
+	},
+
+	addChangeListener: function (callback) {
+		this.on(CHANGE_EVENT, callback);
+	},
+	/**
+	 * get customer SID
+	 *
+	 */
+	getCustomerSID:() => {
+		return (_application.sid);
 	},
 
 	/**
@@ -276,7 +291,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
    * @returns {{companyId: number, customerId: number, username: string, password: string, currency: string, currencySymbol: string, balance: string, balanceBP: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array}}
    */
 	getCustomer: () => {
-		return _customer;
+		return (_customer);
 	}
 
 });
@@ -304,6 +319,7 @@ CashierDispatcher.register((payload) => {
 				break;
 			case actions.LOGIN_RESPONSE:
 				_application.sid = data.response.sid;
+				CashierStore.emitChange();
 				break;
 			case actions.CUSTOMER_INFO_RESPONSE:
 				_customer.companyId = data.response.customerInfo.companyId;
