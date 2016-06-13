@@ -352,6 +352,7 @@ CashierDispatcher.register((payload) => {
 				_customer.personalInformation.stateName = data.response.customerInfo.stateName;
 				_customer.personalInformation.city = data.response.customerInfo.city;
 				_customer.personalInformation.postalCode = data.response.customerInfo.postalCode;
+				CashierStore.emitChange();
 				break;
       case actions.COMPANY_INFO:
         stompConnection(data);

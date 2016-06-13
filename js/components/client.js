@@ -26,7 +26,7 @@ let Client = React.createClass({
 		if (this.isMounted() === true) {
 			this.setState(this.getCustomerSID);
 			if (this.state.sid){
-				this.context.router.push("deposit");
+				this.context.router.push("/deposit/");
 			}
 		}
 	},

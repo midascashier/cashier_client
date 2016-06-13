@@ -82,12 +82,16 @@ exports.prepareConnection = () => {
 	return p;
 };
 
+exports.makeCustomerRequest = (headers, message) => {
+	sendMessage("customer",headers, message)
+};
+
 /**
  * get the message and the queue y send them to Rabbit
  * @param message
  * @param queue
  */
-exports.sendMessage = (queue, headers, message) => {
+let sendMessage = (queue, headers, message) => {
 	let correlation_id = message.f + "Response";
 	if (!headers) {
 		headers = {"reply-to": replyQueue, "correlation_id": correlation_id};
