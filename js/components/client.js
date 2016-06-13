@@ -15,7 +15,7 @@ let Client = React.createClass({
 	render() {
 		return (
 			<div id="main">
-				<div>
+				<div>asdfasdf
 					<Link to={`/welcome/`}>{translate('WELCOME')}</Link> |
 					<Link to={`/deposit/`}>{translate('DEPOSIT')}</Link> |
 					<Link to={`/withdraw/`}>{translate('WITHDRAW')}</Link>
