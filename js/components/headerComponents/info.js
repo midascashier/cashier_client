@@ -19,7 +19,7 @@ let Info = React.createClass({
 
 		let customerLoaded = () => {
 			return (customer.customerId > 0);
-		}
+		};
 
 		return {
 			customer: customer,
