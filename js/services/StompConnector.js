@@ -1,5 +1,5 @@
 import {rabbitConfig} from '../../config/rabbitConfig';
-import {processResponse} from './onResponseService'
+import {onResponseService} from './onResponseService'
 
 class StompConnector {
 
@@ -108,7 +108,7 @@ class StompConnector {
       }
 
       let data = JSON.parse(msg.body);
-      processResponse(action, data);
+      onResponseService.processResponse(action, data);
     }
   };
 

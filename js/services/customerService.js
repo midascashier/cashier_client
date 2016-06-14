@@ -4,12 +4,6 @@ import {stompConnector} from './StompConnector'
 
 
 class CustomerService {
-
-  /**
-   * Customer Service constructor
-   */
-  constructor() {};
-
   /**
    *Starts connection with RabbitMQ and then do the login
    *
