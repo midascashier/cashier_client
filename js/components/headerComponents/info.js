@@ -17,13 +17,8 @@ let Info = React.createClass({
 
 		let customer = CashierStore.getCustomer();
 
-		let customerLoaded = () => {
-			return (customer.customerId > 0);
-		}
-
 		return {
 			customer: customer,
-			customerLoaded: customerLoaded()
 		}
 	},
 

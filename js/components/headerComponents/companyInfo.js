@@ -1,6 +1,7 @@
 import React from 'react'
 import {translate} from '../../constants/translate'
 import {CashierStore} from '../../stores/CashierStore'
+import {Loading} from '../loading'
 
 let CompanyInfo = React.createClass({
 	render() {
@@ -13,7 +14,7 @@ let CompanyInfo = React.createClass({
 								<span>
 																		{(() => {
 																			if (!this.props.customer.customerId) {
-																				return "Loading...";
+																				return <Loading />;
 																			} else {
 																				return this.props.customer.currencySymbol + " " + CashierStore.getCustomer().balance
 																			}

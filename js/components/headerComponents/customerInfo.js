@@ -1,5 +1,6 @@
 import React from 'react'
 import {translate} from '../../constants/translate'
+import {Loading} from '../loading'
 
 let CustomerInfo = React.createClass({
 	render() {
@@ -13,7 +14,7 @@ let CustomerInfo = React.createClass({
 								<span>
 									{(() => {
 										if (!this.props.customer.customerId){
-											return "Loading...";
+											return <Loading />;
 										} else {
 											return this.props.customer.username
 										}
@@ -24,7 +25,7 @@ let CustomerInfo = React.createClass({
 								<span>
 									{(() => {
 										if (!this.props.customer.customerId){
-											return "Loading...";
+											return <Loading />;
 										} else {
 											return this.props.customer.personalInformation.email
 										}
