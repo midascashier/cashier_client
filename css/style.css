@@ -1,3 +1,5 @@
+/*Poker-Cashier*/
+
 /*Font-face_Bebas*/
 @font-face {
     font-family: 'BebasNeueRegular';
@@ -31,22 +33,25 @@ a{ color:#777; text-decoration:underline;}
 a:hover{color:#1a8dea;}
 
 /*icons*/
-i{color:#6d6d6d; margin-right:5px;}
+i{color:#6d6d6d; margin-right:4px;}
 
 /*colors*/
 .green{ color:#01b300;}
+.orange{ color:orange;}
+.blue{ color:#1a8dea;}
+.red{ color:#e03430;}
 
 /*btns*/
 button+button{ margin-left:20px;}
 button.btn-welcome{  border:1px solid #6b89ac; font-size: 53px; margin-top:14px; padding: 5px 36px 5px; border-radius:6px; text-shadow:1px 1px 2px #6172a1; font-weight:normal;}
 button.btn-welcome:hover{ box-shadow: 0 0 7px 1px #6172a1; font-weight:normal; }
 button.btn-welcome:hover, button.btn-welcome:focus, .btn-green, .btn-green:focus{color:#FFF; }
-.btn-green, .btn-green:active{font-weight:bold; margin-bottom:10px;
-    background: #01b300;
-    background: -moz-linear-gradient(top,  #01b300 0%, #3a9637 100%);
-    background: -webkit-linear-gradient(top,  #01b300 0%,#3a9637 100%);
-    background: linear-gradient(to bottom,  #01b300 0%,#3a9637 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01b300', endColorstr='#3a9637',GradientType=0 );}
+.btn-green, .btn-green:active{font-weight:bold; margin-top:10px; margin-bottom:10px;
+background: #01b300;
+background: -moz-linear-gradient(top,  #01b300 0%, #3a9637 100%);
+background: -webkit-linear-gradient(top,  #01b300 0%,#3a9637 100%);
+background: linear-gradient(to bottom,  #01b300 0%,#3a9637 100%); 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01b300', endColorstr='#3a9637',GradientType=0 );}
 .btn-green:hover{box-shadow: 0 0 7px 1px green; border:1px solid #6dd66c ; color:#FFF;}
 .btn:hover{-webkit-transition: all 100ms ease-in; -moz-transition: all 100ms ease-in; -ms-transition: all 100ms ease-in; -o-transition: all 100ms ease-in; transition: all 100ms ease-in;}
 .mainCallAction{}
@@ -75,7 +80,7 @@ body{ background:#EEE; font-family:'Segoe UI',Arial,sans-serif; color:#777;}
 
 /*container*/
 .container {padding:0;}
-.container, .box, table, .alert-warningMessages{-webkit-box-shadow: 0 0 2px 2px #000; -webkit-box-shadow: 0 0 2px 2px rgba(0,0,0,.1); -ms-box-shadow: 0 0 2px 2px #000; box-shadow: 0 0 2px 2px #000; box-shadow: 0 0 2px 2px rgba(0,0,0,.1); background: #fff;}
+.container, .box, table/*, .alert-warningMessages*/{-webkit-box-shadow: 0 0 2px 2px #000; -webkit-box-shadow: 0 0 2px 2px rgba(0,0,0,.1); -ms-box-shadow: 0 0 2px 2px #000; box-shadow: 0 0 2px 2px #000; box-shadow: 0 0 2px 2px rgba(0,0,0,.1); background: #fff;}
 
 /*header-top*/
 .header-top{ background:#1d1d1d; border-top:1px solid #444; color:#AAA; overflow:hidden;}
@@ -94,22 +99,22 @@ body{ background:#EEE; font-family:'Segoe UI',Arial,sans-serif; color:#777;}
 
 /*steps*/
 .steps{  color:#6d6d6d;
-    /*background: #fefefe;
-    background: -moz-linear-gradient(top, #fefefe 0%, #e4e4e4 100%);
-    background: -webkit-linear-gradient(top, #fefefe 0%,#e4e4e4 100%);
-    background: linear-gradient(to bottom, #fefefe 0%,#e4e4e4 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#e4e4e4',GradientType=0 );*/}
+/*background: #fefefe;
+background: -moz-linear-gradient(top, #fefefe 0%, #e4e4e4 100%); 
+background: -webkit-linear-gradient(top, #fefefe 0%,#e4e4e4 100%); 
+background: linear-gradient(to bottom, #fefefe 0%,#e4e4e4 100%); 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#e4e4e4',GradientType=0 );*/}
 
 .steps div[class^="step"].active{color:#FFF; text-shadow: 1px 0 5px #0e1926;/* box-shadow: 0px 1px 15px #000;*/
-    /*background: #118cb5;
-    background: -moz-linear-gradient(top, #118cb5 1%, #073e81 100%);
-    background: -webkit-linear-gradient(top, #118cb5 1%,#073e81 100%);
-    background: linear-gradient(to bottom, #118cb5 1%,#073e81 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#118cb5', endColorstr='#073e81',GradientType=0 );
+/*background: #118cb5;
+background: -moz-linear-gradient(top, #118cb5 1%, #073e81 100%); 
+background: -webkit-linear-gradient(top, #118cb5 1%,#073e81 100%); 
+background: linear-gradient(to bottom, #118cb5 1%,#073e81 100%); 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#118cb5', endColorstr='#073e81',GradientType=0 );
 
-    -webkit-box-shadow: inset 0px -1px 36px -12px rgba(25,39,84,1);
-    -moz-box-shadow: inset 0px -1px 36px -12px rgba(25,39,84,1);
-    box-shadow: inset 0px -1px 36px -12px rgba(25,39,84,1);*/  }
+-webkit-box-shadow: inset 0px -1px 36px -12px rgba(25,39,84,1);
+-moz-box-shadow: inset 0px -1px 36px -12px rgba(25,39,84,1);
+box-shadow: inset 0px -1px 36px -12px rgba(25,39,84,1);*/  }
 
 .steps div[class^="step"]{ height:80px; background-repeat: no-repeat;}
 
@@ -144,12 +149,15 @@ body{ background:#EEE; font-family:'Segoe UI',Arial,sans-serif; color:#777;}
 
 /*alerts*/
 /*Alerts-Messages--------------------------*/
-.alert-messagesText div[class^="alert"]{padding: 8px 12px;}
-.alert-messagesText div[class^="alert"] span{ font-weight:bold;}
-.alert-messagesText div[class^="alert"] i{font-size:18px;}
-/*alerts-bg*/
-.alert-messagesText .alert-warningMessages{ background:#FFF; border:1px solid #df6414;}
-.alert-messagesText .alert-warningMessages i{color:orange;}
+div[class^="alert"]{padding: 8px 12px;}
+/*div[class^="alert"] span{ font-weight:bold;}*/
+div[class^="alert"] i{font-size:16px;}
+/*alerts-icon*/
+
+/*.fa-warning{color:orange;}
+.fa-success{ color:green;}*/
+/*.alert-messagesText .alert-warningMessages{ background:#FFF; border:1px solid #df6414;}
+.alert-messagesText .alert-warningMessages i{color:orange;}*/
 
 /*Pages*/
 /*-----welcome*/
@@ -159,7 +167,7 @@ body{ background:#EEE; font-family:'Segoe UI',Arial,sans-serif; color:#777;}
 .welcome-page .welcome-info h2 span:first-child{ font-size:56px; line-height:1;}
 .welcome-page .welcome-info h2>span+span{ display:block; font-size:90px;}
 .welcome-page .welcome-info .title{ margin-top:21px; font-size: 32px; color:#FFF; text-shadow: 1px 1px 5px #4a577d;}
-.welcome-page .welcome-info img{ margin-top:40px; margin-bottom:20px;}
+.welcome-page .welcome-info img{ margin-top:20px; margin-bottom:20px;}
 
 /*-----Method*/
 .modules { text-align:center;}
@@ -178,12 +186,12 @@ body{ background:#EEE; font-family:'Segoe UI',Arial,sans-serif; color:#777;}
 
 /*-----Success*/
 .success-page{}
-.success-page .box img{background-size: cover; width: 100%;}
-.success-page i[class^="fa fa-check"] {font-size:7em;}
-.success-page .success-message{text-align:center;}
-.success-page .success-message i{ margin-top:8px; margin-bottom:10px}
-.success-page .success-message .title{ margin-bottom:20px; font-size:30px;}
-.success-page .success-message button, .rejected-page button{margin: 10px 0 10px;}
+/*.success-page*/ .banner{background-size: cover; width: 100%;}
+/*.success-page */.success-message i[class^="fa fa-check"] {font-size:7em;}
+/*.success-page*/ .success-message{text-align:center;}
+/*.success-page*/ .success-message i{ margin-top:8px; margin-bottom:10px}
+/*.success-page*/ .success-message .title{ margin-bottom:20px; font-size:30px;}
+/*.success-page*/ .success-message button/*, .rejected-page button*/{margin: 10px 0 10px;}
 
 /*rejected*/
 .rejected-page{}
@@ -193,7 +201,7 @@ body{ background:#EEE; font-family:'Segoe UI',Arial,sans-serif; color:#777;}
 /*rejected-invalid*/
 
 /*rejected-insufficient*/
-.rejected-page input+small{ display:block; font-style: italic;}
+/*.rejected-page */.rejected-message input+small{display:block; font-style: italic;}
 
 /*debit_card_new*/
 .card-details img{ width:150px;}
@@ -204,25 +212,25 @@ body{ background:#EEE; font-family:'Segoe UI',Arial,sans-serif; color:#777;}
 /*MISSING-ROW*/
 
 div[class*="col-"] > div[class*="col-"] {
-    border: 2px dotted red;
-    font-size: 15px;
+ border: 2px dotted red;
+ font-size: 15px;
 }
 div[class*="col-"] > div[class*="col-"]:before {
-    content: "Attention: .row MISSING!";
-    background-color: red;
-    display: block;
-    color: #fff;
+ content: "Attention: .row MISSING!";
+ background-color: red;
+ display: block;
+ color: #fff;
 }
 
 .row > .row {
-    border: 2px dotted orange;
-    font-size: 15px;
+ border: 2px dotted orange;
+ font-size: 15px;
 }
 .row > .row:before {
-    content: "Attention: .col MISSING!";
-    background-color: orange;
-    display: block;
-    color: #fff;
+ content: "Attention: .col MISSING!";
+ background-color: orange;
+ display: block;
+ color: #fff;
 }
 
 [hidden] {display: none!important;}

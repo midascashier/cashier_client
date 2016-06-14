@@ -319,6 +319,24 @@ let CashierStore = assign({}, EventEmitter.prototype, {
    */
   getCompany: () => {
     return (_company);
+  },
+
+  /**
+   * get deposit processors
+   *
+   * @returns {Array}
+   */
+  getDepositProcessors: () => {
+    return _customer.depositProcessors;
+  },
+
+  /**
+   * get withdraw processors
+   *
+   * @returns {Array}
+   */
+  getWithdrawProcessors: () => {
+    return _customer.withdrawProcessors;
   }
 
 });
