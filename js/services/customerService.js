@@ -1,6 +1,6 @@
 import {CashierStore} from '../stores/CashierStore'
 import assign from 'object-assign'
-import {prepareConnection, makeCustomerRequest} from './stompService'
+import {stompConnector} from './StompConnector'
 
 /**
  *Starts connection with RabbitMQ and then do the login
@@ -8,32 +8,31 @@ import {prepareConnection, makeCustomerRequest} from './stompService'
  * @param loginInfo
  */
 exports.stompConnection = (loginInfo) => {
-	prepareConnection()
-		.then(()=> {
-			customerLogin(loginInfo);
-		});
+  stompConnector.initConnection()
+    .then(()=> {
+      customerLogin(loginInfo);
+    });
 };
 
 /**
  *sends login information to RabbitMQ to be process
  *
- * @param application
  * @param loginInfo
  */
 let customerLogin = (loginInfo) => {
-	let application = CashierStore.getApplication();
-	let rabbitRequest = assign(loginInfo, application);
-	makeCustomerRequest("", rabbitRequest);
+  let application = CashierStore.getApplication();
+  let rabbitRequest = assign(loginInfo, application);
+  stompConnector.makeCustomerRequest("", rabbitRequest);
 };
 
 /**
  * function to get Customer Information
  */
 exports.getCustomerInfo = () => {
-	let data = {f: "customerInfo"};
-	let application = CashierStore.getApplication();
-	let rabbitRequest = Object.assign(data, application);
-	makeCustomerRequest("", rabbitRequest);
+  let data = {f: "customerInfo"};
+  let application = CashierStore.getApplication();
+  let rabbitRequest = Object.assign(data, application);
+  stompConnector.makeCustomerRequest("", rabbitRequest);
 };
 
 /**
@@ -43,5 +42,5 @@ exports.getCustomerProcessors = () => {
   let data = {f: "processors"};
   let application = CashierStore.getApplication();
   let rabbitRequest = Object.assign(data, application);
-	makeCustomerRequest("", rabbitRequest);
+  stompConnector.makeCustomerRequest("", rabbitRequest);
 };

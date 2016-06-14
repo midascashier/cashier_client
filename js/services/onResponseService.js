@@ -3,7 +3,8 @@ import {getCustomerInfo, getCustomerProcessors} from '../services/customerServic
 import {getCountries, getStates, getCompanyInfo} from './applicationService'
 import actions from '../constants/actions'
 
-exports.processResponse = (action, data) => {
+ exports.processResponse = (action, data) => {
+
 	switch (action) {
 		case actions.LOGIN_RESPONSE:
 			if (data) {

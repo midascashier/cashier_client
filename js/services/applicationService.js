@@ -1,5 +1,15 @@
 import {CashierStore} from '../stores/CashierStore'
-import {makeCustomerRequest} from './stompService'
+import {stompConnector} from './StompConnector'
+
+class ClientManager {
+	
+	
+	constructor () {
+		this.stompConnector = new StompConnector();
+		
+	}
+}
+
 
 /**
  * function to get Company Info
@@ -8,7 +18,7 @@ exports.getCompanyInfo = () => {
 	let data = {f: "getCompanyInfo"};
 	let application = CashierStore.getApplication();
 	let rabbitRequest = Object.assign(data, application);
-	makeCustomerRequest("", rabbitRequest);
+	stompConnector.makeCustomerRequest("", rabbitRequest);
 };
 
 /**
@@ -18,7 +28,7 @@ exports.getCountries = () => {
 	let data = {f: "countries"};
 	let application = CashierStore.getApplication();
 	let rabbitRequest = Object.assign(data, application);
-	makeCustomerRequest("", rabbitRequest);
+	stompConnector.makeCustomerRequest("", rabbitRequest);
 };
 
 /**
@@ -33,5 +43,5 @@ exports.getStates = (country = null) => {
 	let data = {f: "states", country: country};
 	let application = CashierStore.getApplication();
 	let rabbitRequest = Object.assign(data, application);
-	makeCustomerRequest("", rabbitRequest);
+	stompConnector.makeCustomerRequest("", rabbitRequest);
 };
