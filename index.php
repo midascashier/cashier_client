@@ -1,9 +1,8 @@
-	<?php
-	  $_POST['companyId']=9;
-	  $_POST['f']="authCustomer";
-	  $_POST['username']="midasbkr";
-      $_POST['password']="t3st0m1das";
-	?>
+<?php
+  $_POST['companyId']=9;
+  $_POST['f']="authCustomer";
+?>
+
 <!DOCTYPE html>
 <html>
 <head>

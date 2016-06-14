@@ -16,7 +16,7 @@ let CompanyInfo = React.createClass({
 										if (!this.props.customer.customerId) {
                       return <Loading />;
 										} else {
-											return this.props.customer.currencySymbol + " " + CashierStore.getCustomer().balance;
+											return this.props.customer.currencySymbol + " " + this.props.customer.balance;
 										}
 									})()}
 								</span>

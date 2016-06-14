@@ -17,14 +17,16 @@ let Client = React.createClass({
 
 	refreshLocalState() {
 		return {
-			sid: CashierStore.getCustomerSID()
+			sid: CashierStore.getCustomerSID(),
+			customerOption: CashierStore.getCustomerAction()
 		}
 	},
 
 	_onChange() {
 		this.setState(this.refreshLocalState());
 		if (this.state.sid){
-			this.context.router.push("/deposit/");
+			let transitionTo=this.state.customerOption;
+			this.context.router.push(transitionTo);
 		}
 	},
 
