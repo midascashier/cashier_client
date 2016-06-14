@@ -1,6 +1,7 @@
 import React from 'react'
 import {translate} from '../../constants/translate'
 import {CashierStore} from '../../stores/CashierStore'
+import {Loading} from '../loading'
 
 let CompanyInfo = React.createClass({
 	render() {
@@ -13,7 +14,7 @@ let CompanyInfo = React.createClass({
 								<span>
 									{(() => {
 										if (!this.props.customer.customerId) {
-											return " Loading...";
+                      return <Loading />;
 										} else {
 											return this.props.customer.currencySymbol + " " + CashierStore.getCustomer().balance;
 										}
@@ -24,7 +25,7 @@ let CompanyInfo = React.createClass({
                 <a href="#">{translate('CUSTOMER_INFO_LIVE_CHAT')}</a>
                 {(() => {
                   if (!CashierStore.getCompany().phone) {
-                    return " Loading...";
+                    return <Loading />;
                   } else {
                     return ' ' + translate('CUSTOMER_INFO_PHONE') + " " + CashierStore.getCompany().phone;
                   }
