@@ -195,6 +195,7 @@ let _UI = {
 	language: '',
 	currentView: '',
 	currentStep: '',
+	customerAction: '',
 	processorId: 0,
 	payAccountId: 0,
 	countryInfo: null,
@@ -277,6 +278,15 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
+	 * get customer action deposit/withdraw
+	 *
+	 * @returns {string}
+	 */
+	getCustomerAction: () => {
+		return _UI.customerAction;
+	},
+
+	/**
 	 * get origin url path
 	 *
 	 * @returns {string}
@@ -315,6 +325,7 @@ CashierDispatcher.register((payload) => {
 				_application.atDeviceId = data.atDeviceId;
 				_customer.username = data.username;
 				_customer.password = data.password;
+				_UI.customerAction = data.option;
 				stompConnection(data);
 				break;
 			case actions.LOGIN_RESPONSE:
