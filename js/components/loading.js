@@ -3,9 +3,9 @@ import React from 'react'
 let Loading = React.createClass({
 	render() {
 		return (
-			<div id="loading">
+			<span id="loading">
 				Loading...
-			</div>
+			</span>
 		)
 	}
 });
