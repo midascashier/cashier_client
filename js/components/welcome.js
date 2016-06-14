@@ -14,7 +14,7 @@ let Welcome = React.createClass({
 									<p className="title">{translate('WELCOME_LOADING')}</p>
 								</div>
 								<div className="col-sm-12">
-									<button className="btn btn-welcome btn-green">{translate('WELCOME_GET_STARTED')}</button>
+									<img src="/images/loader-70x70.gif" alt="loader"/>
 								</div>
 								<div className="col-sm-12">
 									<img src="/images/24-7_secure.png" alt="24/7 Secure"/>

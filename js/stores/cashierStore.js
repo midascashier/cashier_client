@@ -337,7 +337,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
    * @returns {Array}
    */
   getDepositProcessors: () => {
-    return _customer.depositProcessors;
+    return (_customer.depositProcessors);
   },
 
   /**
@@ -346,7 +346,16 @@ let CashierStore = assign({}, EventEmitter.prototype, {
    * @returns {Array}
    */
   getWithdrawProcessors: () => {
-    return _customer.withdrawProcessors;
+    return (_customer.withdrawProcessors);
+  },
+
+  /**
+   * get UI
+   *
+   * @returns {{language: string, currentView: string, currentStep: string, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
+   */
+  getUI: () => {
+    return (_UI);
   }
 
 });

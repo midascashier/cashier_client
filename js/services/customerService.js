@@ -46,6 +46,18 @@ class CustomerService {
     let rabbitRequest = Object.assign(data, application);
     stompConnector.makeCustomerRequest("", rabbitRequest);
   };
+
+  /**
+   * function to get pay account information
+   *
+   * @param payAccountId
+   */
+  getCustomerPayAccount(payAccountId) {
+    let data = {f: "getPayAccountInfo", payAccountId: payAccountId};
+    let application = CashierStore.getApplication();
+    let rabbitRequest = Object.assign(data, application);
+    stompConnector.makeCustomerRequest("", rabbitRequest);
+  };
 }
 
 export let customerService = new CustomerService();
