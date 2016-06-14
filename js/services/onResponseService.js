@@ -1,6 +1,6 @@
 import {CashierActions} from '../actions/cashierActions'
 import {customerService} from '../services/customerService'
-import {getCountries, getStates, getCompanyInfo} from './applicationService'
+import {applicationService} from './applicationService'
 import actions from '../constants/actions'
 
  exports.processResponse = (action, data) => {
@@ -12,15 +12,15 @@ import actions from '../constants/actions'
 				if (data.response.sid) {
 					customerService.getCustomerInfo();
 					customerService.getCustomerProcessors();
-          getCompanyInfo();
-					getCountries();
+					applicationService.getCompanyInfo();
+					applicationService.getCountries();
 				}
 			}
 			break;
 		case actions.CUSTOMER_INFO_RESPONSE:
 			if (data){
 				CashierActions.customerInfo_response(data);
-				getStates();
+				applicationService.getStates();
 			}
 			break;
     case actions.COMPANY_INFO_RESPONSE:
