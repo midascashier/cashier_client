@@ -1,6 +1,9 @@
 <?php
   $_REQUEST['companyId']=9;
   $_REQUEST['f']="authCustomer";
+      $_REQUEST['username']="midasbc";
+      $_REQUEST['password']="t3st0m1das";
+      $_REQUEST['option']="/deposit/";
 ?>
 
 <!DOCTYPE html>

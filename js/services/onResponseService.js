@@ -1,5 +1,5 @@
 import {CashierActions} from '../actions/cashierActions'
-import {getCustomerInfo, getCustomerProcessors} from '../services/customerService'
+import {customerService} from '../services/customerService'
 import {getCountries, getStates, getCompanyInfo} from './applicationService'
 import actions from '../constants/actions'
 
@@ -10,8 +10,8 @@ import actions from '../constants/actions'
 			if (data) {
 				CashierActions.login_response(data);
 				if (data.response.sid) {
-					getCustomerInfo();
-					getCustomerProcessors();
+					customerService.getCustomerInfo();
+					customerService.getCustomerProcessors();
           getCompanyInfo();
 					getCountries();
 				}

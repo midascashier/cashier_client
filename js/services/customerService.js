@@ -2,45 +2,56 @@ import {CashierStore} from '../stores/CashierStore'
 import assign from 'object-assign'
 import {stompConnector} from './StompConnector'
 
-/**
- *Starts connection with RabbitMQ and then do the login
- *
- * @param loginInfo
- */
-exports.stompConnection = (loginInfo) => {
-  stompConnector.initConnection()
-    .then(()=> {
-      customerLogin(loginInfo);
-    });
-};
 
-/**
- *sends login information to RabbitMQ to be process
- *
- * @param loginInfo
- */
-let customerLogin = (loginInfo) => {
-  let application = CashierStore.getApplication();
-  let rabbitRequest = assign(loginInfo, application);
-  stompConnector.makeCustomerRequest("", rabbitRequest);
-};
+class CustomerService {
 
-/**
- * function to get Customer Information
- */
-exports.getCustomerInfo = () => {
-  let data = {f: "customerInfo"};
-  let application = CashierStore.getApplication();
-  let rabbitRequest = Object.assign(data, application);
-  stompConnector.makeCustomerRequest("", rabbitRequest);
-};
+  /**
+   * Customer Service constructor
+   */
+  constructor() {};
 
-/**
- * function to get Customer Processors
- */
-exports.getCustomerProcessors = () => {
-  let data = {f: "processors"};
-  let application = CashierStore.getApplication();
-  let rabbitRequest = Object.assign(data, application);
-  stompConnector.makeCustomerRequest("", rabbitRequest);
-};
+  /**
+   *Starts connection with RabbitMQ and then do the login
+   *
+   * @param loginInfo
+   */
+  stompConnection(loginInfo) {
+    stompConnector.initConnection()
+      .then(()=> {
+        this.customerLogin(loginInfo);
+      });
+  };
+
+  /**
+   *sends login information to RabbitMQ to be process
+   *
+   * @param loginInfo
+   */
+  customerLogin(loginInfo) {
+    let application = CashierStore.getApplication();
+    let rabbitRequest = assign(loginInfo, application);
+    stompConnector.makeCustomerRequest("", rabbitRequest);
+  };
+
+  /**
+   * function to get Customer Information
+   */
+  getCustomerInfo() {
+    let data = {f: "customerInfo"};
+    let application = CashierStore.getApplication();
+    let rabbitRequest = Object.assign(data, application);
+    stompConnector.makeCustomerRequest("", rabbitRequest);
+  };
+
+  /**
+   * function to get Customer Processors
+   */
+  getCustomerProcessors() {
+    let data = {f: "processors"};
+    let application = CashierStore.getApplication();
+    let rabbitRequest = Object.assign(data, application);
+    stompConnector.makeCustomerRequest("", rabbitRequest);
+  };
+}
+
+export let customerService = new CustomerService();

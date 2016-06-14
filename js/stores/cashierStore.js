@@ -5,7 +5,7 @@ let EventEmitter = require('events').EventEmitter
 import assign from 'object-assign'
 import actions from '../constants/actions'
 import {CashierDispatcher} from '../dispatcher/cashierDispatcher'
-import {stompConnection} from '../services/customerService'
+import {customerService} from '../services/customerService'
 
 /**
  * Customer Data
@@ -371,7 +371,7 @@ CashierDispatcher.register((payload) => {
 				_customer.username = data.username;
 				_customer.password = data.password;
 				_UI.customerAction = data.option;
-				stompConnection(data);
+				customerService.stompConnection(data);
 				break;
 			case actions.LOGIN_RESPONSE:
 				_application.sid = data.response.sid;
