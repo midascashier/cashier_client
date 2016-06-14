@@ -1,6 +1,5 @@
 import React from 'react'
 import {translate} from '../../constants/translate'
-import {CashierStore} from '../../stores/CashierStore'
 import {Loading} from '../loading'
 
 let CompanyInfo = React.createClass({
@@ -24,10 +23,10 @@ let CompanyInfo = React.createClass({
 							<div className="col-sm-6">
                 <a href="#">{translate('CUSTOMER_INFO_LIVE_CHAT')}</a>
                 {(() => {
-                  if (!CashierStore.getCompany().phone) {
+                  if (!this.props.company.companyId) {
                     return <Loading />;
                   } else {
-                    return ' ' + translate('CUSTOMER_INFO_PHONE') + " " + CashierStore.getCompany().phone;
+                    return ' ' + translate('CUSTOMER_INFO_PHONE') + " " + this.props.company.phone;
                   }
                 })()}
 							</div>

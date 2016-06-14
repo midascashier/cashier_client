@@ -414,7 +414,7 @@ CashierDispatcher.register((payload) => {
         stompConnection(data);
         break;
       case actions.COMPANY_INFO_RESPONSE:
-        _company.companyId = _customer.personalInformation.companyId;
+        _company.companyId = data.response.companyInformation.companyId;
         _company.companyName = data.response.companyInformation.name;
         _company.phone = data.response.companyInformation.servicePhone;
         _company.companyLabel = data.response.companyInformation.labels;

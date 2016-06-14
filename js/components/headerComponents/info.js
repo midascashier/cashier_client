@@ -16,9 +16,10 @@ let Info = React.createClass({
 	refreshLocalState() {
 
 		let customer = CashierStore.getCustomer();
-
+		let company = CashierStore.getCompany();
 		return {
-			customer: customer
+			customer: customer,
+      company: company
 		}
 	},
 
@@ -30,7 +31,7 @@ let Info = React.createClass({
 		return (
 			<div id="headerInfo" className="header-top">
 				<CustomerInfo customer={this.state.customer} />
-				<CompanyInfo customer={this.state.customer} />
+				<CompanyInfo customer={this.state.customer} company={this.state.company} />
 			</div>
 		)
 	}
