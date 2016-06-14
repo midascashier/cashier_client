@@ -1,6 +1,9 @@
 <?php
-  $_POST['companyId']=9;
-  $_POST['f']="authCustomer";
+  $_REQUEST['companyId']=9;
+  $_REQUEST['f']="authCustomer";
+      $_REQUEST['username']="midasbc";
+      $_REQUEST['password']="t3st0m1das";
+      $_REQUEST['option']="/deposit/";
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +19,7 @@
 <body>
 	<div id="app"></div>
 	<script>
-  	  var loginInfo = <?php echo json_encode($_POST) ?>;
+  	  var loginInfo = <?php echo json_encode($_REQUEST) ?>;
   	</script>
     <script src="/js/libs/stomp.js"></script>
 	<script src="/build/bundle.js"></script>
