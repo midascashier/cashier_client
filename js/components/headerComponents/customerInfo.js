@@ -3,25 +3,33 @@ import {translate} from '../../constants/translate'
 import {CashierStore} from '../../stores/CashierStore'
 
 let CustomerInfo = React.createClass({
+
 	getInitialState(){
-		return {username:"",email:""}
+		return this.refreshLocalState();
 	},
 
 	componentDidMount: function() {
 		CashierStore.addChangeListener(this._onChange);
 	},
 
-	getCustomerInfo() {
+	refreshLocalState() {
+
+		let customer = CashierStore.getCustomer();
+
+		let customerLoaded = () => {
+			return (customer.customerId > 0);
+		}
+
 		return {
-			Customer: CashierStore.getCustomer()
+			username: customer.username,
+			email: customer.personalInformation.email,
+
+			customerLoaded: customerLoaded()
 		}
 	},
 
 	_onChange() {
-		if (this.isMounted() === true) {
-			let customer=this.getCustomerInfo();
-			this.setState({username: customer.Customer.username, email: customer.Customer.personalInformation.email});
-		}
+		this.setState(this.refreshLocalState());
 	},
 
 	render() {
@@ -30,8 +38,29 @@ let CustomerInfo = React.createClass({
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="row">
-							<div className="col-sm-6">{translate('CUSTOMER_INFO_USER')}:<span>{this.state.username}</span></div>
-							<div className="col-sm-6">{translate('CUSTOMER_INFO_EMAIL')}:<span>{this.state.email}</span></div>
+
+							<div className="col-sm-6">{translate('CUSTOMER_INFO_USER')}:
+								<span>
+									{(() => {
+										if (!this.state.customerLoaded){
+											return "Loading...";
+										} else {
+											return this.state.username
+										}
+									 })()}
+								</span>
+							</div>
+							<div className="col-sm-6">{translate('CUSTOMER_INFO_EMAIL')}:
+								<span>
+									{(() => {
+										if (!this.state.customerLoaded){
+											return "Loading...";
+										} else {
+											return this.state.email
+										}
+									})()}
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>

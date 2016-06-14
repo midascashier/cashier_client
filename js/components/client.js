@@ -1,33 +1,30 @@
 import React from 'react'
-import {Link} from 'react-router'
-import {translate} from '../constants/translate'
 import {CashierActions} from '../actions/cashierActions'
 import {CashierStore} from '../stores/CashierStore'
 
 let Client = React.createClass({
+
 	getInitialState(){
 		if (loginInfo.username && loginInfo.password){
 			CashierActions.login(loginInfo);
 		}
-		return null;
+		return this.refreshLocalState();
 	},
 
 	componentDidMount: function() {
 		CashierStore.addChangeListener(this._onChange);
 	},
 
-	getCustomerSID() {
+	refreshLocalState() {
 		return {
 			sid: CashierStore.getCustomerSID()
 		}
 	},
 
 	_onChange() {
-		if (this.isMounted() === true) {
-			this.setState(this.getCustomerSID);
-			if (this.state.sid){
-				this.context.router.push("/deposit/");
-			}
+		this.setState(this.refreshLocalState());
+		if (this.state.sid){
+			this.context.router.push("/deposit/");
 		}
 	},
 
