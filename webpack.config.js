@@ -2,7 +2,7 @@ module.exports = {
   entry: './js/main.jsx',
 
   output: {
-    filename: './js/index.js'
+    filename: './build/bundle.js'
   },
 
   devServer: {
