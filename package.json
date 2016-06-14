@@ -1,7 +1,7 @@
 {
   "name": "cashier_client",
   "version": "1.0.0",
-  "description": "",
+  "description": "Cashier Client",
   "dependencies": {
     "babel-plugin-transform-es2015-arrow-functions": "^6.8.0",
     "eventemitter3": "^1.2.0",
@@ -26,6 +26,6 @@
     "start": "webpack-dev-server --hot --progress --colors --history-api-fallback",
     "build": "webpack --progress --colors"
   },
-  "author": "",
+  "author": "Midas",
   "license": "ISC"
 }
