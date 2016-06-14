@@ -16,16 +16,13 @@
 <body>
 	<div id="app"></div>
 	<script>
-    var loginInfo = <?php echo json_encode($_POST) ?>;
-  </script>
-  <script src="/js/libs/stomp.js"></script>
+  	  var loginInfo = <?php echo json_encode($_POST) ?>;
+  	</script>
+    <script src="/js/libs/stomp.js"></script>
 	<script src="/build/bundle.js"></script>
-
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="/js/libs/jquery.min.js"></script>
-
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="/js/libs/bootstrap.min.js"></script>
-
 </body>
 </html>

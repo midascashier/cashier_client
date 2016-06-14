@@ -18,7 +18,7 @@ let Info = React.createClass({
 		let customer = CashierStore.getCustomer();
 
 		return {
-			customer: customer,
+			customer: customer
 		}
 	},
 

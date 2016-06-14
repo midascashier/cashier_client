@@ -7,6 +7,12 @@ import actions from '../constants/actions'
 import {CashierDispatcher} from '../dispatcher/cashierDispatcher'
 import {stompConnection} from '../services/customerService'
 
+/**
+ * Customer Data
+ *
+ * @type {{companyId: number, customerId: number, username: string, password: string, currency: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array}}
+ * @private
+ */
 let _customer = {
 	companyId: 0,
 	customerId: 0,
@@ -50,15 +56,21 @@ let _customer = {
 /**
  * company information
  *
- * @type {{companyId: number, companyName: string, companyLabel: Array}}
+ * @type {{companyId: number, companyName: string, phone: string, companyLabel: Array}}
  * @private
  */
 let _company = {
 	companyId: 0,
 	companyName: '',
+  phone: '',
 	companyLabel: []
 };
 
+/**
+ *
+ * @type {{sys_access_pass: string, sid: null, tuid: null, format: string, lang: string, platform: string, remoteAddr: string, remoteHost: string, userAgent: string, remoteAddress: string, referrer: string, xForwardedFor: string, atDeviceId: string, ioBB: string}}
+ * @private
+ */
 let _application = {
 	sys_access_pass: "1",
 	sid: null,
@@ -88,9 +100,9 @@ let _processor = {
 };
 
 /**
- * PayAccount Object Data
+ * PayAccount Data
  *
- * @type {{Object}}
+ * @type {{payAccountId: null, customerId: null, processorClassId: null, processorId: null, processorSkinId: null, processorIdRoot: null, processorRootName: null, typesSupported: null, displayName: null, isActive: null, isAllowed: null, type: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, bank: {id: null, alias: null, name: null, address: null, city: null, state: null, stateName: null, country: null, countryName: null, zip: null, phone: null, transferNumber: null, accountNumber: null, accountType: null, swift: null, iban: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limits: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}}}
  * @private
  */
 let _payAccount = {
@@ -191,6 +203,12 @@ let _payAccounts = {
 	payAccounts: []
 };
 
+/**
+ * UI
+ *
+ * @type {{language: string, currentView: string, currentStep: string, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
+ * @private
+ */
 let _UI = {
 	language: '',
 	currentView: '',
@@ -302,7 +320,16 @@ let CashierStore = assign({}, EventEmitter.prototype, {
    */
 	getCustomer: () => {
 		return (_customer);
-	}
+	},
+
+  /**
+   * get company
+   *
+   * @returns {{companyId: number, companyName: string, phone: string, companyLabel: Array}}
+   */
+  getCompany: () => {
+    return (_company);
+  }
 
 });
 
@@ -369,9 +396,11 @@ CashierDispatcher.register((payload) => {
         stompConnection(data);
         break;
       case actions.COMPANY_INFO_RESPONSE:
-        _company.companyId = _customer.companyInformation.companyId;
+        _company.companyId = _customer.personalInformation.companyId;
         _company.companyName = data.response.companyInformation.name;
+        _company.phone = data.response.companyInformation.servicePhone;
         _company.companyLabel = data.response.companyInformation.labels;
+        CashierStore.emitChange();
         break;
 			case actions.COUNTRIES_RESPONSE:
 				_UI.countries = data.response.countries;
