@@ -417,7 +417,12 @@ CashierDispatcher.register((payload) => {
         _company.companyId = data.response.companyInformation.companyId;
         _company.companyName = data.response.companyInformation.name;
         _company.phone = data.response.companyInformation.servicePhone;
-        _company.companyLabel = data.response.companyInformation.labels;
+        //company labels
+        if(data.response.companyInformation.labels){
+          data.response.companyInformation.labels.map((item, i) =>
+            _company.companyLabel[item.Code] = item.Value
+          )
+        }
         CashierStore.emitChange();
         break;
 			case actions.COUNTRIES_RESPONSE:
