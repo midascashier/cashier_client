@@ -8,10 +8,51 @@ import cashier from '../constants/cashier'
 import {CashierDispatcher} from '../dispatcher/cashierDispatcher'
 import {customerService} from '../services/customerService'
 
+
+/**
+ * UI
+ *
+ * @type {{language: string, currentView: string, currentStep: string, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
+ * @private
+ */
+let _UI = {
+  language: '',
+  currentView: '',
+  currentStep: '',
+  customerAction: '',
+  processorId: 0,
+  payAccountId: 0,
+  countryInfo: null,
+  countries: {},
+  countryStates: {}
+};
+
+/**
+ *
+ * @type {{sys_access_pass: string, sid: null, tuid: null, format: string, lang: string, platform: string, remoteAddr: string, remoteHost: string, userAgent: string, remoteAddress: string, referrer: string, xForwardedFor: string, atDeviceId: string, ioBB: string}}
+ * @private
+ */
+let _application = {
+  sys_access_pass: "1",
+  sid: null,
+  tuid: null,
+  format: "json",
+  lang: "en",
+  platform: "desktop",
+  remoteAddr: "127.0.0.1",
+  remoteHost: "localhost",
+  userAgent: navigator.userAgent,
+  remoteAddress: '',
+  referrer: '',
+  xForwardedFor: '',
+  atDeviceId: '',
+  ioBB: ''
+};
+
 /**
  * Customer Data
  *
- * @type {{companyId: number, customerId: number, username: string, password: string, currency: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array}}
+ * @type {{companyId: number, customerId: number, username: string, password: string, currency: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, load: (function(*))}}
  * @private
  */
 let _customer = {
@@ -51,42 +92,63 @@ let _customer = {
 	},
 	depositProcessors: [],
 	withdrawProcessors: [],
-	pendingP2PTransactions: []
+	pendingP2PTransactions: [],
+  load(data){
+    this.companyId = data.companyId;
+    this.customerId = data.customerId;
+    this.username = data.username;
+    this.password = data.password;
+    this.currency = data.currency;
+    this.currencySymbol = data.currencySymbol;
+    this.balance = data.balance;
+    this.balanceBP = data.balanceBP;
+    this.lang = data.lang;
+    this.personalInformation.level = data.vip;
+    this.personalInformation.firstName = data.firstName;
+    this.personalInformation.middleName = data.middleName;
+    this.personalInformation.lastName = data.lastName;
+    this.personalInformation.secondLastName = data.secondLastName;
+    this.personalInformation.dateOfBirth = data.dateOfBirth;
+    this.personalInformation.ssn = data.ssn;
+    this.personalInformation.email = data.email;
+    this.personalInformation.mobile = data.mobile;
+    this.personalInformation.phone = data.phone;
+    this.personalInformation.fax = data.fax;
+    this.personalInformation.personalId = data.personalId;
+    this.personalInformation.addressOne = data.addressOne;
+    this.personalInformation.addressTwo = data.addressTwo;
+    this.personalInformation.country = data.country;
+    this.personalInformation.countryName = data.countryName;
+    this.personalInformation.countryPhoneCode = data.countryPhoneCode;
+    this.personalInformation.state = data.state;
+    this.personalInformation.stateName = data.stateName;
+    this.personalInformation.city = data.city;
+    this.personalInformation.postalCode = data.postalCode;
+  }
 };
 
 /**
  * company information
  *
- * @type {{companyId: number, companyName: string, phone: string, companyLabel: Array}}
+ * @type {{companyId: number, companyName: string, phone: string, companyLabel: Array, load: (function(*))}}
  * @private
  */
 let _company = {
 	companyId: 0,
 	companyName: '',
   phone: '',
-	companyLabel: []
-};
-
-/**
- *
- * @type {{sys_access_pass: string, sid: null, tuid: null, format: string, lang: string, platform: string, remoteAddr: string, remoteHost: string, userAgent: string, remoteAddress: string, referrer: string, xForwardedFor: string, atDeviceId: string, ioBB: string}}
- * @private
- */
-let _application = {
-	sys_access_pass: "1",
-	sid: null,
-	tuid: null,
-	format: "json",
-	lang: "en",
-	platform: "desktop",
-	remoteAddr: "127.0.0.1",
-	remoteHost: "localhost",
-	userAgent: navigator.userAgent,
-	remoteAddress: '',
-	referrer: '',
-	xForwardedFor: '',
-	atDeviceId: '',
-	ioBB: ''
+	companyLabel: [],
+  load(data){
+    this.companyId = data.companyId;
+    this.companyName = data.name;
+    this.phone = data.servicePhone;
+    //company labels
+    if(data.labels){
+      data.labels.map((item, i) =>{
+        this.companyLabel[item.Code] = item.Value;
+      })
+    }
+  }
 };
 
 let _bonuses = {
@@ -100,27 +162,31 @@ let _processor = {
 	bonus: [],
 	fees: [],
 	load(data){
-		if (_UI.customerAction==cashier.VIEW_DEPOSIT) {
-			_customer.depositProcessors.map((item) => {
-				if(data.processorId==item.caProcessor_Id){
-					this.processorClass=item.caProcessorClass_Id;
-					this.processorId=item.caProcessor_Id;
-					this.displayName=item.DisplayName;
-				}
-			})
-		}
-		if(_UI.customerAction==cashier.VIEW_WITHDRAW){
-			_customer.withdrawProcessors.map((item) => {
-				console.log(item);
-			})
-		}
-		}
+    var processor = [];
+    if(_UI.customerAction == cashier.VIEW_DEPOSIT && _customer.depositProcessors.length > 0){
+      _customer.depositProcessors.map((item) => {
+        if(data.processorId == item.caProcessor_Id){
+          processor = item;
+        }
+      });
+    }else if(_customer.withdrawProcessors.length > 0){
+      _customer.withdrawProcessors.map((item) => {
+        if(data.processorId == item.caProcessor_Id){
+          processor = item;
+        }
+      });
+    }
+    //set values
+    this.processorClass = processor.caProcessorClass_Id;
+    this.processorId = processor.caProcessor_Id;
+    this.displayName = processor.DisplayName;
+  }
 };
 
 /**
  * PayAccount Data
  *
- * @type {{payAccountId: null, customerId: null, processorClassId: null, processorId: null, processorSkinId: null, processorIdRoot: null, processorRootName: null, typesSupported: null, displayName: null, isActive: null, isAllowed: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, bank: {id: null, alias: null, name: null, address: null, city: null, state: null, stateName: null, country: null, countryName: null, zip: null, phone: null, transferNumber: null, accountNumber: null, accountType: null, swift: null, iban: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limits: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}}}
+ * @type {{payAccountId: null, customerId: null, processorClassId: null, processorId: null, processorSkinId: null, processorIdRoot: null, processorRootName: null, typesSupported: null, displayName: null, isActive: null, isAllowed: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, bank: {id: null, alias: null, name: null, address: null, city: null, state: null, stateName: null, country: null, countryName: null, zip: null, phone: null, transferNumber: null, accountNumber: null, accountType: null, swift: null, iban: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limits: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))}}
  * @private
  */
 let _payAccount = {
@@ -207,7 +273,26 @@ let _payAccount = {
 		 * After all the limits validations are made, this is the flag that says if the pay account passes or not.
 		 */
 		limitsPassed: false
-	}
+	},
+  load(data){
+    this.payAccountId = data.payAccountId;
+    this.customerId = data.customerId;
+    this.processorClassId = data.processorClassId;
+    this.processorId = data.processorId;
+    this.processorSkinId = data.processorSkinId;
+    this.processorIdRoot = data.processorIdRoot;
+    this.processorRootName = data.processorNameRoot;
+    this.typesSupported = data.typesSupported;
+    this.displayName = data.processorDisplayName;
+    this.isActive = data.isActive;
+    this.isAllowed = data.isAllowed;
+    this.address = data.addressData;
+    this.bank = data.bankData;
+    this.extra = data.extraData;
+    this.personal = data.personalData;
+    this.secure = data.secureData;
+    this.limits = data.limitsData;
+  }
 };
 
 /**
@@ -217,24 +302,6 @@ let _payAccount = {
  * @private
  */
 let _payAccounts = {};
-
-/**
- * UI
- *
- * @type {{language: string, currentView: string, currentStep: string, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
- * @private
- */
-let _UI = {
-	language: '',
-	currentView: '',
-	currentStep: '',
-	customerAction: '',
-	processorId: 0,
-	payAccountId: 0,
-	countryInfo: null,
-	countries: {},
-	countryStates: {}
-};
 
 let _transaction = {
 	amount: 0,
@@ -411,48 +478,11 @@ CashierDispatcher.register((payload) => {
 				CashierStore.emitChange();
 				break;
 			case actions.CUSTOMER_INFO_RESPONSE:
-				_customer.companyId = data.response.customerInfo.companyId;
-				_customer.customerId = data.response.customerInfo.customerId;
-				_customer.username = data.response.customerInfo.username;
-				_customer.password = data.response.customerInfo.password;
-				_customer.currency = data.response.customerInfo.currency;
-				_customer.currencySymbol = data.response.customerInfo.currencySymbol;
-				_customer.balance = data.response.customerInfo.balance;
-				_customer.balanceBP = data.response.customerInfo.balanceBP;
-        _customer.lang = data.response.customerInfo.lang;
-				_customer.personalInformation.level = data.response.customerInfo.vip;
-				_customer.personalInformation.firstName = data.response.customerInfo.firstName;
-				_customer.personalInformation.middleName = data.response.customerInfo.middleName;
-				_customer.personalInformation.lastName = data.response.customerInfo.lastName;
-				_customer.personalInformation.secondLastName = data.response.customerInfo.secondLastName;
-				_customer.personalInformation.dateOfBirth = data.response.customerInfo.dateOfBirth;
-				_customer.personalInformation.ssn = data.response.customerInfo.ssn;
-				_customer.personalInformation.email = data.response.customerInfo.email;
-				_customer.personalInformation.mobile = data.response.customerInfo.mobile;
-				_customer.personalInformation.phone = data.response.customerInfo.phone;
-				_customer.personalInformation.fax = data.response.customerInfo.fax;
-				_customer.personalInformation.personalId = data.response.customerInfo.personalId;
-				_customer.personalInformation.addressOne = data.response.customerInfo.addressOne;
-				_customer.personalInformation.addressTwo = data.response.customerInfo.addressTwo;
-				_customer.personalInformation.country = data.response.customerInfo.country;
-				_customer.personalInformation.countryName = data.response.customerInfo.countryName;
-				_customer.personalInformation.countryPhoneCode = data.response.customerInfo.countryPhoneCode;
-				_customer.personalInformation.state = data.response.customerInfo.state;
-				_customer.personalInformation.stateName = data.response.customerInfo.stateName;
-				_customer.personalInformation.city = data.response.customerInfo.city;
-				_customer.personalInformation.postalCode = data.response.customerInfo.postalCode;
+				_customer.load(data.response.customerInfo);
 				CashierStore.emitChange();
 				break;
       case actions.COMPANY_INFO_RESPONSE:
-        _company.companyId = data.response.companyInformation.companyId;
-        _company.companyName = data.response.companyInformation.name;
-        _company.phone = data.response.companyInformation.servicePhone;
-        //company labels
-        if(data.response.companyInformation.labels){
-          data.response.companyInformation.labels.map((item, i) =>{
-            _company.companyLabel[item.Code] = item.Value;
-          })
-        }
+        _company.load(data.response.companyInformation);
         CashierStore.emitChange();
         break;
 			case actions.COUNTRIES_RESPONSE:
@@ -472,36 +502,16 @@ CashierDispatcher.register((payload) => {
         }else if(_customer.withdrawProcessors.length > 0){
           processor = _customer.withdrawProcessors[0];
         }
-        // set processor
-        _processor.processorClass = processor.caProcessorClass_Id;
-        _processor.processorId = processor.caProcessor_Id;
-        _processor.displayName = processor.DisplayName;
-
+        // set default processor
+        _processor.load({processorId: processor.caProcessor_Id});
         break;
       case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
         var payAccounts = data.response.payAccounts;
         if(payAccounts){
-          payAccounts.map((item, i) => {
-            var payAccount = Object.assign({}, _payAccount);
-
-            payAccount.payAccountId = item.payAccountId;
-            payAccount.customerId = item.customerId;
-            payAccount.processorClassId = item.processorClassId;
-            payAccount.processorId = item.processorId;
-            payAccount.processorSkinId = item.processorSkinId;
-            payAccount.processorIdRoot = item.processorIdRoot;
-            payAccount.processorRootName = item.processorNameRoot;
-            payAccount.typesSupported = item.typesSupported;
-            payAccount.displayName = item.processorDisplayName;
-            payAccount.isActive = item.isActive;
-            payAccount.isAllowed = item.isAllowed;
-            payAccount.address = item.addressData;
-            payAccount.bank = item.bankData;
-            payAccount.extra = item.extraData;
-            payAccount.personal = item.personalData;
-            payAccount.secure = item.secureData;
-            payAccount.limits = item.limitsData;
-
+          var payAccountCopy = Object.assign({}, _payAccount);
+          payAccounts.map((item) => {
+            var payAccount = payAccountCopy;
+            payAccount.load(item);
             _payAccounts[payAccount.payAccountId] = payAccount;
           })
         }
