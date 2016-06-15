@@ -5,6 +5,7 @@ import {Processor} from './processor'
 
 let MethodsDepositList = React.createClass({
 	render() {
+    let isSelected = false;
 		return (
 			<div id="methods" className="box">
         <div className="row">
@@ -23,7 +24,12 @@ let MethodsDepositList = React.createClass({
                   })()}
 
                   {this.props.depositProcessors.map((data, i)=>{
-                      return <Processor key={data.caProcessor_Id} firstProcessor={firstProcessor} processor={data} originPath={this.props.originPath}/>;
+                      if (this.props.selectedProcessor==data.caProcessor_Id){
+                        isSelected=true;
+                      }else{
+                        isSelected=false;
+                      }
+                      return <Processor key={data.caProcessor_Id} selected={isSelected} processor={data} originPath={this.props.originPath}/>;
                   })}
 
                 </div>

@@ -57,6 +57,13 @@ let CashierActions = {
 			action: actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE,
 			data: data
 		});
+	},
+
+	changeMethod:(data) => {
+		CashierDispatcher.handleServerAction({
+			action: actions.CHANGE_PROCESSOR,
+			data: data
+		});
 	}
 	
 };

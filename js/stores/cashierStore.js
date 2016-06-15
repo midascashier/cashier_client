@@ -98,7 +98,23 @@ let _processor = {
 	processorId: 0,
 	displayName: '',
 	bonus: [],
-	fees: []
+	fees: [],
+	load(data){
+		if (_UI.customerAction==cashier.VIEW_DEPOSIT) {
+			_customer.depositProcessors.map((item) => {
+				if(data.processorId==item.caProcessor_Id){
+					this.processorClass=item.caProcessorClass_Id;
+					this.processorId=item.caProcessor_Id;
+					this.displayName=item.DisplayName;
+				}
+			})
+		}
+		if(_UI.customerAction==cashier.VIEW_WITHDRAW){
+			_customer.withdrawProcessors.map((item) => {
+				console.log(item);
+			})
+		}
+		}
 };
 
 /**
@@ -427,9 +443,6 @@ CashierDispatcher.register((payload) => {
 				_customer.personalInformation.postalCode = data.response.customerInfo.postalCode;
 				CashierStore.emitChange();
 				break;
-      case actions.COMPANY_INFO:
-        customerService.stompConnection(data);
-        break;
       case actions.COMPANY_INFO_RESPONSE:
         _company.companyId = data.response.companyInformation.companyId;
         _company.companyName = data.response.companyInformation.name;
@@ -449,9 +462,6 @@ CashierDispatcher.register((payload) => {
 				_UI.countryStates = data.response.states;
 				_UI.countryInfo = data.response.countryInfo;
 				break;
-      case actions.PROCESSORS:
-        customerService.stompConnection(data);
-        break;
       case actions.PROCESSORS_RESPONSE:
         _customer.depositProcessors = data.response.processors.deposit;
         _customer.withdrawProcessors = data.response.processors.withdraw;
@@ -467,9 +477,6 @@ CashierDispatcher.register((payload) => {
         _processor.processorId = processor.caProcessor_Id;
         _processor.displayName = processor.DisplayName;
 
-        break;
-      case actions.PAYACCOUNTS_BY_PROCESSOR:
-        customerService.stompConnection(data);
         break;
       case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
         var payAccounts = data.response.payAccounts;
@@ -499,6 +506,9 @@ CashierDispatcher.register((payload) => {
           })
         }
         break;
+			case actions.CHANGE_PROCESSOR:
+					_processor.load(data);
+				break;
 			default:
 				console.log("Store No Action");
 				break;
