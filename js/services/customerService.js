@@ -22,7 +22,7 @@ class CustomerService {
    * @param loginInfo
    */
   customerLogin(loginInfo) {
-    let data = {f: "authCustomer", companyId: 9};
+    let data = {f: "authCustomer", companyId: 100};
     let application = CashierStore.getApplication();
     let rabbitRequest = assign(data, loginInfo, application);
     stompConnector.makeCustomerRequest("", rabbitRequest);
