@@ -26,7 +26,7 @@ let CompanyInfo = React.createClass({
                   if (!this.props.company.companyId) {
                     return <Loading />;
                   } else {
-                    return ' ' + translate('CUSTOMER_INFO_PHONE') + " " + this.props.company.phone;
+                    return ' ' + translate('CUSTOMER_INFO_PHONE') + " " + this.props.company.companyLabel.COMPANY_PHONE;
                   }
                 })()}
 							</div>

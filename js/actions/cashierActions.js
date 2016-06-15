@@ -50,6 +50,13 @@ let CashierActions = {
 			action: actions.STATES_RESPONSE,
 			data: data
 		});
+	},
+
+	getCustomerPreviousPayAccount_response: (data) => {
+		CashierDispatcher.handleServerAction({
+			action: actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE,
+			data: data
+		});
 	}
 	
 };

@@ -25,8 +25,8 @@ let Client = React.createClass({
 	_onChange() {
 		this.setState(this.refreshLocalState());
 		if (this.state.sid){
-			let transitionTo=this.state.customerOption;
-			this.context.router.push(transitionTo);
+			let transitionTo = this.state.customerOption;
+			this.context.router.push('/'+transitionTo+'/');
 		}
 	},
 

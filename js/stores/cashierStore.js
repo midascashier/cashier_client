@@ -190,6 +190,9 @@ let _payAccount = {
 		 * After all the limits validations are made, this is the flag that says if the pay account passes or not.
 		 */
 		limitsPassed: false
+	},
+	load: (data)=> {
+
 	}
 };
 
@@ -337,7 +340,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
    * @returns {Array}
    */
   getDepositProcessors: () => {
-    return _customer.depositProcessors;
+    return (_customer.depositProcessors);
   },
 
   /**
@@ -346,7 +349,16 @@ let CashierStore = assign({}, EventEmitter.prototype, {
    * @returns {Array}
    */
   getWithdrawProcessors: () => {
-    return _customer.withdrawProcessors;
+    return (_customer.withdrawProcessors);
+  },
+
+  /**
+   * get UI
+   *
+   * @returns {{language: string, currentView: string, currentStep: string, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
+   */
+  getUI: () => {
+    return (_UI);
   }
 
 });
@@ -411,13 +423,18 @@ CashierDispatcher.register((payload) => {
 				CashierStore.emitChange();
 				break;
       case actions.COMPANY_INFO:
-        stompConnection(data);
+        customerService.stompConnection(data);
         break;
       case actions.COMPANY_INFO_RESPONSE:
         _company.companyId = data.response.companyInformation.companyId;
         _company.companyName = data.response.companyInformation.name;
         _company.phone = data.response.companyInformation.servicePhone;
-        _company.companyLabel = data.response.companyInformation.labels;
+        //company labels
+        if(data.response.companyInformation.labels){
+          data.response.companyInformation.labels.map((item, i) =>
+            _company.companyLabel[item.Code] = item.Value
+          )
+        }
         CashierStore.emitChange();
         break;
 			case actions.COUNTRIES_RESPONSE:
@@ -428,11 +445,17 @@ CashierDispatcher.register((payload) => {
 				_UI.countryInfo = data.response.countryInfo;
 				break;
       case actions.PROCESSORS:
-        stompConnection(data);
+        customerService.stompConnection(data);
         break;
       case actions.PROCESSORS_RESPONSE:
         _customer.depositProcessors = data.response.processors.deposit;
         _customer.withdrawProcessors = data.response.processors.withdraw;
+        break;
+      case actions.PAYACCOUNTS_BY_PROCESSOR:
+        customerService.stompConnection(data);
+        break;
+      case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
+        _payAccounts = data.response.payAccounts;
         break;
 			default:
 				console.log("Store No Action");
