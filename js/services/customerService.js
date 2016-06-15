@@ -50,11 +50,9 @@ class CustomerService {
 
   /**
    * function to get pay account previous pay accounts
-   *
-   * @param processorId
    */
-  getCustomerPreviousPayAccount(processorId) {
-    let data = {f: "getPayAccountsByCustomer", processorId: processorId};
+  getCustomerPreviousPayAccount() {
+    let data = {f: "getPayAccountsByCustomer", processorId: CashierStore.getProcessor().processorId};
     let application = CashierStore.getApplication();
     let rabbitRequest = Object.assign(data, application);
     stompConnector.makeCustomerRequest("", rabbitRequest);

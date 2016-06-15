@@ -44,6 +44,7 @@ class OnResponseService {
 			case actions.PROCESSORS_RESPONSE:
 				if (data) {
 					CashierActions.getCustomerProcessors_response(data);
+          customerService.getCustomerPreviousPayAccount();
 				}
 				break;
 			case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
