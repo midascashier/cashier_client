@@ -518,6 +518,7 @@ CashierDispatcher.register((payload) => {
         break;
 			case actions.CHANGE_PROCESSOR:
 					_processor.load(data);
+					CashierStore.emitChange();
 				break;
 			default:
 				console.log("Store No Action");
