@@ -5,7 +5,6 @@ import {CashierStore} from '../stores/CashierStore'
 let Client = React.createClass({
 
 	getInitialState(){
-		console.log(loginInfo);
 		if (loginInfo.username && loginInfo.password){
 			CashierActions.login(loginInfo);
 		}
