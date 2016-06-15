@@ -1,6 +1,7 @@
 import React from 'react'
 import {Header} from './header'
 import {MethodsDepositList} from './contentComponents/methodsDepositList'
+import {MethodInfo} from './contentComponents/methodInfo'
 import {CashierStore} from '../stores/CashierStore'
 
 let DepositContent = React.createClass({
