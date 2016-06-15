@@ -14,7 +14,8 @@ let DepositContent = React.createClass({
 
   refreshLocalState() {
     return {
-      depositProcessors: CashierStore.getCustomer().depositProcessors
+      depositProcessors: CashierStore.getCustomer().depositProcessors,
+      originPath: CashierStore.getOriginPath()
     }
   },
 
@@ -32,7 +33,7 @@ let DepositContent = React.createClass({
                 <div className="modules">
                   <div className="row">
                     <div className="col-sm-6">
-                      <MethodsDepositList depositProcessors={this.state.depositProcessors} />
+                      <MethodsDepositList depositProcessors={this.state.depositProcessors} originPath={this.state.originPath}/>
                 </div>
                 <div className="col-sm-6">
                 </div>

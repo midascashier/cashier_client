@@ -3,8 +3,6 @@ import {translate} from '../../constants/translate'
 import {Loading} from '../loading'
 import {Processor} from './processor'
 
-let row=[];
-
 let MethodsDepositList = React.createClass({
 	render() {
 		return (
@@ -21,13 +19,13 @@ let MethodsDepositList = React.createClass({
                   {(() => {
                     if (this.props.depositProcessors.length==0) {
                       return <Loading />;
-                    } else {
-                      for (var i=0; i < this.props.depositProcessors.length; i++) {
-                          row.push(<Processor key={this.props.depositProcessors[i].caProcessor_Id} quantity={i} processor={this.props.depositProcessors[i]}/>);
-                        }
-                      return (<div className="col-sm-12">{row}</div>)
                     }
                   })()}
+
+                  {this.props.depositProcessors.map((data, i)=>{
+                      return <Processor key={data.caProcessor_Id} firstProcessor={firstProcessor} processor={data} originPath={this.props.originPath}/>;
+                  })}
+
                 </div>
               </div>
             </div>
