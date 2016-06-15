@@ -46,6 +46,11 @@ class OnResponseService {
 					CashierActions.getCustomerProcessors_response(data);
 				}
 				break;
+			case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
+				if (data) {
+					CashierActions.getCustomerPreviousPayAccount_response(data);
+				}
+				break;
 			default:
 				console.log(data.state);
 		}

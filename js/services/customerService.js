@@ -22,8 +22,9 @@ class CustomerService {
    * @param loginInfo
    */
   customerLogin(loginInfo) {
+    let data = {f: "authCustomer", companyId: 100};
     let application = CashierStore.getApplication();
-    let rabbitRequest = assign(loginInfo, application);
+    let rabbitRequest = assign(data, loginInfo, application);
     stompConnector.makeCustomerRequest("", rabbitRequest);
   };
 
@@ -48,12 +49,12 @@ class CustomerService {
   };
 
   /**
-   * function to get pay account information
+   * function to get pay account previous pay accounts
    *
-   * @param payAccountId
+   * @param processorId
    */
-  getCustomerPayAccount(payAccountId) {
-    let data = {f: "getPayAccountInfo", payAccountId: payAccountId};
+  getCustomerPreviousPayAccount(processorId) {
+    let data = {f: "getPayAccountsByCustomer", processorId: processorId};
     let application = CashierStore.getApplication();
     let rabbitRequest = Object.assign(data, application);
     stompConnector.makeCustomerRequest("", rabbitRequest);

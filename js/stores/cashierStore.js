@@ -190,6 +190,9 @@ let _payAccount = {
 		 * After all the limits validations are made, this is the flag that says if the pay account passes or not.
 		 */
 		limitsPassed: false
+	},
+	load: (data)=> {
+
 	}
 };
 
@@ -420,7 +423,7 @@ CashierDispatcher.register((payload) => {
 				CashierStore.emitChange();
 				break;
       case actions.COMPANY_INFO:
-        stompConnection(data);
+        customerService.stompConnection(data);
         break;
       case actions.COMPANY_INFO_RESPONSE:
         _company.companyId = data.response.companyInformation.companyId;
@@ -442,11 +445,17 @@ CashierDispatcher.register((payload) => {
 				_UI.countryInfo = data.response.countryInfo;
 				break;
       case actions.PROCESSORS:
-        stompConnection(data);
+        customerService.stompConnection(data);
         break;
       case actions.PROCESSORS_RESPONSE:
         _customer.depositProcessors = data.response.processors.deposit;
         _customer.withdrawProcessors = data.response.processors.withdraw;
+        break;
+      case actions.PAYACCOUNTS_BY_PROCESSOR:
+        customerService.stompConnection(data);
+        break;
+      case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
+        _payAccounts = data.response.payAccounts;
         break;
 			default:
 				console.log("Store No Action");
