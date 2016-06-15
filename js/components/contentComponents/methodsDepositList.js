@@ -1,7 +1,9 @@
 import React from 'react'
-import {Link} from 'react-router'
 import {translate} from '../../constants/translate'
-import {CashierStore} from '../../stores/CashierStore'
+import {Loading} from '../loading'
+import {Processor} from './processor'
+
+let row=[];
 
 let MethodsDepositList = React.createClass({
 	render() {
@@ -16,27 +18,16 @@ let MethodsDepositList = React.createClass({
               </div>
               <div className="col-sm-12">
                 <div className="processors infoCol">
-                  <div className="col-sm-12">
-                    <div className="row">
-
-                      <div className="col-sm-6">
-                        <div className="method active">
-                          <Link to={`/deposit/neteller`}>
-                            <img src={CashierStore.getOriginPath() + '/images/processors/333.png'} alt="Neteller"/>
-                            <i className="fa fa-check-circle"></i>
-                          </Link>
-                        </div>
-                      </div>
-                      <div className="col-sm-6">
-                        <div className="method">
-                          <Link to={`/deposit/visa`}>
-                            <img src={CashierStore.getOriginPath() + '/images/processors/11001.png'} alt="Visa"/>
-                          </Link>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
+                  {(() => {
+                    if (this.props.depositProcessors.length==0) {
+                      return <Loading />;
+                    } else {
+                      for (var i=0; i < this.props.depositProcessors.length; i++) {
+                          row.push(<Processor key={this.props.depositProcessors[i].caProcessor_Id} quantity={i} processor={this.props.depositProcessors[i]}/>);
+                        }
+                      return (<div className="col-sm-12">{row}</div>)
+                    }
+                  })()}
                 </div>
               </div>
             </div>

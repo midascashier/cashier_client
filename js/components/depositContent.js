@@ -4,6 +4,24 @@ import {MethodsDepositList} from './contentComponents/methodsDepositList'
 import {CashierStore} from '../stores/CashierStore'
 
 let DepositContent = React.createClass({
+  getInitialState(){
+    return this.refreshLocalState();
+  },
+
+  componentDidMount: function() {
+    CashierStore.addChangeListener(this._onChange);
+  },
+
+  refreshLocalState() {
+    return {
+      depositProcessors: CashierStore.getCustomer().depositProcessors
+    }
+  },
+
+  _onChange() {
+    this.setState(this.refreshLocalState());
+  },
+
 	render() {
 		return (
         <div id="depositContent">
@@ -12,30 +30,13 @@ let DepositContent = React.createClass({
             <div className="row">
               <div className="col-sm-12">
                 <div className="modules">
-
-                    {(() => {
-                      if(CashierStore.getCurrentStep() == 'infoMethod'){
-                        return (
-                            <div className="row">
-                              <div className="col-sm-12">
-                                {this.props.children}
-                              </div>
-                            </div>
-                        )
-                      }else{
-                        return (
-                            <div className="row">
-                              <div className="col-sm-6">
-                                <MethodsDepositList />
-                              </div>
-                              <div className="col-sm-6">
-                                {this.props.children}
-                              </div>
-                            </div>
-                        )
-                      }
-                    })()}
-
+                  <div className="row">
+                    <div className="col-sm-6">
+                      <MethodsDepositList depositProcessors={this.state.depositProcessors} />
+                </div>
+                <div className="col-sm-6">
+                </div>
+              </div>
                 </div>
               </div>
             </div>
