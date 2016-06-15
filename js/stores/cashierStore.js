@@ -104,7 +104,7 @@ let _processor = {
 /**
  * PayAccount Data
  *
- * @type {{payAccountId: null, customerId: null, processorClassId: null, processorId: null, processorSkinId: null, processorIdRoot: null, processorRootName: null, typesSupported: null, displayName: null, isActive: null, isAllowed: null, type: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, bank: {id: null, alias: null, name: null, address: null, city: null, state: null, stateName: null, country: null, countryName: null, zip: null, phone: null, transferNumber: null, accountNumber: null, accountType: null, swift: null, iban: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limits: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}}}
+ * @type {{payAccountId: null, customerId: null, processorClassId: null, processorId: null, processorSkinId: null, processorIdRoot: null, processorRootName: null, typesSupported: null, displayName: null, isActive: null, isAllowed: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, bank: {id: null, alias: null, name: null, address: null, city: null, state: null, stateName: null, country: null, countryName: null, zip: null, phone: null, transferNumber: null, accountNumber: null, accountType: null, swift: null, iban: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limits: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}}}
  * @private
  */
 let _payAccount = {
@@ -119,7 +119,6 @@ let _payAccount = {
 	displayName: null,
 	isActive: null,
 	isAllowed: null,
-	type: null,
 	personal: {
 		firstName: null,
 		middleName: null,
@@ -192,9 +191,6 @@ let _payAccount = {
 		 * After all the limits validations are made, this is the flag that says if the pay account passes or not.
 		 */
 		limitsPassed: false
-	},
-	load: (data)=> {
-
 	}
 };
 
@@ -204,9 +200,7 @@ let _payAccount = {
  * @type {{payAccounts: Array}}
  * @private
  */
-let _payAccounts = {
-	payAccounts: []
-};
+let _payAccounts = {};
 
 /**
  * UI
@@ -356,7 +350,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
   /**
    * get current processor
-   * 
+   *
    * @returns {{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}}
    */
   getProcessor: () => {
@@ -481,7 +475,27 @@ CashierDispatcher.register((payload) => {
         var payAccounts = data.response.payAccounts;
         if(payAccounts){
           payAccounts.map((item, i) => {
-            _payAccounts[i] = item;
+            var payAccount = Object.assign({}, _payAccount);
+
+            payAccount.payAccountId = item.payAccountId;
+            payAccount.customerId = item.customerId;
+            payAccount.processorClassId = item.processorClassId;
+            payAccount.processorId = item.processorId;
+            payAccount.processorSkinId = item.processorSkinId;
+            payAccount.processorIdRoot = item.processorIdRoot;
+            payAccount.processorRootName = item.processorNameRoot;
+            payAccount.typesSupported = item.typesSupported;
+            payAccount.displayName = item.processorDisplayName;
+            payAccount.isActive = item.isActive;
+            payAccount.isAllowed = item.isAllowed;
+            payAccount.address = item.addressData;
+            payAccount.bank = item.bankData;
+            payAccount.extra = item.extraData;
+            payAccount.personal = item.personalData;
+            payAccount.secure = item.secureData;
+            payAccount.limits = item.limitsData;
+
+            _payAccounts[payAccount.payAccountId] = payAccount;
           })
         }
         break;
