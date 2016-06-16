@@ -503,6 +503,7 @@ CashierDispatcher.register((payload) => {
           processor = _customer.withdrawProcessors[0];
         }
         // set default processor
+				_UI.processorId=processor.caProcessor_Id;
         _processor.load({processorId: processor.caProcessor_Id});
         break;
       case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
@@ -517,6 +518,7 @@ CashierDispatcher.register((payload) => {
         }
         break;
 			case actions.CHANGE_PROCESSOR:
+					_UI.processorId=data.processorId;
 					_processor.load(data);
 					CashierStore.emitChange();
 				break;
