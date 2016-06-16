@@ -475,6 +475,7 @@ CashierDispatcher.register((payload) => {
 				break;
 			case actions.LOGIN_RESPONSE:
 				_application.sid = data.response.sid;
+				_UI.currentStep = 1;
 				CashierStore.emitChange();
 				break;
 			case actions.CUSTOMER_INFO_RESPONSE:

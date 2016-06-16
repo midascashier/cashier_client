@@ -14,7 +14,6 @@ let DepositContent = React.createClass({
   },
 
   refreshLocalState() {
-    console.log(CashierStore.getUI());
     return {
       depositProcessors: CashierStore.getCustomer().depositProcessors,
       selectedProcessor: CashierStore.getProcessor(),
