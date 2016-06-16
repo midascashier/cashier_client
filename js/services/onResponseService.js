@@ -54,6 +54,11 @@ class OnResponseService {
 					CashierActions.getCustomerPreviousPayAccount_response(data);
 				}
 				break;
+      case actions.PAYACCOUNTS_DISABLE_RESPONSE:
+        if (data) {
+          CashierActions.getDisablePayAccount_response(data);
+        }
+        break;
 			case actions.PROCESSORS_LIMIT_RULES_RESPONSE:
 				if (data) {
 					CashierActions.getProcessorLimitRules_response(data);

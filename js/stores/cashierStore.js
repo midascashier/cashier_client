@@ -300,10 +300,10 @@ let _payAccount = {
 /**
  * PayAccount list
  *
- * @type {{payAccounts: Array}}
+ * @type {Array}
  * @private
  */
-let _payAccounts = {};
+let _payAccounts = [];
 
 let _transaction = {
 	amount: 0,
@@ -528,6 +528,13 @@ CashierDispatcher.register((payload) => {
             _payAccounts[payAccount.payAccountId] = payAccount;
           })
         }
+        break;
+      case actions.PAYACCOUNTS_DISABLE_RESPONSE:
+        var currentPayAccountId = CashierStore.getUI().payAccountId;
+        if(currentPayAccountId){
+          _payAccounts.splice(currentPayAccountId, 1);
+        }
+        CashierStore.emitChange();
         break;
 			case actions.CHANGE_PROCESSOR:
         _UI.processorId=data.processorId;
