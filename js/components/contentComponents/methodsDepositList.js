@@ -4,6 +4,12 @@ import {Loading} from '../loading'
 import {Processor} from './processor'
 
 let MethodsDepositList = React.createClass({
+  propTypes: {
+    selectedProcessor: React.PropTypes.number,
+    depositProcessors: React.PropTypes.object,
+    originPath: React.PropTypes.string,
+  },
+
 	render() {
     let isSelected = false;
 		return (
