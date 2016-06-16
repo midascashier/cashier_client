@@ -57,6 +57,27 @@ class CustomerService {
     let rabbitRequest = Object.assign(data, application);
     stompConnector.makeCustomerRequest("", rabbitRequest);
   };
+
+  /**
+   * function to get pay account previous pay accounts
+   */
+  getCustomerProcessorsMinMax() {
+    let data = {f: "getProcessorMinMaxLimits", processorId: CashierStore.getProcessor().processorId, isWithdraw: CashierStore.getIsWithdraw()};
+    let application = CashierStore.getApplication();
+    let rabbitRequest = Object.assign(data, application);
+    stompConnector.makeCustomerRequest("", rabbitRequest);
+  };
+
+  /**
+   * function to get processor limit rules
+   */
+  getProcessorLimitRules() {
+    let data = {f: "getProcessorLimits", processorId: CashierStore.getProcessor().processorId, isWithdraw: CashierStore.getIsWithdraw()};
+    let application = CashierStore.getApplication();
+    let rabbitRequest = Object.assign(data, application);
+    stompConnector.makeCustomerRequest("", rabbitRequest);
+  };
+
 }
 
 export let customerService = new CustomerService();

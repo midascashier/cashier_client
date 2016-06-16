@@ -44,12 +44,24 @@ class OnResponseService {
 			case actions.PROCESSORS_RESPONSE:
 				if (data) {
 					CashierActions.getCustomerProcessors_response(data);
+          customerService.getProcessorLimitRules();
+          customerService.getCustomerProcessorsMinMax();
           customerService.getCustomerPreviousPayAccount();
 				}
 				break;
 			case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
 				if (data) {
 					CashierActions.getCustomerPreviousPayAccount_response(data);
+				}
+				break;
+			case actions.PROCESSORS_LIMIT_RULES_RESPONSE:
+				if (data) {
+					CashierActions.getProcessorLimitRules_response(data);
+				}
+				break;
+			case actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE:
+				if (data) {
+					CashierActions.getProcessorMinMaxLimits_response(data);
 				}
 				break;
 			default:

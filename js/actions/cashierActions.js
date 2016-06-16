@@ -59,6 +59,20 @@ let CashierActions = {
 		});
 	},
 
+  getProcessorLimitRules_response: (data) => {
+		CashierDispatcher.handleServerAction({
+			action: actions.PROCESSORS_LIMIT_RULES_RESPONSE,
+			data: data
+		});
+	},
+
+  getProcessorMinMaxLimits_response: (data) => {
+    CashierDispatcher.handleServerAction({
+      action: actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE,
+      data: data
+    });
+  },
+
 	changeMethod:(data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.CHANGE_PROCESSOR,
