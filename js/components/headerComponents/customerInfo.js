@@ -3,6 +3,10 @@ import {translate} from '../../constants/translate'
 import {Loading} from '../loading'
 
 let CustomerInfo = React.createClass({
+	propTypes: {
+		customer: React.PropTypes.object
+	},
+
 	render() {
 		return (
 			<div id="customerInfo" className="col-xs-6">
