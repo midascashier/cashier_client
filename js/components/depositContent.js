@@ -1,6 +1,7 @@
 import React from 'react'
 import {Header} from './header'
 import {MethodsDepositList} from './contentComponents/methodsDepositList'
+import {MethodInfo} from './contentComponents/methodInfo'
 import {CashierStore} from '../stores/CashierStore'
 
 let DepositContent = React.createClass({
@@ -15,8 +16,10 @@ let DepositContent = React.createClass({
   refreshLocalState() {
     return {
       depositProcessors: CashierStore.getCustomer().depositProcessors,
-      selectedProcessor: CashierStore.getProcessor().processorId,
-      originPath: CashierStore.getOriginPath()
+      selectedProcessor: CashierStore.getProcessor(),
+      originPath: CashierStore.getOriginPath(),
+      customerAction: CashierStore.getCustomerAction(),
+      limits: {"min":10,"max":20,"remaining":30}
     }
   },
 
@@ -34,10 +37,10 @@ let DepositContent = React.createClass({
                 <div className="modules">
                   <div className="row">
                     <div className="col-sm-6">
-                      <MethodsDepositList selectedProcessor={this.state.selectedProcessor} depositProcessors={this.state.depositProcessors} originPath={this.state.originPath}/>
+                      <MethodsDepositList selectedProcessor={parseInt(this.state.selectedProcessor.processorId)} depositProcessors={this.state.depositProcessors} originPath={this.state.originPath}/>
                 </div>
                 <div className="col-sm-6">
-                  asd
+                      <MethodInfo selectedProcessorName={this.state.selectedProcessor.displayName} customerAction={this.state.customerAction} limits={this.state.limits}/>
                 </div>
               </div>
                 </div>

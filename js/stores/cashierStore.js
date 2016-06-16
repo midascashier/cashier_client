@@ -449,15 +449,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
    */
   getUI: () => {
     return (_UI);
-  },
-
-  /**
-   * get if state is withdraw
-   *
-   * @returns {int}
-   */
-  getIsWithdraw: () => {
-    return (_UI.customerAction == cashier.VIEW_WITHDRAW) ? 1 : 0;
   }
 
 });
@@ -486,7 +477,6 @@ CashierDispatcher.register((payload) => {
 				break;
 			case actions.LOGIN_RESPONSE:
 				_application.sid = data.response.sid;
-				console.log('sid: ' + _application.sid);
 				CashierStore.emitChange();
 				break;
 			case actions.CUSTOMER_INFO_RESPONSE:
@@ -515,6 +505,7 @@ CashierDispatcher.register((payload) => {
           processor = _customer.withdrawProcessors[0];
         }
         // set default processor
+				_UI.processorId=processor.caProcessor_Id;
         _processor.load({processorId: processor.caProcessor_Id});
         break;
       case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
@@ -529,6 +520,7 @@ CashierDispatcher.register((payload) => {
         }
         break;
 			case actions.CHANGE_PROCESSOR:
+        _UI.processorId=data.processorId;
 				_processor.load(data);
         customerService.getProcessorLimitRules();
         customerService.getCustomerProcessorsMinMax();
