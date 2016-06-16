@@ -539,9 +539,11 @@ CashierDispatcher.register((payload) => {
 				break;
       case actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE:
         _processor.limits = data.response.processorMinMaxLimits;
+				CashierStore.emitChange();
         break;
       case actions.PROCESSORS_LIMIT_RULES_RESPONSE:
         _processor.limitRules = data.response.processorLimits;
+				CashierStore.emitChange();
         break;
 			default:
 				console.log("Store No Action");

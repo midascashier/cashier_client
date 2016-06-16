@@ -14,13 +14,11 @@ let DepositContent = React.createClass({
   },
 
   refreshLocalState() {
-    console.log(CashierStore.getProcessor());
     return {
       depositProcessors: CashierStore.getCustomer().depositProcessors,
       selectedProcessor: CashierStore.getProcessor(),
       originPath: CashierStore.getOriginPath(),
-      customerAction: CashierStore.getCustomerAction(),
-      limits: {"min":10,"max":20,"remaining":30}
+      customerAction: CashierStore.getCustomerAction()
     }
   },
 
@@ -41,7 +39,7 @@ let DepositContent = React.createClass({
                       <MethodsDepositList selectedProcessor={parseInt(this.state.selectedProcessor.processorId)} depositProcessors={this.state.depositProcessors} originPath={this.state.originPath}/>
                 </div>
                 <div className="col-sm-6">
-                      <MethodInfo selectedProcessorName={this.state.selectedProcessor.displayName} customerAction={this.state.customerAction} limits={this.state.limits}/>
+                      <MethodInfo selectedProcessorName={this.state.selectedProcessor.displayName} customerAction={this.state.customerAction} limits={this.state.selectedProcessor}/>
                 </div>
               </div>
                 </div>
