@@ -36,7 +36,7 @@ let DepositContent = React.createClass({
                 <div className="modules">
                   <div className="row">
                     <div className="col-sm-6">
-                      <MethodsDepositList selectedProcessor={this.state.selectedProcessor.processorId} depositProcessors={this.state.depositProcessors} originPath={this.state.originPath}/>
+                      <MethodsDepositList selectedProcessor={parseInt(this.state.selectedProcessor.processorId)} depositProcessors={this.state.depositProcessors} originPath={this.state.originPath}/>
                 </div>
                 <div className="col-sm-6">
                       <MethodInfo selectedProcessorName={this.state.selectedProcessor.displayName} customerAction={this.state.customerAction} />

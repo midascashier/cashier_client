@@ -6,7 +6,7 @@ import {Processor} from './processor'
 let MethodsDepositList = React.createClass({
   propTypes: {
     selectedProcessor: React.PropTypes.number,
-    depositProcessors: React.PropTypes.object,
+    depositProcessors: React.PropTypes.array,
     originPath: React.PropTypes.string
   },
 
