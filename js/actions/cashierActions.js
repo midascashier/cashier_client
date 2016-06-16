@@ -59,6 +59,13 @@ let CashierActions = {
 		});
 	},
 
+  getDisablePayAccount_response: (data) => {
+    CashierDispatcher.handleServerAction({
+      action: actions.PAYACCOUNTS_DISABLE_RESPONSE,
+      data: data
+    });
+  },
+
   getProcessorLimitRules_response: (data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.PROCESSORS_LIMIT_RULES_RESPONSE,

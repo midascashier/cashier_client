@@ -59,6 +59,16 @@ class CustomerService {
   };
 
   /**
+   * function to disable pay account
+   */
+  getDisablePayAccount() {
+    let data = {f: "disablePayAccount", payAccountId: CashierStore.getUI().payAccountId};
+    let application = CashierStore.getApplication();
+    let rabbitRequest = Object.assign(data, application);
+    stompConnector.makeCustomerRequest("", rabbitRequest);
+  };
+
+  /**
    * function to get pay account previous pay accounts
    */
   getCustomerProcessorsMinMax() {
