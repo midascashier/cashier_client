@@ -449,6 +449,15 @@ let CashierStore = assign({}, EventEmitter.prototype, {
    */
   getUI: () => {
     return (_UI);
+  },
+
+  /**
+   * get if state is withdraw
+   *
+   * @returns {int}
+   */
+  getIsWithdraw: () => {
+    return (_UI.customerAction == cashier.VIEW_WITHDRAW) ? 1 : 0;
   }
 
 });
@@ -477,6 +486,7 @@ CashierDispatcher.register((payload) => {
 				break;
 			case actions.LOGIN_RESPONSE:
 				_application.sid = data.response.sid;
+        console.log('sid: ' + _application.sid);
 				CashierStore.emitChange();
 				break;
 			case actions.CUSTOMER_INFO_RESPONSE:
