@@ -1,6 +1,6 @@
 import React from 'react'
 import {translate} from '../../constants/translate'
-import {Loading} from '../loading'
+import {LoadingSpinner} from '../loading/loadingSpinner'
 import {Processor} from './processor'
 
 let MethodsDepositList = React.createClass({
@@ -23,21 +23,24 @@ let MethodsDepositList = React.createClass({
               </div>
               <div className="col-sm-12">
                 <div className="processors infoCol">
-                  {(() => {
-                    if (this.props.depositProcessors.length==0) {
-                      return <Loading />;
-                    }
-                  })()}
+                  <div className="row">
 
-                  {this.props.depositProcessors.map((data, i)=>{
+                    {(() => {
+                      if (this.props.depositProcessors.length==0) {
+                        return <LoadingSpinner />;
+                      }
+                    })()}
+
+                    {this.props.depositProcessors.map((data, i)=>{
                       if (this.props.selectedProcessor==data.caProcessor_Id){
                         isSelected=true;
                       }else{
                         isSelected=false;
                       }
                       return <Processor key={data.caProcessor_Id} selected={isSelected} processor={data} originPath={this.props.originPath}/>;
-                  })}
+                    })}
 
+                  </div>
                 </div>
               </div>
             </div>

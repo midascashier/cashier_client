@@ -1,5 +1,5 @@
 import React from 'react'
-import {Loading} from '../loading'
+import {LoadingSpinner} from '../loading/loadingSpinner'
 
 let MethodInfo = React.createClass({
 	propTypes: {
@@ -11,8 +11,8 @@ let MethodInfo = React.createClass({
 		return (
 			<div id="methodInfo">
 				{(() => {
-					if (!this.props.selectedProcessor.displayName) {
-						return <Loading />;
+					if (!this.props.selectedProcessorName) {
+						return <LoadingSpinner />;
 					}else{
 						return <div>
 							<div><h3>{this.props.selectedProcessor.displayName} {this.props.customerAction} Limits</h3></div><br/><br/>
