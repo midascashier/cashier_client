@@ -2,7 +2,6 @@ import React from 'react'
 import {Loading} from '../loading'
 
 let MethodInfo = React.createClass({
-
 	propTypes: {
 		selectedProcessorName: React.PropTypes.string,
 		customerAction: React.PropTypes.string
