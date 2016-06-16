@@ -3,23 +3,22 @@ import {Loading} from '../loading'
 
 let MethodInfo = React.createClass({
 	propTypes: {
-		selectedProcessorName: React.PropTypes.string,
-		customerAction: React.PropTypes.string,
-		limits: React.PropTypes.array
+		selectedProcessor: React.PropTypes.object,
+		customerAction: React.PropTypes.string
 	},
 
 	render() {
 		return (
 			<div id="methodInfo">
 				{(() => {
-					if (!this.props.selectedProcessorName) {
+					if (!this.props.selectedProcessor.displayName) {
 						return <Loading />;
 					}else{
 						return <div>
-							<div><h3>{this.props.selectedProcessorName} {this.props.customerAction} Limits</h3></div><br/><br/>
-							<div>Min. Deposit: $ {this.props.limits.currencyMin} </div><hr/>
-							<div>Max. Deposit: $ {this.props.limits.currencyMax} </div><hr/><br/><br/>
-							<div><button type="button">Deposit With {this.props.selectedProcessorName}</button></div>
+							<div><h3>{this.props.selectedProcessor.displayName} {this.props.customerAction} Limits</h3></div><br/><br/>
+							<div>Min. Deposit: {parseFloat(this.props.selectedProcessor.limits.currencyMin)} {this.props.selectedProcessor.limits.currencyCode}</div><hr/>
+							<div>Max. Deposit: {parseFloat(this.props.selectedProcessor.limits.currencyMax)} {this.props.selectedProcessor.limits.currencyCode}</div><hr/><br/><br/>
+							<div><button type="button">Deposit With {this.props.selectedProcessor.displayName}</button></div>
 						</div>
 					}
 				})()}

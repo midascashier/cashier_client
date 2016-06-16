@@ -39,7 +39,7 @@ let DepositContent = React.createClass({
                       <MethodsDepositList selectedProcessor={parseInt(this.state.selectedProcessor.processorId)} depositProcessors={this.state.depositProcessors} originPath={this.state.originPath}/>
                 </div>
                 <div className="col-sm-6">
-                      <MethodInfo selectedProcessorName={this.state.selectedProcessor.displayName} customerAction={this.state.customerAction} limits={this.state.selectedProcessor}/>
+                      <MethodInfo selectedProcessor={this.state.selectedProcessor} customerAction={this.state.customerAction}/>
                 </div>
               </div>
                 </div>
