@@ -13,9 +13,9 @@ let Header = React.createClass({
 	},
 
 	refreshLocalState() {
-		let step = CashierStore.getUI();
+		let step = CashierStore.getCurrentStep();
 		return {
-			step: step.currentStep
+			step: step
 		}
 	},
 

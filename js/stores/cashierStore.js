@@ -362,15 +362,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
-	 * set current step
-	 *
-	 * @param step
-	 */
-	setCurrentStep: (step) => {
-		_UI.currentStep = step;
-	},
-
-	/**
 	 * get current step
 	 *
 	 * @returns {string}
@@ -486,6 +477,7 @@ CashierDispatcher.register((payload) => {
 				break;
 			case actions.LOGIN_RESPONSE:
 				_application.sid = data.response.sid;
+				_UI.currentStep=1;
         console.log('sid: ' + _application.sid);
 				CashierStore.emitChange();
 				break;
