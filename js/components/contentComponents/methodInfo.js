@@ -9,7 +9,7 @@ let MethodInfo = React.createClass({
 	},
 
 	askInfo: function() {
-		CashierActions.askInfo();
+		CashierActions.askInfoStep();
 	},
 
 	render() {

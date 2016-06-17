@@ -4,6 +4,8 @@ import {MethodsDepositList} from './contentComponents/methodsDepositList'
 import {MethodInfo} from './contentComponents/methodInfo'
 import {CashierStore} from '../stores/CashierStore'
 import {LoadingSpinner} from '../components/loading/loadingSpinner'
+import {AskInfo} from './methods/askInfo'
+import {ProcessorMethodInfo} from './methods/infoMethod'
 
 let DepositContent = React.createClass({
   getInitialState(){
@@ -20,7 +22,8 @@ let DepositContent = React.createClass({
       selectedProcessor: CashierStore.getProcessor(),
       originPath: CashierStore.getOriginPath(),
       customerAction: CashierStore.getCustomerAction(),
-      currentStep: CashierStore.getCurrentStep()
+      currentStep: CashierStore.getCurrentStep(),
+      customerOption: CashierStore.getCustomerAction()
     }
   },
 
@@ -28,6 +31,9 @@ let DepositContent = React.createClass({
     this.setState(this.refreshLocalState());
   },
 
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
 	render() {
 		return (
         <div id="depositContent">
@@ -45,6 +51,9 @@ let DepositContent = React.createClass({
                                               depositProcessors={this.state.depositProcessors}
                                               originPath={this.state.originPath}/>
                         }
+                        if (this.state.currentStep==2) {
+                          return <AskInfo customerOption={this.state.customerOption} selectedProcessor={this.state.selectedProcessor} />;
+                        }
                       })()}
                     </div>
                     <div className="col-sm-6">
@@ -52,7 +61,14 @@ let DepositContent = React.createClass({
                         if (!this.state.selectedProcessor.processorId) {
                           return <LoadingSpinner />;
                         }else{
-                          return <MethodInfo selectedProcessor={this.state.selectedProcessor} customerAction={this.state.customerAction} originPath={this.state.originPath}/>;
+                          if (this.state.currentStep==1) {
+                            return <MethodInfo selectedProcessor={this.state.selectedProcessor}
+                                               customerAction={this.state.customerAction}
+                                               originPath={this.state.originPath}/>;
+                          }
+                          if (this.state.currentStep==2) {
+                            return <ProcessorMethodInfo selectedProcessor={this.state.selectedProcessor} originPath={this.state.originPath} />;
+                          }
                         }
                       })()}
                     </div>

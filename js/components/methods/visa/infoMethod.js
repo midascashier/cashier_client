@@ -18,7 +18,6 @@ const InfoMethod = React.createClass({
 
 let VisaInfo = React.createClass({
 	render() {
-		CashierStore.setCurrentStep("infoMethod");
 		return (
 			<div id="infoVisa">
 				<InfoMethod />
