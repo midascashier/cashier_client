@@ -2,10 +2,23 @@ import React from 'react'
 
 const NetellerInfoMethod = React.createClass({
 	propTypes: {
-		originPath: React.PropTypes.string
+		selectedProcessor: React.PropTypes.object,
+		originPath: React.PropTypes.string,
+		currency: React.PropTypes.string
 	},
 
 	render() {
+		let minCustomer;
+		let maxCustomer;
+		for (let i=0;i<this.props.selectedProcessor.limitRules.length;i++){
+			if (this.props.selectedProcessor.limitRules[i].description=="min"){
+				minCustomer = this.props.selectedProcessor.limitRules[i].customerValue;
+			}
+			if (this.props.selectedProcessor.limitRules[i].description=="max"){
+				maxCustomer = this.props.selectedProcessor.limitRules[i].customerValue;
+			}
+		}
+
 		return (
 			<div id="infoLimits" className="row">
         <div className="col-sm-12">
@@ -15,23 +28,11 @@ const NetellerInfoMethod = React.createClass({
               <tbody>
                 <tr>
                   <td>Min. Deposit:</td>
-                  <td><span>$10</span></td>
+                  <td><span>{minCustomer} {this.props.currency}</span></td>
                 </tr>
                 <tr>
                   <td>Max. Deposit:</td>
-                  <td><span>$640 / 24 hours</span></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td><span>$1,500 / 7 Days</span></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td><span>$2000 / 24 hours</span></td>
-                </tr>
-                <tr>
-                  <td>Remaining Limit:</td>
-                  <td><span>$640.00</span></td>
+                  <td><span>{maxCustomer} {this.props.currency}</span></td>
                 </tr>
               </tbody>
             </table>
