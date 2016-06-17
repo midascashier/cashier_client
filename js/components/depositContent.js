@@ -19,7 +19,8 @@ let DepositContent = React.createClass({
       depositProcessors: CashierStore.getCustomer().depositProcessors,
       selectedProcessor: CashierStore.getProcessor(),
       originPath: CashierStore.getOriginPath(),
-      customerAction: CashierStore.getCustomerAction()
+      customerAction: CashierStore.getCustomerAction(),
+      currentStep: CashierStore.getCurrentStep()
     }
   },
 
@@ -37,7 +38,13 @@ let DepositContent = React.createClass({
                 <div className="modules">
                   <div className="row">
                     <div className="col-sm-6">
-                      <MethodsDepositList selectedProcessor={parseInt(this.state.selectedProcessor.processorId)} depositProcessors={this.state.depositProcessors} originPath={this.state.originPath}/>
+                      {(() => {
+                        if (this.state.currentStep==1) {
+                          return <MethodsDepositList selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
+                                              depositProcessors={this.state.depositProcessors}
+                                              originPath={this.state.originPath}/>
+                        }
+                      })()}
                     </div>
                     <div className="col-sm-6">
                       {(() => {
