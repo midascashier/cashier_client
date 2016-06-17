@@ -52,7 +52,7 @@ let DepositContent = React.createClass({
                         if (!this.state.selectedProcessor.processorId) {
                           return <LoadingSpinner />;
                         }else{
-                          return <MethodInfo selectedProcessor={this.state.selectedProcessor} customerAction={this.state.customerAction} originPath={this.props.originPath}/>;
+                          return <MethodInfo selectedProcessor={this.state.selectedProcessor} customerAction={this.state.customerAction} originPath={this.state.originPath}/>;
                         }
                       })()}
                     </div>
