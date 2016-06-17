@@ -1,11 +1,11 @@
 import React from 'react'
-import {CashierStore} from '../../stores/cashierStore'
 import {CashierActions} from '../../actions/cashierActions'
 
 let MethodInfo = React.createClass({
 	propTypes: {
 		selectedProcessor: React.PropTypes.object,
-		customerAction: React.PropTypes.string
+		customerAction: React.PropTypes.string,
+    originPath: React.PropTypes.string
 	},
 
 	askInfo: function() {
@@ -47,7 +47,7 @@ let MethodInfo = React.createClass({
                 <button type="button" className="btn btn-green" onClick={this.askInfo}>Deposit with {this.props.selectedProcessor.displayName}</button>
               </div>
               <div className="col-sm-6">
-                <img src={CashierStore.getOriginPath() + '/images/ssl.png'} alt="ssl"/>
+                <img src={this.props.originPath + '/images/ssl.png'} alt="ssl"/>
               </div>
             </div>
 
