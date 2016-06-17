@@ -3,6 +3,7 @@ import {Header} from './header'
 import {MethodsDepositList} from './contentComponents/methodsDepositList'
 import {MethodInfo} from './contentComponents/methodInfo'
 import {CashierStore} from '../stores/CashierStore'
+import {LoadingSpinner} from '../components/loading/loadingSpinner'
 
 let DepositContent = React.createClass({
   getInitialState(){
@@ -37,10 +38,16 @@ let DepositContent = React.createClass({
                   <div className="row">
                     <div className="col-sm-6">
                       <MethodsDepositList selectedProcessor={parseInt(this.state.selectedProcessor.processorId)} depositProcessors={this.state.depositProcessors} originPath={this.state.originPath}/>
-                </div>
-                <div className="col-sm-6">
-                      <MethodInfo selectedProcessor={this.state.selectedProcessor} customerAction={this.state.customerAction}/>
-                </div>
+                    </div>
+                    <div className="col-sm-6">
+                      {(() => {
+                        if (!this.state.selectedProcessor.processorId) {
+                          return <LoadingSpinner />;
+                        }else{
+                          return <MethodInfo selectedProcessor={this.state.selectedProcessor} customerAction={this.state.customerAction}/>;
+                        }
+                      })()}
+                    </div>
               </div>
                 </div>
               </div>

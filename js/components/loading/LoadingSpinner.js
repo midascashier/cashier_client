@@ -3,7 +3,7 @@ import React from 'react'
 let LoadingSpinner = React.createClass({
 	render() {
 		return (
-			<span id="loader-sm" className="loader-sm"></span>
+			<span className="loader-sm"></span>
 		)
 	}
 });
