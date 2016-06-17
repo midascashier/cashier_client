@@ -7,19 +7,19 @@ import {translate} from '../../../constants/translate'
 import {Link} from 'react-router'
 
 const AskInfo = React.createClass({
-	getInitialState: function () {
-		CashierStore.setCurrentStep("askInfo");
-		return { canSubmit: false };
+	propTypes: {
+		selectedProcessor: React.PropTypes.object,
+		customerOption: React.PropTypes.string
 	},
-	submit(data) {
-		alert(JSON.stringify(data, null, 4));
+
+	componentDidMount: function() {
+		this.context.router.push('/'+this.props.customerOption+'/'+this.props.selectedProcessor.displayName.toLowerCase()+'/');
 	},
-	enableButton() {
-		this.setState({ canSubmit: true });
+
+	contextTypes: {
+		router: React.PropTypes.object.isRequired
 	},
-	disableButton() {
-		this.setState({ canSubmit: false });
-	},
+
 	render() {
 		return (
 			<div id="askAmount" className="box">
@@ -56,20 +56,4 @@ const AskInfo = React.createClass({
 	}
 });
 
-let NetellerAskInfo = React.createClass({
-	render() {
-		return (
-			<div id="askInfo">
-        <div className="col-sm-6">
-          <p><Link to={`/transaction_history/`}>{translate('METHOD_TRANSACTION_HISTORY')}</Link></p>
-          <AskInfo />
-        </div>
-        <div className="col-sm-6">
-          <InfoMethod />
-        </div>
-			</div>
-		)
-	}
-});
-
-module.exports.NetellerAskInfo = NetellerAskInfo;
+module.exports.NetellerAskInfo = AskInfo;

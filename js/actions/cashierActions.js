@@ -99,8 +99,13 @@ let CashierActions = {
 			action: actions.CHANGE_PROCESSOR,
 			data: data
 		});
+	},
+
+	askInfoStep:() => {
+		CashierDispatcher.handleServerAction({
+			action: actions.ASKINFO
+		});
 	}
-	
 };
 
 module.exports.CashierActions = CashierActions;

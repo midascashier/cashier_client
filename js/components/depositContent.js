@@ -6,6 +6,8 @@ import {MethodInfo} from './contentComponents/methodInfo'
 import {CashierStore} from '../stores/CashierStore'
 import {CashierActions} from '../actions/cashierActions'
 import {LoadingSpinner} from '../components/loading/loadingSpinner'
+import {AskInfo} from './methods/askInfo'
+import {ProcessorMethodInfo} from './methods/infoMethod'
 import {translate} from '../constants/translate'
 
 let DepositContent = React.createClass({
@@ -23,7 +25,8 @@ let DepositContent = React.createClass({
       selectedProcessor: CashierStore.getProcessor(),
       originPath: CashierStore.getOriginPath(),
       customerAction: CashierStore.getCustomerAction(),
-      transactions: CashierStore.getCustomer().lastTransactions
+      currentStep: CashierStore.getCurrentStep(),
+      customerOption: CashierStore.getCustomerAction()
     }
   },
 
@@ -31,6 +34,10 @@ let DepositContent = React.createClass({
     this.setState(this.refreshLocalState());
   },
 
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+  
   getTransactions: function() {
     CashierActions.getCustomerTransactions();
   },
@@ -48,14 +55,30 @@ let DepositContent = React.createClass({
                       <Link to={`/transaction_history/`} onClick={this.getTransactions} transaction={this.state.transactions}>
                         <p>{translate('TRANSACTION_HISTORY')}</p>
                       </Link>
-                      <MethodsDepositList selectedProcessor={parseInt(this.state.selectedProcessor.processorId)} depositProcessors={this.state.depositProcessors} originPath={this.state.originPath}/>
+                      {(() => {
+                        if (this.state.currentStep==1) {
+                          return <MethodsDepositList selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
+                                              depositProcessors={this.state.depositProcessors}
+                                              originPath={this.state.originPath}/>
+                        }
+                        if (this.state.currentStep==2) {
+                          return <AskInfo customerOption={this.state.customerOption} selectedProcessor={this.state.selectedProcessor} />;
+                        }
+                      })()}
                     </div>
                     <div className="col-sm-6">
                       {(() => {
                         if (!this.state.selectedProcessor.processorId) {
                           return <LoadingSpinner />;
                         }else{
-                          return <MethodInfo selectedProcessor={this.state.selectedProcessor} customerAction={this.state.customerAction} originPath={this.state.originPath}/>;
+                          if (this.state.currentStep==1) {
+                            return <MethodInfo selectedProcessor={this.state.selectedProcessor}
+                                               customerAction={this.state.customerAction}
+                                               originPath={this.state.originPath}/>;
+                          }
+                          if (this.state.currentStep==2) {
+                            return <ProcessorMethodInfo selectedProcessor={this.state.selectedProcessor} originPath={this.state.originPath} />;
+                          }
                         }
                       })()}
                     </div>

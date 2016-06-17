@@ -551,6 +551,10 @@ CashierDispatcher.register((payload) => {
         _processor.limitRules = data.response.processorLimits;
 				CashierStore.emitChange();
         break;
+			case actions.ASKINFO:
+				_UI.currentStep=2;
+				CashierStore.emitChange();
+				break;
 			default:
 				console.log("Store No Action");
 				break;

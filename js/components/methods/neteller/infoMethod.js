@@ -1,24 +1,13 @@
 import React from 'react'
-import {Link} from 'react-router'
-import {CashierStore} from '../../../stores/CashierStore';
 
-const InfoMethod = React.createClass({
-	getInitialState: function () {
-		let button_text = "";
-		let next_step = "";
-		if (CashierStore.getCurrentStep() == "infoMethod") {
-			button_text = "Deposit With Neteller";
-			next_step = "askinfo";
-		} else {
-			button_text = "Complete Deposit";
-			next_step = "ticket";
-		}
-		return { button_text: button_text, next_step: next_step};
+const NetellerInfoMethod = React.createClass({
+	propTypes: {
+		originPath: React.PropTypes.string
 	},
+
 	render() {
 		return (
 			<div id="infoLimits" className="row">
-        <p><a href="#">Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></a></p>
         <div className="col-sm-12">
           <div className="title">Neteller Deposit Limits</div>
           <div className="table-responsive">
@@ -51,10 +40,10 @@ const InfoMethod = React.createClass({
             <div className="col-sm-12">
               <div className="row">
                 <div className="col-sm-6">
-                  <b><Link to={`/deposit/neteller/${this.state.next_step}`}>{this.state.button_text} >></Link></b>
+                  <b>BOTON</b>
                 </div>
                 <div className="col-sm-6">
-                  <img src={CashierStore.getOriginPath() + '/images/ssl.png'} alt="ssl"/>
+                  <img src={this.props.originPath + '/images/ssl.png'} alt="ssl"/>
                 </div>
               </div>
             </div>
@@ -65,19 +54,4 @@ const InfoMethod = React.createClass({
 	}
 });
 
-let NetellerInfo = React.createClass({
-	getInitialState: function () {
-		CashierStore.setCurrentStep("infoMethod");
-		return null;
-	},
-	render() {
-		return (
-			<div id="infoMethod">
-				<InfoMethod />
-			</div>
-		)
-	}
-});
-
-module.exports.NetellerInfo = NetellerInfo;
-module.exports.InfoMethod = InfoMethod;
+module.exports.NetellerInfoMethod = NetellerInfoMethod;
