@@ -1,4 +1,6 @@
 import React from 'react'
+import {CashierStore} from '../../stores/cashierStore'
+import {CashierActions} from '../../actions/cashierActions'
 
 let MethodInfo = React.createClass({
 	propTypes: {
@@ -18,14 +20,40 @@ let MethodInfo = React.createClass({
 			this.props.selectedProcessor.limits.currencyMax=0;
 		}
 		return (
-			<div id="methodInfo">
-          <div>
-            <div><h3>{this.props.selectedProcessor.displayName} {this.props.customerAction} Limits</h3></div><br/><br/>
-            <div>Min. Deposit: {parseFloat(this.props.selectedProcessor.limits.currencyMin)} {this.props.selectedProcessor.limits.currencyCode}</div><hr/>
-            <div>Max. Deposit: {parseFloat(this.props.selectedProcessor.limits.currencyMax)} {this.props.selectedProcessor.limits.currencyCode}</div><hr/><br/><br/>
-            <div><button onClick={this.askInfo} type="button">Deposit With {this.props.selectedProcessor.displayName}</button></div>
+      <div id="infoLimits">
+        <p><a href="#">Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></a></p>
+        <div className="row">
+          <div className="col-sm-12">
+            <div className="deposit-limits">
+              <div className="title">{this.props.selectedProcessor.displayName} {this.props.customerAction} Limits</div>
+              <div className="table-responsive">
+                <table className="table table-striped">
+                  <tbody>
+                    <tr>
+                      <td>Min. Deposit:</td>
+                      <td><span>{parseFloat(this.props.selectedProcessor.limits.currencyMin)} {this.props.selectedProcessor.limits.currencyCode}</span></td>
+                    </tr>
+                    <tr>
+                      <td>Max. Deposit:</td>
+                      <td><span>{parseFloat(this.props.selectedProcessor.limits.currencyMax)} {this.props.selectedProcessor.limits.currencyCode}</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-sm-6">
+                <button type="button" className="btn btn-green" onClick={this.askInfo}>Deposit with {this.props.selectedProcessor.displayName}</button>
+              </div>
+              <div className="col-sm-6">
+                <img src={CashierStore.getOriginPath() + '/images/ssl.png'} alt="ssl"/>
+              </div>
+            </div>
+
           </div>
-			</div>
+        </div>
+      </div>
 		)
 	}
 });
