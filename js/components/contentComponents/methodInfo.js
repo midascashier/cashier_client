@@ -8,10 +8,16 @@ let MethodInfo = React.createClass({
 	},
 
 	render() {
+		if (!this.props.selectedProcessor.limits.currencyMin){
+			this.props.selectedProcessor.limits.currencyMin=0;
+		}
+		if (!this.props.selectedProcessor.limits.currencyMax){
+			this.props.selectedProcessor.limits.currencyMax=0;
+		}
 		return (
 			<div id="methodInfo">
 				{(() => {
-					if (!this.props.selectedProcessorName) {
+					if (!this.props.selectedProcessor.displayName) {
 						return <LoadingSpinner />;
 					}else{
 						return <div>
