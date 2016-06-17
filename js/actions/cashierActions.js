@@ -30,6 +30,20 @@ let CashierActions = {
       data: data
     });
   },
+
+  getCustomerTransactions: (data) => {
+    CashierDispatcher.handleServerAction({
+      action: actions.CUSTOMER_TRANSACTIONS,
+      data: data
+    });
+  },
+
+  getCustomerTransactions_response: (data) => {
+    CashierDispatcher.handleServerAction({
+      action: actions.CUSTOMER_TRANSACTIONS_RESPONSE,
+      data: data
+    });
+  },
   
   companyInfo_response: (data) => {
     CashierDispatcher.handleServerAction({

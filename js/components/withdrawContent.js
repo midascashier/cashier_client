@@ -1,4 +1,5 @@
 import React from 'react'
+import {translate} from '../constants/translate'
 import {CashierStore} from '../stores/CashierStore'
 import {Header} from './header'
 import {MethodsWithdrawList} from './contentComponents/methodsWithdrawList'
@@ -26,7 +27,7 @@ let WithdrawContent = React.createClass({
                       return (
                           <div className="row">
                             <div className="col-sm-6">
-                              <p><a href="#">Transaction History</a></p>
+                              <p><a href="/transaction_history/">{translate('TRANSACTION_HISTORY')}</a></p>
                               <MethodsWithdrawList />
                             </div>
                             <div className="col-sm-6">

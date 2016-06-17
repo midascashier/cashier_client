@@ -1,9 +1,12 @@
 import React from 'react'
+import {Link} from 'react-router'
 import {Header} from './header'
 import {MethodsDepositList} from './contentComponents/methodsDepositList'
 import {MethodInfo} from './contentComponents/methodInfo'
 import {CashierStore} from '../stores/CashierStore'
+import {CashierActions} from '../actions/cashierActions'
 import {LoadingSpinner} from '../components/loading/loadingSpinner'
+import {translate} from '../constants/translate'
 
 let DepositContent = React.createClass({
   getInitialState(){
@@ -19,12 +22,17 @@ let DepositContent = React.createClass({
       depositProcessors: CashierStore.getCustomer().depositProcessors,
       selectedProcessor: CashierStore.getProcessor(),
       originPath: CashierStore.getOriginPath(),
-      customerAction: CashierStore.getCustomerAction()
+      customerAction: CashierStore.getCustomerAction(),
+      transactions: CashierStore.getCustomer().lastTransactions
     }
   },
 
   _onChange() {
     this.setState(this.refreshLocalState());
+  },
+
+  getTransactions: function() {
+    CashierActions.getCustomerTransactions();
   },
 
 	render() {
@@ -37,7 +45,9 @@ let DepositContent = React.createClass({
                 <div className="modules">
                   <div className="row">
                     <div className="col-sm-6">
-                      <p><a href="#">Transaction History</a></p>
+                      <Link to={`/transaction_history/`} onClick={this.getTransactions} transaction={this.state.transactions}>
+                        <p>{translate('TRANSACTION_HISTORY')}</p>
+                      </Link>
                       <MethodsDepositList selectedProcessor={parseInt(this.state.selectedProcessor.processorId)} depositProcessors={this.state.depositProcessors} originPath={this.state.originPath}/>
                     </div>
                     <div className="col-sm-6">
@@ -45,7 +55,7 @@ let DepositContent = React.createClass({
                         if (!this.state.selectedProcessor.processorId) {
                           return <LoadingSpinner />;
                         }else{
-                          return <MethodInfo selectedProcessor={this.state.selectedProcessor} customerAction={this.state.customerAction} originPath={this.props.originPath}/>;
+                          return <MethodInfo selectedProcessor={this.state.selectedProcessor} customerAction={this.state.customerAction} originPath={this.state.originPath}/>;
                         }
                       })()}
                     </div>

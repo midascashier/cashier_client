@@ -49,10 +49,20 @@ class CustomerService {
   };
 
   /**
+   * function to get Customer Last transactions
+   */
+  getCustomerTransactions() {
+    let data = {f: "transactions", type: 0, limit: 10};
+    let application = CashierStore.getApplication();
+    let rabbitRequest = Object.assign(data, application);
+    stompConnector.makeCustomerRequest("", rabbitRequest);
+  };
+
+  /**
    * function to get pay account previous pay accounts
    */
   getCustomerPreviousPayAccount() {
-    let data = {f: "getPayAccountsByCustomer", processorId: CashierStore.getProcessor().processorId};
+    let data = {f: "getPayAccountsByCustomer", processorId: CashierStore.getProcessor().processorId, isWithdraw: CashierStore.getIsWithdraw()};
     let application = CashierStore.getApplication();
     let rabbitRequest = Object.assign(data, application);
     stompConnector.makeCustomerRequest("", rabbitRequest);
@@ -62,7 +72,7 @@ class CustomerService {
    * function to disable pay account
    */
   getDisablePayAccount() {
-    let data = {f: "disablePayAccount", payAccountId: CashierStore.getUI().payAccountId};
+    let data = {f: "disableCustomerPayAccount", payAccountId: CashierStore.getUI().payAccountId};
     let application = CashierStore.getApplication();
     let rabbitRequest = Object.assign(data, application);
     stompConnector.makeCustomerRequest("", rabbitRequest);

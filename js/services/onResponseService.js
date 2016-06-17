@@ -31,6 +31,11 @@ class OnResponseService {
 					CashierActions.companyInfo_response(data);
 				}
 				break;
+      case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
+        if (data) {
+          CashierActions.getCustomerTransactions_response(data);
+        }
+        break;
 			case actions.COUNTRIES_RESPONSE:
 				if (data) {
 					CashierActions.countries_response(data);

@@ -93,6 +93,7 @@ let _customer = {
 	depositProcessors: [],
 	withdrawProcessors: [],
 	pendingP2PTransactions: [],
+  lastTransactions: {},
   load(data){
     this.companyId = data.companyId;
     this.customerId = data.customerId;
@@ -391,7 +392,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
   /**
    * get customer
    *
-   * @returns {{companyId: number, customerId: number, username: string, password: string, currency: string, currencySymbol: string, balance: string, balanceBP: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array}}
+   * @returns {{companyId: number, customerId: number, username: string, password: string, currency: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, load: (function(*))}}
    */
 	getCustomer: () => {
 		return (_customer);
@@ -488,6 +489,12 @@ CashierDispatcher.register((payload) => {
       case actions.COMPANY_INFO_RESPONSE:
         _company.load(data.response.companyInformation);
         CashierStore.emitChange();
+        break;
+      case actions.CUSTOMER_TRANSACTIONS:
+        customerService.getCustomerTransactions();
+        break;
+      case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
+        _customer.lastTransactions = data.response.transactions;
         break;
 			case actions.COUNTRIES_RESPONSE:
 				_UI.countries = data.response.countries;
