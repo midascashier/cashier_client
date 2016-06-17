@@ -38,6 +38,7 @@ let DepositContent = React.createClass({
                 <div className="modules">
                   <div className="row">
                     <div className="col-sm-6">
+                      <p><a href="#">Transaction History</a></p>
                       {(() => {
                         if (this.state.currentStep==1) {
                           return <MethodsDepositList selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
@@ -51,7 +52,7 @@ let DepositContent = React.createClass({
                         if (!this.state.selectedProcessor.processorId) {
                           return <LoadingSpinner />;
                         }else{
-                          return <MethodInfo selectedProcessor={this.state.selectedProcessor} customerAction={this.state.customerAction}/>;
+                          return <MethodInfo selectedProcessor={this.state.selectedProcessor} customerAction={this.state.customerAction} originPath={this.props.originPath}/>;
                         }
                       })()}
                     </div>

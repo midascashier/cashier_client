@@ -17,7 +17,7 @@ let WithdrawContent = React.createClass({
                     if(CashierStore.getCurrentStep() == 'infoMethod'){
                       return (
                           <div className="row">
-                            <div className="col-sm-12">
+                            <div className="col-sm-6">
                               {this.props.children}
                             </div>
                           </div>
@@ -26,6 +26,7 @@ let WithdrawContent = React.createClass({
                       return (
                           <div className="row">
                             <div className="col-sm-6">
+                              <p><a href="#">Transaction History</a></p>
                               <MethodsWithdrawList />
                             </div>
                             <div className="col-sm-6">
