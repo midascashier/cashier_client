@@ -6,6 +6,10 @@ let MethodInfo = React.createClass({
 		customerAction: React.PropTypes.string
 	},
 
+	askInfo: function() {
+		CashierActions.askInfo();
+	},
+
 	render() {
 		if (!this.props.selectedProcessor.limits.currencyMin){
 			this.props.selectedProcessor.limits.currencyMin=0;
@@ -19,7 +23,7 @@ let MethodInfo = React.createClass({
             <div><h3>{this.props.selectedProcessor.displayName} {this.props.customerAction} Limits</h3></div><br/><br/>
             <div>Min. Deposit: {parseFloat(this.props.selectedProcessor.limits.currencyMin)} {this.props.selectedProcessor.limits.currencyCode}</div><hr/>
             <div>Max. Deposit: {parseFloat(this.props.selectedProcessor.limits.currencyMax)} {this.props.selectedProcessor.limits.currencyCode}</div><hr/><br/><br/>
-            <div><button type="button">Deposit With {this.props.selectedProcessor.displayName}</button></div>
+            <div><button onClick={this.askInfo} type="button">Deposit With {this.props.selectedProcessor.displayName}</button></div>
           </div>
 			</div>
 		)
