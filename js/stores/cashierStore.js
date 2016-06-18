@@ -60,7 +60,6 @@ let _customer = {
 	customerId: 0,
 	username: '',
 	password: '',
-	currency: '',
 	currencySymbol: '',
 	balance: '',
 	balanceBP: '',
@@ -332,6 +331,17 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	addChangeListener: function (callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
+
+	/**
+	 * get Payaccount
+	 *
+	 */
+	getPayAccounts:() => {
+		return (
+			_payAccounts
+		);
+},
+
 	/**
 	 * get customer SID
 	 *
