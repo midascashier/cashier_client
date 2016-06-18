@@ -21,12 +21,11 @@ let TransactionHistory = React.createClass({
             <th>{translate('TRANSACTION_HISTORY_TABLE_COL_NOTES')}</th>
           </tr>
           {(() => {
-            console.log('TransactionHistory: function');
             if(this.props.transactions){
                 var rows = [];
-                this.props.transactions.map((transaction)=>{
+                this.props.transactions.map((transaction, i)=>{
                   rows.push(
-                    <tr>
+                    <tr key={i} className={transaction.TransactionStatus.toLowerCase()}>
                       <td>{transaction.DateTrans}</td>
                       <td>{transaction.TransactionType}</td>
                       <td>{transaction.Method}</td>

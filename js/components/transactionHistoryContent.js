@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router'
 import {Info} from './headerComponents/info'
 import {TransactionHistory} from './contentComponents/TransactionHistory'
 import {translate} from '../constants/translate'
@@ -39,7 +40,9 @@ let TransactionHistoryContent = React.createClass({
                     </ul>
                   </div>
                   <div className="col-sm-6">
-                    <button type="submit" className="btn btn-green">{translate('DEPOSIT')}</button>
+                    <Link to={`/deposit/`}>
+                      <button type="submit" className="btn btn-green">{translate('DEPOSIT')}</button>
+                    </Link>
                   </div>
 
                 </div>
