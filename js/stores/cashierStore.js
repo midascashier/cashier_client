@@ -491,10 +491,12 @@ CashierDispatcher.register((payload) => {
         CashierStore.emitChange();
         break;
       case actions.CUSTOMER_TRANSACTIONS:
+        _customer.lastTransactions = {};
         customerService.getCustomerTransactions();
         break;
       case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
         _customer.lastTransactions = data.response.transactions;
+        console.log(_customer.lastTransactions);
         break;
 			case actions.COUNTRIES_RESPONSE:
 				_UI.countries = data.response.countries;

@@ -4,7 +4,6 @@ import {Header} from './header'
 import {MethodsDepositList} from './contentComponents/methodsDepositList'
 import {MethodInfo} from './contentComponents/methodInfo'
 import {CashierStore} from '../stores/CashierStore'
-import {CashierActions} from '../actions/cashierActions'
 import {LoadingSpinner} from '../components/loading/loadingSpinner'
 import {AskInfo} from './methods/askInfo'
 import {ProcessorMethodInfo} from './methods/infoMethod'
@@ -37,10 +36,6 @@ let DepositContent = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired
   },
-  
-  getTransactions: function() {
-    CashierActions.getCustomerTransactions();
-  },
 
 	render() {
 		return (
@@ -52,7 +47,7 @@ let DepositContent = React.createClass({
                 <div className="modules">
                   <div className="row">
                     <div className="col-sm-6">
-                      <Link to={`/transaction_history/`} onClick={this.getTransactions} transaction={this.state.transactions}>
+                      <Link to={`/transaction_history/`} transaction={this.state.transactions}>
                         <p>{translate('TRANSACTION_HISTORY')}</p>
                       </Link>
                       {(() => {

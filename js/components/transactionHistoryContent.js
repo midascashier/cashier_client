@@ -2,35 +2,47 @@ import React from 'react'
 import {Info} from './headerComponents/info'
 import {TransactionHistory} from './contentComponents/TransactionHistory'
 import {translate} from '../constants/translate'
+import {LoadingSpinner} from '../components/loading/loadingSpinner'
+import {CashierStore} from '../stores/cashierStore'
+import {CashierActions} from '../actions/cashierActions'
 
 let TransactionHistoryContent = React.createClass({
-  propTypes: {
-    transactions: React.PropTypes.array
+
+  getInitialState(){
+    CashierActions.getCustomerTransactions();
+    return this.refreshLocalState();
   },
+
+  componentDidMount: function() {
+    CashierStore.addChangeListener(this._onChange);
+  },
+
+  refreshLocalState() {
+    return {
+      transactions: CashierStore.getCustomer().lastTransactions
+    }
+  },
+
+  _onChange() {
+    this.setState(this.refreshLocalState());
+  },
+
 	render() {
 		return (
 			<div id="transactionHistoryContent">
 				<Info />
-        <div id="transactionHistory">
+        <div id="transactionHistory" className="internal-content">
           <div className="row">
             <div className="col-sm-12">
               <div className="modules">
                 <div className="title">{translate('TRANSACTION_HISTORY_TITLE')}</div>
-                <div className=" table-responsive">
-                  <table className="table table-striped">
-                    <tbody>
-                      <tr>
-                        <th>{translate('TRANSACTION_HISTORY_TABLE_COL_DATE')}</th>
-                        <th>{translate('TRANSACTION_HISTORY_TABLE_COL_TYPE')}</th>
-                        <th>{translate('TRANSACTION_HISTORY_TABLE_COL_METHOD')}</th>
-                        <th>{translate('TRANSACTION_HISTORY_TABLE_COL_AMOUNT')}</th>
-                        <th>{translate('TRANSACTION_HISTORY_TABLE_COL_STATUS')}</th>
-                        <th>{translate('TRANSACTION_HISTORY_TABLE_COL_NOTES')}</th>
-                      </tr>
-                      <TransactionHistory transactions={this.props.transactions} />
-                    </tbody>
-                  </table>
-                </div>
+                {(() => {
+                  if(this.state.transactions.length <= 0){
+                    return <LoadingSpinner />;
+                  }else{
+                    return <TransactionHistory />;
+                  }
+                })()}
                 <div className="row">
                   <div className="col-sm-6">
                     <ul>
