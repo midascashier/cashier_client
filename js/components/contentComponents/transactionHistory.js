@@ -27,10 +27,10 @@ let TransactionHistory = React.createClass({
                   rows.push(
                     <tr key={i} className={transaction.TransactionStatus.toLowerCase()}>
                       <td>{transaction.DateTrans}</td>
-                      <td>{transaction.TransactionType}</td>
+                      <td>{translate('TRANSACTION_TYPE_ID_' + transaction.caTransactionType_Id, transaction.TransactionType)}</td>
                       <td>{transaction.Method}</td>
                       <td>{transaction.CurrencyAmount +' '+ transaction.CurrencyCode}</td>
-                      <td>{translate('TRANSACTION_STATUS_' + transaction.TransactionStatus.toUpperCase())}</td>
+                      <td>{translate('TRANSACTION_STATUS_' + transaction.TransactionStatus.toUpperCase(), transaction.TransactionStatus)}</td>
                       <td>{transaction.Notes}</td>
                     </tr>
                   );

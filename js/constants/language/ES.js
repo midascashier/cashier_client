@@ -43,6 +43,9 @@ let _langTags = {
   TRANSACTION_TYPE_INITIAL_DEPOSIT: 'Primer Depósito',
   TRANSACTION_TYPE_REUP_DEPOSIT: 'Depósito',
   TRANSACTION_TYPE_PAYOUT: 'Retiro',
+  TRANSACTION_TYPE_ID_1: 'Depósito',
+  TRANSACTION_TYPE_ID_2: 'Retiro',
+  TRANSACTION_TYPE_ID_3: 'Primer Depósito',
   //TransactionStatus
   TRANSACTION_STATUS: 'Estado',
   TRANSACTION_STATUS_PENDING: "Pendiente",

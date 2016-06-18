@@ -43,6 +43,9 @@ let _langTags = {
   TRANSACTION_TYPE_INITIAL_DEPOSIT: 'First Deposit',
   TRANSACTION_TYPE_REUP_DEPOSIT: 'Deposit',
   TRANSACTION_TYPE_PAYOUT: 'Payout',
+  TRANSACTION_TYPE_ID_1: 'Deposit',
+  TRANSACTION_TYPE_ID_2: 'Payout',
+  TRANSACTION_TYPE_ID_3: 'First Deposit',
   //TransactionStatus
   TRANSACTION_STATUS: 'Status',
   TRANSACTION_STATUS_PENDING: "Pending",
