@@ -27,7 +27,8 @@ let DepositContent = React.createClass({
       currentStep: CashierStore.getCurrentStep(),
       customerOption: CashierStore.getCustomerAction(),
       PayAccounts: CashierStore.getPayAccounts(),
-      CustomerCurrency: CashierStore.getCustomer().currency
+      CustomerCurrency: CashierStore.getCustomer().currency,
+      transactions: CashierStore.getCustomer().lastTransactions
     }
   },
 
@@ -49,7 +50,7 @@ let DepositContent = React.createClass({
                 <div className="modules">
                   <div className="row">
                     <div className="col-sm-6">
-                      <Link to={`/transaction_history/`} transaction={this.state.transactions}>
+                      <Link to={`/transaction_history/`}>
                         <p>{translate('TRANSACTION_HISTORY')}</p>
                       </Link>
                       {(() => {

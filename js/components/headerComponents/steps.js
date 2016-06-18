@@ -7,18 +7,24 @@ let Steps = React.createClass({
 	},
 
 	render() {
-		let step1="step1 normal";
-		let step2="step2 normal";
-		let step3="step3 normal";
+		let step1 = "step1";
+		let step2 = "step2";
+		let step3 = "step3";
 		switch (this.props.step){
 			case 1:
-				step1="step1 active";
+        step1 += " active";
+        step2 += " normal";
+        step3 += " normal";
 				break;
 			case 2:
-				step2="step2 active";
+        step1 += " normal";
+				step2 += " active";
+				step3 += " inactive";
 				break;
 			case 3:
-				step3="step3 active";
+        step1 += " normal";
+        step2 += " inactive";
+        step3 += " active";
 				break;
 			default:
 				break

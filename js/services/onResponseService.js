@@ -15,6 +15,7 @@ class OnResponseService {
 					if (data.response.sid) {
 						customerService.getCustomerInfo();
 						customerService.getCustomerProcessors();
+            customerService.getCustomerTransactions();
 						applicationService.getCompanyInfo();
 						applicationService.getCountries();
 					}
