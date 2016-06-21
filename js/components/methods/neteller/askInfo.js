@@ -2,63 +2,14 @@ import React from 'react'
 import {InfoMethod} from './infoMethod'
 import Formsy from 'formsy-react'
 import {MyInput} from '../../MyInput'
-
-let Select = React.createClass({
-
-	getInitialState(){
-		return this.refreshLocalState();
-	},
-
-	refreshLocalState() {
-		return {
-			account:"jorge@midas.com"
-		}
-	},
-
-	changeValue(event) {
-		console.log(this.props);
-		let target = event.currentTarget;
-		this.props.account=target.value;
-	},
-
-
-	render() {
-		return (
-			this.renderElement()
-		)
-	},
-
-renderElement() {
-		let optionNodes = [];
-
-		let renderOption = function(item, key) {
-			return (
-				<option key={key}>{item.label}</option>
-			)
-		};
-
-		optionNodes.push(renderOption({"label":"Register new account"},1));
-		optionNodes.push(renderOption({"label":"jorge@midas.com"},2));
-		optionNodes.push(renderOption({"label":"test@midas.com"},3));
-
-		return (
-			<select
-				ref="element"
-				className="form-control"
-				value={this.state.account}
-				onChange={this.changeValue}
-			>
-				{optionNodes}
-			</select>
-		);
-	}
-});
+import {SelectPayAccount} from '../../selectPayAccount'
 
 let AskInfo = React.createClass({
 	propTypes: {
 		selectedProcessor: React.PropTypes.object,
 		customerOption: React.PropTypes.string,
-		originPath: React.PropTypes.string
+		originPath: React.PropTypes.string,
+		payAccounts: React.PropTypes.array
 	},
 
 	componentDidMount: function() {
@@ -90,7 +41,7 @@ let AskInfo = React.createClass({
                       <div className="col-sm-9">
 												Neteller Account:
                         <Formsy.Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="login">
-													<Select />
+													<SelectPayAccount payAccounts={this.props.payAccounts} processor={this.props.selectedProcessor}/>
                           <MyInput name="email" title="" type="hidden" validations="isEmail" validationError="This is not a valid email" required />
                           <MyInput name="amount" title="Amount:" type="number" step="any" validations="isNumeric" validationError="This is not a valid amount" required />
                         </Formsy.Form>

@@ -193,68 +193,7 @@ let _processor = {
  */
 let _payAccount = {
 	payAccountId: null,
-	customerId: null,
-	processorClassId: null,
-	processorId: null,
-	processorSkinId: null,
-	processorIdRoot: null,
-	processorRootName: null,
-	typesSupported: null,
 	displayName: null,
-	isActive: null,
-	isAllowed: null,
-	personal: {
-		firstName: null,
-		middleName: null,
-		lastName: null,
-		lastName2: null,
-		phone: null,
-		email: null,
-		personalId: null,
-		personalIdType: null
-	},
-	secure: {
-		account: null,
-		password: null,
-		extra1: null,
-		extra2: null,
-		extra3: null
-	},
-	address: {
-		country: null,
-		countryName: null,
-		state: null,
-		stateName: null,
-		city: null,
-		address1: null,
-		address2: null,
-		zip: null
-	},
-	bank: {
-		id: null,
-		alias: null,
-		name: null,
-		address: null,
-		city: null,
-		state: null,
-		stateName: null,
-		country: null,
-		countryName: null,
-		zip: null,
-		phone: null,
-		transferNumber: null,
-		accountNumber: null,
-		accountType: null,
-		swift: null,
-		iban: null
-	},
-	extra: {
-		ssn: null,
-		dob: null,
-		dobDay: null,
-		dobMonth: null,
-		dobYear: null
-	},
 	limits: {
 		available: null,
 		type: null,
@@ -278,21 +217,7 @@ let _payAccount = {
 	},
   load(data){
     this.payAccountId = data.payAccountId;
-    this.customerId = data.customerId;
-    this.processorClassId = data.processorClassId;
-    this.processorId = data.processorId;
-    this.processorSkinId = data.processorSkinId;
-    this.processorIdRoot = data.processorIdRoot;
-    this.processorRootName = data.processorNameRoot;
-    this.typesSupported = data.typesSupported;
-    this.displayName = data.processorDisplayName;
-    this.isActive = data.isActive;
-    this.isAllowed = data.isAllowed;
-    this.address = data.addressData;
-    this.bank = data.bankData;
-    this.extra = data.extraData;
-    this.personal = data.personalData;
-    this.secure = data.secureData;
+    this.displayName = data.displayName;
     this.limits = data.limitsData;
   }
 };
@@ -333,7 +258,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
-	 * get Payaccount
+	 * get Payaccounts
 	 *
 	 */
 	getPayAccounts:() => {
@@ -486,35 +411,42 @@ CashierDispatcher.register((payload) => {
 				_UI.customerAction = data.option;
 				customerService.stompConnection(data);
 				break;
+
 			case actions.LOGIN_RESPONSE:
 				_application.sid = data.response.sid;
 				_UI.currentStep=1;
         console.log('sid: ' + _application.sid);
 				CashierStore.emitChange();
 				break;
+
 			case actions.CUSTOMER_INFO_RESPONSE:
 				_customer.load(data.response.customerInfo);
 				CashierStore.emitChange();
 				break;
+
       case actions.COMPANY_INFO_RESPONSE:
         _company.load(data.response.companyInformation);
         CashierStore.emitChange();
         break;
+
       case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
         _customer.lastTransactions = data.response.transactions;
         break;
+
 			case actions.COUNTRIES_RESPONSE:
 				_UI.countries = data.response.countries;
 				break;
+
 			case actions.STATES_RESPONSE:
 				_UI.countryStates = data.response.states;
 				_UI.countryInfo = data.response.countryInfo;
 				break;
+
       case actions.PROCESSORS_RESPONSE:
         _customer.depositProcessors = data.response.processors.deposit;
         _customer.withdrawProcessors = data.response.processors.withdraw;
 
-        var processor = [];
+        let processor = [];
         if(!CashierStore.getIsWithdraw() && _customer.depositProcessors.length > 0){
           processor = _customer.depositProcessors[0];
         }else if(_customer.withdrawProcessors.length > 0){
@@ -524,24 +456,29 @@ CashierDispatcher.register((payload) => {
 				_UI.processorId=processor.caProcessor_Id;
         _processor.load({processorId: processor.caProcessor_Id});
         break;
+
       case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
-        var payAccounts = data.response.payAccounts;
+        let payAccounts = data.response.payAccounts;
         if(payAccounts){
-          var payAccountCopy = Object.assign({}, _payAccount);
-          payAccounts.map((item) => {
-            var payAccount = payAccountCopy;
-            payAccount.load(item);
-            _payAccounts[payAccount.payAccountId] = payAccount;
-          })
-        }
+					let payAccounts_processor={};
+					payAccounts.map((item, key) => {
+						let payAccount = Object.assign({}, _payAccount);
+						payAccount.load(item);
+						payAccounts_processor[payAccount.payAccountId]=payAccount;
+					});
+					_payAccounts[_processor.processorId]=payAccounts_processor;
+				}
+				CashierStore.emitChange();
         break;
+
       case actions.PAYACCOUNTS_DISABLE_RESPONSE:
-        var currentPayAccountId = CashierStore.getUI().payAccountId;
+        let currentPayAccountId = CashierStore.getUI().payAccountId;
         if(currentPayAccountId){
           _payAccounts.splice(currentPayAccountId, 1);
         }
         CashierStore.emitChange();
         break;
+
 			case actions.CHANGE_PROCESSOR:
         _UI.processorId=data.processorId;
 				_processor.load(data);
@@ -550,17 +487,24 @@ CashierDispatcher.register((payload) => {
         customerService.getCustomerPreviousPayAccount();
         CashierStore.emitChange();
 				break;
+
       case actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE:
         _processor.limits = data.response.processorMinMaxLimits;
 				CashierStore.emitChange();
         break;
+
       case actions.PROCESSORS_LIMIT_RULES_RESPONSE:
         _processor.limitRules = data.response.processorLimits;
 				CashierStore.emitChange();
         break;
+
 			case actions.ASKINFO:
 				_UI.currentStep=2;
 				CashierStore.emitChange();
+				break;
+
+			case actions.CHANGE_PAYACCOUNT:
+					_payAccounts[data.processorID][data.payAccountID];
 				break;
 			default:
 				console.log("Store No Action");

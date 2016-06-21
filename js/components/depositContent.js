@@ -26,8 +26,8 @@ let DepositContent = React.createClass({
       customerAction: CashierStore.getCustomerAction(),
       currentStep: CashierStore.getCurrentStep(),
       customerOption: CashierStore.getCustomerAction(),
-      PayAccounts: CashierStore.getPayAccounts(),
-      CustomerCurrency: CashierStore.getCustomer().currency,
+      payAccounts: CashierStore.getPayAccounts(),
+      customerCurrency: CashierStore.getCustomer().currency,
       transactions: CashierStore.getCustomer().lastTransactions
     }
   },
@@ -60,7 +60,7 @@ let DepositContent = React.createClass({
                                               originPath={this.state.originPath}/>
                         }
                         if (this.state.currentStep==2) {
-                          return <AskInfo originPath={this.state.originPath} customerOption={this.state.customerOption} selectedProcessor={this.state.selectedProcessor} />;
+                          return <AskInfo payAccounts={this.state.payAccounts} originPath={this.state.originPath} customerOption={this.state.customerOption} selectedProcessor={this.state.selectedProcessor} />;
                         }
                       })()}
                     </div>
@@ -75,7 +75,7 @@ let DepositContent = React.createClass({
                                                originPath={this.state.originPath}/>;
                           }
                           if (this.state.currentStep==2) {
-                            return <ProcessorMethodInfo selectedProcessor={this.state.selectedProcessor} currency={this.state.CustomerCurrency} originPath={this.state.originPath} />;
+                            return <ProcessorMethodInfo selectedProcessor={this.state.selectedProcessor} currency={this.state.customerCurrency} originPath={this.state.originPath} />;
                           }
                         }
                       })()}

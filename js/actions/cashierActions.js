@@ -105,7 +105,15 @@ let CashierActions = {
 		CashierDispatcher.handleServerAction({
 			action: actions.ASKINFO
 		});
+	},
+
+	changePayAccount:(data) => {
+		CashierDispatcher.handleServerAction({
+			action: actions.CHANGE_PAYACCOUNT,
+			data: data
+		});
 	}
+
 };
 
 module.exports.CashierActions = CashierActions;
