@@ -52,7 +52,6 @@ class OnResponseService {
 					CashierActions.getCustomerProcessors_response(data);
           customerService.getProcessorLimitRules();
           customerService.getCustomerProcessorsMinMax();
-          customerService.getCustomerPreviousPayAccount();
 				}
 				break;
 			case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
