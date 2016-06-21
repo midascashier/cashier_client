@@ -16,15 +16,15 @@ import {customerService} from '../services/customerService'
  * @private
  */
 let _UI = {
-  language: '',
-  currentView: '',
-  currentStep: '',
-  customerAction: '',
-  processorId: 0,
-  payAccountId: 0,
-  countryInfo: null,
-  countries: {},
-  countryStates: {}
+	language: '',
+	currentView: '',
+	currentStep: '',
+	customerAction: '',
+	processorId: 0,
+	payAccountId: 0,
+	countryInfo: null,
+	countries: {},
+	countryStates: {}
 };
 
 /**
@@ -33,18 +33,18 @@ let _UI = {
  * @private
  */
 let _application = {
-  sys_access_pass: "1",
-  sid: null,
-  tuid: null,
-  format: "json",
-  lang: "en",
-  platform: "desktop",
-  remoteAddr: "127.0.0.1",
-  remoteHost: "localhost",
-  userAgent: navigator.userAgent,
-  remoteAddress: '',
-  referrer: '',
-  xForwardedFor: ''
+	sys_access_pass: "1",
+	sid: null,
+	tuid: null,
+	format: "json",
+	lang: "en",
+	platform: "desktop",
+	remoteAddr: "127.0.0.1",
+	remoteHost: "localhost",
+	userAgent: navigator.userAgent,
+	remoteAddress: '',
+	referrer: '',
+	xForwardedFor: ''
 };
 
 /**
@@ -54,8 +54,8 @@ let _application = {
  * @private
  */
 let _customer = {
-  atDeviceId: '',
-  ioBB: '',
+	atDeviceId: '',
+	ioBB: '',
 	companyId: 0,
 	customerId: 0,
 	username: '',
@@ -63,7 +63,7 @@ let _customer = {
 	currencySymbol: '',
 	balance: '',
 	balanceBP: '',
-  lang: '',
+	lang: '',
 	personalInformation: {
 		level: '',
 		firstName: '',
@@ -92,39 +92,39 @@ let _customer = {
 	depositProcessors: [],
 	withdrawProcessors: [],
 	pendingP2PTransactions: [],
-  lastTransactions: {},
-  load(data){
-    this.companyId = data.companyId;
-    this.customerId = data.customerId;
-    this.username = data.username;
-    this.password = data.password;
-    this.currency = data.currency;
-    this.currencySymbol = data.currencySymbol;
-    this.balance = data.balance;
-    this.balanceBP = data.balanceBP;
-    this.lang = data.lang;
-    this.personalInformation.level = data.vip;
-    this.personalInformation.firstName = data.firstName;
-    this.personalInformation.middleName = data.middleName;
-    this.personalInformation.lastName = data.lastName;
-    this.personalInformation.secondLastName = data.secondLastName;
-    this.personalInformation.dateOfBirth = data.dateOfBirth;
-    this.personalInformation.ssn = data.ssn;
-    this.personalInformation.email = data.email;
-    this.personalInformation.mobile = data.mobile;
-    this.personalInformation.phone = data.phone;
-    this.personalInformation.fax = data.fax;
-    this.personalInformation.personalId = data.personalId;
-    this.personalInformation.addressOne = data.addressOne;
-    this.personalInformation.addressTwo = data.addressTwo;
-    this.personalInformation.country = data.country;
-    this.personalInformation.countryName = data.countryName;
-    this.personalInformation.countryPhoneCode = data.countryPhoneCode;
-    this.personalInformation.state = data.state;
-    this.personalInformation.stateName = data.stateName;
-    this.personalInformation.city = data.city;
-    this.personalInformation.postalCode = data.postalCode;
-  }
+	lastTransactions: {},
+	load(data){
+		this.companyId = data.companyId;
+		this.customerId = data.customerId;
+		this.username = data.username;
+		this.password = data.password;
+		this.currency = data.currency;
+		this.currencySymbol = data.currencySymbol;
+		this.balance = data.balance;
+		this.balanceBP = data.balanceBP;
+		this.lang = data.lang;
+		this.personalInformation.level = data.vip;
+		this.personalInformation.firstName = data.firstName;
+		this.personalInformation.middleName = data.middleName;
+		this.personalInformation.lastName = data.lastName;
+		this.personalInformation.secondLastName = data.secondLastName;
+		this.personalInformation.dateOfBirth = data.dateOfBirth;
+		this.personalInformation.ssn = data.ssn;
+		this.personalInformation.email = data.email;
+		this.personalInformation.mobile = data.mobile;
+		this.personalInformation.phone = data.phone;
+		this.personalInformation.fax = data.fax;
+		this.personalInformation.personalId = data.personalId;
+		this.personalInformation.addressOne = data.addressOne;
+		this.personalInformation.addressTwo = data.addressTwo;
+		this.personalInformation.country = data.country;
+		this.personalInformation.countryName = data.countryName;
+		this.personalInformation.countryPhoneCode = data.countryPhoneCode;
+		this.personalInformation.state = data.state;
+		this.personalInformation.stateName = data.stateName;
+		this.personalInformation.city = data.city;
+		this.personalInformation.postalCode = data.postalCode;
+	}
 };
 
 /**
@@ -136,19 +136,19 @@ let _customer = {
 let _company = {
 	companyId: 0,
 	companyName: '',
-  phone: '',
+	phone: '',
 	companyLabel: [],
-  load(data){
-    this.companyId = data.companyId;
-    this.companyName = data.name;
-    this.phone = data.servicePhone;
-    //company labels
-    if(data.labels){
-      data.labels.map((item, i) =>{
-        this.companyLabel[item.Code] = item.Value;
-      })
-    }
-  }
+	load(data){
+		this.companyId = data.companyId;
+		this.companyName = data.name;
+		this.phone = data.servicePhone;
+		//company labels
+		if (data.labels) {
+			data.labels.map((item, i) => {
+				this.companyLabel[item.Code] = item.Value;
+			})
+		}
+	}
 };
 
 let _bonuses = {
@@ -156,33 +156,33 @@ let _bonuses = {
 };
 
 let _processor = {
-  processorClass: 0,
+	processorClass: 0,
 	processorId: 0,
 	displayName: '',
 	bonus: [],
 	fees: [],
-  limits: [],
-  limitRules: [],
+	limits: [],
+	limitRules: [],
 	load(data){
-    var processor = [];
-    if(_UI.customerAction == cashier.VIEW_DEPOSIT && _customer.depositProcessors.length > 0){
-      _customer.depositProcessors.map((item) => {
-        if(data.processorId == item.caProcessor_Id){
-          processor = item;
-        }
-      });
-    }else if(_customer.withdrawProcessors.length > 0){
-      _customer.withdrawProcessors.map((item) => {
-        if(data.processorId == item.caProcessor_Id){
-          processor = item;
-        }
-      });
-    }
-    //set values
-    this.processorClass = processor.caProcessorClass_Id;
-    this.processorId = processor.caProcessor_Id;
-    this.displayName = processor.DisplayName;
-  }
+		var processor = [];
+		if (_UI.customerAction == cashier.VIEW_DEPOSIT && _customer.depositProcessors.length > 0) {
+			_customer.depositProcessors.map((item) => {
+				if (data.processorId == item.caProcessor_Id) {
+					processor = item;
+				}
+			});
+		} else if (_customer.withdrawProcessors.length > 0) {
+			_customer.withdrawProcessors.map((item) => {
+				if (data.processorId == item.caProcessor_Id) {
+					processor = item;
+				}
+			});
+		}
+		//set values
+		this.processorClass = processor.caProcessorClass_Id;
+		this.processorId = processor.caProcessor_Id;
+		this.displayName = processor.DisplayName;
+	}
 };
 
 /**
@@ -215,11 +215,11 @@ let _payAccount = {
 		 */
 		limitsPassed: false
 	},
-  load(data){
-    this.payAccountId = data.payAccountId;
-    this.displayName = data.displayName;
-    this.limitsData = data.limitsData;
-  }
+	load(data){
+		this.payAccountId = data.payAccountId;
+		this.displayName = data.displayName;
+		this.limitsData = data.limitsData;
+	}
 };
 
 /**
@@ -266,20 +266,35 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
-	 * get Payaccounts
+	 * get all Payaccounts
 	 *
 	 */
-	getPayAccounts:() => {
-		return (
-			_payAccounts
-		);
-},
+	getAllPayAccounts: () => {
+		return (_payAccounts);
+	},
+
+	/**
+	 * return current Payaccount
+	 */
+	getCurrentPayAccount: () => {
+		return (_payAccount);
+	},
+
+
+	/**
+	 * get payAccounts by processor
+	 *
+	 */
+	getProcessorPayAccount: () => {
+		return (_payAccounts[_processor['processorId']]);
+	},
+
 
 	/**
 	 * get customer SID
 	 *
 	 */
-	getCustomerSID:() => {
+	getCustomerSID: () => {
 		return (_application.sid);
 	},
 
@@ -289,10 +304,10 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * @returns {string}
 	 */
 	getLanguage: () => {
-    if(!_UI.language && _customer.lang){
-      var culture = _customer.lang.split('-');
-      _UI.language = culture[0].toUpperCase();
-    }
+		if (!_UI.language && _customer.lang) {
+			var culture = _customer.lang.split('-');
+			_UI.language = culture[0].toUpperCase();
+		}
 		return (_UI.language) ? _UI.language : 'EN';
 	},
 
@@ -332,68 +347,68 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return window.location.origin;
 	},
 
-  /**
-   * get customer
-   *
-   * @returns {{companyId: number, customerId: number, username: string, password: string, currency: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, load: (function(*))}}
-   */
+	/**
+	 * get customer
+	 *
+	 * @returns {{companyId: number, customerId: number, username: string, password: string, currency: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, load: (function(*))}}
+	 */
 	getCustomer: () => {
 		return (_customer);
 	},
 
-  /**
-   * get company
-   *
-   * @returns {{companyId: number, companyName: string, phone: string, companyLabel: Array}}
-   */
-  getCompany: () => {
-    return (_company);
-  },
+	/**
+	 * get company
+	 *
+	 * @returns {{companyId: number, companyName: string, phone: string, companyLabel: Array}}
+	 */
+	getCompany: () => {
+		return (_company);
+	},
 
-  /**
-   * get deposit processors
-   *
-   * @returns {Array}
-   */
-  getDepositProcessors: () => {
-    return (_customer.depositProcessors);
-  },
+	/**
+	 * get deposit processors
+	 *
+	 * @returns {Array}
+	 */
+	getDepositProcessors: () => {
+		return (_customer.depositProcessors);
+	},
 
-  /**
-   * get withdraw processors
-   *
-   * @returns {Array}
-   */
-  getWithdrawProcessors: () => {
-    return (_customer.withdrawProcessors);
-  },
+	/**
+	 * get withdraw processors
+	 *
+	 * @returns {Array}
+	 */
+	getWithdrawProcessors: () => {
+		return (_customer.withdrawProcessors);
+	},
 
-  /**
-   * get current processor
-   *
-   * @returns {{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}}
-   */
-  getProcessor: () => {
-    return _processor;
-  },
+	/**
+	 * get current processor
+	 *
+	 * @returns {{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}}
+	 */
+	getProcessor: () => {
+		return _processor;
+	},
 
-  /**
-   * get UI
-   *
-   * @returns {{language: string, currentView: string, currentStep: string, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
-   */
-  getUI: () => {
-    return (_UI);
-  },
+	/**
+	 * get UI
+	 *
+	 * @returns {{language: string, currentView: string, currentStep: string, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
+	 */
+	getUI: () => {
+		return (_UI);
+	},
 
-  /**
-   * get if state is withdraw
-   *
-   * @returns {int}
-   */
-  getIsWithdraw: () => {
-    return (_UI.customerAction == cashier.VIEW_WITHDRAW) ? 1 : 0;
-  },
+	/**
+	 * get if state is withdraw
+	 *
+	 * @returns {int}
+	 */
+	getIsWithdraw: () => {
+		return (_UI.customerAction == cashier.VIEW_WITHDRAW) ? 1 : 0;
+	},
 
 });
 
@@ -412,8 +427,8 @@ CashierDispatcher.register((payload) => {
 
 		switch (action) {
 			case actions.LOGIN:
-        _customer.ioBB = data.ioBB;
-        _customer.atDeviceId = data.atDeviceId;
+				_customer.ioBB = data.ioBB;
+				_customer.atDeviceId = data.atDeviceId;
 				_customer.username = data.username;
 				_customer.password = data.password;
 				_UI.customerAction = data.option;
@@ -423,7 +438,7 @@ CashierDispatcher.register((payload) => {
 			case actions.LOGIN_RESPONSE:
 				_application.sid = data.response.sid;
 				_UI.currentStep = 1;
-        console.log('sid: ' + _application.sid);
+				console.log('sid: ' + _application.sid);
 				CashierStore.emitChange();
 				break;
 
@@ -432,14 +447,14 @@ CashierDispatcher.register((payload) => {
 				CashierStore.emitChange();
 				break;
 
-      case actions.COMPANY_INFO_RESPONSE:
-        _company.load(data.response.companyInformation);
-        CashierStore.emitChange();
-        break;
+			case actions.COMPANY_INFO_RESPONSE:
+				_company.load(data.response.companyInformation);
+				CashierStore.emitChange();
+				break;
 
-      case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
-        _customer.lastTransactions = data.response.transactions;
-        break;
+			case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
+				_customer.lastTransactions = data.response.transactions;
+				break;
 
 			case actions.COUNTRIES_RESPONSE:
 				_UI.countries = data.response.countries;
@@ -450,74 +465,80 @@ CashierDispatcher.register((payload) => {
 				_UI.countryInfo = data.response.countryInfo;
 				break;
 
-      case actions.PROCESSORS_RESPONSE:
-        _customer.depositProcessors = data.response.processors.deposit;
-        _customer.withdrawProcessors = data.response.processors.withdraw;
+			case actions.PROCESSORS_RESPONSE:
+				_customer.depositProcessors = data.response.processors.deposit;
+				_customer.withdrawProcessors = data.response.processors.withdraw;
 
-        let processor = [];
-        if(!CashierStore.getIsWithdraw() && _customer.depositProcessors.length > 0){
-          processor = _customer.depositProcessors[0];
-        }else if(_customer.withdrawProcessors.length > 0){
-          processor = _customer.withdrawProcessors[0];
-        }
-        // set default processor
-				_UI.processorId=processor.caProcessor_Id;
-        _processor.load({processorId: processor.caProcessor_Id});
-        break;
+				let processor = [];
+				if (!CashierStore.getIsWithdraw() && _customer.depositProcessors.length > 0) {
+					processor = _customer.depositProcessors[0];
+				} else if (_customer.withdrawProcessors.length > 0) {
+					processor = _customer.withdrawProcessors[0];
+				}
+				// set default processor
+				_UI.processorId = processor.caProcessor_Id;
+				_processor.load({processorId: processor.caProcessor_Id});
+				break;
 
-      case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
-        let payAccounts = data.response.payAccounts;
-				let setDefault=true;
-        if(payAccounts){
-					let payAccounts_processor={};
+			case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
+				let payAccounts = data.response.payAccounts;
+				let setDefault = true;
+				if (payAccounts) {
+					let payAccounts_processor = {};
 					payAccounts.map((item, key) => {
 						let payAccount = Object.assign({}, _payAccount);
 						payAccount.load(item);
-						payAccounts_processor[payAccount.payAccountId]=payAccount;
-						if (setDefault){
+						payAccounts_processor[payAccount.payAccountId] = payAccount;
+						if (setDefault) {
 							changeCurrentPayAccount(payAccount);
-							setDefault=false;
+							setDefault = false;
 						}
 					});
-					_payAccounts[_processor.processorId]=payAccounts_processor;
+					_payAccounts[_processor.processorId] = payAccounts_processor;
 				}
 				CashierStore.emitChange();
-        break;
-
-      case actions.PAYACCOUNTS_DISABLE_RESPONSE:
-        let currentPayAccountId = CashierStore.getUI().payAccountId;
-        if(currentPayAccountId){
-          _payAccounts.splice(currentPayAccountId, 1);
-        }
-        CashierStore.emitChange();
-        break;
-
-			case actions.CHANGE_PROCESSOR:
-        _UI.processorId=data.processorId;
-				_processor.load(data);
-        customerService.getProcessorLimitRules();
-        customerService.getCustomerProcessorsMinMax();
-        CashierStore.emitChange();
 				break;
 
-      case actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE:
-        _processor.limits = data.response.processorMinMaxLimits;
+			case actions.PAYACCOUNTS_DISABLE_RESPONSE:
+				let currentPayAccountId = CashierStore.getUI().payAccountId;
+				if (currentPayAccountId) {
+					_payAccounts.splice(currentPayAccountId, 1);
+				}
 				CashierStore.emitChange();
-        break;
+				break;
 
-      case actions.PROCESSORS_LIMIT_RULES_RESPONSE:
-        _processor.limitRules = data.response.processorLimits;
+			case actions.CHANGE_PROCESSOR:
+				_UI.processorId = data.processorId;
+				_processor.load(data);
+				customerService.getProcessorLimitRules();
+				customerService.getCustomerProcessorsMinMax();
 				CashierStore.emitChange();
-        break;
+				break;
+
+			case actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE:
+				_processor.limits = data.response.processorMinMaxLimits;
+				CashierStore.emitChange();
+				break;
+
+			case actions.PROCESSORS_LIMIT_RULES_RESPONSE:
+				_processor.limitRules = data.response.processorLimits;
+				CashierStore.emitChange();
+				break;
 
 			case actions.ASKINFO:
-				_UI.currentStep=2;
+				_UI.currentStep = 2;
 				customerService.getCustomerPreviousPayAccount();
 				CashierStore.emitChange();
 				break;
 
 			case actions.CHANGE_PAYACCOUNT:
 				changeCurrentPayAccount(_payAccounts[data.processorID][data.payAccountID]);
+				CashierStore.emitChange();
+				break;
+
+			case actions.CONFIRMSTEP:
+				_UI.currentStep = 3;
+				CashierStore.emitChange();
 				break;
 			default:
 				console.log("Store No Action");

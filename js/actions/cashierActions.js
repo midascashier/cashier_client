@@ -107,6 +107,12 @@ let CashierActions = {
 		});
 	},
 
+	confirmStep:() => {
+		CashierDispatcher.handleServerAction({
+			action: actions.CONFIRMSTEP
+		});
+	},
+
 	changePayAccount:(data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.CHANGE_PAYACCOUNT,

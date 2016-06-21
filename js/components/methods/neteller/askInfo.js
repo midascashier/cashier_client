@@ -8,16 +8,11 @@ let AskInfo = React.createClass({
 	propTypes: {
 		selectedProcessor: React.PropTypes.object,
 		customerOption: React.PropTypes.string,
-		originPath: React.PropTypes.string,
-		payAccounts: React.PropTypes.array
+		originPath: React.PropTypes.string
 	},
-
-	componentDidMount: function() {
-		this.context.router.push('/'+this.props.customerOption+'/'+this.props.selectedProcessor.displayName.toLowerCase()+'/');
-	},
-
-	contextTypes: {
-		router: React.PropTypes.object.isRequired
+	getValue:() =>{
+		return 0;
+		console.log("TEST");
 	},
 
 	render() {
@@ -41,9 +36,16 @@ let AskInfo = React.createClass({
                       <div className="col-sm-9">
 												Neteller Account:
                         <Formsy.Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="login">
-													<SelectPayAccount payAccounts={this.props.payAccounts} processor={this.props.selectedProcessor}/>
-                          <MyInput name="email" title="" type="hidden" validations="isEmail" validationError="This is not a valid email" required />
-                          <MyInput name="amount" title="Amount:" type="number" step="any" validations="isNumeric" validationError="This is not a valid amount" required />
+													<SelectPayAccount />
+                          <MyInput
+														name="askInfoAmount"
+														title="Amount:"
+														type="number"
+														value={getValue}
+														step="any"
+														validations="isNumeric"
+														validationError="This is not a valid amount"
+														/>
                         </Formsy.Form>
                       </div>
                     </div>

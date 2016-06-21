@@ -1,22 +1,42 @@
 import React from 'react'
+import {CashierStore} from '../../../stores/CashierStore'
+import {CashierActions} from '../../../actions/cashierActions'
+import {Loading} from '../../loading/loading'
 
-const NetellerInfoMethod = React.createClass({
-	propTypes: {
-		selectedProcessor: React.PropTypes.object,
-		originPath: React.PropTypes.string,
-		currency: React.PropTypes.string
+let NetellerInfoMethod = React.createClass({
+
+	getInitialState(){
+		return this.refreshLocalState();
+	},
+
+	componentDidMount: function() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	refreshLocalState() {
+		return {
+			processor: CashierStore.getProcessor(),
+			currentPayAccount: CashierStore.getCurrentPayAccount(),
+			originPath: CashierStore.getOriginPath(),
+		}
+	},
+
+	_onChange() {
+		this.setState(this.refreshLocalState());
+	},
+
+	confirm: function() {
+		CashierActions.confirmStep();
 	},
 
 	render() {
-		let minCustomer;
-		let maxCustomer;
-		for (let i=0;i<this.props.selectedProcessor.limitRules.length;i++){
-			if (this.props.selectedProcessor.limitRules[i].description=="min"){
-				minCustomer = this.props.selectedProcessor.limitRules[i].customerValue;
-			}
-			if (this.props.selectedProcessor.limitRules[i].description=="max"){
-				maxCustomer = this.props.selectedProcessor.limitRules[i].customerValue;
-			}
+		let minPayAccount=<Loading />;
+		let maxPayAccount=<Loading />;
+		let submitButton="";
+		let payAccount= this.state.currentPayAccount;
+		if (payAccount.payAccountId){
+			minPayAccount=payAccount.limitsData.minAmount+" "+payAccount.limitsData.currencyCode;
+			maxPayAccount=payAccount.limitsData.maxAmount+" "+payAccount.limitsData.currencyCode;
 		}
 
 		return (
@@ -28,11 +48,11 @@ const NetellerInfoMethod = React.createClass({
               <tbody>
                 <tr>
                   <td>Min. Deposit:</td>
-                  <td><span>{minCustomer} {this.props.currency}</span></td>
+                  <td><span>{minPayAccount}</span></td>
                 </tr>
                 <tr>
                   <td>Max. Deposit:</td>
-                  <td><span>{maxCustomer} {this.props.currency}</span></td>
+                  <td><span>{maxPayAccount}</span></td>
                 </tr>
               </tbody>
             </table>
@@ -41,10 +61,14 @@ const NetellerInfoMethod = React.createClass({
             <div className="col-sm-12">
               <div className="row">
                 <div className="col-sm-6">
-                  <b>BOTON</b>
+									{(() => {
+										if (payAccount.payAccountId){
+											return <button type='button' className='btn btn-green' onClick={this.confirm}>Next</button>
+										}
+									})()}
                 </div>
                 <div className="col-sm-6">
-                  <img src={this.props.originPath + '/images/ssl.png'} alt="ssl"/>
+                  <img src={this.state.originPath + '/images/ssl.png'} alt="ssl"/>
                 </div>
               </div>
             </div>

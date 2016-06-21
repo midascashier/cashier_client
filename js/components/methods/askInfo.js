@@ -5,15 +5,14 @@ let AskInfo = React.createClass({
 	propTypes: {
 		selectedProcessor: React.PropTypes.object,
 		customerOption: React.PropTypes.string,
-		originPath: React.PropTypes.string,
-		payAccounts: React.PropTypes.array
+		originPath: React.PropTypes.string
 	},
 
 	render() {
 		let askInfo;
 		switch (this.props.selectedProcessor.processorId) {
 			case '333':
-				askInfo=<NetellerAskInfo payAccounts={this.props.payAccounts} originPath={this.props.originPath} customerOption={this.props.customerOption} selectedProcessor={this.props.selectedProcessor}/>
+				askInfo=<NetellerAskInfo originPath={this.props.originPath} customerOption={this.props.customerOption} selectedProcessor={this.props.selectedProcessor}/>
 				break;
 		}
 		return (
