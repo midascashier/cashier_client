@@ -44,18 +44,18 @@ let _application = {
   userAgent: navigator.userAgent,
   remoteAddress: '',
   referrer: '',
-  xForwardedFor: '',
-  atDeviceId: '',
-  ioBB: ''
+  xForwardedFor: ''
 };
 
 /**
  * Customer Data
  *
- * @type {{companyId: number, customerId: number, username: string, password: string, currency: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, load: (function(*))}}
+ * @type {{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: {}, load: (function(*))}}
  * @private
  */
 let _customer = {
+  atDeviceId: '',
+  ioBB: '',
 	companyId: 0,
 	customerId: 0,
 	username: '',
@@ -404,8 +404,8 @@ CashierDispatcher.register((payload) => {
 
 		switch (action) {
 			case actions.LOGIN:
-				_application.ioBB = data.ioBB;
-				_application.atDeviceId = data.atDeviceId;
+        _customer.ioBB = data.ioBB;
+        _customer.atDeviceId = data.atDeviceId;
 				_customer.username = data.username;
 				_customer.password = data.password;
 				_UI.customerAction = data.option;
@@ -414,7 +414,7 @@ CashierDispatcher.register((payload) => {
 
 			case actions.LOGIN_RESPONSE:
 				_application.sid = data.response.sid;
-				_UI.currentStep=1;
+				_UI.currentStep = 1;
         console.log('sid: ' + _application.sid);
 				CashierStore.emitChange();
 				break;
