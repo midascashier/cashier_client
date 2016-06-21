@@ -118,6 +118,13 @@ let CashierActions = {
 			action: actions.CHANGE_PAYACCOUNT,
 			data: data
 		});
+	},
+
+	setTransactionAmount:(data) => {
+		CashierDispatcher.handleServerAction({
+			action: actions.CHANGE_TRANSACTION_AMOUNT,
+			data: data
+		});
 	}
 
 };

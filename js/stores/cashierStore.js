@@ -540,6 +540,11 @@ CashierDispatcher.register((payload) => {
 				_UI.currentStep = 3;
 				CashierStore.emitChange();
 				break;
+
+			case actions.CHANGE_TRANSACTION_AMOUNT:
+				_transaction.amount=data;
+				break;
+
 			default:
 				console.log("Store No Action");
 				break;

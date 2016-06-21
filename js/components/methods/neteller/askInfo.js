@@ -1,8 +1,7 @@
 import React from 'react'
 import {InfoMethod} from './infoMethod'
-import Formsy from 'formsy-react'
-import {MyInput} from '../../MyInput'
 import {SelectPayAccount} from '../../selectPayAccount'
+import {CashierActions} from '../../../actions/cashierActions'
 
 let AskInfo = React.createClass({
 	propTypes: {
@@ -10,11 +9,6 @@ let AskInfo = React.createClass({
 		customerOption: React.PropTypes.string,
 		originPath: React.PropTypes.string
 	},
-	getValue:() =>{
-		return 0;
-		console.log("TEST");
-	},
-
 	render() {
 		return (
 			<div id="askAmount" className="box">
@@ -35,18 +29,9 @@ let AskInfo = React.createClass({
                       </div>
                       <div className="col-sm-9">
 												Neteller Account:
-                        <Formsy.Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="login">
 													<SelectPayAccount />
-                          <MyInput
-														name="askInfoAmount"
-														title="Amount:"
-														type="number"
-														value={getValue}
-														step="any"
-														validations="isNumeric"
-														validationError="This is not a valid amount"
-														/>
-                        </Formsy.Form>
+												Amount:
+													<AmountController />
                       </div>
                     </div>
                   </div>
@@ -57,6 +42,27 @@ let AskInfo = React.createClass({
         </div>
 			</div>
 		)
+	}
+});
+
+let AmountController = React.createClass({
+
+	changeValue(event) {
+		let amount = event.currentTarget.value;
+		CashierActions.setTransactionAmount(amount);
+	},
+
+	render() {
+		return (
+			<div>
+				<input
+					type={this.props.type || 'text'}
+					name={this.props.name}
+					onChange={this.changeValue}
+					value=""
+				/>
+			</div>
+		);
 	}
 });
 
