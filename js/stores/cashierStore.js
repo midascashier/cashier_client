@@ -194,7 +194,7 @@ let _processor = {
 let _payAccount = {
 	payAccountId: null,
 	displayName: null,
-	limits: {
+	limitsData: {
 		available: null,
 		type: null,
 		remaining: null,
@@ -218,7 +218,7 @@ let _payAccount = {
   load(data){
     this.payAccountId = data.payAccountId;
     this.displayName = data.displayName;
-    this.limits = data.limitsData;
+    this.limitsData = data.limitsData;
   }
 };
 
@@ -243,6 +243,14 @@ let _transactionResponse = {
 };
 
 let CHANGE_EVENT = 'change';
+
+/**
+ * received selected payaccount and set it as current
+ * @param payAccount
+ */
+let changeCurrentPayAccount = (payAccount) => {
+	_payAccount.load(payAccount);
+};
 
 let CashierStore = assign({}, EventEmitter.prototype, {
 	emitChange() {
@@ -385,7 +393,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
    */
   getIsWithdraw: () => {
     return (_UI.customerAction == cashier.VIEW_WITHDRAW) ? 1 : 0;
-  }
+  },
 
 });
 
@@ -459,12 +467,17 @@ CashierDispatcher.register((payload) => {
 
       case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
         let payAccounts = data.response.payAccounts;
+				let setDefault=true;
         if(payAccounts){
 					let payAccounts_processor={};
 					payAccounts.map((item, key) => {
 						let payAccount = Object.assign({}, _payAccount);
 						payAccount.load(item);
 						payAccounts_processor[payAccount.payAccountId]=payAccount;
+						if (setDefault){
+							changeCurrentPayAccount(payAccount);
+							setDefault=false;
+						}
 					});
 					_payAccounts[_processor.processorId]=payAccounts_processor;
 				}
@@ -484,7 +497,6 @@ CashierDispatcher.register((payload) => {
 				_processor.load(data);
         customerService.getProcessorLimitRules();
         customerService.getCustomerProcessorsMinMax();
-        customerService.getCustomerPreviousPayAccount();
         CashierStore.emitChange();
 				break;
 
@@ -500,11 +512,12 @@ CashierDispatcher.register((payload) => {
 
 			case actions.ASKINFO:
 				_UI.currentStep=2;
+				customerService.getCustomerPreviousPayAccount();
 				CashierStore.emitChange();
 				break;
 
 			case actions.CHANGE_PAYACCOUNT:
-					_payAccounts[data.processorID][data.payAccountID];
+				changeCurrentPayAccount(_payAccounts[data.processorID][data.payAccountID]);
 				break;
 			default:
 				console.log("Store No Action");
