@@ -1,5 +1,4 @@
 import React from 'react'
-import {InfoMethod} from './infoMethod'
 import {SelectPayAccount} from '../../selectPayAccount'
 import {AmountController} from '../../amountController'
 
@@ -9,6 +8,7 @@ let AskInfo = React.createClass({
 		customerOption: React.PropTypes.string,
 		originPath: React.PropTypes.string
 	},
+
 	render() {
 		return (
 			<div id="askAmount" className="box">

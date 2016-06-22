@@ -8,7 +8,7 @@ let MethodInfo = React.createClass({
     originPath: React.PropTypes.string
 	},
 
-	askInfo:() => {
+	askInfo() {
 		CashierActions.askInfoStep();
 	},
 

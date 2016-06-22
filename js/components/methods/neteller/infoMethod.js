@@ -17,7 +17,7 @@ let NetellerInfoMethod = React.createClass({
 		return {
 			processor: CashierStore.getProcessor(),
 			currentPayAccount: CashierStore.getCurrentPayAccount(),
-			originPath: CashierStore.getOriginPath(),
+			originPath: CashierStore.getOriginPath()
 		}
 	},
 
@@ -25,7 +25,7 @@ let NetellerInfoMethod = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
-	confirm: function() {
+	confirm() {
 		CashierActions.confirmStep();
 	},
 

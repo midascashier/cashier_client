@@ -36,8 +36,8 @@ let Steps = React.createClass({
 				<div className={step2}><p><span>2</span>{translate('STEPS_HOW_MUCH')}</p></div>
 				{(() => {
 					if (this.props.steps > 2) {
-						let thirdStep = <div key="1" className={step3}><p><span>3</span>{translate('STEPS_BILLING_INFO')}</p></div>
-						let thirdStep2 =<div key="2" className={step3} hidden='hidden'><p><span>3</span>{translate('STEPS_INSTRUCTIONS')}</p></div>;
+						let thirdStep = <div key="1" className={step3}><p><span>3</span>{translate('STEPS_BILLING_INFO')}</p></div>;
+						let thirdStep2 = <div key="2" className={step3} hidden='hidden'><p><span>3</span>{translate('STEPS_INSTRUCTIONS')}</p></div>;
 						return ([thirdStep,thirdStep2]);
 					}
 				})()}

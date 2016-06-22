@@ -454,6 +454,11 @@ CashierDispatcher.register((payload) => {
 			case actions.LOGIN_RESPONSE:
 				_application.sid = data.response.sid;
 				_UI.currentStep = 1;
+				if (CashierStore.getIsWithdraw()) {
+					_UI.currentView = "withdraw";
+				}else{
+					_UI.currentView = "deposit";
+				}
 				console.log('sid: ' + _application.sid);
 				CashierStore.emitChange();
 				break;
@@ -543,6 +548,11 @@ CashierDispatcher.register((payload) => {
 
 			case actions.ASKINFO:
 				_UI.currentStep = 2;
+				if (CashierStore.getIsWithdraw()) {
+					_UI.currentView = "withdraw/"+_processor.displayName.toLowerCase();
+				}else{
+					_UI.currentView = "deposit/"+_processor.displayName.toLowerCase();
+				}
 				customerService.getCustomerPreviousPayAccount();
 				CashierStore.emitChange();
 				break;
@@ -554,6 +564,11 @@ CashierDispatcher.register((payload) => {
 
 			case actions.CONFIRMSTEP:
 				_UI.currentStep = 3;
+				if (CashierStore.getIsWithdraw()) {
+					_UI.currentView = "withdraw/"+_processor.displayName.toLowerCase()+"/confirm";
+				}else{
+					_UI.currentView = "deposit/"+_processor.displayName.toLowerCase()+"/confirm";
+				}
 				CashierStore.emitChange();
 				break;
 
