@@ -13,19 +13,24 @@ let Header = React.createClass({
 	},
 
 	refreshLocalState() {
-		let step = CashierStore.getCurrentStep();
 		return {
-			step: step
+			step: CashierStore.getCurrentStep(),
+			processorSteps: CashierStore.getProcessorSteps()
 		}
 	},
 
 	_onChange() {
 		this.setState(this.refreshLocalState());
 	},
+
 	render() {
 		return (
 			<div id="header">
-				<Steps step={this.state.step}/>
+				{(() => {
+					if (this.state.step<=this.state.processorSteps) {
+						return <Steps step={this.state.step} steps={this.state.processorSteps}/>
+					}
+				})()}
 				<Info />
 			</div>
 		)

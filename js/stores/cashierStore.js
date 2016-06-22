@@ -23,6 +23,7 @@ let _UI = {
 	processorId: 0,
 	payAccountId: 0,
 	countryInfo: null,
+	steps: {333: 2},
 	countries: {},
 	countryStates: {}
 };
@@ -231,7 +232,7 @@ let _payAccount = {
 let _payAccounts = [];
 
 let _transaction = {
-	amount: 0,
+	amount: "",
 	fee: 0,
 	feeType: '',
 	bonusId: 0
@@ -280,6 +281,12 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return (_payAccount);
 	},
 
+	/**
+	 * return how many steps by processor
+	 */
+	getProcessorSteps: () => {
+		return (_UI.steps[_processor.processorId]);
+	},
 
 	/**
 	 * get payAccounts by processor
@@ -399,6 +406,15 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getUI: () => {
 		return (_UI);
+	},
+
+	/**
+	 * get transaction
+	 *
+	 * @returns {Array}
+	 */
+	getTransaction:()=>{
+		return (_transaction);
 	},
 
 	/**

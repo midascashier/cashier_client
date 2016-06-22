@@ -1,7 +1,7 @@
 import React from 'react'
 import {InfoMethod} from './infoMethod'
 import {SelectPayAccount} from '../../selectPayAccount'
-import {CashierActions} from '../../../actions/cashierActions'
+import {AmountController} from '../../amountController'
 
 let AskInfo = React.createClass({
 	propTypes: {
@@ -45,25 +45,5 @@ let AskInfo = React.createClass({
 	}
 });
 
-let AmountController = React.createClass({
-
-	changeValue(event) {
-		let amount = event.currentTarget.value;
-		CashierActions.setTransactionAmount(amount);
-	},
-
-	render() {
-		return (
-			<div>
-				<input
-					type={this.props.type || 'text'}
-					name={this.props.name}
-					onChange={this.changeValue}
-					value=""
-				/>
-			</div>
-		);
-	}
-});
 
 module.exports.NetellerAskInfo = AskInfo;
