@@ -16,6 +16,12 @@ let TransactionHistoryContent = React.createClass({
       transactions: CashierStore.getCustomer().lastTransactions
     }
   },
+
+  _onChange() {
+    if(this.isMounted() === true){
+      this.setState(this.refreshLocalState());
+    }
+  },
   
 	render() {
 		return (

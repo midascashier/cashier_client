@@ -19,7 +19,9 @@ let AmountController = React.createClass({
 	},
 
 	_onChange() {
-		this.setState(this.refreshLocalState());
+		if(this.isMounted() === true){
+			this.setState(this.refreshLocalState());
+		}
 	},
 
 	changeValue(event) {

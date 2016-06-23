@@ -33,7 +33,9 @@ let Client = React.createClass({
 	},
 
 	_onChange() {
-		this.setState(this.refreshLocalState());
+		if(this.isMounted() === true){
+			this.setState(this.refreshLocalState());
+		}
 		if (this.state.sid){
 			let nextPath = '/'+CashierStore.getUI().currentView+'/';
 			RouterContainer.get().props.history.push(nextPath);
