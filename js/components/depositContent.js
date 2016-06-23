@@ -15,7 +15,7 @@ let DepositContent = React.createClass({
 		return this.refreshLocalState();
 	},
 
-	componentDidMount: function () {
+	componentDidMount() {
 		CashierStore.addChangeListener(this._onChange);
 	},
 

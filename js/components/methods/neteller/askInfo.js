@@ -1,6 +1,7 @@
 import React from 'react'
 import {SelectPayAccount} from '../../selectPayAccount'
 import {AmountController} from '../../amountController'
+import {MyInput} from '../../myInput'
 
 let AskInfo = React.createClass({
 	propTypes: {
@@ -30,6 +31,8 @@ let AskInfo = React.createClass({
                       <div className="col-sm-9">
 												Neteller Account:
 													<SelectPayAccount />
+												Password:
+													<MyInput name="netellerPassword" />
 												Amount:
 													<AmountController />
                       </div>

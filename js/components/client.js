@@ -1,6 +1,7 @@
 import React from 'react'
 import {CashierActions} from '../actions/cashierActions'
 import {CashierStore} from '../stores/CashierStore'
+import RouterContainer from '../services/RouterContainer'
 
 let Client = React.createClass({
 
@@ -11,7 +12,7 @@ let Client = React.createClass({
 		return this.refreshLocalState();
 	},
 
-	componentDidMount: function() {
+	componentDidMount() {
 		CashierStore.addChangeListener(this._onChange);
 	},
 
@@ -24,12 +25,9 @@ let Client = React.createClass({
 	_onChange() {
 		this.setState(this.refreshLocalState());
 		if (this.state.sid){
-			this.context.router.push('/'+CashierStore.getUI().currentView+'/');
+			let nextPath = '/'+CashierStore.getUI().currentView+'/';
+			RouterContainer.get().props.history.push(nextPath);
 		}
-	},
-
-	contextTypes: {
-		router: React.PropTypes.object.isRequired
 	},
 
 	render() {

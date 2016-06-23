@@ -4,11 +4,11 @@ import {CashierStore} from './../stores/CashierStore'
 
 let AmountController = React.createClass({
 
-	getInitialState: function() {
+	getInitialState() {
 		return this.refreshLocalState();
 	},
 
-	componentDidMount: function() {
+	componentDidMount() {
 		CashierStore.addChangeListener(this._onChange);
 	},
 
@@ -21,7 +21,6 @@ let AmountController = React.createClass({
 	_onChange() {
 		this.setState(this.refreshLocalState());
 	},
-
 
 	changeValue(event) {
 		let amount = event.currentTarget.value;
@@ -38,8 +37,8 @@ let AmountController = React.createClass({
 		return (
 			<div>
 				<input
-					type={this.props.type || 'text'}
-					name={this.props.name}
+					type="number"
+					name="amountController"
 					onChange={this.changeValue}
 					value={this.state.value}
 				/>
