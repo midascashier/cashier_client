@@ -101,9 +101,9 @@ let CashierActions = {
 		});
 	},
 
-	askInfoStep:() => {
+	getPayAccounts:() => {
 		CashierDispatcher.handleServerAction({
-			action: actions.ASKINFO
+			action: actions.GET_PAY_ACCOUNTS
 		});
 	},
 

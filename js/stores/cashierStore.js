@@ -546,7 +546,7 @@ CashierDispatcher.register((payload) => {
 				CashierStore.emitChange();
 				break;
 
-			case actions.ASKINFO:
+			case actions.GET_PAY_ACCOUNTS:
 				_UI.currentStep = 2;
 				if (CashierStore.getIsWithdraw()) {
 					_UI.currentView = "withdraw/"+_processor.displayName.toLowerCase();

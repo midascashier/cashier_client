@@ -5,7 +5,7 @@ let NetellerTicket = React.createClass({
 	render() {
 		return (
 			<div id="methods">
-				<Link to="/deposit/">test</Link>
+				<Link to="/test/">test</Link>
 				<h1>Your $ deposit was successful.</h1><br />
 			</div>
 		)

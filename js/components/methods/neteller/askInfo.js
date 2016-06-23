@@ -32,7 +32,7 @@ let AskInfo = React.createClass({
 												Neteller Account:
 													<SelectPayAccount />
 												Password:
-													<MyInput name="netellerPassword" />
+													<MyInput />
 												Amount:
 													<AmountController />
                       </div>

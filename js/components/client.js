@@ -12,17 +12,7 @@ let Client = React.createClass({
 		return this.refreshLocalState();
 	},
 
-	onBackButtonEvent:(e) => {
-		e.preventDefault();
-		console.log(e);
-		let nextPath = '/'+CashierStore.getUI().currentView+'/';
-		//RouterContainer.get().props.history.push(nextPath);
-		//RouterContainer.get().props.history.push("/deposit/");
-		console.log("BACK BUTTON");
-	},
-
 	componentDidMount() {
-		window.onpopstate = this.onBackButtonEvent;
 		CashierStore.addChangeListener(this._onChange);
 	},
 

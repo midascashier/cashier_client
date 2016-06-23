@@ -62,7 +62,6 @@ let SelectPayAccount = React.createClass({
 		}else{
 			defaultValue="";
 			optionNodes.push(renderOption({"label": "Loading..."}, -1));
-
 		}
 		return (
 			<select

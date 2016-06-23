@@ -45,7 +45,7 @@ let AmountController = React.createClass({
 					value={this.state.value}
 				/>
 			</div>
-		);
+		)
 	}
 });
 

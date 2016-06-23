@@ -5,11 +5,13 @@ import {Welcome} from './components/welcome'
 import {WithdrawContent} from './components/withdrawContent'
 import {DepositContent} from './components/depositContent'
 import {Router, Route, IndexRoute, browserHistory} from 'react-router'
-import {NetellerInfo} from './components/methods/neteller/infoMethod'
-import {NetellerTicket} from './components/methods/neteller/ticketMethod'
-import {VisaInfo} from './components/methods/visa/infoMethod'
+
+import {Neteller} from './components/methods/neteller/neteller'
+import {MethodList} from './components/methods/methodList'
+
 import {TransactionHistoryContent} from './components/TransactionHistoryContent'
 import RouterContainer from './services/RouterContainer'
+
 
 let routes = (  <Router history={browserHistory}>
 	<Route path="/" component={Client}>
@@ -17,11 +19,8 @@ let routes = (  <Router history={browserHistory}>
 		<Route path="/welcome/" component={Welcome}/>
 		<Route path="/transaction_history/" component={TransactionHistoryContent}/>
 		<Route path="/deposit/" component={DepositContent}>
-			<Route path="/deposit/neteller/" component={NetellerInfo}/>
-			<Route path="/deposit/neteller/confirm/" component={NetellerTicket}/>
-			<Route path="/deposit/visa/" component={VisaInfo}/>
-		</Route>
-		<Route path="/withdraw" component={WithdrawContent}>
+			<IndexRoute component={MethodList}/>
+			<Route path="/deposit/neteller/" component={Neteller}/>
 		</Route>
 	</Route>
 </Router>);
