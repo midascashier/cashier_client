@@ -1,26 +1,36 @@
 import React from 'react'
-import {CashierStore} from '../../../stores/cashierStore'
-import {LoadingSpinner} from '../../../components/loading/loadingSpinner'
-import {translate} from '../../../constants/translate'
-import {NetellerAskInfo} from './askInfo'
-import {NetellerInfoMethod} from './infoMethod'
 import {Link} from 'react-router'
-import {CashierActions} from '../../../actions/cashierActions'
+import {CashierStore} from '../../../stores/CashierStore'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
+import {translate} from '../../../constants/Translate'
+import {NetellerAskInfo} from './AskInfo'
+import {NetellerInfoMethod} from './InfoMethod'
+import {CashierActions} from '../../../actions/CashierActions'
 
 let Neteller = React.createClass({
-
+	/**
+	 * React function to set component inital state
+	 *
+	 * @returns {*|{depositProcessors, selectedProcessor, originPath, customerAction, currentStep, customerOption, customerCurrency, transactions, transactionAmount}}
+	 */
 	getInitialState(){
 		return this.refreshLocalState();
 	},
 
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
 	componentDidMount() {
 		CashierActions.getPayAccounts();
 		CashierStore.addChangeListener(this._onChange);
 	},
 
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
+	/**
+	 * this function sets and return object with local states
+	 *
+	 * @returns {{depositProcessors: Array, selectedProcessor: (*|{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}), originPath: (*|string), customerAction: (*|string), currentStep: (*|string), customerOption: (*|string), customerCurrency: string, transactions: ({}|*), transactionAmount: (string|number|*)}}
+	 */
 
 	refreshLocalState() {
 		return {
@@ -36,12 +46,23 @@ let Neteller = React.createClass({
 		}
 	},
 
+	/**
+	 * this is the callback function the store calls when a state change
+	 *
+	 * @private
+	 */
 	_onChange() {
 		if (this.isMounted() === true) {
 			this.setState(this.refreshLocalState());
 		}
 	},
 
+	/**
+	 * custom function to sets password in askInfo Component
+	 *
+	 * @param value
+	 * @constructor
+	 */
 	NetellerPasswordInput(value) {
 		this.setState({
 			password: value
@@ -49,6 +70,7 @@ let Neteller = React.createClass({
 	},
 
 	render() {
+		console.log(this.props.netellerAmountController.amount);
 		return (
 			<div className="container">
 				<div className="col-sm-6">
@@ -67,7 +89,8 @@ let Neteller = React.createClass({
 							return <LoadingSpinner />;
 						} else {
 							return <NetellerInfoMethod selectedProcessor={this.state.selectedProcessor}
-																				 password={this.state.password} transactionAmount={this.state.transactionAmount}/>;
+																				 password={this.state.password}
+																				 transactionAmount={this.state.transactionAmount}/>;
 						}
 					})()}
 				</div>

@@ -1,11 +1,11 @@
-import {CashierActions} from '../actions/cashierActions'
-import {customerService} from '../services/customerService'
-import {applicationService} from './applicationService'
-import actions from '../constants/actions'
+import {CashierActions} from '../actions/CashierActions'
+import {customerService} from '../services/CustomerService'
+import {applicationService} from './ApplicationService'
+import actions from '../constants/Actions'
 
 
 class OnResponseService {
-	
+
 	processResponse(action, data) {
 
 		switch (action) {
@@ -15,7 +15,7 @@ class OnResponseService {
 					if (data.response.sid) {
 						customerService.getCustomerInfo();
 						customerService.getCustomerProcessors();
-            customerService.getCustomerTransactions();
+						customerService.getCustomerTransactions();
 						applicationService.getCompanyInfo();
 						applicationService.getCountries();
 					}
@@ -32,11 +32,11 @@ class OnResponseService {
 					CashierActions.companyInfo_response(data);
 				}
 				break;
-      case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
-        if (data) {
-          CashierActions.getCustomerTransactions_response(data);
-        }
-        break;
+			case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
+				if (data) {
+					CashierActions.getCustomerTransactions_response(data);
+				}
+				break;
 			case actions.COUNTRIES_RESPONSE:
 				if (data) {
 					CashierActions.countries_response(data);
@@ -50,8 +50,8 @@ class OnResponseService {
 			case actions.PROCESSORS_RESPONSE:
 				if (data) {
 					CashierActions.getCustomerProcessors_response(data);
-          customerService.getProcessorLimitRules();
-          customerService.getCustomerProcessorsMinMax();
+					customerService.getProcessorLimitRules();
+					customerService.getCustomerProcessorsMinMax();
 				}
 				break;
 			case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
@@ -59,11 +59,11 @@ class OnResponseService {
 					CashierActions.getCustomerPreviousPayAccount_response(data);
 				}
 				break;
-      case actions.PAYACCOUNTS_DISABLE_RESPONSE:
-        if (data) {
-          CashierActions.getDisablePayAccount_response(data);
-        }
-        break;
+			case actions.PAYACCOUNTS_DISABLE_RESPONSE:
+				if (data) {
+					CashierActions.getDisablePayAccount_response(data);
+				}
+				break;
 			case actions.PROCESSORS_LIMIT_RULES_RESPONSE:
 				if (data) {
 					CashierActions.getProcessorLimitRules_response(data);

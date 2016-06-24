@@ -1,8 +1,8 @@
-import actions from '../constants/actions'
-import {CashierDispatcher} from '../dispatcher/cashierDispatcher';
+import actions from '../constants/Actions'
+import {CashierDispatcher} from '../dispatcher/CashierDispatcher';
 
 let CashierActions = {
-  
+
 	login: (data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.LOGIN,
@@ -24,33 +24,33 @@ let CashierActions = {
 		});
 	},
 
-  getCustomerProcessors_response: (data) => {
-    CashierDispatcher.handleServerAction({
-      action: actions.PROCESSORS_RESPONSE,
-      data: data
-    });
-  },
+	getCustomerProcessors_response: (data) => {
+		CashierDispatcher.handleServerAction({
+			action: actions.PROCESSORS_RESPONSE,
+			data: data
+		});
+	},
 
-  getCustomerTransactions: (data) => {
-    CashierDispatcher.handleServerAction({
-      action: actions.CUSTOMER_TRANSACTIONS,
-      data: data
-    });
-  },
+	getCustomerTransactions: (data) => {
+		CashierDispatcher.handleServerAction({
+			action: actions.CUSTOMER_TRANSACTIONS,
+			data: data
+		});
+	},
 
-  getCustomerTransactions_response: (data) => {
-    CashierDispatcher.handleServerAction({
-      action: actions.CUSTOMER_TRANSACTIONS_RESPONSE,
-      data: data
-    });
-  },
-  
-  companyInfo_response: (data) => {
-    CashierDispatcher.handleServerAction({
-      action: actions.COMPANY_INFO_RESPONSE,
-      data: data
-    });
-  },
+	getCustomerTransactions_response: (data) => {
+		CashierDispatcher.handleServerAction({
+			action: actions.CUSTOMER_TRANSACTIONS_RESPONSE,
+			data: data
+		});
+	},
+
+	companyInfo_response: (data) => {
+		CashierDispatcher.handleServerAction({
+			action: actions.COMPANY_INFO_RESPONSE,
+			data: data
+		});
+	},
 
 	countries_response: (data) => {
 		CashierDispatcher.handleServerAction({
@@ -73,54 +73,54 @@ let CashierActions = {
 		});
 	},
 
-  getDisablePayAccount_response: (data) => {
-    CashierDispatcher.handleServerAction({
-      action: actions.PAYACCOUNTS_DISABLE_RESPONSE,
-      data: data
-    });
-  },
+	getDisablePayAccount_response: (data) => {
+		CashierDispatcher.handleServerAction({
+			action: actions.PAYACCOUNTS_DISABLE_RESPONSE,
+			data: data
+		});
+	},
 
-  getProcessorLimitRules_response: (data) => {
+	getProcessorLimitRules_response: (data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.PROCESSORS_LIMIT_RULES_RESPONSE,
 			data: data
 		});
 	},
 
-  getProcessorMinMaxLimits_response: (data) => {
-    CashierDispatcher.handleServerAction({
-      action: actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE,
-      data: data
-    });
-  },
+	getProcessorMinMaxLimits_response: (data) => {
+		CashierDispatcher.handleServerAction({
+			action: actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE,
+			data: data
+		});
+	},
 
-	changeMethod:(data) => {
+	changeMethod: (data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.CHANGE_PROCESSOR,
 			data: data
 		});
 	},
 
-	getPayAccounts:() => {
+	getPayAccounts: () => {
 		CashierDispatcher.handleServerAction({
 			action: actions.GET_PAY_ACCOUNTS
 		});
 	},
 
-	confirmStep:() => {
+	confirmStep: () => {
 		CashierDispatcher.handleServerAction({
 			action: actions.CONFIRMSTEP
 		});
 	},
 
-	changePayAccount:(data) => {
+	changePayAccount: (data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.CHANGE_PAYACCOUNT,
 			data: data
 		});
 	},
 
-	setTransactionAmount:(data) => {
+	setTransactionAmount: (data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.CHANGE_TRANSACTION_AMOUNT,
 			data: data

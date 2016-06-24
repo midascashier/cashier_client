@@ -1,33 +1,51 @@
 import React from 'react'
-import {CashierActions} from '../actions/cashierActions'
-import {CashierStore} from '../stores/cashierStore'
-import RouterContainer from '../services/routerContainer'
+import {CashierActions} from '../actions/CashierActions'
+import {CashierStore} from '../stores/CashierStore'
+import RouterContainer from '../services/RouterContainer'
 
 let Client = React.createClass({
-
+	/**
+	 * React function to set component inital state
+	 *
+	 * @returns {*|{sid}}
+	 */
 	getInitialState(){
-		if (loginInfo.username && loginInfo.password){
+		if (loginInfo.username && loginInfo.password) {
 			CashierActions.login(loginInfo);
 		}
 		return this.refreshLocalState();
 	},
 
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
 	componentDidMount() {
 		CashierStore.addChangeListener(this._onChange);
 	},
 
+	/**
+	 * this function sets and return object with local states
+	 *
+	 * @returns {{sid: *}}
+	 */
 	refreshLocalState() {
 		return {
 			sid: CashierStore.getCustomerSID()
 		}
 	},
 
+	/**
+	 * this is the callback function the store calls when a state change
+	 *
+	 * @private
+	 */
 	_onChange() {
-		if(this.isMounted() === true){
+		if (this.isMounted() === true) {
 			this.setState(this.refreshLocalState());
 		}
-		if (this.state.sid && this.props.location.pathname=="/"){
-			let nextPath = '/'+CashierStore.getUI().currentView+'/';
+		if (this.state.sid && this.props.location.pathname == "/") {
+			let nextPath = '/' + CashierStore.getUI().currentView + '/';
 			RouterContainer.get().props.history.push(nextPath);
 		}
 	},
@@ -36,9 +54,9 @@ let Client = React.createClass({
 		return (
 			<div id="main">
 				<div id="mainContent" className="global">
-          <div className="container">
-            {this.props.children}
-          </div>
+					<div className="container">
+						{this.props.children}
+					</div>
 				</div>
 			</div>
 		)

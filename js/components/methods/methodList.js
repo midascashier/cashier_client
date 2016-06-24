@@ -1,21 +1,35 @@
 import React from 'react'
 import {Link} from 'react-router'
-import {CashierStore} from '../../stores/cashierStore'
-import {translate} from '../../constants/translate'
-import {MethodsDepositList} from '../contentComponents/methodsDepositList'
-import {MethodInfo} from '../contentComponents/methodInfo'
-import {LoadingSpinner} from '../../components/loading/loadingSpinner'
+import {CashierStore} from '../../stores/CashierStore'
+import {translate} from '../../constants/Translate'
+import {MethodsDepositList} from '../contentComponents/MethodsDepositList'
+import {MethodInfo} from '../contentComponents/MethodInfo'
+import {LoadingSpinner} from '../../components/loading/LoadingSpinner'
 
 
 let MethodList = React.createClass({
+	/**
+	 * React function to set component inital state
+	 *
+	 * @returns {*|{depositProcessors, selectedProcessor, originPath, customerAction, currentStep, customerOption, customerCurrency, transactions, isWithDraw}}
+	 */
 	getInitialState(){
 		return this.refreshLocalState();
 	},
 
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
 	componentDidMount() {
 		CashierStore.addChangeListener(this._onChange);
 	},
 
+	/**
+	 * this function sets and return object with local states
+	 *
+	 * @returns {{depositProcessors: Array, selectedProcessor: (*|{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}), originPath: (*|string), customerAction: (*|string), currentStep: (*|string), customerOption: (*|string), customerCurrency: string, transactions: ({}|*), isWithDraw: (*|int)}}
+	 */
 	refreshLocalState() {
 		return {
 			depositProcessors: CashierStore.getCustomer().depositProcessors,
@@ -30,6 +44,11 @@ let MethodList = React.createClass({
 		}
 	},
 
+	/**
+	 * this is the callback function the store calls when a state change
+	 * 
+	 * @private
+	 */
 	_onChange() {
 		if (this.isMounted() === true) {
 			this.setState(this.refreshLocalState());

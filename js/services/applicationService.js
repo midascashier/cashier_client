@@ -1,5 +1,5 @@
-import {CashierStore} from '../stores/cashierStore'
-import {stompConnector} from './stompConnector'
+import {CashierStore} from '../stores/CashierStore'
+import {stompConnector} from './StompConnector'
 
 class ApplicationService {
 	/**
@@ -15,7 +15,7 @@ class ApplicationService {
 	/**
 	 * function to get Countries
 	 */
-	getCountries(){
+	getCountries() {
 		let data = {f: "countries"};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);

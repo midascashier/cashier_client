@@ -1,12 +1,9 @@
-/**
- * Created by jocampo on 5/27/2016.
- */
 let EventEmitter = require('events').EventEmitter
 import assign from 'object-assign'
-import actions from '../constants/actions'
-import cashier from '../constants/cashier'
-import {CashierDispatcher} from '../dispatcher/cashierDispatcher'
-import {customerService} from '../services/customerService'
+import actions from '../constants/Actions'
+import cashier from '../constants/Cashier'
+import {CashierDispatcher} from '../dispatcher/CashierDispatcher'
+import {customerService} from '../services/CustomerService'
 
 
 /**
@@ -420,7 +417,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {Array}
 	 */
-	getTransaction:()=>{
+	getTransaction: ()=> {
 		return (_transaction);
 	},
 
@@ -463,7 +460,7 @@ CashierDispatcher.register((payload) => {
 				_UI.currentStep = 1;
 				if (CashierStore.getIsWithdraw()) {
 					_UI.currentView = "withdraw";
-				}else{
+				} else {
 					_UI.currentView = "deposit";
 				}
 				console.log('sid: ' + _application.sid);
@@ -556,9 +553,9 @@ CashierDispatcher.register((payload) => {
 			case actions.GET_PAY_ACCOUNTS:
 				_UI.currentStep = 2;
 				if (CashierStore.getIsWithdraw()) {
-					_UI.currentView = "withdraw/"+_processor.displayName.toLowerCase();
-				}else{
-					_UI.currentView = "deposit/"+_processor.displayName.toLowerCase();
+					_UI.currentView = "withdraw/" + _processor.displayName.toLowerCase();
+				} else {
+					_UI.currentView = "deposit/" + _processor.displayName.toLowerCase();
 				}
 				customerService.getCustomerPreviousPayAccount();
 				CashierStore.emitChange();
@@ -572,15 +569,15 @@ CashierDispatcher.register((payload) => {
 			case actions.CONFIRMSTEP:
 				_UI.currentStep = 3;
 				if (CashierStore.getIsWithdraw()) {
-					_UI.currentView = "withdraw/"+_processor.displayName.toLowerCase()+"/confirm";
-				}else{
-					_UI.currentView = "deposit/"+_processor.displayName.toLowerCase()+"/confirm";
+					_UI.currentView = "withdraw/" + _processor.displayName.toLowerCase() + "/confirm";
+				} else {
+					_UI.currentView = "deposit/" + _processor.displayName.toLowerCase() + "/confirm";
 				}
 				CashierStore.emitChange();
 				break;
 
 			case actions.CHANGE_TRANSACTION_AMOUNT:
-				_transaction.amount=data;
+				_transaction.amount = data;
 				break;
 
 			default:

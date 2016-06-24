@@ -11,8 +11,8 @@ let MethodInfo = React.createClass({
 
 	render() {
 		let customerAction;
-		
-		if (!this.props.isWithDraw){
+
+		if (!this.props.isWithDraw) {
 			customerAction = "deposit";
 		}
 
@@ -52,7 +52,8 @@ let MethodInfo = React.createClass({
 						<div className="row">
 							<div className="col-sm-6">
 								<Link to={"/"+customerAction+"/"+this.props.selectedProcessor.displayName.toLowerCase()+"/"}>
-									<button type="button" className="btn btn-green">Deposit with {this.props.selectedProcessor.displayName}</button>
+									<button type="button" className="btn btn-green">Deposit
+										with {this.props.selectedProcessor.displayName}</button>
 								</Link>
 							</div>
 							<div className="col-sm-6">

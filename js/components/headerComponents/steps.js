@@ -1,5 +1,5 @@
 import React from 'react'
-import {translate} from '../../constants/translate'
+import {translate} from '../../constants/Translate'
 
 let Steps = React.createClass({
 	propTypes: {
@@ -37,8 +37,9 @@ let Steps = React.createClass({
 				{(() => {
 					if (this.props.steps > 2) {
 						let thirdStep = <div key="1" className={step3}><p><span>3</span>{translate('STEPS_BILLING_INFO')}</p></div>;
-						let thirdStep2 = <div key="2" className={step3} hidden='hidden'><p><span>3</span>{translate('STEPS_INSTRUCTIONS')}</p></div>;
-						return ([thirdStep,thirdStep2]);
+						let thirdStep2 = <div key="2" className={step3} hidden='hidden'><p>
+							<span>3</span>{translate('STEPS_INSTRUCTIONS')}</p></div>;
+						return ([thirdStep, thirdStep2]);
 					}
 				})()}
 			</div>

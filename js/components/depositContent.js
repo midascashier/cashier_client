@@ -1,5 +1,5 @@
 import React from 'react'
-import {Header} from './header'
+import {Header} from './Header'
 
 let DepositContent = React.createClass({
 	render() {
@@ -13,7 +13,7 @@ let DepositContent = React.createClass({
 								<div className="row">
 									<div id="main">
 										<div id="mainContent" className="global">
-												{this.props.children}
+											{this.props.children}
 										</div>
 									</div>
 								</div>

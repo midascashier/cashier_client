@@ -2,16 +2,26 @@ import React from 'react'
 
 let Input = React.createClass({
 	propTypes: {
-		value:      React.PropTypes.string,
-		onChange:   React.PropTypes.func
+		value: React.PropTypes.string,
+		onChange: React.PropTypes.func
 	},
 
+	/**
+	 * Sets initial props to the component
+	 *
+	 * @returns {{value: string}}
+	 */
 	getDefaultProps() {
 		return {
 			value: ''
 		};
 	},
 
+	/**
+	 * local function which send by parameter to the function recevied on the props the value of the input
+	 *
+	 * @param e
+	 */
 	changeHandler(e) {
 		if (typeof this.props.onChange === 'function') {
 			this.props.onChange(e.target.value);
@@ -32,4 +42,4 @@ let Input = React.createClass({
 	}
 });
 
-module.exports.Input=Input;
+module.exports.Input = Input;

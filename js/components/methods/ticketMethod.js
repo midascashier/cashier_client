@@ -1,5 +1,5 @@
 import React from 'react'
-import {NetellerTicket} from './neteller/ticketMethod'
+import {NetellerTicket} from './neteller/TicketMethod'
 
 let Ticket = React.createClass({
 	propTypes: {
@@ -10,7 +10,7 @@ let Ticket = React.createClass({
 		let ticket;
 		switch (this.props.selectedProcessor.processorId) {
 			case '333':
-				ticket=<NetellerTicket/>
+				ticket = <NetellerTicket/>
 				break;
 		}
 		return (
