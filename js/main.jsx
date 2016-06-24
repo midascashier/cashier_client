@@ -1,14 +1,14 @@
 let React = require('react');
-let {render} = require('react-dom');
-import {Client} from './components/client'
-import {Welcome} from './components/welcome'
-import {DepositContent} from './components/depositContent'
 import {Router, Route, IndexRoute, browserHistory} from 'react-router'
-import {NetellerTicket} from './components/methods/neteller/ticketMethod'
-import {Neteller} from './components/methods/neteller/neteller'
-import {MethodList} from './components/methods/methodList'
-import {TransactionHistoryContent} from './components/transactionHistoryContent'
-import RouterContainer from './services/routerContainer'
+let {render} = require('react-dom');
+import {Client} from './components/Client'
+import {Welcome} from './components/Welcome'
+import {DepositContent} from './components/DepositContent'
+import {NetellerTicket} from './components/methods/neteller/TicketMethod'
+import {Neteller} from './components/methods/neteller/Neteller'
+import {MethodList} from './components/methods/MethodList'
+import {TransactionHistoryContent} from './components/TransactionHistoryContent'
+import RouterContainer from './services/RouterContainer'
 
 
 let routes = (  <Router history={browserHistory}>

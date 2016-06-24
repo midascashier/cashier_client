@@ -2,5 +2,5 @@
 .idea
 node_modules
 dev
-/config/rabbitConfig.js
+/config/RabbitConfig.js
 build/
