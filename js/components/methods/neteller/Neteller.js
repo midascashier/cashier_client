@@ -31,7 +31,6 @@ let Neteller = React.createClass({
 	 *
 	 * @returns {{depositProcessors: Array, selectedProcessor: (*|{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}), originPath: (*|string), customerAction: (*|string), currentStep: (*|string), customerOption: (*|string), customerCurrency: string, transactions: ({}|*), transactionAmount: (string|number|*)}}
 	 */
-
 	refreshLocalState() {
 		return {
 			depositProcessors: CashierStore.getCustomer().depositProcessors,
@@ -41,8 +40,7 @@ let Neteller = React.createClass({
 			currentStep: CashierStore.getCurrentStep(),
 			customerOption: CashierStore.getCustomerAction(),
 			customerCurrency: CashierStore.getCustomer().currency,
-			transactions: CashierStore.getCustomer().lastTransactions,
-			transactionAmount: CashierStore.getTransaction().amount
+			transactions: CashierStore.getCustomer().lastTransactions
 		}
 	},
 
@@ -70,7 +68,6 @@ let Neteller = React.createClass({
 	},
 
 	render() {
-		console.log(this.props.netellerAmountController.amount);
 		return (
 			<div className="container">
 				<div className="col-sm-6">
@@ -89,8 +86,7 @@ let Neteller = React.createClass({
 							return <LoadingSpinner />;
 						} else {
 							return <NetellerInfoMethod selectedProcessor={this.state.selectedProcessor}
-																				 password={this.state.password}
-																				 transactionAmount={this.state.transactionAmount}/>;
+																				 password={this.state.password}/>;
 						}
 					})()}
 				</div>

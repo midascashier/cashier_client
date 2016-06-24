@@ -75,7 +75,6 @@ let NetellerInfoMethod = React.createClass({
 		}
 
 		let allowContinue = false;
-		console.log(this.props.transactionAmount);
 		if (this.props.password) {
 			if (String(this.props.password).length >= 5) {
 				allowContinue = true;

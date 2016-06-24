@@ -1,6 +1,6 @@
 import React from 'react'
-import {CashierActions} from './../actions/cashierActions'
-import {CashierStore} from './../stores/cashierStore'
+import {CashierActions} from './../actions/CashierActions'
+import {CashierStore} from './../stores/CashierStore'
 
 let AmountController = React.createClass({
 
