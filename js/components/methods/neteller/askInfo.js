@@ -29,9 +29,6 @@ let NetellerAskInfo = React.createClass({
 	},
 
 	render() {
-		console.log(this.props.amount);
-		AmountController.setAmount(this);
-		console.log(this.props.amount);
 		return (
 			<div id="askAmount" className="box">
         <div className="row">

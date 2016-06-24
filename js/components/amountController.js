@@ -5,7 +5,6 @@ class amountController {
 	};
 
 	setAmount(obj){
-		obj.props.amount=555;
 	};
 }
 
