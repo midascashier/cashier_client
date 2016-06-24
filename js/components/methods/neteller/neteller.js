@@ -41,6 +41,12 @@ let Neteller = React.createClass({
 		}
 	},
 
+	changeHandler(value) {
+		this.setState({
+			password: value
+		});
+	},
+
 	render() {
 		return (
 			<div className="container">
@@ -50,14 +56,17 @@ let Neteller = React.createClass({
 					</Link>
 					<NetellerAskInfo originPath={this.state.originPath}
 													 customerOption={this.state.customerOption}
-													 selectedProcessor={this.state.selectedProcessor}/>
+													 selectedProcessor={this.state.selectedProcessor}
+													 changeHandler={this.changeHandler}
+													 password={this.state.password}/>
 				</div>
 				<div className="col-sm-6">
 					{(() => {
 						if (!this.state.selectedProcessor.processorId) {
 							return <LoadingSpinner />;
 						} else {
-							return <NetellerInfoMethod selectedProcessor={this.state.selectedProcessor}/>;
+							return <NetellerInfoMethod selectedProcessor={this.state.selectedProcessor}
+																				 password={this.state.password}/>;
 						}
 					})()}
 				</div>

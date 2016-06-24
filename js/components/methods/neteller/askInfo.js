@@ -1,13 +1,25 @@
 import React from 'react'
 import {SelectPayAccount} from '../../selectPayAccount'
 import {AmountController} from '../../amountController'
-import {MyInput} from '../../myInput'
+import {Input} from '../../inputs'
 
 let NetellerAskInfo = React.createClass({
 	propTypes: {
 		selectedProcessor: React.PropTypes.object,
 		customerOption: React.PropTypes.string,
-		originPath: React.PropTypes.string
+		originPath: React.PropTypes.string,
+		changeHandler:   React.PropTypes.func,
+		password: React.PropTypes.string
+	},
+
+	getInitialState() {
+		return this.refreshLocalState();
+	},
+
+	refreshLocalState() {
+		return {
+			value: ''
+		}
 	},
 
 	render() {
@@ -32,7 +44,7 @@ let NetellerAskInfo = React.createClass({
 												Neteller Account:
 													<SelectPayAccount />
 												Password:
-													<MyInput />
+													<Input onChange={this.props.changeHandler} value={this.props.password}/>
 												Amount:
 													<AmountController />
                       </div>
