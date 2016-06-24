@@ -1,5 +1,4 @@
 import React from 'react'
-import {CashierActions} from '../../actions/cashierActions'
 import {Link} from 'react-router'
 
 let MethodInfo = React.createClass({
@@ -8,10 +7,6 @@ let MethodInfo = React.createClass({
 		customerAction: React.PropTypes.string,
 		originPath: React.PropTypes.string,
 		isWithDraw: React.PropTypes.number
-	},
-
-	askInfo() {
-		CashierActions.askInfoStep();
 	},
 
 	render() {

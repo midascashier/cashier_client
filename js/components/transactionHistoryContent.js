@@ -1,9 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {Info} from './headerComponents/info'
-import {TransactionHistory} from './contentComponents/TransactionHistory'
+import {TransactionHistory} from './contentComponents/transactionHistory'
 import {translate} from '../constants/translate'
-import {CashierStore} from '../stores/CashierStore'
+import {CashierStore} from '../stores/cashierStore'
 
 let TransactionHistoryContent = React.createClass({
 

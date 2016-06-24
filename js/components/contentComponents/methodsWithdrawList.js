@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {translate} from '../../constants/translate'
-import {CashierStore} from '../../stores/CashierStore'
+import {CashierStore} from '../../stores/cashierStore'
 
 let MethodsWithdrawList = React.createClass({
 	render() {

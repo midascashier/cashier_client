@@ -26,7 +26,7 @@ let MyInput = React.createClass({
 					value={this.state.value}
 				/>
 			</div>
-		);
+		)
 	}
 });
 

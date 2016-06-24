@@ -1,7 +1,8 @@
 import React from 'react'
-import {CashierStore} from '../../../stores/CashierStore'
+import {CashierStore} from '../../../stores/cashierStore'
 import {CashierActions} from '../../../actions/cashierActions'
 import {Loading} from '../../loading/loading'
+import {Link} from 'react-router'
 
 let NetellerInfoMethod = React.createClass({
 
@@ -11,6 +12,10 @@ let NetellerInfoMethod = React.createClass({
 
 	componentDidMount: function() {
 		CashierStore.addChangeListener(this._onChange);
+	},
+
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	},
 
 	refreshLocalState() {
@@ -41,6 +46,12 @@ let NetellerInfoMethod = React.createClass({
 			maxPayAccount=payAccount.limitsData.maxAmount+" "+payAccount.limitsData.currencyCode;
 		}
 
+		let customerAction;
+
+		if (!this.props.isWithDraw){
+			customerAction = "deposit";
+		}
+
 		return (
 			<div id="infoLimits" className="row">
         <div className="col-sm-12">
@@ -65,7 +76,7 @@ let NetellerInfoMethod = React.createClass({
                 <div className="col-sm-6">
 									{(() => {
 										if (payAccount.payAccountId){
-											return <button type='button' className='btn btn-green' onClick={this.confirm}>Next</button>
+											return <Link to={"/"+customerAction+"/"+this.props.selectedProcessor.displayName.toLowerCase()+"/ticket"}><button type='button' className='btn btn-green'>Next</button></Link>
 										}
 									})()}
                 </div>

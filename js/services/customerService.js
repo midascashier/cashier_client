@@ -1,6 +1,6 @@
-import {CashierStore} from '../stores/CashierStore'
+import {CashierStore} from '../stores/cashierStore'
 import assign from 'object-assign'
-import {stompConnector} from './StompConnector'
+import {stompConnector} from './stompConnector'
 
 
 class CustomerService {

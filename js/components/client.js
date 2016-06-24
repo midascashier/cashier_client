@@ -1,7 +1,7 @@
 import React from 'react'
 import {CashierActions} from '../actions/cashierActions'
-import {CashierStore} from '../stores/CashierStore'
-import RouterContainer from '../services/RouterContainer'
+import {CashierStore} from '../stores/cashierStore'
+import RouterContainer from '../services/routerContainer'
 
 let Client = React.createClass({
 
@@ -26,7 +26,7 @@ let Client = React.createClass({
 		if(this.isMounted() === true){
 			this.setState(this.refreshLocalState());
 		}
-		if (this.state.sid){
+		if (this.state.sid && this.props.location.pathname=="/"){
 			let nextPath = '/'+CashierStore.getUI().currentView+'/';
 			RouterContainer.get().props.history.push(nextPath);
 		}

@@ -1,5 +1,5 @@
-import {CashierStore} from '../stores/CashierStore'
-import {stompConnector} from './StompConnector'
+import {CashierStore} from '../stores/cashierStore'
+import {stompConnector} from './stompConnector'
 
 class ApplicationService {
 	/**

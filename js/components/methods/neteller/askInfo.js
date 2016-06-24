@@ -3,7 +3,7 @@ import {SelectPayAccount} from '../../selectPayAccount'
 import {AmountController} from '../../amountController'
 import {MyInput} from '../../myInput'
 
-let AskInfo = React.createClass({
+let NetellerAskInfo = React.createClass({
 	propTypes: {
 		selectedProcessor: React.PropTypes.object,
 		customerOption: React.PropTypes.string,
@@ -49,4 +49,4 @@ let AskInfo = React.createClass({
 });
 
 
-module.exports.NetellerAskInfo = AskInfo;
+module.exports.NetellerAskInfo = NetellerAskInfo;

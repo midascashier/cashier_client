@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
-import {CashierStore} from '../../../stores/CashierStore';
+import {CashierStore} from '../../../stores/cashierStore';
 
 const InfoMethod = React.createClass({
 	render() {

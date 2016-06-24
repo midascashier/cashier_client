@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
-import {CashierStore} from '../../stores/CashierStore'
+import {CashierStore} from '../../stores/cashierStore'
 import {translate} from '../../constants/translate'
 import {MethodsDepositList} from '../contentComponents/methodsDepositList'
 import {MethodInfo} from '../contentComponents/methodInfo'

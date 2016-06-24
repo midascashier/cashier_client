@@ -1,7 +1,7 @@
 import React from 'react'
 import {Steps} from './headerComponents/steps'
 import {Info} from './headerComponents/info'
-import {CashierStore} from './../stores/CashierStore'
+import {CashierStore} from './../stores/cashierStore'
 
 let Header = React.createClass({
 	getInitialState(){

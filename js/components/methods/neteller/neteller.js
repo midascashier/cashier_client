@@ -1,13 +1,14 @@
 import React from 'react'
-import {CashierStore} from '../../../stores/CashierStore'
+import {CashierStore} from '../../../stores/cashierStore'
 import {LoadingSpinner} from '../../../components/loading/loadingSpinner'
 import {translate} from '../../../constants/translate'
-import {NetellerAskInfo} from './AskInfo'
-import {NetellerInfoMethod} from './InfoMethod'
+import {NetellerAskInfo} from './askInfo'
+import {NetellerInfoMethod} from './infoMethod'
 import {Link} from 'react-router'
 import {CashierActions} from '../../../actions/cashierActions'
 
 let Neteller = React.createClass({
+
 	getInitialState(){
 		return this.refreshLocalState();
 	},
@@ -15,6 +16,10 @@ let Neteller = React.createClass({
 	componentDidMount() {
 		CashierActions.getPayAccounts();
 		CashierStore.addChangeListener(this._onChange);
+	},
+
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	},
 
 	refreshLocalState() {
@@ -45,7 +50,7 @@ let Neteller = React.createClass({
 					</Link>
 					<NetellerAskInfo originPath={this.state.originPath}
 													 customerOption={this.state.customerOption}
-													 selectedProcessor={this.state.selectedProcessor}/>;
+													 selectedProcessor={this.state.selectedProcessor}/>
 				</div>
 				<div className="col-sm-6">
 					{(() => {

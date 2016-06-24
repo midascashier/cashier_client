@@ -1,6 +1,6 @@
 import React from 'react'
 import {translate} from '../constants/translate'
-import {CashierStore} from '../stores/CashierStore'
+import {CashierStore} from '../stores/cashierStore'
 import {Header} from './header'
 import {MethodsWithdrawList} from './contentComponents/methodsWithdrawList'
 
