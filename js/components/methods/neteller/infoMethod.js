@@ -5,6 +5,9 @@ import {Loading} from '../../loading/loading'
 import {Link} from 'react-router'
 
 let NetellerInfoMethod = React.createClass({
+	propTypes: {
+		password: React.PropTypes.string
+	},
 
 	getInitialState(){
 		return this.refreshLocalState();
@@ -52,6 +55,14 @@ let NetellerInfoMethod = React.createClass({
 			customerAction = "deposit";
 		}
 
+		let allowContinue =false;
+		console.log(this.props.transactionAmount);
+		if (this.props.password) {
+			if (String(this.props.password).length>=5)
+			{
+				allowContinue=true;
+			}
+		}
 		return (
 			<div id="infoLimits" className="row">
         <div className="col-sm-12">
@@ -75,7 +86,7 @@ let NetellerInfoMethod = React.createClass({
               <div className="row">
                 <div className="col-sm-6">
 									{(() => {
-										if (payAccount.payAccountId){
+										if (payAccount.payAccountId && allowContinue){
 											return <Link to={"/"+customerAction+"/"+this.props.selectedProcessor.displayName.toLowerCase()+"/ticket"}><button type='button' className='btn btn-green'>Next</button></Link>
 										}
 									})()}

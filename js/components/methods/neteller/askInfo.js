@@ -8,12 +8,18 @@ let NetellerAskInfo = React.createClass({
 		selectedProcessor: React.PropTypes.object,
 		customerOption: React.PropTypes.string,
 		originPath: React.PropTypes.string,
-		changeHandler:   React.PropTypes.func,
+		NetellerPasswordInput:   React.PropTypes.func,
 		password: React.PropTypes.string
 	},
 
 	getInitialState() {
 		return this.refreshLocalState();
+	},
+
+	getDefaultProps() {
+		return {
+			amount: 123
+		};
 	},
 
 	refreshLocalState() {
@@ -23,6 +29,9 @@ let NetellerAskInfo = React.createClass({
 	},
 
 	render() {
+		console.log(this.props.amount);
+		AmountController.setAmount(this);
+		console.log(this.props.amount);
 		return (
 			<div id="askAmount" className="box">
         <div className="row">
@@ -44,9 +53,9 @@ let NetellerAskInfo = React.createClass({
 												Neteller Account:
 													<SelectPayAccount />
 												Password:
-													<Input onChange={this.props.changeHandler} value={this.props.password}/>
+													<Input onChange={this.props.NetellerPasswordInput} value={this.props.password} type="password"/>
 												Amount:
-													<AmountController />
+													<Input onChange={this.props.NetellerPasswordInput} value={this.props.password} type="password"/>
                       </div>
                     </div>
                   </div>

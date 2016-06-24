@@ -31,7 +31,8 @@ let Neteller = React.createClass({
 			currentStep: CashierStore.getCurrentStep(),
 			customerOption: CashierStore.getCustomerAction(),
 			customerCurrency: CashierStore.getCustomer().currency,
-			transactions: CashierStore.getCustomer().lastTransactions
+			transactions: CashierStore.getCustomer().lastTransactions,
+			transactionAmount: CashierStore.getTransaction().amount
 		}
 	},
 
@@ -41,7 +42,7 @@ let Neteller = React.createClass({
 		}
 	},
 
-	changeHandler(value) {
+	NetellerPasswordInput(value) {
 		this.setState({
 			password: value
 		});
@@ -57,7 +58,7 @@ let Neteller = React.createClass({
 					<NetellerAskInfo originPath={this.state.originPath}
 													 customerOption={this.state.customerOption}
 													 selectedProcessor={this.state.selectedProcessor}
-													 changeHandler={this.changeHandler}
+													 NetellerPasswordInput={this.NetellerPasswordInput}
 													 password={this.state.password}/>
 				</div>
 				<div className="col-sm-6">
@@ -66,7 +67,7 @@ let Neteller = React.createClass({
 							return <LoadingSpinner />;
 						} else {
 							return <NetellerInfoMethod selectedProcessor={this.state.selectedProcessor}
-																				 password={this.state.password}/>;
+																				 password={this.state.password} transactionAmount={this.state.transactionAmount}/>;
 						}
 					})()}
 				</div>

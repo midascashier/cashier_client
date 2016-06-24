@@ -282,6 +282,13 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
+	 * return transaction Info
+	 */
+	getTransaction: () => {
+		return (_transaction);
+	},
+
+	/**
 	 * return how many steps by processor
 	 */
 	getProcessorSteps: () => {
