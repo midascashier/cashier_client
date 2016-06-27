@@ -3,8 +3,8 @@ import assign from 'object-assign'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
 import {CashierDispatcher} from '../dispatcher/CashierDispatcher'
-import {customerService} from '../services/CustomerService'
-
+import {CustomerService} from '../services/CustomerService'
+import {TransactionService} from '../services/TransactionService'
 
 /**
  * UI
@@ -232,7 +232,13 @@ let _transaction = {
 	amount: "",
 	fee: 0,
 	feeType: '',
-	bonusId: 0
+	bonusId: 0,
+	cleanTransaction(){
+		this.amount = "";
+		this.fee = 0;
+		this.feeType = "";
+		this.bonusId = 0;
+	}
 };
 
 let _transactionResponse = {
@@ -255,11 +261,11 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		this.emit(CHANGE_EVENT);
 	},
 
-	removeChangeListener: function (callback) {
+	removeChangeListener(callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
-	addChangeListener: function (callback) {
+	addChangeListener(callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
 
@@ -276,13 +282,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getCurrentPayAccount: () => {
 		return (_payAccount);
-	},
-
-	/**
-	 * return transaction Info
-	 */
-	getTransaction: () => {
-		return (_transaction);
 	},
 
 	/**
@@ -452,7 +451,7 @@ CashierDispatcher.register((payload) => {
 				_customer.username = data.username;
 				_customer.password = data.password;
 				_UI.customerAction = data.option;
-				customerService.stompConnection(data);
+				CustomerService.stompConnection(data);
 				break;
 
 			case actions.LOGIN_RESPONSE:
@@ -535,8 +534,9 @@ CashierDispatcher.register((payload) => {
 			case actions.CHANGE_PROCESSOR:
 				_UI.processorId = data.processorId;
 				_processor.load(data);
-				customerService.getProcessorLimitRules();
-				customerService.getCustomerProcessorsMinMax();
+				_transaction.cleanTransaction();
+				CustomerService.getProcessorLimitRules();
+				CustomerService.getCustomerProcessorsMinMax();
 				CashierStore.emitChange();
 				break;
 
@@ -557,7 +557,7 @@ CashierDispatcher.register((payload) => {
 				} else {
 					_UI.currentView = "deposit/" + _processor.displayName.toLowerCase();
 				}
-				customerService.getCustomerPreviousPayAccount();
+				CustomerService.getCustomerPreviousPayAccount();
 				CashierStore.emitChange();
 				break;
 
@@ -578,6 +578,11 @@ CashierDispatcher.register((payload) => {
 
 			case actions.CHANGE_TRANSACTION_AMOUNT:
 				_transaction.amount = data;
+				CashierStore.emitChange();
+				break;
+
+			case actions.PROCESS:
+				TransactionService.process();
 				break;
 
 			default:

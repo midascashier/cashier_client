@@ -23,7 +23,7 @@ let NetellerInfoMethod = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount: function () {
+	componentDidMount() {
 		CashierStore.addChangeListener(this._onChange);
 	},
 
@@ -52,34 +52,49 @@ let NetellerInfoMethod = React.createClass({
 	},
 
 	/**
-	 *
+	 * this function checks if password and amount are valid
 	 */
-	confirm() {
-		CashierActions.confirmStep();
+	allowProcess(){
+		let password = this.props.password;
+		let amount = this.props.transaction.amount;
+		if (password && amount) {
+			if ((String(password).length >= 5) && amount > 0) {
+				return true;
+			}
+		}
+		return false;
 	},
 
-	render() {
+	/**
+	 * this function return payAccount limits and ID
+	 *
+	 * @returns {{minPayAccount: XML, maxPayAccount: XML, payAccountId: (*|number|null)}}
+	 */
+	getPayAccountLimits(){
 		let minPayAccount = <Loading />;
 		let maxPayAccount = <Loading />;
-		let submitButton = "";
 		let payAccount = this.state.currentPayAccount;
 		if (payAccount.payAccountId) {
 			minPayAccount = payAccount.limitsData.minAmount + " " + payAccount.limitsData.currencyCode;
 			maxPayAccount = payAccount.limitsData.maxAmount + " " + payAccount.limitsData.currencyCode;
 		}
+		return {"minPayAccount":minPayAccount, "maxPayAccount":maxPayAccount,"payAccountId":payAccount.payAccountId}
+	},
 
-		let customerAction;
+	/**
+	 * this function sends deposit info to cashier
+	 */
+	processDeposit(){
+		CashierActions.process();
+	},
 
+	render() {
 		if (!this.props.isWithDraw) {
-			customerAction = "deposit";
+			let customerAction = "deposit";
 		}
+		let allowContinue = this.allowProcess();
+		let payAccountinfo = this.getPayAccountLimits();
 
-		let allowContinue = false;
-		if (this.props.password) {
-			if (String(this.props.password).length >= 5) {
-				allowContinue = true;
-			}
-		}
 		return (
 			<div id="infoLimits" className="row">
 				<div className="col-sm-12">
@@ -89,11 +104,11 @@ let NetellerInfoMethod = React.createClass({
 							<tbody>
 							<tr>
 								<td>Min. Deposit:</td>
-								<td><span>{minPayAccount}</span></td>
+								<td><span>{payAccountinfo.minPayAccount}</span></td>
 							</tr>
 							<tr>
 								<td>Max. Deposit:</td>
-								<td><span>{maxPayAccount}</span></td>
+								<td><span>{payAccountinfo.maxPayAccount}</span></td>
 							</tr>
 							</tbody>
 						</table>
@@ -103,10 +118,10 @@ let NetellerInfoMethod = React.createClass({
 							<div className="row">
 								<div className="col-sm-6">
 									{(() => {
-										if (payAccount.payAccountId && allowContinue) {
+										if (payAccountinfo.payAccountId && allowContinue) {
 											return <Link
 												to={"/"+customerAction+"/"+this.props.selectedProcessor.displayName.toLowerCase()+"/ticket"}>
-												<button type='button' className='btn btn-green'>Next</button>
+												<button type='button' onClick={this.processDeposit} className='btn btn-green'>Next</button>
 											</Link>
 										}
 									})()}

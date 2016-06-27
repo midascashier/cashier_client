@@ -116,6 +116,10 @@ class StompConnector {
     this.sendMessage("customer", headers, message)
   };
 
+  makeTransactionRequest(headers, message) {
+    this.sendMessage("transaction", headers, message)
+  };
+
   /**
    * get the message and the queue y send them to Rabbit
    * @param message

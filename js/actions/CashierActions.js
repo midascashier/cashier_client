@@ -125,6 +125,13 @@ let CashierActions = {
 			action: actions.CHANGE_TRANSACTION_AMOUNT,
 			data: data
 		});
+	},
+
+	process: () => {
+		CashierDispatcher.handleServerAction({
+			action: actions.PROCESS,
+			data: data
+		});
 	}
 
 };

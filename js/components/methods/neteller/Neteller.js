@@ -40,7 +40,8 @@ let Neteller = React.createClass({
 			currentStep: CashierStore.getCurrentStep(),
 			customerOption: CashierStore.getCustomerAction(),
 			customerCurrency: CashierStore.getCustomer().currency,
-			transactions: CashierStore.getCustomer().lastTransactions
+			transactions: CashierStore.getCustomer().lastTransactions,
+			transaction: CashierStore.getTransaction()
 		}
 	},
 
@@ -86,7 +87,8 @@ let Neteller = React.createClass({
 							return <LoadingSpinner />;
 						} else {
 							return <NetellerInfoMethod selectedProcessor={this.state.selectedProcessor}
-																				 password={this.state.password}/>;
+																				 password={this.state.password}
+																					transaction={this.state.transaction}/>;
 						}
 					})()}
 				</div>
