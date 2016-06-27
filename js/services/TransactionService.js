@@ -15,4 +15,4 @@ class TransactionService {
 	};
 }
 
-export let TransactionService = new TransactionService();
+export let transactionService = new TransactionService();

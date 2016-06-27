@@ -3,8 +3,8 @@ import assign from 'object-assign'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
 import {CashierDispatcher} from '../dispatcher/CashierDispatcher'
-import {CustomerService} from '../services/CustomerService'
-import {TransactionService} from '../services/TransactionService'
+import {customerService} from '../services/CustomerService'
+import {transactionService} from '../services/TransactionService'
 
 /**
  * UI
@@ -451,7 +451,7 @@ CashierDispatcher.register((payload) => {
 				_customer.username = data.username;
 				_customer.password = data.password;
 				_UI.customerAction = data.option;
-				CustomerService.stompConnection(data);
+				customerService.stompConnection(data);
 				break;
 
 			case actions.LOGIN_RESPONSE:
@@ -535,8 +535,8 @@ CashierDispatcher.register((payload) => {
 				_UI.processorId = data.processorId;
 				_processor.load(data);
 				_transaction.cleanTransaction();
-				CustomerService.getProcessorLimitRules();
-				CustomerService.getCustomerProcessorsMinMax();
+				customerService.getProcessorLimitRules();
+				customerService.getCustomerProcessorsMinMax();
 				CashierStore.emitChange();
 				break;
 
@@ -557,7 +557,7 @@ CashierDispatcher.register((payload) => {
 				} else {
 					_UI.currentView = "deposit/" + _processor.displayName.toLowerCase();
 				}
-				CustomerService.getCustomerPreviousPayAccount();
+				customerService.getCustomerPreviousPayAccount();
 				CashierStore.emitChange();
 				break;
 
@@ -582,7 +582,7 @@ CashierDispatcher.register((payload) => {
 				break;
 
 			case actions.PROCESS:
-				TransactionService.process();
+				transactionService.process();
 				break;
 
 			default:

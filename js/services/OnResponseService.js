@@ -1,6 +1,6 @@
 import {CashierActions} from '../actions/CashierActions'
-import {CustomerService} from '../services/CustomerService'
-import {ApplicationService} from './ApplicationService'
+import {customerService} from '../services/CustomerService'
+import {applicationService} from './ApplicationService'
 import actions from '../constants/Actions'
 
 
@@ -13,18 +13,18 @@ class OnResponseService {
 				if (data) {
 					CashierActions.login_response(data);
 					if (data.response.sid) {
-						CustomerService.getCustomerInfo();
-						CustomerService.getCustomerProcessors();
-						CustomerService.getCustomerTransactions();
-						ApplicationService.getCompanyInfo();
-						ApplicationService.getCountries();
+						customerService.getCustomerInfo();
+						customerService.getCustomerProcessors();
+						customerService.getCustomerTransactions();
+						applicationService.getCompanyInfo();
+						applicationService.getCountries();
 					}
 				}
 				break;
 			case actions.CUSTOMER_INFO_RESPONSE:
 				if (data) {
 					CashierActions.customerInfo_response(data);
-					ApplicationService.getStates();
+					applicationService.getStates();
 				}
 				break;
 			case actions.COMPANY_INFO_RESPONSE:
@@ -50,8 +50,8 @@ class OnResponseService {
 			case actions.PROCESSORS_RESPONSE:
 				if (data) {
 					CashierActions.getCustomerProcessors_response(data);
-					CustomerService.getProcessorLimitRules();
-					CustomerService.getCustomerProcessorsMinMax();
+					customerService.getProcessorLimitRules();
+					customerService.getCustomerProcessorsMinMax();
 				}
 				break;
 			case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
