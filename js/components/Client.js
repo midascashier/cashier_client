@@ -5,7 +5,7 @@ import RouterContainer from '../services/RouterContainer'
 
 let Client = React.createClass({
 	/**
-	 * React function to set component inital state
+	 * React function to set component initial state
 	 *
 	 * @returns {*|{sid}}
 	 */

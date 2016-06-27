@@ -10,9 +10,8 @@ import {CashierActions} from '../../../actions/CashierActions'
 let Neteller = React.createClass({
 	/**
 	 * React function to set component initial state
-	 *
-	 * @returns {*|{depositProcessors, selectedProcessor, originPath, customerAction, currentStep, customerOption, customerCurrency, transactions, transactionAmount}}
 	 */
+
 	getInitialState(){
 		return this.refreshLocalState();
 	},
@@ -28,19 +27,11 @@ let Neteller = React.createClass({
 
 	/**
 	 * this function sets and return object with local states
-	 *
-	 * @returns {{depositProcessors: Array, selectedProcessor: (*|{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}), originPath: (*|string), customerAction: (*|string), currentStep: (*|string), customerOption: (*|string), customerCurrency: string, transactions: ({}|*), transactionAmount: (string|number|*)}}
 	 */
 	refreshLocalState() {
 		return {
-			depositProcessors: CashierStore.getCustomer().depositProcessors,
 			selectedProcessor: CashierStore.getProcessor(),
 			originPath: CashierStore.getOriginPath(),
-			customerAction: CashierStore.getCustomerAction(),
-			currentStep: CashierStore.getCurrentStep(),
-			customerOption: CashierStore.getCustomerAction(),
-			customerCurrency: CashierStore.getCustomer().currency,
-			transactions: CashierStore.getCustomer().lastTransactions,
 			transaction: CashierStore.getTransaction(),
 			isWithDraw: CashierStore.getIsWithdraw()
 		}
@@ -77,8 +68,6 @@ let Neteller = React.createClass({
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
 					<NetellerAskInfo originPath={this.state.originPath}
-													 customerOption={this.state.customerOption}
-													 selectedProcessor={this.state.selectedProcessor}
 													 NetellerPasswordInput={this.NetellerPasswordInput}
 													 password={this.state.password}/>
 				</div>

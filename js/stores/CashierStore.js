@@ -243,7 +243,9 @@ let _transaction = {
 
 let _transactionResponse = {
 	transactionId: 0,
-	status: ''
+	journalId: 0,
+	status: 0,
+	userMessage: ""
 };
 
 let CHANGE_EVENT = 'change';
@@ -289,6 +291,13 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getProcessorSteps: () => {
 		return (_UI.steps[_processor.processorId]);
+	},
+
+	/**
+	 * Return last transaction cashier response
+	 */
+	getLastTransactionResponse: () => {
+		return (_transactionResponse);
 	},
 
 	/**
@@ -439,10 +448,10 @@ CashierDispatcher.register((payload) => {
 		let data = payload.data;
 
 		//register error
-		if (data && data.state === 'error') {
-			console.log(data);
-			return false;
-		}
+		/*if (data && data.state === 'error') {
+		 console.log(data);
+		 return false;
+		 }*/
 
 		switch (action) {
 			case actions.LOGIN:
@@ -462,7 +471,6 @@ CashierDispatcher.register((payload) => {
 				} else {
 					_UI.currentView = "deposit";
 				}
-				console.log('sid: ' + _application.sid);
 				CashierStore.emitChange();
 				break;
 
@@ -583,6 +591,15 @@ CashierDispatcher.register((payload) => {
 
 			case actions.PROCESS:
 				transactionService.process(data);
+				break;
+
+			case actions.PROCESS_RESPONSE:
+				_transactionResponse.journalId = data.response.transaction.caJournal_Id;
+				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
+				_transactionResponse.status = data.response.transaction.caTransactionStatus_Id;
+				_transactionResponse.userMessage = data.response.transaction.userMessage;
+				console.log(_transactionResponse);
+				CashierStore.emitChange();
 				break;
 
 			default:

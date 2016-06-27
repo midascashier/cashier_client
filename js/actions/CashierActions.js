@@ -140,6 +140,13 @@ let CashierActions = {
 			});
 		}
 
+	},
+
+	processResponse: (data) => {
+		CashierDispatcher.handleServerAction({
+			action: actions.PROCESS_RESPONSE,
+			data: data
+		});
 	}
 
 };

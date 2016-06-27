@@ -75,12 +75,16 @@ class OnResponseService {
 				}
 				break;
 			case actions.PROCESS_RESPONSE:
-				if (data) {
+				console.log(data);
+				if (data.userMessage) {
+					CashierActions.processResponse(data);
+				}
+				else{
 					console.log(data);
 				}
 				break;
 			default:
-				console.log(data);
+				console.log(data.state);
 		}
 	};
 }

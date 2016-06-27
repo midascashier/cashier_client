@@ -5,8 +5,6 @@ import {AmountController} from '../../AmountController'
 
 let NetellerAskInfo = React.createClass({
 	propTypes: {
-		selectedProcessor: React.PropTypes.object,
-		customerOption: React.PropTypes.string,
 		originPath: React.PropTypes.string,
 		NetellerPasswordInput: React.PropTypes.func,
 		password: React.PropTypes.string
@@ -31,6 +29,10 @@ let NetellerAskInfo = React.createClass({
 	},
 
 	render() {
+		let originPath = this.props.originPath;
+		let NetellerPasswordInput = this.props.NetellerPasswordInput;
+		let password = this.props.password;
+
 		return (
 			<div id="askAmount" className="box">
 				<div className="row">
@@ -45,7 +47,7 @@ let NetellerAskInfo = React.createClass({
 										<div className="row">
 											<div className="col-sm-3">
 												<div className="method active pull-left">
-													<img className="img-responsive" src={this.props.originPath + '/images/processors/333.png'}
+													<img className="img-responsive" src={originPath + '/images/processors/333.png'}
 															 alt="Neteller"/>
 												</div>
 											</div>
@@ -53,7 +55,7 @@ let NetellerAskInfo = React.createClass({
 												Neteller Account:
 												<SelectPayAccount />
 												Password:
-												<Input onChange={this.props.NetellerPasswordInput} value={this.props.password} type="password"/>
+												<Input onChange={NetellerPasswordInput} value={password} type="password"/>
 												Amount:
 												<AmountController />
 											</div>

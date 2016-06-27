@@ -3,7 +3,7 @@ import {translate} from '../../constants/Translate'
 import {LoadingSpinner} from '../loading/LoadingSpinner'
 import {Processor} from './Processor'
 
-let MethodsDepositList = React.createClass({
+let ProcessorsList = React.createClass({
 	propTypes: {
 		selectedProcessor: React.PropTypes.number,
 		depositProcessors: React.PropTypes.array,
@@ -52,4 +52,4 @@ let MethodsDepositList = React.createClass({
 	}
 });
 
-module.exports.MethodsDepositList = MethodsDepositList;
+module.exports.ProcessorsList = ProcessorsList;

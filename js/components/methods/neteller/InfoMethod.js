@@ -12,7 +12,7 @@ let NetellerInfoMethod = React.createClass({
 	},
 
 	/**
-	 * React function to set component inital state
+	 * React function to set component initial state
 	 *
 	 * @returns {*|{customer, company}}
 	 */
@@ -84,22 +84,35 @@ let NetellerInfoMethod = React.createClass({
 
 	/**
 	 * this function sends deposit info to cashier
+	 *
 	 */
 	processDeposit(){
 		let password = this.props.password;
 		let dynamicParams = {};
 		dynamicParams.password = password;
-		
+
 		CashierActions.process(dynamicParams);
 	},
 
-	render() {
-		let customerAction="";
-		if (this.props.isWithDraw===0) {
-			customerAction = "deposit";
+	/**
+	 * this function returns customer selected option
+	 *
+	 * @returns {*}
+	 */
+	customerAction(){
+		if (!this.props.isWithDraw) {
+			return "deposit";
 		}
+		else {
+			return "withdraw";
+		}
+	},
+
+	render() {
+		let customerAction=this.customerAction();
 		let allowContinue = this.allowProcess();
 		let payAccountinfo = this.getPayAccountLimits();
+		let displayName = this.props.selectedProcessor.displayName;
 
 		return (
 			<div id="infoLimits" className="row">
@@ -126,7 +139,7 @@ let NetellerInfoMethod = React.createClass({
 									{(() => {
 										if (payAccountinfo.payAccountId && allowContinue) {
 											return <Link
-												to={customerAction+"/"+this.props.selectedProcessor.displayName.toLowerCase()+"/ticket"}>
+												to={customerAction+"/"+displayName.toLowerCase()+"/ticket"}>
 												<button type='button' onClick={this.processDeposit} className='btn btn-green'>Next</button>
 											</Link>
 										}

@@ -2,16 +2,15 @@ import React from 'react'
 import {Link} from 'react-router'
 import {CashierStore} from '../../stores/CashierStore'
 import {translate} from '../../constants/Translate'
-import {MethodsDepositList} from '../contentComponents/MethodsDepositList'
-import {MethodInfo} from '../contentComponents/MethodInfo'
+import {ProcessorsList} from '../contentComponents/ProcessorsList'
+import {ProcessorInfo} from '../contentComponents/ProcessorInfo'
 import {LoadingSpinner} from '../../components/loading/LoadingSpinner'
 
 
-let MethodList = React.createClass({
+let ProcessorsInfo = React.createClass({
 	/**
 	 * React function to set component inital state
 	 *
-	 * @returns {*|{depositProcessors, selectedProcessor, originPath, customerAction, currentStep, customerOption, customerCurrency, transactions, isWithDraw}}
 	 */
 	getInitialState(){
 		return this.refreshLocalState();
@@ -28,25 +27,20 @@ let MethodList = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 *
-	 * @returns {{depositProcessors: Array, selectedProcessor: (*|{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}), originPath: (*|string), customerAction: (*|string), currentStep: (*|string), customerOption: (*|string), customerCurrency: string, transactions: ({}|*), isWithDraw: (*|int)}}
 	 */
 	refreshLocalState() {
 		return {
-			depositProcessors: CashierStore.getCustomer().depositProcessors,
+			customer: CashierStore.getCustomer(),
 			selectedProcessor: CashierStore.getProcessor(),
 			originPath: CashierStore.getOriginPath(),
 			customerAction: CashierStore.getCustomerAction(),
-			currentStep: CashierStore.getCurrentStep(),
-			customerOption: CashierStore.getCustomerAction(),
-			customerCurrency: CashierStore.getCustomer().currency,
-			transactions: CashierStore.getCustomer().lastTransactions,
 			isWithDraw: CashierStore.getIsWithdraw()
 		}
 	},
 
 	/**
 	 * this is the callback function the store calls when a state change
-	 * 
+	 *
 	 * @private
 	 */
 	_onChange() {
@@ -62,9 +56,9 @@ let MethodList = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<MethodsDepositList
+					<ProcessorsList
 						selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
-						depositProcessors={this.state.depositProcessors}
+						depositProcessors={this.state.customer.depositProcessors}
 						originPath={this.state.originPath}/>
 				</div>
 				<div className="col-sm-6">
@@ -72,10 +66,10 @@ let MethodList = React.createClass({
 						if (!this.state.selectedProcessor.processorId) {
 							return <LoadingSpinner />;
 						} else {
-							return <MethodInfo selectedProcessor={this.state.selectedProcessor}
-																 customerAction={this.state.customerAction}
-																 originPath={this.state.originPath}
-																 isWithDraw={this.state.isWithDraw}/>
+							return <ProcessorInfo selectedProcessor={this.state.selectedProcessor}
+																		customerAction={this.state.customerAction}
+																		originPath={this.state.originPath}
+																		isWithDraw={this.state.isWithDraw}/>
 						}
 					})()}
 				</div>
@@ -84,4 +78,4 @@ let MethodList = React.createClass({
 	}
 });
 
-module.exports.MethodList = MethodList;
+module.exports.ProcessorsInfo = ProcessorsInfo;
