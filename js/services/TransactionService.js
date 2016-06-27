@@ -6,12 +6,39 @@ class TransactionService {
 	/**
 	 * this function sends to process a transaction
 	 */
-	process() {
-		/*let data = {f: "process", companyId: 9};
+	process(dynamicParams) {
 		let application = CashierStore.getApplication();
-		let rabbitRequest = assign(data, loginInfo, application);
-		stompConnector.makeTransactionRequest("", rabbitRequest);*/
-		console.log("PROCESS TRANSACTION");
+		let customerInfo = CashierStore.getCustomer();
+		let transaction = CashierStore.getTransaction();
+		let processorSelected = CashierStore.getProcessor();
+		let payAccountSelected = CashierStore.getCurrentPayAccount();
+		let action="d";
+		if (CashierStore.getIsWithdraw()){
+			action="w";
+		}
+		let rabbitRequest = {
+			f: "process",
+			companyId: customerInfo.companyId,
+			username: customerInfo.username,
+			password: customerInfo.password,
+			remoteAddr: application.remoteAddr,
+			remoteHost: application.remoteHost,
+			referrer: application.referrer,
+			xForwardedFor: application.xForwardedFor,
+			lang: application.lang,
+			platform: application.platform,
+			userAgent: application.userAgent,
+			createdBy: customerInfo.customerId,
+			type: action,
+			isDefer:0,
+			processorId: processorSelected.processorId,
+			amount: transaction.amount,
+			payAccountId: payAccountSelected.payAccountId,
+			sys_access_pass: application.sys_access_pass,
+			sid: application.sid,
+			dynamicParams: dynamicParams
+		};
+		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 }
 

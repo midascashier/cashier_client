@@ -74,8 +74,13 @@ class OnResponseService {
 					CashierActions.getProcessorMinMaxLimits_response(data);
 				}
 				break;
+			case actions.PROCESS_RESPONSE:
+				if (data) {
+					console.log(data);
+				}
+				break;
 			default:
-				console.log(data.state);
+				console.log(data);
 		}
 	};
 }

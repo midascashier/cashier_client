@@ -7,7 +7,8 @@ import {Loading} from '../../loading/Loading'
 
 let NetellerInfoMethod = React.createClass({
 	propTypes: {
-		password: React.PropTypes.string
+		password: React.PropTypes.string,
+		isWithDraw: React.PropTypes.number
 	},
 
 	/**
@@ -85,12 +86,17 @@ let NetellerInfoMethod = React.createClass({
 	 * this function sends deposit info to cashier
 	 */
 	processDeposit(){
-		CashierActions.process();
+		let password = this.props.password;
+		let dynamicParams = {};
+		dynamicParams.password = password;
+		
+		CashierActions.process(dynamicParams);
 	},
 
 	render() {
-		if (!this.props.isWithDraw) {
-			let customerAction = "deposit";
+		let customerAction="";
+		if (this.props.isWithDraw===0) {
+			customerAction = "deposit";
 		}
 		let allowContinue = this.allowProcess();
 		let payAccountinfo = this.getPayAccountLimits();
@@ -120,7 +126,7 @@ let NetellerInfoMethod = React.createClass({
 									{(() => {
 										if (payAccountinfo.payAccountId && allowContinue) {
 											return <Link
-												to={"/"+customerAction+"/"+this.props.selectedProcessor.displayName.toLowerCase()+"/ticket"}>
+												to={customerAction+"/"+this.props.selectedProcessor.displayName.toLowerCase()+"/ticket"}>
 												<button type='button' onClick={this.processDeposit} className='btn btn-green'>Next</button>
 											</Link>
 										}

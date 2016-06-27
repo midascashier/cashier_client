@@ -40,9 +40,9 @@ let _application = {
 	remoteAddr: "127.0.0.1",
 	remoteHost: "localhost",
 	userAgent: navigator.userAgent,
-	remoteAddress: '',
-	referrer: '',
-	xForwardedFor: ''
+	remoteAddress: '127.0.0.1',
+	referrer: 'test',
+	xForwardedFor: '127.0.0.1'
 };
 
 /**
@@ -582,7 +582,7 @@ CashierDispatcher.register((payload) => {
 				break;
 
 			case actions.PROCESS:
-				transactionService.process();
+				transactionService.process(data);
 				break;
 
 			default:

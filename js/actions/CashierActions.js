@@ -127,11 +127,19 @@ let CashierActions = {
 		});
 	},
 
-	process: () => {
-		CashierDispatcher.handleServerAction({
-			action: actions.PROCESS,
-			data: data
-		});
+	process: (data) => {
+		if (data) {
+			CashierDispatcher.handleServerAction({
+				action: actions.PROCESS,
+				data: data
+			});
+		}
+		else {
+			CashierDispatcher.handleServerAction({
+				action: actions.PROCESS
+			});
+		}
+
 	}
 
 };

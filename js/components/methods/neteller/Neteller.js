@@ -9,7 +9,7 @@ import {CashierActions} from '../../../actions/CashierActions'
 
 let Neteller = React.createClass({
 	/**
-	 * React function to set component inital state
+	 * React function to set component initial state
 	 *
 	 * @returns {*|{depositProcessors, selectedProcessor, originPath, customerAction, currentStep, customerOption, customerCurrency, transactions, transactionAmount}}
 	 */
@@ -41,7 +41,8 @@ let Neteller = React.createClass({
 			customerOption: CashierStore.getCustomerAction(),
 			customerCurrency: CashierStore.getCustomer().currency,
 			transactions: CashierStore.getCustomer().lastTransactions,
-			transaction: CashierStore.getTransaction()
+			transaction: CashierStore.getTransaction(),
+			isWithDraw: CashierStore.getIsWithdraw()
 		}
 	},
 
@@ -88,7 +89,8 @@ let Neteller = React.createClass({
 						} else {
 							return <NetellerInfoMethod selectedProcessor={this.state.selectedProcessor}
 																				 password={this.state.password}
-																					transaction={this.state.transaction}/>;
+																				 transaction={this.state.transaction}
+																				 isWithDraw={this.state.isWithDraw}/>;
 						}
 					})()}
 				</div>
