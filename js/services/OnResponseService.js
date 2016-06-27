@@ -75,7 +75,6 @@ class OnResponseService {
 				}
 				break;
 			case actions.PROCESS_RESPONSE:
-				console.log(data);
 				if (data.userMessage) {
 					CashierActions.processResponse(data);
 				}

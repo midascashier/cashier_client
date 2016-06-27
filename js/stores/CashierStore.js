@@ -598,7 +598,9 @@ CashierDispatcher.register((payload) => {
 				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
 				_transactionResponse.status = data.response.transaction.caTransactionStatus_Id;
 				_transactionResponse.userMessage = data.response.transaction.userMessage;
-				console.log(_transactionResponse);
+				if (!_transactionResponse.userMessage){
+					_transactionResponse.userMessage = data.userMessage;
+				}
 				CashierStore.emitChange();
 				break;
 
