@@ -44,7 +44,6 @@ let Client = React.createClass({
 	 * @private
 	 */
 	_onChange() {
-		console.log(this.state.UI);
 		if (this.isMounted() === true) {
 			this.setState(this.refreshLocalState());
 		}

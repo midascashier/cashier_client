@@ -58,16 +58,7 @@ let Header = React.createClass({
 			return "withdraw";
 		}
 	},
-
-	/**
-	 * this function is to set the step user clicks on
-	 */
-	clickOnStep(step){
-		//CREATE ACTION TO UPDATE STEPS
-		console.log("TEST");
-		//CashierActions.changeCurrentStep(step);
-	},
-
+	
 	render() {
 		let step = this.state.step;
 		let steps = this.state.processorSteps;

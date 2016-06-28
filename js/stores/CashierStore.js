@@ -608,7 +608,7 @@ CashierDispatcher.register((payload) => {
 				} else {
 					_transactionResponse.userMessage = data.userMessage;
 				}
-				CashierStore.setCurrentView(_UI.customerAction+_processor.displayName.toLowerCase()+"/ticket");
+				CashierStore.setCurrentView(_UI.customerAction+"/"+_processor.displayName.toLowerCase()+"/ticket");
 				CashierStore.emitChange();
 				break;
 

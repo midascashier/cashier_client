@@ -10,14 +10,6 @@ let Steps = React.createClass({
 		clickOnStep: React.PropTypes.func
 	},
 
-	/**
-	 * this function send step to go to
-	 */
-	changeStep(step){
-		//console.log(step);
-		//this.props.clickOnStep(step);
-	},
-
 	render() {
 		let step1 = "step1";
 		let step2 = "step2";
