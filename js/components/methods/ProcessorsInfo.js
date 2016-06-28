@@ -6,7 +6,6 @@ import {ProcessorsList} from '../contentComponents/ProcessorsList'
 import {ProcessorInfo} from '../contentComponents/ProcessorInfo'
 import {LoadingSpinner} from '../../components/loading/LoadingSpinner'
 
-
 let ProcessorsInfo = React.createClass({
 	/**
 	 * React function to set component inital state
@@ -67,9 +66,9 @@ let ProcessorsInfo = React.createClass({
 							return <LoadingSpinner />;
 						} else {
 							return <ProcessorInfo selectedProcessor={this.state.selectedProcessor}
-																		customerAction={this.state.customerAction}
-																		originPath={this.state.originPath}
-																		isWithDraw={this.state.isWithDraw}/>
+																 customerAction={this.state.customerAction}
+																 originPath={this.state.originPath}
+																 isWithDraw={this.state.isWithDraw}/>
 						}
 					})()}
 				</div>

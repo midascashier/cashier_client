@@ -2,12 +2,22 @@ import React from 'react'
 import {translate} from '../../constants/Translate'
 import {LoadingSpinner} from '../loading/LoadingSpinner'
 import {Processor} from './Processor'
+import {CashierActions} from '../../actions/CashierActions'
 
 let ProcessorsList = React.createClass({
 	propTypes: {
 		selectedProcessor: React.PropTypes.number,
 		depositProcessors: React.PropTypes.array,
 		originPath: React.PropTypes.string
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		//CashierActions.changeCurrentStep(1);
+		//CashierActions.changeCurrentView(this.customerAction()+"/"+this.props.selectedProcessor.displayName.toLowerCase());
 	},
 
 	render() {

@@ -6,9 +6,9 @@ let Steps = React.createClass({
 	propTypes: {
 		step: React.PropTypes.number,
 		steps: React.PropTypes.number,
-		customerAction: React.PropTypes.string,
-		clickOnStep: React.PropTypes.func
+		customerAction: React.PropTypes.string
 	},
+
 
 	render() {
 		let step1 = "step1";
@@ -39,7 +39,7 @@ let Steps = React.createClass({
 		return (
 			<div id="steps" className="steps">
 				<Link to={customerAction}>
-					<div className={step1} onClick={this.changeStep(1)}><p><span>1</span>{translate('STEPS_DEPOSIT_METHOD')}</p>
+					<div className={step1}><p><span>1</span>{translate('STEPS_DEPOSIT_METHOD')}</p>
 					</div>
 				</Link>
 				<div className={step2}><p><span>2</span>{translate('STEPS_HOW_MUCH')}</p></div>
