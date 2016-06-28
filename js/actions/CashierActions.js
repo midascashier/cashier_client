@@ -2,7 +2,6 @@ import actions from '../constants/Actions'
 import {CashierDispatcher} from '../dispatcher/CashierDispatcher';
 
 let CashierActions = {
-
 	login: (data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.LOGIN,
@@ -104,12 +103,6 @@ let CashierActions = {
 	getPayAccounts: () => {
 		CashierDispatcher.handleServerAction({
 			action: actions.GET_PAY_ACCOUNTS
-		});
-	},
-
-	confirmStep: () => {
-		CashierDispatcher.handleServerAction({
-			action: actions.CONFIRMSTEP
 		});
 	},
 

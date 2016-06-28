@@ -45,9 +45,15 @@ let Header = React.createClass({
 	},
 
 	render() {
+		let step = this.state.step;
+		let steps = this.state.processorSteps;
 		return (
 			<div id="header">
-				<Steps step={this.state.step} steps={this.state.processorSteps}/>
+				{(() => {
+					if (step < 3) {
+						return <Steps step={step} steps={steps}/>
+					}
+				})()}
 				<Info />
 			</div>
 		)

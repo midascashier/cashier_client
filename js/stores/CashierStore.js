@@ -272,14 +272,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
-	 * get all Payaccounts
-	 *
-	 */
-	getAllPayAccounts: () => {
-		return (_payAccounts);
-	},
-
-	/**
 	 * return current Payaccount
 	 */
 	getCurrentPayAccount: () => {
@@ -382,24 +374,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getCompany: () => {
 		return (_company);
-	},
-
-	/**
-	 * get deposit processors
-	 *
-	 * @returns {Array}
-	 */
-	getDepositProcessors: () => {
-		return (_customer.depositProcessors);
-	},
-
-	/**
-	 * get withdraw processors
-	 *
-	 * @returns {Array}
-	 */
-	getWithdrawProcessors: () => {
-		return (_customer.withdrawProcessors);
 	},
 
 	/**
@@ -574,16 +548,6 @@ CashierDispatcher.register((payload) => {
 				CashierStore.emitChange();
 				break;
 
-			case actions.CONFIRMSTEP:
-				_UI.currentStep = 3;
-				if (CashierStore.getIsWithdraw()) {
-					_UI.currentView = "withdraw/" + _processor.displayName.toLowerCase() + "/confirm";
-				} else {
-					_UI.currentView = "deposit/" + _processor.displayName.toLowerCase() + "/confirm";
-				}
-				CashierStore.emitChange();
-				break;
-
 			case actions.CHANGE_TRANSACTION_AMOUNT:
 				_transaction.amount = data;
 				CashierStore.emitChange();
@@ -591,14 +555,21 @@ CashierDispatcher.register((payload) => {
 
 			case actions.PROCESS:
 				transactionService.process(data);
+				_UI.currentStep = 3;
+				CashierStore.emitChange();
 				break;
 
 			case actions.PROCESS_RESPONSE:
-				_transactionResponse.journalId = data.response.transaction.caJournal_Id;
-				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
-				_transactionResponse.status = data.response.transaction.caTransactionStatus_Id;
-				_transactionResponse.userMessage = data.response.transaction.userMessage;
-				if (!_transactionResponse.userMessage){
+				let journalId = data.response.transaction.caJournal_Id;
+				let transactionId = data.response.transaction.caTransaction_Id;
+				let transactionStatus = data.response.transaction.caTransactionStatus_Id;
+				let userMessage = data.response.transaction.userMessage;
+				if (journalId && transactionId && transactionStatus && userMessage) {
+					_transactionResponse.journalId = journalId;
+					_transactionResponse.transactionId = transactionId;
+					_transactionResponse.status = transactionStatus;
+					_transactionResponse.userMessage = userMessage;
+				} else {
 					_transactionResponse.userMessage = data.userMessage;
 				}
 				CashierStore.emitChange();
