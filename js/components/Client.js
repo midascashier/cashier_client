@@ -31,7 +31,10 @@ let Client = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			sid: CashierStore.getCustomerSID()
+			sid: CashierStore.getCustomerSID(),
+			transactionResponse: CashierStore.getLastTransactionResponse(),
+			processor: CashierStore.getProcessor(),
+			UI: CashierStore.getUI()
 		}
 	},
 
@@ -41,13 +44,20 @@ let Client = React.createClass({
 	 * @private
 	 */
 	_onChange() {
+		console.log(this.state.UI);
 		if (this.isMounted() === true) {
 			this.setState(this.refreshLocalState());
 		}
 		if (this.state.sid && this.props.location.pathname == "/") {
-			let nextPath = '/' + CashierStore.getUI().currentView + '/';
+			let nextPath = '/' +this.state.UI.currentView + '/';
 			RouterContainer.get().props.history.push(nextPath);
 		}
+
+		if (this.state.transactionResponse.state == "error"){
+			let nextPath = "/deposit/"+this.state.processor.displayName.toLowerCase()+"/ticket/rejected";
+			RouterContainer.get().props.history.push(nextPath);
+		}
+
 	},
 
 	render() {

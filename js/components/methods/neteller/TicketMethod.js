@@ -1,6 +1,7 @@
 import React from 'react'
 import {Loading} from '../../loading/Loading'
 import {CashierStore} from '../../../stores/CashierStore'
+import {CashierActions} from '../../../actions/CashierActions'
 
 let NetellerTicket = React.createClass({
 	/**
@@ -16,6 +17,7 @@ let NetellerTicket = React.createClass({
 	 * here the component listen changes from the store
 	 */
 	componentDidMount() {
+		CashierActions.changeCurrentStep(3);
 		CashierStore.addChangeListener(this._onChange);
 	},
 
@@ -49,7 +51,7 @@ let NetellerTicket = React.createClass({
 					if (!userMessage) {
 						return <Loading />;
 					} else {
-						return <div><h1>{userMessage}</h1></div>
+						return this.props.children
 					}
 				})()}
 			</div>

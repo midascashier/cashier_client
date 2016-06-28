@@ -54,7 +54,7 @@ let Neteller = React.createClass({
 	 * @param value
 	 * @constructor
 	 */
-	NetellerPasswordInput(value) {
+	netellerPasswordInput(value) {
 		this.setState({
 			password: value
 		});
@@ -68,8 +68,10 @@ let Neteller = React.createClass({
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
 					<NetellerAskInfo originPath={this.state.originPath}
-													 NetellerPasswordInput={this.NetellerPasswordInput}
-													 password={this.state.password}/>
+													 netellerPasswordInput={this.netellerPasswordInput}
+													 password={this.state.password}
+													 selectedProcessor={this.state.selectedProcessor}
+													 isWithDraw={this.state.isWithDraw}/>
 				</div>
 				<div className="col-sm-6">
 					{(() => {

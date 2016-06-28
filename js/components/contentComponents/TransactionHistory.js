@@ -1,10 +1,19 @@
 import React from 'react'
 import {translate} from '../../constants/Translate'
+import {CashierActions} from '../../actions/CashierActions'
 
 let TransactionHistory = React.createClass({
 
 	propTypes: {
 		transactions: React.PropTypes.array
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierActions.changeCurrentView("transaction_history");
 	},
 
 	render() {

@@ -264,7 +264,8 @@ let _transactionResponse = {
 	transactionId: 0,
 	journalId: 0,
 	status: 0,
-	userMessage: ""
+	userMessage: "",
+	state: ""
 };
 
 let CHANGE_EVENT = 'change';
@@ -357,6 +358,14 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getCurrentStep: () => {
 		return _UI.currentStep;
+	},
+
+	/**
+	 * set current view
+	 *
+	 */
+	setCurrentView: (view) => {
+			_UI.currentView = view;
 	},
 
 	/**
@@ -461,17 +470,13 @@ CashierDispatcher.register((payload) => {
 				_customer.username = data.username;
 				_customer.password = data.password;
 				_UI.customerAction = data.option;
+				_UI.currentView = data.option;
 				customerService.stompConnection(data);
 				break;
 
 			case actions.LOGIN_RESPONSE:
 				_application.sid = data.response.sid;
 				CashierStore.setCurrentStep(1);
-				if (CashierStore.getIsWithdraw()) {
-					_UI.currentView = "withdraw";
-				} else {
-					_UI.currentView = "deposit";
-				}
 				CashierStore.emitChange();
 				break;
 
@@ -560,12 +565,6 @@ CashierDispatcher.register((payload) => {
 				break;
 
 			case actions.GET_PAY_ACCOUNTS:
-				CashierStore.setCurrentStep(2);
-				if (CashierStore.getIsWithdraw()) {
-					_UI.currentView = "withdraw/" + _processor.displayName.toLowerCase();
-				} else {
-					_UI.currentView = "deposit/" + _processor.displayName.toLowerCase();
-				}
 				customerService.getCustomerPreviousPayAccount();
 				CashierStore.emitChange();
 				break;
@@ -581,14 +580,17 @@ CashierDispatcher.register((payload) => {
 				break;
 
 			case actions.CHANGE_CURRENT_STEP:
-				console.log(data);
 				CashierStore.setCurrentStep(data);
+				CashierStore.emitChange();
+				break;
+
+			case actions.CHANGE_CURRENT_VIEW:
+				CashierStore.setCurrentView(data);
 				CashierStore.emitChange();
 				break;
 
 			case actions.PROCESS:
 				transactionService.process(data);
-				CashierStore.setCurrentStep(3);
 				CashierStore.emitChange();
 				break;
 
@@ -597,6 +599,7 @@ CashierDispatcher.register((payload) => {
 				let transactionId = data.response.transaction.caTransaction_Id;
 				let transactionStatus = data.response.transaction.caTransactionStatus_Id;
 				let userMessage = data.response.transaction.userMessage;
+				_transactionResponse.state = data.state;
 				if (journalId && transactionId && transactionStatus && userMessage) {
 					_transactionResponse.journalId = journalId;
 					_transactionResponse.transactionId = transactionId;
@@ -605,6 +608,7 @@ CashierDispatcher.register((payload) => {
 				} else {
 					_transactionResponse.userMessage = data.userMessage;
 				}
+				CashierStore.setCurrentView(_UI.customerAction+_processor.displayName.toLowerCase()+"/ticket");
 				CashierStore.emitChange();
 				break;
 

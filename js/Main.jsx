@@ -6,6 +6,8 @@ import {Welcome} from './components/Welcome'
 import {DepositContent} from './components/DepositContent'
 import {NetellerTicket} from './components/methods/neteller/TicketMethod'
 import {Neteller} from './components/methods/neteller/Neteller'
+import {NetellerRejectedTicket} from './components/methods/neteller/tickets/RejectedTicket'
+import {NetellerApprovedTicket} from './components/methods/neteller/tickets/ApprovedTicket'
 import {ProcessorsInfo} from './components/methods/ProcessorsInfo'
 import {TransactionHistoryContent} from './components/TransactionHistoryContent'
 import RouterContainer from './services/RouterContainer'
@@ -19,7 +21,10 @@ let routes = (  <Router history={browserHistory}>
 		<Route path="/deposit/" component={DepositContent}>
 			<IndexRoute component={ProcessorsInfo}/>
 			<Route path="neteller/" component={Neteller}/>
-			<Route path="neteller/ticket" component={NetellerTicket}/>
+			<Route path="neteller/ticket/" component={NetellerTicket}>
+				<Route path="approved" component={NetellerApprovedTicket}/>
+				<Route path="rejected" component={NetellerRejectedTicket}/>
+			</Route>>
 		</Route>
 	</Route>
 </Router>);

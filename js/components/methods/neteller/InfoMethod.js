@@ -139,7 +139,7 @@ let NetellerInfoMethod = React.createClass({
 									{(() => {
 										if (payAccountinfo.payAccountId && allowContinue) {
 											return <Link
-												to={customerAction+"/"+displayName.toLowerCase()+"/ticket"}>
+												to={"/"+customerAction+"/"+displayName.toLowerCase()+"/ticket/"}>
 												<button type='button' onClick={this.processDeposit} className='btn btn-green'>Next</button>
 											</Link>
 										}

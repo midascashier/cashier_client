@@ -147,6 +147,13 @@ let CashierActions = {
 			action: actions.CHANGE_CURRENT_STEP,
 			data: data
 		});
+	},
+
+	changeCurrentView: (data) => {
+		CashierDispatcher.handleServerAction({
+			action: actions.CHANGE_CURRENT_VIEW,
+			data: data
+		});
 	}
 
 };

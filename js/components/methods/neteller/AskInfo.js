@@ -2,12 +2,15 @@ import React from 'react'
 import {SelectPayAccount} from '../../SelectPayAccount'
 import {Input} from '../../Inputs'
 import {AmountController} from '../../AmountController'
+import {CashierActions} from '../../../actions/CashierActions'
 
 let NetellerAskInfo = React.createClass({
 	propTypes: {
 		originPath: React.PropTypes.string,
-		NetellerPasswordInput: React.PropTypes.func,
-		password: React.PropTypes.string
+		netellerPasswordInput: React.PropTypes.func,
+		password: React.PropTypes.string,
+		selectedProcessor: React.PropTypes.object,
+		isWithDraw: React.PropTypes.number
 	},
 
 	/**
@@ -16,6 +19,29 @@ let NetellerAskInfo = React.createClass({
 	 */
 	getInitialState() {
 		return this.refreshLocalState();
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierActions.changeCurrentStep(2);
+		CashierActions.changeCurrentView(this.customerAction()+"/"+this.props.selectedProcessor.displayName.toLowerCase());
+	},
+
+	/**
+	 * this function returns customer selected option
+	 *
+	 * @returns {*}
+	 */
+	customerAction(){
+		if (!this.props.isWithDraw) {
+			return "deposit";
+		}
+		else {
+			return "withdraw";
+		}
 	},
 
 	/**
@@ -30,7 +56,7 @@ let NetellerAskInfo = React.createClass({
 
 	render() {
 		let originPath = this.props.originPath;
-		let NetellerPasswordInput = this.props.NetellerPasswordInput;
+		let netellerPasswordInput = this.props.netellerPasswordInput;
 		let password = this.props.password;
 
 		return (
@@ -55,7 +81,7 @@ let NetellerAskInfo = React.createClass({
 												Neteller Account:
 												<SelectPayAccount />
 												Password:
-												<Input onChange={NetellerPasswordInput} value={password} type="password"/>
+												<Input onChange={netellerPasswordInput} value={password} type="password"/>
 												Amount:
 												<AmountController />
 											</div>

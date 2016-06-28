@@ -14,7 +14,7 @@ let Steps = React.createClass({
 	 * this function send step to go to
 	 */
 	changeStep(step){
-		console.log(step);
+		//console.log(step);
 		//this.props.clickOnStep(step);
 	},
 
