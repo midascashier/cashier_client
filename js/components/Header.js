@@ -2,6 +2,7 @@ import React from 'react'
 import {Steps} from './headerComponents/Steps'
 import {Info} from './headerComponents/Info'
 import {CashierStore} from './../stores/CashierStore'
+import {CashierActions} from './../actions/CashierActions'
 
 let Header = React.createClass({
 	/**
@@ -44,14 +45,38 @@ let Header = React.createClass({
 		}
 	},
 
+	/**
+	 * this function returns customer selected option
+	 *
+	 * @returns {*}
+	 */
+	customerAction(){
+		if (!this.props.isWithDraw) {
+			return "deposit";
+		}
+		else {
+			return "withdraw";
+		}
+	},
+
+	/**
+	 * this function is to set the step user clicks on
+	 */
+	clickOnStep(step){
+		//CREATE ACTION TO UPDATE STEPS
+		console.log("TEST");
+		//CashierActions.changeCurrentStep(step);
+	},
+
 	render() {
 		let step = this.state.step;
 		let steps = this.state.processorSteps;
+		let customerAction = this.customerAction();
 		return (
 			<div id="header">
 				{(() => {
 					if (step < 3) {
-						return <Steps step={step} steps={steps}/>
+						return <Steps step={step} steps={steps} customerAction={customerAction} />
 					}
 				})()}
 				<Info />

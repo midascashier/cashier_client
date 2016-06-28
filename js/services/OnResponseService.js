@@ -3,9 +3,10 @@ import {customerService} from '../services/CustomerService'
 import {applicationService} from './ApplicationService'
 import actions from '../constants/Actions'
 
-
+/** this class received all responses from cashier and trigger and action depends of the response
+ *
+ */
 class OnResponseService {
-
 	processResponse(action, data) {
 
 		switch (action) {

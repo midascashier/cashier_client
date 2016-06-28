@@ -153,6 +153,12 @@ let _bonuses = {
 	bonus: []
 };
 
+/**
+ *Stores the information of the selected processor
+ *
+ * @type {{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array, limits: Array, limitRules: Array, load: (function(*))}}
+ * @private
+ */
 let _processor = {
 	processorClass: 0,
 	processorId: 0,
@@ -228,6 +234,13 @@ let _payAccount = {
  */
 let _payAccounts = [];
 
+
+/**
+ * Stores information of the transaction
+ *
+ * @type {{amount: string, fee: number, feeType: string, bonusId: number, cleanTransaction: (function())}}
+ * @private
+ */
 let _transaction = {
 	amount: "",
 	fee: 0,
@@ -241,6 +254,12 @@ let _transaction = {
 	}
 };
 
+/**
+ * Stores transaction result
+ *
+ * @type {{transactionId: number, journalId: number, status: number, userMessage: string}}
+ * @private
+ */
 let _transactionResponse = {
 	transactionId: 0,
 	journalId: 0,
@@ -338,6 +357,14 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getCurrentStep: () => {
 		return _UI.currentStep;
+	},
+
+	/**
+	 * set current step
+	 *
+	 */
+	setCurrentStep: (step) => {
+		_UI.currentStep = step;
 	},
 
 	/**
@@ -439,7 +466,7 @@ CashierDispatcher.register((payload) => {
 
 			case actions.LOGIN_RESPONSE:
 				_application.sid = data.response.sid;
-				_UI.currentStep = 1;
+				CashierStore.setCurrentStep(1);
 				if (CashierStore.getIsWithdraw()) {
 					_UI.currentView = "withdraw";
 				} else {
@@ -533,7 +560,7 @@ CashierDispatcher.register((payload) => {
 				break;
 
 			case actions.GET_PAY_ACCOUNTS:
-				_UI.currentStep = 2;
+				CashierStore.setCurrentStep(2);
 				if (CashierStore.getIsWithdraw()) {
 					_UI.currentView = "withdraw/" + _processor.displayName.toLowerCase();
 				} else {
@@ -553,9 +580,15 @@ CashierDispatcher.register((payload) => {
 				CashierStore.emitChange();
 				break;
 
+			case actions.CHANGE_CURRENT_STEP:
+				console.log(data);
+				CashierStore.setCurrentStep(data);
+				CashierStore.emitChange();
+				break;
+
 			case actions.PROCESS:
 				transactionService.process(data);
-				_UI.currentStep = 3;
+				CashierStore.setCurrentStep(3);
 				CashierStore.emitChange();
 				break;
 
