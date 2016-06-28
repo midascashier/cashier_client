@@ -7,7 +7,7 @@ import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
 import {CashierActions} from '../../../actions/CashierActions'
 
-let Neteller = React.createClass({
+let Bitcoin = React.createClass({
 	/**
 	 * React function to set component initial state
 	 */
@@ -90,4 +90,4 @@ let Neteller = React.createClass({
 	}
 });
 
-module.exports.Neteller = Neteller;
+module.exports.Bitcoin = Bitcoin;

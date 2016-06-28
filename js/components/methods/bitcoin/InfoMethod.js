@@ -7,7 +7,6 @@ import {Loading} from '../../loading/Loading'
 
 let InfoMethod = React.createClass({
 	propTypes: {
-		password: React.PropTypes.string,
 		isWithDraw: React.PropTypes.number
 	},
 
@@ -56,10 +55,9 @@ let InfoMethod = React.createClass({
 	 * this function checks if password and amount are valid
 	 */
 	allowProcess(){
-		let password = this.props.password;
 		let amount = this.props.transaction.amount;
-		if (password && amount) {
-			if ((String(password).length >= 5) && amount > 0) {
+		if (amount) {
+			if (amount > 0) {
 				return true;
 			}
 		}
@@ -87,11 +85,7 @@ let InfoMethod = React.createClass({
 	 *
 	 */
 	processDeposit(){
-		let password = this.props.password;
-		let dynamicParams = {};
-		dynamicParams.password = password;
-
-		CashierActions.process(dynamicParams);
+		CashierActions.process();
 	},
 
 	/**
@@ -139,7 +133,7 @@ let InfoMethod = React.createClass({
 									{(() => {
 										if (payAccountinfo.payAccountId && allowContinue) {
 											return <Link
-												to={"/"+customerAction+"/"+displayName.toLowerCase()+"/ticket/"}>
+												to={"/"+customerAction+"/"+displayName.toLowerCase()+"/confirm/"}>
 												<button type='button' onClick={this.processDeposit} className='btn btn-green'>Next</button>
 											</Link>
 										}

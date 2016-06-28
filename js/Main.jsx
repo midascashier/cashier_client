@@ -4,10 +4,22 @@ import {Router, Route, IndexRoute, browserHistory} from 'react-router'
 import {Client} from './components/Client'
 import {Welcome} from './components/Welcome'
 import {DepositContent} from './components/DepositContent'
-import {NetellerTicket} from './components/methods/neteller/TicketMethod'
+
+/**
+ * Neteller set of components to create routes
+ */
 import {Neteller} from './components/methods/neteller/Neteller'
+import {NetellerTicket} from './components/methods/neteller/TicketMethod'
 import {NetellerRejectedTicket} from './components/methods/neteller/tickets/RejectedTicket'
 import {NetellerApprovedTicket} from './components/methods/neteller/tickets/ApprovedTicket'
+
+/**
+ * Bitcoin set of components to create routes
+ */
+import {Bitcoin} from './components/methods/bitcoin/Bitcoin'
+import {BitcoinInstructions} from './components/methods/bitcoin/Confirm'
+
+
 import {ProcessorsInfo} from './components/methods/ProcessorsInfo'
 import {TransactionHistoryContent} from './components/TransactionHistoryContent'
 import RouterContainer from './services/RouterContainer'
@@ -24,7 +36,9 @@ let routes = (  <Router history={browserHistory}>
 			<Route path="neteller/ticket/" component={NetellerTicket}>
 				<Route path="approved" component={NetellerApprovedTicket}/>
 				<Route path="rejected" component={NetellerRejectedTicket}/>
-			</Route>>
+			</Route>
+			<Route path="bitcoin/" component={Bitcoin}/>
+			<Route path="bitcoin/confirm/" component={BitcoinInstructions} />
 		</Route>
 	</Route>
 </Router>);

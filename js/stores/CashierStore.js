@@ -20,7 +20,7 @@ let _UI = {
 	processorId: 0,
 	payAccountId: 0,
 	countryInfo: null,
-	steps: {333: 2},
+	steps: {333: 2, 814:3},
 	countries: {},
 	countryStates: {}
 };

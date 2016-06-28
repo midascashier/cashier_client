@@ -1,6 +1,5 @@
 import React from 'react'
 import {SelectPayAccount} from '../../SelectPayAccount'
-import {Input} from '../../Inputs'
 import {AmountController} from '../../AmountController'
 import {CashierActions} from '../../../actions/CashierActions'
 
@@ -73,15 +72,13 @@ let AskInfo = React.createClass({
 										<div className="row">
 											<div className="col-sm-3">
 												<div className="method active pull-left">
-													<img className="img-responsive" src={originPath + '/images/processors/333.png'}
-															 alt="Neteller"/>
+													<img className="img-responsive" src={originPath + '/images/processors/814.png'}
+															 alt="Bitcoin"/>
 												</div>
 											</div>
 											<div className="col-sm-9">
 												Neteller Account:
 												<SelectPayAccount />
-												Password:
-												<Input onChange={netellerPasswordInput} value={password} type="password"/>
 												Amount:
 												<AmountController />
 											</div>
