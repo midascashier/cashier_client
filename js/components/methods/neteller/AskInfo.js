@@ -1,9 +1,11 @@
 import React from 'react'
+import {translate} from '../../../constants/Translate'
 import {SelectPayAccount} from '../../SelectPayAccount'
 import {Input} from '../../Inputs'
 import {AmountController} from '../../AmountController'
 
 let AskInfo = React.createClass({
+
 	propTypes: {
 		originPath: React.PropTypes.string,
 		netellerPasswordInput: React.PropTypes.func,
@@ -55,7 +57,13 @@ let AskInfo = React.createClass({
 					<div className="col-sm-12">
 						<div className="row">
 							<div className="col-sm-12">
-								<div className="title">Please Enter the Deposit Information</div>
+                {(() => {
+                  if (!this.props.isWithDraw) {
+                    return (<div className="title">{translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information')}</div>);
+                  }else{
+                    return (<div className="title">{translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information')}</div>);
+                  }
+                })()}
 							</div>
 							<div className="col-sm-12">
 								<div className="infoCol">
@@ -63,16 +71,15 @@ let AskInfo = React.createClass({
 										<div className="row">
 											<div className="col-sm-3">
 												<div className="method active pull-left">
-													<img className="img-responsive" src={originPath + '/images/processors/333.png'}
-															 alt="Neteller"/>
+													<img className="img-responsive" src={this.props.originPath + '/images/processors/333.png'} alt="Neteller"/>
 												</div>
 											</div>
 											<div className="col-sm-9">
-												Neteller Account:
+                        {translate('NETELLER_ACCOUNT', 'Neteller Account')}:
 												<SelectPayAccount />
-												Password:
-												<Input onChange={netellerPasswordInput} value={password} type="password"/>
-												Amount:
+                        {translate('NETELLER_SECURE', 'Secure ID')}:
+												<Input className="form-control" onChange={netellerPasswordInput} value={password} type="password"/>
+                        {translate('PROCESSING_AMOUNT', 'Amount')}:
 												<AmountController />
 											</div>
 										</div>

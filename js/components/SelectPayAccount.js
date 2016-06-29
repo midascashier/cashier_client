@@ -97,12 +97,7 @@ let SelectPayAccount = React.createClass({
 			optionNodes.push(renderOption({"label": "Loading..."}, -1));
 		}
 		return (
-			<select
-				ref="element"
-				className="form-control"
-				value={defaultValue}
-				onChange={this.changeValue}
-			>
+			<select ref="element" className="form-control" value={defaultValue} onChange={this.changeValue}>
 				{optionNodes}
 			</select>
 		)
