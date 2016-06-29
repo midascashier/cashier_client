@@ -1,19 +1,6 @@
 import React from 'react'
-import {CashierActions} from '../actions/CashierActions'
 
 let Client = React.createClass({
-	/**
-	 * React function to set component initial state
-	 *
-	 * @returns {*|{sid}}
-	 */
-	getInitialState(){
-		if (loginInfo.username && loginInfo.password) {
-			CashierActions.login(loginInfo);
-		}
-		return null;
-	},
-
 	render() {
 		return (
 			<div id="main">
