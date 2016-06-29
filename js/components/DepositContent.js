@@ -1,5 +1,4 @@
 import React from 'react'
-import {CashierStore} from '../stores/CashierStore'
 import {Header} from './Header'
 
 let DepositContent = React.createClass({

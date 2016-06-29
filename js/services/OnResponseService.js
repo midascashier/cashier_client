@@ -15,13 +15,13 @@ class OnResponseService {
 				if (data) {
 					CashierActions.login_response(data);
 					if (data.response.sid) {
-						let customerAction = "/deposit/";
+						let customerAction = "deposit";
 						if (CashierStore.getIsWithdraw()) {
-							customerAction = "/withdraw/";
+							customerAction = "withdraw";
 						}
 						CashierStore.setCurrentStep(1);
 						CashierStore.setCurrentView(customerAction);
-						RouterContainer.get().props.history.push(customerAction);
+						RouterContainer.get().props.history.push("/"+customerAction+"/");
 						customerService.getCustomerInfo();
 						customerService.getCustomerProcessors();
 						customerService.getCustomerTransactions();
@@ -58,7 +58,7 @@ class OnResponseService {
 				break;
 			case actions.PROCESSORS_RESPONSE:
 				if (data) {
-					let customerOption = "deposit"
+					let customerOption = "deposit";
 					if (CashierStore.isWithDraw) {
 						return "withdraw";
 					}

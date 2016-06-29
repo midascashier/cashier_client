@@ -11,15 +11,6 @@ let ProcessorsList = React.createClass({
     isWithDraw: React.PropTypes.number
 	},
 
-	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		//CashierActions.changeCurrentStep(1);
-		//CashierActions.changeCurrentView(this.customerAction()+"/"+this.props.selectedProcessor.displayName.toLowerCase());
-	},
-
 	render() {
 		let isSelected = false;
 		return (
