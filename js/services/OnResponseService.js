@@ -2,18 +2,24 @@ import {CashierActions} from '../actions/CashierActions'
 import {customerService} from '../services/CustomerService'
 import {applicationService} from './ApplicationService'
 import actions from '../constants/Actions'
+import RouterContainer from './RouterContainer'
+import {CashierStore} from '../stores/CashierStore'
 
 /** this class received all responses from cashier and trigger and action depends of the response
  *
  */
 class OnResponseService {
 	processResponse(action, data) {
-
 		switch (action) {
 			case actions.LOGIN_RESPONSE:
 				if (data) {
 					CashierActions.login_response(data);
 					if (data.response.sid) {
+						let customerAction = "/deposit/";
+						if (CashierStore.getIsWithdraw()) {
+							customerAction = "/withdraw/";
+						}
+						RouterContainer.get().props.history.push(customerAction);
 						customerService.getCustomerInfo();
 						customerService.getCustomerProcessors();
 						customerService.getCustomerTransactions();
@@ -79,7 +85,7 @@ class OnResponseService {
 				if (data.userMessage) {
 					CashierActions.processResponse(data);
 				}
-				else{
+				else {
 					console.log(data);
 				}
 				break;
