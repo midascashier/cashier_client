@@ -58,18 +58,26 @@ let _langTags = {
   TRANSACTION_STATUS_CANCELLED: "Cancelled",
   TRANSACTION_STATUS_FAILED: "Failed",
   //ProcessingTransaction
+  PROCESSING_DEPOSIT_INFORMATION_TITLE: 'Please Enter the Deposit Information',
+  PROCESSING_WITHDRAW_INFORMATION_TITLE: 'Please Enter the Withdraw Information',
   PROCESSING_AMOUNT: "Amount",
-  PROCESSING_MIN: "Min",
-  PROCESSING_MAX: "Max",
+  PROCESSING_MIN: "Min.",
+  PROCESSING_MAX: "Max.",
   PROCESSING_FEE: "Fee",
-  PROCESSING_FEE_TYPE_OPTIONS: "Pagar la carga con",
+  PROCESSING_FEE_TYPE_OPTIONS: "Pay the fees with",
   //Transaction
   TRANSACTION_AMOUNT: "Amount",
   TRANSACTION_FEE_TYPE_CASH: "Cash",
   TRANSACTION_FEE_TYPE_BP: "BetPoints",
   TRANSACTION_FEE_TYPE_FREE: "Monthly Free Payment",
   TRANSACTION_FEE_AMOUNT: "Fee Amount",
-  TRANSACTION_FEE_CURRENT_BALANCE: "Current Balance"
+  TRANSACTION_FEE_CURRENT_BALANCE: "Current Balance",
+  //Processors
+  NETELLER: 'Neteller',
+  NETELLER_ACCOUNT: 'Neteller Account',
+  NETELLER_SECURE: '2FA or Secure ID',
+  BITCOIN: 'BitCoin',
+  BITCOIN_ADDRESS: 'BitCoin Address'
 };
 
 export function EN(){

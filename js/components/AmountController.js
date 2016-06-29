@@ -38,12 +38,8 @@ let AmountController = React.createClass({
 	render() {
 		return (
 			<div>
-				<input
-					type="number"
-					name="amountController"
-					onChange={this.changeValue}
-					value={this.state.value}
-				/>
+				<input className="form-control"	type="number" id="amountController" name="amountController"
+							 onChange={this.changeValue} value={this.state.value}/>
 			</div>
 		)
 	}

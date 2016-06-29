@@ -4,7 +4,8 @@ import {customerService} from '../../services/CustomerService'
 let Processor = React.createClass({
 	propTypes: {
 		selected: React.PropTypes.bool,
-		processor: React.PropTypes.object,
+    processorId: React.PropTypes.string,
+		displayName: React.PropTypes.string,
 		originPath: React.PropTypes.string
 	},
 	/**
@@ -22,8 +23,7 @@ let Processor = React.createClass({
 		return (
 			<div className="col-sm-6">
 				<div className={"method "+ isActive} onClick={this.changeProcessor}>
-					<img src={this.props.originPath + '/images/processors/'+this.props.processor.caProcessor_Id+'.png'}
-							 alt={this.props.processor.DisplayName}/>
+					<img src={this.props.originPath + '/images/processors/'+this.props.processorId+'.png'} alt={this.props.displayName}/>
 					{(() => {
 						if (this.props.selected) {
 							return <i className='fa fa-check-circle'></i>;
