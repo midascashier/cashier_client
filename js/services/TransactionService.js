@@ -38,6 +38,7 @@ class TransactionService {
 			sid: application.sid,
 			dynamicParams: dynamicParams
 		};
+
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 }

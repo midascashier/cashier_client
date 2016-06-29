@@ -93,13 +93,6 @@ let CashierActions = {
 		});
 	},
 
-	changeMethod: (data) => {
-		CashierDispatcher.handleServerAction({
-			action: actions.CHANGE_PROCESSOR,
-			data: data
-		});
-	},
-
 	changePayAccount: (data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.CHANGE_PAYACCOUNT,
@@ -114,42 +107,12 @@ let CashierActions = {
 		});
 	},
 
-	process: (data) => {
-		if (data) {
-			CashierDispatcher.handleServerAction({
-				action: actions.PROCESS,
-				data: data
-			});
-		}
-		else {
-			CashierDispatcher.handleServerAction({
-				action: actions.PROCESS
-			});
-		}
-
-	},
-
 	processResponse: (data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.PROCESS_RESPONSE,
 			data: data
 		});
-	},
-
-	changeCurrentStep: (data) => {
-		CashierDispatcher.handleServerAction({
-			action: actions.CHANGE_CURRENT_STEP,
-			data: data
-		});
-	},
-
-	changeCurrentView: (data) => {
-		CashierDispatcher.handleServerAction({
-			action: actions.CHANGE_CURRENT_VIEW,
-			data: data
-		});
 	}
-
 };
 
 module.exports.CashierActions = CashierActions;

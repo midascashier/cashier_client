@@ -19,6 +19,8 @@ class OnResponseService {
 						if (CashierStore.getIsWithdraw()) {
 							customerAction = "/withdraw/";
 						}
+						CashierStore.setCurrentStep(1);
+						CashierStore.setCurrentView(customerAction);
 						RouterContainer.get().props.history.push(customerAction);
 						customerService.getCustomerInfo();
 						customerService.getCustomerProcessors();
@@ -56,9 +58,23 @@ class OnResponseService {
 				break;
 			case actions.PROCESSORS_RESPONSE:
 				if (data) {
-					CashierActions.getCustomerProcessors_response(data);
-					customerService.getProcessorLimitRules();
-					customerService.getCustomerProcessorsMinMax();
+					let customerOption = "deposit"
+					if (CashierStore.isWithDraw) {
+						return "withdraw";
+					}
+					let processorID = data.response.processors[customerOption][0].caProcessor_Id;
+					if (processorID) {
+						let currentProcessor = CashierStore.getProcessor();
+						if (!currentProcessor.processorId) {
+								customerService.changeMethod(processorID);
+						}
+						else{
+							customerService.getProcessorLimitRules(processorID);
+							customerService.getCustomerProcessorsMinMax(processorID);
+						}
+						CashierActions.getCustomerProcessors_response(data);
+
+					}
 				}
 				break;
 			case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
@@ -81,9 +97,13 @@ class OnResponseService {
 					CashierActions.getProcessorMinMaxLimits_response(data);
 				}
 				break;
+
 			case actions.PROCESS_RESPONSE:
-				console.log(data);
 				if (data.userMessage) {
+					if (data.state=="error") {
+						let currentProcessor=CashierStore.getProcessor();
+						RouterContainer.get().props.history.push("/deposit/"+currentProcessor.displayName.toLowerCase()+"/ticket/rejected");
+					}
 					CashierActions.processResponse(data);
 				}
 				else {
