@@ -1,5 +1,5 @@
 import React from 'react'
-import {CashierActions} from '../../actions/CashierActions'
+import {customerService} from '../../services/CustomerService'
 
 let Processor = React.createClass({
 	propTypes: {
@@ -11,8 +11,8 @@ let Processor = React.createClass({
 	/**
 	 * this function dispatch an action to change current processor
 	 */
-	changeProcessor: function () {
-		CashierActions.changeMethod({processorId: this.props.processorId});
+	changeProcessor() {
+		customerService.changeMethod(this.props.processor.caProcessor_Id);
 	},
 
 	render() {

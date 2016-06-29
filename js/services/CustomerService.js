@@ -85,10 +85,10 @@ class CustomerService {
 	/**
 	 * function to get pay account previous pay accounts
 	 */
-	getCustomerProcessorsMinMax() {
+	getCustomerProcessorsMinMax(processorID) {
 		let data = {
 			f: "getProcessorMinMaxLimits",
-			processorId: CashierStore.getProcessor().processorId,
+			processorId: processorID,
 			isWithdraw: CashierStore.getIsWithdraw()
 		};
 		let application = CashierStore.getApplication();
@@ -99,15 +99,24 @@ class CustomerService {
 	/**
 	 * function to get processor limit rules
 	 */
-	getProcessorLimitRules() {
+	getProcessorLimitRules(processorID) {
 		let data = {
 			f: "getProcessorLimits",
-			processorId: CashierStore.getProcessor().processorId,
+			processorId: processorID,
 			isWithdraw: CashierStore.getIsWithdraw()
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
+	};
+
+	/**
+	 * function to changen current processor
+	 */
+	changeMethod(processorID) {
+		CashierStore.changeCurrentProcessor(processorID);
+		this.getProcessorLimitRules(processorID);
+		this.getCustomerProcessorsMinMax(processorID);
 	};
 
 }

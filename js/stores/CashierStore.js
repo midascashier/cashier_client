@@ -19,7 +19,7 @@ let _UI = {
 	processorId: 0,
 	payAccountId: 0,
 	countryInfo: null,
-	steps: {333: 2, 814:3},
+	steps: {333: 2, 814: 3},
 	countries: {},
 	countryStates: {}
 };
@@ -166,17 +166,17 @@ let _processor = {
 	fees: [],
 	limits: [],
 	limitRules: [],
-	load(data){
+	load(processorId){
 		var processor = [];
 		if (_UI.customerAction == cashier.VIEW_DEPOSIT && _customer.depositProcessors.length > 0) {
 			_customer.depositProcessors.map((item) => {
-				if (data.processorId == item.caProcessor_Id) {
+				if (processorId == item.caProcessor_Id) {
 					processor = item;
 				}
 			});
 		} else if (_customer.withdrawProcessors.length > 0) {
 			_customer.withdrawProcessors.map((item) => {
-				if (data.processorId == item.caProcessor_Id) {
+				if (processorId == item.caProcessor_Id) {
 					processor = item;
 				}
 			});
@@ -364,7 +364,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 */
 	setCurrentView: (view) => {
-			_UI.currentView = view;
+		_UI.currentView = view;
 	},
 
 	/**
@@ -409,6 +409,18 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getCompany: () => {
 		return (_company);
+	},
+
+	/**
+	 * get processor id and change the current one
+	 *
+	 * @param id
+	 */
+	changeCurrentProcessor(processorId)
+	{
+		_UI.processorId = processorId;
+		_processor.load(processorId);
+		_transaction.cleanTransaction();
 	},
 
 	/**
@@ -512,9 +524,10 @@ CashierDispatcher.register((payload) => {
 				} else if (_customer.withdrawProcessors.length > 0) {
 					processor = _customer.withdrawProcessors[0];
 				}
+
 				// set default processor
 				_UI.processorId = processor.caProcessor_Id;
-				_processor.load({processorId: processor.caProcessor_Id});
+				_processor.load(processor.caProcessor_Id);
 				break;
 
 			case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
@@ -541,15 +554,6 @@ CashierDispatcher.register((payload) => {
 				if (currentPayAccountId) {
 					_payAccounts.splice(currentPayAccountId, 1);
 				}
-				CashierStore.emitChange();
-				break;
-
-			case actions.CHANGE_PROCESSOR:
-				_UI.processorId = data.processorId;
-				_processor.load(data);
-				_transaction.cleanTransaction();
-				customerService.getProcessorLimitRules();
-				customerService.getCustomerProcessorsMinMax();
 				CashierStore.emitChange();
 				break;
 
@@ -597,7 +601,6 @@ CashierDispatcher.register((payload) => {
 				} else {
 					_transactionResponse.userMessage = data.userMessage;
 				}
-				CashierStore.setCurrentView(_UI.customerAction+"/"+_processor.displayName.toLowerCase()+"/ticket");
 				CashierStore.emitChange();
 				break;
 
