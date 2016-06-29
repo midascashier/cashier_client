@@ -66,9 +66,9 @@ let ProcessorsInfo = React.createClass({
 							return <LoadingSpinner />;
 						} else {
 							return <ProcessorInfo selectedProcessor={this.state.selectedProcessor}
-																 customerAction={this.state.customerAction}
-																 originPath={this.state.originPath}
-																 isWithDraw={this.state.isWithDraw}/>
+																		customerAction={this.state.customerAction}
+																		originPath={this.state.originPath}
+																		isWithDraw={this.state.isWithDraw}/>
 						}
 					})()}
 				</div>

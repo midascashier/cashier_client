@@ -5,7 +5,7 @@ import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {translate} from '../../../constants/Translate'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
-import {CashierActions} from '../../../actions/CashierActions'
+import {customerService} from '../../../services/CustomerService'
 
 let Bitcoin = React.createClass({
 	/**
@@ -21,7 +21,7 @@ let Bitcoin = React.createClass({
 	 * here the component listen changes from the store
 	 */
 	componentDidMount() {
-		CashierActions.getPayAccounts();
+		customerService.getCustomerPreviousPayAccount();
 		CashierStore.addChangeListener(this._onChange);
 	},
 

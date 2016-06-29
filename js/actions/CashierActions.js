@@ -100,12 +100,6 @@ let CashierActions = {
 		});
 	},
 
-	getPayAccounts: () => {
-		CashierDispatcher.handleServerAction({
-			action: actions.GET_PAY_ACCOUNTS
-		});
-	},
-
 	changePayAccount: (data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.CHANGE_PAYACCOUNT,

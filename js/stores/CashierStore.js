@@ -564,11 +564,6 @@ CashierDispatcher.register((payload) => {
 				CashierStore.emitChange();
 				break;
 
-			case actions.GET_PAY_ACCOUNTS:
-				customerService.getCustomerPreviousPayAccount();
-				CashierStore.emitChange();
-				break;
-
 			case actions.CHANGE_PAYACCOUNT:
 				changeCurrentPayAccount(_payAccounts[data.processorID][data.payAccountID]);
 				CashierStore.emitChange();

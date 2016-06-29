@@ -3,9 +3,9 @@ import {Link} from 'react-router'
 
 let ProcessorInfo = React.createClass({
 	propTypes: {
-		selectedProcessor: React.PropTypes.object,
-		originPath: React.PropTypes.string,
-		isWithDraw: React.PropTypes.number
+		selectedProcessor: React.PropTypes.object.isRequired,
+		originPath: React.PropTypes.string.isRequired,
+		isWithDraw: React.PropTypes.number.isRequired
 	},
 
 
