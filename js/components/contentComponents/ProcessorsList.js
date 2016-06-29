@@ -27,7 +27,6 @@ let ProcessorsList = React.createClass({
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="row">
-
 							<div className="col-sm-12">
                 {(() => {
                   if (!this.props.isWithDraw) {
@@ -47,13 +46,14 @@ let ProcessorsList = React.createClass({
 											}
 										})()}
 
-										{this.props.processors.map((data, i)=> {
-											if (this.props.selectedProcessor == data.caProcessor_Id) {
+										{this.props.processors.map((processor, i)=> {
+											if(this.props.selectedProcessor == processor.caProcessor_Id) {
 												isSelected = true;
 											} else {
 												isSelected = false;
 											}
-											return <Processor key={data.caProcessor_Id} selected={isSelected} processor={data} originPath={this.props.originPath}/>;
+
+                      return <Processor key={processor.caProcessor_Id} selected={isSelected} processorId={processor.caProcessor_Id} displayName={processor.DisplayName} originPath={this.props.originPath}/>;
 										})}
 
 									</div>
