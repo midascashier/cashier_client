@@ -115,9 +115,9 @@ let InfoMethod = React.createClass({
 		let displayName = this.props.selectedProcessor.displayName;
 
 		return (
-			<div id="infoLimits" className="row">
+			<div id="InfoMethodNeteller" className="row">
 				<div className="col-sm-12">
-					<div className="title">Neteller Deposit Limits</div>
+					<div className="title">Neteller Deposit Limits*</div>
 					<div className="table-responsive">
 						<table className="table table-striped">
 							<tbody>
@@ -138,8 +138,7 @@ let InfoMethod = React.createClass({
 								<div className="col-sm-6">
 									{(() => {
 										if (payAccountinfo.payAccountId && allowContinue) {
-											return <Link
-												to={"/"+customerAction+"/"+displayName.toLowerCase()+"/ticket/"}>
+											return <Link to={"/"+customerAction+"/"+displayName.toLowerCase()+"/ticket/"}>
 												<button type='button' onClick={this.processDeposit} className='btn btn-green'>Next</button>
 											</Link>
 										}

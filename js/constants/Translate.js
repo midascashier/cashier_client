@@ -9,11 +9,11 @@ import {ES} from './language/ES'
  * translation label
  *
  * @param key
- * @param defaultText default text if it does not exist
- *
- * @returns {string}
+ * @param defaultText
+ * @param tags
+ * @returns {*}
  */
-export function translate(key, defaultText = ''){
+export function translate(key, defaultText = '', tags = {}){
   var currentLang = CashierStore.getLanguage();
   switch(currentLang){
     case "ES":
@@ -25,6 +25,11 @@ export function translate(key, defaultText = ''){
   var content = langTags[key];
   content = (content) ? content : defaultText;
   content = (content) ? content : key;
+
+  //replace tags
+  Object.keys(tags).map(function(key){
+    content = content.replace('{'+key+'}', tags[key]);
+  });
 
   return content;
 };

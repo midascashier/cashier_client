@@ -78,7 +78,7 @@ let AskInfo = React.createClass({
                         {translate('NETELLER_ACCOUNT', 'Neteller Account')}:
 												<SelectPayAccount />
                         {translate('NETELLER_SECURE', 'Secure ID')}:
-												<Input className="form-control" onChange={netellerPasswordInput} value={password} type="password"/>
+												<Input onChange={netellerPasswordInput} value={password} type="password"/>
                         {translate('PROCESSING_AMOUNT', 'Amount')}:
 												<AmountController />
 											</div>

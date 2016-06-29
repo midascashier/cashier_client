@@ -60,6 +60,11 @@ let _langTags = {
   //ProcessingTransaction
   PROCESSING_DEPOSIT_INFORMATION_TITLE: 'Please Enter the Deposit Information',
   PROCESSING_WITHDRAW_INFORMATION_TITLE: 'Please Enter the Withdraw Information',
+  PROCESSING_BUTTON_NEXT: 'Next',
+  PROCESSING_BUTTON_NEXT_DEPOSIT: 'Deposit with',
+  PROCESSING_BUTTON_NEXT_WITHDRAW: 'Withdraw to',
+  PROCESSING_BUTTON_COMPLETE_DEPOSIT: 'Complete Deposit',
+  PROCESSING_BUTTON_COMPLETE_WITHDRAW: 'Complete Withdraw',
   PROCESSING_AMOUNT: "Amount",
   PROCESSING_MIN: "Min.",
   PROCESSING_MAX: "Max.",

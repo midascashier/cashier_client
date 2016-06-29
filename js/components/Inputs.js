@@ -32,6 +32,7 @@ let Input = React.createClass({
 		return (
 			<div>
 				<input
+					className="form-control"
 					type={this.props.type || 'text'}
 					name={this.props.name}
 					onChange={this.changeHandler}

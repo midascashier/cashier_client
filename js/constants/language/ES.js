@@ -60,6 +60,11 @@ let _langTags = {
   //ProcessingTransaction
   PROCESSING_DEPOSIT_INFORMATION_TITLE: 'Ingrese la Información para el Depósito',
   PROCESSING_WITHDRAW_INFORMATION_TITLE: 'Ingrese la Información para el Retiro',
+  PROCESSING_BUTTON_NEXT: 'Siguiente',
+  PROCESSING_BUTTON_NEXT_DEPOSIT: 'Depositar con',
+  PROCESSING_BUTTON_NEXT_WITHDRAW: 'Retire con',
+  PROCESSING_BUTTON_COMPLETE_DEPOSIT: 'Completar Depósito',
+  PROCESSING_BUTTON_COMPLETE_WITHDRAW: 'Completar Retiro',
   PROCESSING_AMOUNT: "Monto",
   PROCESSING_MIN: "Mín.",
   PROCESSING_MAX: "Máx.",
