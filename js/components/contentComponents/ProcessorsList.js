@@ -8,7 +8,8 @@ let ProcessorsList = React.createClass({
 	propTypes: {
 		selectedProcessor: React.PropTypes.number,
 		depositProcessors: React.PropTypes.array,
-		originPath: React.PropTypes.string
+		originPath: React.PropTypes.string,
+    isWithDraw: React.PropTypes.number
 	},
 
 	/**
@@ -29,7 +30,13 @@ let ProcessorsList = React.createClass({
 						<div className="row">
 
 							<div className="col-sm-12">
-								<div className="title">{translate('METHOD_SELECT_YOUR_DEPOSIT_METHOD')}</div>
+                {(() => {
+                  if (this.props.depositProcessors.length == 0) {
+                    return <div className="title">{translate('METHOD_SELECT_YOUR_DEPOSIT_METHOD')}</div>;
+                  }else{
+                    return <div className="title">{translate('METHOD_SELECT_YOUR_WITHDRAW_METHOD')}</div>;
+                  }
+                })()}
 							</div>
 							<div className="col-sm-12">
 								<div className="processors infoCol">
@@ -47,8 +54,7 @@ let ProcessorsList = React.createClass({
 											} else {
 												isSelected = false;
 											}
-											return <Processor key={data.caProcessor_Id} selected={isSelected} processor={data}
-																				originPath={this.props.originPath}/>;
+											return <Processor key={data.caProcessor_Id} selected={isSelected} processor={data} originPath={this.props.originPath}/>;
 										})}
 
 									</div>

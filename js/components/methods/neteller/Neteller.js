@@ -62,7 +62,7 @@ let Neteller = React.createClass({
 
 	render() {
 		return (
-			<div className="container">
+			<div id="neteller">
 				<div className="col-sm-6">
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>

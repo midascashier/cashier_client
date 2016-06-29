@@ -6,9 +6,9 @@ let Steps = React.createClass({
 	propTypes: {
 		step: React.PropTypes.number,
 		steps: React.PropTypes.number,
-		customerAction: React.PropTypes.string
+		customerAction: React.PropTypes.string,
+		isWithDraw: React.PropTypes.number
 	},
-
 
 	render() {
 		let step1 = "step1";
@@ -39,10 +39,41 @@ let Steps = React.createClass({
 		return (
 			<div id="steps" className="steps">
 				<Link to={customerAction}>
-					<div className={step1}><p><span>1</span>{translate('STEPS_DEPOSIT_METHOD')}</p>
+					<div className={step1}>
+            {(() => {
+              if (!this.props.isWithDraw) {
+                return (
+                  <p>
+                    <span>1</span>
+                    {translate('STEPS_DEPOSIT_METHOD')}
+                  </p>);
+              }else{
+                return (
+                  <p>
+                    <span>1</span>
+                    {translate('STEPS_WITHDRAW_METHOD')}
+                  </p>);
+              }
+            })()}
 					</div>
 				</Link>
-				<div className={step2}><p><span>2</span>{translate('STEPS_HOW_MUCH')}</p></div>
+				<div className={step2}>
+          {(() => {
+            if (!this.props.isWithDraw) {
+              return (
+                <p>
+                  <span>2</span>
+                  {translate('STEPS_HOW_MUCH_DEPOSIT')}
+                </p>);
+            }else{
+              return (
+                <p>
+                  <span>2</span>
+                  {translate('STEPS_HOW_MUCH_WITHDRAW')}
+                </p>);
+            }
+          })()}
+        </div>
 				{(() => {
 					if (this.props.steps > 2) {
 						let thirdStep = <div key="1" className={step3}><p><span>3</span>{translate('STEPS_BILLING_INFO')}</p></div>;

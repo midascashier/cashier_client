@@ -10,7 +10,9 @@ let _langTags = {
   DEPOSIT: 'Depósito',
   WITHDRAW: 'Retiro',
   STEPS_DEPOSIT_METHOD: 'Depósito',
-  STEPS_HOW_MUCH: '¿Cuánto quiere depositar?',
+  STEPS_WITHDRAW_METHOD: 'Retiro',
+  STEPS_HOW_MUCH_DEPOSIT: '¿Cuánto quiere depositar?',
+  STEPS_HOW_MUCH_WITHDRAW: '¿Cuánto quiere retirar?',
   STEPS_BILLING_INFO: 'Revise Su Información',
   STEPS_INSTRUCTIONS: 'Instruciones',
   CUSTOMER_INFO_USER: 'Cuenta',
@@ -54,7 +56,20 @@ let _langTags = {
   TRANSACTION_STATUS_APPROVED: "Aprobada",
   TRANSACTION_STATUS_REJECTED: "Rechazada",
   TRANSACTION_STATUS_CANCELLED: "Cancelada",
-  TRANSACTION_STATUS_FAILED: "Fallida"
+  TRANSACTION_STATUS_FAILED: "Fallida",
+  //ProcessingTransaction
+  PROCESSING_AMOUNT: "Monto",
+  PROCESSING_MIN: "Mín",
+  PROCESSING_MAX: "Máx",
+  PROCESSING_FEE: "Comisión",
+  PROCESSING_FEE_TYPE_OPTIONS: "Pagar la carga con",
+  //Transaction
+  TRANSACTION_AMOUNT: "Monto",
+  TRANSACTION_FEE_TYPE_CASH: "Efectivo",
+  TRANSACTION_FEE_TYPE_BP: "BetPoints",
+  TRANSACTION_FEE_TYPE_FREE: "Retiro Gratis Mensual",
+  TRANSACTION_FEE_AMOUNT: "Monto de Comisión",
+  TRANSACTION_FEE_CURRENT_BALANCE: "Balance Actual"
 };
 
 export function ES(){

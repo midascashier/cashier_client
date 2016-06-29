@@ -2,10 +2,9 @@ import React from 'react'
 import {Steps} from './headerComponents/Steps'
 import {Info} from './headerComponents/Info'
 import {CashierStore} from './../stores/CashierStore'
-import {CashierActions} from './../actions/CashierActions'
-
 
 let Header = React.createClass({
+
 	/**
 	 * React function to set component inital state
 	 *
@@ -46,29 +45,15 @@ let Header = React.createClass({
 		}
 	},
 
-	/**
-	 * this function returns customer selected option
-	 *
-	 * @returns {*}
-	 */
-	customerAction(){
-		if (!this.props.isWithDraw) {
-			return "deposit";
-		}
-		else {
-			return "withdraw";
-		}
-	},
-
 	render() {
 		let step = this.state.step;
 		let steps = this.state.processorSteps;
-		let customerAction = this.customerAction();
+    
 		return (
 			<div id="header">
 				{(() => {
 					if (step < 3) {
-						return <Steps step={step} steps={steps} customerAction={customerAction} linkToDepositStep={this.linkToDepositStep}/>
+						return <Steps isWithDraw={this.props.isWithDraw} step={step} steps={steps} customerAction={this.props.currentView} linkToDepositStep={this.linkToDepositStep}/>
 					}
 				})()}
 				<Info />

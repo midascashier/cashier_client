@@ -50,7 +50,7 @@ let ProcessorsInfo = React.createClass({
 
 	render() {
 		return (
-			<div className="container">
+			<div id="processorsInfo">
 				<div className="col-sm-6">
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
@@ -58,7 +58,9 @@ let ProcessorsInfo = React.createClass({
 					<ProcessorsList
 						selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
 						depositProcessors={this.state.customer.depositProcessors}
-						originPath={this.state.originPath}/>
+						originPath={this.state.originPath}
+						isWithDraw={this.state.isWithDraw}
+					/>
 				</div>
 				<div className="col-sm-6">
 					{(() => {
