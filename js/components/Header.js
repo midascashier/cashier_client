@@ -51,7 +51,7 @@ let Header = React.createClass({
 		let step = this.state.step;
 		let steps = this.state.processorSteps;
     let isWithDraw = this.state.isWithDraw;
-		let currentView = this.state.currentView;
+		let currentView = this.state.UI.currentView;
 
 		return (
 			<div id="header">

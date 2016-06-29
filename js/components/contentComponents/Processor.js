@@ -4,15 +4,16 @@ import {customerService} from '../../services/CustomerService'
 let Processor = React.createClass({
 	propTypes: {
 		selected: React.PropTypes.bool,
-    processorId: React.PropTypes.string,
+		processorId: React.PropTypes.string,
 		displayName: React.PropTypes.string,
 		originPath: React.PropTypes.string
 	},
+
 	/**
 	 * this function dispatch an action to change current processor
 	 */
 	changeProcessor() {
-		customerService.changeMethod(this.props.processor.caProcessor_Id);
+		customerService.changeMethod(this.props.processorId);
 	},
 
 	render() {
@@ -20,6 +21,7 @@ let Processor = React.createClass({
 		if (this.props.selected) {
 			isActive = "active";
 		}
+
 		return (
 			<div className="col-sm-6">
 				<div className={"method "+ isActive} onClick={this.changeProcessor}>

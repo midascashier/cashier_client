@@ -27,11 +27,9 @@ let Info = React.createClass({
 	 * @returns {{customer: (*|{companyId: number, customerId: number, username: string, password: string, currency: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, load: (function(*))}), company: (*|{companyId: number, companyName: string, phone: string, companyLabel: Array})}}
 	 */
 	refreshLocalState() {
-		let customer = CashierStore.getCustomer();
-		let company = CashierStore.getCompany();
 		return {
-			customer: customer,
-			company: company
+			customer: CashierStore.getCustomer(),
+			company: CashierStore.getCompany()
 		}
 	},
 
@@ -47,10 +45,12 @@ let Info = React.createClass({
 	},
 
 	render() {
+		let customer = CashierStore.getCustomer();
+		let company = CashierStore.getCompany();
 		return (
 			<div id="headerInfo" className="header-top">
-				<CustomerInfo customer={this.state.customer}/>
-				<CompanyInfo customer={this.state.customer} company={this.state.company}/>
+				<CustomerInfo customer={customer}/>
+				<CompanyInfo customer={customer} company={company}/>
 			</div>
 		)
 	}

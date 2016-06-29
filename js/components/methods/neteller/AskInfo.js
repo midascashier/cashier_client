@@ -14,38 +14,6 @@ let AskInfo = React.createClass({
 		isWithDraw: React.PropTypes.number
 	},
 
-	/**
-	 * React function to set component initial state
-	 * @returns {*|{value}|{value: string}}
-	 */
-	getInitialState() {
-		return this.refreshLocalState();
-	},
-
-	/**
-	 * this function returns customer selected option
-	 *
-	 * @returns {*}
-	 */
-	customerAction(){
-		if (!this.props.isWithDraw) {
-			return "deposit";
-		}
-		else {
-			return "withdraw";
-		}
-	},
-
-	/**
-	 *
-	 * @returns {{value: string}}
-	 */
-	refreshLocalState() {
-		return {
-			value: ''
-		}
-	},
-
 	render() {
 		let originPath = this.props.originPath;
 		let netellerPasswordInput = this.props.netellerPasswordInput;
@@ -71,7 +39,7 @@ let AskInfo = React.createClass({
 										<div className="row">
 											<div className="col-sm-3">
 												<div className="method active pull-left">
-													<img className="img-responsive" src={this.props.originPath + '/images/processors/333.png'} alt="Neteller"/>
+													<img className="img-responsive" src={originPath + '/images/processors/333.png'} alt="Neteller"/>
 												</div>
 											</div>
 											<div className="col-sm-9">

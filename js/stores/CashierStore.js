@@ -588,19 +588,18 @@ CashierDispatcher.register((payload) => {
 				break;
 
 			case actions.PROCESS_RESPONSE:
-				let journalId = data.response.transaction.caJournal_Id;
-				let transactionId = data.response.transaction.caTransaction_Id;
-				let transactionStatus = data.response.transaction.caTransactionStatus_Id;
-				let userMessage = data.response.transaction.userMessage;
 				_transactionResponse.state = data.state;
-				if (journalId && transactionId && transactionStatus && userMessage) {
-					_transactionResponse.journalId = journalId;
-					_transactionResponse.transactionId = transactionId;
-					_transactionResponse.status = transactionStatus;
-					_transactionResponse.userMessage = userMessage;
-				} else {
+				if (data.response.transaction) {
+					_transactionResponse.journalId = data.response.transaction.caJournal_Id;
+					_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
+					_transactionResponse.status = data.response.transaction.caTransactionStatus_Id;
+					_transactionResponse.userMessage = data.response.transaction.userMessage;
+				}
+
+				if (_transactionResponse.userMessage == "") {
 					_transactionResponse.userMessage = data.userMessage;
 				}
+
 				CashierStore.emitChange();
 				break;
 
