@@ -10,7 +10,7 @@ let Processor = React.createClass({
 	},
 
 	/**
-	 * this function dispatch an action to change current processor
+	 * this function change current processor
 	 */
 	changeProcessor() {
 		customerService.changeMethod(this.props.processorId);

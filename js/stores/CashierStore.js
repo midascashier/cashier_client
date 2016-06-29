@@ -577,16 +577,6 @@ CashierDispatcher.register((payload) => {
 				CashierStore.emitChange();
 				break;
 
-			case actions.CHANGE_CURRENT_STEP:
-				CashierStore.setCurrentStep(data);
-				CashierStore.emitChange();
-				break;
-
-			case actions.CHANGE_CURRENT_VIEW:
-				CashierStore.setCurrentView(data);
-				CashierStore.emitChange();
-				break;
-
 			case actions.PROCESS_RESPONSE:
 				_transactionResponse.state = data.state;
 				if (data.response.transaction) {

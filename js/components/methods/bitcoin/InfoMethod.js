@@ -28,6 +28,13 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
+	},
+	
+	/**
 	 *  this function sets and return object with local states
 	 *
 	 * @returns {{processor: (*|{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}), currentPayAccount: *, originPath: (*|string)}}
@@ -109,7 +116,7 @@ let InfoMethod = React.createClass({
 		let displayName = this.props.selectedProcessor.displayName;
 
 		return (
-			<div id="InfoMethodBitCoin" className="row">
+			<div id="infoLimits" className="row">
 				<div className="col-sm-12">
 					<div className="title">Neteller Deposit Limits</div>
 					<div className="table-responsive">
@@ -132,11 +139,10 @@ let InfoMethod = React.createClass({
 								<div className="col-sm-6">
 									{(() => {
 										if (payAccountinfo.payAccountId && allowContinue) {
-											return (
-												<Link to={"/"+customerAction+"/"+displayName.toLowerCase()+"/confirm/"}>
-													<button type='button' onClick={this.processDeposit} className='btn btn-green'>Next</button>
-												</Link>
-											);
+											return <Link
+												to={"/"+customerAction+"/"+displayName.toLowerCase()+"/confirm/"}>
+												<button type='button' onClick={this.processDeposit} className='btn btn-green'>Next</button>
+											</Link>
 										}
 									})()}
 								</div>

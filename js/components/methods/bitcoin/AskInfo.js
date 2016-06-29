@@ -10,26 +10,7 @@ let AskInfo = React.createClass({
 		isWithDraw: React.PropTypes.number
 	},
 
-	/**
-	 * React function to set component initial state
-	 * @returns {*|{value}|{value: string}}
-	 */
-	getInitialState() {
-		return this.refreshLocalState();
-	},
-
-	/**
-	 *
-	 * @returns {{value: string}}
-	 */
-	refreshLocalState() {
-		return {
-			value: ''
-		}
-	},
-
 	render() {
-
 		return (
 			<div id="askAmount" className="box">
 				<div className="row">

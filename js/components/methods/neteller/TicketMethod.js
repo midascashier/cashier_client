@@ -29,6 +29,14 @@ let NetellerTicket = React.createClass({
 	componentDidMount() {
 		CashierStore.addChangeListener(this._onChange);
 	},
+	
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
+	},
+
 
 	/**
 	 * this is the callback function the store calls when a state change

@@ -26,6 +26,13 @@ let Neteller = React.createClass({
 	},
 
 	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
+	},
+
+	/**
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState() {
