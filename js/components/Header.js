@@ -30,7 +30,9 @@ let Header = React.createClass({
 	refreshLocalState() {
 		return {
 			step: CashierStore.getCurrentStep(),
-			processorSteps: CashierStore.getProcessorSteps()
+			processorSteps: CashierStore.getProcessorSteps(),
+			isWithDraw: CashierStore.getIsWithdraw(),
+			UI: CashierStore.getUI()
 		}
 	},
 
@@ -48,12 +50,14 @@ let Header = React.createClass({
 	render() {
 		let step = this.state.step;
 		let steps = this.state.processorSteps;
-    
+    let isWithDraw = this.state.isWithDraw;
+		let currentView = this.state.currentView;
+
 		return (
 			<div id="header">
 				{(() => {
 					if (step < 3) {
-						return <Steps isWithDraw={this.props.isWithDraw} step={step} steps={steps} customerAction={this.props.currentView} linkToDepositStep={this.linkToDepositStep}/>
+						return <Steps isWithDraw={isWithDraw} step={step} steps={steps} customerAction={currentView} />
 					}
 				})()}
 				<Info />
