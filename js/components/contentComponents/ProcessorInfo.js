@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
+import {translate} from '../../constants/Translate'
 
 let ProcessorInfo = React.createClass({
 	propTypes: {
@@ -58,6 +59,7 @@ let ProcessorInfo = React.createClass({
 		let maxProcessorLimit = this.getMaxProcessorLimit();
 		let currencyCode = this.props.selectedProcessor.limits.currencyCode;
 		let originPath = this.props.originPath;
+    let isWithDraw = this.props.isWithDraw;
 
 		return (
 			<div id="infoLimits">
@@ -89,8 +91,13 @@ let ProcessorInfo = React.createClass({
 						<div className="row">
 							<div className="col-sm-6">
 								<Link to={"/"+customerAction+"/"+processorDisplayName.toLowerCase()+"/"}>
-									<button type="button" className="btn btn-green">Deposit
-										with {processorDisplayName}</button>
+                  {(() => {
+                    if (!isWithDraw) {
+                      return (<button type="button" className="btn btn-green">{translate('PROCESSING_BUTTON_NEXT_DEPOSIT', 'Next')} {processorDisplayName}</button>);
+                    }else{
+                      return (<button type="button" className="btn btn-green">{translate('PROCESSING_BUTTON_NEXT_WITHDRAW', 'Next')}</button>);
+                    }
+                  })()}
 								</Link>
 							</div>
 							<div className="col-sm-6">
