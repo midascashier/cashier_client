@@ -7,7 +7,7 @@ import {CashierActions} from '../../actions/CashierActions'
 let ProcessorsList = React.createClass({
 	propTypes: {
 		selectedProcessor: React.PropTypes.number,
-		depositProcessors: React.PropTypes.array,
+    processors: React.PropTypes.array,
 		originPath: React.PropTypes.string,
     isWithDraw: React.PropTypes.number
 	},
@@ -23,6 +23,7 @@ let ProcessorsList = React.createClass({
 
 	render() {
 		let isSelected = false;
+    console.log(this.props.processors);
 		return (
 			<div id="methods" className="box">
 				<div className="row">
@@ -31,7 +32,7 @@ let ProcessorsList = React.createClass({
 
 							<div className="col-sm-12">
                 {(() => {
-                  if (this.props.depositProcessors.length == 0) {
+                  if (!this.props.isWithDraw) {
                     return <div className="title">{translate('METHOD_SELECT_YOUR_DEPOSIT_METHOD')}</div>;
                   }else{
                     return <div className="title">{translate('METHOD_SELECT_YOUR_WITHDRAW_METHOD')}</div>;
@@ -43,12 +44,12 @@ let ProcessorsList = React.createClass({
 									<div className="row">
 
 										{(() => {
-											if (this.props.depositProcessors.length == 0) {
+											if (this.props.processors.length == 0) {
 												return <LoadingSpinner />;
 											}
 										})()}
 
-										{this.props.depositProcessors.map((data, i)=> {
+										{this.props.processors.map((data, i)=> {
 											if (this.props.selectedProcessor == data.caProcessor_Id) {
 												isSelected = true;
 											} else {
