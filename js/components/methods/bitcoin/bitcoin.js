@@ -62,7 +62,7 @@ let Bitcoin = React.createClass({
 
 	render() {
 		return (
-			<div className="container">
+			<div id="bitCoin">
 				<div className="col-sm-6">
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>

@@ -24,8 +24,8 @@ let NetellerTicket = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 *
-	 * @returns {{depositProcessors: Array, selectedProcessor: (*|{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}), originPath: (*|string), customerAction: (*|string), currentStep: (*|string), customerOption: (*|string), customerCurrency: string, transactions: ({}|*), transactionAmount: (string|number|*)}}
-	 */
+	 * @returns {{transactionResponse: *}}
+   */
 	refreshLocalState() {
 		return {
 			transactionResponse: CashierStore.getLastTransactionResponse()

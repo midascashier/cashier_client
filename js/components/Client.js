@@ -18,7 +18,7 @@ let Client = React.createClass({
 		return (
 			<div id="main">
 				<div id="mainContent" className="global">
-					<div className="container">
+					<div id="client" className="container">
 						{this.props.children}
 					</div>
 				</div>

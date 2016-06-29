@@ -48,17 +48,33 @@ let ProcessorsInfo = React.createClass({
 		}
 	},
 
+  /**
+   * return the processor list
+   *
+   * @returns {Array}
+   */
+  getProcessors(){
+    if(!this.state.isWithDraw){
+      return this.state.customer.depositProcessors;
+    }else{
+      return this.state.customer.withdrawProcessors;
+    }
+  },
+
 	render() {
+    let processors = this.getProcessors();
 		return (
-			<div className="container">
+			<div id="processorsInfo">
 				<div className="col-sm-6">
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
 					<ProcessorsList
 						selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
-						depositProcessors={this.state.customer.depositProcessors}
-						originPath={this.state.originPath}/>
+            processors={processors}
+						originPath={this.state.originPath}
+						isWithDraw={this.state.isWithDraw}
+					/>
 				</div>
 				<div className="col-sm-6">
 					{(() => {
