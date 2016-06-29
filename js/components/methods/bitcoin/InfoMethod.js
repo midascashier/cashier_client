@@ -1,8 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {CashierStore} from '../../../stores/CashierStore'
-import {CashierActions} from '../../../actions/CashierActions'
 import {Loading} from '../../loading/Loading'
+import {transactionService} from '../../../services/TransactionService'
 
 
 let InfoMethod = React.createClass({
@@ -85,7 +85,7 @@ let InfoMethod = React.createClass({
 	 *
 	 */
 	processDeposit(){
-		CashierActions.process();
+		transactionService.process();
 	},
 
 	/**

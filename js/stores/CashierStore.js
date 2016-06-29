@@ -4,7 +4,6 @@ import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
 import {CashierDispatcher} from '../dispatcher/CashierDispatcher'
 import {customerService} from '../services/CustomerService'
-import {transactionService} from '../services/TransactionService'
 
 /**
  * UI
@@ -581,11 +580,6 @@ CashierDispatcher.register((payload) => {
 
 			case actions.CHANGE_CURRENT_VIEW:
 				CashierStore.setCurrentView(data);
-				CashierStore.emitChange();
-				break;
-
-			case actions.PROCESS:
-				transactionService.process(data);
 				CashierStore.emitChange();
 				break;
 
