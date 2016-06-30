@@ -107,6 +107,13 @@ let CashierActions = {
 		});
 	},
 
+	setTransactionFee: (data) =>{
+		CashierDispatcher.handleServerAction({
+			action: actions.CHANGE_TRANSACTION_FEE,
+			data: data
+		});
+	},
+
 	processResponse: (data) => {
 		CashierDispatcher.handleServerAction({
 			action: actions.PROCESS_RESPONSE,

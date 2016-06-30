@@ -10,6 +10,7 @@ import {InfoMethodWithdraw} from './InfoMethodWithdraw'
 import {customerService} from '../../../services/CustomerService'
 
 let Bitcoin = React.createClass({
+
 	/**
 	 * React function to set component initial state
 	 */
@@ -66,7 +67,7 @@ let Bitcoin = React.createClass({
 					</Link>
 
 					{(() =>{
-						if(this.state.isWithDraw){
+						if(!this.state.isWithDraw){
 							return <AskInfo originPath={this.state.originPath}
 															selectedProcessor={this.state.selectedProcessor}
 															isWithDraw={this.state.isWithDraw}/>;

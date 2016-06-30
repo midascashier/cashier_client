@@ -2,6 +2,7 @@ import React from 'react'
 import {translate} from '../../../constants/Translate'
 import {SelectPayAccount} from '../../SelectPayAccount'
 import {AmountController} from '../../AmountController'
+import {FeeController} from '../../FeeController'
 
 let AskInfoWithdraw = React.createClass({
 	propTypes: {
@@ -33,6 +34,8 @@ let AskInfoWithdraw = React.createClass({
                         <SelectPayAccount />
                         {translate('PROCESSING_AMOUNT', 'Amount')}:
 												<AmountController />
+												{translate('PROCESSING_FEE', 'Fee')}:
+												<FeeController />
 											</div>
 										</div>
 									</div>

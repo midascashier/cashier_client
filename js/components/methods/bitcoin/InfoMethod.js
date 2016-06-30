@@ -2,8 +2,8 @@ import React from 'react'
 import {Link} from 'react-router'
 import {CashierStore} from '../../../stores/CashierStore'
 import {Loading} from '../../loading/Loading'
+import {translate} from '../../../constants/Translate'
 import {transactionService} from '../../../services/TransactionService'
-
 
 let InfoMethod = React.createClass({
 	propTypes: {
@@ -126,7 +126,7 @@ let InfoMethod = React.createClass({
 										if (payAccountInfo.payAccountId && allowContinue) {
 											return <Link
 												to={"/deposit/"+displayName.toLowerCase()+"/confirm/"}>
-												<button type='button' onClick={this.processDeposit} className='btn btn-green'>Next</button>
+												<button type='button' onClick={this.processDeposit} className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
 											</Link>
 										}
 									})()}

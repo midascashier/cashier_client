@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router'
 import {CashierStore} from '../../../stores/CashierStore'
 import {Loading} from '../../loading/Loading'
+import {translate} from '../../../constants/Translate'
 
 let InfoMethodWithdraw = React.createClass({
 	propTypes: {
@@ -89,7 +90,7 @@ let InfoMethodWithdraw = React.createClass({
 	 * this function sends deposit info to cashier
 	 *
 	 */
-	confirmDeposit(){
+	confirmWithdraw(){
 		//transactionService.process();
 	},
 
@@ -124,7 +125,7 @@ let InfoMethodWithdraw = React.createClass({
 										if (payAccountInfo.payAccountId && allowContinue) {
 											return (
 												<Link to={"/withdraw/"+displayName.toLowerCase()+"/confirm/"}>
-													<button type='button' onClick={this.confirmDeposit} className='btn btn-green'>Next</button>
+													<button type='button' onClick={this.confirmWithdraw} className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
 												</Link>
 											)
 										}
