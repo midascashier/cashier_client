@@ -46,13 +46,10 @@ let ProcessorInfo = React.createClass({
 		let minProcessorLimit = this.getMinProcessorLimit();
 		let maxProcessorLimit = this.getMaxProcessorLimit();
 		let currencyCode = this.props.selectedProcessor.limits.currencyCode;
-console.log(isWithDraw);
 		let buttonNext = translate('PROCESSING_BUTTON_NEXT_DEPOSIT', 'Next');
 		if (isWithDraw) {
 			buttonNext = translate('PROCESSING_BUTTON_NEXT_WITHDRAW', 'Next')
 		}
-
-		console.log(buttonNext);
 
 		return (
 			<div id="infoLimits">
