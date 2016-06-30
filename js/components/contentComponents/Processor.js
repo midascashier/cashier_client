@@ -1,12 +1,12 @@
 import React from 'react'
 import {customerService} from '../../services/CustomerService'
+import {controllerUIService} from '../../services/ControllerService'
 
 let Processor = React.createClass({
 	propTypes: {
 		selected: React.PropTypes.bool,
 		processorId: React.PropTypes.string,
 		displayName: React.PropTypes.string,
-		originPath: React.PropTypes.string
 	},
 
 	/**
@@ -18,6 +18,7 @@ let Processor = React.createClass({
 
 	render() {
 		let isActive = "";
+		let originPath = controllerUIService.getOriginPath();
 		if (this.props.selected) {
 			isActive = "active";
 		}
@@ -25,7 +26,7 @@ let Processor = React.createClass({
 		return (
 			<div className="col-sm-6">
 				<div className={"method "+ isActive} onClick={this.changeProcessor}>
-					<img src={this.props.originPath + '/images/processors/'+this.props.processorId+'.png'} alt={this.props.displayName}/>
+					<img src={originPath + '/images/processors/'+this.props.processorId+'.png'} alt={this.props.displayName}/>
 					{(() => {
 						if (this.props.selected) {
 							return <i className='fa fa-check-circle'></i>;

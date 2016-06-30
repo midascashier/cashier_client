@@ -1,27 +1,11 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {translate} from '../../constants/Translate'
+import {controllerUIService} from '../../services/ControllerService'
 
 let ProcessorInfo = React.createClass({
 	propTypes: {
-		selectedProcessor: React.PropTypes.object.isRequired,
-		originPath: React.PropTypes.string.isRequired,
-		isWithDraw: React.PropTypes.number.isRequired
-	},
-
-
-	/**
-	 * this function returns customer selected option
-	 *
-	 * @returns {*}
-	 */
-	customerAction(){
-		if (!this.props.isWithDraw) {
-			return "deposit";
-		}
-		else {
-			return "withdraw";
-		}
+		selectedProcessor: React.PropTypes.object.isRequired
 	},
 
 	/**
@@ -53,14 +37,20 @@ let ProcessorInfo = React.createClass({
 	},
 
 	render() {
-		let customerAction = this.customerAction();
+		let nextStep = controllerUIService.getNextStep();
+		let originPath = controllerUIService.getOriginPath();
+		let customerAction = controllerUIService.getCurrentView();
+		let isWithDraw = controllerUIService.getIsWithDraw();
+
 		let processorDisplayName = this.props.selectedProcessor.displayName;
 		let minProcessorLimit = this.getMinProcessorLimit();
 		let maxProcessorLimit = this.getMaxProcessorLimit();
 		let currencyCode = this.props.selectedProcessor.limits.currencyCode;
-		let originPath = this.props.originPath;
-    let isWithDraw = this.props.isWithDraw;
 
+		let buttonNextDeposit = translate('PROCESSING_BUTTON_NEXT_DEPOSIT', 'Next');
+		if (isWithDraw) {
+			buttonNextDeposit = translate('PROCESSING_BUTTON_NEXT_WITHDRAW', 'Next')
+		}
 		return (
 			<div id="infoLimits">
 				<p><a href="#">Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></a></p>
@@ -90,14 +80,8 @@ let ProcessorInfo = React.createClass({
 
 						<div className="row">
 							<div className="col-sm-6">
-								<Link to={"/"+customerAction+"/"+processorDisplayName.toLowerCase()+"/"}>
-                  {(() => {
-                    if (!isWithDraw) {
-                      return (<button type="button" className="btn btn-green">{translate('PROCESSING_BUTTON_NEXT_DEPOSIT', 'Next')} {processorDisplayName}</button>);
-                    }else{
-                      return (<button type="button" className="btn btn-green">{translate('PROCESSING_BUTTON_NEXT_WITHDRAW', 'Next')}</button>);
-                    }
-                  })()}
+								<Link to={nextStep}>
+                      <button type="button" className="btn btn-green">{buttonNextDeposit} {processorDisplayName}</button>
 								</Link>
 							</div>
 							<div className="col-sm-6">

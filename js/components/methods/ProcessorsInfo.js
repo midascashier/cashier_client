@@ -5,6 +5,7 @@ import {translate} from '../../constants/Translate'
 import {ProcessorsList} from '../contentComponents/ProcessorsList'
 import {ProcessorInfo} from '../contentComponents/ProcessorInfo'
 import {LoadingSpinner} from '../../components/loading/LoadingSpinner'
+import {controllerUIService} from '../../services/ControllerService'
 
 let ProcessorsInfo = React.createClass({
 	/**
@@ -37,10 +38,7 @@ let ProcessorsInfo = React.createClass({
 	refreshLocalState() {
 		return {
 			customer: CashierStore.getCustomer(),
-			selectedProcessor: CashierStore.getProcessor(),
-			originPath: CashierStore.getOriginPath(),
-			customerAction: CashierStore.getCustomerAction(),
-			isWithDraw: CashierStore.getIsWithdraw()
+			selectedProcessor: CashierStore.getProcessor()
 		}
 	},
 
@@ -61,10 +59,10 @@ let ProcessorsInfo = React.createClass({
    * @returns {Array}
    */
   getProcessors(){
-    if(!this.state.isWithDraw){
-      return this.state.customer.depositProcessors;
+    if(controllerUIService.getIsWithDraw){
+			return this.state.customer.withdrawProcessors;
     }else{
-      return this.state.customer.withdrawProcessors;
+			return this.state.customer.depositProcessors;
     }
   },
 
@@ -78,20 +76,14 @@ let ProcessorsInfo = React.createClass({
 					</Link>
 					<ProcessorsList
 						selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
-            processors={processors}
-						originPath={this.state.originPath}
-						isWithDraw={this.state.isWithDraw}
-					/>
+            processors={processors}	/>
 				</div>
 				<div className="col-sm-6">
 					{(() => {
 						if (!this.state.selectedProcessor.processorId) {
 							return <LoadingSpinner />;
 						} else {
-							return <ProcessorInfo selectedProcessor={this.state.selectedProcessor}
-																		customerAction={this.state.customerAction}
-																		originPath={this.state.originPath}
-																		isWithDraw={this.state.isWithDraw}/>
+							return <ProcessorInfo selectedProcessor={this.state.selectedProcessor} />
 						}
 					})()}
 				</div>

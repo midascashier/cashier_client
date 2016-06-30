@@ -2,7 +2,6 @@ import assign from 'object-assign'
 import {CashierStore} from '../stores/CashierStore'
 import {stompConnector} from './StompConnector'
 
-
 class CustomerService {
 	constructor(){
 		this.stompConnection(loginInfo);
@@ -65,10 +64,10 @@ class CustomerService {
 	/**
 	 * function to get pay account previous pay accounts
 	 */
-	getCustomerPreviousPayAccount() {
+	getCustomerPreviousPayAccount(processorID) {
 		let data = {
 			f: "getPayAccountsByCustomer",
-			processorId: CashierStore.getProcessor().processorId,
+			processorId: processorID,
 			isWithdraw: CashierStore.getIsWithdraw()
 		};
 		let application = CashierStore.getApplication();
@@ -121,6 +120,7 @@ class CustomerService {
 		CashierStore.changeCurrentProcessor(processorID);
 		this.getProcessorLimitRules(processorID);
 		this.getCustomerProcessorsMinMax(processorID);
+		this.getCustomerPreviousPayAccount(processorID);
 	};
 
 }

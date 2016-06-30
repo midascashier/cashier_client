@@ -1,27 +1,26 @@
 import {CashierActions} from '../actions/CashierActions'
 import {customerService} from '../services/CustomerService'
 import {applicationService} from './ApplicationService'
+import {controllerUIService} from './ControllerService'
 import actions from '../constants/Actions'
-import RouterContainer from './RouterContainer'
 import {CashierStore} from '../stores/CashierStore'
 
-/** this class received all responses from cashier and trigger and action depends of the response
- *
+/**
+ * this class received all responses from cashier and trigger and action depends of the response
  */
 class OnResponseService {
 	processResponse(action, data) {
 		switch (action) {
 			case actions.LOGIN_RESPONSE:
 				if (data) {
+					data.application=loginInfo;
 					CashierActions.login_response(data);
 					if (data.response.sid) {
 						let customerAction = "deposit";
 						if (CashierStore.getIsWithdraw()) {
 							customerAction = "withdraw";
 						}
-						CashierStore.setCurrentStep(1);
-						CashierStore.setCurrentView(customerAction);
-						RouterContainer.get().props.history.push("/"+customerAction+"/");
+						controllerUIService.loginSuccess(customerAction);
 						customerService.getCustomerInfo();
 						customerService.getCustomerProcessors();
 						customerService.getCustomerTransactions();
@@ -100,10 +99,6 @@ class OnResponseService {
 
 			case actions.PROCESS_RESPONSE:
 				if (data.userMessage) {
-					if (data.state=="error") {
-						let currentProcessor=CashierStore.getProcessor();
-						RouterContainer.get().props.history.push("/deposit/"+currentProcessor.displayName.toLowerCase()+"/ticket/rejected");
-					}
 					CashierActions.processResponse(data);
 				}
 				else {

@@ -15,7 +15,6 @@ let _UI = {
 	language: '',
 	currentView: '',
 	currentStep: '',
-	customerAction: '',
 	processorId: 0,
 	payAccountId: 0,
 	countryInfo: null,
@@ -269,17 +268,17 @@ let _transactionResponse = {
 
 let CHANGE_EVENT = 'change';
 
-/**
- * received selected payaccount and set it as current
- * @param payAccount
- */
-let changeCurrentPayAccount = (payAccount) => {
-	_payAccount.load(payAccount);
-};
-
 let CashierStore = assign({}, EventEmitter.prototype, {
 	emitChange() {
 		this.emit(CHANGE_EVENT);
+	},
+
+	/**
+	 * received selected payaccount and set it as current
+	 * @param payAccount
+	 */
+	changeCurrentPayAccount(payAccount) {
+		_payAccount.load(payAccount);
 	},
 
 	removeChangeListener(callback) {
@@ -319,15 +318,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return (_payAccounts[_processor['processorId']]);
 	},
 
-
-	/**
-	 * get customer SID
-	 *
-	 */
-	getCustomerSID: () => {
-		return (_application.sid);
-	},
-
 	/**
 	 * get current language
 	 *
@@ -360,11 +350,12 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
-	 * set current view
+	 * get current view
 	 *
+	 * @returns {string}
 	 */
-	setCurrentView: (view) => {
-		_UI.currentView = view;
+	getCurrentView: () => {
+		return _UI.currentView;
 	},
 
 	/**
@@ -373,15 +364,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	setCurrentStep: (step) => {
 		_UI.currentStep = step;
-	},
-
-	/**
-	 * get customer action deposit/withdraw
-	 *
-	 * @returns {string}
-	 */
-	getCustomerAction: () => {
-		return _UI.customerAction;
 	},
 
 	/**
@@ -457,7 +439,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getIsWithdraw: () => {
 		return (_UI.customerAction == cashier.VIEW_WITHDRAW) ? 1 : 0;
-	},
+	}
 
 });
 
@@ -475,19 +457,13 @@ CashierDispatcher.register((payload) => {
 		 }*/
 
 		switch (action) {
-			case actions.LOGIN:
-				_customer.ioBB = data.ioBB;
-				_customer.atDeviceId = data.atDeviceId;
-				_customer.username = data.username;
-				_customer.password = data.password;
-				_UI.customerAction = data.option;
-				_UI.currentView = data.option;
-				customerService.stompConnection(data);
-				break;
-
 			case actions.LOGIN_RESPONSE:
+				_customer.ioBB = data.application.ioBB;
+				_customer.atDeviceId = data.application.atDeviceId;
+				_customer.username = data.application.username;
+				_customer.password = data.application.password;
+				_UI.currentView = data.application.option;
 				_application.sid = data.response.sid;
-				CashierStore.setCurrentStep(1);
 				CashierStore.emitChange();
 				break;
 
@@ -540,7 +516,7 @@ CashierDispatcher.register((payload) => {
 						payAccount.load(item);
 						payAccounts_processor[payAccount.payAccountId] = payAccount;
 						if (setDefault) {
-							changeCurrentPayAccount(payAccount);
+							CashierStore.changeCurrentPayAccount(payAccount);
 							setDefault = false;
 						}
 					});
@@ -568,7 +544,7 @@ CashierDispatcher.register((payload) => {
 				break;
 
 			case actions.CHANGE_PAYACCOUNT:
-				changeCurrentPayAccount(_payAccounts[data.processorID][data.payAccountID]);
+				CashierStore.changeCurrentPayAccount(_payAccounts[data.processorID][data.payAccountID]);
 				CashierStore.emitChange();
 				break;
 
@@ -590,7 +566,11 @@ CashierDispatcher.register((payload) => {
 					_transactionResponse.userMessage = data.userMessage;
 				}
 
-				CashierStore.emitChange();
+				CashierStoreCashierStore.emitChange();
+				break;
+
+			case actions.SET_CURRENT_STEP:
+				CashierStore.setCurrentStep(data)
 				break;
 
 			default:
