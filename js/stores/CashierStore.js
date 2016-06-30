@@ -139,8 +139,8 @@ let _company = {
 		this.companyName = data.name;
 		this.phone = data.servicePhone;
 		//company labels
-		if (data.labels) {
-			data.labels.map((item, i) => {
+		if(data.labels){
+			data.labels.map((item, i) =>{
 				this.companyLabel[item.Code] = item.Value;
 			})
 		}
@@ -167,15 +167,15 @@ let _processor = {
 	limitRules: [],
 	load(processorId){
 		var processor = [];
-		if (_UI.currentView == cashier.VIEW_DEPOSIT && _customer.depositProcessors.length > 0) {
-			_customer.depositProcessors.map((item) => {
-				if (processorId == item.caProcessor_Id) {
+		if(_UI.currentView == cashier.VIEW_DEPOSIT && _customer.depositProcessors.length > 0){
+			_customer.depositProcessors.map((item) =>{
+				if(processorId == item.caProcessor_Id){
 					processor = item;
 				}
 			});
-		} else if (_customer.withdrawProcessors.length > 0) {
-			_customer.withdrawProcessors.map((item) => {
-				if (processorId == item.caProcessor_Id) {
+		} else if(_customer.withdrawProcessors.length > 0){
+			_customer.withdrawProcessors.map((item) =>{
+				if(processorId == item.caProcessor_Id){
 					processor = item;
 				}
 			});
@@ -292,21 +292,21 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * return current Payaccount
 	 */
-	getCurrentPayAccount: () => {
+	getCurrentPayAccount: () =>{
 		return (_payAccount);
 	},
 
 	/**
 	 * return how many steps by processor
 	 */
-	getProcessorSteps: () => {
+	getProcessorSteps: () =>{
 		return (_UI.steps[_processor.processorId]);
 	},
 
 	/**
 	 * Return last transaction cashier response
 	 */
-	getLastTransactionResponse: () => {
+	getLastTransactionResponse: () =>{
 		return (_transactionResponse);
 	},
 
@@ -314,7 +314,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * get payAccounts by processor
 	 *
 	 */
-	getProcessorPayAccount: () => {
+	getProcessorPayAccount: () =>{
 		return (_payAccounts[_processor['processorId']]);
 	},
 
@@ -323,8 +323,8 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {string}
 	 */
-	getLanguage: () => {
-		if (!_UI.language && _customer.lang) {
+	getLanguage: () =>{
+		if(!_UI.language && _customer.lang){
 			var culture = _customer.lang.split('-');
 			_UI.language = culture[0].toUpperCase();
 		}
@@ -336,7 +336,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {{sys_access_pass: string, sid: null, tuid: null, format: string, lang: string, platform: string, remoteAddr: string, remoteHost: string, userAgent: string, remoteAddress: string, referrer: string, xForwardedFor: string, atDeviceId: string, ioBB: string}}
 	 */
-	getApplication: () => {
+	getApplication: () =>{
 		return (_application);
 	},
 
@@ -345,7 +345,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {string}
 	 */
-	getCurrentStep: () => {
+	getCurrentStep: () =>{
 		return _UI.currentStep;
 	},
 
@@ -354,7 +354,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {string}
 	 */
-	getCurrentView: () => {
+	getCurrentView: () =>{
 		return _UI.currentView;
 	},
 
@@ -362,7 +362,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * set current step
 	 *
 	 */
-	setCurrentStep: (step) => {
+	setCurrentStep: (step) =>{
 		_UI.currentStep = step;
 	},
 
@@ -371,7 +371,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {string}
 	 */
-	getOriginPath: () => {
+	getOriginPath: () =>{
 		return window.location.origin;
 	},
 
@@ -380,7 +380,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {{companyId: number, customerId: number, username: string, password: string, currency: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, load: (function(*))}}
 	 */
-	getCustomer: () => {
+	getCustomer: () =>{
 		return (_customer);
 	},
 
@@ -389,7 +389,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {{companyId: number, companyName: string, phone: string, companyLabel: Array}}
 	 */
-	getCompany: () => {
+	getCompany: () =>{
 		return (_company);
 	},
 
@@ -410,7 +410,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}}
 	 */
-	getProcessor: () => {
+	getProcessor: () =>{
 		return _processor;
 	},
 
@@ -419,7 +419,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {{language: string, currentView: string, currentStep: string, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
 	 */
-	getUI: () => {
+	getUI: () =>{
 		return (_UI);
 	},
 
@@ -428,7 +428,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {Array}
 	 */
-	getTransaction: ()=> {
+	getTransaction: ()=>{
 		return (_transaction);
 	},
 
@@ -437,7 +437,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {int}
 	 */
-	getIsWithdraw: () => {
+	getIsWithdraw: () =>{
 		return (_UI.currentView == cashier.VIEW_WITHDRAW) ? 1 : 0;
 	}
 
@@ -446,144 +446,144 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 /**
  * register action
  */
-CashierDispatcher.register((payload) => {
-		let action = payload.actionType;
-		let data = payload.data;
+CashierDispatcher.register((payload) =>{
+														 let action = payload.actionType;
+														 let data = payload.data;
 
-		//register error
-		/*if (data && data.state === 'error') {
-		 console.log(data);
-		 return false;
-		 }*/
+														 //register error
+														 /*if (data && data.state === 'error') {
+															console.log(data);
+															return false;
+															}*/
 
-		switch (action) {
-			case actions.LOGIN_RESPONSE:
-				_customer.ioBB = data.application.ioBB;
-				_customer.atDeviceId = data.application.atDeviceId;
-				_customer.username = data.application.username;
-				_customer.password = data.application.password;
-				_UI.currentView = data.application.option;
-				_application.sid = data.response.sid;
-				CashierStore.emitChange();
-				break;
+														 switch(action){
+															 case actions.LOGIN_RESPONSE:
+																 _customer.ioBB = data.application.ioBB;
+																 _customer.atDeviceId = data.application.atDeviceId;
+																 _customer.username = data.application.username;
+																 _customer.password = data.application.password;
+																 _UI.currentView = data.application.option;
+																 _application.sid = data.response.sid;
+																 CashierStore.emitChange();
+																 break;
 
-			case actions.CUSTOMER_INFO_RESPONSE:
-				_customer.load(data.response.customerInfo);
-				CashierStore.emitChange();
-				break;
+															 case actions.CUSTOMER_INFO_RESPONSE:
+																 _customer.load(data.response.customerInfo);
+																 CashierStore.emitChange();
+																 break;
 
-			case actions.COMPANY_INFO_RESPONSE:
-				_company.load(data.response.companyInformation);
-				CashierStore.emitChange();
-				break;
+															 case actions.COMPANY_INFO_RESPONSE:
+																 _company.load(data.response.companyInformation);
+																 CashierStore.emitChange();
+																 break;
 
-			case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
-				_customer.lastTransactions = data.response.transactions;
-				break;
+															 case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
+																 _customer.lastTransactions = data.response.transactions;
+																 break;
 
-			case actions.COUNTRIES_RESPONSE:
-				_UI.countries = data.response.countries;
-				break;
+															 case actions.COUNTRIES_RESPONSE:
+																 _UI.countries = data.response.countries;
+																 break;
 
-			case actions.STATES_RESPONSE:
-				_UI.countryStates = data.response.states;
-				_UI.countryInfo = data.response.countryInfo;
-				break;
+															 case actions.STATES_RESPONSE:
+																 _UI.countryStates = data.response.states;
+																 _UI.countryInfo = data.response.countryInfo;
+																 break;
 
-			case actions.PROCESSORS_RESPONSE:
-				_customer.depositProcessors = data.response.processors.deposit;
-				_customer.withdrawProcessors = data.response.processors.withdraw;
+															 case actions.PROCESSORS_RESPONSE:
+																 _customer.depositProcessors = data.response.processors.deposit;
+																 _customer.withdrawProcessors = data.response.processors.withdraw;
 
-				let processor = [];
-				if (!CashierStore.getIsWithdraw() && _customer.depositProcessors.length > 0) {
-					processor = _customer.depositProcessors[0];
-				} else if (_customer.withdrawProcessors.length > 0) {
-					processor = _customer.withdrawProcessors[0];
-				}
+																 let processor = [];
+																 if(!CashierStore.getIsWithdraw() && _customer.depositProcessors.length > 0){
+																	 processor = _customer.depositProcessors[0];
+																 } else if(_customer.withdrawProcessors.length > 0){
+																	 processor = _customer.withdrawProcessors[0];
+																 }
 
-				// set default processor
-				_UI.processorId = processor.caProcessor_Id;
-				_processor.load(processor.caProcessor_Id);
-				break;
+																 // set default processor
+																 _UI.processorId = processor.caProcessor_Id;
+																 _processor.load(processor.caProcessor_Id);
+																 break;
 
-			case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
-				let payAccounts = data.response.payAccounts;
-				let setDefault = true;
-				if (payAccounts) {
-					let payAccounts_processor = {};
-					payAccounts.map((item, key) => {
-						let payAccount = Object.assign({}, _payAccount);
-						payAccount.load(item);
-						payAccounts_processor[payAccount.payAccountId] = payAccount;
-						if (setDefault) {
-							CashierStore.changeCurrentPayAccount(payAccount);
-							setDefault = false;
-						}
-					});
-					_payAccounts[_processor.processorId] = payAccounts_processor;
-				}
-				CashierStore.emitChange();
-				break;
+															 case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
+																 let payAccounts = data.response.payAccounts;
+																 let setDefault = true;
+																 if(payAccounts){
+																	 let payAccounts_processor = {};
+																	 payAccounts.map((item, key) =>{
+																		 let payAccount = Object.assign({}, _payAccount);
+																		 payAccount.load(item);
+																		 payAccounts_processor[payAccount.payAccountId] = payAccount;
+																		 if(setDefault){
+																			 CashierStore.changeCurrentPayAccount(payAccount);
+																			 setDefault = false;
+																		 }
+																	 });
+																	 _payAccounts[_processor.processorId] = payAccounts_processor;
+																 }
+																 CashierStore.emitChange();
+																 break;
 
-			case actions.PAYACCOUNTS_DISABLE_RESPONSE:
-				let currentPayAccountId = CashierStore.getUI().payAccountId;
-				if (currentPayAccountId) {
-					_payAccounts.splice(currentPayAccountId, 1);
-				}
-				CashierStore.emitChange();
-				break;
+															 case actions.PAYACCOUNTS_DISABLE_RESPONSE:
+																 let currentPayAccountId = CashierStore.getUI().payAccountId;
+																 if(currentPayAccountId){
+																	 _payAccounts.splice(currentPayAccountId, 1);
+																 }
+																 CashierStore.emitChange();
+																 break;
 
-			case actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE:
-				_processor.limits = data.response.processorMinMaxLimits;
-				CashierStore.emitChange();
-				break;
+															 case actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE:
+																 _processor.limits = data.response.processorMinMaxLimits;
+																 CashierStore.emitChange();
+																 break;
 
-			case actions.PROCESSORS_LIMIT_RULES_RESPONSE:
-				_processor.limitRules = data.response.processorLimits;
-				CashierStore.emitChange();
-				break;
+															 case actions.PROCESSORS_LIMIT_RULES_RESPONSE:
+																 _processor.limitRules = data.response.processorLimits;
+																 CashierStore.emitChange();
+																 break;
 
-			case actions.CHANGE_PAYACCOUNT:
-				CashierStore.changeCurrentPayAccount(_payAccounts[data.processorID][data.payAccountID]);
-				CashierStore.emitChange();
-				break;
+															 case actions.CHANGE_PAYACCOUNT:
+																 CashierStore.changeCurrentPayAccount(_payAccounts[data.processorID][data.payAccountID]);
+																 CashierStore.emitChange();
+																 break;
 
-			case actions.CHANGE_TRANSACTION_AMOUNT:
-				_transaction.amount = data;
-				CashierStore.emitChange();
-				break;
+															 case actions.CHANGE_TRANSACTION_AMOUNT:
+																 _transaction.amount = data;
+																 CashierStore.emitChange();
+																 break;
 
-			case actions.CHANGE_TRANSACTION_FEE:
-				_transaction.fee = data;
-				CashierStore.emitChange();
-				break;
+															 case actions.CHANGE_TRANSACTION_FEE:
+																 _transaction.fee = data;
+																 CashierStore.emitChange();
+																 break;
 
-			case actions.PROCESS_RESPONSE:
-				_transactionResponse.state = data.state;
-				if (data.response.transaction) {
-					_transactionResponse.journalId = data.response.transaction.caJournal_Id;
-					_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
-					_transactionResponse.status = data.response.transaction.caTransactionStatus_Id;
-					_transactionResponse.userMessage = data.response.transaction.userMessage;
-				}
+															 case actions.PROCESS_RESPONSE:
+																 _transactionResponse.state = data.state;
+																 if(data.response.transaction){
+																	 _transactionResponse.journalId = data.response.transaction.caJournal_Id;
+																	 _transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
+																	 _transactionResponse.status = data.response.transaction.caTransactionStatus_Id;
+																	 _transactionResponse.userMessage = data.response.transaction.userMessage;
+																 }
 
-				if (_transactionResponse.userMessage == "") {
-					_transactionResponse.userMessage = data.userMessage;
-				}
+																 if(_transactionResponse.userMessage == ""){
+																	 _transactionResponse.userMessage = data.userMessage;
+																 }
 
-				CashierStore.emitChange();
-				break;
+																 CashierStore.emitChange();
+																 break;
 
-			case actions.SET_CURRENT_STEP:
-				CashierStore.setCurrentStep(data)
-				break;
+															 case actions.SET_CURRENT_STEP:
+																 CashierStore.setCurrentStep(data)
+																 break;
 
-			default:
-				console.log("Store No Action");
-				break;
-		}
-		return true;
-	}
+															 default:
+																 console.log("Store No Action");
+																 break;
+														 }
+														 return true;
+													 }
 );
 
 module.exports.CashierStore = CashierStore;

@@ -4,57 +4,57 @@ import RouterContainer from './RouterContainer'
 
 class ControllerUIService {
 
-	loginSuccess() {
+	loginSuccess(){
 		this.setCurrentStep(1);
 		let nextPath = "/" + this.getCurrentView() + "/";
 		RouterContainer.get().props.history.push(nextPath);
 	}
 
-	getNextStep() {
+	getNextStep(){
 		let getNextStep = "/";
-		if (this.getCurrentStep()==1) {
-			getNextStep += this.getCurrentView() + "/" + this.processorDisplayName()+"/";
+		if(this.getCurrentStep() == 1){
+			getNextStep += this.getCurrentView() + "/" + this.processorDisplayName() + "/";
 		}
-		if (this.getCurrentStep()==2) {
-			let nextAction="ticket/";
-			getNextStep += this.getCurrentView() + "/" + this.processorDisplayName()+"/"+nextAction;
+		if(this.getCurrentStep() == 2){
+			let nextAction = "ticket/";
+			getNextStep += this.getCurrentView() + "/" + this.processorDisplayName() + "/" + nextAction;
 		}
 		return getNextStep;
 	}
 
-	getOriginPath() {
+	getOriginPath(){
 		return CashierStore.getOriginPath();
 	}
 
-	getCurrentView() {
+	getCurrentView(){
 		return CashierStore.getCurrentView();
 	}
 
-	setCurrentStep(step) {
+	setCurrentStep(step){
 		CashierActions.setCurrentStep(step);
 	}
 
-	getCurrentStep() {
+	getCurrentStep(){
 		return CashierStore.getCurrentStep();
 	}
 
-	getIsWithDraw() {
+	getIsWithDraw(){
 		return CashierStore.getIsWithdraw();
 	}
 
 	processorDisplayName(){
-		let processor =  CashierStore.getProcessor();
+		let processor = CashierStore.getProcessor();
 		return processor.displayName.toLowerCase();
 	}
 
 	ticketRedirect(transactionStatusId){
-		let getNextStep = "/"+this.getCurrentView() + "/" + this.processorDisplayName()+"/";
+		let getNextStep = "/" + this.getCurrentView() + "/" + this.processorDisplayName() + "/";
 		this.setCurrentStep(3);
-		switch (transactionStatusId){
+		switch(transactionStatusId){
 			case 1:
 				break;
 			default:
-				getNextStep+="ticket/rejected";
+				getNextStep += "ticket/rejected";
 				RouterContainer.get().props.history.push(getNextStep);
 				break;
 		}

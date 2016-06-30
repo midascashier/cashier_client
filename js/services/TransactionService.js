@@ -6,7 +6,7 @@ class TransactionService {
 	/**
 	 * this function sends to process a transaction
 	 */
-	process(dynamicParams) {
+	process(dynamicParams){
 		let application = CashierStore.getApplication();
 		let customerInfo = CashierStore.getCustomer();
 		let transaction = CashierStore.getTransaction();
@@ -14,7 +14,7 @@ class TransactionService {
 		let payAccountSelected = CashierStore.getCurrentPayAccount();
 		let action = "d";
 		let isDefer = 0;
-		if (CashierStore.getIsWithdraw()){
+		if(CashierStore.getIsWithdraw()){
 			action = "w";
 			isDefer = 1;
 		}
