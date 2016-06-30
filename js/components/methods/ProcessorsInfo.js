@@ -21,6 +21,7 @@ let ProcessorsInfo = React.createClass({
 	 * here the component listen changes from the store
 	 */
 	componentDidMount() {
+		controllerUIService.setCurrentStep(1);
 		CashierStore.addChangeListener(this._onChange);
 	},
 
