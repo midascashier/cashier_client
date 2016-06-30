@@ -38,7 +38,7 @@ let Steps = React.createClass({
 
 		let steps_method = translate('STEPS_DEPOSIT_METHOD');
 		let steps_how_much = translate('STEPS_HOW_MUCH_DEPOSIT');
-		if (controllerUIService.getIsWithDraw) {
+		if (controllerUIService.getIsWithDraw()) {
 			steps_method = translate('STEPS_WITHDRAW_METHOD');
 			steps_how_much = translate('STEPS_HOW_MUCH_WITHDRAW');
 		}

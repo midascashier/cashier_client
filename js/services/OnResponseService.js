@@ -58,8 +58,8 @@ class OnResponseService {
 			case actions.PROCESSORS_RESPONSE:
 				if (data) {
 					let customerOption = "deposit";
-					if (CashierStore.isWithDraw) {
-						return "withdraw";
+					if (CashierStore.getIsWithdraw()) {
+						customerOption = "withdraw";
 					}
 					let processorID = data.response.processors[customerOption][0].caProcessor_Id;
 					if (processorID) {
@@ -72,7 +72,6 @@ class OnResponseService {
 							customerService.getCustomerProcessorsMinMax(processorID);
 						}
 						CashierActions.getCustomerProcessors_response(data);
-
 					}
 				}
 				break;

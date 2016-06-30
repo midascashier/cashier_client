@@ -35,31 +35,33 @@ import RouterContainer from './services/RouterContainer'
  *
  * @type {XML}
  */
-let routes = (  <Router history={browserHistory}>
-	<Route path="/" component={Client}>
-		<IndexRoute component={Welcome}/>
-		<Route path="/welcome/" component={Welcome}/>
-		<Route path="/transaction_history/" component={TransactionHistoryContent}/>
-		<Route path="/deposit/" component={DepositContent}>
-			<IndexRoute component={ProcessorsInfo}/>
-			<Route path="neteller/" component={Neteller}/>
-			<Route path="neteller/ticket/" component={NetellerTicket}>
-				<Route path="approved" component={NetellerApprovedTicket}/>
-				<Route path="rejected" component={NetellerRejectedTicket}/>
+let routes = (
+	<Router history={browserHistory}>
+		<Route path="/" component={Client}>
+			<IndexRoute component={Welcome}/>
+			<Route path="/welcome/" component={Welcome}/>
+			<Route path="/transaction_history/" component={TransactionHistoryContent}/>
+			<Route path="/deposit/" component={DepositContent}>
+				<IndexRoute component={ProcessorsInfo}/>
+				<Route path="neteller/" component={Neteller}/>
+				<Route path="neteller/ticket/" component={NetellerTicket}>
+					<Route path="approved" component={NetellerApprovedTicket}/>
+					<Route path="rejected" component={NetellerRejectedTicket}/>
+				</Route>
+				<Route path="bitcoin/" component={Bitcoin}/>
 			</Route>
-			<Route path="bitcoin/" component={Bitcoin}/>
+			<Route path="/withdraw/" component={WithdrawContent}>
+				<IndexRoute component={ProcessorsInfo}/>
+				<Route path="bitcoin/" component={Bitcoin}/>
+				<Route path="bitcoin/confirm/" component={ConfirmWithdraw}/>
+				<Route path="bitcoin/ticket/" component={BitCoinTicket}>
+					<Route path="approved" component={BitCoinTicketApproved}/>
+					<Route path="rejected" component={BitCoinTicketRejected}/>
+				</Route>
+			</Route>
 		</Route>
-    <Route path="/withdraw/" component={WithdrawContent}>
-      <IndexRoute component={ProcessorsInfo}/>
-      <Route path="bitcoin/" component={Bitcoin}/>
-			<Route path="bitcoin/confirm/" component={ConfirmWithdraw} />
-      <Route path="bitcoin/ticket/" component={BitCoinTicket}>
-        <Route path="approved" component={BitCoinTicketApproved}/>
-        <Route path="rejected" component={BitCoinTicketRejected}/>
-      </Route>
-    </Route>
-	</Route>
-</Router>);
+	</Router>
+);
 
 RouterContainer.set(routes);
 

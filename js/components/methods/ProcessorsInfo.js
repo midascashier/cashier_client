@@ -60,7 +60,7 @@ let ProcessorsInfo = React.createClass({
    * @returns {Array}
    */
   getProcessors(){
-    if(controllerUIService.getIsWithDraw){
+    if(controllerUIService.getIsWithDraw()){
 			return this.state.customer.withdrawProcessors;
     }else{
 			return this.state.customer.depositProcessors;
@@ -69,6 +69,7 @@ let ProcessorsInfo = React.createClass({
 
 	render() {
     let processors = this.getProcessors();
+		console.log(processors);
 		return (
 			<div id="processorsInfo">
 				<div className="col-sm-6">

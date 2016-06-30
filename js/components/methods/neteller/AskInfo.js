@@ -16,7 +16,7 @@ let AskInfo = React.createClass({
 	render() {
 		let netellerPasswordInput = this.props.netellerPasswordInput;
 		let password = this.props.password;
-		let isWithDraw=controllerUIService.getIsWithDraw();
+		let isWithDraw = controllerUIService.getIsWithDraw();
 		let originPath = controllerUIService.getOriginPath();
 
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');

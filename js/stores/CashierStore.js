@@ -18,7 +18,7 @@ let _UI = {
 	processorId: 0,
 	payAccountId: 0,
 	countryInfo: null,
-	steps: {333: 2, 814: 3},
+	steps: {333: 2, 814: 3, 11001: 3},
 	countries: {},
 	countryStates: {}
 };
@@ -167,7 +167,7 @@ let _processor = {
 	limitRules: [],
 	load(processorId){
 		var processor = [];
-		if (_UI.customerAction == cashier.VIEW_DEPOSIT && _customer.depositProcessors.length > 0) {
+		if (_UI.currentView == cashier.VIEW_DEPOSIT && _customer.depositProcessors.length > 0) {
 			_customer.depositProcessors.map((item) => {
 				if (processorId == item.caProcessor_Id) {
 					processor = item;
@@ -438,7 +438,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * @returns {int}
 	 */
 	getIsWithdraw: () => {
-		return (_UI.customerAction == cashier.VIEW_WITHDRAW) ? 1 : 0;
+		return (_UI.currentView == cashier.VIEW_WITHDRAW) ? 1 : 0;
 	}
 
 });
