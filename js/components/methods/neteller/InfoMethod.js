@@ -42,8 +42,7 @@ let InfoMethod = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			processor: CashierStore.getProcessor(),
-			currentPayAccount: CashierStore.getCurrentPayAccount()
+			processor: CashierStore.getProcessor(), currentPayAccount: CashierStore.getCurrentPayAccount()
 		}
 	},
 
@@ -53,7 +52,7 @@ let InfoMethod = React.createClass({
 	 * @private
 	 */
 	_onChange() {
-		if (this.isMounted() === true) {
+		if(this.isMounted() === true){
 			this.setState(this.refreshLocalState());
 		}
 	},
@@ -64,8 +63,8 @@ let InfoMethod = React.createClass({
 	allowProcess(){
 		let password = this.props.password;
 		let amount = this.props.transaction.amount;
-		if (password && amount) {
-			if ((String(password).length >= 5) && amount > 0) {
+		if(password && amount){
+			if((String(password).length >= 5) && amount > 0){
 				return true;
 			}
 		}
@@ -81,11 +80,11 @@ let InfoMethod = React.createClass({
 		let minPayAccount = <Loading />;
 		let maxPayAccount = <Loading />;
 		let payAccount = this.state.currentPayAccount;
-		if (payAccount.payAccountId) {
+		if(payAccount.payAccountId){
 			minPayAccount = payAccount.limitsData.minAmount + " " + payAccount.limitsData.currencyCode;
 			maxPayAccount = payAccount.limitsData.maxAmount + " " + payAccount.limitsData.currencyCode;
 		}
-		return {"minPayAccount":minPayAccount, "maxPayAccount":maxPayAccount,"payAccountId":payAccount.payAccountId}
+		return {"minPayAccount": minPayAccount, "maxPayAccount": maxPayAccount, "payAccountId": payAccount.payAccountId}
 	},
 
 	/**
@@ -129,8 +128,8 @@ let InfoMethod = React.createClass({
 						<div className="col-sm-12">
 							<div className="row">
 								<div className="col-sm-6">
-									{(() => {
-										if (payAccountinfo.payAccountId && allowContinue) {
+									{(() =>{
+										if(payAccountinfo.payAccountId && allowContinue){
 											return <Link to={nextStep}>
 												<button type='button' onClick={this.processDeposit} className='btn btn-green'>Next</button>
 											</Link>

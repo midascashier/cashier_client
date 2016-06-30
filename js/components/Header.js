@@ -29,10 +29,7 @@ let Header = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			step: CashierStore.getCurrentStep(),
-			processorSteps: CashierStore.getProcessorSteps(),
-			isWithDraw: CashierStore.getIsWithdraw(),
-			UI: CashierStore.getUI()
+			step: CashierStore.getCurrentStep(), processorSteps: CashierStore.getProcessorSteps(), isWithDraw: CashierStore.getIsWithdraw(), UI: CashierStore.getUI()
 		}
 	},
 
@@ -42,7 +39,7 @@ let Header = React.createClass({
 	 * @private
 	 */
 	_onChange() {
-		if (this.isMounted() === true) {
+		if(this.isMounted() === true){
 			this.setState(this.refreshLocalState());
 		}
 	},
@@ -50,14 +47,14 @@ let Header = React.createClass({
 	render() {
 		let step = this.state.step;
 		let steps = this.state.processorSteps;
-    let isWithDraw = this.state.isWithDraw;
+		let isWithDraw = this.state.isWithDraw;
 		let currentView = this.state.UI.currentView;
 
 		return (
 			<div id="header">
-				{(() => {
-					if (step < 3) {
-						return <Steps isWithDraw={isWithDraw} step={step} steps={steps} customerAction={currentView} />
+				{(() =>{
+					if(step < 3){
+						return <Steps isWithDraw={isWithDraw} step={step} steps={steps} customerAction={currentView}/>
 					}
 				})()}
 				<Info />

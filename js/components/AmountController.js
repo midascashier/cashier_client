@@ -26,10 +26,10 @@ let AmountController = React.createClass({
 
 	changeValue(event) {
 		let amount = event.currentTarget.value;
-		amount = amount.replace(/[^0-9\-]/g,'');
+		amount = amount.replace(/[^0-9\-]/g, '');
 		this.setState({value: amount});
-		if (amount){
-			if (amount != this.state.value) {
+		if(amount){
+			if(amount != this.state.value){
 				CashierActions.setTransactionAmount(amount);
 			}
 		}
@@ -38,11 +38,11 @@ let AmountController = React.createClass({
 	render() {
 		return (
 			<div>
-				<input className="form-control"	type="number" id="amountController" name="amountController"
+				<input className="form-control" type="number" id="amountController" name="amountController"
 							 onChange={this.changeValue} value={this.state.value}/>
 			</div>
 		)
 	}
 });
 
-module.exports.AmountController=AmountController;
+module.exports.AmountController = AmountController;

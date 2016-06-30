@@ -5,7 +5,7 @@ let DepositContent = React.createClass({
 	render() {
 		return (
 			<div id="depositContent">
-        <Header/>
+				<Header/>
 				<div id="internal-content" className="internal-content">
 					<div className="row">
 						<div className="col-sm-12">

@@ -28,8 +28,7 @@ let Info = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			customer: CashierStore.getCustomer(),
-			company: CashierStore.getCompany()
+			customer: CashierStore.getCustomer(), company: CashierStore.getCompany()
 		}
 	},
 
@@ -39,7 +38,7 @@ let Info = React.createClass({
 	 * @private
 	 */
 	_onChange() {
-		if (this.isMounted() === true) {
+		if(this.isMounted() === true){
 			this.setState(this.refreshLocalState());
 		}
 	},

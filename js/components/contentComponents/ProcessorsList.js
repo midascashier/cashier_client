@@ -6,13 +6,12 @@ import {controllerUIService} from '../../services/ControllerService'
 
 let ProcessorsList = React.createClass({
 	propTypes: {
-		selectedProcessor: React.PropTypes.number,
-		processors: React.PropTypes.array
+		selectedProcessor: React.PropTypes.number, processors: React.PropTypes.array
 	},
 
 	render() {
 		let titleText = translate('METHOD_SELECT_YOUR_DEPOSIT_METHOD');
-		if (controllerUIService.getIsWithDraw()) {
+		if(controllerUIService.getIsWithDraw()){
 			titleText = translate('METHOD_SELECT_YOUR_WITHDRAW_METHOD');
 		}
 		let isSelected = false;
@@ -28,16 +27,16 @@ let ProcessorsList = React.createClass({
 								<div className="processors infoCol">
 									<div className="row">
 
-										{(() => {
-											if (this.props.processors.length == 0) {
+										{(() =>{
+											if(this.props.processors.length == 0){
 												return <LoadingSpinner />;
 											}
 										})()}
 
-										{this.props.processors.map((processor, i)=> {
-											if (this.props.selectedProcessor == processor.caProcessor_Id) {
+										{this.props.processors.map((processor, i)=>{
+											if(this.props.selectedProcessor == processor.caProcessor_Id){
 												isSelected = true;
-											} else {
+											} else{
 												isSelected = false;
 											}
 

@@ -5,7 +5,7 @@ class ApplicationService {
 	/**
 	 * function to get Company Info
 	 */
-	getCompanyInfo() {
+	getCompanyInfo(){
 		let data = {f: "getCompanyInfo"};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
@@ -15,7 +15,7 @@ class ApplicationService {
 	/**
 	 * function to get Countries
 	 */
-	getCountries() {
+	getCountries(){
 		let data = {f: "countries"};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
@@ -27,8 +27,8 @@ class ApplicationService {
 	 *
 	 * @param country
 	 */
-	getStates(country = null) {
-		if (!country) {
+	getStates(country = null){
+		if(!country){
 			country = CashierStore.getCustomer().personalInformation.country
 		}
 		let data = {f: "states", country: country};

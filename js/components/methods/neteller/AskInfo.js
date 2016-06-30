@@ -8,9 +8,7 @@ import {controllerUIService} from '../../../services/ControllerService'
 let AskInfo = React.createClass({
 
 	propTypes: {
-		netellerPasswordInput: React.PropTypes.func,
-		password: React.PropTypes.string,
-		selectedProcessor: React.PropTypes.object
+		netellerPasswordInput: React.PropTypes.func, password: React.PropTypes.string, selectedProcessor: React.PropTypes.object
 	},
 
 	render() {
@@ -20,8 +18,8 @@ let AskInfo = React.createClass({
 		let originPath = controllerUIService.getOriginPath();
 
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
-		if (isWithDraw) {
-			proccesingTitle=translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information');
+		if(isWithDraw){
+			proccesingTitle = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information');
 		}
 
 		return (
@@ -30,7 +28,7 @@ let AskInfo = React.createClass({
 					<div className="col-sm-12">
 						<div className="row">
 							<div className="col-sm-12">
-                      <div className="title">{proccesingTitle}</div>
+								<div className="title">{proccesingTitle}</div>
 							</div>
 							<div className="col-sm-12">
 								<div className="infoCol">
@@ -42,11 +40,11 @@ let AskInfo = React.createClass({
 												</div>
 											</div>
 											<div className="col-sm-9">
-                        {translate('NETELLER_ACCOUNT', 'Neteller Account')}:
+												{translate('NETELLER_ACCOUNT', 'Neteller Account')}:
 												<SelectPayAccount />
-                        {translate('NETELLER_SECURE', 'Secure ID')}:
+												{translate('NETELLER_SECURE', 'Secure ID')}:
 												<Input onChange={netellerPasswordInput} value={password} type="password"/>
-                        {translate('PROCESSING_AMOUNT', 'Amount')}:
+												{translate('PROCESSING_AMOUNT', 'Amount')}:
 												<AmountController />
 											</div>
 										</div>

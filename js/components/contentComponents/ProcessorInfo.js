@@ -14,10 +14,9 @@ let ProcessorInfo = React.createClass({
 	 * @returns {*}
 	 */
 	getMinProcessorLimit() {
-		if (!this.props.selectedProcessor.limits.currencyMin) {
+		if(!this.props.selectedProcessor.limits.currencyMin){
 			return 0;
-		}
-		else {
+		} else{
 			return parseFloat(this.props.selectedProcessor.limits.currencyMin);
 		}
 	},
@@ -28,10 +27,9 @@ let ProcessorInfo = React.createClass({
 	 * @returns {*}
 	 */
 	getMaxProcessorLimit() {
-		if (!this.props.selectedProcessor.limits.currencyMax) {
+		if(!this.props.selectedProcessor.limits.currencyMax){
 			return 0;
-		}
-		else {
+		} else{
 			return parseFloat(this.props.selectedProcessor.limits.currencyMax);
 		}
 	},
@@ -46,13 +44,10 @@ let ProcessorInfo = React.createClass({
 		let minProcessorLimit = this.getMinProcessorLimit();
 		let maxProcessorLimit = this.getMaxProcessorLimit();
 		let currencyCode = this.props.selectedProcessor.limits.currencyCode;
-console.log(isWithDraw);
 		let buttonNext = translate('PROCESSING_BUTTON_NEXT_DEPOSIT', 'Next');
-		if (isWithDraw) {
+		if(isWithDraw){
 			buttonNext = translate('PROCESSING_BUTTON_NEXT_WITHDRAW', 'Next')
 		}
-
-		console.log(buttonNext);
 
 		return (
 			<div id="infoLimits">
@@ -84,7 +79,7 @@ console.log(isWithDraw);
 						<div className="row">
 							<div className="col-sm-6">
 								<Link to={nextStep}>
-                      <button type="button" className="btn btn-green">{buttonNext} {processorDisplayName}</button>
+									<button type="button" className="btn btn-green">{buttonNext} {processorDisplayName}</button>
 								</Link>
 							</div>
 							<div className="col-sm-6">

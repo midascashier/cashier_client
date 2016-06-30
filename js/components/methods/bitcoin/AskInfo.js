@@ -5,9 +5,7 @@ import {AmountController} from '../../AmountController'
 
 let AskInfo = React.createClass({
 	propTypes: {
-		originPath: React.PropTypes.string,
 		selectedProcessor: React.PropTypes.object,
-		isWithDraw: React.PropTypes.number
 	},
 
 	render() {
@@ -17,7 +15,7 @@ let AskInfo = React.createClass({
 					<div className="col-sm-12">
 						<div className="row">
 							<div className="col-sm-12">
-                <div className="title">{translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information')}</div>
+								<div className="title">{translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information')}</div>
 							</div>
 							<div className="col-sm-12">
 								<div className="infoCol">
@@ -29,9 +27,9 @@ let AskInfo = React.createClass({
 												</div>
 											</div>
 											<div className="col-sm-9">
-                        {translate('BITCOIN_ADDRESS', 'BitCoin Address')}:
+												{translate('BITCOIN_ADDRESS', 'BitCoin Address')}:
 												<SelectPayAccount />
-                        {translate('PROCESSING_AMOUNT', 'Amount')}:
+												{translate('PROCESSING_AMOUNT', 'Amount')}:
 												<AmountController />
 											</div>
 										</div>

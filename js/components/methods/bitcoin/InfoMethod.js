@@ -33,7 +33,7 @@ let InfoMethod = React.createClass({
 	componentWillUnmount() {
 		CashierStore.removeChangeListener(this._onChange);
 	},
-	
+
 	/**
 	 *  this function sets and return object with local states
 	 *
@@ -41,9 +41,7 @@ let InfoMethod = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			processor: CashierStore.getProcessor(),
-			currentPayAccount: CashierStore.getCurrentPayAccount(),
-			originPath: CashierStore.getOriginPath()
+			processor: CashierStore.getProcessor(), currentPayAccount: CashierStore.getCurrentPayAccount(), originPath: CashierStore.getOriginPath()
 		}
 	},
 
@@ -53,7 +51,7 @@ let InfoMethod = React.createClass({
 	 * @private
 	 */
 	_onChange() {
-		if (this.isMounted() === true) {
+		if(this.isMounted() === true){
 			this.setState(this.refreshLocalState());
 		}
 	},
@@ -63,8 +61,8 @@ let InfoMethod = React.createClass({
 	 */
 	allowProcess(){
 		let amount = this.props.transaction.amount;
-		if (amount) {
-			if (amount > 0) {
+		if(amount){
+			if(amount > 0){
 				return true;
 			}
 		}
@@ -80,11 +78,11 @@ let InfoMethod = React.createClass({
 		let minPayAccount = <Loading />;
 		let maxPayAccount = <Loading />;
 		let payAccount = this.state.currentPayAccount;
-		if (payAccount.payAccountId) {
+		if(payAccount.payAccountId){
 			minPayAccount = payAccount.limitsData.minAmount + " " + payAccount.limitsData.currencyCode;
 			maxPayAccount = payAccount.limitsData.maxAmount + " " + payAccount.limitsData.currencyCode;
 		}
-		return {"minPayAccount":minPayAccount, "maxPayAccount":maxPayAccount,"payAccountId":payAccount.payAccountId}
+		return {"minPayAccount": minPayAccount, "maxPayAccount": maxPayAccount, "payAccountId": payAccount.payAccountId}
 	},
 
 	/**
@@ -122,8 +120,8 @@ let InfoMethod = React.createClass({
 						<div className="col-sm-12">
 							<div className="row">
 								<div className="col-sm-6">
-									{(() => {
-										if (payAccountInfo.payAccountId && allowContinue) {
+									{(() =>{
+										if(payAccountInfo.payAccountId && allowContinue){
 											return <Link
 												to={"/deposit/"+displayName.toLowerCase()+"/confirm/"}>
 												<button type='button' onClick={this.processDeposit} className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>

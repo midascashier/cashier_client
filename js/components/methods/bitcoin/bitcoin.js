@@ -4,9 +4,7 @@ import {CashierStore} from '../../../stores/CashierStore'
 import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {translate} from '../../../constants/Translate'
 import {AskInfo} from './AskInfo'
-import {AskInfoWithdraw} from './AskInfoWithdraw'
 import {InfoMethod} from './InfoMethod'
-import {InfoMethodWithdraw} from './InfoMethodWithdraw'
 import {controllerUIService} from '../../../services/ControllerService'
 
 let Bitcoin = React.createClass({
@@ -40,10 +38,7 @@ let Bitcoin = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			selectedProcessor: CashierStore.getProcessor(),
-			originPath: CashierStore.getOriginPath(),
-			transaction: CashierStore.getTransaction(),
-			isWithDraw: CashierStore.getIsWithdraw()
+			selectedProcessor: CashierStore.getProcessor(), transaction: CashierStore.getTransaction()
 		}
 	},
 
@@ -53,7 +48,7 @@ let Bitcoin = React.createClass({
 	 * @private
 	 */
 	_onChange() {
-		if (this.isMounted() === true) {
+		if(this.isMounted() === true){
 			this.setState(this.refreshLocalState());
 		}
 	},
@@ -65,36 +60,15 @@ let Bitcoin = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-
-					{(() =>{
-						if(!this.state.isWithDraw){
-							return <AskInfo originPath={this.state.originPath}
-															selectedProcessor={this.state.selectedProcessor}
-															isWithDraw={this.state.isWithDraw}/>;
-						}else{
-							return <AskInfoWithdraw originPath={this.state.originPath}
-																			selectedProcessor={this.state.selectedProcessor}
-																			isWithDraw={this.state.isWithDraw}/>;
-						}
-					})()}
-
+					<AskInfo selectedProcessor={this.state.selectedProcessor}/>
 				</div>
 				<div className="col-sm-6">
-					{(() => {
-						if (!this.state.selectedProcessor.processorId) {
+					{(() =>{
+						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
-						} else {
-							if(!this.state.isWithDraw){
-								return <InfoMethod originPath={this.state.originPath}
-																	 selectedProcessor={this.state.selectedProcessor}
-																	 transaction={this.state.transaction}
-																	 isWithDraw={this.state.isWithDraw}/>;
-							}else{
-								return <InfoMethodWithdraw originPath={this.state.originPath}
-																					 selectedProcessor={this.state.selectedProcessor}
-																					 transaction={this.state.transaction}
-																					 isWithDraw={this.state.isWithDraw}/>;
-							}
+						} else{
+							return <InfoMethod selectedProcessor={this.state.selectedProcessor}
+																 transaction={this.state.transaction}/>
 						}
 					})()}
 				</div>

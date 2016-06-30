@@ -5,9 +5,7 @@ import {controllerUIService} from '../../services/ControllerService'
 
 let Steps = React.createClass({
 	propTypes: {
-		step: React.PropTypes.number,
-		steps: React.PropTypes.number,
-		isWithDraw: React.PropTypes.number
+		step: React.PropTypes.number, steps: React.PropTypes.number, isWithDraw: React.PropTypes.number
 	},
 
 	render() {
@@ -16,7 +14,7 @@ let Steps = React.createClass({
 		let step3 = "step3";
 		let currentView = "/" + controllerUIService.getCurrentView() + "/";
 
-		switch (this.props.step) {
+		switch(this.props.step){
 			case 1:
 				step1 += " active";
 				step2 += " normal";
@@ -38,7 +36,7 @@ let Steps = React.createClass({
 
 		let steps_method = translate('STEPS_DEPOSIT_METHOD');
 		let steps_how_much = translate('STEPS_HOW_MUCH_DEPOSIT');
-		if (controllerUIService.getIsWithDraw()) {
+		if(controllerUIService.getIsWithDraw()){
 			steps_method = translate('STEPS_WITHDRAW_METHOD');
 			steps_how_much = translate('STEPS_HOW_MUCH_WITHDRAW');
 		}
@@ -60,8 +58,8 @@ let Steps = React.createClass({
 					</p>
 
 				</div>
-				{(() => {
-					if (this.props.steps > 2) {
+				{(() =>{
+					if(this.props.steps > 2){
 						let thirdStep = <div key="1" className={step3}><p><span>3</span>{translate('STEPS_BILLING_INFO')}</p></div>;
 						let thirdStep2 = <div key="2" className={step3} hidden='hidden'><p>
 							<span>3</span>{translate('STEPS_INSTRUCTIONS')}</p></div>;

@@ -26,10 +26,10 @@ let FeeController = React.createClass({
 
 	changeValue(event) {
 		let amount = event.currentTarget.value;
-		amount = amount.replace(/[^0-9\-]/g,'');
+		amount = amount.replace(/[^0-9\-]/g, '');
 		this.setState({value: amount});
-		if (amount){
-			if (amount != this.state.value) {
+		if(amount){
+			if(amount != this.state.value){
 				CashierActions.setTransactionFee(amount);
 			}
 		}
@@ -38,7 +38,7 @@ let FeeController = React.createClass({
 	render() {
 		return (
 			<div>
-				<input className="form-control"	type="number" id="feeController" name="feeController" onChange={this.changeValue} value={this.state.value}/>
+				<input className="form-control" type="number" id="feeController" name="feeController" onChange={this.changeValue} value={this.state.value}/>
 			</div>
 		)
 	}

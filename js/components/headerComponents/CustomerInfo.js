@@ -16,10 +16,10 @@ let CustomerInfo = React.createClass({
 
 							<div className="col-sm-6">{translate('CUSTOMER_INFO_USER')}:
 								<span>
-									{(() => {
-										if (!this.props.customer.customerId) {
+									{(() =>{
+										if(!this.props.customer.customerId){
 											return <Loading />;
-										} else {
+										} else{
 											return this.props.customer.username
 										}
 									})()}
@@ -27,10 +27,10 @@ let CustomerInfo = React.createClass({
 							</div>
 							<div className="col-sm-6">{translate('CUSTOMER_INFO_EMAIL')}:
 								<span>
-									{(() => {
-										if (!this.props.customer.customerId) {
+									{(() =>{
+										if(!this.props.customer.customerId){
 											return <Loading />;
-										} else {
+										} else{
 											return this.props.customer.personalInformation.email
 										}
 									})()}

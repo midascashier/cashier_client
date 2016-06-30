@@ -37,8 +37,7 @@ let Neteller = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			selectedProcessor: CashierStore.getProcessor(),
-			transaction: CashierStore.getTransaction()
+			selectedProcessor: CashierStore.getProcessor(), transaction: CashierStore.getTransaction()
 
 		}
 	},
@@ -49,7 +48,7 @@ let Neteller = React.createClass({
 	 * @private
 	 */
 	_onChange() {
-		if (this.isMounted() === true) {
+		if(this.isMounted() === true){
 			this.setState(this.refreshLocalState());
 		}
 	},
@@ -74,17 +73,17 @@ let Neteller = React.createClass({
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
 					<AskInfo netellerPasswordInput={this.netellerPasswordInput}
-													 password={this.state.password}
-													 selectedProcessor={this.state.selectedProcessor}/>
+									 password={this.state.password}
+									 selectedProcessor={this.state.selectedProcessor}/>
 				</div>
 				<div className="col-sm-6">
-					{(() => {
-						if (!this.state.selectedProcessor.processorId) {
+					{(() =>{
+						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
-						} else {
+						} else{
 							return <InfoMethod selectedProcessor={this.state.selectedProcessor}
-																				 password={this.state.password}
-																				 transaction={this.state.transaction}/>;
+																 password={this.state.password}
+																 transaction={this.state.transaction}/>;
 						}
 					})()}
 				</div>

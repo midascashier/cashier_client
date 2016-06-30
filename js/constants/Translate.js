@@ -14,22 +14,22 @@ import {ES} from './language/ES'
  * @returns {*}
  */
 export function translate(key, defaultText = '', tags = {}){
-  var currentLang = CashierStore.getLanguage();
-  switch(currentLang){
-    case "ES":
-      var langTags = ES();
-      break;
-    default:
-      var langTags = EN();
-  }
-  var content = langTags[key];
-  content = (content) ? content : defaultText;
-  content = (content) ? content : key;
+	var currentLang = CashierStore.getLanguage();
+	switch(currentLang){
+		case "ES":
+			var langTags = ES();
+			break;
+		default:
+			var langTags = EN();
+	}
+	var content = langTags[key];
+	content = (content) ? content : defaultText;
+	content = (content) ? content : key;
 
-  //replace tags
-  Object.keys(tags).map(function(key){
-    content = content.replace('{'+key+'}', tags[key]);
-  });
+	//replace tags
+	Object.keys(tags).map(function(key){
+		content = content.replace('{' + key + '}', tags[key]);
+	});
 
-  return content;
+	return content;
 };

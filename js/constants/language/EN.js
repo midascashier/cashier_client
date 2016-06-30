@@ -2,19 +2,19 @@
  * Created by jobando on 03-Jun-16.
  */
 let _langTags = {
-  WELCOME: 'Welcome',
-  WELCOME_TITLE: 'Welcome to',
-  WELCOME_TITLE_TO: 'Real Money Poker!',
-  WELCOME_LOADING: 'Loading your account is easy as 1, 2, 3',
-  WELCOME_GET_STARTED: 'Get Started',
-  DEPOSIT: 'Deposit',
-  WITHDRAW: 'Withdraw',
-  STEPS_DEPOSIT_METHOD: 'Deposit Method',
-  STEPS_WITHDRAW_METHOD: 'Withdraw Method',
-  STEPS_HOW_MUCH_DEPOSIT: 'How Much?',
-  STEPS_HOW_MUCH_WITHDRAW: 'How Much?',
-  STEPS_BILLING_INFO: 'Billing Information',
-  STEPS_INSTRUCTIONS: 'Instructions',
+	WELCOME: 'Welcome',
+	WELCOME_TITLE: 'Welcome to',
+	WELCOME_TITLE_TO: 'Real Money Poker!',
+	WELCOME_LOADING: 'Loading your account is easy as 1, 2, 3',
+	WELCOME_GET_STARTED: 'Get Started',
+	DEPOSIT: 'Deposit',
+	WITHDRAW: 'Withdraw',
+	STEPS_DEPOSIT_METHOD: 'Deposit Method',
+	STEPS_WITHDRAW_METHOD: 'Withdraw Method',
+	STEPS_HOW_MUCH_DEPOSIT: 'How Much?',
+	STEPS_HOW_MUCH_WITHDRAW: 'How Much?',
+	STEPS_BILLING_INFO: 'Billing Information',
+	STEPS_INSTRUCTIONS: 'Instructions',
 	STEPS_CONFIRMATION: 'Confirmation',
   CUSTOMER_INFO_USER: 'User',
   CUSTOMER_INFO_EMAIL: 'Email',
@@ -92,5 +92,5 @@ let _langTags = {
 };
 
 export function EN(){
-  return _langTags;
+	return _langTags;
 };

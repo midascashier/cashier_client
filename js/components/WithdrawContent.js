@@ -5,7 +5,7 @@ let WithdrawContent = React.createClass({
 	render() {
 		return (
 			<div id="withdrawContent">
-        <Header />
+				<Header />
 				<div id="internal-content" className="internal-content">
 					<div className="row">
 						<div className="col-sm-12">

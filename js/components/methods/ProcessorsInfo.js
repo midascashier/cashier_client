@@ -38,8 +38,7 @@ let ProcessorsInfo = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			customer: CashierStore.getCustomer(),
-			selectedProcessor: CashierStore.getProcessor()
+			customer: CashierStore.getCustomer(), selectedProcessor: CashierStore.getProcessor()
 		}
 	},
 
@@ -49,23 +48,23 @@ let ProcessorsInfo = React.createClass({
 	 * @private
 	 */
 	_onChange() {
-		if (this.isMounted() === true) {
+		if(this.isMounted() === true){
 			this.setState(this.refreshLocalState());
 		}
 	},
 
-  /**
-   * return the processor list
-   *
-   * @returns {Array}
-   */
-  getProcessors(){
-    if(controllerUIService.getIsWithDraw()){
+	/**
+	 * return the processor list
+	 *
+	 * @returns {Array}
+	 */
+	getProcessors(){
+		if(controllerUIService.getIsWithDraw()){
 			return this.state.customer.withdrawProcessors;
-    }else{
+		} else{
 			return this.state.customer.depositProcessors;
-    }
-  },
+		}
+	},
 
 	render() {
     let processors = this.getProcessors();
@@ -80,11 +79,11 @@ let ProcessorsInfo = React.createClass({
             processors={processors}	/>
 				</div>
 				<div className="col-sm-6">
-					{(() => {
-						if (!this.state.selectedProcessor.processorId) {
+					{(() =>{
+						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
-						} else {
-							return <ProcessorInfo selectedProcessor={this.state.selectedProcessor} />
+						} else{
+							return <ProcessorInfo selectedProcessor={this.state.selectedProcessor}/>
 						}
 					})()}
 				</div>

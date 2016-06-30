@@ -2,19 +2,19 @@
  * Created by jobando on 03-Jun-16.
  */
 let _langTags = {
-  WELCOME: 'Inicio',
-  WELCOME_TITLE: 'Bienvenido(a) a ',
-  WELCOME_TITLE_TO: 'Poker con Dinero Real!',
-  WELCOME_LOADING: 'Cargando su cuenta es fácil como 1, 2, 3',
-  WELCOME_GET_STARTED: 'Iniciar',
-  DEPOSIT: 'Depósito',
-  WITHDRAW: 'Retiro',
-  STEPS_DEPOSIT_METHOD: 'Depósito',
-  STEPS_WITHDRAW_METHOD: 'Retiro',
-  STEPS_HOW_MUCH_DEPOSIT: '¿Cuánto quiere depositar?',
-  STEPS_HOW_MUCH_WITHDRAW: '¿Cuánto quiere retirar?',
-  STEPS_BILLING_INFO: 'Revise Su Información',
-  STEPS_INSTRUCTIONS: 'Instruciones',
+	WELCOME: 'Inicio',
+	WELCOME_TITLE: 'Bienvenido(a) a ',
+	WELCOME_TITLE_TO: 'Poker con Dinero Real!',
+	WELCOME_LOADING: 'Cargando su cuenta es fácil como 1, 2, 3',
+	WELCOME_GET_STARTED: 'Iniciar',
+	DEPOSIT: 'Depósito',
+	WITHDRAW: 'Retiro',
+	STEPS_DEPOSIT_METHOD: 'Depósito',
+	STEPS_WITHDRAW_METHOD: 'Retiro',
+	STEPS_HOW_MUCH_DEPOSIT: '¿Cuánto quiere depositar?',
+	STEPS_HOW_MUCH_WITHDRAW: '¿Cuánto quiere retirar?',
+	STEPS_BILLING_INFO: 'Revise Su Información',
+	STEPS_INSTRUCTIONS: 'Instruciones',
 	STEPS_CONFIRMATION: 'Confirmación',
   CUSTOMER_INFO_USER: 'Cuenta',
   CUSTOMER_INFO_EMAIL: 'Correo',
@@ -92,5 +92,5 @@ let _langTags = {
 };
 
 export function ES(){
-  return _langTags;
+	return _langTags;
 };

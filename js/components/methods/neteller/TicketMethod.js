@@ -15,7 +15,7 @@ let NetellerTicket = React.createClass({
 	 * this function sets and return object with local states
 	 *
 	 * @returns {{transactionResponse: *}}
-   */
+	 */
 	refreshLocalState() {
 		return {
 			transactionResponse: CashierStore.getLastTransactionResponse()
@@ -29,7 +29,7 @@ let NetellerTicket = React.createClass({
 	componentDidMount() {
 		CashierStore.addChangeListener(this._onChange);
 	},
-	
+
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
@@ -44,7 +44,7 @@ let NetellerTicket = React.createClass({
 	 * @private
 	 */
 	_onChange() {
-		if (this.isMounted() === true) {
+		if(this.isMounted() === true){
 			this.setState(this.refreshLocalState());
 		}
 	},
@@ -53,10 +53,10 @@ let NetellerTicket = React.createClass({
 		let userMessage = this.state.transactionResponse.userMessage;
 		return (
 			<div id="methods">
-				{(() => {
-					if (!userMessage) {
+				{(() =>{
+					if(!userMessage){
 						return <Loading />;
-					} else {
+					} else{
 						return this.props.children
 					}
 				})()}

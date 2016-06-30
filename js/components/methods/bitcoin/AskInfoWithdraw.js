@@ -6,9 +6,7 @@ import {FeeController} from '../../FeeController'
 
 let AskInfoWithdraw = React.createClass({
 	propTypes: {
-		originPath: React.PropTypes.string,
-		selectedProcessor: React.PropTypes.object,
-		isWithDraw: React.PropTypes.number
+		originPath: React.PropTypes.string, selectedProcessor: React.PropTypes.object, isWithDraw: React.PropTypes.number
 	},
 
 	render() {
@@ -18,7 +16,7 @@ let AskInfoWithdraw = React.createClass({
 					<div className="col-sm-12">
 						<div className="row">
 							<div className="col-sm-12">
-              	<div className="title">{translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information')}</div>
+								<div className="title">{translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information')}</div>
 							</div>
 							<div className="col-sm-12">
 								<div className="infoCol">
@@ -30,9 +28,9 @@ let AskInfoWithdraw = React.createClass({
 												</div>
 											</div>
 											<div className="col-sm-9">
-                        {translate('BITCOIN_ADDRESS', 'BitCoin Address')}:
-                        <SelectPayAccount />
-                        {translate('PROCESSING_AMOUNT', 'Amount')}:
+												{translate('BITCOIN_ADDRESS', 'BitCoin Address')}:
+												<SelectPayAccount />
+												{translate('PROCESSING_AMOUNT', 'Amount')}:
 												<AmountController />
 												{translate('PROCESSING_FEE', 'Fee')}:
 												<FeeController />

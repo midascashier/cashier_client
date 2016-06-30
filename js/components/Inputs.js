@@ -2,8 +2,7 @@ import React from 'react'
 
 let Input = React.createClass({
 	propTypes: {
-		value: React.PropTypes.string,
-		onChange: React.PropTypes.func
+		value: React.PropTypes.string, onChange: React.PropTypes.func
 	},
 
 	/**
@@ -23,7 +22,7 @@ let Input = React.createClass({
 	 * @param e
 	 */
 	changeHandler(e) {
-		if (typeof this.props.onChange === 'function') {
+		if(typeof this.props.onChange === 'function'){
 			this.props.onChange(e.target.value);
 		}
 	},

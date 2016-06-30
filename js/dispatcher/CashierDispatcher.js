@@ -5,7 +5,7 @@ let _callbacks = [];
 
 let CashierDispatcher = assign(new Dispatcher(), {
 	handleServerAction(action) {
-		switch (action.action) {
+		switch(action.action){
 			default :
 				this.dispatch({actionType: action.action, data: action.data});
 				break;

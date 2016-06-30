@@ -4,8 +4,7 @@ import {Loading} from '../loading/Loading'
 
 let CompanyInfo = React.createClass({
 	propTypes: {
-		customer: React.PropTypes.object,
-		company: React.PropTypes.object
+		customer: React.PropTypes.object, company: React.PropTypes.object
 	},
 
 	render() {
@@ -16,10 +15,10 @@ let CompanyInfo = React.createClass({
 						<div className="row">
 							<div className="col-sm-6">{translate('CUSTOMER_INFO_BALANCE')}:
 								<span>
-									{(() => {
-										if (!this.props.customer.customerId) {
+									{(() =>{
+										if(!this.props.customer.customerId){
 											return <Loading />;
-										} else {
+										} else{
 											return this.props.customer.currencySymbol + " " + this.props.customer.balance;
 										}
 									})()}
@@ -27,10 +26,10 @@ let CompanyInfo = React.createClass({
 							</div>
 							<div className="col-sm-6">
 								<a href="#">{translate('CUSTOMER_INFO_LIVE_CHAT')}</a>
-								{(() => {
-									if (!this.props.company.companyId) {
+								{(() =>{
+									if(!this.props.company.companyId){
 										return <Loading />;
-									} else {
+									} else{
 										return ' ' + translate('CUSTOMER_INFO_PHONE') + " " + this.props.company.companyLabel.COMPANY_PHONE;
 									}
 								})()}
