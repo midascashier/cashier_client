@@ -60,6 +60,7 @@ let _langTags = {
   TRANSACTION_STATUS_FAILED: "Failed",
   //ProcessingTransaction
   PROCESSING_DEPOSIT_INFORMATION_TITLE: 'Please Enter the Deposit Information',
+	PROCESSING_DEPOSIT_INFORMATION_TITLE_CREDIT_CARD: 'Please Enter Your Card Details',
   PROCESSING_WITHDRAW_INFORMATION_TITLE: 'Please Enter the Withdraw Information',
   PROCESSING_BUTTON_NEXT: 'Next',
   PROCESSING_BUTTON_NEXT_DEPOSIT: 'Deposit with',
@@ -83,7 +84,11 @@ let _langTags = {
   NETELLER_ACCOUNT: 'Neteller Account',
   NETELLER_SECURE: '2FA or Secure ID',
   BITCOIN: 'BitCoin',
-  BITCOIN_ADDRESS: 'BitCoin Address'
+  BITCOIN_ADDRESS: 'BitCoin Address',
+	CREDIT_CARD: 'Card',
+	CREDIT_CARD_SELECT: 'Select your card',
+	CREDIT_CARD_CHECK_TERMENS: 'I agree to the terms and conditions.',
+	CREDIT_CARD_INFO: 'Certain banks may interpret increased transaction volumes over the internet as a fraud risk and may decline subsequent deposit requests.  We highly recommend depositing enough money now to cover your planned bets for the day.'
 };
 
 export function EN(){

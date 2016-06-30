@@ -69,7 +69,6 @@ let ProcessorsInfo = React.createClass({
 
 	render() {
     let processors = this.getProcessors();
-		console.log(processors);
 		return (
 			<div id="processorsInfo">
 				<div className="col-sm-6">
