@@ -1,12 +1,12 @@
 import React from 'react'
 import {translate} from '../../constants/Translate'
 import {Link} from 'react-router'
+import {controllerUIService} from '../../services/ControllerService'
 
 let Steps = React.createClass({
 	propTypes: {
 		step: React.PropTypes.number,
 		steps: React.PropTypes.number,
-		customerAction: React.PropTypes.string,
 		isWithDraw: React.PropTypes.number
 	},
 
@@ -14,7 +14,7 @@ let Steps = React.createClass({
 		let step1 = "step1";
 		let step2 = "step2";
 		let step3 = "step3";
-		let customerAction = "/" + this.props.customerAction + "/";
+		let currentView = "/" + controllerUIService.getCurrentView() + "/";
 
 		switch (this.props.step) {
 			case 1:
@@ -36,44 +36,30 @@ let Steps = React.createClass({
 				break
 		}
 
+		let steps_method = translate('STEPS_DEPOSIT_METHOD');
+		let steps_how_much = translate('STEPS_HOW_MUCH_DEPOSIT');
+		if (controllerUIService.getIsWithDraw) {
+			steps_method = translate('STEPS_WITHDRAW_METHOD');
+			steps_how_much = translate('STEPS_HOW_MUCH_WITHDRAW');
+		}
+
 		return (
 			<div id="steps" className="steps">
-				<Link to={customerAction}>
+				<Link to={currentView}>
 					<div className={step1}>
-            {(() => {
-              if (!this.props.isWithDraw) {
-                return (
-                  <p>
-                    <span>1</span>
-                    {translate('STEPS_DEPOSIT_METHOD')}
-                  </p>);
-              }else{
-                return (
-                  <p>
-                    <span>1</span>
-                    {translate('STEPS_WITHDRAW_METHOD')}
-                  </p>);
-              }
-            })()}
+						<p>
+							<span>1</span>
+							{steps_method}
+						</p>
 					</div>
 				</Link>
 				<div className={step2}>
-          {(() => {
-            if (!this.props.isWithDraw) {
-              return (
-                <p>
-                  <span>2</span>
-                  {translate('STEPS_HOW_MUCH_DEPOSIT')}
-                </p>);
-            }else{
-              return (
-                <p>
-                  <span>2</span>
-                  {translate('STEPS_HOW_MUCH_WITHDRAW')}
-                </p>);
-            }
-          })()}
-        </div>
+					<p>
+						<span>2</span>
+						{steps_how_much}
+					</p>
+
+				</div>
 				{(() => {
 					if (this.props.steps > 2) {
 						let thirdStep = <div key="1" className={step3}><p><span>3</span>{translate('STEPS_BILLING_INFO')}</p></div>;
