@@ -46,11 +46,14 @@ let ProcessorInfo = React.createClass({
 		let minProcessorLimit = this.getMinProcessorLimit();
 		let maxProcessorLimit = this.getMaxProcessorLimit();
 		let currencyCode = this.props.selectedProcessor.limits.currencyCode;
-
-		let buttonNextDeposit = translate('PROCESSING_BUTTON_NEXT_DEPOSIT', 'Next');
+console.log(isWithDraw);
+		let buttonNext = translate('PROCESSING_BUTTON_NEXT_DEPOSIT', 'Next');
 		if (isWithDraw) {
-			buttonNextDeposit = translate('PROCESSING_BUTTON_NEXT_WITHDRAW', 'Next')
+			buttonNext = translate('PROCESSING_BUTTON_NEXT_WITHDRAW', 'Next')
 		}
+
+		console.log(buttonNext);
+
 		return (
 			<div id="infoLimits">
 				<p><a href="#">Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></a></p>
@@ -81,7 +84,7 @@ let ProcessorInfo = React.createClass({
 						<div className="row">
 							<div className="col-sm-6">
 								<Link to={nextStep}>
-                      <button type="button" className="btn btn-green">{buttonNextDeposit} {processorDisplayName}</button>
+                      <button type="button" className="btn btn-green">{buttonNext} {processorDisplayName}</button>
 								</Link>
 							</div>
 							<div className="col-sm-6">
