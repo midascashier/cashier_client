@@ -24,7 +24,6 @@ let Bitcoin = React.createClass({
 	 * here the component listen changes from the store
 	 */
 	componentDidMount() {
-		customerService.getCustomerPreviousPayAccount();
 		CashierStore.addChangeListener(this._onChange);
 	},
 

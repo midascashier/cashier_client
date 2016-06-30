@@ -49,7 +49,6 @@ let routes = (  <Router history={browserHistory}>
 				<Route path="rejected" component={NetellerRejectedTicket}/>
 			</Route>
 			<Route path="bitcoin/" component={Bitcoin}/>
-			<Route path="bitcoin/confirm/" component={BitcoinInstructions} />
 		</Route>
     <Route path="/withdraw/" component={WithdrawContent}>
       <IndexRoute component={ProcessorsInfo}/>

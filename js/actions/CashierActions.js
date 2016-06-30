@@ -119,6 +119,13 @@ let CashierActions = {
 			action: actions.PROCESS_RESPONSE,
 			data: data
 		});
+	},
+
+	setCurrentStep: (data) => {
+		CashierDispatcher.handleServerAction({
+			action: actions.SET_CURRENT_STEP,
+			data: data
+		});
 	}
 };
 
