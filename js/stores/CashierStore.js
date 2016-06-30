@@ -553,6 +553,11 @@ CashierDispatcher.register((payload) => {
 				CashierStore.emitChange();
 				break;
 
+			case actions.CHANGE_TRANSACTION_FEE:
+				_transaction.fee = data;
+				CashierStore.emitChange();
+				break;
+
 			case actions.PROCESS_RESPONSE:
 				_transactionResponse.state = data.state;
 				if (data.response.transaction) {
