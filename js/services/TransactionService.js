@@ -12,9 +12,11 @@ class TransactionService {
 		let transaction = CashierStore.getTransaction();
 		let processorSelected = CashierStore.getProcessor();
 		let payAccountSelected = CashierStore.getCurrentPayAccount();
-		let action="d";
+		let action = "d";
+		let isDefer = 0;
 		if (CashierStore.getIsWithdraw()){
-			action="w";
+			action = "w";
+			isDefer = 1;
 		}
 		let rabbitRequest = {
 			f: "process",
@@ -30,7 +32,7 @@ class TransactionService {
 			userAgent: application.userAgent,
 			createdBy: customerInfo.customerId,
 			type: action,
-			isDefer:0,
+			isDefer: isDefer,
 			processorId: processorSelected.processorId,
 			amount: transaction.amount,
 			payAccountId: payAccountSelected.payAccountId,

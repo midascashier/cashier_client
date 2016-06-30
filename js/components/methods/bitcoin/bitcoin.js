@@ -4,7 +4,9 @@ import {CashierStore} from '../../../stores/CashierStore'
 import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {translate} from '../../../constants/Translate'
 import {AskInfo} from './AskInfo'
+import {AskInfoWithdraw} from './AskInfoWithdraw'
 import {InfoMethod} from './InfoMethod'
+import {InfoMethodWithdraw} from './InfoMethodWithdraw'
 import {customerService} from '../../../services/CustomerService'
 
 let Bitcoin = React.createClass({
@@ -54,18 +56,6 @@ let Bitcoin = React.createClass({
 		}
 	},
 
-	/**
-	 * custom function to sets password in askInfo Component
-	 *
-	 * @param value
-	 * @constructor
-	 */
-	netellerPasswordInput(value) {
-		this.setState({
-			password: value
-		});
-	},
-
 	render() {
 		return (
 			<div id="bitCoin">
@@ -73,21 +63,36 @@ let Bitcoin = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<AskInfo originPath={this.state.originPath}
-													 netellerPasswordInput={this.netellerPasswordInput}
-													 password={this.state.password}
-													 selectedProcessor={this.state.selectedProcessor}
-													 isWithDraw={this.state.isWithDraw}/>
+
+					{(() =>{
+						if(this.state.isWithDraw){
+							return <AskInfo originPath={this.state.originPath}
+															selectedProcessor={this.state.selectedProcessor}
+															isWithDraw={this.state.isWithDraw}/>;
+						}else{
+							return <AskInfoWithdraw originPath={this.state.originPath}
+																			selectedProcessor={this.state.selectedProcessor}
+																			isWithDraw={this.state.isWithDraw}/>;
+						}
+					})()}
+
 				</div>
 				<div className="col-sm-6">
 					{(() => {
 						if (!this.state.selectedProcessor.processorId) {
 							return <LoadingSpinner />;
 						} else {
-							return <InfoMethod selectedProcessor={this.state.selectedProcessor}
-																				 password={this.state.password}
-																				 transaction={this.state.transaction}
-																				 isWithDraw={this.state.isWithDraw}/>;
+							if(!this.state.isWithDraw){
+								return <InfoMethod originPath={this.state.originPath}
+																	 selectedProcessor={this.state.selectedProcessor}
+																	 transaction={this.state.transaction}
+																	 isWithDraw={this.state.isWithDraw}/>;
+							}else{
+								return <InfoMethodWithdraw originPath={this.state.originPath}
+																					 selectedProcessor={this.state.selectedProcessor}
+																					 transaction={this.state.transaction}
+																					 isWithDraw={this.state.isWithDraw}/>;
+							}
 						}
 					})()}
 				</div>
