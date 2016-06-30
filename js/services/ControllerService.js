@@ -31,7 +31,6 @@ class ControllerUIService {
 	}
 
 	setCurrentStep(step) {
-		console.log(step);
 		CashierActions.setCurrentStep(step);
 	}
 

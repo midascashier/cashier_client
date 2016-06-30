@@ -438,7 +438,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * @returns {int}
 	 */
 	getIsWithdraw: () => {
-		return (_UI.customerAction == cashier.VIEW_WITHDRAW) ? 1 : 0;
+		return (_UI.currentView == cashier.VIEW_WITHDRAW) ? 1 : 0;
 	}
 
 });
