@@ -18,10 +18,6 @@ import {NetellerApprovedTicket} from './components/methods/neteller/tickets/Appr
  * Bitcoin set of components to create routes
  */
 import {Bitcoin} from './components/methods/bitcoin/Bitcoin'
-import {BitCoinTicket} from './components/methods/bitcoin/TicketMethod'
-import {BitCoinTicketRejected} from './components/methods/bitcoin/tickets/RejectedTicket'
-import {BitCoinTicketApproved} from './components/methods/bitcoin/tickets/ApprovedTicket'
-import {BitcoinInstructions} from './components/methods/bitcoin/Confirm'
 import {ConfirmWithdraw} from './components/methods/bitcoin/ConfirmWithdraw'
 
 /**
@@ -54,10 +50,7 @@ let routes = (  <Router history={browserHistory}>
       <IndexRoute component={ProcessorsInfo}/>
       <Route path="bitcoin/" component={Bitcoin}/>
 			<Route path="bitcoin/confirm/" component={ConfirmWithdraw} />
-      <Route path="bitcoin/ticket/" component={BitCoinTicket}>
-        <Route path="approved" component={BitCoinTicketApproved}/>
-        <Route path="rejected" component={BitCoinTicketRejected}/>
-      </Route>
+
     </Route>
 	</Route>
 </Router>);

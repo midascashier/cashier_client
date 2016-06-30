@@ -3,12 +3,12 @@ import {Link} from 'react-router'
 import {CashierStore} from '../../../stores/CashierStore'
 import {Loading} from '../../loading/Loading'
 import {transactionService} from '../../../services/TransactionService'
+import {controllerUIService} from '../../../services/ControllerService'
 
 
 let InfoMethod = React.createClass({
 	propTypes: {
-		password: React.PropTypes.string,
-		isWithDraw: React.PropTypes.number
+		password: React.PropTypes.string
 	},
 
 	/**
@@ -43,8 +43,7 @@ let InfoMethod = React.createClass({
 	refreshLocalState() {
 		return {
 			processor: CashierStore.getProcessor(),
-			currentPayAccount: CashierStore.getCurrentPayAccount(),
-			originPath: CashierStore.getOriginPath()
+			currentPayAccount: CashierStore.getCurrentPayAccount()
 		}
 	},
 
@@ -101,25 +100,11 @@ let InfoMethod = React.createClass({
 		transactionService.process(dynamicParams);
 	},
 
-	/**
-	 * this function returns customer selected option
-	 *
-	 * @returns {*}
-	 */
-	customerAction(){
-		if (!this.props.isWithDraw) {
-			return "deposit";
-		}
-		else {
-			return "withdraw";
-		}
-	},
-
 	render() {
-		let customerAction=this.customerAction();
 		let allowContinue = this.allowProcess();
 		let payAccountinfo = this.getPayAccountLimits();
 		let displayName = this.props.selectedProcessor.displayName;
+		let originPath = controllerUIService.getOriginPath();
 
 		return (
 			<div id="InfoMethodNeteller" className="row">
@@ -145,14 +130,14 @@ let InfoMethod = React.createClass({
 								<div className="col-sm-6">
 									{(() => {
 										if (payAccountinfo.payAccountId && allowContinue) {
-											return <Link to={"/"+customerAction+"/"+displayName.toLowerCase()+"/ticket/"}>
+											return <Link to={"/"+displayName.toLowerCase()+"/ticket/"}>
 												<button type='button' onClick={this.processDeposit} className='btn btn-green'>Next</button>
 											</Link>
 										}
 									})()}
 								</div>
 								<div className="col-sm-6">
-									<img src={this.state.originPath + '/images/ssl.png'} alt="ssl"/>
+									<img src={originPath + '/images/ssl.png'} alt="ssl"/>
 								</div>
 							</div>
 						</div>

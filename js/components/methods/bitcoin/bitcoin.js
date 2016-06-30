@@ -7,7 +7,7 @@ import {AskInfo} from './AskInfo'
 import {AskInfoWithdraw} from './AskInfoWithdraw'
 import {InfoMethod} from './InfoMethod'
 import {InfoMethodWithdraw} from './InfoMethodWithdraw'
-import {customerService} from '../../../services/CustomerService'
+import {controllerUIService} from '../../../services/ControllerService'
 
 let Bitcoin = React.createClass({
 	/**
@@ -23,6 +23,7 @@ let Bitcoin = React.createClass({
 	 * here the component listen changes from the store
 	 */
 	componentDidMount() {
+		controllerUIService.setCurrentStep(2);
 		CashierStore.addChangeListener(this._onChange);
 	},
 

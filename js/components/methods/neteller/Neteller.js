@@ -5,7 +5,7 @@ import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {translate} from '../../../constants/Translate'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
-import {customerService} from '../../../services/CustomerService'
+import {controllerUIService} from '../../../services/ControllerService'
 
 let Neteller = React.createClass({
 	/**
@@ -21,6 +21,7 @@ let Neteller = React.createClass({
 	 * here the component listen changes from the store
 	 */
 	componentDidMount() {
+		controllerUIService.setCurrentStep(2);
 		CashierStore.addChangeListener(this._onChange);
 	},
 
@@ -37,9 +38,8 @@ let Neteller = React.createClass({
 	refreshLocalState() {
 		return {
 			selectedProcessor: CashierStore.getProcessor(),
-			originPath: CashierStore.getOriginPath(),
-			transaction: CashierStore.getTransaction(),
-			isWithDraw: CashierStore.getIsWithdraw()
+			transaction: CashierStore.getTransaction()
+
 		}
 	},
 
@@ -73,11 +73,9 @@ let Neteller = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<AskInfo originPath={this.state.originPath}
-													 netellerPasswordInput={this.netellerPasswordInput}
+					<AskInfo netellerPasswordInput={this.netellerPasswordInput}
 													 password={this.state.password}
-													 selectedProcessor={this.state.selectedProcessor}
-													 isWithDraw={this.state.isWithDraw}/>
+													 selectedProcessor={this.state.selectedProcessor}/>
 				</div>
 				<div className="col-sm-6">
 					{(() => {
@@ -86,8 +84,7 @@ let Neteller = React.createClass({
 						} else {
 							return <InfoMethod selectedProcessor={this.state.selectedProcessor}
 																				 password={this.state.password}
-																				 transaction={this.state.transaction}
-																				 isWithDraw={this.state.isWithDraw}/>;
+																				 transaction={this.state.transaction}/>;
 						}
 					})()}
 				</div>
