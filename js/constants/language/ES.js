@@ -15,6 +15,7 @@ let _langTags = {
   STEPS_HOW_MUCH_WITHDRAW: '¿Cuánto quiere retirar?',
   STEPS_BILLING_INFO: 'Revise Su Información',
   STEPS_INSTRUCTIONS: 'Instruciones',
+	STEPS_CONFIRMATION: 'Confirmación',
   CUSTOMER_INFO_USER: 'Cuenta',
   CUSTOMER_INFO_EMAIL: 'Correo',
   CUSTOMER_INFO_BALANCE: 'Balance Disponible',
