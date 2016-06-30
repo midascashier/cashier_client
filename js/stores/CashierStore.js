@@ -571,7 +571,7 @@ CashierDispatcher.register((payload) => {
 					_transactionResponse.userMessage = data.userMessage;
 				}
 
-				CashierStoreCashierStore.emitChange();
+				CashierStore.emitChange();
 				break;
 
 			case actions.SET_CURRENT_STEP:

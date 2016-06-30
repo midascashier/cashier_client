@@ -99,6 +99,7 @@ class OnResponseService {
 
 			case actions.PROCESS_RESPONSE:
 				if (data.userMessage) {
+					controllerUIService.ticketRedirect(data.response.transaction.caTransactionStatus_Id);
 					CashierActions.processResponse(data);
 				}
 				else {

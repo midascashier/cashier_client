@@ -11,11 +11,15 @@ class ControllerUIService {
 	}
 
 	getNextStep() {
+		let getNextStep = "/";
 		if (this.getCurrentStep()==1) {
-			let getNextStep = "/";
 			getNextStep += this.getCurrentView() + "/" + this.processorDisplayName()+"/";
-			return getNextStep;
 		}
+		if (this.getCurrentStep()==2) {
+			let nextAction="ticket/";
+			getNextStep += this.getCurrentView() + "/" + this.processorDisplayName()+"/"+nextAction;
+		}
+		return getNextStep;
 	}
 
 	getOriginPath() {
@@ -40,7 +44,20 @@ class ControllerUIService {
 
 	processorDisplayName(){
 		let processor =  CashierStore.getProcessor();
-		return processor.displayName;
+		return processor.displayName.toLowerCase();
+	}
+
+	ticketRedirect(transactionStatusId){
+		let getNextStep = "/"+this.getCurrentView() + "/" + this.processorDisplayName()+"/";
+		this.setCurrentStep(3);
+		switch (transactionStatusId){
+			case 1:
+				break;
+			default:
+				getNextStep+="ticket/rejected";
+				RouterContainer.get().props.history.push(getNextStep);
+				break;
+		}
 	}
 
 }
