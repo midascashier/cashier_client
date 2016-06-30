@@ -21,7 +21,6 @@ import {Bitcoin} from './components/methods/bitcoin/Bitcoin'
 import {BitCoinTicket} from './components/methods/bitcoin/TicketMethod'
 import {BitCoinTicketRejected} from './components/methods/bitcoin/tickets/RejectedTicket'
 import {BitCoinTicketApproved} from './components/methods/bitcoin/tickets/ApprovedTicket'
-import {BitcoinInstructions} from './components/methods/bitcoin/Confirm'
 import {ConfirmWithdraw} from './components/methods/bitcoin/ConfirmWithdraw'
 
 /**
