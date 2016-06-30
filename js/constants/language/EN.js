@@ -15,6 +15,7 @@ let _langTags = {
   STEPS_HOW_MUCH_WITHDRAW: 'How Much?',
   STEPS_BILLING_INFO: 'Billing Information',
   STEPS_INSTRUCTIONS: 'Instructions',
+	STEPS_CONFIRMATION: 'Confirmation',
   CUSTOMER_INFO_USER: 'User',
   CUSTOMER_INFO_EMAIL: 'Email',
   CUSTOMER_INFO_BALANCE: 'Current Balance',
