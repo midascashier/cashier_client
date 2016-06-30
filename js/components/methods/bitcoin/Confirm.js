@@ -4,7 +4,7 @@ let BitcoinInstructions = React.createClass({
 	render() {
 		return (
 			<div>
-				INSTRUCTIONS
+				CONFIRM DEPOSIT
 			</div>
 		)
 	}

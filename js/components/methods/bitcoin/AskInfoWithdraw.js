@@ -1,5 +1,6 @@
 import React from 'react'
 import {translate} from '../../../constants/Translate'
+import {SelectPayAccount} from '../../SelectPayAccount'
 import {AmountController} from '../../AmountController'
 
 let AskInfoWithdraw = React.createClass({
@@ -29,7 +30,7 @@ let AskInfoWithdraw = React.createClass({
 											</div>
 											<div className="col-sm-9">
                         {translate('BITCOIN_ADDRESS', 'BitCoin Address')}:
-												<input className="form-control"	type="text" id="account" name="account"/>
+                        <SelectPayAccount />
                         {translate('PROCESSING_AMOUNT', 'Amount')}:
 												<AmountController />
 											</div>

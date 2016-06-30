@@ -2,10 +2,8 @@ import React from 'react'
 import {Link} from 'react-router'
 import {CashierStore} from '../../../stores/CashierStore'
 import {Loading} from '../../loading/Loading'
-import {transactionService} from '../../../services/TransactionService'
 
-
-let InfoMethod = React.createClass({
+let InfoMethodWithdraw = React.createClass({
 	propTypes: {
 		isWithDraw: React.PropTypes.number
 	},
@@ -91,8 +89,8 @@ let InfoMethod = React.createClass({
 	 * this function sends deposit info to cashier
 	 *
 	 */
-	processDeposit(){
-		transactionService.process();
+	confirmDeposit(){
+		//transactionService.process();
 	},
 
 	render() {
@@ -103,16 +101,16 @@ let InfoMethod = React.createClass({
 		return (
 			<div id="infoLimits" className="row">
 				<div className="col-sm-12">
-					<div className="title">Neteller Deposit Limits</div>
+					<div className="title">BitCoin Withdraw Limits</div>
 					<div className="table-responsive">
 						<table className="table table-striped">
 							<tbody>
 							<tr>
-								<td>Min. Deposit:</td>
+								<td>Min. Withdraw:</td>
 								<td><span>{payAccountInfo.minPayAccount}</span></td>
 							</tr>
 							<tr>
-								<td>Max. Deposit:</td>
+								<td>Max. Withdraw:</td>
 								<td><span>{payAccountInfo.maxPayAccount}</span></td>
 							</tr>
 							</tbody>
@@ -124,10 +122,11 @@ let InfoMethod = React.createClass({
 								<div className="col-sm-6">
 									{(() => {
 										if (payAccountInfo.payAccountId && allowContinue) {
-											return <Link
-												to={"/deposit/"+displayName.toLowerCase()+"/confirm/"}>
-												<button type='button' onClick={this.processDeposit} className='btn btn-green'>Next</button>
-											</Link>
+											return (
+												<Link to={"/withdraw/"+displayName.toLowerCase()+"/confirm/"}>
+													<button type='button' onClick={this.confirmDeposit} className='btn btn-green'>Next</button>
+												</Link>
+											)
 										}
 									})()}
 								</div>
@@ -143,4 +142,4 @@ let InfoMethod = React.createClass({
 	}
 });
 
-module.exports.InfoMethod = InfoMethod;
+module.exports.InfoMethodWithdraw = InfoMethodWithdraw;
