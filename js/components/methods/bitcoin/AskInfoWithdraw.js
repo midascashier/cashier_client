@@ -1,9 +1,8 @@
 import React from 'react'
 import {translate} from '../../../constants/Translate'
-import {SelectPayAccount} from '../../SelectPayAccount'
 import {AmountController} from '../../AmountController'
 
-let AskInfo = React.createClass({
+let AskInfoWithdraw = React.createClass({
 	propTypes: {
 		originPath: React.PropTypes.string,
 		selectedProcessor: React.PropTypes.object,
@@ -17,7 +16,7 @@ let AskInfo = React.createClass({
 					<div className="col-sm-12">
 						<div className="row">
 							<div className="col-sm-12">
-                <div className="title">{translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information')}</div>
+              	<div className="title">{translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information')}</div>
 							</div>
 							<div className="col-sm-12">
 								<div className="infoCol">
@@ -30,7 +29,7 @@ let AskInfo = React.createClass({
 											</div>
 											<div className="col-sm-9">
                         {translate('BITCOIN_ADDRESS', 'BitCoin Address')}:
-												<SelectPayAccount />
+												<input className="form-control"	type="text" id="account" name="account"/>
                         {translate('PROCESSING_AMOUNT', 'Amount')}:
 												<AmountController />
 											</div>
@@ -47,4 +46,4 @@ let AskInfo = React.createClass({
 });
 
 
-module.exports.AskInfo = AskInfo;
+module.exports.AskInfoWithdraw = AskInfoWithdraw;

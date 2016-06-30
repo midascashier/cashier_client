@@ -4,6 +4,7 @@ import {CashierStore} from '../../../stores/CashierStore'
 import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {translate} from '../../../constants/Translate'
 import {AskInfo} from './AskInfo'
+import {AskInfoWithdraw} from './AskInfoWithdraw'
 import {InfoMethod} from './InfoMethod'
 import {customerService} from '../../../services/CustomerService'
 
@@ -74,11 +75,20 @@ let Bitcoin = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<AskInfo originPath={this.state.originPath}
-													 netellerPasswordInput={this.netellerPasswordInput}
-													 password={this.state.password}
-													 selectedProcessor={this.state.selectedProcessor}
-													 isWithDraw={this.state.isWithDraw}/>
+
+					{(() =>{
+						let askInfoBitCoin = <AskInfo originPath={this.state.originPath}
+																					selectedProcessor={this.state.selectedProcessor}
+																					isWithDraw={this.state.isWithDraw}/>;
+						if(this.state.isWithDraw){
+							askInfoBitCoin = <AskInfoWithdraw originPath={this.state.originPath}
+																								selectedProcessor={this.state.selectedProcessor}
+																								isWithDraw={this.state.isWithDraw}/>;
+						}
+
+						return askInfoBitCoin;
+					})()}
+
 				</div>
 				<div className="col-sm-6">
 					{(() => {

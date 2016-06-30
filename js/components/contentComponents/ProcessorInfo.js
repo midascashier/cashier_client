@@ -95,7 +95,7 @@ let ProcessorInfo = React.createClass({
                     if (!isWithDraw) {
                       return (<button type="button" className="btn btn-green">{translate('PROCESSING_BUTTON_NEXT_DEPOSIT', 'Next')} {processorDisplayName}</button>);
                     }else{
-                      return (<button type="button" className="btn btn-green">{translate('PROCESSING_BUTTON_NEXT_WITHDRAW', 'Next')}</button>);
+                      return (<button type="button" className="btn btn-green">{translate('PROCESSING_BUTTON_NEXT_WITHDRAW', 'Next')} {processorDisplayName}</button>);
                     }
                   })()}
 								</Link>
