@@ -24,8 +24,7 @@ let _langTags = {
 	CUSTOMER_INFO_PHONE: 'Phone',
 	METHOD_TRANSACTION_HISTORY: 'Transaction History',
 	METHOD_SELECT_YOUR_DEPOSIT_METHOD: 'Select Your Deposit Method',
-	METHOD_SELECT_YOUR_WITHDRAW_METHOD: 'Select Your Withdraw Method',
-	//TransactionHistory
+	METHOD_SELECT_YOUR_WITHDRAW_METHOD: 'Select Your Withdraw Method', //TransactionHistory
 	TRANSACTION_HISTORY: 'Transaction History',
 	TRANSACTION_HISTORY_TITLE: 'Here are your last 10 transactions.',
 	TRANSACTION_HISTORY_TABLE_COL_DATE: 'Date',
@@ -40,16 +39,14 @@ let _langTags = {
 	TRANSACTION_HISTORY_STATUS_APPROVED: 'Complete transaction.',
 	TRANSACTION_HISTORY_STATUS_REJECTED: 'Rejected by the issuer.',
 	TRANSACTION_HISTORY_STATUS_CANCELLED: 'Cancelled Transaction.',
-	TRANSACTION_HISTORY_STATUS_FAILED: 'Please contact us for more information.',
-	//TransactionTypes
+	TRANSACTION_HISTORY_STATUS_FAILED: 'Please contact us for more information.', //TransactionTypes
 	TRANSACTION_TYPE: 'Type',
 	TRANSACTION_TYPE_INITIAL_DEPOSIT: 'First Deposit',
 	TRANSACTION_TYPE_REUP_DEPOSIT: 'Deposit',
 	TRANSACTION_TYPE_PAYOUT: 'Payout',
 	TRANSACTION_TYPE_ID_1: 'Deposit',
 	TRANSACTION_TYPE_ID_2: 'Payout',
-	TRANSACTION_TYPE_ID_3: 'First Deposit',
-	//TransactionStatus
+	TRANSACTION_TYPE_ID_3: 'First Deposit', //TransactionStatus
 	TRANSACTION_STATUS: 'Status',
 	TRANSACTION_STATUS_PENDING: "Pending",
 	TRANSACTION_STATUS_PROCESSING: "Processing",
@@ -57,8 +54,7 @@ let _langTags = {
 	TRANSACTION_STATUS_APPROVED: "Approved",
 	TRANSACTION_STATUS_REJECTED: "Rejected",
 	TRANSACTION_STATUS_CANCELLED: "Cancelled",
-	TRANSACTION_STATUS_FAILED: "Failed",
-	//ProcessingTransaction
+	TRANSACTION_STATUS_FAILED: "Failed", //ProcessingTransaction
 	PROCESSING_DEPOSIT_INFORMATION_TITLE: 'Please Enter the Deposit Information',
 	PROCESSING_WITHDRAW_INFORMATION_TITLE: 'Please Enter the Withdraw Information',
 	PROCESSING_BUTTON_NEXT: 'Next',
@@ -70,15 +66,13 @@ let _langTags = {
 	PROCESSING_MIN: "Min.",
 	PROCESSING_MAX: "Max.",
 	PROCESSING_FEE: "Fee",
-	PROCESSING_FEE_TYPE_OPTIONS: "Pay the fees with",
-	//Transaction
+	PROCESSING_FEE_TYPE_OPTIONS: "Pay the fees with", //Transaction
 	TRANSACTION_AMOUNT: "Amount",
 	TRANSACTION_FEE_TYPE_CASH: "Cash",
 	TRANSACTION_FEE_TYPE_BP: "BetPoints",
 	TRANSACTION_FEE_TYPE_FREE: "Monthly Free Payment",
 	TRANSACTION_FEE_AMOUNT: "Fee Amount",
-	TRANSACTION_FEE_CURRENT_BALANCE: "Current Balance",
-	//Processors
+	TRANSACTION_FEE_CURRENT_BALANCE: "Current Balance", //Processors
 	NETELLER: 'Neteller',
 	NETELLER_ACCOUNT: 'Neteller Account',
 	NETELLER_SECURE: '2FA or Secure ID',

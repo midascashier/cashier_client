@@ -66,9 +66,7 @@ class CustomerService {
 	 */
 	getCustomerPreviousPayAccount(processorID){
 		let data = {
-			f: "getPayAccountsByCustomer",
-			processorId: processorID,
-			isWithdraw: CashierStore.getIsWithdraw()
+			f: "getPayAccountsByCustomer", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
@@ -90,9 +88,7 @@ class CustomerService {
 	 */
 	getCustomerProcessorsMinMax(processorID){
 		let data = {
-			f: "getProcessorMinMaxLimits",
-			processorId: processorID,
-			isWithdraw: CashierStore.getIsWithdraw()
+			f: "getProcessorMinMaxLimits", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
@@ -104,9 +100,7 @@ class CustomerService {
 	 */
 	getProcessorLimitRules(processorID){
 		let data = {
-			f: "getProcessorLimits",
-			processorId: processorID,
-			isWithdraw: CashierStore.getIsWithdraw()
+			f: "getProcessorLimits", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);

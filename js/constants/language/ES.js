@@ -24,8 +24,7 @@ let _langTags = {
 	CUSTOMER_INFO_PHONE: 'Llamar',
 	METHOD_TRANSACTION_HISTORY: 'Historial',
 	METHOD_SELECT_YOUR_DEPOSIT_METHOD: 'Deposita con:',
-	METHOD_SELECT_YOUR_WITHDRAW_METHOD: '¿Cómo quiere retirar?',
-	//TransactionHistory
+	METHOD_SELECT_YOUR_WITHDRAW_METHOD: '¿Cómo quiere retirar?', //TransactionHistory
 	TRANSACTION_HISTORY: 'Historial de Transacciones',
 	TRANSACTION_HISTORY_TITLE: 'Aquí están sus últimas 10 transacciones.',
 	TRANSACTION_HISTORY_TABLE_COL_DATE: 'Fecha',
@@ -40,16 +39,14 @@ let _langTags = {
 	TRANSACTION_HISTORY_STATUS_APPROVED: 'Transacción Completada.',
 	TRANSACTION_HISTORY_STATUS_REJECTED: 'Por favor verifique la información.',
 	TRANSACTION_HISTORY_STATUS_CANCELLED: 'Transacción Cancelada.',
-	TRANSACTION_HISTORY_STATUS_FAILED: 'Por favor contactenos para más información.',
-	//TransactionTypes
+	TRANSACTION_HISTORY_STATUS_FAILED: 'Por favor contactenos para más información.', //TransactionTypes
 	TRANSACTION_TYPE: 'Tipo',
 	TRANSACTION_TYPE_INITIAL_DEPOSIT: 'Primer Depósito',
 	TRANSACTION_TYPE_REUP_DEPOSIT: 'Depósito',
 	TRANSACTION_TYPE_PAYOUT: 'Retiro',
 	TRANSACTION_TYPE_ID_1: 'Depósito',
 	TRANSACTION_TYPE_ID_2: 'Retiro',
-	TRANSACTION_TYPE_ID_3: 'Primer Depósito',
-	//TransactionStatus
+	TRANSACTION_TYPE_ID_3: 'Primer Depósito', //TransactionStatus
 	TRANSACTION_STATUS: 'Estado',
 	TRANSACTION_STATUS_PENDING: "Pendiente",
 	TRANSACTION_STATUS_PROCESSING: "Procesando",
@@ -57,8 +54,7 @@ let _langTags = {
 	TRANSACTION_STATUS_APPROVED: "Aprobada",
 	TRANSACTION_STATUS_REJECTED: "Rechazada",
 	TRANSACTION_STATUS_CANCELLED: "Cancelada",
-	TRANSACTION_STATUS_FAILED: "Fallida",
-	//ProcessingTransaction
+	TRANSACTION_STATUS_FAILED: "Fallida", //ProcessingTransaction
 	PROCESSING_DEPOSIT_INFORMATION_TITLE: 'Ingrese la Información para el Depósito',
 	PROCESSING_WITHDRAW_INFORMATION_TITLE: 'Ingrese la Información para el Retiro',
 	PROCESSING_BUTTON_NEXT: 'Siguiente',
@@ -70,15 +66,13 @@ let _langTags = {
 	PROCESSING_MIN: "Mín.",
 	PROCESSING_MAX: "Máx.",
 	PROCESSING_FEE: "Comisión",
-	PROCESSING_FEE_TYPE_OPTIONS: "Pagar la carga con",
-	//Transaction
+	PROCESSING_FEE_TYPE_OPTIONS: "Pagar la carga con", //Transaction
 	TRANSACTION_AMOUNT: "Monto",
 	TRANSACTION_FEE_TYPE_CASH: "Efectivo",
 	TRANSACTION_FEE_TYPE_BP: "BetPoints",
 	TRANSACTION_FEE_TYPE_FREE: "Retiro Gratis Mensual",
 	TRANSACTION_FEE_AMOUNT: "Monto de Comisión",
-	TRANSACTION_FEE_CURRENT_BALANCE: "Balance Actual",
-	//Processors
+	TRANSACTION_FEE_CURRENT_BALANCE: "Balance Actual", //Processors
 	NETELLER: 'Neteller',
 	NETELLER_ACCOUNT: 'Cuenta de Neteller',
 	NETELLER_SECURE: '2FA o ID de Seguridad',

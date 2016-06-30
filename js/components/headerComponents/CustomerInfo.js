@@ -3,18 +3,18 @@ import {translate} from '../../constants/Translate'
 import {Loading} from '../loading/Loading'
 
 let CustomerInfo = React.createClass({
-																			 propTypes: {
-																				 customer: React.PropTypes.object
-																			 },
+	propTypes: {
+		customer: React.PropTypes.object
+	},
 
-																			 render() {
-																				 return (
-																					 <div id="customerInfo" className="col-xs-6">
-																						 <div className="row">
-																							 <div className="col-sm-12">
-																								 <div className="row">
+	render() {
+		return (
+			<div id="customerInfo" className="col-xs-6">
+				<div className="row">
+					<div className="col-sm-12">
+						<div className="row">
 
-																									 <div className="col-sm-6">{translate('CUSTOMER_INFO_USER')}:
+							<div className="col-sm-6">{translate('CUSTOMER_INFO_USER')}:
 								<span>
 									{(() =>{
 										if(!this.props.customer.customerId){
@@ -24,8 +24,8 @@ let CustomerInfo = React.createClass({
 										}
 									})()}
 								</span>
-																									 </div>
-																									 <div className="col-sm-6">{translate('CUSTOMER_INFO_EMAIL')}:
+							</div>
+							<div className="col-sm-6">{translate('CUSTOMER_INFO_EMAIL')}:
 								<span>
 									{(() =>{
 										if(!this.props.customer.customerId){
@@ -35,13 +35,13 @@ let CustomerInfo = React.createClass({
 										}
 									})()}
 								</span>
-																									 </div>
-																								 </div>
-																							 </div>
-																						 </div>
-																					 </div>
-																				 )
-																			 }
-																		 });
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	}
+});
 
 module.exports.CustomerInfo = CustomerInfo;

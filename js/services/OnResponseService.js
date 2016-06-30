@@ -66,8 +66,7 @@ class OnResponseService {
 						let currentProcessor = CashierStore.getProcessor();
 						if(!currentProcessor.processorId){
 							customerService.changeMethod(processorID);
-						}
-						else{
+						} else{
 							customerService.getProcessorLimitRules(processorID);
 							customerService.getCustomerProcessorsMinMax(processorID);
 						}
@@ -100,8 +99,7 @@ class OnResponseService {
 				if(data.userMessage){
 					controllerUIService.ticketRedirect(data.response.transaction.caTransactionStatus_Id);
 					CashierActions.processResponse(data);
-				}
-				else{
+				} else{
 					console.log(data);
 				}
 				break;

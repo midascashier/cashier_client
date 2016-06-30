@@ -8,13 +8,10 @@
  */
 
 (function(){
-	var Byte, Client, Frame, Stomp,
-		__hasProp = {}.hasOwnProperty,
-		__slice = [].slice;
+	var Byte, Client, Frame, Stomp, __hasProp = {}.hasOwnProperty, __slice = [].slice;
 
 	Byte = {
-		LF: '\x0A',
-		NULL: '\x00'
+		LF: '\x0A', NULL: '\x00'
 	};
 
 	Frame = (function(){
@@ -93,8 +90,7 @@
 			var frame, frames, last_frame, r;
 			frames = datas.split(RegExp("" + Byte.NULL + Byte.LF + "*"));
 			r = {
-				frames: [],
-				partial: ''
+				frames: [], partial: ''
 			};
 			r.frames = (function(){
 				var _i, _len, _ref, _results;
@@ -134,8 +130,7 @@
 			this.counter = 0;
 			this.connected = false;
 			this.heartbeat = {
-				outgoing: 10000,
-				incoming: 10000
+				outgoing: 10000, incoming: 10000
 			};
 			this.maxWebSocketFrameSize = 16 * 1024;
 			this.subscriptions = {};
@@ -394,8 +389,7 @@
 			this._transmit("SUBSCRIBE", headers);
 			client = this;
 			return {
-				id: headers.id,
-				unsubscribe: function(){
+				id: headers.id, unsubscribe: function(){
 					return client.unsubscribe(headers.id);
 				}
 			};
@@ -416,11 +410,9 @@
 			});
 			client = this;
 			return {
-				id: txid,
-				commit: function(){
+				id: txid, commit: function(){
 					return client.commit(txid);
-				},
-				abort: function(){
+				}, abort: function(){
 					return client.abort(txid);
 				}
 			};
@@ -462,14 +454,10 @@
 
 	Stomp = {
 		VERSIONS: {
-			V1_0: '1.0',
-			V1_1: '1.1',
-			V1_2: '1.2',
-			supportedVersions: function(){
+			V1_0: '1.0', V1_1: '1.1', V1_2: '1.2', supportedVersions: function(){
 				return '1.1,1.0';
 			}
-		},
-		client: function(url, protocols){
+		}, client: function(url, protocols){
 			var klass, ws;
 			if(protocols == null){
 				protocols = ['v10.stomp', 'v11.stomp'];
@@ -477,11 +465,9 @@
 			klass = Stomp.WebSocketClass || WebSocket;
 			ws = new klass(url, protocols);
 			return new Client(ws);
-		},
-		over: function(ws){
+		}, over: function(ws){
 			return new Client(ws);
-		},
-		Frame: Frame
+		}, Frame: Frame
 	};
 
 	if(typeof exports !== "undefined" && exports !== null){
