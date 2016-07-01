@@ -2,8 +2,11 @@ module.exports = {
   entry: './js/main.jsx',
 
   output: {
-    filename: './build/bundle.js'
+    path: './build/',
+    filename: 'bundle.js'
   },
+
+  devtool: "source-map",
 
   devServer: {
     inline: true,
