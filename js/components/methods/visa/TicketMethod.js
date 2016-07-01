@@ -3,6 +3,7 @@ import {Loading} from '../../loading/Loading'
 import {CashierStore} from '../../../stores/CashierStore'
 
 let VisaTicket = React.createClass({
+
 	/**
 	 * React function to set component initial state
 	 *
