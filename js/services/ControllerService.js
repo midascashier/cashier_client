@@ -1,7 +1,7 @@
 import {CashierStore} from '../stores/CashierStore'
 import {CashierActions} from '../actions/CashierActions'
+import Cashier from '../constants/Cashier'
 import RouterContainer from './RouterContainer'
-import CashierConstants from '../constants/Cashier'
 
 class ControllerUIService {
 
@@ -26,7 +26,7 @@ class ControllerUIService {
 			return getNextStep;
 		}
 
-		if(this.getProcessorId() == CashierConstants.NETELLER_ID){
+		if(this.getProcessorId() == Cashier.PROCESSOR_ID_NETELLER){
 			if(this.getIsWithDraw()){
 
 			} else{
@@ -45,7 +45,7 @@ class ControllerUIService {
 			}
 		}
 
-		if(this.getProcessorId() == CashierConstants.BITCOIN_ID){
+		if(this.getProcessorId() == Cashier.PROCESSOR_ID_BITCOIN){
 			if(this.getIsWithDraw()){
 				if(this.getCurrentStep() == 2){
 					let nextAction = "confirm/";
@@ -70,7 +70,17 @@ class ControllerUIService {
 
 				if(this.getCurrentStep() == 3){
 					getNextStep = "";
-				}
+			}
+		}
+
+		if(this.getProcessorId() == Cashier.PROCESSOR_ID_VISA){
+			if(this.getCurrentStep() == 2){
+				let nextAction = "confirm/";
+				getNextStep += nextAction;
+			}
+
+			if(this.getCurrentStep() == 3){
+				getNextStep = "";
 			}
 		}
 

@@ -40,11 +40,14 @@ let AskInfo = React.createClass({
 												</div>
 											</div>
 											<div className="col-sm-9">
-												{translate('NETELLER_ACCOUNT', 'Neteller Account')}:
-												<SelectPayAccount />
-												{translate('NETELLER_SECURE', 'Secure ID')}:
-												<Input onChange={netellerPasswordInput} value={password} type="password"/>
-												{translate('PROCESSING_AMOUNT', 'Amount')}:
+												<div className="form-group">
+													<label for="">{translate('NETELLER_ACCOUNT', 'Neteller Account')}:</label>
+													<SelectPayAccount />
+												</div>
+												<div className="form-group">
+													<label for="">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
+													<Input onChange={netellerPasswordInput} value={password} type="password"/>
+												</div>
 												<AmountController />
 											</div>
 										</div>

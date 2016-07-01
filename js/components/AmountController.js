@@ -31,7 +31,7 @@ let AmountController = React.createClass({
 		let amount = event.currentTarget.value;
 		amount = amount.replace(/[^0-9\-]/g, '');
 		this.setState({value: amount});
-		if(amount){
+		if(amount >=0){
 			if(amount != this.state.value){
 				CashierActions.setTransactionAmount(amount);
 			}
@@ -40,8 +40,9 @@ let AmountController = React.createClass({
 
 	render() {
 		return (
-			<div>
-				<input className="form-control" type="number" id="amountController" name="amountController" onChange={this.changeValue} value={this.state.value}/>
+			<div id="amountController" className="form-group">
+				<label for="">{translate('PROCESSING_AMOUNT', 'Amount')}:</label>
+				<input className="form-control" type="number" id="amount" name="amount" onChange={this.changeValue} value={this.state.value}/>
 				<span>{translate('PROCESSING_MIN', 'Min')}: {this.state.limits.minAmount} - {translate('PROCESSING_MAX', 'Max')}: {this.state.limits.maxAmount}</span>
 			</div>
 		)

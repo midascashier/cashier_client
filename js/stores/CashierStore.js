@@ -199,11 +199,16 @@ let _payAccounts = [];
 /**
  * Stores information of the transaction
  *
- * @type {{amount: string, fee: number, feeType: string, bonusId: number, cleanTransaction: (function())}}
+ * @type {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, cleanTransaction: (function())}}
  * @private
  */
 let _transaction = {
-	amount: "", fee: 0, feeType: '', bonusId: 0, cleanTransaction(){
+	amount: "",
+	fee: 0,
+	feeType: '',
+	bonusId: 0,
+	checkTermsAndConditions: 0,
+	cleanTransaction(){
 		this.amount = "";
 		this.fee = 0;
 		this.feeType = "";
@@ -510,6 +515,11 @@ CashierDispatcher.register((payload) =>{
 
 		case actions.CHANGE_TRANSACTION_FEE:
 			_transaction.fee = data;
+			CashierStore.emitChange();
+			break;
+
+		case actions.CHANGE_TRANSACTION_TERMS:
+			_transaction.checkTermsAndConditions = data;
 			CashierStore.emitChange();
 			break;
 
