@@ -2,6 +2,8 @@ import React from 'react'
 import {translate} from '../../../constants/Translate'
 import {SelectPayAccount} from '../../SelectPayAccount'
 import {AmountController} from '../../AmountController'
+import {controllerUIService} from '../../../services/ControllerService'
+import {FeeController} from '../../FeeController'
 
 let AskInfo = React.createClass({
 	propTypes: {
@@ -9,13 +11,20 @@ let AskInfo = React.createClass({
 	},
 
 	render() {
+		let isWithDraw = controllerUIService.getIsWithDraw();
+		let originPath = controllerUIService.getOriginPath();
+		let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
+		if(isWithDraw){
+			title = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information')
+		}
+
 		return (
 			<div id="askAmount" className="box">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="row">
 							<div className="col-sm-12">
-								<div className="title">{translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information')}</div>
+								<div className="title">{title}</div>
 							</div>
 							<div className="col-sm-12">
 								<div className="infoCol">
@@ -23,7 +32,7 @@ let AskInfo = React.createClass({
 										<div className="row">
 											<div className="col-sm-3">
 												<div className="method active pull-left">
-													<img className="img-responsive" src={this.props.originPath + '/images/processors/814.png'} alt="Bitcoin"/>
+													<img className="img-responsive" src={originPath + '/images/processors/814.png'} alt="Bitcoin"/>
 												</div>
 											</div>
 											<div className="col-sm-9">
@@ -31,6 +40,11 @@ let AskInfo = React.createClass({
 												<SelectPayAccount />
 												{translate('PROCESSING_AMOUNT', 'Amount')}:
 												<AmountController />
+												{(() =>{
+													if(isWithDraw){
+														return <FeeController />;
+													}
+												})()}
 											</div>
 										</div>
 									</div>

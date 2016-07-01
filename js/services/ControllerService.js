@@ -4,6 +4,7 @@ import RouterContainer from './RouterContainer'
 
 class ControllerUIService {
 
+
 	loginSuccess(){
 		this.setCurrentStep(1);
 		let nextPath = "/" + this.getCurrentView() + "/";
@@ -11,15 +12,47 @@ class ControllerUIService {
 	}
 
 	getNextStep(){
-		let getNextStep = "/";
+		let getNextStep = "/" + this.getCurrentView() + "/" + this.getProcessorDisplayName() + "/";
 		if(this.getCurrentStep() == 1){
-			getNextStep += this.getCurrentView() + "/" + this.processorDisplayName() + "/";
+			this.showStepsHeader=1;
+			return getNextStep;
 		}
-		if(this.getCurrentStep() == 2){
-			let nextAction = "ticket/";
-			getNextStep += this.getCurrentView() + "/" + this.processorDisplayName() + "/" + nextAction;
+
+		if(this.getProcessorId() == 333){
+			if(this.getCurrentStep() == 2){
+				let nextAction = "ticket/";
+				this.showStepsHeader=1;
+				getNextStep += nextAction;
+			}
+
+			if(this.getCurrentStep() == 3){
+				let nextAction = "ticket/rejected";
+				this.showStepsHeader=0;
+				getNextStep += nextAction;
+			}
 		}
+
+		if(this.getProcessorId() == 814){
+			if(this.getCurrentStep() == 2 && this.getIsWithDraw()){
+				let nextAction = "confirm/";
+				getNextStep += nextAction;
+			}
+
+			if(this.getCurrentStep() == 2 && !this.getIsWithDraw()){
+				let nextAction = "ticket/instructions";
+				getNextStep += nextAction;
+			}
+
+			if(this.getCurrentStep() == 3 && !this.getIsWithDraw()){
+					getNextStep = "";
+			}
+		}
+
 		return getNextStep;
+	}
+
+	getShowStepsHeader(){
+		return this.showStepsHeader;
 	}
 
 	getOriginPath(){
@@ -42,20 +75,26 @@ class ControllerUIService {
 		return CashierStore.getIsWithdraw();
 	}
 
-	processorDisplayName(){
+	getProcessorDisplayName(){
 		let processor = CashierStore.getProcessor();
 		return processor.displayName.toLowerCase();
 	}
 
+	getProcessorId(){
+		let processor = CashierStore.getProcessor();
+		return processor.processorId;
+	}
+
 	ticketRedirect(transactionStatusId){
-		let getNextStep = "/" + this.getCurrentView() + "/" + this.processorDisplayName() + "/";
 		this.setCurrentStep(3);
 		switch(transactionStatusId){
 			case 1:
 				break;
 			default:
-				getNextStep += "ticket/rejected";
-				RouterContainer.get().props.history.push(getNextStep);
+				let nextStep = this.getNextStep();
+				if (nextStep){
+					RouterContainer.get().props.history.push(nextStep);
+				}
 				break;
 		}
 	}

@@ -1,15 +1,12 @@
 import React from 'react'
-import {Link} from 'react-router'
 import {CashierStore} from '../../../stores/CashierStore'
 import {Loading} from '../../loading/Loading'
 import {translate} from '../../../constants/Translate'
 import {transactionService} from '../../../services/TransactionService'
+import {controllerUIService} from '../../../services/ControllerService'
+import {Link} from 'react-router'
 
 let InfoMethod = React.createClass({
-	propTypes: {
-		isWithDraw: React.PropTypes.number
-	},
-
 	/**
 	 * React function to set component initial state
 	 *
@@ -41,7 +38,8 @@ let InfoMethod = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			processor: CashierStore.getProcessor(), currentPayAccount: CashierStore.getCurrentPayAccount(), originPath: CashierStore.getOriginPath()
+			processor: CashierStore.getProcessor(),
+			currentPayAccount: CashierStore.getCurrentPayAccount()
 		}
 	},
 
@@ -89,14 +87,19 @@ let InfoMethod = React.createClass({
 	 * this function sends deposit info to cashier
 	 *
 	 */
-	processDeposit(){
-		transactionService.process();
+	continueTransaction(){
+		let isWithDraw=controllerUIService.getIsWithDraw();
+		controllerUIService.setCurrentStep(3);
+		if (!isWithDraw){
+			transactionService.process();
+		}
 	},
 
 	render() {
 		let allowContinue = this.allowProcess();
 		let payAccountInfo = this.getPayAccountLimits();
-		let displayName = this.props.selectedProcessor.displayName;
+		let originPath = controllerUIService.getOriginPath();
+		let nextStep = controllerUIService.getNextStep();
 
 		return (
 			<div id="infoLimits" className="row">
@@ -122,15 +125,14 @@ let InfoMethod = React.createClass({
 								<div className="col-sm-6">
 									{(() =>{
 										if(payAccountInfo.payAccountId && allowContinue){
-											return <Link
-												to={"/deposit/"+displayName.toLowerCase()+"/confirm/"}>
-												<button type='button' onClick={this.processDeposit} className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
-											</Link>
+											return <Link to={nextStep}>
+												<button type='button' onClick={this.continueTransaction} className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
+												</Link>
 										}
 									})()}
 								</div>
 								<div className="col-sm-6">
-									<img src={this.state.originPath + '/images/ssl.png'} alt="ssl"/>
+									<img src={originPath + '/images/ssl.png'} alt="ssl"/>
 								</div>
 							</div>
 						</div>

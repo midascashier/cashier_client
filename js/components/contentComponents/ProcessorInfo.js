@@ -39,8 +39,8 @@ let ProcessorInfo = React.createClass({
 		let originPath = controllerUIService.getOriginPath();
 		let customerAction = controllerUIService.getCurrentView();
 		let isWithDraw = controllerUIService.getIsWithDraw();
-
 		let processorDisplayName = this.props.selectedProcessor.displayName;
+
 		let minProcessorLimit = this.getMinProcessorLimit();
 		let maxProcessorLimit = this.getMaxProcessorLimit();
 		let currencyCode = this.props.selectedProcessor.limits.currencyCode;

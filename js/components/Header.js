@@ -2,6 +2,7 @@ import React from 'react'
 import {Steps} from './headerComponents/Steps'
 import {Info} from './headerComponents/Info'
 import {CashierStore} from './../stores/CashierStore'
+import {controllerUIService} from '../services/ControllerService'
 
 let Header = React.createClass({
 
@@ -49,11 +50,12 @@ let Header = React.createClass({
 		let steps = this.state.processorSteps;
 		let isWithDraw = this.state.isWithDraw;
 		let currentView = this.state.UI.currentView;
+		let showStepsHeader = controllerUIService.getShowStepsHeader();
 
 		return (
 			<div id="header">
 				{(() =>{
-					if(step < 3){
+					if(showStepsHeader){
 						return <Steps isWithDraw={isWithDraw} step={step} steps={steps} customerAction={currentView}/>
 					}
 				})()}
