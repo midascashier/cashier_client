@@ -35,7 +35,8 @@ let VisaConfirm = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			transaction: CashierStore.getTransaction()
+			transaction: CashierStore.getTransaction(),
+			payAccount: CashierStore.getCurrentPayAccount()
 		}
 	},
 
@@ -60,6 +61,11 @@ let VisaConfirm = React.createClass({
 
 	render(){
 		let nextStep = controllerUIService.getNextStep();
+		let personalData = this.state.payAccount.personal;
+		let secureData = this.state.payAccount.secure;
+		let addressData = this.state.payAccount.address;
+		let extraData = this.state.payAccount.extra;
+
 		return (
 			<div id="confirmBitCoinWithdraw" className="internal-content">
 				<div className="row">
@@ -72,16 +78,16 @@ let VisaConfirm = React.createClass({
 
 										<div className="row">
 
-											<div class="col-sm-12">
-												<div class="title">{translate('PROCESSING_INFORMATION_TITLE', 'Double-check Your Billing Information')}</div>
-												<div class="infoCol">
+											<div className="col-sm-12">
+												<div className="title">{translate('PROCESSING_INFORMATION_TITLE', 'Double-check Your Billing Information')}</div>
+												<div className="infoCol">
 													<ul>
-														<li>Owen Gaines</li>
-														<li>1.5 KM South of Whiskey Bar</li>
-														<li>Santa Ana</li>
-														<li>Costa Rica 00000</li>
+														<li>{personalData.firstName + ' ' + personalData.lastName}</li>
+														<li>{addressData.address1}</li>
+														<li>{addressData.state}</li>
+														<li>{addressData.country + ' ' + addressData.zip}</li>
 													</ul>
-													<p><i class="fa fa-pencil green"></i><a href="#">{translate('PROCESSING_BILLING_INFO_EDIT', 'Edit the billing address')}</a></p>
+													<p><i className="fa fa-pencil green"></i><a href="#">{translate('PROCESSING_BILLING_INFO_EDIT', 'Edit the billing address')}</a></p>
 												</div>
 											</div>
 
@@ -93,47 +99,47 @@ let VisaConfirm = React.createClass({
 									<div className="box">
 
 										<div className="row">
-											<div class="col-sm-12">
-												<div class="title">{translate('METHOD_DETAILS_DEPOSIT', 'Deposit Details')}</div>
-												<div class="deposit-details">
-													<div class="table-responsive">
-														<table class="table table-striped">
+											<div className="col-sm-12">
+												<div className="title">{translate('METHOD_DETAILS_DEPOSIT', 'Deposit Details')}</div>
+												<div className="deposit-details">
+													<div className="table-responsive">
+														<table className="table table-striped">
 															<tbody>
 															<tr>
 																<td>{translate('CREDIT_CARD_HOLDER')}:</td>
-																<td><span>Lycka</span></td>
+																<td><span>{secureData.extra3}</span></td>
 															</tr>
 															<tr>
 																<td>{translate('CREDIT_CARD_NUMBER')}:</td>
-																<td><span>12678429384792</span></td>
+																<td><span>{secureData.account}</span></td>
 															</tr>
 															<tr>
 																<td>{translate('CREDIT_CARD_EXPIRATION')}:</td>
-																<td><span>06/18</span></td>
+																<td><span>{secureData.extra1 + ' / ' + secureData.extra2}</span></td>
 															</tr>
 															<tr>
 																<td>{translate('CREDIT_CARD_CVV')}:</td>
-																<td><span>756</span></td>
+																<td><span>{secureData.password}</span></td>
 															</tr>
 															<tr>
 																<td>{translate('PROCESSING_AMOUNT')}:</td>
-																<td><span>$500</span></td>
+																<td><span>{this.state.transaction.amount}</span></td>
 															</tr>
 															</tbody></table>
 													</div>
-													<p><i class="fa fa-pencil green"></i><a href="#">Edit the deposit details</a></p>
+													<p><i className="fa fa-pencil green"></i><a href="#">Edit the deposit details</a></p>
 												</div>
-												<form class="form-horizontal infoCol">
-													<div class="form-group">
-														<label for="" class="col-sm-4 control-label">{translate('CREDIT_CARD_SSN')}:</label>
-														<div class="col-sm-8">
-															<input type="text" class="form-control" id="" placeholder=""/>
+												<form className="form-horizontal infoCol">
+													<div className="form-group">
+														<label for="" className="col-sm-4 control-label">{translate('CREDIT_CARD_SSN')}:</label>
+														<div className="col-sm-8">
+															<input type="text" className="form-control" id="ssn" defaultValue={extraData.ssn} autoComplete="off" readOnly/>
 														</div>
 													</div>
-													<div class="form-group">
-														<label for="" class="col-sm-4 control-label">{translate('CREDIT_CARD_DOB')}:</label>
-														<div class="col-sm-8">
-															<input type="date" class="form-control" id="" placeholder=""/>
+													<div className="form-group">
+														<label for="" className="col-sm-4 control-label">{translate('CREDIT_CARD_DOB')}:</label>
+														<div className="col-sm-8">
+															<input type="date" className="form-control" id="dob" value={extraData.dob} readOnly/>
 														</div>
 													</div>
 													<Link to={nextStep}>

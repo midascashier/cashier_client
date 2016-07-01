@@ -1,13 +1,17 @@
 import React from 'react'
+import {controllerUIService} from '../../../../services/ControllerService'
 
 let VisaTicketApproved = React.createClass({
+
 	render() {
+		let originPath = controllerUIService.getOriginPath();
+
 		return (
 			<div className="internal-content">
 				<div className="row">
 					<div className="col-sm-6">
 						<div className="box">
-							<img className="img-responsive banner" src="images/momomo.jpg" alt="Mo Mo Mo"/>
+							<img className="img-responsive banner" src={originPath + '/images/momomo.jpg'} alt="Mo Mo Mo"/>
 						</div>
 					</div>
 					<div className="col-sm-6">
