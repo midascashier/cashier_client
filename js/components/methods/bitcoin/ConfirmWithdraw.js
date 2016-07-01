@@ -1,6 +1,9 @@
 import React from 'react'
 import {CashierStore} from '../../../stores/CashierStore'
 import {translate} from '../../../constants/Translate'
+import {controllerUIService} from '../../../services/ControllerService'
+import {transactionService} from '../../../services/TransactionService'
+import {Link} from 'react-router'
 
 let ConfirmWithdraw = React.createClass({
 
@@ -32,7 +35,7 @@ let ConfirmWithdraw = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			originPath: CashierStore.getOriginPath(), transaction: CashierStore.getTransaction()
+			transaction: CashierStore.getTransaction()
 		}
 	},
 
@@ -47,8 +50,17 @@ let ConfirmWithdraw = React.createClass({
 		}
 	},
 
-	render(){
+	/**
+	 * this function sends transaction info to cashier
+	 *
+	 */
+	processTransaction(){
+		transactionService.process();
+	},
 
+	render(){
+		let originPath = controllerUIService.getOriginPath();
+		let nextStep = controllerUIService.getNextStep();
 		return (
 			<div id="confirmBitCoinWithdraw" className="internal-content">
 				<div className="row">
@@ -105,13 +117,15 @@ let ConfirmWithdraw = React.createClass({
 												</div>
 												<div className="row">
 													<div className="col-sm-6">
-														<button type="submit" className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}</button>
+														<Link to={nextStep}>
+															<button type="submit" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}</button>
+														</Link>
 														<p>
 															<a href="#">Use a different method.</a>
 														</p>
 													</div>
 													<div className="col-sm-6">
-														<img src={this.state.originPath + '/images/ssl.png'} alt="ssl"/>
+														<img src={originPath + '/images/ssl.png'} alt="ssl"/>
 													</div>
 												</div>
 											</div>
