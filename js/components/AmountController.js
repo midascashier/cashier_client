@@ -1,6 +1,8 @@
 import React from 'react'
+import {translate} from '../constants/Translate'
 import {CashierActions} from './../actions/CashierActions'
 import {CashierStore} from './../stores/CashierStore'
+import {controllerUIService} from '../services/ControllerService'
 
 let AmountController = React.createClass({
 
@@ -14,7 +16,8 @@ let AmountController = React.createClass({
 
 	refreshLocalState() {
 		return {
-			value: CashierStore.getTransaction().amount
+			value: CashierStore.getTransaction().amount,
+			limits: controllerUIService.getProcessorLimitMinMax()
 		}
 	},
 
@@ -38,8 +41,8 @@ let AmountController = React.createClass({
 	render() {
 		return (
 			<div>
-				<input className="form-control" type="number" id="amountController" name="amountController"
-							 onChange={this.changeValue} value={this.state.value}/>
+				<input className="form-control" type="number" id="amountController" name="amountController" onChange={this.changeValue} value={this.state.value}/>
+				<span>{translate('PROCESSING_MIN', 'Min')}: {this.state.limits.minAmount} - {translate('PROCESSING_MAX', 'Max')}: {this.state.limits.maxAmount}</span>
 			</div>
 		)
 	}

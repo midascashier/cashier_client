@@ -3,20 +3,20 @@ import React from 'react'
 let BitCoinTicketApproved = React.createClass({
 	render() {
 		return (
-			<div class="internal-content">
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="box">
-							<img class="img-responsive banner" src="images/momomo.jpg" alt="Mo Mo Mo"/>
+			<div className="internal-content">
+				<div className="row">
+					<div className="col-sm-6">
+						<div className="box">
+							<img className="img-responsive banner" src="images/momomo.jpg" alt="Mo Mo Mo"/>
 						</div>
 					</div>
-					<div class="col-sm-6">
-						<div class="success-message">
-							<i class="fa fa-check-circle-o green"></i>
-							<div class="title">Your withdraw was successfully submitted.</div>
+					<div className="col-sm-6">
+						<div className="success-message">
+							<i className="fa fa-check-circle-o green"></i>
+							<div className="title">Your withdraw was successfully submitted.</div>
 							<p>Your balance is now $80.00</p>
 							<p>An email has been sent to youremail@email.com with the transaction details.</p>
-							<button type="submit" class="btn btn-green">Go to Poker Lobby</button>
+							<button type="submit" className="btn btn-green">Go to Poker Lobby</button>
 						</div>
 					</div>
 				</div>

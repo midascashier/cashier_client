@@ -47,6 +47,19 @@ class ControllerUIService {
 		return processor.displayName.toLowerCase();
 	}
 
+	/**
+	 * get the processor currency amount
+	 *
+	 * @returns {Array}
+	 */
+	getProcessorLimitMinMax(){
+		let processor = CashierStore.getProcessor();
+		let limits = [];
+		limits.minAmount = Number(processor.limits.currencyMin);
+		limits.maxAmount = Number(processor.limits.currencyMax);
+		return limits;
+	}
+
 	ticketRedirect(transactionStatusId){
 		let getNextStep = "/" + this.getCurrentView() + "/" + this.processorDisplayName() + "/";
 		this.setCurrentStep(3);
