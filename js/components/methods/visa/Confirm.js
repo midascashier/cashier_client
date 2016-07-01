@@ -55,11 +55,12 @@ let VisaConfirm = React.createClass({
 	 * this function sends deposit info to cashier
 	 *
 	 */
-	completeDeposit(){
-		transactionService.process({});
+	processTransaction(){
+		transactionService.process();
 	},
 
 	render(){
+		controllerUIService.setCurrentStep(3);
 		let nextStep = controllerUIService.getNextStep();
 		let personalData = this.state.payAccount.personal;
 		let secureData = this.state.payAccount.secure;
@@ -79,7 +80,7 @@ let VisaConfirm = React.createClass({
 										<div className="row">
 
 											<div className="col-sm-12">
-												<div className="title">{translate('PROCESSING_INFORMATION_TITLE', 'Double-check Your Billing Information')}</div>
+												<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 												<div className="infoCol">
 													<ul>
 														<li>{personalData.firstName + ' ' + personalData.lastName}</li>
@@ -143,7 +144,7 @@ let VisaConfirm = React.createClass({
 														</div>
 													</div>
 													<Link to={nextStep}>
-														<button type='button' onClick={this.completeDeposit} className='btn btn-green'>{translate('PROCESSING_BUTTON_COMPLETE_DEPOSIT', 'Complete')}</button>
+														<button type="submit" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_DEPOSIT', 'Complete')}</button>
 													</Link>
 													<p>
 														<a href="#">Use a different method</a>

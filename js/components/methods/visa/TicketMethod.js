@@ -1,5 +1,5 @@
 import React from 'react'
-import {LoadingSpinner} from '../../loading/LoadingSpinner'
+import {Loading} from '../../loading/Loading'
 import {CashierStore} from '../../../stores/CashierStore'
 
 let VisaTicket = React.createClass({
@@ -56,7 +56,7 @@ let VisaTicket = React.createClass({
 			<div id="methods">
 				{(() => {
 					if (!userMessage) {
-						return <LoadingSpinner />;
+						return <Loading />;
 					} else {
 						return this.props.children
 					}

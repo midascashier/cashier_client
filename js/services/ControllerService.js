@@ -72,25 +72,31 @@ class ControllerUIService {
 					getNextStep = "";
 				}
 			}
-
-			if(this.getProcessorId() == Cashier.PROCESSOR_ID_VISA){
-				if(this.getCurrentStep() == 2){
-					let nextAction = "confirm/";
-					getNextStep += nextAction;
-				}
-
-				if(this.getCurrentStep() == 3){3
-					let transactionResponse = this.getLastTransactionResponse();
-					if(transactionResponse.status == Cashier.TRANSACTION_STATUS_APPROVED){
-						getNextStep = "ticket/approved";
-					}else{
-						getNextStep = "ticket/rejected";
-					}
-				}
-			}
-
-			return getNextStep;
 		}
+
+		if(this.getProcessorId() == Cashier.PROCESSOR_ID_VISA){
+			if(this.getCurrentStep() == 2){
+				let nextAction = "confirm/";
+				getNextStep += nextAction;
+			}else	if(this.getCurrentStep() == 3){
+				let transactionResponse = this.getLastTransactionResponse();
+				if(transactionResponse.status){
+					if(transactionResponse.status == Cashier.TRANSACTION_STATUS_APPROVED){
+						let nextAction = "ticket/approved";
+						getNextStep += nextAction;
+					}else{
+						let nextAction = "ticket/rejected";
+						getNextStep += nextAction;
+					}
+				}else{
+					getNextStep += "ticket/";
+				}
+			}else{
+				getNextStep = "";
+			}
+		}
+
+		return getNextStep;
 	}
 
 	/**
