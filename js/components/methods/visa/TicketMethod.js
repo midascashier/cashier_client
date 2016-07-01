@@ -1,8 +1,9 @@
 import React from 'react'
-import {Loading} from '../../loading/Loading'
+import {LoadingSpinner} from '../../loading/LoadingSpinner'
 import {CashierStore} from '../../../stores/CashierStore'
 
 let VisaTicket = React.createClass({
+
 	/**
 	 * React function to set component initial state
 	 *
@@ -55,7 +56,7 @@ let VisaTicket = React.createClass({
 			<div id="methods">
 				{(() => {
 					if (!userMessage) {
-						return <Loading />;
+						return <LoadingSpinner />;
 					} else {
 						return this.props.children
 					}

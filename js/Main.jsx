@@ -21,12 +21,14 @@ import {Bitcoin} from './components/methods/bitcoin/Bitcoin'
 import {BitCoinTicket} from './components/methods/bitcoin/TicketMethod'
 import {BitCoinTicketRejected} from './components/methods/bitcoin/tickets/RejectedTicket'
 import {BitCoinTicketApproved} from './components/methods/bitcoin/tickets/ApprovedTicket'
+import {BitCoinTicketInstructions} from './components/methods/bitcoin/tickets/Instructions'
 import {ConfirmWithdraw} from './components/methods/bitcoin/ConfirmWithdraw'
 
 /**
  * Visa set of components to create routes
  */
 import {Visa} from './components/methods/visa/Visa'
+import {VisaConfirm} from './components/methods/visa/Confirm'
 import {VisaTicket} from './components/methods/visa/TicketMethod'
 import {VisaTicketRejected} from './components/methods/visa/tickets/RejectedTicket'
 import {VisaTicketApproved} from './components/methods/visa/tickets/ApprovedTicket'
@@ -57,7 +59,9 @@ let routes = (
 					<Route path="rejected" component={NetellerRejectedTicket}/>
 				</Route>
 				<Route path="bitcoin/" component={Bitcoin}/>
+				<Route path="bitcoin/ticket/instructions" component={BitCoinTicketInstructions}/>
 				<Route path="visa/" component={Visa}/>
+				<Route path="visa/confirm/" component={VisaConfirm}/>
 				<Route path="visa/ticket/" component={VisaTicket}>
 					<Route path="approved" component={VisaTicketApproved}/>
 					<Route path="rejected" component={VisaTicketRejected}/>

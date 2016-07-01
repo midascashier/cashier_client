@@ -160,7 +160,13 @@ let _processor = {
  * @private
  */
 let _payAccount = {
-	payAccountId: null, displayName: null, limitsData: {
+	payAccountId: null,
+	displayName: null,
+	personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null},
+	address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null},
+	secure: {account: null, password: null, extra1: null, extra2: null, extra3: null},
+	extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null},
+	limitsData: {
 		available: null,
 		type: null,
 		remaining: null,
@@ -184,6 +190,40 @@ let _payAccount = {
 		this.payAccountId = data.payAccountId;
 		this.displayName = data.displayName;
 		this.limitsData = data.limitsData;
+
+		//personal information
+		this.personal.firstName = data.personalData.firstName;
+		this.personal.middleName = data.personalData.middleName;
+		this.personal.lastName = data.personalData.lastName;
+		this.personal.lastName2 = data.personalData.lastName2;
+		this.personal.phone = data.personalData.phone;
+		this.personal.email = data.personalData.email;
+		this.personal.personalId = data.personalData.personalId;
+		this.personal.personalIdType = data.personalData.personalIdType;
+
+		//address information
+		this.address.country = data.addressData.country;
+		this.address.countryName = data.addressData.countryName;
+		this.address.state = data.addressData.state;
+		this.address.stateName = data.addressData.stateName;
+		this.address.city = data.addressData.city;
+		this.address.address1 = data.addressData.address1;
+		this.address.address2 = data.addressData.address2;
+		this.address.zip = data.addressData.zip;
+
+		//secure information
+		this.secure.account = data.secureData.account;
+		this.secure.password = data.secureData.password;
+		this.secure.extra1 = data.secureData.extra1;
+		this.secure.extra2 = data.secureData.extra2;
+		this.secure.extra3 = data.secureData.extra3;
+
+		//extra information
+		this.extra.ssn = data.extraData.ssn;
+		this.extra.dob = data.extraData.dob;
+		this.extra.dobDay = data.extraData.dobDay;
+		this.extra.dobMonth = data.extraData.dobMonth;
+		this.extra.dobYear = data.extraData.dobYear;
 	}
 };
 
@@ -218,12 +258,16 @@ let _transaction = {
 
 /**
  * Stores transaction result
- *
- * @type {{transactionId: number, journalId: number, status: number, userMessage: string}}
+ * 
+ * @type {{transactionId: number, journalId: number, status: number, userMessage: string, state: string}}
  * @private
  */
 let _transactionResponse = {
-	transactionId: 0, journalId: 0, status: 0, userMessage: "", state: ""
+	transactionId: 0,
+	journalId: 0,
+	status: 0,
+	userMessage: "",
+	state: ""
 };
 
 let CHANGE_EVENT = 'change';
@@ -234,11 +278,12 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
-	 * received selected payaccount and set it as current
+	 * received selected payAccount and set it as current
+	 *
 	 * @param payAccount
 	 */
 	changeCurrentPayAccount(payAccount) {
-		_payAccount.load(payAccount);
+		_payAccount = payAccount;
 	},
 
 	removeChangeListener(callback) {

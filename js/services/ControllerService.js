@@ -58,7 +58,7 @@ class ControllerUIService {
 					getNextStep += nextAction;
 				}
 				if(this.getCurrentStep() == 4){
-					let nextAction = "ticket/rejected";
+					let nextAction = "ticket/approved";
 					this.showStepsHeader = 0;
 					getNextStep += nextAction;
 				}
@@ -79,8 +79,13 @@ class ControllerUIService {
 					getNextStep += nextAction;
 				}
 
-				if(this.getCurrentStep() == 3){
-					getNextStep = "";
+				if(this.getCurrentStep() == 3){3
+					let transactionResponse = this.getLastTransactionResponse();
+					if(transactionResponse.status == Cashier.TRANSACTION_STATUS_APPROVED){
+						getNextStep = "ticket/approved";
+					}else{
+						getNextStep = "ticket/rejected";
+					}
 				}
 			}
 
@@ -182,6 +187,10 @@ class ControllerUIService {
 		limits.minAmount = Number(processor.limits.currencyMin);
 		limits.maxAmount = Number(processor.limits.currencyMax);
 		return limits;
+	}
+
+	getLastTransactionResponse(){
+		return CashierStore.getLastTransactionResponse();
 	}
 
 	/**
