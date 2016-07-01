@@ -67,8 +67,7 @@ let ProcessorsInfo = React.createClass({
 	},
 
 	render() {
-		let processors = this.getProcessors();
-		console.log(processors);
+    let processors = this.getProcessors();
 		return (
 			<div id="processorsInfo">
 				<div className="col-sm-6">
@@ -77,7 +76,7 @@ let ProcessorsInfo = React.createClass({
 					</Link>
 					<ProcessorsList
 						selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
-						processors={processors}/>
+            processors={processors}	/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{

@@ -25,6 +25,14 @@ import {BitCoinTicketInstructions} from './components/methods/bitcoin/tickets/In
 import {ConfirmWithdraw} from './components/methods/bitcoin/ConfirmWithdraw'
 
 /**
+ * Visa set of components to create routes
+ */
+import {Visa} from './components/methods/visa/Visa'
+import {VisaTicket} from './components/methods/visa/TicketMethod'
+import {VisaTicketRejected} from './components/methods/visa/tickets/RejectedTicket'
+import {VisaTicketApproved} from './components/methods/visa/tickets/ApprovedTicket'
+
+/**
  * Common components
  */
 import {ProcessorsInfo} from './components/methods/ProcessorsInfo'
@@ -51,6 +59,11 @@ let routes = (
 				</Route>
 				<Route path="bitcoin/" component={Bitcoin}/>
 				<Route path="bitcoin/ticket/instructions" component={BitCoinTicketInstructions}/>
+				<Route path="visa/" component={Visa}/>
+				<Route path="visa/ticket/" component={VisaTicket}>
+					<Route path="approved" component={VisaTicketApproved}/>
+					<Route path="rejected" component={VisaTicketRejected}/>
+				</Route>
 			</Route>
 			<Route path="/withdraw/" component={WithdrawContent}>
 				<IndexRoute component={ProcessorsInfo}/>

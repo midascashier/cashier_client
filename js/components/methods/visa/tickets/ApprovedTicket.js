@@ -1,6 +1,6 @@
 import React from 'react'
 
-let BitCoinTicketApproved = React.createClass({
+let VisaTicketApproved = React.createClass({
 	render() {
 		return (
 			<div className="internal-content">
@@ -13,10 +13,18 @@ let BitCoinTicketApproved = React.createClass({
 					<div className="col-sm-6">
 						<div className="success-message">
 							<i className="fa fa-check-circle-o green"></i>
-							<div className="title">Your withdraw was successfully submitted.</div>
+							<div className="title">Your $ deposit was successful.</div>
 							<p>Your balance is now $80.00</p>
+							<p>This charge will show up on your statement as nloeLsjoe A/S.</p>
 							<p>An email has been sent to youremail@email.com with the transaction details.</p>
 							<button type="submit" className="btn btn-green">Go to Poker Lobby</button>
+							<div className="checkbox text-center">
+								<label>
+									<input type="checkbox">
+										<span>Save method for <a href="#">Quick Deposit</a></span>
+									</input>
+								</label>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -25,4 +33,4 @@ let BitCoinTicketApproved = React.createClass({
 	}
 });
 
-module.exports.BitCoinTicketApproved = BitCoinTicketApproved;
+module.exports.VisaTicketApproved = VisaTicketApproved;

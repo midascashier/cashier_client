@@ -4,7 +4,6 @@ import RouterContainer from './RouterContainer'
 
 class ControllerUIService {
 
-
 	loginSuccess(){
 		this.setCurrentStep(1);
 		let nextPath = "/" + this.getCurrentView() + "/";
@@ -83,6 +82,19 @@ class ControllerUIService {
 	getProcessorId(){
 		let processor = CashierStore.getProcessor();
 		return processor.processorId;
+	}
+
+	/**
+	 * get the processor currency amount
+	 *
+	 * @returns {Array}
+	 */
+	getProcessorLimitMinMax(){
+		let processor = CashierStore.getProcessor();
+		let limits = [];
+		limits.minAmount = Number(processor.limits.currencyMin);
+		limits.maxAmount = Number(processor.limits.currencyMax);
+		return limits;
 	}
 
 	ticketRedirect(transactionStatusId){
