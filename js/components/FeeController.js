@@ -1,6 +1,7 @@
 import React from 'react'
 import {CashierActions} from './../actions/CashierActions'
 import {CashierStore} from './../stores/CashierStore'
+import {translate} from '../constants/Translate'
 
 let FeeController = React.createClass({
 
@@ -38,6 +39,7 @@ let FeeController = React.createClass({
 	render() {
 		return (
 			<div>
+				{translate('PROCESSING_FEE', 'Fee')}:
 				<input className="form-control" type="number" id="feeController" name="feeController" onChange={this.changeValue} value={this.state.value}/>
 			</div>
 		)

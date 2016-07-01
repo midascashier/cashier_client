@@ -8,7 +8,7 @@
 <form id="alForm" action="/" method="POST">
   <input type="hidden" id="username" name="username" value="midasbc">
   <input type="hidden" id="password" name="password" value="t3st0m1das">
-  <input type="hidden" id="option" name="option" value="withdraw">
+  <input type="hidden" id="option" name="option" value="deposit">
   <input type="hidden" id="ioBB" name="ioBB" value="">
   <input type="hidden" id="atDeviceId" name="atDeviceId" value="">
 </form>

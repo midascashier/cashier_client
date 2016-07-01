@@ -102,7 +102,6 @@ let InfoMethod = React.createClass({
 	render() {
 		let allowContinue = this.allowProcess();
 		let payAccountinfo = this.getPayAccountLimits();
-		let displayName = this.props.selectedProcessor.displayName;
 		let originPath = controllerUIService.getOriginPath();
 		let nextStep = controllerUIService.getNextStep();
 
