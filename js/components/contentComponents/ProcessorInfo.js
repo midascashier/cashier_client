@@ -37,7 +37,6 @@ let ProcessorInfo = React.createClass({
 	render() {
 		let nextStep = controllerUIService.getNextStep();
 		let originPath = controllerUIService.getOriginPath();
-		let customerAction = controllerUIService.getCurrentView();
 		let isWithDraw = controllerUIService.getIsWithDraw();
 
 		let processorDisplayName = this.props.selectedProcessor.displayName;
@@ -49,24 +48,28 @@ let ProcessorInfo = React.createClass({
 			buttonNext = translate('PROCESSING_BUTTON_NEXT_WITHDRAW', 'Next')
 		}
 
+		let currentView = controllerUIService.getCurrentView().toUpperCase();
+		let transactionType = translate(currentView);
+		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {processorName:processorDisplayName, transactionType:transactionType});
+
 		return (
 			<div id="infoLimits">
 				<p><a href="#">Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></a></p>
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="deposit-limits">
-							<div className="title">{processorDisplayName} {customerAction} Limits</div>
+							<div className="title">{title}</div>
 							<div className="table-responsive">
 								<table className="table table-striped">
 									<tbody>
 									<tr>
-										<td>Min. Deposit:</td>
+										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
 										<td>
 											<span>{minProcessorLimit} {currencyCode}</span>
 										</td>
 									</tr>
 									<tr>
-										<td>Max. Deposit:</td>
+										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
 										<td>
 											<span>{maxProcessorLimit} {currencyCode}</span>
 										</td>

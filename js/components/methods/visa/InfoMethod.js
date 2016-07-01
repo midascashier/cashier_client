@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
+import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
 import {Loading} from '../../loading/Loading'
 import {transactionService} from '../../../services/TransactionService'
@@ -102,20 +103,23 @@ let InfoMethod = React.createClass({
 		let displayName = this.props.selectedProcessor.displayName;
 		let originPath = controllerUIService.getOriginPath();
 		let nextStep = controllerUIService.getNextStep();
+		let currentView = controllerUIService.getCurrentView().toUpperCase();
+		let transactionType = translate(currentView);
+		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Deposit Limits', {processorName:displayName, transactionType:transactionType});
 
 		return (
 			<div id="InfoMethodVIsa" className="row">
 				<div className="col-sm-12">
-					<div className="title">{displayName} Deposit Limits*</div>
+					<div className="title">{title}</div>
 					<div className="table-responsive">
 						<table className="table table-striped">
 							<tbody>
 							<tr>
-								<td>Min. Deposit:</td>
+								<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
 								<td><span>{payAccountInfo.minPayAccount}</span></td>
 							</tr>
 							<tr>
-								<td>Max. Deposit:</td>
+								<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
 								<td><span>{payAccountInfo.maxPayAccount}</span></td>
 							</tr>
 							</tbody>

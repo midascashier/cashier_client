@@ -62,6 +62,7 @@ let _langTags = {
   PROCESSING_DEPOSIT_INFORMATION_TITLE: 'Please Enter the Deposit Information',
 	PROCESSING_DEPOSIT_INFORMATION_TITLE_CREDIT_CARD: 'Please Enter Your Card Details',
   PROCESSING_WITHDRAW_INFORMATION_TITLE: 'Please Enter the Withdraw Information',
+	PROCESSING_LIMIT_INFORMATION_TITLE: '{processorName} {transactionType} Limits',
   PROCESSING_BUTTON_NEXT: 'Next',
   PROCESSING_BUTTON_NEXT_DEPOSIT: 'Deposit with',
   PROCESSING_BUTTON_NEXT_WITHDRAW: 'Withdraw to',
