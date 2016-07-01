@@ -64,7 +64,8 @@ let InfoMethod = React.createClass({
 	 */
 	allowProcess(){
 		let amount = this.props.transaction.amount;
-		if (amount) {
+		let checkTerms = this.props.transaction.checkTermsAndConditions;
+		if (amount && checkTerms) {
 			if (amount > 0) {
 				return true;
 			}

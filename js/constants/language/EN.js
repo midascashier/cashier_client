@@ -89,7 +89,7 @@ let _langTags = {
 	CREDIT_CARD: 'Card',
 	CREDIT_CARD_SELECT: 'Select your card',
 	CREDIT_CARD_CHECK_TERMENS: 'I agree to the terms and conditions.',
-	CREDIT_CARD_INFO: 'Certain banks may interpret increased transaction volumes over the internet as a fraud risk and may decline subsequent deposit requests.  We highly recommend depositing enough money now to cover your planned bets for the day.'
+	CREDIT_CARD_INFO: 'Certain banks may interpret increased transaction volumes over the internet as a fraud risk and may decline subsequent deposit requests. We highly recommend depositing enough money now to cover your planned bets for the day.'
 };
 
 export function EN(){

@@ -2,6 +2,7 @@ import React from 'react'
 import {translate} from '../../../constants/Translate'
 import {SelectPayAccount} from '../../SelectPayAccount'
 import {AmountController} from '../../AmountController'
+import {TermsController} from '../../TermsController'
 import {controllerUIService} from '../../../services/ControllerService'
 
 let AskInfo = React.createClass({
@@ -13,9 +14,10 @@ let AskInfo = React.createClass({
 	render() {
 		let originPath = controllerUIService.getOriginPath();
 		let processingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_CREDIT_CARD', 'Please Enter Your Card Details');
+		let information = translate('CREDIT_CARD_INFO', '');
 
 		return (
-			<div id="askAmount" className="box">
+			<div id="askAmountVisa" className="box">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="row">
@@ -36,12 +38,18 @@ let AskInfo = React.createClass({
 												<SelectPayAccount />
                         {translate('PROCESSING_AMOUNT', 'Amount')}:
 												<AmountController />
+												<TermsController />
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-sm-12">
+						<p>{information}</p>
 					</div>
 				</div>
 			</div>

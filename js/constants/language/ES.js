@@ -88,8 +88,8 @@ let _langTags = {
   BITCOIN_ADDRESS: 'Dirección de BitCoin',
 	CREDIT_CARD: 'Tarjeta',
 	CREDIT_CARD_SELECT: 'Seleccione su tarjeta',
-	CREDIT_CARD_CHECK_TERMENS: 'I agree to the terms and conditions.',
-	CREDIT_CARD_INFO: 'Certain banks may interpret increased transaction volumes over the internet as a fraud risk and may decline subsequent deposit requests.  We highly recommend depositing enough money now to cover your planned bets for the day.'
+	CREDIT_CARD_CHECK_TERMENS: 'Acepto términos y condiciones.',
+	CREDIT_CARD_INFO: 'Algunos bancos pueden interpretar el aumento de los volúmenes de transacciones en internet como un riesgo de fraude y pueden rechazar las solicitudes de depósitos posteriores. Recomendamos altamente depositar dinero suficiente para cubrir sus apuestas previstas para el día.'
 };
 
 export function ES(){

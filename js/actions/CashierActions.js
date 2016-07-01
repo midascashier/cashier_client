@@ -98,6 +98,12 @@ let CashierActions = {
 		});
 	},
 
+	setTransactionTerms: (data) =>{
+		CashierDispatcher.handleServerAction({
+			action: actions.CHANGE_TRANSACTION_TERMS, data: data
+		});
+	},
+
 	processResponse: (data) =>{
 		CashierDispatcher.handleServerAction({
 			action: actions.PROCESS_RESPONSE, data: data

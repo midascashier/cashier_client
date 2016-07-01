@@ -31,7 +31,7 @@ let AmountController = React.createClass({
 		let amount = event.currentTarget.value;
 		amount = amount.replace(/[^0-9\-]/g, '');
 		this.setState({value: amount});
-		if(amount){
+		if(amount >=0){
 			if(amount != this.state.value){
 				CashierActions.setTransactionAmount(amount);
 			}
