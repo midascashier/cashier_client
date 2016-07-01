@@ -5,11 +5,16 @@ import RouterContainer from './RouterContainer'
 
 class ControllerUIService {
 
+	construct(){
+		this.nextStep = 1;
+	}
+
 	/**
 	 * Redirect to first screen after login success
 	 */
 	loginSuccess(){
 		this.setCurrentStep(1);
+		this.nextStep = 1;
 		let nextPath = "/" + this.getCurrentView() + "/";
 		RouterContainer.get().props.history.push(nextPath);
 	}
@@ -20,72 +25,82 @@ class ControllerUIService {
 	 * @returns {string}
 	 */
 	getNextStep(){
+		let nextAction = "";
 		let getNextStep = "/" + this.getCurrentView() + "/" + this.getProcessorDisplayName() + "/";
-		if(this.getCurrentStep() == 1){
+
+		if(this.getCurrentStep() == 1 && this.nextStep == 1){
 			this.showStepsHeader = 1;
-			return getNextStep;
-		}
+			this.nextStep = 2;
+		} else {
+			if(this.getProcessorId() == Cashier.PROCESSOR_ID_NETELLER){
+				if(this.getIsWithDraw()){
 
-		if(this.getProcessorId() == Cashier.PROCESSOR_ID_NETELLER){
-			if(this.getIsWithDraw()){
+				} else{
+					if(this.getCurrentStep() == 2){
+						nextAction = "ticket/";
+						this.showStepsHeader = 1;
+						getNextStep += nextAction;
+						this.setCurrentStep(3);
+					}
 
-			} else{
-				if(this.getCurrentStep() == 2){
-					let nextAction = "ticket/";
-					this.showStepsHeader = 1;
-					getNextStep += nextAction;
-					this.setCurrentStep(3);
-				}
-
-				if(this.getCurrentStep() == 3){
-					let nextAction = "ticket/rejected";
-					this.showStepsHeader = 0;
-					getNextStep += nextAction;
-				}
-			}
-		}
-
-		if(this.getProcessorId() == Cashier.PROCESSOR_ID_BITCOIN){
-			if(this.getIsWithDraw()){
-				if(this.getCurrentStep() == 2){
-					let nextAction = "confirm/";
-					getNextStep += nextAction;
-				}
-
-				if(this.getCurrentStep() == 3){
-					this.setCurrentStep(4);
-					let nextAction = "ticket/";
-					getNextStep += nextAction;
-				}
-				if(this.getCurrentStep() == 4){
-					let nextAction = "ticket/approved";
-					this.showStepsHeader = 0;
-					getNextStep += nextAction;
-				}
-			} else{
-				if(this.getCurrentStep() == 2){
-					let nextAction = "ticket/instructions";
-					getNextStep += nextAction;
-				}
-
-				if(this.getCurrentStep() == 3){
-					getNextStep = "";
+					if(this.getCurrentStep() == 3){
+						nextAction = "ticket/rejected";
+						this.showStepsHeader = 0;
+						getNextStep += nextAction;
+					}
 				}
 			}
 
-			if(this.getProcessorId() == Cashier.PROCESSOR_ID_VISA){
-				if(this.getCurrentStep() == 2){
-					let nextAction = "confirm/";
-					getNextStep += nextAction;
+			if(this.getProcessorId() == Cashier.PROCESSOR_ID_BITCOIN){
+				if(this.getIsWithDraw()){
+					switch(this.nextStep){
+						case 2:
+							console.log(2);
+							nextAction = "confirm/";
+							getNextStep += nextAction;
+							this.nextStep=3;
+							break;
+
+						case 3:
+							console.log(3);
+							nextAction = "ticket/";
+							getNextStep += nextAction;
+							this.nextStep=4;
+							break;
+						
+						case 4:
+							console.log(4);
+							nextAction = "ticket/approved";
+							getNextStep += nextAction;
+							this.nextStep=1;
+							break;
+						default:
+							nextAction = "";
+					}
+				} else{
+					if(this.getCurrentStep() == 2){
+						nextAction = "ticket/instructions";
+						getNextStep += nextAction;
+					}
+
+					if(this.getCurrentStep() == 3){
+						getNextStep = "";
+					}
 				}
 
-				if(this.getCurrentStep() == 3){
-					getNextStep = "";
+				if(this.getProcessorId() == Cashier.PROCESSOR_ID_VISA){
+					if(this.getCurrentStep() == 2){
+						nextAction = "confirm/";
+						getNextStep += nextAction;
+					}
+
+					if(this.getCurrentStep() == 3){
+						getNextStep = "";
+					}
 				}
 			}
-
-			return getNextStep;
 		}
+		return getNextStep;
 	}
 
 	/**

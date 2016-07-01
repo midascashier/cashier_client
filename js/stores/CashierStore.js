@@ -354,18 +354,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
-	 * get processor id and change the current one
-	 *
-	 * @param id
-	 */
-	changeCurrentProcessor(processorId)
-	{
-		_UI.processorId = processorId;
-		_processor.load(processorId);
-		_transaction.cleanTransaction();
-	},
-
-	/**
 	 * get current processor
 	 *
 	 * @returns {{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}}
@@ -521,6 +509,12 @@ CashierDispatcher.register((payload) =>{
 		case actions.CHANGE_TRANSACTION_TERMS:
 			_transaction.checkTermsAndConditions = data;
 			CashierStore.emitChange();
+			break;
+
+		case actions.CHANGE_PROCESSOR:
+			_UI.processorId = data;
+			_processor.load(data);
+			_transaction.cleanTransaction();
 			break;
 
 		case actions.PROCESS_RESPONSE:

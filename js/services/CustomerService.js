@@ -1,5 +1,6 @@
 import assign from 'object-assign'
 import {CashierStore} from '../stores/CashierStore'
+import {CashierActions} from '../actions/CashierActions'
 import {stompConnector} from './StompConnector'
 
 class CustomerService {
@@ -111,7 +112,7 @@ class CustomerService {
 	 * function to changen current processor
 	 */
 	changeMethod(processorID){
-		CashierStore.changeCurrentProcessor(processorID);
+		CashierActions.changeCurrentProcessor(processorID);
 		this.getProcessorLimitRules(processorID);
 		this.getCustomerProcessorsMinMax(processorID);
 		this.getCustomerPreviousPayAccount(processorID);

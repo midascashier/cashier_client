@@ -80,6 +80,12 @@ let CashierActions = {
 		});
 	},
 
+	changeCurrentProcessor: (data) => {
+		CashierDispatcher.handleServerAction({
+			action: actions.CHANGE_PROCESSOR, data: data
+		});
+	},
+
 	changePayAccount: (data) =>{
 		CashierDispatcher.handleServerAction({
 			action: actions.CHANGE_PAYACCOUNT, data: data
