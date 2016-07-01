@@ -34,9 +34,10 @@ let AskInfo = React.createClass({
 												</div>
 											</div>
 											<div className="col-sm-9">
-                        {translate('CREDIT_CARD_SELECT', 'Credit Card')}:
-												<SelectPayAccount />
-                        {translate('PROCESSING_AMOUNT', 'Amount')}:
+                        <div className="form-group">
+													<label for="">{translate('CREDIT_CARD_SELECT', 'Credit Card')}:</label>
+													<SelectPayAccount />
+												</div>
 												<AmountController />
 												<TermsController />
 											</div>

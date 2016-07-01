@@ -40,8 +40,9 @@ let AmountController = React.createClass({
 
 	render() {
 		return (
-			<div>
-				<input className="form-control" type="number" id="amountController" name="amountController" onChange={this.changeValue} value={this.state.value}/>
+			<div id="amountController" className="form-group">
+				<label for="">{translate('PROCESSING_AMOUNT', 'Amount')}:</label>
+				<input className="form-control" type="number" id="amount" name="amount" onChange={this.changeValue} value={this.state.value}/>
 				<span>{translate('PROCESSING_MIN', 'Min')}: {this.state.limits.minAmount} - {translate('PROCESSING_MAX', 'Max')}: {this.state.limits.maxAmount}</span>
 			</div>
 		)

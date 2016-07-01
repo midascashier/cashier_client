@@ -3,9 +3,7 @@ import {Link} from 'react-router'
 import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
 import {Loading} from '../../loading/Loading'
-import {transactionService} from '../../../services/TransactionService'
 import {controllerUIService} from '../../../services/ControllerService'
-
 
 let InfoMethod = React.createClass({
 	propTypes: {
@@ -89,15 +87,6 @@ let InfoMethod = React.createClass({
 		return {"minPayAccount":minPayAccount, "maxPayAccount":maxPayAccount,"payAccountId":payAccount.payAccountId}
 	},
 
-	/**
-	 * this function sends deposit info to cashier
-	 *
-	 */
-	processDeposit(){
-		let dynamicParams = {};
-		transactionService.process(dynamicParams);
-	},
-
 	render() {
 		let allowContinue = this.allowProcess();
 		let payAccountInfo = this.getPayAccountLimits();
@@ -133,7 +122,7 @@ let InfoMethod = React.createClass({
 									{(() => {
 										if (payAccountInfo.payAccountId && allowContinue) {
 											return <Link to={nextStep}>
-												<button type='button' onClick={this.processDeposit} className='btn btn-green'>Next2</button>
+												<button type='button' className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
 											</Link>
 										}
 									})()}
