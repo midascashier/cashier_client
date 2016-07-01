@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router'
 import {CashierStore} from '../../../stores/CashierStore'
 import {translate} from '../../../constants/Translate'
 import {transactionService} from '../../../services/TransactionService'
@@ -34,7 +35,6 @@ let VisaConfirm = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			originPath: CashierStore.getOriginPath(),
 			transaction: CashierStore.getTransaction()
 		}
 	},
