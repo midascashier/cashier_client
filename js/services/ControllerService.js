@@ -5,97 +5,172 @@ import RouterContainer from './RouterContainer'
 
 class ControllerUIService {
 
+	/**
+	 * Redirect to first screen after login success
+	 */
 	loginSuccess(){
 		this.setCurrentStep(1);
 		let nextPath = "/" + this.getCurrentView() + "/";
 		RouterContainer.get().props.history.push(nextPath);
 	}
 
+	/**
+	 * redirect to next steps depends of the processor and customer option
+	 *
+	 * @returns {string}
+	 */
 	getNextStep(){
 		let getNextStep = "/" + this.getCurrentView() + "/" + this.getProcessorDisplayName() + "/";
 		if(this.getCurrentStep() == 1){
-			this.showStepsHeader=1;
+			this.showStepsHeader = 1;
 			return getNextStep;
 		}
 
 		if(this.getProcessorId() == Cashier.PROCESSOR_ID_NETELLER){
-			if(this.getCurrentStep() == 2){
-				let nextAction = "ticket/";
-				this.showStepsHeader=1;
-				getNextStep += nextAction;
-			}
+			if(this.getIsWithDraw()){
 
-			if(this.getCurrentStep() == 3){
-				let nextAction = "ticket/rejected";
-				this.showStepsHeader=0;
-				getNextStep += nextAction;
-			}
-		}
+			} else{
+				if(this.getCurrentStep() == 2){
+					let nextAction = "ticket/";
+					this.showStepsHeader = 1;
+					getNextStep += nextAction;
+					this.setCurrentStep(3);
+				}
 
-		if(this.getProcessorId() == Cashier.PROCESSOR_ID_BITCOIN){
-			if(this.getCurrentStep() == 2 && this.getIsWithDraw()){
-				let nextAction = "confirm/";
-				getNextStep += nextAction;
-			}
-
-			if(this.getCurrentStep() == 2 && !this.getIsWithDraw()){
-				let nextAction = "ticket/instructions";
-				getNextStep += nextAction;
-			}
-
-			if(this.getCurrentStep() == 3 && !this.getIsWithDraw()){
-					getNextStep = "";
-			}
-		}
-
-		if(this.getProcessorId() == Cashier.PROCESSOR_ID_VISA){
-			if(this.getCurrentStep() == 2){
-				let nextAction = "confirm/";
-				getNextStep += nextAction;
-			}
-
-			if(this.getCurrentStep() == 3){3
-				let transactionResponse = this.getLastTransactionResponse();
-				if(transactionResponse.status == Cashier.TRANSACTION_STATUS_APPROVED){
-					getNextStep = "ticket/approved";
-				}else{
-					getNextStep = "ticket/rejected";
+				if(this.getCurrentStep() == 3){
+					let nextAction = "ticket/rejected";
+					this.showStepsHeader = 0;
+					getNextStep += nextAction;
 				}
 			}
 		}
 
-		return getNextStep;
+		if(this.getProcessorId() == Cashier.PROCESSOR_ID_BITCOIN){
+			if(this.getIsWithDraw()){
+				if(this.getCurrentStep() == 2){
+					let nextAction = "confirm/";
+					getNextStep += nextAction;
+				}
+
+				if(this.getCurrentStep() == 3){
+					this.setCurrentStep(4);
+					let nextAction = "ticket/";
+					getNextStep += nextAction;
+				}
+				if(this.getCurrentStep() == 4){
+					let nextAction = "ticket/approved";
+					this.showStepsHeader = 0;
+					getNextStep += nextAction;
+				}
+			} else{
+				if(this.getCurrentStep() == 2){
+					let nextAction = "ticket/instructions";
+					getNextStep += nextAction;
+				}
+
+				if(this.getCurrentStep() == 3){
+					getNextStep = "";
+				}
+			}
+
+			if(this.getProcessorId() == Cashier.PROCESSOR_ID_VISA){
+				if(this.getCurrentStep() == 2){
+					let nextAction = "confirm/";
+					getNextStep += nextAction;
+				}
+
+				if(this.getCurrentStep() == 3){3
+					let transactionResponse = this.getLastTransactionResponse();
+					if(transactionResponse.status == Cashier.TRANSACTION_STATUS_APPROVED){
+						getNextStep = "ticket/approved";
+					}else{
+						getNextStep = "ticket/rejected";
+					}
+				}
+			}
+
+			return getNextStep;
+		}
 	}
 
+	/**
+	 * return if steps header should appear
+	 *
+	 * @returns {number}
+	 */
 	getShowStepsHeader(){
 		return this.showStepsHeader;
 	}
 
+	/**
+	 * return the origin path
+	 *
+	 * @returns {*|string}
+	 */
 	getOriginPath(){
 		return CashierStore.getOriginPath();
 	}
 
+	/**
+	 * get last transaction information
+	 *
+	 * @returns {*}
+	 */
+	getTransaction(){
+		return CashierStore.getLastTransactionResponse();
+	}
+
+	/**
+	 * return current view
+	 *
+	 * @returns {*|string}
+	 */
 	getCurrentView(){
 		return CashierStore.getCurrentView();
 	}
 
+	/**
+	 * set current step
+	 *
+	 * @param step
+	 */
 	setCurrentStep(step){
 		CashierActions.setCurrentStep(step);
 	}
 
+	/**
+	 * return current step
+	 *
+	 * @returns {*|string}
+	 */
 	getCurrentStep(){
 		return CashierStore.getCurrentStep();
 	}
 
+	/**
+	 * get if is withdraw
+	 *
+	 * @returns {*|int}
+	 */
 	getIsWithDraw(){
 		return CashierStore.getIsWithdraw();
 	}
 
+	/**
+	 * get current process name
+	 *
+	 * @returns {string}
+	 */
 	getProcessorDisplayName(){
 		let processor = CashierStore.getProcessor();
 		return processor.displayName.toLowerCase();
 	}
 
+	/**
+	 * get current processor id
+	 *
+	 * @returns {number}
+	 */
 	getProcessorId(){
 		let processor = CashierStore.getProcessor();
 		return processor.processorId;
@@ -118,17 +193,14 @@ class ControllerUIService {
 		return CashierStore.getLastTransactionResponse();
 	}
 
-	ticketRedirect(transactionStatusId){
-		this.setCurrentStep(3);
-		switch(transactionStatusId){
-			case 1:
-				break;
-			default:
-				let nextStep = this.getNextStep();
-				if (nextStep){
-					RouterContainer.get().props.history.push(nextStep);
-				}
-				break;
+	/**
+	 * redirect to ticket after process response
+	 *
+	 */
+	ticketRedirect(){
+		let nextStep = this.getNextStep();
+		if(nextStep){
+			RouterContainer.get().props.history.push(nextStep);
 		}
 	}
 

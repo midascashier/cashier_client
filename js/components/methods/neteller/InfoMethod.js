@@ -88,10 +88,10 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 * this function sends deposit info to cashier
+	 * this function sends transaction info to cashier
 	 *
 	 */
-	processDeposit(){
+	processTransaction(){
 		let password = this.props.password;
 		let dynamicParams = {};
 		dynamicParams.password = password;
@@ -130,7 +130,7 @@ let InfoMethod = React.createClass({
 									{(() =>{
 										if(payAccountinfo.payAccountId && allowContinue){
 											return <Link to={nextStep}>
-												<button type='button' onClick={this.processDeposit} className='btn btn-green'>Next</button>
+												<button type='button' onClick={this.processTransaction} className='btn btn-green'>Next</button>
 											</Link>
 										}
 									})()}
