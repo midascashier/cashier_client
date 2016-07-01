@@ -37,8 +37,14 @@ let AskInfo = React.createClass({
 											</div>
 											<div className="col-sm-9">
 												<div className="form-group">
-													<label for="">{translate('BITCOIN_ADDRESS', 'BitCoin Address')}:</label>
-													<SelectPayAccount />
+													{(() =>{
+														if(isWithDraw){
+															return (
+																<div><label for="">{translate('BITCOIN_ADDRESS', 'BitCoin Address')}:</label>
+																<SelectPayAccount /></div>
+															)
+														}
+													})()}
 												</div>
 												<AmountController />
 												{(() =>{

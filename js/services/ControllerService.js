@@ -58,7 +58,7 @@ class ControllerUIService {
 					getNextStep += nextAction;
 				}
 				if(this.getCurrentStep() == 4){
-					let nextAction = "ticket/rejected";
+					let nextAction = "ticket/approved";
 					this.showStepsHeader = 0;
 					getNextStep += nextAction;
 				}
