@@ -70,21 +70,22 @@ class ControllerUIService {
 
 				if(this.getCurrentStep() == 3){
 					getNextStep = "";
+				}
 			}
+
+			if(this.getProcessorId() == Cashier.PROCESSOR_ID_VISA){
+				if(this.getCurrentStep() == 2){
+					let nextAction = "confirm/";
+					getNextStep += nextAction;
+				}
+
+				if(this.getCurrentStep() == 3){
+					getNextStep = "";
+				}
+			}
+
+			return getNextStep;
 		}
-
-		if(this.getProcessorId() == Cashier.PROCESSOR_ID_VISA){
-			if(this.getCurrentStep() == 2){
-				let nextAction = "confirm/";
-				getNextStep += nextAction;
-			}
-
-			if(this.getCurrentStep() == 3){
-				getNextStep = "";
-			}
-		}
-
-		return getNextStep;
 	}
 
 	/**
