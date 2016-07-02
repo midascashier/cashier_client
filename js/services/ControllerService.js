@@ -64,13 +64,27 @@ class ControllerUIService {
 				}
 			} else{
 				if(this.getCurrentStep() == 2){
-					let nextAction = "ticket/instructions";
+					let nextAction = "ticket/";
 					getNextStep += nextAction;
 				}
 
 				if(this.getCurrentStep() == 3){
-					getNextStep = "";
+					let transactionResponse = CashierStore.getLastTransactionResponse();
+					console.log('getNextStep >> transactionResponse');
+					console.log('transactionResponse');
+					if(transactionResponse.status){
+						if(transactionResponse.status == Cashier.TRANSACTION_STATUS_PENDING){
+							let nextAction = "ticket/instructions";
+							getNextStep += nextAction;
+						}else{
+							let nextAction = "ticket/rejected";
+							getNextStep += nextAction;
+						}
+					}else{
+						getNextStep += "ticket/";
+					}
 				}
+
 			}
 		}
 
@@ -79,7 +93,7 @@ class ControllerUIService {
 				let nextAction = "confirm/";
 				getNextStep += nextAction;
 			}else	if(this.getCurrentStep() == 3){
-				let transactionResponse = this.getLastTransactionResponse();
+				let transactionResponse = CashierStore.getLastTransactionResponse();
 				if(transactionResponse.status){
 					if(transactionResponse.status == Cashier.TRANSACTION_STATUS_APPROVED){
 						let nextAction = "ticket/approved";
@@ -119,7 +133,7 @@ class ControllerUIService {
 
 	/**
 	 * get transaction information
-	 * 
+	 *
 	 * @returns {*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())}}
 	 */
 	getTransactionInformation(){
