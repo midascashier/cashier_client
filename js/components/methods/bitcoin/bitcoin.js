@@ -7,7 +7,7 @@ import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
 import {controllerUIService} from '../../../services/ControllerService'
 
-let Bitcoin = React.createClass({
+let BitCoin = React.createClass({
 
 	/**
 	 * React function to set component initial state
@@ -67,8 +67,7 @@ let Bitcoin = React.createClass({
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
 						} else{
-							return <InfoMethod selectedProcessor={this.state.selectedProcessor}
-																 transaction={this.state.transaction}/>
+							return <InfoMethod selectedProcessor={this.state.selectedProcessor} transaction={this.state.transaction}/>
 						}
 					})()}
 				</div>
@@ -77,4 +76,4 @@ let Bitcoin = React.createClass({
 	}
 });
 
-module.exports.Bitcoin = Bitcoin;
+module.exports.BitCoin = BitCoin;

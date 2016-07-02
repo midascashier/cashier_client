@@ -67,11 +67,8 @@ class ControllerUIService {
 					let nextAction = "ticket/";
 					getNextStep += nextAction;
 				}
-
 				if(this.getCurrentStep() == 3){
 					let transactionResponse = CashierStore.getLastTransactionResponse();
-					console.log('getNextStep >> transactionResponse');
-					console.log('transactionResponse');
 					if(transactionResponse.status){
 						if(transactionResponse.status == Cashier.TRANSACTION_STATUS_PENDING){
 							let nextAction = "ticket/instructions";
@@ -84,7 +81,6 @@ class ControllerUIService {
 						getNextStep += "ticket/";
 					}
 				}
-
 			}
 		}
 
