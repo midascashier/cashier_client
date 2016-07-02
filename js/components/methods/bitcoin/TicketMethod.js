@@ -55,7 +55,7 @@ let BitCoinTicket = React.createClass({
 		return (
 			<div id="bitCoinTicket">
 				{(() => {
-					if (!transactionResponse.state){
+					if (!transactionResponse.status){
 						return (
 							<div className="col-sm-12">
 								<div className="modules">

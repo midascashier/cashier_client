@@ -69,7 +69,7 @@ class ControllerUIService {
 				}
 				if(this.getCurrentStep() == 3){
 					let transactionResponse = CashierStore.getLastTransactionResponse();
-					if(transactionResponse.status){
+					if(transactionResponse.status || transactionResponse.userMessage){
 						if(transactionResponse.status == Cashier.TRANSACTION_STATUS_PENDING){
 							let nextAction = "ticket/instructions";
 							getNextStep += nextAction;
@@ -90,7 +90,7 @@ class ControllerUIService {
 				getNextStep += nextAction;
 			}else	if(this.getCurrentStep() == 3){
 				let transactionResponse = CashierStore.getLastTransactionResponse();
-				if(transactionResponse.status){
+				if(transactionResponse.status || transactionResponse.userMessage){
 					if(transactionResponse.status == Cashier.TRANSACTION_STATUS_APPROVED){
 						let nextAction = "ticket/approved";
 						getNextStep += nextAction;

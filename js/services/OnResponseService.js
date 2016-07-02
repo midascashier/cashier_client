@@ -97,7 +97,7 @@ class OnResponseService {
 
 			case actions.PROCESS_RESPONSE:
 				console.log(data);
-				if(data.response){
+				if(data.response || data.state){
 					CashierActions.processResponse(data);
 					controllerUIService.ticketRedirect();
 				} else{

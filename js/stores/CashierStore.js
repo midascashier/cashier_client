@@ -572,12 +572,15 @@ CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.PROCESS_RESPONSE:
-			_transactionResponse.state = data.state;
-			if(data.response.transaction){
+
+			if(data.response && data.response.transaction){
 				_transactionResponse.journalId = data.response.transaction.caJournal_Id;
 				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
 				_transactionResponse.status = data.response.transaction.caTransactionStatus_Id;
 				_transactionResponse.userMessage = data.response.transaction.userMessage;
+			}else if(data.state){
+				_transactionResponse.state = data.state;
+				_transactionResponse.userMessage = data.userMessage;
 			}
 
 			if(_transactionResponse.userMessage == ""){
