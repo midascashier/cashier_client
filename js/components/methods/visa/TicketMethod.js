@@ -51,12 +51,6 @@ let VisaTicket = React.createClass({
 
 	render() {
 		let transactionResponse = this.state.transactionResponse;
-		console.log('transactionResponse');
-		console.log(transactionResponse);
-		console.log('state');
-		console.log(this.state);
-		console.log('props');
-		console.log(this.props);
 		return (
 			<div id="visaTicket">
 				{(() => {
