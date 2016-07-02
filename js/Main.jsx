@@ -61,7 +61,7 @@ let routes = (
 				</Route>
 
 				<Route path="bitcoin/" component={BitCoin}/>
-				<Route path="bitcoin/ticket/" component={VisaTicket}>
+				<Route path="bitcoin/ticket/" component={BitCoinTicket}>
 					<Route path="instructions" component={BitCoinTicketInstructions}/>
 					<Route path="rejected" component={BitCoinTicketRejected}/>
 				</Route>

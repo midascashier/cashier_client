@@ -2,6 +2,7 @@ import React from 'react'
 import {CashierStore} from '../../../stores/CashierStore'
 
 let BitCoinTicket = React.createClass({
+
 	/**
 	 * React function to set component initial state
 	 *
@@ -50,12 +51,10 @@ let BitCoinTicket = React.createClass({
 
 	render() {
 		let transactionResponse = this.state.transactionResponse;
-		console.log('transactionResponse');
-		console.log(transactionResponse);
 		return (
 			<div id="bitCoinTicket">
 				{(() => {
-					if (!transactionResponse.status){
+					if ((!transactionResponse.status) && (!transactionResponse.userMessage)){
 						return (
 							<div className="col-sm-12">
 								<div className="modules">

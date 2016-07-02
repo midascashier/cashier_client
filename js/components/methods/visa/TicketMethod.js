@@ -54,7 +54,7 @@ let VisaTicket = React.createClass({
 		return (
 			<div id="visaTicket">
 				{(() => {
-					if (!transactionResponse.status){
+					if ((!transactionResponse.status) && (!transactionResponse.userMessage)){
 						return (
 							<div className="col-sm-12">
 								<div className="modules">
