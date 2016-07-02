@@ -1,5 +1,4 @@
 import React from 'react'
-import {Loading} from '../../loading/Loading'
 import {CashierStore} from '../../../stores/CashierStore'
 
 let VisaTicket = React.createClass({
@@ -51,12 +50,31 @@ let VisaTicket = React.createClass({
 	},
 
 	render() {
-		let userMessage = this.state.transactionResponse.userMessage;
+		let transactionResponse = this.state.transactionResponse;
+		console.log('transactionResponse');
+		console.log(transactionResponse);
+		console.log('state');
+		console.log(this.state);
+		console.log('props');
+		console.log(this.props);
 		return (
-			<div id="methods">
+			<div id="visaTicket">
 				{(() => {
-					if (!userMessage) {
-						return <Loading />;
+					if (!transactionResponse.state){
+						return (
+							<div className="col-sm-12">
+								<div className="modules">
+									<div className="row">
+										<div className="col-sm-12">
+											<div className="loader-sm"></div>
+											<h3>
+												Processing... please waits!
+											</h3>
+										</div>
+									</div>
+								</div>
+							</div>
+						);
 					} else {
 						return this.props.children
 					}

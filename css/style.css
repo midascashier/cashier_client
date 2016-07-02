@@ -149,7 +149,7 @@ body{ background:#EEE; font-family:'Segoe UI',Arial,sans-serif; color:#777;}
 
 /*alerts*/
 /*Alerts-Messages--------------------------*/
-div[class^="alert"]{padding: 8px 12px;}
+/*div[class^="alert"]{padding: 8px 12px;}*/
 /*div[class^="alert"] span{ font-weight:bold;}*/
 div[class^="alert"] i{font-size:16px;}
 /*alerts-icon*/
