@@ -1,8 +1,9 @@
-let EventEmitter = require('events').EventEmitter
+let EventEmitter = require('events').EventEmitter;
+let CashierDispatcher = require('../dispatcher/CashierDispatcher');
+
 import assign from 'object-assign'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
-import {CashierDispatcher} from '../dispatcher/CashierDispatcher'
 import {customerService} from '../services/CustomerService'
 
 /**
@@ -449,8 +450,9 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 /**
  * register action
  */
-CashierDispatcher.register((payload) =>{
-	let action = payload.actionType;
+CashierStore.dispatchToken = CashierDispatcher.register((payload) => {
+//CashierDispatcher.register((payload) =>{
+	let action = payload.action;
 	let data = payload.data;
 
 	//register error
