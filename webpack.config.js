@@ -3,7 +3,7 @@ module.exports = {
 
   output: {
     path: './build/',
-    filename: 'bundle.js'
+    filename: 'admin.js'
   },
 
   devtool: "source-map",

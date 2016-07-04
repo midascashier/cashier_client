@@ -12,7 +12,15 @@ import {customerService} from '../services/CustomerService'
  * @private
  */
 let _UI = {
-	language: '', currentView: '', currentStep: '', processorId: 0, payAccountId: 0, countryInfo: null, steps: {333: 2, 814: 3, 11001: 3}, countries: {}, countryStates: {}
+	language: '',
+	currentView: '',
+	currentStep: '',
+	processorId: 0,
+	payAccountId: 0,
+	countryInfo: null,
+	steps: {333: 2, 814: 3, 11001: 3},
+	countries: {},
+	countryStates: {}
 };
 
 /**
@@ -131,8 +139,15 @@ let _bonuses = {
  * @private
  */
 let _processor = {
-	processorClass: 0, processorId: 0, displayName: '', bonus: [], fees: [], limits: [], limitRules: [], load(processorId){
-		var processor = [];
+	processorClass: 0,
+	processorId: 0,
+	displayName: '',
+	bonus: [],
+	fees: [],
+	limits: [],
+	limitRules: [],
+	load(processorId){
+		let processor = [];
 		if(_UI.currentView == cashier.VIEW_DEPOSIT && _customer.depositProcessors.length > 0){
 			_customer.depositProcessors.map((item) =>{
 				if(processorId == item.caProcessor_Id){
@@ -367,14 +382,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
-	 * set current step
-	 *
-	 */
-	setCurrentStep: (step) =>{
-		_UI.currentStep = step;
-	},
-
-	/**
 	 * get origin url path
 	 *
 	 * @returns {string}
@@ -585,7 +592,7 @@ CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.SET_CURRENT_STEP:
-			CashierStore.setCurrentStep(data)
+			_UI.currentStep = data;
 			break;
 
 		default:

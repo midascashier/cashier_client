@@ -65,7 +65,7 @@ class OnResponseService {
 					if(processorID){
 						let currentProcessor = CashierStore.getProcessor();
 						if(!currentProcessor.processorId){
-							customerService.changeMethod(processorID);
+							customerService.changeProcessor(processorID);
 						} else{
 							customerService.getProcessorLimitRules(processorID);
 							customerService.getCustomerProcessorsMinMax(processorID);

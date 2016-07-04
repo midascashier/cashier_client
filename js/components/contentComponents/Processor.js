@@ -11,7 +11,7 @@ let Processor = React.createClass({
 	 * this function change current processor
 	 */
 	changeProcessor() {
-		customerService.changeMethod(this.props.processorId);
+		customerService.changeProcessor(this.props.processorId);
 	},
 
 	render() {
