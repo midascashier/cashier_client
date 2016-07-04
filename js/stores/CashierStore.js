@@ -235,11 +235,10 @@ let _payAccount = {
  */
 let _payAccounts = [];
 
-
 /**
  * Stores information of the transaction
  *
- * @type {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, cleanTransaction: (function())}}
+ * @type {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())}}
  * @private
  */
 let _transaction = {
@@ -248,6 +247,7 @@ let _transaction = {
 	feeType: '',
 	bonusId: 0,
 	checkTermsAndConditions: 0,
+	descriptor: '',
 	cleanTransaction(){
 		this.amount = "";
 		this.fee = 0;
@@ -296,9 +296,11 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * return current Payaccount
+	 *
+	 * @returns {{payAccountId: null, customerId: null, processorClassId: null, processorId: null, processorSkinId: null, processorIdRoot: null, processorRootName: null, typesSupported: null, displayName: null, isActive: null, isAllowed: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, bank: {id: null, alias: null, name: null, address: null, city: null, state: null, stateName: null, country: null, countryName: null, zip: null, phone: null, transferNumber: null, accountNumber: null, accountType: null, swift: null, iban: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limits: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))}}
 	 */
 	getCurrentPayAccount: () =>{
-		return (_payAccount);
+		return _payAccount;
 	},
 
 	/**
@@ -310,14 +312,15 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * Return last transaction cashier response
+	 *
+	 * @returns {{transactionId: number, journalId: number, status: number, userMessage: string, state: string}}
 	 */
 	getLastTransactionResponse: () =>{
-		return (_transactionResponse);
+		return _transactionResponse;
 	},
 
 	/**
 	 * get payAccounts by processor
-	 *
 	 */
 	getProcessorPayAccount: () =>{
 		return (_payAccounts[_processor['processorId']]);
@@ -392,16 +395,16 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * get company
 	 *
-	 * @returns {{companyId: number, companyName: string, phone: string, companyLabel: Array}}
+	 * @returns {{companyId: number, companyName: string, phone: string, companyLabel: Array, load: (function(*))}}
 	 */
 	getCompany: () =>{
-		return (_company);
+		return _company;
 	},
 
 	/**
 	 * get current processor
 	 *
-	 * @returns {{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}}
+	 * @returns {{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array, limits: Array, limitRules: Array, load: (function(*))}}
 	 */
 	getProcessor: () =>{
 		return _processor;
@@ -413,16 +416,16 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * @returns {{language: string, currentView: string, currentStep: string, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
 	 */
 	getUI: () =>{
-		return (_UI);
+		return _UI;
 	},
 
 	/**
 	 * get transaction
-	 *
-	 * @returns {Array}
+	 * 
+	 * @returns {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())}}
 	 */
 	getTransaction: ()=>{
-		return (_transaction);
+		return _transaction;
 	},
 
 	/**
@@ -563,12 +566,15 @@ CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.PROCESS_RESPONSE:
-			_transactionResponse.state = data.state;
-			if(data.response.transaction){
+
+			if(data.response && data.response.transaction){
 				_transactionResponse.journalId = data.response.transaction.caJournal_Id;
 				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
 				_transactionResponse.status = data.response.transaction.caTransactionStatus_Id;
 				_transactionResponse.userMessage = data.response.transaction.userMessage;
+			}else if(data.state){
+				_transactionResponse.state = data.state;
+				_transactionResponse.userMessage = data.userMessage;
 			}
 
 			if(_transactionResponse.userMessage == ""){

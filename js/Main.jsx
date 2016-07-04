@@ -17,11 +17,11 @@ import {NetellerApprovedTicket} from './components/methods/neteller/tickets/Appr
 /**
  * Bitcoin set of components to create routes
  */
-import {Bitcoin} from './components/methods/bitcoin/Bitcoin'
+import {BitCoin} from './components/methods/bitcoin/Bitcoin'
 import {BitCoinTicket} from './components/methods/bitcoin/TicketMethod'
 import {BitCoinTicketRejected} from './components/methods/bitcoin/tickets/RejectedTicket'
 import {BitCoinTicketApproved} from './components/methods/bitcoin/tickets/ApprovedTicket'
-import {BitCoinTicketInstructions} from './components/methods/bitcoin/tickets/Instructions'
+import {BitCoinTicketInstructions} from './components/methods/bitcoin/tickets/InstructionsTicket'
 import {ConfirmWithdraw} from './components/methods/bitcoin/ConfirmWithdraw'
 
 /**
@@ -53,28 +53,37 @@ let routes = (
 			<Route path="/transaction_history/" component={TransactionHistoryContent}/>
 			<Route path="/deposit/" component={DepositContent}>
 				<IndexRoute component={ProcessorsInfo}/>
+
 				<Route path="neteller/" component={Neteller}/>
 				<Route path="neteller/ticket/" component={NetellerTicket}>
 					<Route path="approved" component={NetellerApprovedTicket}/>
 					<Route path="rejected" component={NetellerRejectedTicket}/>
 				</Route>
-				<Route path="bitcoin/" component={Bitcoin}/>
-				<Route path="bitcoin/ticket/instructions" component={BitCoinTicketInstructions}/>
+
+				<Route path="bitcoin/" component={BitCoin}/>
+				<Route path="bitcoin/ticket/" component={BitCoinTicket}>
+					<Route path="instructions" component={BitCoinTicketInstructions}/>
+					<Route path="rejected" component={BitCoinTicketRejected}/>
+				</Route>
+
 				<Route path="visa/" component={Visa}/>
 				<Route path="visa/confirm/" component={VisaConfirm}/>
 				<Route path="visa/ticket/" component={VisaTicket}>
 					<Route path="approved" component={VisaTicketApproved}/>
 					<Route path="rejected" component={VisaTicketRejected}/>
 				</Route>
+
 			</Route>
 			<Route path="/withdraw/" component={WithdrawContent}>
 				<IndexRoute component={ProcessorsInfo}/>
-				<Route path="bitcoin/" component={Bitcoin}/>
+
+				<Route path="bitcoin/" component={BitCoin}/>
 				<Route path="bitcoin/confirm/" component={ConfirmWithdraw}/>
 				<Route path="bitcoin/ticket/" component={BitCoinTicket}>
 					<Route path="approved" component={BitCoinTicketApproved}/>
 					<Route path="rejected" component={BitCoinTicketRejected}/>
 				</Route>
+				
 			</Route>
 		</Route>
 	</Router>

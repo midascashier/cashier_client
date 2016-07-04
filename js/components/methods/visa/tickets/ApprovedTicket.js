@@ -5,6 +5,8 @@ let VisaTicketApproved = React.createClass({
 
 	render() {
 		let originPath = controllerUIService.getOriginPath();
+		let transaction = controllerUIService.getTransactionInformation();
+		let customer = controllerUIService.getCustomerInformation();
 
 		return (
 			<div className="internal-content">
@@ -18,17 +20,9 @@ let VisaTicketApproved = React.createClass({
 						<div className="success-message">
 							<i className="fa fa-check-circle-o green"></i>
 							<div className="title">Your $ deposit was successful.</div>
-							<p>Your balance is now $80.00</p>
-							<p>This charge will show up on your statement as nloeLsjoe A/S.</p>
-							<p>An email has been sent to youremail@email.com with the transaction details.</p>
-							<button type="submit" className="btn btn-green">Go to Poker Lobby</button>
-							<div className="checkbox text-center">
-								<label>
-									<input type="checkbox">
-										<span>Save method for <a href="#">Quick Deposit</a></span>
-									</input>
-								</label>
-							</div>
+							<p>Your balance is now {customer.currencySymbol + " " + customer.balance}</p>
+							<p>This charge will show up on your statement as {transaction.descriptor}.</p>
+							<p>An email has been sent to {customer.personalInformation.email} with the transaction details.</p>
 						</div>
 					</div>
 				</div>

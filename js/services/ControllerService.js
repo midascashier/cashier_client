@@ -64,12 +64,22 @@ class ControllerUIService {
 				}
 			} else{
 				if(this.getCurrentStep() == 2){
-					let nextAction = "ticket/instructions";
+					let nextAction = "ticket/";
 					getNextStep += nextAction;
 				}
-
 				if(this.getCurrentStep() == 3){
-					getNextStep = "";
+					let transactionResponse = CashierStore.getLastTransactionResponse();
+					if(transactionResponse.status || transactionResponse.userMessage){
+						if(transactionResponse.status == Cashier.TRANSACTION_STATUS_PENDING){
+							let nextAction = "ticket/instructions";
+							getNextStep += nextAction;
+						}else{
+							let nextAction = "ticket/rejected";
+							getNextStep += nextAction;
+						}
+					}else{
+						getNextStep += "ticket/";
+					}
 				}
 			}
 		}
@@ -79,8 +89,8 @@ class ControllerUIService {
 				let nextAction = "confirm/";
 				getNextStep += nextAction;
 			}else	if(this.getCurrentStep() == 3){
-				let transactionResponse = this.getLastTransactionResponse();
-				if(transactionResponse.status){
+				let transactionResponse = CashierStore.getLastTransactionResponse();
+				if(transactionResponse.status || transactionResponse.userMessage){
 					if(transactionResponse.status == Cashier.TRANSACTION_STATUS_APPROVED){
 						let nextAction = "ticket/approved";
 						getNextStep += nextAction;
@@ -118,12 +128,21 @@ class ControllerUIService {
 	}
 
 	/**
-	 * get last transaction information
+	 * get transaction information
 	 *
-	 * @returns {*}
+	 * @returns {*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())}}
 	 */
-	getTransaction(){
-		return CashierStore.getLastTransactionResponse();
+	getTransactionInformation(){
+		return CashierStore.getTransaction();
+	}
+
+	/**
+	 * get last customer information
+	 *
+	 * @returns {*|{companyId: number, customerId: number, username: string, password: string, currency: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, load: (function(*))}}
+	 */
+	getCustomerInformation(){
+		return CashierStore.getCustomer();
 	}
 
 	/**
@@ -195,6 +214,11 @@ class ControllerUIService {
 		return limits;
 	}
 
+	/**
+	 * get last transaction information
+	 *
+	 * @returns {*}
+	 */
 	getLastTransactionResponse(){
 		return CashierStore.getLastTransactionResponse();
 	}

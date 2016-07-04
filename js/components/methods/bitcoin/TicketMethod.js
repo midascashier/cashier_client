@@ -1,8 +1,8 @@
 import React from 'react'
-import {Loading} from '../../loading/Loading'
 import {CashierStore} from '../../../stores/CashierStore'
 
 let BitCoinTicket = React.createClass({
+
 	/**
 	 * React function to set component initial state
 	 *
@@ -50,13 +50,26 @@ let BitCoinTicket = React.createClass({
 	},
 
 	render() {
-		let userMessage = this.state.transactionResponse.userMessage;
+		let transactionResponse = this.state.transactionResponse;
 		return (
-			<div id="methods">
-				{(() =>{
-					if(!userMessage){
-						return <Loading />;
-					} else{
+			<div id="bitCoinTicket">
+				{(() => {
+					if ((!transactionResponse.status) && (!transactionResponse.userMessage)){
+						return (
+							<div className="col-sm-12">
+								<div className="modules">
+									<div className="row">
+										<div className="col-sm-12">
+											<div className="loader-sm"></div>
+											<h3>
+												Processing... please waits!
+											</h3>
+										</div>
+									</div>
+								</div>
+							</div>
+						);
+					} else {
 						return this.props.children
 					}
 				})()}
