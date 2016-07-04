@@ -47,18 +47,19 @@ class ControllerUIService {
 
 		if(this.getProcessorId() == Cashier.PROCESSOR_ID_BITCOIN){
 			if(this.getIsWithDraw()){
-				if(this.getCurrentStep() == 2){
-					let nextAction = "confirm/";
-					getNextStep += nextAction;
-				}
-
 				if(this.getCurrentStep() == 3){
 					this.setCurrentStep(4);
 					let nextAction = "ticket/";
 					getNextStep += nextAction;
 				}
+
+				if(this.getCurrentStep() == 2){
+					let nextAction = "confirm/";
+					getNextStep += nextAction;
+				}
+
 				if(this.getCurrentStep() == 4){
-					let nextAction = "ticket/approved";
+					let nextAction = "approved";
 					this.showStepsHeader = 0;
 					getNextStep += nextAction;
 				}

@@ -62,7 +62,7 @@ let BitCoinTicket = React.createClass({
 										<div className="col-sm-12">
 											<div className="loader-sm"></div>
 											<h3>
-												Processing... please waits!
+												Processing... please wait!
 											</h3>
 										</div>
 									</div>
