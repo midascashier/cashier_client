@@ -1,7 +1,7 @@
 import React from 'react'
 import { controllerUIService } from '../../services/ControllerService'
 
-let TicketApproved = React.createClass({
+let ApprovedTicket = React.createClass({
 
 	render() {
 		let originPath = controllerUIService.getOriginPath();
@@ -31,4 +31,4 @@ let TicketApproved = React.createClass({
 	}
 });
 
-module.exports.TicketApproved = TicketApproved;
+module.exports.ApprovedTicket = ApprovedTicket;

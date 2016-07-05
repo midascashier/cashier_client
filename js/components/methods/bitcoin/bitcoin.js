@@ -22,7 +22,6 @@ let BitCoin = React.createClass({
 	 * here the component listen changes from the store
 	 */
 	componentDidMount() {
-		controllerUIService.setCurrentStep(2);
 		CashierStore.addChangeListener(this._onChange);
 	},
 

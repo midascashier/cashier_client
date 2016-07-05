@@ -11,13 +11,12 @@ import { transactionService } from '../services/TransactionService'
 /**
  * UI
  *
- * @type {{language: string, currentView: string, currentStep: string, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
+ * @type {{language: string, currentView: string, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
  * @private
  */
 let _UI = {
 	language: '',
 	currentView: '',
-	currentStep: '',
 	processorId: 0,
 	payAccountId: 0,
 	countryInfo: null,
@@ -378,15 +377,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
-	 * get current step
-	 *
-	 * @returns {string}
-	 */
-	getCurrentStep: () =>{
-		return _UI.currentStep;
-	},
-
-	/**
 	 * get current view
 	 *
 	 * @returns {string}
@@ -434,7 +424,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * get UI
 	 *
-	 * @returns {{language: string, currentView: string, currentStep: string, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
+	 * @returns {{language: string, currentView: string, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
 	 */
 	getUI: () =>{
 		return _UI;
@@ -574,12 +564,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			CashierStore.emitChange();
 			break;
 
-		case actions.CHANGE_PROCESSOR:
-			_UI.processorId = data;
-			_processor.load(data);
-			_transaction.cleanTransaction();
-			break;
-
 		case actions.PROCESS_RESPONSE:
 
 			if(data.response && data.response.transaction){
@@ -597,11 +581,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				_transactionResponse.userMessage = data.userMessage;
 			}
 
-			let ticketResult = 'pending';
+			let ticketResult = 'rejected';
 			if (_transactionResponse.status == cashier.TRANSACTION_STATUS_APPROVED){
 				ticketResult = 'approved';
-			}else if (_transactionResponse.status == cashier.TRANSACTION_STATUS_REJECTED){
-				ticketResult = 'rejected';
+			}else if (_transactionResponse.status == cashier.TRANSACTION_STATUS_PENDING){
+				ticketResult = 'pending';
 			}else if (_transactionResponse.status == cashier.TRANSACTION_STATUS_DEFERRED){
 				ticketResult = 'deferred';
 			}
@@ -610,21 +594,26 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 			break;
 
-		case actions.SET_CURRENT_STEP:
-			_UI.currentStep = data;
-			break;
-
 		case actions.START_TRANSACTION:
+
+			//do some work before start the transaction
+			_transaction.cleanTransaction();
+
+			//calculate the route to be redirected
 			let route = "/" + _UI.currentView + "/" + controllerUIService.getProcessorName().toLowerCase() + '/';
 			controllerUIService.changeUIState(route);
 			break;
 
 		case actions.PROCESS:
-			let routeProcess = ('/' + _UI.currentView + '/' + _processor.Name.toLowerCase() + 'ticket/');
-			console.log('PROCESS: ' + routeProcess);
-			controllerUIService.changeUIState(routeProcess);
 			transactionService.process();
 			controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/');
+			break;
+
+		case actions.SELECT_PROCESSOR:
+			_UI.processorId = data.processorId;
+			_processor.load(data.processorId);
+
+			CashierStore.emitChange();
 			break;
 
 		default:

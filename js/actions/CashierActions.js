@@ -80,12 +80,6 @@ let CashierActions = {
 		});
 	},
 
-	changeCurrentProcessor: (data) =>{
-		CashierDispatcher.dispatch({
-			action: actions.CHANGE_PROCESSOR, data: data
-		});
-	},
-
 	changePayAccount: (data) =>{
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_PAYACCOUNT, data: data
@@ -116,9 +110,9 @@ let CashierActions = {
 		});
 	},
 
-	setCurrentStep: (data) =>{
+	selectProcessor: (processorId) =>{
 		CashierDispatcher.dispatch({
-			action: actions.SET_CURRENT_STEP, data: data
+			action: actions.SELECT_PROCESSOR, data:{processorId: processorId}
 		});
 	},
 

@@ -60,8 +60,6 @@ let VisaConfirm = React.createClass({
 	},
 
 	render(){
-		controllerUIService.setCurrentStep(3);
-		let nextStep = controllerUIService.getNextStep();
 		let personalData = this.state.payAccount.personal;
 		let secureData = this.state.payAccount.secure;
 		let addressData = this.state.payAccount.address;
@@ -147,10 +145,8 @@ let VisaConfirm = React.createClass({
 															<input type="date" className="form-control" id="dob" value={extraData.dob} readOnly/>
 														</div>
 													</div>
-													<Link to={nextStep}>
 														<button type="submit" onClick={this.processTransaction}
 																		className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_DEPOSIT', 'Complete')}</button>
-													</Link>
 													<p>
 														<a href="#">Use a different method</a>
 													</p>

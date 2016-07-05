@@ -102,7 +102,6 @@ let InfoMethod = React.createClass({
 		let allowContinue = this.allowProcess();
 		let payAccountinfo = this.getPayAccountLimits();
 		let originPath = controllerUIService.getOriginPath();
-		let nextStep = controllerUIService.getNextStep();
 
 		return (
 			<div id="InfoMethodNeteller" className="row">
@@ -128,9 +127,7 @@ let InfoMethod = React.createClass({
 								<div className="col-sm-6">
 									{(() =>{
 										if(payAccountinfo.payAccountId && allowContinue){
-											return <Link to={nextStep}>
-												<button type='button' onClick={this.processTransaction} className='btn btn-green'>Next</button>
-											</Link>
+											return <button type='button' onClick={this.processTransaction} className='btn btn-green'>Next</button>
 										}
 									})()}
 								</div>

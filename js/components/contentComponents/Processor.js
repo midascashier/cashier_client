@@ -10,7 +10,7 @@ let Processor = React.createClass({
 	/**
 	 * this function change current processor
 	 */
-	changeProcessor() {
+	selectProcessor() {
 		customerService.changeProcessor(this.props.processorId);
 	},
 
@@ -23,7 +23,7 @@ let Processor = React.createClass({
 
 		return (
 			<div className="col-sm-6">
-				<div className={"method "+ isActive} onClick={this.changeProcessor}>
+				<div className={"method "+ isActive} onClick={this.selectProcessor}>
 					<img src={originPath + '/images/processors/'+this.props.processorId+'.png'} alt={this.props.displayName}/>
 					{(() =>{
 						if(this.props.selected){

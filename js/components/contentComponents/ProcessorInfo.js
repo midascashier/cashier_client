@@ -42,7 +42,6 @@ let ProcessorInfo = React.createClass({
 	},
 
 	render() {
-		let nextStep = controllerUIService.getNextStep();
 		let originPath = controllerUIService.getOriginPath();
 		let isWithDraw = controllerUIService.getIsWithDraw();
 		let processorDisplayName = this.props.selectedProcessor.displayName;

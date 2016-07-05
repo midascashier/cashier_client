@@ -117,7 +117,7 @@ class CustomerService {
 	 * function to change current processor
 	 */
 	changeProcessor(processorID){
-		CashierActions.changeCurrentProcessor(processorID);
+		CashierActions.selectProcessor(processorID);
 		this.getProcessorLimitRules(processorID);
 		this.getCustomerProcessorsMinMax(processorID);
 		this.getCustomerPreviousPayAccount(processorID);

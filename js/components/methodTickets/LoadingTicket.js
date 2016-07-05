@@ -1,7 +1,7 @@
 import React from 'react'
 import { CashierStore } from '../../stores/CashierStore'
 
-let MethodTicket = React.createClass({
+let LoadingTicket = React.createClass({
 
 	/**
 	 * React function to set component initial state
@@ -77,4 +77,4 @@ let MethodTicket = React.createClass({
 	}
 });
 
-module.exports.MethodTicket = MethodTicket;
+module.exports.LoadingTicket = LoadingTicket;

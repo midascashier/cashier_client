@@ -92,7 +92,6 @@ let InfoMethod = React.createClass({
 		let payAccountInfo = this.getPayAccountLimits();
 		let displayName = this.props.selectedProcessor.displayName;
 		let originPath = controllerUIService.getOriginPath();
-		let nextStep = controllerUIService.getNextStep();
 		let currentView = controllerUIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Deposit Limits', {processorName:displayName, transactionType:transactionType});
@@ -122,9 +121,7 @@ let InfoMethod = React.createClass({
 									{(() => {
 										if (payAccountInfo.payAccountId && allowContinue) {
 											return (
-												<Link to={nextStep}>
 													<button type='button' className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
-												</Link>
 											)
 										}
 									})()}

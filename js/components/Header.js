@@ -30,7 +30,6 @@ let Header = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			step: CashierStore.getCurrentStep(),
 			isWithDraw: CashierStore.getIsWithdraw(),
 			UI: CashierStore.getUI()
 		}

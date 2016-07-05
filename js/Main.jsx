@@ -6,10 +6,10 @@ import { Welcome } from './components/Welcome'
 import { DepositContent } from './components/DepositContent'
 import { WithdrawContent } from './components/WithdrawContent'
 
-import { TicketRejected } from './components/methodTickets/RejectedTicket'
-import { TicketApproved } from './components/methodTickets/ApprovedTicket'
+import { RejectedTicket } from './components/methodTickets/RejectedTicket'
+import { ApprovedTicket } from './components/methodTickets/ApprovedTicket'
 import { DeferredTicket } from './components/methodTickets/DeferredTicket'
-import { MethodTicket } from './components/methodTickets/TicketMethod'
+import { LoadingTicket } from './components/methodTickets/LoadingTicket'
 
 /**
  * Neteller set of components to create routes
@@ -59,29 +59,29 @@ let routes = (
 				<IndexRoute component={ProcessorsInfo}/>
 
 				<Route path="neteller_new/" component={Neteller}/>
-				<Route path="neteller_new/ticket/" component={MethodTicket}>
-					<Route path="approved/" component={TicketApproved}/>
-					<Route path="rejected/" component={TicketRejected}/>
+				<Route path="neteller_new/ticket/" component={LoadingTicket}>
+					<Route path="approved/" component={ApprovedTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
 				<Route path="btcscreen/" component={BitCoin}/>
-				<Route path="btcscreen/ticket/" component={MethodTicket}>
+				<Route path="btcscreen/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={BitCoinTicketPending}/>
-					<Route path="rejected/" component={TicketRejected}/>
+					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
 				<Route path="visa/" component={Visa}/>
 				<Route path="visa/confirm/" component={VisaConfirm}/>
-				<Route path="visa/ticket/" component={MethodTicket}>
-					<Route path="approved/" component={TicketApproved}/>
-					<Route path="rejected/" component={TicketRejected}/>
+				<Route path="visa/ticket/" component={LoadingTicket}>
+					<Route path="approved/" component={ApprovedTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
 				<Route path="moneygram/" component={Person2Person}/>
 				<Route path="moneygram/confirm/" component={Person2PersonConfirm}/>
-				<Route path="moneygram/ticket/" component={MethodTicket}>
+				<Route path="moneygram/ticket/" component={LoadingTicket}>
 					<Route path="instructions/" component={Person2PersonTicketInstructions}/>
-					<Route path="rejected/" component={TicketRejected}/>
+					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
 			</Route>
@@ -90,9 +90,9 @@ let routes = (
 
 				<Route path="btcscreen/" component={BitCoin}/>
 				<Route path="btcscreen/confirm/" component={ConfirmWithdraw}/>
-				<Route path="btcscreen/ticket/" component={MethodTicket}>
-					<Route path="approved/" component={TicketApproved}/>
-					<Route path="rejected/" component={TicketRejected}/>
+				<Route path="btcscreen/ticket/" component={LoadingTicket}>
+					<Route path="approved/" component={ApprovedTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
 					<Route path="deferred/" component={DeferredTicket}/>
 				</Route>
 
