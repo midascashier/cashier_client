@@ -1,6 +1,6 @@
 import React from 'react'
 
-let BitCoinTicketInstructions = React.createClass({
+let BitCoinTicketPending = React.createClass({
 	render() {
 		return (
 			<div id="BitCoinTicketInstructions">
@@ -78,4 +78,4 @@ let BitCoinTicketInstructions = React.createClass({
 	}
 });
 
-module.exports.BitCoinTicketInstructions = BitCoinTicketInstructions;
+module.exports.BitCoinTicketPending = BitCoinTicketPending;

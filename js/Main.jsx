@@ -21,7 +21,7 @@ import { Neteller } from './components/methods/neteller/Neteller'
  * Bitcoin set of components to create routes
  */
 import { BitCoin } from './components/methods/bitcoin/Bitcoin'
-import { BitCoinTicketInstructions } from './components/methods/bitcoin/tickets/InstructionsTicket'
+import { BitCoinTicketPending } from './components/methods/bitcoin/tickets/PendingTicket'
 import { ConfirmWithdraw } from './components/methods/bitcoin/ConfirmWithdraw'
 
 /**
@@ -66,7 +66,7 @@ let routes = (
 
 				<Route path="btcscreen/" component={BitCoin}/>
 				<Route path="btcscreen/ticket/" component={MethodTicket}>
-					<Route path="instructions/" component={BitCoinTicketInstructions}/>
+					<Route path="pending/" component={BitCoinTicketPending}/>
 					<Route path="rejected/" component={TicketRejected}/>
 				</Route>
 
