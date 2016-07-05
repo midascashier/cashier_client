@@ -593,7 +593,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			if(data.response && data.response.transaction){
 				_transactionResponse.journalId = data.response.transaction.caJournal_Id;
 				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
-				_transactionResponse.status = data.response.transaction.caTransactionStatus_Id;
+				_transactionResponse.status = Number(data.response.transaction.caTransactionStatus_Id);
 				_transactionResponse.userMessage = data.response.transaction.userMessage;
 			} else if(data.state){
 				_transactionResponse.state = data.state;
@@ -622,7 +622,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					ticket = 'rejected';
 			}
 
-			controllerUIService.changeUIState('/'+_UI.currentView+'/'+_processor.Name.toLowerCase()+'/ticket/'+ticket+'/');
+			let routeProcessorResponse = ('/'+_UI.currentView+'/'+_processor.Name.toLowerCase()+'/ticket/'+ticket+'/');
+			console.log('PROCESS_RESPONSE: ' + routeProcessorResponse)
+			controllerUIService.changeUIState(routeProcessorResponse);
 			break;
 
 		case actions.SET_CURRENT_STEP:
@@ -632,12 +634,15 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.START_TRANSACTION:
 			let processorSelectedSettings = processors.settings[_processor.processorId];
 			let route = processorSelectedSettings[processors.SETTING_ROUTE];
-			route = "/" + _UI.currentView + "/" + route;
+			route = ("/" + _UI.currentView + "/" + route);
+			console.log('START_TRANSACTION: ' + route);
 			controllerUIService.changeUIState(route);
 			break;
 
 		case actions.PROCESS:
-			controllerUIService.changeUIState('/'+_UI.currentView+'/'+_processor.Name.toLowerCase()+'ticket/');
+			let routeProcess = ('/' + _UI.currentView + '/' + _processor.Name.toLowerCase() + 'ticket/');
+			console.log('PROCESS: ' + routeProcess);
+			controllerUIService.changeUIState(routeProcess);
 			transactionService.process();
 			break;
 

@@ -94,6 +94,7 @@ let InfoMethod = React.createClass({
 		else{
 			//process the deposit
 			transactionService.process();
+			controllerUIService.changeUIState("/deposit/btcscreen/ticket/");
 		}
 	},
 
@@ -126,8 +127,7 @@ let InfoMethod = React.createClass({
 									{(() =>{
 										if(payAccountInfo.payAccountId && allowContinue){
 											return (
-													<button type='button' onClick={this.continueTransaction}
-																	className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
+													<button type='button' onClick={this.continueTransaction} className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
 											)
 										}
 									})()}
