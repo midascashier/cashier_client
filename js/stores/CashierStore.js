@@ -5,6 +5,7 @@ import assign from 'object-assign'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
 import processorSettings from '../constants/Processors'
+import {customerService} from '../services/CustomerService'
 
 /**
  * UI
@@ -483,7 +484,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 /**
  * register action
  */
-CashierStore.dispatchToken = CashierDispatcher.register((payload) => {
+CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 	let action = payload.action;
 	let data = payload.data;
 
@@ -624,6 +625,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) => {
 			break;
 
 		case actions.START_TRANSACTION:
+			let x = processorSettings.NUM_OF_STEPS;
 			let processorSelectedSettings = processorSettings[_processor.processorId];
 			break;
 

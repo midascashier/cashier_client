@@ -1,7 +1,7 @@
 import React from 'react'
-import {translate} from '../../constants/Translate'
-import {controllerUIService} from '../../services/ControllerService'
-import {CashierActions} from '../../actions/CashierActions'
+import { translate } from '../../constants/Translate'
+import { controllerUIService } from '../../services/ControllerService'
+import { CashierActions } from '../../actions/CashierActions'
 
 let ProcessorInfo = React.createClass({
 	propTypes: {
@@ -91,7 +91,8 @@ let ProcessorInfo = React.createClass({
 
 						<div className="row">
 							<div className="col-sm-6">
-									<button onClick={this.startTransaction} type="button" className="btn btn-green">{buttonNext} {processorDisplayName}</button>
+								<button onClick={this.startTransaction} type="button"
+												className="btn btn-green">{buttonNext} {processorDisplayName}</button>
 							</div>
 							<div className="col-sm-6">
 								<img src={originPath + '/images/ssl.png'} alt="ssl"/>

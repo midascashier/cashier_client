@@ -1,20 +1,22 @@
 /**
- * Created by fede
- */
+        * Created by fede
+        */
 
-const NUM_OF_STEPS = "numOfSteps";
-const ROUTE = "route";
+        import Cashier from './Cashier';
 
-let settings = [];
+        const NUM_OF_STEPS = "numOfSteps";
+        const ROUTE = "route";
 
-settings[PROCESSOR_ID_NETELLER] = [];
-settings[PROCESSOR_ID_NETELLER][NUM_OF_STEPS] = 2;
+        let settings = [];
 
-settings[PROCESSOR_ID_BITCOIN] = [];
-settings[PROCESSOR_ID_BITCOIN][NUM_OF_STEPS] = 3;
+        settings[Cashier.PROCESSOR_ID_NETELLER] = [];
+        settings[Cashier.PROCESSOR_ID_NETELLER][NUM_OF_STEPS] = 2;
 
-export default {
-  processorSettings: settings,
-  NUM_OF_STEPS: 'test',
-  ROUTE: 'abc'
-};
+        settings[Cashier.PROCESSOR_ID_BITCOIN] = [];
+        settings[Cashier.PROCESSOR_ID_BITCOIN][NUM_OF_STEPS] = 3;
+
+        export default {
+        processorSettings: settings,
+        NUM_OF_STEPS: 'test',
+        ROUTE: 'abc'
+        };
