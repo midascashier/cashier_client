@@ -1,5 +1,5 @@
 import React from 'react'
-import { controllerUIService } from '../../../services/ControllerService'
+import { controllerUIService } from '../../services/ControllerService'
 
 let TicketApproved = React.createClass({
 

@@ -7,6 +7,8 @@ import { DepositContent } from './components/DepositContent'
 import { WithdrawContent } from './components/WithdrawContent'
 
 import { TicketRejected } from './components/methodTickets/RejectedTicket'
+import { TicketApproved } from './components/methodTickets/ApprovedTicket'
+import { DeferredTicket } from './components/methodTickets/DeferredTicket'
 
 /**
  * Neteller set of components to create routes
