@@ -1,7 +1,7 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
+import { CashierStore } from '../../stores/CashierStore'
 
-let VisaTicket = React.createClass({
+let MethodTicket = React.createClass({
 
 	/**
 	 * React function to set component initial state
@@ -51,7 +51,7 @@ let VisaTicket = React.createClass({
 	render() {
 		let transactionResponse = this.state.transactionResponse;
 		return (
-			<div id="visaTicket">
+			<div id="bitCoinTicket">
 				{(() =>{
 					if((!transactionResponse.status) && (!transactionResponse.userMessage)){
 						return (
@@ -61,7 +61,7 @@ let VisaTicket = React.createClass({
 										<div className="col-sm-12">
 											<div className="loader-sm"></div>
 											<h3>
-												Processing... please waits!
+												Processing... please wait!
 											</h3>
 										</div>
 									</div>
@@ -77,4 +77,4 @@ let VisaTicket = React.createClass({
 	}
 });
 
-module.exports.VisaTicket = VisaTicket;
+module.exports.MethodTicket = MethodTicket;

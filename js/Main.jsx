@@ -9,18 +9,18 @@ import { WithdrawContent } from './components/WithdrawContent'
 import { TicketRejected } from './components/methodTickets/RejectedTicket'
 import { TicketApproved } from './components/methodTickets/ApprovedTicket'
 import { DeferredTicket } from './components/methodTickets/DeferredTicket'
+import { MethodTicket } from './components/methodTickets/TicketMethod'
 
 /**
  * Neteller set of components to create routes
  */
 import { Neteller } from './components/methods/neteller/Neteller'
-import { NetellerTicket } from './components/methods/neteller/TicketMethod'
+
 
 /**
  * Bitcoin set of components to create routes
  */
 import { BitCoin } from './components/methods/bitcoin/Bitcoin'
-import { BitCoinTicket } from './components/methods/bitcoin/TicketMethod'
 import { BitCoinTicketInstructions } from './components/methods/bitcoin/tickets/InstructionsTicket'
 import { ConfirmWithdraw } from './components/methods/bitcoin/ConfirmWithdraw'
 
@@ -29,14 +29,12 @@ import { ConfirmWithdraw } from './components/methods/bitcoin/ConfirmWithdraw'
  */
 import { Visa } from './components/methods/visa/Visa'
 import { VisaConfirm } from './components/methods/visa/Confirm'
-import { VisaTicket } from './components/methods/visa/TicketMethod'
 
 /**
  * Person2Person set of components to create routes
  */
 import {Person2Person} from './components/methods/person2person/Person2Person'
 import {Person2PersonConfirm} from './components/methods/person2person/Confirm'
-import {Person2PersonTicket} from './components/methods/person2person/TicketMethod'
 import {Person2PersonTicketInstructions} from './components/methods/person2person/tickets/InstructionsTicket'
 
 /**
@@ -61,27 +59,27 @@ let routes = (
 				<IndexRoute component={ProcessorsInfo}/>
 
 				<Route path="neteller_new/" component={Neteller}/>
-				<Route path="neteller_new/ticket/" component={NetellerTicket}>
+				<Route path="neteller_new/ticket/" component={MethodTicket}>
 					<Route path="approved/" component={TicketApproved}/>
 					<Route path="rejected/" component={TicketRejected}/>
 				</Route>
 
 				<Route path="btcscreen/" component={BitCoin}/>
-				<Route path="btcscreen/ticket/" component={BitCoinTicket}>
+				<Route path="btcscreen/ticket/" component={MethodTicket}>
 					<Route path="instructions/" component={BitCoinTicketInstructions}/>
 					<Route path="rejected/" component={TicketRejected}/>
 				</Route>
 
 				<Route path="visa/" component={Visa}/>
 				<Route path="visa/confirm/" component={VisaConfirm}/>
-				<Route path="visa/ticket/" component={VisaTicket}>
+				<Route path="visa/ticket/" component={MethodTicket}>
 					<Route path="approved/" component={TicketApproved}/>
 					<Route path="rejected/" component={TicketRejected}/>
 				</Route>
 
 				<Route path="moneygram/" component={Person2Person}/>
 				<Route path="moneygram/confirm/" component={Person2PersonConfirm}/>
-				<Route path="moneygram/ticket/" component={Person2PersonTicket}>
+				<Route path="moneygram/ticket/" component={MethodTicket}>
 					<Route path="instructions/" component={Person2PersonTicketInstructions}/>
 					<Route path="rejected/" component={TicketRejected}/>
 				</Route>
@@ -92,7 +90,7 @@ let routes = (
 
 				<Route path="btcscreen/" component={BitCoin}/>
 				<Route path="btcscreen/confirm/" component={ConfirmWithdraw}/>
-				<Route path="btcscreen/ticket/" component={BitCoinTicket}>
+				<Route path="btcscreen/ticket/" component={MethodTicket}>
 					<Route path="approved/" component={TicketApproved}/>
 					<Route path="rejected/" component={TicketRejected}/>
 					<Route path="deferred/" component={DeferredTicket}/>
