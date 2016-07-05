@@ -17,6 +17,10 @@ settings[Cashier.PROCESSOR_ID_BITCOIN] = [];
 settings[Cashier.PROCESSOR_ID_BITCOIN][SETTING_NUM_OF_STEPS] = 3;
 settings[Cashier.PROCESSOR_ID_BITCOIN][SETTING_ROUTE] = 'bitcoin/';
 
+settings[Cashier.PROCESSOR_ID_VISA] = [];
+settings[Cashier.PROCESSOR_ID_VISA][SETTING_NUM_OF_STEPS] = 3;
+settings[Cashier.PROCESSOR_ID_VISA][SETTING_ROUTE] = 'visa/';
+
 export default {
   settings: settings,
   SETTING_NUM_OF_STEPS: SETTING_NUM_OF_STEPS,

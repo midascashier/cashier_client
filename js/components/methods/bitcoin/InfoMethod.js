@@ -4,7 +4,6 @@ import { Loading } from '../../loading/Loading'
 import { translate } from '../../../constants/Translate'
 import { transactionService } from '../../../services/TransactionService'
 import { controllerUIService } from '../../../services/ControllerService'
-import { Link } from 'react-router'
 
 let InfoMethod = React.createClass({
 	/**
@@ -107,7 +106,7 @@ let InfoMethod = React.createClass({
 		return (
 			<div id="infoLimits" className="row">
 				<div className="col-sm-12">
-					<div className="title">Neteller Deposit Limits</div>
+					<div className="title">Bitcoin Deposit Limits</div>
 					<div className="table-responsive">
 						<table className="table table-striped">
 							<tbody>
