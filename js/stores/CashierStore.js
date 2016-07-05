@@ -604,9 +604,16 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				_transactionResponse.userMessage = data.userMessage;
 			}
 
-			CashierStore.emitChange();
+			let ticketResult = 'pending';
+			if (_transactionResponse.status == cashier.TRANSACTION_STATUS_APPROVED){
+				ticketResult = 'approved';
+			}else if (_transactionResponse.status == cashier.TRANSACTION_STATUS_REJECTED){
+				ticketResult = 'rejected';
+			}else if (_transactionResponse.status == cashier.TRANSACTION_STATUS_DEFERRED){
+				ticketResult = 'deferred';
+			}
 
-			controllerUIService.changeUIState('/withdraw/bitcoin/ticket/approved/');
+			controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/'+ticketResult+'/');
 
 			break;
 
@@ -615,15 +622,13 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.START_TRANSACTION:
-			let processorSelectedSettings = processors.settings[_processor.processorId];
-			let route = processorSelectedSettings[processors.SETTING_ROUTE];
-			route = "/" + _UI.currentView + "/" + route;
+			let route = "/" + _UI.currentView + "/" + controllerUIService.getProcessorName().toLowerCase() + '/';
 			controllerUIService.changeUIState(route);
 			break;
 
 		case actions.PROCESS:
 			transactionService.process();
-			controllerUIService.changeUIState('/withdraw/bitcoin/ticket/');
+			controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/');
 			break;
 
 		default:

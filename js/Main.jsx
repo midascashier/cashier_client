@@ -48,6 +48,7 @@ import {Person2PersonPendingTicket} from './components/methods/person2person/tic
 import { ProcessorsInfo } from './components/methods/ProcessorsInfo'
 import { TransactionHistoryContent } from './components/TransactionHistoryContent'
 import RouterContainer from './services/RouterContainer'
+import { DeferredTicket } from './components/methodTickets/DeferredTicket'
 
 /**
  * routing application
@@ -98,6 +99,7 @@ let routes = (
 				<Route path="btcscreen/ticket/" component={BitCoinTicket}>
 					<Route path="approved/" component={BitCoinTicketApproved}/>
 					<Route path="rejected/" component={BitCoinTicketRejected}/>
+					<Route path="deferred/" component={DeferredTicket}/>
 				</Route>
 
 			</Route>
