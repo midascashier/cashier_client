@@ -57,7 +57,10 @@ let ProcessorInfo = React.createClass({
 
 		let currentView = controllerUIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
-		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {processorName:processorDisplayName, transactionType:transactionType});
+		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
+			processorName: processorDisplayName,
+			transactionType: transactionType
+		});
 
 		return (
 			<div id="infoLimits">

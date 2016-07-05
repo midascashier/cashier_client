@@ -1,8 +1,8 @@
 import React from 'react'
-import {Steps} from './headerComponents/Steps'
-import {Info} from './headerComponents/Info'
-import {CashierStore} from './../stores/CashierStore'
-import {controllerUIService} from '../services/ControllerService'
+import { Steps } from './headerComponents/Steps'
+import { Info } from './headerComponents/Info'
+import { CashierStore } from './../stores/CashierStore'
+import { controllerUIService } from '../services/ControllerService'
 
 let Header = React.createClass({
 
@@ -30,7 +30,10 @@ let Header = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			step: CashierStore.getCurrentStep(), processorSteps: CashierStore.getProcessorSteps(), isWithDraw: CashierStore.getIsWithdraw(), UI: CashierStore.getUI()
+			step: CashierStore.getCurrentStep(),
+			processorSteps: CashierStore.getProcessorSteps(),
+			isWithDraw: CashierStore.getIsWithdraw(),
+			UI: CashierStore.getUI()
 		}
 	},
 

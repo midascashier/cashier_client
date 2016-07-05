@@ -1,11 +1,11 @@
 import React from 'react'
-import {Link} from 'react-router'
-import {CashierStore} from '../../../stores/CashierStore'
-import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
-import {translate} from '../../../constants/Translate'
-import {AskInfo} from './AskInfo'
-import {InfoMethod} from './InfoMethod'
-import {controllerUIService} from '../../../services/ControllerService'
+import { Link } from 'react-router'
+import { CashierStore } from '../../../stores/CashierStore'
+import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
+import { translate } from '../../../constants/Translate'
+import { AskInfo } from './AskInfo'
+import { InfoMethod } from './InfoMethod'
+import { controllerUIService } from '../../../services/ControllerService'
 
 let Neteller = React.createClass({
 	/**

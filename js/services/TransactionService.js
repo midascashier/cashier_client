@@ -1,6 +1,6 @@
 import assign from 'object-assign'
-import {CashierStore} from '../stores/CashierStore'
-import {stompConnector} from './StompConnector'
+import { CashierStore } from '../stores/CashierStore'
+import { stompConnector } from './StompConnector'
 
 class TransactionService {
 	/**

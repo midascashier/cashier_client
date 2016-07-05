@@ -1,6 +1,6 @@
 import React from 'react'
-import {customerService} from '../../services/CustomerService'
-import {controllerUIService} from '../../services/ControllerService'
+import { customerService } from '../../services/CustomerService'
+import { controllerUIService } from '../../services/ControllerService'
 
 let Processor = React.createClass({
 	propTypes: {

@@ -1,9 +1,9 @@
-import {CashierActions} from '../actions/CashierActions'
-import {customerService} from '../services/CustomerService'
-import {applicationService} from './ApplicationService'
-import {controllerUIService} from './ControllerService'
+import { CashierActions } from '../actions/CashierActions'
+import { customerService } from '../services/CustomerService'
+import { applicationService } from './ApplicationService'
+import { controllerUIService } from './ControllerService'
 import actions from '../constants/Actions'
-import {CashierStore} from '../stores/CashierStore'
+import { CashierStore } from '../stores/CashierStore'
 
 /**
  * this class received all responses from cashier and trigger and action depends of the response

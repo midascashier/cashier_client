@@ -1,7 +1,7 @@
 import React from 'react'
-import {translate} from '../constants/Translate'
-import {CashierActions} from './../actions/CashierActions'
-import {CashierStore} from './../stores/CashierStore'
+import { translate } from '../constants/Translate'
+import { CashierActions } from './../actions/CashierActions'
+import { CashierStore } from './../stores/CashierStore'
 
 let TermsController = React.createClass({
 
@@ -27,7 +27,7 @@ let TermsController = React.createClass({
 
 	changeValue(event) {
 		let checked = event.currentTarget.checked;
-		this.setState({check: checked});
+		this.setState({ check: checked });
 		CashierActions.setTransactionTerms(checked);
 	},
 
@@ -36,7 +36,8 @@ let TermsController = React.createClass({
 		return (
 			<div className="checkbox text-center">
 				<label title={content}>
-					<input type="checkbox" id="checkTermsAndConditions" name="checkTermsAndConditions" onChange={this.changeValue} checked={this.state.check}/>
+					<input type="checkbox" id="checkTermsAndConditions" name="checkTermsAndConditions" onChange={this.changeValue}
+								 checked={this.state.check}/>
 					<span>{content}</span>
 				</label>
 			</div>

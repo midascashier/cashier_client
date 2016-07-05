@@ -1,5 +1,5 @@
-import {rabbitConfig} from '../../config/RabbitConfig';
-import {onResponseService} from './OnResponseService'
+import { rabbitConfig } from '../../config/RabbitConfig';
+import { onResponseService } from './OnResponseService'
 
 class StompConnector {
 
@@ -91,7 +91,7 @@ class StompConnector {
 	prepareReplyQueue(){
 		this.replyQueue = Math.random().toString(36).substring(7);
 
-		this.stompClient.send(this.replyQueue, {"exclusive": true, "auto-delete": true}, "");
+		this.stompClient.send(this.replyQueue, { "exclusive": true, "auto-delete": true }, "");
 		this.reply_queue_subscription = this.stompClient.subscribe("/queue/" + this.replyQueue, this.processMessage);
 	};
 
@@ -131,7 +131,7 @@ class StompConnector {
 
 		let correlation_id = message.f + "Response";
 		if(!headers){
-			headers = {"reply-to": this.replyQueue, "correlation_id": correlation_id};
+			headers = { "reply-to": this.replyQueue, "correlation_id": correlation_id };
 		}
 		this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));
 	};

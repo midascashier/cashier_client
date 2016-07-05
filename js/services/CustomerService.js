@@ -1,7 +1,7 @@
 import assign from 'object-assign'
-import {CashierStore} from '../stores/CashierStore'
-import {CashierActions} from '../actions/CashierActions'
-import {stompConnector} from './StompConnector'
+import { CashierStore } from '../stores/CashierStore'
+import { CashierActions } from '../actions/CashierActions'
+import { stompConnector } from './StompConnector'
 
 class CustomerService {
 	constructor(){
@@ -26,7 +26,7 @@ class CustomerService {
 	 * @param loginInfo
 	 */
 	customerLogin(loginInfo){
-		let data = {f: "authCustomer", companyId: 9};
+		let data = { f: "authCustomer", companyId: 9 };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = assign(data, loginInfo, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
@@ -36,7 +36,7 @@ class CustomerService {
 	 * function to get Customer Information
 	 */
 	getCustomerInfo(){
-		let data = {f: "customerInfo"};
+		let data = { f: "customerInfo" };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
@@ -46,7 +46,7 @@ class CustomerService {
 	 * function to get Customer Processors
 	 */
 	getCustomerProcessors(){
-		let data = {f: "processors"};
+		let data = { f: "processors" };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
@@ -56,7 +56,7 @@ class CustomerService {
 	 * function to get Customer Last transactions
 	 */
 	getCustomerTransactions(){
-		let data = {f: "transactions", type: 0, limit: 10};
+		let data = { f: "transactions", type: 0, limit: 10 };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
@@ -78,7 +78,7 @@ class CustomerService {
 	 * function to disable pay account
 	 */
 	getDisablePayAccount(){
-		let data = {f: "disableCustomerPayAccount", payAccountId: CashierStore.getUI().payAccountId};
+		let data = { f: "disableCustomerPayAccount", payAccountId: CashierStore.getUI().payAccountId };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);

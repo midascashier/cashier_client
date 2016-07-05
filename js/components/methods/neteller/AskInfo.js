@@ -1,14 +1,16 @@
 import React from 'react'
-import {translate} from '../../../constants/Translate'
-import {SelectPayAccount} from '../../SelectPayAccount'
-import {Input} from '../../Inputs'
-import {AmountController} from '../../AmountController'
-import {controllerUIService} from '../../../services/ControllerService'
+import { translate } from '../../../constants/Translate'
+import { SelectPayAccount } from '../../SelectPayAccount'
+import { Input } from '../../Inputs'
+import { AmountController } from '../../AmountController'
+import { controllerUIService } from '../../../services/ControllerService'
 
 let AskInfo = React.createClass({
 
 	propTypes: {
-		netellerPasswordInput: React.PropTypes.func, password: React.PropTypes.string, selectedProcessor: React.PropTypes.object
+		netellerPasswordInput: React.PropTypes.func,
+		password: React.PropTypes.string,
+		selectedProcessor: React.PropTypes.object
 	},
 
 	render() {
@@ -36,7 +38,8 @@ let AskInfo = React.createClass({
 										<div className="row">
 											<div className="col-sm-3">
 												<div className="method active pull-left">
-													<img className="img-responsive" src={originPath + '/images/processors/333.png'} alt="Neteller"/>
+													<img className="img-responsive" src={originPath + '/images/processors/333.png'}
+															 alt="Neteller"/>
 												</div>
 											</div>
 											<div className="col-sm-9">
@@ -61,6 +64,5 @@ let AskInfo = React.createClass({
 		)
 	}
 });
-
 
 module.exports.AskInfo = AskInfo;

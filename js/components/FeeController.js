@@ -1,7 +1,7 @@
 import React from 'react'
-import {CashierActions} from './../actions/CashierActions'
-import {CashierStore} from './../stores/CashierStore'
-import {translate} from '../constants/Translate'
+import { CashierActions } from './../actions/CashierActions'
+import { CashierStore } from './../stores/CashierStore'
+import { translate } from '../constants/Translate'
 
 let FeeController = React.createClass({
 
@@ -28,7 +28,7 @@ let FeeController = React.createClass({
 	changeValue(event) {
 		let amount = event.currentTarget.value;
 		amount = amount.replace(/[^0-9\-]/g, '');
-		this.setState({value: amount});
+		this.setState({ value: amount });
 		if(amount){
 			if(amount != this.state.value){
 				CashierActions.setTransactionFee(amount);
@@ -40,7 +40,8 @@ let FeeController = React.createClass({
 		return (
 			<div>
 				{translate('PROCESSING_FEE', 'Fee')}:
-				<input className="form-control" type="number" id="feeController" name="feeController" onChange={this.changeValue} value={this.state.value}/>
+				<input className="form-control" type="number" id="feeController" name="feeController"
+							 onChange={this.changeValue} value={this.state.value}/>
 			</div>
 		)
 	}

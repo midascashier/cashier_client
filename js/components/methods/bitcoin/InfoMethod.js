@@ -1,10 +1,10 @@
 import React from 'react'
-import {CashierStore} from '../../../stores/CashierStore'
-import {Loading} from '../../loading/Loading'
-import {translate} from '../../../constants/Translate'
-import {transactionService} from '../../../services/TransactionService'
-import {controllerUIService} from '../../../services/ControllerService'
-import {Link} from 'react-router'
+import { CashierStore } from '../../../stores/CashierStore'
+import { Loading } from '../../loading/Loading'
+import { translate } from '../../../constants/Translate'
+import { transactionService } from '../../../services/TransactionService'
+import { controllerUIService } from '../../../services/ControllerService'
+import { Link } from 'react-router'
 
 let InfoMethod = React.createClass({
 	/**
@@ -80,7 +80,7 @@ let InfoMethod = React.createClass({
 			minPayAccount = payAccount.limitsData.minAmount + " " + payAccount.limitsData.currencyCode;
 			maxPayAccount = payAccount.limitsData.maxAmount + " " + payAccount.limitsData.currencyCode;
 		}
-		return {"minPayAccount": minPayAccount, "maxPayAccount": maxPayAccount, "payAccountId": payAccount.payAccountId}
+		return { "minPayAccount": minPayAccount, "maxPayAccount": maxPayAccount, "payAccountId": payAccount.payAccountId }
 	},
 
 	/**
@@ -88,9 +88,9 @@ let InfoMethod = React.createClass({
 	 *
 	 */
 	continueTransaction(){
-		let isWithDraw=controllerUIService.getIsWithDraw();
+		let isWithDraw = controllerUIService.getIsWithDraw();
 		controllerUIService.setCurrentStep(3);
-		if (!isWithDraw){
+		if(!isWithDraw){
 			transactionService.process();
 		}
 	},
@@ -127,7 +127,8 @@ let InfoMethod = React.createClass({
 										if(payAccountInfo.payAccountId && allowContinue){
 											return (
 												<Link to={nextStep}>
-													<button type='button' onClick={this.continueTransaction} className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
+													<button type='button' onClick={this.continueTransaction}
+																	className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
 												</Link>
 											)
 										}
