@@ -6,7 +6,7 @@ import { Welcome } from './components/Welcome'
 import { DepositContent } from './components/DepositContent'
 import { WithdrawContent } from './components/WithdrawContent'
 
-import { TicketRejected } from './components/methods/ticket/RejectedTicket'
+import { TicketRejected } from './components/methodTickets/RejectedTicket'
 
 /**
  * Neteller set of components to create routes
@@ -96,7 +96,7 @@ let routes = (
 				<Route path="btcscreen/confirm/" component={ConfirmWithdraw}/>
 				<Route path="btcscreen/ticket/" component={BitCoinTicket}>
 					<Route path="approved/" component={BitCoinTicketApproved}/>
-					<Route path="rejected/" component={BitCoinTicketRejected}/>
+					<Route path="rejected/" component={TicketRejected}/>
 					<Route path="deferred/" component={DeferredTicket}/>
 				</Route>
 
