@@ -605,26 +605,17 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				_transactionResponse.userMessage = data.userMessage;
 			}
 
-			CashierStore.emitChange();
-
-			let ticket = '';
-			switch(_transactionResponse.status){
-				case cashier.TRANSACTION_STATUS_PENDING:
-					ticket = 'instructions';
-					break;
-				case cashier.TRANSACTION_STATUS_APPROVED:
-					ticket = 'approved';
-					break;
-				case cashier.TRANSACTION_STATUS_REJECTED:
-					ticket = 'rejected';
-					break;
-				default:
-					ticket = 'rejected';
+			let ticketResult = 'pending';
+			if (_transactionResponse.status == cashier.TRANSACTION_STATUS_APPROVED){
+				ticketResult = 'approved';
+			}else if (_transactionResponse.status == cashier.TRANSACTION_STATUS_REJECTED){
+				ticketResult = 'rejected';
+			}else if (_transactionResponse.status == cashier.TRANSACTION_STATUS_DEFERRED){
+				ticketResult = 'deferred';
 			}
 
-			let routeProcessorResponse = ('/'+_UI.currentView+'/'+_processor.Name.toLowerCase()+'/ticket/'+ticket+'/');
-			console.log('PROCESS_RESPONSE: ' + routeProcessorResponse)
-			controllerUIService.changeUIState(routeProcessorResponse);
+			controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/'+ticketResult+'/');
+
 			break;
 
 		case actions.SET_CURRENT_STEP:
@@ -632,10 +623,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.START_TRANSACTION:
-			let processorSelectedSettings = processors.settings[_processor.processorId];
-			let route = processorSelectedSettings[processors.SETTING_ROUTE];
-			route = ("/" + _UI.currentView + "/" + route);
-			console.log('START_TRANSACTION: ' + route);
+			let route = "/" + _UI.currentView + "/" + controllerUIService.getProcessorName().toLowerCase() + '/';
 			controllerUIService.changeUIState(route);
 			break;
 
@@ -644,6 +632,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			console.log('PROCESS: ' + routeProcess);
 			controllerUIService.changeUIState(routeProcess);
 			transactionService.process();
+			controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/');
 			break;
 
 		default:

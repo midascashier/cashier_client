@@ -89,7 +89,7 @@ let InfoMethod = React.createClass({
 	continueTransaction(){
 		let isWithDraw = controllerUIService.getIsWithDraw();
 		if(isWithDraw){
-			controllerUIService.changeUIState("/withdraw/bitcoin/confirm/");
+			controllerUIService.changeUIState("/withdraw/"+controllerUIService.getProcessorName().toLowerCase()+"/confirm/");
 		}
 		else{
 			//process the deposit
