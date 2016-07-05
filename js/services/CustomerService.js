@@ -4,12 +4,17 @@ import { CashierActions } from '../actions/CashierActions'
 import { stompConnector } from './StompConnector'
 
 class CustomerService {
-	constructor(){
+
+	/**
+	 * Create RabbitMQ connection and login to client
+	 *
+	 */
+	login(){
 		this.stompConnection(loginInfo);
 	};
 
 	/**
-	 *Starts connection with RabbitMQ and then do the login
+	 * Starts connection with RabbitMQ and then do the login
 	 *
 	 * @param loginInfo
 	 */

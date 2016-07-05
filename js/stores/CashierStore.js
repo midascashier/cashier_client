@@ -6,10 +6,6 @@ import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
 import processors from '../constants/Processors'
 import { controllerUIService } from '../services/ControllerService'
-
-//TODO dont remove until Yorch find out GUATAFUCK.
-import {customerService} from '../services/CustomerService'
-
 import { transactionService } from '../services/TransactionService'
 
 /**

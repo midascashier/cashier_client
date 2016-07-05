@@ -1,6 +1,11 @@
 import React from 'react'
+import { customerService } from './../services/CustomerService'
 
 let Client = React.createClass({
+	componentDidMount() {
+		customerService.login();
+	},
+
 	render() {
 		return (
 			<div id="main">
