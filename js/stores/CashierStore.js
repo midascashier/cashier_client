@@ -4,7 +4,7 @@ let CashierDispatcher = require('../dispatcher/CashierDispatcher');
 import assign from 'object-assign'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
-import {customerService} from '../services/CustomerService'
+import processorSettings from '../constants/Processors'
 
 /**
  * UI
@@ -134,7 +134,7 @@ let _bonuses = {
 };
 
 /**
- *Stores the information of the selected processor
+ * Stores the information of the selected processor
  *
  * @type {{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array, limits: Array, limitRules: Array, load: (function(*))}}
  * @private
@@ -451,15 +451,8 @@ let CashierStore = assign({}, EventEmitter.prototype, {
  * register action
  */
 CashierStore.dispatchToken = CashierDispatcher.register((payload) => {
-//CashierDispatcher.register((payload) =>{
 	let action = payload.action;
 	let data = payload.data;
-
-	//register error
-	/*if (data && data.state === 'error') {
-	 console.log(data);
-	 return false;
-	 }*/
 
 	switch(action){
 		case actions.LOGIN_RESPONSE:
@@ -595,6 +588,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) => {
 
 		case actions.SET_CURRENT_STEP:
 			_UI.currentStep = data;
+			break;
+
+		case actions.START_TRANSACTION:
+			let processorSelectedSettings = processorSettings[_processor.processorId];
 			break;
 
 		default:

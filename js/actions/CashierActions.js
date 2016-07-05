@@ -120,6 +120,12 @@ let CashierActions = {
 		CashierDispatcher.dispatch({
 			action: actions.SET_CURRENT_STEP, data: data
 		});
+	},
+
+	startTransaction: () =>{
+		CashierDispatcher.dispatch({
+			action: actions.START_TRANSACTION
+		});
 	}
 };
 

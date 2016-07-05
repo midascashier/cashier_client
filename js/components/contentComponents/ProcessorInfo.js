@@ -1,7 +1,7 @@
 import React from 'react'
-import {Link} from 'react-router'
 import {translate} from '../../constants/Translate'
 import {controllerUIService} from '../../services/ControllerService'
+import {CashierActions} from '../../actions/CashierActions'
 
 let ProcessorInfo = React.createClass({
 	propTypes: {
@@ -32,6 +32,13 @@ let ProcessorInfo = React.createClass({
 		} else{
 			return parseFloat(this.props.selectedProcessor.limits.currencyMax);
 		}
+	},
+
+	/**
+	 * start a new transaction based on the current selected processor
+	 */
+	startTransaction() {
+		CashierActions.startTransaction();
 	},
 
 	render() {
@@ -81,9 +88,7 @@ let ProcessorInfo = React.createClass({
 
 						<div className="row">
 							<div className="col-sm-6">
-								<Link to={nextStep}>
-									<button type="button" className="btn btn-green">{buttonNext} {processorDisplayName}</button>
-								</Link>
+									<button onClick={this.startTransaction} type="button" className="btn btn-green">{buttonNext} {processorDisplayName}</button>
 							</div>
 							<div className="col-sm-6">
 								<img src={originPath + '/images/ssl.png'} alt="ssl"/>
