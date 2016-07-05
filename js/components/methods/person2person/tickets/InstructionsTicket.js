@@ -1,7 +1,7 @@
 import React from 'react'
 import {controllerUIService} from '../../../../services/ControllerService'
 
-let Person2PersonPendingTicket = React.createClass({
+let Person2PersonTicketInstructions = React.createClass({
 
 	render() {
 		let originPath = controllerUIService.getOriginPath();
@@ -18,4 +18,4 @@ let Person2PersonPendingTicket = React.createClass({
 	}
 });
 
-module.exports.Person2PersonPendingTicket = Person2PersonPendingTicket;
+module.exports.Person2PersonTicketInstructions = Person2PersonTicketInstructions;

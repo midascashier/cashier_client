@@ -1,4 +1,3 @@
-import assign from 'object-assign'
 import { CashierStore } from '../stores/CashierStore'
 import { stompConnector } from './StompConnector'
 

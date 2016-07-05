@@ -593,10 +593,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			if(data.response && data.response.transaction){
 				_transactionResponse.journalId = data.response.transaction.caJournal_Id;
 				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
-				_transactionResponse.status = data.response.transaction.caTransactionStatus_Id;
+				_transactionResponse.status = Number(data.response.transaction.caTransactionStatus_Id);
 				_transactionResponse.userMessage = data.response.transaction.userMessage;
 			} else if(data.state){
 				_transactionResponse.state = data.state;
+				_transactionResponse.status = 0;
 				_transactionResponse.userMessage = data.userMessage;
 			}
 
@@ -627,6 +628,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.PROCESS:
+			let routeProcess = ('/' + _UI.currentView + '/' + _processor.Name.toLowerCase() + 'ticket/');
+			console.log('PROCESS: ' + routeProcess);
+			controllerUIService.changeUIState(routeProcess);
 			transactionService.process();
 			controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/');
 			break;

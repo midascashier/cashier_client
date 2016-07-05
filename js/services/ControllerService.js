@@ -113,7 +113,7 @@ class ControllerUIService {
 				getNextStep = "";
 			}
 		}
-
+		console.log(getNextStep);
 		return getNextStep;
 	}
 

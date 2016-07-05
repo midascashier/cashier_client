@@ -1,6 +1,6 @@
 import React from 'react'
 
-let VisaTicketRejected = React.createClass({
+let TicketRejected = React.createClass({
 	render() {
 		return (
 			<div className="col-sm-12">
@@ -22,4 +22,4 @@ let VisaTicketRejected = React.createClass({
 	}
 });
 
-module.exports.VisaTicketRejected = VisaTicketRejected;
+module.exports.TicketRejected = TicketRejected;
