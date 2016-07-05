@@ -40,7 +40,7 @@ import {Person2Person} from './components/methods/person2person/Person2Person'
 import {Person2PersonConfirm} from './components/methods/person2person/Confirm'
 import {Person2PersonTicket} from './components/methods/person2person/TicketMethod'
 import {Person2PersonTicketTicketRejected} from './components/methods/person2person/tickets/RejectedTicket'
-import {Person2PersonPendingTicket} from './components/methods/person2person/tickets/PedingTicket'
+import {Person2PersonTicketInstructions} from './components/methods/person2person/tickets/InstructionsTicket'
 
 /**
  * Common components
@@ -85,7 +85,7 @@ let routes = (
 				<Route path="moneygram/" component={Person2Person}/>
 				<Route path="moneygram/confirm/" component={Person2PersonConfirm}/>
 				<Route path="moneygram/ticket/" component={Person2PersonTicket}>
-					<Route path="pending/" component={Person2PersonPendingTicket}/>
+					<Route path="instructions/" component={Person2PersonTicketInstructions}/>
 					<Route path="rejected/" component={Person2PersonTicketTicketRejected}/>
 				</Route>
 

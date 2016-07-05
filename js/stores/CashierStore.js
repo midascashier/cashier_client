@@ -597,6 +597,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				_transactionResponse.userMessage = data.response.transaction.userMessage;
 			} else if(data.state){
 				_transactionResponse.state = data.state;
+				_transactionResponse.status = 0;
 				_transactionResponse.userMessage = data.userMessage;
 			}
 
@@ -606,8 +607,22 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 			CashierStore.emitChange();
 
-			controllerUIService.changeUIState('/withdraw/bitcoin/ticket/approved/');
+			let ticket = '';
+			switch(_transactionResponse.status){
+				case cashier.TRANSACTION_STATUS_PENDING:
+					ticket = 'instructions';
+					break;
+				case cashier.TRANSACTION_STATUS_APPROVED:
+					ticket = 'approved';
+					break;
+				case cashier.TRANSACTION_STATUS_REJECTED:
+					ticket = 'rejected';
+					break;
+				default:
+					ticket = 'rejected';
+			}
 
+			controllerUIService.changeUIState('/'+_UI.currentView+'/'+_processor.Name.toLowerCase()+'/ticket/'+ticket+'/');
 			break;
 
 		case actions.SET_CURRENT_STEP:
@@ -622,8 +637,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.PROCESS:
+			controllerUIService.changeUIState('/'+_UI.currentView+'/'+_processor.Name.toLowerCase()+'ticket/');
 			transactionService.process();
-			controllerUIService.changeUIState('/withdraw/bitcoin/ticket/');
 			break;
 
 		default:

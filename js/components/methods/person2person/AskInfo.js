@@ -12,6 +12,7 @@ let AskInfo = React.createClass({
 	render() {
 		let originPath = controllerUIService.getOriginPath();
 		let processingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P', "Please Enter the Sender's Information");
+		let displayName = controllerUIService.getProcessorDisplayName();
 
 		return (
 			<div id="askAmountVisa" className="box">
@@ -28,7 +29,7 @@ let AskInfo = React.createClass({
 
 											<div className="col-sm-3">
 												<div className="method active pull-left">
-													<img className="img-responsive" src={originPath + '/images/processors/16.png'} alt="Money Transfer"/>
+													<img className="img-responsive" src={originPath + '/images/processors/16.png'} title={displayName} />
 												</div>
 											</div>
 
@@ -36,11 +37,11 @@ let AskInfo = React.createClass({
 												<form>
 													<div className="form-group">
 														<label for="" className="control-label">First Name:</label>
-														<input type="text" className="form-control" id="firstName"/>
+														<input type="text" className="form-control" id="firstName" readOnly/>
 													</div>
 													<div className="form-group">
 														<label for="" className="control-label">Last Name:</label>
-														<input type="text" className="form-control" id="lastName"/>
+														<input type="text" className="form-control" id="lastName" readOnly/>
 													</div>
 
 													<div className="form-group">
@@ -61,18 +62,18 @@ let AskInfo = React.createClass({
 															</div>
 															<div className="col-sm-6">
 																<label for="" className="control-label">City:</label>
-																<input type="text" className="form-control" id="city"/>
+																<input type="text" className="form-control" id="city" readOnly/>
 															</div>
 															<div className="col-sm-6">
 																<label for="" className="control-label">Phone:</label>
-																<input type="text" className="form-control" id="phone"/>
+																<input type="text" className="form-control" id="phone" readOnly/>
 															</div>
 														</div>
 													</div>
 
 													<div className="form-group">
 														<label for="" className="control-label">Email:</label>
-														<input type="email" className="form-control" id="email"/>
+														<input type="email" className="form-control" id="email" readOnly/>
 													</div>
 													<div className="form-group">
 														<div className="row">
