@@ -59,7 +59,6 @@ let ConfirmWithdraw = React.createClass({
 
 	render(){
 		let originPath = controllerUIService.getOriginPath();
-		let nextStep = controllerUIService.getNextStep();
 		return (
 			<div id="confirmBitCoinWithdraw" className="internal-content">
 				<div className="row">

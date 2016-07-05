@@ -101,8 +101,6 @@ let InfoMethod = React.createClass({
 		let allowContinue = this.allowProcess();
 		let payAccountInfo = this.getPayAccountLimits();
 		let originPath = controllerUIService.getOriginPath();
-		let nextStep = controllerUIService.getNextStep();
-
 		return (
 			<div id="infoLimits" className="row">
 				<div className="col-sm-12">
