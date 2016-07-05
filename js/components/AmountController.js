@@ -1,8 +1,8 @@
 import React from 'react'
-import {translate} from '../constants/Translate'
-import {CashierActions} from './../actions/CashierActions'
-import {CashierStore} from './../stores/CashierStore'
-import {controllerUIService} from '../services/ControllerService'
+import { translate } from '../constants/Translate'
+import { CashierActions } from './../actions/CashierActions'
+import { CashierStore } from './../stores/CashierStore'
+import { controllerUIService } from '../services/ControllerService'
 
 let AmountController = React.createClass({
 
@@ -30,8 +30,8 @@ let AmountController = React.createClass({
 	changeValue(event) {
 		let amount = event.currentTarget.value;
 		amount = amount.replace(/[^0-9\-]/g, '');
-		this.setState({value: amount});
-		if(amount >=0){
+		this.setState({ value: amount });
+		if(amount >= 0){
 			if(amount != this.state.value){
 				CashierActions.setTransactionAmount(amount);
 			}
@@ -42,7 +42,8 @@ let AmountController = React.createClass({
 		return (
 			<div id="amountController" className="form-group">
 				<label for="">{translate('PROCESSING_AMOUNT', 'Amount')}:</label>
-				<input className="form-control" type="number" id="amount" name="amount" onChange={this.changeValue} value={this.state.value}/>
+				<input className="form-control" type="number" id="amount" name="amount" onChange={this.changeValue}
+							 value={this.state.value}/>
 				<span>{translate('PROCESSING_MIN', 'Min')}: {this.state.limits.minAmount} - {translate('PROCESSING_MAX', 'Max')}: {this.state.limits.maxAmount}</span>
 			</div>
 		)

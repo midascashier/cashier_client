@@ -1,5 +1,5 @@
 import React from 'react'
-import {CashierStore} from '../../../stores/CashierStore'
+import { CashierStore } from '../../../stores/CashierStore'
 
 let VisaTicket = React.createClass({
 
@@ -15,7 +15,7 @@ let VisaTicket = React.createClass({
 	 * this function sets and return object with local states
 	 *
 	 * @returns {{transactionResponse: *}}
-   */
+	 */
 	refreshLocalState() {
 		return {
 			transactionResponse: CashierStore.getLastTransactionResponse()
@@ -29,7 +29,7 @@ let VisaTicket = React.createClass({
 	componentDidMount() {
 		CashierStore.addChangeListener(this._onChange);
 	},
-	
+
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
@@ -37,14 +37,13 @@ let VisaTicket = React.createClass({
 		CashierStore.removeChangeListener(this._onChange);
 	},
 
-
 	/**
 	 * this is the callback function the store calls when a state change
 	 *
 	 * @private
 	 */
 	_onChange() {
-		if (this.isMounted() === true) {
+		if(this.isMounted() === true){
 			this.setState(this.refreshLocalState());
 		}
 	},
@@ -53,8 +52,8 @@ let VisaTicket = React.createClass({
 		let transactionResponse = this.state.transactionResponse;
 		return (
 			<div id="visaTicket">
-				{(() => {
-					if ((!transactionResponse.status) && (!transactionResponse.userMessage)){
+				{(() =>{
+					if((!transactionResponse.status) && (!transactionResponse.userMessage)){
 						return (
 							<div className="col-sm-12">
 								<div className="modules">
@@ -69,7 +68,7 @@ let VisaTicket = React.createClass({
 								</div>
 							</div>
 						);
-					} else {
+					} else{
 						return this.props.children
 					}
 				})()}

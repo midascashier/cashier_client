@@ -1,7 +1,7 @@
 import React from 'react'
-import {translate} from '../../constants/Translate'
-import {Link} from 'react-router'
-import {controllerUIService} from '../../services/ControllerService'
+import { translate } from '../../constants/Translate'
+import { Link } from 'react-router'
+import { controllerUIService } from '../../services/ControllerService'
 
 let Steps = React.createClass({
 	propTypes: {

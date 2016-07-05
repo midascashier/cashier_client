@@ -1,7 +1,7 @@
 import React from 'react'
-import {CustomerInfo} from './CustomerInfo'
-import {CompanyInfo} from './CompanyInfo'
-import {CashierStore} from '../../stores/CashierStore'
+import { CustomerInfo } from './CustomerInfo'
+import { CompanyInfo } from './CompanyInfo'
+import { CashierStore } from '../../stores/CashierStore'
 
 let Info = React.createClass({
 	/**

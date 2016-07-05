@@ -80,7 +80,7 @@ let CashierActions = {
 		});
 	},
 
-	changeCurrentProcessor: (data) => {
+	changeCurrentProcessor: (data) =>{
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_PROCESSOR, data: data
 		});

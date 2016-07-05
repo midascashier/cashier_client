@@ -1,9 +1,9 @@
 import React from 'react'
-import {Link} from 'react-router'
-import {CashierStore} from '../../../stores/CashierStore'
-import {translate} from '../../../constants/Translate'
-import {transactionService} from '../../../services/TransactionService'
-import {controllerUIService} from '../../../services/ControllerService'
+import { Link } from 'react-router'
+import { CashierStore } from '../../../stores/CashierStore'
+import { translate } from '../../../constants/Translate'
+import { transactionService } from '../../../services/TransactionService'
+import { controllerUIService } from '../../../services/ControllerService'
 
 let VisaConfirm = React.createClass({
 
@@ -80,7 +80,8 @@ let VisaConfirm = React.createClass({
 										<div className="row">
 
 											<div className="col-sm-12">
-												<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
+												<div
+													className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 												<div className="infoCol">
 													<ul>
 														<li>{personalData.firstName + ' ' + personalData.lastName}</li>
@@ -88,7 +89,8 @@ let VisaConfirm = React.createClass({
 														<li>{addressData.state}</li>
 														<li>{addressData.country + ' ' + addressData.zip}</li>
 													</ul>
-													<p><i className="fa fa-pencil green"></i><a href="#">{translate('PROCESSING_BILLING_INFO_EDIT', 'Edit the billing address')}</a></p>
+													<p><i className="fa fa-pencil green"></i><a
+														href="#">{translate('PROCESSING_BILLING_INFO_EDIT', 'Edit the billing address')}</a></p>
 												</div>
 											</div>
 
@@ -126,7 +128,8 @@ let VisaConfirm = React.createClass({
 																<td>{translate('PROCESSING_AMOUNT')}:</td>
 																<td><span>{this.state.transaction.amount}</span></td>
 															</tr>
-															</tbody></table>
+															</tbody>
+														</table>
 													</div>
 													<p><i className="fa fa-pencil green"></i><a href="#">Edit the deposit details</a></p>
 												</div>
@@ -134,7 +137,8 @@ let VisaConfirm = React.createClass({
 													<div className="form-group">
 														<label for="" className="col-sm-4 control-label">{translate('CREDIT_CARD_SSN')}:</label>
 														<div className="col-sm-8">
-															<input type="text" className="form-control" id="ssn" defaultValue={extraData.ssn} autoComplete="off" readOnly/>
+															<input type="text" className="form-control" id="ssn" defaultValue={extraData.ssn}
+																		 autoComplete="off" readOnly/>
 														</div>
 													</div>
 													<div className="form-group">
@@ -144,7 +148,8 @@ let VisaConfirm = React.createClass({
 														</div>
 													</div>
 													<Link to={nextStep}>
-														<button type="submit" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_DEPOSIT', 'Complete')}</button>
+														<button type="submit" onClick={this.processTransaction}
+																		className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_DEPOSIT', 'Complete')}</button>
 													</Link>
 													<p>
 														<a href="#">Use a different method</a>

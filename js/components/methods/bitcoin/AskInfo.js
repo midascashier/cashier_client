@@ -1,9 +1,9 @@
 import React from 'react'
-import {translate} from '../../../constants/Translate'
-import {SelectPayAccount} from '../../SelectPayAccount'
-import {AmountController} from '../../AmountController'
-import {controllerUIService} from '../../../services/ControllerService'
-import {FeeController} from '../../FeeController'
+import { translate } from '../../../constants/Translate'
+import { SelectPayAccount } from '../../SelectPayAccount'
+import { AmountController } from '../../AmountController'
+import { controllerUIService } from '../../../services/ControllerService'
+import { FeeController } from '../../FeeController'
 
 let AskInfo = React.createClass({
 	propTypes: {
@@ -32,7 +32,8 @@ let AskInfo = React.createClass({
 										<div className="row">
 											<div className="col-sm-3">
 												<div className="method active pull-left">
-													<img className="img-responsive" src={originPath + '/images/processors/814.png'} alt="Bitcoin"/>
+													<img className="img-responsive" src={originPath + '/images/processors/814.png'}
+															 alt="Bitcoin"/>
 												</div>
 											</div>
 											<div className="col-sm-9">
@@ -41,7 +42,7 @@ let AskInfo = React.createClass({
 														if(isWithDraw){
 															return (
 																<div><label for="">{translate('BITCOIN_ADDRESS', 'BitCoin Address')}:</label>
-																<SelectPayAccount /></div>
+																	<SelectPayAccount /></div>
 															)
 														}
 													})()}
@@ -64,6 +65,5 @@ let AskInfo = React.createClass({
 		)
 	}
 });
-
 
 module.exports.AskInfo = AskInfo;

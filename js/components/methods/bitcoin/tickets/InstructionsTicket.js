@@ -38,7 +38,8 @@ let BitCoinTicketInstructions = React.createClass({
 												<strong>Send the Bitcoin to the following address</strong>
 												<p>Please include any Miners Fee your Bitcoin wallet charges</p>
 												<div className="form-group">
-													<input className="form-control" type="text" id="btcAddress" name="btcAddress" value="31uEbMgunupShBVTewXjtqbBv5MndwfXhb" readOnly/>
+													<input className="form-control" type="text" id="btcAddress" name="btcAddress"
+																 value="31uEbMgunupShBVTewXjtqbBv5MndwfXhb" readOnly/>
 												</div>
 											</div>
 										</div>
@@ -53,7 +54,8 @@ let BitCoinTicketInstructions = React.createClass({
 											<div className="title">#3</div>
 											<div className="infoCol">
 												<strong>Prompty completed your transaction</strong>
-												<p>This BTC transaction price is only valid for 15 minutes. After that, the transaction price will change, and you many receive a different amount that expected.</p>
+												<p>This BTC transaction price is only valid for 15 minutes. After that, the transaction price
+													will change, and you many receive a different amount that expected.</p>
 											</div>
 										</div>
 									</div>

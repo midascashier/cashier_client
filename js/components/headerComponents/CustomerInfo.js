@@ -1,6 +1,6 @@
 import React from 'react'
-import {translate} from '../../constants/Translate'
-import {Loading} from '../loading/Loading'
+import { translate } from '../../constants/Translate'
+import { Loading } from '../loading/Loading'
 
 let CustomerInfo = React.createClass({
 	propTypes: {

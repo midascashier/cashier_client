@@ -2,6 +2,4 @@
  * Created by fede
  */
 
-export default {
-	
-}
+export default {}

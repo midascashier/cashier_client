@@ -1,8 +1,8 @@
 import React from 'react'
-import {translate} from '../../constants/Translate'
-import {LoadingSpinner} from '../loading/LoadingSpinner'
-import {Processor} from './Processor'
-import {controllerUIService} from '../../services/ControllerService'
+import { translate } from '../../constants/Translate'
+import { LoadingSpinner } from '../loading/LoadingSpinner'
+import { Processor } from './Processor'
+import { controllerUIService } from '../../services/ControllerService'
 
 let ProcessorsList = React.createClass({
 	propTypes: {

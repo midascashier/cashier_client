@@ -4,7 +4,7 @@ let CashierDispatcher = require('../dispatcher/CashierDispatcher');
 import assign from 'object-assign'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
-import {customerService} from '../services/CustomerService'
+import { customerService } from '../services/CustomerService'
 
 /**
  * UI
@@ -19,7 +19,7 @@ let _UI = {
 	processorId: 0,
 	payAccountId: 0,
 	countryInfo: null,
-	steps: {333: 2, 814: 3, 11001: 3},
+	steps: { 333: 2, 814: 3, 11001: 3 },
 	countries: {},
 	countryStates: {}
 };
@@ -51,7 +51,17 @@ let _application = {
  * @private
  */
 let _customer = {
-	atDeviceId: '', ioBB: '', companyId: 0, customerId: 0, username: '', password: '', currencySymbol: '', balance: '', balanceBP: '', lang: '', personalInformation: {
+	atDeviceId: '',
+	ioBB: '',
+	companyId: 0,
+	customerId: 0,
+	username: '',
+	password: '',
+	currencySymbol: '',
+	balance: '',
+	balanceBP: '',
+	lang: '',
+	personalInformation: {
 		level: '',
 		firstName: '',
 		middleName: '',
@@ -75,7 +85,12 @@ let _customer = {
 		stateName: '',
 		city: '',
 		postalCode: ''
-	}, depositProcessors: [], withdrawProcessors: [], pendingP2PTransactions: [], lastTransactions: {}, load(data){
+	},
+	depositProcessors: [],
+	withdrawProcessors: [],
+	pendingP2PTransactions: [],
+	lastTransactions: {},
+	load(data){
 		this.companyId = data.companyId;
 		this.customerId = data.customerId;
 		this.username = data.username;
@@ -178,10 +193,28 @@ let _processor = {
 let _payAccount = {
 	payAccountId: null,
 	displayName: null,
-	personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null},
-	address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null},
-	secure: {account: null, password: null, extra1: null, extra2: null, extra3: null},
-	extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null},
+	personal: {
+		firstName: null,
+		middleName: null,
+		lastName: null,
+		lastName2: null,
+		phone: null,
+		email: null,
+		personalId: null,
+		personalIdType: null
+	},
+	address: {
+		country: null,
+		countryName: null,
+		state: null,
+		stateName: null,
+		city: null,
+		address1: null,
+		address2: null,
+		zip: null
+	},
+	secure: { account: null, password: null, extra1: null, extra2: null, extra3: null },
+	extra: { ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null },
 	limitsData: {
 		available: null,
 		type: null,
@@ -274,7 +307,7 @@ let _transaction = {
 
 /**
  * Stores transaction result
- * 
+ *
  * @type {{transactionId: number, journalId: number, status: number, userMessage: string, state: string}}
  * @private
  */
@@ -429,7 +462,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * get transaction
-	 * 
+	 *
 	 * @returns {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())}}
 	 */
 	getTransaction: ()=>{
@@ -450,7 +483,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 /**
  * register action
  */
-CashierStore.dispatchToken = CashierDispatcher.register((payload) => {
+CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 //CashierDispatcher.register((payload) =>{
 	let action = payload.action;
 	let data = payload.data;
@@ -581,7 +614,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) => {
 				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
 				_transactionResponse.status = data.response.transaction.caTransactionStatus_Id;
 				_transactionResponse.userMessage = data.response.transaction.userMessage;
-			}else if(data.state){
+			} else if(data.state){
 				_transactionResponse.state = data.state;
 				_transactionResponse.userMessage = data.userMessage;
 			}
