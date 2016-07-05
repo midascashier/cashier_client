@@ -1,11 +1,11 @@
 import React from 'react'
-import {Link} from 'react-router'
-import {CashierStore} from '../../../stores/CashierStore'
-import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
-import {translate} from '../../../constants/Translate'
-import {AskInfo} from './AskInfo'
-import {InfoMethod} from './InfoMethod'
-import {controllerUIService} from '../../../services/ControllerService'
+import { Link } from 'react-router'
+import { CashierStore } from '../../../stores/CashierStore'
+import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
+import { translate } from '../../../constants/Translate'
+import { AskInfo } from './AskInfo'
+import { InfoMethod } from './InfoMethod'
+import { controllerUIService } from '../../../services/ControllerService'
 
 let Visa = React.createClass({
 
@@ -49,7 +49,7 @@ let Visa = React.createClass({
 	 * @private
 	 */
 	_onChange() {
-		if (this.isMounted() === true) {
+		if(this.isMounted() === true){
 			this.setState(this.refreshLocalState());
 		}
 	},
@@ -64,11 +64,12 @@ let Visa = React.createClass({
 					<AskInfo selectedProcessor={this.state.selectedProcessor}/>
 				</div>
 				<div className="col-sm-6">
-					{(() => {
-						if (!this.state.selectedProcessor.processorId) {
+					{(() =>{
+						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
-						} else {
-							return <InfoMethod selectedProcessor={this.state.selectedProcessor} transaction={this.state.transaction}/>;
+						} else{
+							return <InfoMethod selectedProcessor={this.state.selectedProcessor}
+																 transaction={this.state.transaction}/>;
 						}
 					})()}
 				</div>

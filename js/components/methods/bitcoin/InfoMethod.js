@@ -1,10 +1,9 @@
 import React from 'react'
-import {CashierStore} from '../../../stores/CashierStore'
-import {Loading} from '../../loading/Loading'
-import {translate} from '../../../constants/Translate'
-import {transactionService} from '../../../services/TransactionService'
-import {controllerUIService} from '../../../services/ControllerService'
-import {Link} from 'react-router'
+import { CashierStore } from '../../../stores/CashierStore'
+import { Loading } from '../../loading/Loading'
+import { translate } from '../../../constants/Translate'
+import { transactionService } from '../../../services/TransactionService'
+import { controllerUIService } from '../../../services/ControllerService'
 
 let InfoMethod = React.createClass({
 	/**
@@ -80,7 +79,7 @@ let InfoMethod = React.createClass({
 			minPayAccount = payAccount.limitsData.minAmount + " " + payAccount.limitsData.currencyCode;
 			maxPayAccount = payAccount.limitsData.maxAmount + " " + payAccount.limitsData.currencyCode;
 		}
-		return {"minPayAccount": minPayAccount, "maxPayAccount": maxPayAccount, "payAccountId": payAccount.payAccountId}
+		return { "minPayAccount": minPayAccount, "maxPayAccount": maxPayAccount, "payAccountId": payAccount.payAccountId }
 	},
 
 	/**
@@ -88,9 +87,12 @@ let InfoMethod = React.createClass({
 	 *
 	 */
 	continueTransaction(){
-		let isWithDraw=controllerUIService.getIsWithDraw();
-		controllerUIService.setCurrentStep(3);
-		if (!isWithDraw){
+		let isWithDraw = controllerUIService.getIsWithDraw();
+		if(isWithDraw){
+			controllerUIService.changeUIState("/withdraw/bitcoin/confirm/");
+		}
+		else{
+			//process the deposit
 			transactionService.process();
 		}
 	},
@@ -99,12 +101,10 @@ let InfoMethod = React.createClass({
 		let allowContinue = this.allowProcess();
 		let payAccountInfo = this.getPayAccountLimits();
 		let originPath = controllerUIService.getOriginPath();
-		let nextStep = controllerUIService.getNextStep();
-
 		return (
 			<div id="infoLimits" className="row">
 				<div className="col-sm-12">
-					<div className="title">Neteller Deposit Limits</div>
+					<div className="title">Bitcoin Deposit Limits</div>
 					<div className="table-responsive">
 						<table className="table table-striped">
 							<tbody>
@@ -126,9 +126,8 @@ let InfoMethod = React.createClass({
 									{(() =>{
 										if(payAccountInfo.payAccountId && allowContinue){
 											return (
-												<Link to={nextStep}>
-													<button type='button' onClick={this.continueTransaction} className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
-												</Link>
+													<button type='button' onClick={this.continueTransaction}
+																	className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
 											)
 										}
 									})()}

@@ -1,5 +1,5 @@
-import {CashierStore} from '../stores/CashierStore'
-import {CashierActions} from '../actions/CashierActions'
+import { CashierStore } from '../stores/CashierStore'
+import { CashierActions } from '../actions/CashierActions'
 import Cashier from '../constants/Cashier'
 import RouterContainer from './RouterContainer'
 
@@ -12,6 +12,13 @@ class ControllerUIService {
 		this.setCurrentStep(1);
 		let nextPath = "/" + this.getCurrentView() + "/";
 		RouterContainer.get().props.history.push(nextPath);
+	}
+
+	/**
+	 * redirect to a specific route
+	 */
+	changeUIState(route){
+		RouterContainer.get().props.history.push(route);
 	}
 
 	/**
@@ -47,18 +54,19 @@ class ControllerUIService {
 
 		if(this.getProcessorId() == Cashier.PROCESSOR_ID_BITCOIN){
 			if(this.getIsWithDraw()){
-				if(this.getCurrentStep() == 2){
-					let nextAction = "confirm/";
-					getNextStep += nextAction;
-				}
-
 				if(this.getCurrentStep() == 3){
 					this.setCurrentStep(4);
 					let nextAction = "ticket/";
 					getNextStep += nextAction;
 				}
+
+				if(this.getCurrentStep() == 2){
+					let nextAction = "confirm/";
+					getNextStep += nextAction;
+				}
+
 				if(this.getCurrentStep() == 4){
-					let nextAction = "ticket/approved";
+					let nextAction = "approved";
 					this.showStepsHeader = 0;
 					getNextStep += nextAction;
 				}
@@ -73,11 +81,11 @@ class ControllerUIService {
 						if(transactionResponse.status == Cashier.TRANSACTION_STATUS_PENDING){
 							let nextAction = "ticket/instructions";
 							getNextStep += nextAction;
-						}else{
+						} else{
 							let nextAction = "ticket/rejected";
 							getNextStep += nextAction;
 						}
-					}else{
+					} else{
 						getNextStep += "ticket/";
 					}
 				}
@@ -88,20 +96,20 @@ class ControllerUIService {
 			if(this.getCurrentStep() == 2){
 				let nextAction = "confirm/";
 				getNextStep += nextAction;
-			}else	if(this.getCurrentStep() == 3){
+			} else if(this.getCurrentStep() == 3){
 				let transactionResponse = CashierStore.getLastTransactionResponse();
 				if(transactionResponse.status || transactionResponse.userMessage){
 					if(transactionResponse.status == Cashier.TRANSACTION_STATUS_APPROVED){
 						let nextAction = "ticket/approved";
 						getNextStep += nextAction;
-					}else{
+					} else{
 						let nextAction = "ticket/rejected";
 						getNextStep += nextAction;
 					}
-				}else{
+				} else{
 					getNextStep += "ticket/";
 				}
-			}else{
+			} else{
 				getNextStep = "";
 			}
 		}

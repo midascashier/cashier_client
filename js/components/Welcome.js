@@ -1,5 +1,5 @@
 import React from 'react'
-import {translate} from '../constants/Translate'
+import { translate } from '../constants/Translate'
 
 let Welcome = React.createClass({
 	render() {

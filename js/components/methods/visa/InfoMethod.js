@@ -1,9 +1,9 @@
 import React from 'react'
-import {Link} from 'react-router'
-import {translate} from '../../../constants/Translate'
-import {CashierStore} from '../../../stores/CashierStore'
-import {Loading} from '../../loading/Loading'
-import {controllerUIService} from '../../../services/ControllerService'
+import { Link } from 'react-router'
+import { translate } from '../../../constants/Translate'
+import { CashierStore } from '../../../stores/CashierStore'
+import { Loading } from '../../loading/Loading'
+import { controllerUIService } from '../../../services/ControllerService'
 
 let InfoMethod = React.createClass({
 	propTypes: {
@@ -52,7 +52,7 @@ let InfoMethod = React.createClass({
 	 * @private
 	 */
 	_onChange() {
-		if (this.isMounted() === true) {
+		if(this.isMounted() === true){
 			this.setState(this.refreshLocalState());
 		}
 	},
@@ -63,8 +63,8 @@ let InfoMethod = React.createClass({
 	allowProcess(){
 		let amount = this.props.transaction.amount;
 		let checkTerms = this.props.transaction.checkTermsAndConditions;
-		if (amount && checkTerms) {
-			if (amount > 0) {
+		if(amount && checkTerms){
+			if(amount > 0){
 				return true;
 			}
 		}
@@ -80,11 +80,11 @@ let InfoMethod = React.createClass({
 		let minPayAccount = <Loading />;
 		let maxPayAccount = <Loading />;
 		let payAccount = this.state.currentPayAccount;
-		if (payAccount.payAccountId) {
+		if(payAccount.payAccountId){
 			minPayAccount = payAccount.limitsData.minAmount + " " + payAccount.limitsData.currencyCode;
 			maxPayAccount = payAccount.limitsData.maxAmount + " " + payAccount.limitsData.currencyCode;
 		}
-		return {"minPayAccount":minPayAccount, "maxPayAccount":maxPayAccount,"payAccountId":payAccount.payAccountId}
+		return { "minPayAccount": minPayAccount, "maxPayAccount": maxPayAccount, "payAccountId": payAccount.payAccountId }
 	},
 
 	render() {
@@ -95,7 +95,10 @@ let InfoMethod = React.createClass({
 		let nextStep = controllerUIService.getNextStep();
 		let currentView = controllerUIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
-		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Deposit Limits', {processorName:displayName, transactionType:transactionType});
+		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Deposit Limits', {
+			processorName: displayName,
+			transactionType: transactionType
+		});
 
 		return (
 			<div id="InfoMethodVIsa" className="row">
@@ -119,11 +122,12 @@ let InfoMethod = React.createClass({
 						<div className="col-sm-12">
 							<div className="row">
 								<div className="col-sm-6">
-									{(() => {
-										if (payAccountInfo.payAccountId && allowContinue) {
+									{(() =>{
+										if(payAccountInfo.payAccountId && allowContinue){
 											return (
 												<Link to={nextStep}>
-													<button type='button' className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
+													<button type='button'
+																	className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
 												</Link>
 											)
 										}

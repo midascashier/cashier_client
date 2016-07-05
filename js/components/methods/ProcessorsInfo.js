@@ -1,11 +1,11 @@
 import React from 'react'
-import {Link} from 'react-router'
-import {CashierStore} from '../../stores/CashierStore'
-import {translate} from '../../constants/Translate'
-import {ProcessorsList} from '../contentComponents/ProcessorsList'
-import {ProcessorInfo} from '../contentComponents/ProcessorInfo'
-import {LoadingSpinner} from '../../components/loading/LoadingSpinner'
-import {controllerUIService} from '../../services/ControllerService'
+import { Link } from 'react-router'
+import { CashierStore } from '../../stores/CashierStore'
+import { translate } from '../../constants/Translate'
+import { ProcessorsList } from '../contentComponents/ProcessorsList'
+import { ProcessorInfo } from '../contentComponents/ProcessorInfo'
+import { LoadingSpinner } from '../../components/loading/LoadingSpinner'
+import { controllerUIService } from '../../services/ControllerService'
 
 let ProcessorsInfo = React.createClass({
 	/**
@@ -67,7 +67,7 @@ let ProcessorsInfo = React.createClass({
 	},
 
 	render() {
-    let processors = this.getProcessors();
+		let processors = this.getProcessors();
 		return (
 			<div id="processorsInfo">
 				<div className="col-sm-6">
@@ -76,7 +76,7 @@ let ProcessorsInfo = React.createClass({
 					</Link>
 					<ProcessorsList
 						selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
-            processors={processors}	/>
+						processors={processors}/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{

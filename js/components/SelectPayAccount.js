@@ -1,6 +1,6 @@
 import React from 'react'
-import {CashierActions} from './../actions/CashierActions'
-import {CashierStore} from './../stores/CashierStore'
+import { CashierActions } from './../actions/CashierActions'
+import { CashierStore } from './../stores/CashierStore'
 
 let SelectPayAccount = React.createClass({
 	/**
@@ -34,7 +34,9 @@ let SelectPayAccount = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			processor: CashierStore.getProcessor(), payAccounts: CashierStore.getProcessorPayAccount(), currentPayAccount: CashierStore.getCurrentPayAccount()
+			processor: CashierStore.getProcessor(),
+			payAccounts: CashierStore.getProcessorPayAccount(),
+			currentPayAccount: CashierStore.getCurrentPayAccount()
 		}
 	},
 
@@ -60,7 +62,7 @@ let SelectPayAccount = React.createClass({
 		if(payAccountID == 0){
 			console.log("Add PayAccount");
 		} else{
-			CashierActions.changePayAccount({payAccountID: payAccountID, processorID: processorID});
+			CashierActions.changePayAccount({ payAccountID: payAccountID, processorID: processorID });
 		}
 	},
 
@@ -92,13 +94,13 @@ let SelectPayAccount = React.createClass({
 
 		if(this.state.currentPayAccount.payAccountId){
 			defaultValue = this.state.currentPayAccount.payAccountId;
-			optionNodes.push(renderOption({"label": "Register new account"}, 0));
+			optionNodes.push(renderOption({ "label": "Register new account" }, 0));
 			for(let index in payAccounts){
-				optionNodes.push(renderOption({"label": payAccounts[index].displayName}, index));
+				optionNodes.push(renderOption({ "label": payAccounts[index].displayName }, index));
 			}
 		} else{
 			defaultValue = "";
-			optionNodes.push(renderOption({"label": "Loading..."}, -1));
+			optionNodes.push(renderOption({ "label": "Loading..." }, -1));
 		}
 		return (
 			<select ref="element" className="form-control" value={defaultValue} onChange={this.changeValue}>

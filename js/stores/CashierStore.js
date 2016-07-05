@@ -1,9 +1,12 @@
-let EventEmitter = require('events').EventEmitter
+let EventEmitter = require('events').EventEmitter;
+let CashierDispatcher = require('../dispatcher/CashierDispatcher');
+
 import assign from 'object-assign'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
-import {CashierDispatcher} from '../dispatcher/CashierDispatcher'
-import {customerService} from '../services/CustomerService'
+import processors from '../constants/Processors'
+import { controllerUIService } from '../services/ControllerService'
+import { transactionService } from '../services/TransactionService'
 
 /**
  * UI
@@ -50,7 +53,17 @@ let _application = {
  * @private
  */
 let _customer = {
-	atDeviceId: '', ioBB: '', companyId: 0, customerId: 0, username: '', password: '', currencySymbol: '', balance: '', balanceBP: '', lang: '', personalInformation: {
+	atDeviceId: '',
+	ioBB: '',
+	companyId: 0,
+	customerId: 0,
+	username: '',
+	password: '',
+	currencySymbol: '',
+	balance: '',
+	balanceBP: '',
+	lang: '',
+	personalInformation: {
 		level: '',
 		firstName: '',
 		middleName: '',
@@ -74,7 +87,12 @@ let _customer = {
 		stateName: '',
 		city: '',
 		postalCode: ''
-	}, depositProcessors: [], withdrawProcessors: [], pendingP2PTransactions: [], lastTransactions: {}, load(data){
+	},
+	depositProcessors: [],
+	withdrawProcessors: [],
+	pendingP2PTransactions: [],
+	lastTransactions: {},
+	load(data){
 		this.companyId = data.companyId;
 		this.customerId = data.customerId;
 		this.username = data.username;
@@ -277,7 +295,7 @@ let _transaction = {
 
 /**
  * Stores transaction result
- * 
+ *
  * @type {{transactionId: number, journalId: number, status: number, userMessage: string, state: string}}
  * @private
  */
@@ -386,14 +404,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
-	 * set current step
-	 *
-	 */
-	setCurrentStep: (step) =>{
-		_UI.currentStep = step;
-	},
-
-	/**
 	 * get origin url path
 	 *
 	 * @returns {string}
@@ -421,18 +431,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
-	 * get processor id and change the current one
-	 *
-	 * @param id
-	 */
-	changeCurrentProcessor(processorId)
-	{
-		_UI.processorId = processorId;
-		_processor.load(processorId);
-		_transaction.cleanTransaction();
-	},
-
-	/**
 	 * get current processor
 	 * 
 	 * @returns {{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, fees: Array, limits: Array, limitRules: Array, load: (function(*))}}
@@ -452,7 +450,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * get transaction
-	 * 
+	 *
 	 * @returns {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())}}
 	 */
 	getTransaction: ()=>{
@@ -473,15 +471,9 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 /**
  * register action
  */
-CashierDispatcher.register((payload) =>{
-	let action = payload.actionType;
+CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
+	let action = payload.action;
 	let data = payload.data;
-
-	//register error
-	/*if (data && data.state === 'error') {
-	 console.log(data);
-	 return false;
-	 }*/
 
 	switch(action){
 		case actions.LOGIN_RESPONSE:
@@ -590,6 +582,12 @@ CashierDispatcher.register((payload) =>{
 			CashierStore.emitChange();
 			break;
 
+		case actions.CHANGE_PROCESSOR:
+			_UI.processorId = data;
+			_processor.load(data);
+			_transaction.cleanTransaction();
+			break;
+
 		case actions.PROCESS_RESPONSE:
 
 			if(data.response && data.response.transaction){
@@ -597,7 +595,7 @@ CashierDispatcher.register((payload) =>{
 				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
 				_transactionResponse.status = data.response.transaction.caTransactionStatus_Id;
 				_transactionResponse.userMessage = data.response.transaction.userMessage;
-			}else if(data.state){
+			} else if(data.state){
 				_transactionResponse.state = data.state;
 				_transactionResponse.userMessage = data.userMessage;
 			}
@@ -607,10 +605,25 @@ CashierDispatcher.register((payload) =>{
 			}
 
 			CashierStore.emitChange();
+
+			controllerUIService.changeUIState('/withdraw/bitcoin/ticket/approved/');
+
 			break;
 
 		case actions.SET_CURRENT_STEP:
-			CashierStore.setCurrentStep(data)
+			_UI.currentStep = data;
+			break;
+
+		case actions.START_TRANSACTION:
+			let processorSelectedSettings = processors.settings[_processor.processorId];
+			let route = processorSelectedSettings[processors.SETTING_ROUTE];
+			route = "/" + _UI.currentView + "/" + route;
+			controllerUIService.changeUIState(route);
+			break;
+
+		case actions.PROCESS:
+			transactionService.process();
+			controllerUIService.changeUIState('/withdraw/bitcoin/ticket/');
 			break;
 
 		default:

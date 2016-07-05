@@ -1,9 +1,8 @@
 import React from 'react'
-import {CashierStore} from '../../../stores/CashierStore'
-import {translate} from '../../../constants/Translate'
-import {controllerUIService} from '../../../services/ControllerService'
-import {transactionService} from '../../../services/TransactionService'
-import {Link} from 'react-router'
+import { CashierStore } from '../../../stores/CashierStore'
+import { translate } from '../../../constants/Translate'
+import { controllerUIService } from '../../../services/ControllerService'
+import { CashierActions } from '../../../actions/CashierActions'
 
 let ConfirmWithdraw = React.createClass({
 
@@ -55,12 +54,11 @@ let ConfirmWithdraw = React.createClass({
 	 *
 	 */
 	processTransaction(){
-		transactionService.process();
+		CashierActions.process();
 	},
 
 	render(){
 		let originPath = controllerUIService.getOriginPath();
-		let nextStep = controllerUIService.getNextStep();
 		return (
 			<div id="confirmBitCoinWithdraw" className="internal-content">
 				<div className="row">
@@ -75,13 +73,19 @@ let ConfirmWithdraw = React.createClass({
 											<div className="col-sm-12">
 												<div className="title">Double-check Your Billing Information</div>
 												<div className="infoCol text-justify">
-													<p>In order to activate your debit card, the first payout sent to the card will have the $25 activation fee deducted from the payout
-														amount. Once loaded, these funds will be immediately available for your use, minus the $2 load fee. (i.e. $23)</p>
-													<p>The courier service is for free. Whenever you request a payout the funds will be transferred to your card. You can withdraw funds,
+													<p>In order to activate your debit card, the first payout sent to the card will have the $25
+														activation fee deducted from the payout
+														amount. Once loaded, these funds will be immediately available for your use, minus the $2
+														load fee. (i.e. $23)</p>
+													<p>The courier service is for free. Whenever you request a payout the funds will be
+														transferred to your card. You can withdraw funds,
 														purchase online or at a physical store. It is accepted internationally.</p>
-													<p>Please keep in mind that you should not accumulate more than $10,000 in your card account balance at any time.</p>
-													<p>Please be aware your card must always have at least $10 at all times or else it will be closed by the bank in a two month period.
-														In addition to that, if the card hits $0 balance at any moment the bank will charge a $1 fee.</p>
+													<p>Please keep in mind that you should not accumulate more than $10,000 in your card account
+														balance at any time.</p>
+													<p>Please be aware your card must always have at least $10 at all times or else it will be
+														closed by the bank in a two month period.
+														In addition to that, if the card hits $0 balance at any moment the bank will charge a $1
+														fee.</p>
 												</div>
 											</div>
 
@@ -117,9 +121,8 @@ let ConfirmWithdraw = React.createClass({
 												</div>
 												<div className="row">
 													<div className="col-sm-6">
-														<Link to={nextStep}>
-															<button type="submit" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}</button>
-														</Link>
+															<button type="submit" onClick={this.processTransaction}
+																			className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}</button>
 														<p>
 															<a href="#">Use a different method.</a>
 														</p>

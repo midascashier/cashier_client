@@ -1,6 +1,6 @@
 import React from 'react'
-import {Loading} from '../../loading/Loading'
-import {CashierStore} from '../../../stores/CashierStore'
+import { Loading } from '../../loading/Loading'
+import { CashierStore } from '../../../stores/CashierStore'
 
 let NetellerTicket = React.createClass({
 	/**
@@ -36,7 +36,6 @@ let NetellerTicket = React.createClass({
 	componentWillUnmount() {
 		CashierStore.removeChangeListener(this._onChange);
 	},
-
 
 	/**
 	 * this is the callback function the store calls when a state change

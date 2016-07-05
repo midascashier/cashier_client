@@ -1,5 +1,5 @@
 import React from 'react'
-import {CashierStore} from '../../../stores/CashierStore'
+import { CashierStore } from '../../../stores/CashierStore'
 
 let BitCoinTicket = React.createClass({
 
@@ -37,7 +37,6 @@ let BitCoinTicket = React.createClass({
 		CashierStore.removeChangeListener(this._onChange);
 	},
 
-
 	/**
 	 * this is the callback function the store calls when a state change
 	 *
@@ -53,8 +52,8 @@ let BitCoinTicket = React.createClass({
 		let transactionResponse = this.state.transactionResponse;
 		return (
 			<div id="bitCoinTicket">
-				{(() => {
-					if ((!transactionResponse.status) && (!transactionResponse.userMessage)){
+				{(() =>{
+					if((!transactionResponse.status) && (!transactionResponse.userMessage)){
 						return (
 							<div className="col-sm-12">
 								<div className="modules">
@@ -62,14 +61,14 @@ let BitCoinTicket = React.createClass({
 										<div className="col-sm-12">
 											<div className="loader-sm"></div>
 											<h3>
-												Processing... please waits!
+												Processing... please wait!
 											</h3>
 										</div>
 									</div>
 								</div>
 							</div>
 						);
-					} else {
+					} else{
 						return this.props.children
 					}
 				})()}

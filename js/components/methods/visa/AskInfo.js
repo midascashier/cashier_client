@@ -1,9 +1,9 @@
 import React from 'react'
-import {translate} from '../../../constants/Translate'
-import {SelectPayAccount} from '../../SelectPayAccount'
-import {AmountController} from '../../AmountController'
-import {TermsController} from '../../TermsController'
-import {controllerUIService} from '../../../services/ControllerService'
+import { translate } from '../../../constants/Translate'
+import { SelectPayAccount } from '../../SelectPayAccount'
+import { AmountController } from '../../AmountController'
+import { TermsController } from '../../TermsController'
+import { controllerUIService } from '../../../services/ControllerService'
 
 let AskInfo = React.createClass({
 
@@ -34,7 +34,7 @@ let AskInfo = React.createClass({
 												</div>
 											</div>
 											<div className="col-sm-9">
-                        <div className="form-group">
+												<div className="form-group">
 													<label for="">{translate('CREDIT_CARD_SELECT', 'Credit Card')}:</label>
 													<SelectPayAccount />
 												</div>
@@ -57,6 +57,5 @@ let AskInfo = React.createClass({
 		)
 	}
 });
-
 
 module.exports.AskInfo = AskInfo;

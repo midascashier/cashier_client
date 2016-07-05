@@ -1,14 +1,20 @@
 import assign from 'object-assign'
-import {CashierStore} from '../stores/CashierStore'
-import {stompConnector} from './StompConnector'
+import { CashierStore } from '../stores/CashierStore'
+import { CashierActions } from '../actions/CashierActions'
+import { stompConnector } from './StompConnector'
 
 class CustomerService {
-	constructor(){
+
+	/**
+	 * Create RabbitMQ connection and login to client
+	 *
+	 */
+	login(){
 		this.stompConnection(loginInfo);
 	};
 
 	/**
-	 *Starts connection with RabbitMQ and then do the login
+	 * Starts connection with RabbitMQ and then do the login
 	 *
 	 * @param loginInfo
 	 */
@@ -25,7 +31,7 @@ class CustomerService {
 	 * @param loginInfo
 	 */
 	customerLogin(loginInfo){
-		let data = {f: "authCustomer", companyId: 9};
+		let data = { f: "authCustomer", companyId: 9 };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = assign(data, loginInfo, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
@@ -35,7 +41,7 @@ class CustomerService {
 	 * function to get Customer Information
 	 */
 	getCustomerInfo(){
-		let data = {f: "customerInfo"};
+		let data = { f: "customerInfo" };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
@@ -45,7 +51,7 @@ class CustomerService {
 	 * function to get Customer Processors
 	 */
 	getCustomerProcessors(){
-		let data = {f: "processors"};
+		let data = { f: "processors" };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
@@ -55,7 +61,7 @@ class CustomerService {
 	 * function to get Customer Last transactions
 	 */
 	getCustomerTransactions(){
-		let data = {f: "transactions", type: 0, limit: 10};
+		let data = { f: "transactions", type: 0, limit: 10 };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
@@ -77,7 +83,7 @@ class CustomerService {
 	 * function to disable pay account
 	 */
 	getDisablePayAccount(){
-		let data = {f: "disableCustomerPayAccount", payAccountId: CashierStore.getUI().payAccountId};
+		let data = { f: "disableCustomerPayAccount", payAccountId: CashierStore.getUI().payAccountId };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
@@ -108,10 +114,10 @@ class CustomerService {
 	};
 
 	/**
-	 * function to changen current processor
+	 * function to change current processor
 	 */
-	changeMethod(processorID){
-		CashierStore.changeCurrentProcessor(processorID);
+	changeProcessor(processorID){
+		CashierActions.changeCurrentProcessor(processorID);
 		this.getProcessorLimitRules(processorID);
 		this.getCustomerProcessorsMinMax(processorID);
 		this.getCustomerPreviousPayAccount(processorID);

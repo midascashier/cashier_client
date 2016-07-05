@@ -1,10 +1,9 @@
 import React from 'react'
-import {Link} from 'react-router'
-import {CashierStore} from '../../../stores/CashierStore'
-import {Loading} from '../../loading/Loading'
-import {transactionService} from '../../../services/TransactionService'
-import {controllerUIService} from '../../../services/ControllerService'
-
+import { Link } from 'react-router'
+import { CashierStore } from '../../../stores/CashierStore'
+import { Loading } from '../../loading/Loading'
+import { transactionService } from '../../../services/TransactionService'
+import { controllerUIService } from '../../../services/ControllerService'
 
 let InfoMethod = React.createClass({
 	propTypes: {
@@ -84,7 +83,7 @@ let InfoMethod = React.createClass({
 			minPayAccount = payAccount.limitsData.minAmount + " " + payAccount.limitsData.currencyCode;
 			maxPayAccount = payAccount.limitsData.maxAmount + " " + payAccount.limitsData.currencyCode;
 		}
-		return {"minPayAccount": minPayAccount, "maxPayAccount": maxPayAccount, "payAccountId": payAccount.payAccountId}
+		return { "minPayAccount": minPayAccount, "maxPayAccount": maxPayAccount, "payAccountId": payAccount.payAccountId }
 	},
 
 	/**
