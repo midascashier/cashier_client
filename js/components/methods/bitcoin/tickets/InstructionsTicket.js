@@ -7,7 +7,7 @@ let BitCoinTicketInstructions = React.createClass({
 
 				<div className="col-sm-12">
 					<div className="rejected-message">
-						<div className="title">Now send your Bitcoin to us.</div>
+						<div className="title">Now send your BitCoin to us.</div>
 					</div>
 				</div>
 
@@ -19,9 +19,9 @@ let BitCoinTicketInstructions = React.createClass({
 								<div className="box">
 									<div className="row">
 										<div className="col-sm-12">
-											<div className="title">#1</div>
+											<div className="title">1</div>
 											<div className="infoCol">
-												<strong>Send exactly 1.1892967 BTC.</strong>
+												<div className="subtitle">Send exactly 1.1892967 BTC</div>
 												<p>Otherwise, your transaction will not be successful</p>
 											</div>
 										</div>
@@ -33,12 +33,17 @@ let BitCoinTicketInstructions = React.createClass({
 								<div className="box">
 									<div className="row">
 										<div className="col-sm-12">
-											<div className="title">#2</div>
-											<div className="infoCol">
-												<strong>Send the Bitcoin to the following address</strong>
-												<p>Please include any Miners Fee your Bitcoin wallet charges</p>
-												<div className="form-group">
-													<input className="form-control" type="text" id="btcAddress" name="btcAddress" value="31uEbMgunupShBVTewXjtqbBv5MndwfXhb" readOnly/>
+											<div className="row">
+												<div className="col-sm-12">
+													<div className="title">2</div>
+													<div className="infoCol">
+														<div className="subtitle">Send the BitCoin to the following address</div>
+														<p>Please include any Miners Fee your BitCoin wallet charges.</p>
+														<div className="form-inline">
+															<input className="form-control" type="text" id="btcAddress" name="btcAddress" value="31uEbMgunupShBVTewXjtqbBv5MndwfXhb" readOnly/>
+															<button type="button" className="btn btn-green">Copy</button>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -50,14 +55,18 @@ let BitCoinTicketInstructions = React.createClass({
 								<div className="box">
 									<div className="row">
 										<div className="col-sm-12">
-											<div className="title">#3</div>
+											<div className="title">3</div>
 											<div className="infoCol">
-												<strong>Prompty completed your transaction</strong>
+												<div className="subtitle">Prompty complete your transaction.</div>
 												<p>This BTC transaction price is only valid for 15 minutes. After that, the transaction price will change, and you many receive a different amount that expected.</p>
 											</div>
 										</div>
 									</div>
 								</div>
+							</div>
+
+							<div className="col-sm-6">
+								<p>Your funds should be available within 30 minutes of making the transfer from your wallet.</p>
 							</div>
 
 						</div>

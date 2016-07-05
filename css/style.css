@@ -2,18 +2,18 @@
 
 /*Font-face_Bebas*/
 @font-face {
-    font-family: 'BebasNeueRegular';
-    src: url('../fonts/bebas-neue-webfont.woff'),
-    url('../fonts/bebas-neue-webfont.eot');
-    font-weight: normal;
-    font-style: normal;}
+	font-family: 'BebasNeueRegular';
+	src: url('../fonts/bebas-neue-webfont.woff'),
+	url('../fonts/bebas-neue-webfont.eot');
+	font-weight: normal;
+	font-style: normal;}
 
 @font-face {
-    font-family: 'Oswald-Light';
-    src: url('../fonts/Oswald-Light.woff'),
-    url('../fonts/Oswald-Light.eot');
-    font-weight: normal;
-    font-style: normal;}
+	font-family: 'Oswald-Light';
+	src: url('../fonts/Oswald-Light.woff'),
+	url('../fonts/Oswald-Light.eot');
+	font-weight: normal;
+	font-style: normal;}
 
 
 /*titles*/
@@ -26,6 +26,8 @@ h2, h3{/*text-shadow: 1px 1px 5px #4a577d;*/}
 .title{ /* color: #6d6d6d;*/ color:#1976D2; font-size: 26px; font-weight:bold; margin-bottom: 5px;}
 
 h4, h5, .title, .header-top{font-family: "Oswald-Light", Arial, Helvetica, sans-serif; letter-spacing:.5px;}
+
+.subtitle{ font-size:15px; font-weight:bold;}
 
 
 /*links*/
@@ -47,11 +49,11 @@ button.btn-welcome{  border:1px solid #6b89ac; font-size: 53px; margin-top:14px;
 button.btn-welcome:hover{ box-shadow: 0 0 7px 1px #6172a1; font-weight:normal; }
 button.btn-welcome:hover, button.btn-welcome:focus, .btn-green, .btn-green:focus{color:#FFF; }
 .btn-green, .btn-green:active{font-weight:bold; margin-top:10px; margin-bottom:10px;
-    background: #01b300;
-    background: -moz-linear-gradient(top,  #01b300 0%, #3a9637 100%);
-    background: -webkit-linear-gradient(top,  #01b300 0%,#3a9637 100%);
-    background: linear-gradient(to bottom,  #01b300 0%,#3a9637 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01b300', endColorstr='#3a9637',GradientType=0 );}
+	background: #01b300;
+	background: -moz-linear-gradient(top,  #01b300 0%, #3a9637 100%);
+	background: -webkit-linear-gradient(top,  #01b300 0%,#3a9637 100%);
+	background: linear-gradient(to bottom,  #01b300 0%,#3a9637 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01b300', endColorstr='#3a9637',GradientType=0 );}
 .btn-green:hover{box-shadow: 0 0 7px 1px green; border:1px solid #6dd66c ; color:#FFF;}
 .btn:hover{-webkit-transition: all 100ms ease-in; -moz-transition: all 100ms ease-in; -ms-transition: all 100ms ease-in; -o-transition: all 100ms ease-in; transition: all 100ms ease-in;}
 .mainCallAction{}
@@ -59,7 +61,8 @@ button.btn-welcome:hover, button.btn-welcome:focus, .btn-green, .btn-green:focus
 /*form*/
 form{}
 select+select{ margin-top:15px;}
-.checkbox input[type=checkbox]{}
+.checkbox input[type=checkbox]{position: initial;}
+.col-sm-3 + .col-sm-3 + .col-sm-6{ margin-top:8px;}
 
 /*tables*/
 table{ margin: 0 auto; border:0; border-radius:3px; overflow:hidden; }
@@ -98,23 +101,9 @@ body{ background:#EEE; font-family:'Segoe UI',Arial,sans-serif; color:#777;}
 .internal-content{padding:15px 15px 20px;}
 
 /*steps*/
-.steps{  color:#6d6d6d;
-    /*background: #fefefe;
-    background: -moz-linear-gradient(top, #fefefe 0%, #e4e4e4 100%);
-    background: -webkit-linear-gradient(top, #fefefe 0%,#e4e4e4 100%);
-    background: linear-gradient(to bottom, #fefefe 0%,#e4e4e4 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#e4e4e4',GradientType=0 );*/}
+.steps{  color:#6d6d6d;}
 
-.steps div[class^="step"].active{color:#FFF; text-shadow: 1px 0 5px #0e1926;/* box-shadow: 0px 1px 15px #000;*/
-    /*background: #118cb5;
-    background: -moz-linear-gradient(top, #118cb5 1%, #073e81 100%);
-    background: -webkit-linear-gradient(top, #118cb5 1%,#073e81 100%);
-    background: linear-gradient(to bottom, #118cb5 1%,#073e81 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#118cb5', endColorstr='#073e81',GradientType=0 );
-
-    -webkit-box-shadow: inset 0px -1px 36px -12px rgba(25,39,84,1);
-    -moz-box-shadow: inset 0px -1px 36px -12px rgba(25,39,84,1);
-    box-shadow: inset 0px -1px 36px -12px rgba(25,39,84,1);*/  }
+.steps div[class^="step"].active{color:#FFF; text-shadow: 1px 0 5px #0e1926;}
 
 .steps div[class^="step"]{ height:80px; background-repeat: no-repeat;}
 
@@ -138,7 +127,7 @@ body{ background:#EEE; font-family:'Segoe UI',Arial,sans-serif; color:#777;}
 .box, .method{border-radius: 4px;}
 .box{ overflow: hidden; margin-bottom:20px; min-height:250px;}
 .box, table{margin-top: 15px;}
-.box .title{ padding:5px 0; background:#1d1d1d; color:#FFF; font-size:20px;}
+.box .title{background: #1d1d1d;color: #FFF;font-size: 20px;}
 
 /*infoCol*/
 /*.rejected-page */.infoCol{ padding:10px; overflow:hidden;}
@@ -154,27 +143,22 @@ body{ background:#EEE; font-family:'Segoe UI',Arial,sans-serif; color:#777;}
 div[class^="alert"] i{font-size:16px;}
 /*alerts-icon*/
 
-/*.fa-warning{color:orange;}
-.fa-success{ color:green;}*/
-/*.alert-messagesText .alert-warningMessages{ background:#FFF; border:1px solid #df6414;}
-.alert-messagesText .alert-warningMessages i{color:orange;}*/
-
 /*loaders*/
 .loader-lg{ margin-top:20px; margin-bottom:25px;}
 .loader-sm{ /*margin-bottom:10px;*/
-    background: rgba(255, 255, 255, 0.75);
-    background-image: url(../images/loader-sm_40x40.gif);
-    background-repeat: no-repeat;
-    background-position: center center;
-    display: block;
-    /* height: 40px; */
-    /* width: 100%; */
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    z-index: 3;}
+	background: rgba(255, 255, 255, 0.75);
+	background-image: url(../images/loader-sm_40x40.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	/* height: 40px; */
+	/* width: 100%; */
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	z-index: 3;}
 /*.loader-sm{ margin-top:10px; margin-bottom:10px;}
 .loader-xs{ margin-top:5px; margin-bottom:5px;}*/
 .loader-xs{ height:34px; padding-top: 4px; }
@@ -229,25 +213,25 @@ div[class^="alert"] i{font-size:16px;}
 /*MISSING-ROW*/
 
 div[class*="col-"] > div[class*="col-"] {
-    border: 2px dotted red;
-    font-size: 15px;
+	border: 2px dotted red;
+	font-size: 15px;
 }
 div[class*="col-"] > div[class*="col-"]:before {
-    content: "Attention: .row MISSING!";
-    background-color: red;
-    display: block;
-    color: #fff;
+	content: "Attention: .row MISSING!";
+	background-color: red;
+	display: block;
+	color: #fff;
 }
 
 .row > .row {
-    border: 2px dotted orange;
-    font-size: 15px;
+	border: 2px dotted orange;
+	font-size: 15px;
 }
 .row > .row:before {
-    content: "Attention: .col MISSING!";
-    background-color: orange;
-    display: block;
-    color: #fff;
+	content: "Attention: .col MISSING!";
+	background-color: orange;
+	display: block;
+	color: #fff;
 }
 
 [hidden] {display: none!important;}

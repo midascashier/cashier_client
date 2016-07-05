@@ -34,6 +34,15 @@ import {VisaTicketRejected} from './components/methods/visa/tickets/RejectedTick
 import {VisaTicketApproved} from './components/methods/visa/tickets/ApprovedTicket'
 
 /**
+ * Person2Person set of components to create routes
+ */
+import {Person2Person} from './components/methods/person2person/Person2Person'
+import {Person2PersonConfirm} from './components/methods/person2person/Confirm'
+import {Person2PersonTicket} from './components/methods/person2person/TicketMethod'
+import {Person2PersonTicketTicketRejected} from './components/methods/person2person/tickets/RejectedTicket'
+import {Person2PersonPendingTicket} from './components/methods/person2person/tickets/PedingTicket'
+
+/**
  * Common components
  */
 import {ProcessorsInfo} from './components/methods/ProcessorsInfo'
@@ -54,14 +63,14 @@ let routes = (
 			<Route path="/deposit/" component={DepositContent}>
 				<IndexRoute component={ProcessorsInfo}/>
 
-				<Route path="neteller/" component={Neteller}/>
-				<Route path="neteller/ticket/" component={NetellerTicket}>
+				<Route path="neteller_new/" component={Neteller}/>
+				<Route path="neteller_new/ticket/" component={NetellerTicket}>
 					<Route path="approved" component={NetellerApprovedTicket}/>
 					<Route path="rejected" component={NetellerRejectedTicket}/>
 				</Route>
 
-				<Route path="bitcoin/" component={BitCoin}/>
-				<Route path="bitcoin/ticket/" component={BitCoinTicket}>
+				<Route path="btcscreen/" component={BitCoin}/>
+				<Route path="btcscreen/ticket/" component={BitCoinTicket}>
 					<Route path="instructions" component={BitCoinTicketInstructions}/>
 					<Route path="rejected" component={BitCoinTicketRejected}/>
 				</Route>
@@ -71,6 +80,13 @@ let routes = (
 				<Route path="visa/ticket/" component={VisaTicket}>
 					<Route path="approved" component={VisaTicketApproved}/>
 					<Route path="rejected" component={VisaTicketRejected}/>
+				</Route>
+
+				<Route path="moneygram/" component={Person2Person}/>
+				<Route path="moneygram/confirm/" component={Person2PersonConfirm}/>
+				<Route path="moneygram/ticket/" component={Person2PersonTicket}>
+					<Route path="pending" component={Person2PersonPendingTicket}/>
+					<Route path="rejected" component={Person2PersonTicketTicketRejected}/>
 				</Route>
 
 			</Route>

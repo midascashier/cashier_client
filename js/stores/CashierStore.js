@@ -12,7 +12,15 @@ import {customerService} from '../services/CustomerService'
  * @private
  */
 let _UI = {
-	language: '', currentView: '', currentStep: '', processorId: 0, payAccountId: 0, countryInfo: null, steps: {333: 2, 814: 3, 11001: 3}, countries: {}, countryStates: {}
+	language: '',
+	currentView: '',
+	currentStep: '',
+	processorId: 0,
+	payAccountId: 0,
+	countryInfo: null,
+	steps: {333: 2, 814: 3, 11001: 3, 16: 3},
+	countries: {},
+	countryStates: {}
 };
 
 /**
@@ -107,7 +115,8 @@ let _customer = {
  * @private
  */
 let _company = {
-	companyId: 0, companyName: '', phone: '', companyLabel: [], load(data){
+	companyId: 0, companyName: '', phone: '', companyLabel: [],
+	load(data){
 		this.companyId = data.companyId;
 		this.companyName = data.name;
 		this.phone = data.servicePhone;
@@ -125,13 +134,21 @@ let _bonuses = {
 };
 
 /**
- *Stores the information of the selected processor
+ * Stores the information of the selected processor
  *
- * @type {{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array, limits: Array, limitRules: Array, load: (function(*))}}
+ * @type {{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, fees: Array, limits: Array, limitRules: Array, load: (function(*))}}
  * @private
  */
 let _processor = {
-	processorClass: 0, processorId: 0, displayName: '', bonus: [], fees: [], limits: [], limitRules: [], load(processorId){
+	processorClass: 0,
+	processorId: 0,
+	Name: '',
+	displayName: '',
+	bonus: [],
+	fees: [],
+	limits: [],
+	limitRules: [],
+	load(processorId){
 		var processor = [];
 		if(_UI.currentView == cashier.VIEW_DEPOSIT && _customer.depositProcessors.length > 0){
 			_customer.depositProcessors.map((item) =>{
@@ -150,6 +167,7 @@ let _processor = {
 		this.processorClass = processor.caProcessorClass_Id;
 		this.processorId = processor.caProcessor_Id;
 		this.displayName = processor.DisplayName;
+		this.Name = processor.Name;
 	}
 };
 
@@ -186,7 +204,8 @@ let _payAccount = {
 		 * After all the limits validations are made, this is the flag that says if the pay account passes or not.
 		 */
 		limitsPassed: false
-	}, load(data){
+	},
+	load(data){
 		this.payAccountId = data.payAccountId;
 		this.displayName = data.displayName;
 		this.limitsData = data.limitsData;
@@ -386,10 +405,10 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * get customer
 	 *
-	 * @returns {{companyId: number, customerId: number, username: string, password: string, currency: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, load: (function(*))}}
+	 * @returns {{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: {}, load: (function(*))}}
 	 */
 	getCustomer: () =>{
-		return (_customer);
+		return _customer;
 	},
 
 	/**
@@ -415,8 +434,8 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * get current processor
-	 *
-	 * @returns {{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array, limits: Array, limitRules: Array, load: (function(*))}}
+	 * 
+	 * @returns {{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, fees: Array, limits: Array, limitRules: Array, load: (function(*))}}
 	 */
 	getProcessor: () =>{
 		return _processor;

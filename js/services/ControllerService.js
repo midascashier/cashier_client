@@ -20,7 +20,7 @@ class ControllerUIService {
 	 * @returns {string}
 	 */
 	getNextStep(){
-		let getNextStep = "/" + this.getCurrentView() + "/" + this.getProcessorDisplayName() + "/";
+		let getNextStep = "/" + this.getCurrentView() + "/" + this.getProcessorName() + "/";
 		if(this.getCurrentStep() == 1){
 			this.showStepsHeader = 1;
 			return getNextStep;
@@ -189,6 +189,16 @@ class ControllerUIService {
 	getProcessorDisplayName(){
 		let processor = CashierStore.getProcessor();
 		return processor.displayName.toLowerCase();
+	}
+
+	/**
+	 * get current process name
+	 *
+	 * @returns {string}
+	 */
+	getProcessorName(){
+		let processor = CashierStore.getProcessor();
+		return processor.Name.toLowerCase();
 	}
 
 	/**

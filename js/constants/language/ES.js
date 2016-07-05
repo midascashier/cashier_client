@@ -63,6 +63,7 @@ let _langTags = {
   //ProcessingTransaction
   PROCESSING_DEPOSIT_INFORMATION_TITLE: "Ingrese la Información para el Depósito",
 	PROCESSING_DEPOSIT_INFORMATION_TITLE_CREDIT_CARD: "Por favor introduzca sus datos de la tarjeta",
+	PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P: "Por favor, introduzca la información del remitente",
   PROCESSING_WITHDRAW_INFORMATION_TITLE: "Ingrese la Información para el Retiro",
 	PROCESSING_LIMIT_INFORMATION_TITLE: "Límites de {processorName} para {transactionType}",
 	PROCESSING_BILLING_INFO_TITLE: "Compruebe la información de facturación",
