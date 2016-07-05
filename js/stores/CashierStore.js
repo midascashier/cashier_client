@@ -4,8 +4,13 @@ let CashierDispatcher = require('../dispatcher/CashierDispatcher');
 import assign from 'object-assign'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
-import processorSettings from '../constants/Processors'
+import processors from '../constants/Processors'
+import { controllerUIService } from '../services/ControllerService'
+
+//TODO dont remove until Yorch find out GUATAFUCK.
 import {customerService} from '../services/CustomerService'
+
+import { transactionService } from '../services/TransactionService'
 
 /**
  * UI
@@ -618,6 +623,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			}
 
 			CashierStore.emitChange();
+
+			controllerUIService.changeUIState('/withdraw/bitcoin/ticket/approved/');
+
 			break;
 
 		case actions.SET_CURRENT_STEP:
@@ -625,8 +633,15 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.START_TRANSACTION:
-			let x = processorSettings.NUM_OF_STEPS;
-			let processorSelectedSettings = processorSettings[_processor.processorId];
+			let processorSelectedSettings = processors.settings[_processor.processorId];
+			let route = processorSelectedSettings[processors.SETTING_ROUTE];
+			route = "/" + _UI.currentView + "/" + route;
+			controllerUIService.changeUIState(route);
+			break;
+
+		case actions.PROCESS:
+			transactionService.process();
+			controllerUIService.changeUIState('/withdraw/bitcoin/ticket/');
 			break;
 
 		default:

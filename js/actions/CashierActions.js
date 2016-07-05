@@ -126,6 +126,12 @@ let CashierActions = {
 		CashierDispatcher.dispatch({
 			action: actions.START_TRANSACTION
 		});
+	},
+
+	process: () =>{
+		CashierDispatcher.dispatch({
+			action: actions.PROCESS
+		});
 	}
 };
 

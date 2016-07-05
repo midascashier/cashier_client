@@ -15,6 +15,13 @@ class ControllerUIService {
 	}
 
 	/**
+	 * redirect to a specific route
+	 */
+	changeUIState(route){
+		RouterContainer.get().props.history.push(route);
+	}
+
+	/**
 	 * redirect to next steps depends of the processor and customer option
 	 *
 	 * @returns {string}

@@ -56,21 +56,21 @@ let routes = (
 
 				<Route path="neteller/" component={Neteller}/>
 				<Route path="neteller/ticket/" component={NetellerTicket}>
-					<Route path="approved" component={NetellerApprovedTicket}/>
-					<Route path="rejected" component={NetellerRejectedTicket}/>
+					<Route path="approved/" component={NetellerApprovedTicket}/>
+					<Route path="rejected/" component={NetellerRejectedTicket}/>
 				</Route>
 
 				<Route path="bitcoin/" component={BitCoin}/>
 				<Route path="bitcoin/ticket/" component={BitCoinTicket}>
-					<Route path="instructions" component={BitCoinTicketInstructions}/>
-					<Route path="rejected" component={BitCoinTicketRejected}/>
+					<Route path="instructions/" component={BitCoinTicketInstructions}/>
+					<Route path="rejected/" component={BitCoinTicketRejected}/>
 				</Route>
 
 				<Route path="visa/" component={Visa}/>
 				<Route path="visa/confirm/" component={VisaConfirm}/>
 				<Route path="visa/ticket/" component={VisaTicket}>
-					<Route path="approved" component={VisaTicketApproved}/>
-					<Route path="rejected" component={VisaTicketRejected}/>
+					<Route path="approved/" component={VisaTicketApproved}/>
+					<Route path="rejected/" component={VisaTicketRejected}/>
 				</Route>
 
 			</Route>
@@ -80,8 +80,8 @@ let routes = (
 				<Route path="bitcoin/" component={BitCoin}/>
 				<Route path="bitcoin/confirm/" component={ConfirmWithdraw}/>
 				<Route path="bitcoin/ticket/" component={BitCoinTicket}>
-					<Route path="approved" component={BitCoinTicketApproved}/>
-					<Route path="rejected" component={BitCoinTicketRejected}/>
+					<Route path="approved/" component={BitCoinTicketApproved}/>
+					<Route path="rejected/" component={BitCoinTicketRejected}/>
 				</Route>
 
 			</Route>

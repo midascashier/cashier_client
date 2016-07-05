@@ -99,7 +99,6 @@ class OnResponseService {
 				console.log(data);
 				if(data.response || data.state){
 					CashierActions.processResponse(data);
-					controllerUIService.ticketRedirect();
 				} else{
 					console.log(data);
 				}

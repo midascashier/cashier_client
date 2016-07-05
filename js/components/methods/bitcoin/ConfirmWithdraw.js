@@ -2,8 +2,7 @@ import React from 'react'
 import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
 import { controllerUIService } from '../../../services/ControllerService'
-import { transactionService } from '../../../services/TransactionService'
-import { Link } from 'react-router'
+import { CashierActions } from '../../../actions/CashierActions'
 
 let ConfirmWithdraw = React.createClass({
 
@@ -55,7 +54,7 @@ let ConfirmWithdraw = React.createClass({
 	 *
 	 */
 	processTransaction(){
-		transactionService.process();
+		CashierActions.process();
 	},
 
 	render(){
@@ -123,10 +122,8 @@ let ConfirmWithdraw = React.createClass({
 												</div>
 												<div className="row">
 													<div className="col-sm-6">
-														<Link to={nextStep}>
 															<button type="submit" onClick={this.processTransaction}
 																			className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}</button>
-														</Link>
 														<p>
 															<a href="#">Use a different method.</a>
 														</p>
