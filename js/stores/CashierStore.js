@@ -21,7 +21,6 @@ let _UI = {
 	processorId: 0,
 	payAccountId: 0,
 	countryInfo: null,
-	steps: {333: 2, 814: 3, 11001: 3, 16: 3},
 	countries: {},
 	countryStates: {}
 };
@@ -338,13 +337,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getCurrentPayAccount: () =>{
 		return _payAccount;
-	},
-
-	/**
-	 * return how many steps by processor
-	 */
-	getProcessorSteps: () =>{
-		return (_UI.steps[_processor.processorId]);
 	},
 
 	/**

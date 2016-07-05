@@ -31,7 +31,6 @@ let Header = React.createClass({
 	refreshLocalState() {
 		return {
 			step: CashierStore.getCurrentStep(),
-			processorSteps: CashierStore.getProcessorSteps(),
 			isWithDraw: CashierStore.getIsWithdraw(),
 			UI: CashierStore.getUI()
 		}
