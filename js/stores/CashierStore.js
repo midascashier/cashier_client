@@ -549,17 +549,17 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.CHANGE_TRANSACTION_AMOUNT:
-			_transaction.amount = data;
+			_transaction.amount = data.amount;
 			CashierStore.emitChange();
 			break;
 
 		case actions.CHANGE_TRANSACTION_FEE:
-			_transaction.fee = data;
+			_transaction.fee = data.fee;
 			CashierStore.emitChange();
 			break;
 
 		case actions.CHANGE_TRANSACTION_TERMS:
-			_transaction.checkTermsAndConditions = data;
+			_transaction.checkTermsAndConditions = data.checked;
 			CashierStore.emitChange();
 			break;
 

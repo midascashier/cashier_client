@@ -2,45 +2,33 @@ import actions from '../constants/Actions'
 let CashierDispatcher = require('../dispatcher/CashierDispatcher');
 
 let CashierActions = {
-	login: (data) =>{
+	changePayAccount: (payAccountID, processorID) =>{
 		CashierDispatcher.dispatch({
-			action: actions.LOGIN, data: data
+			action: actions.CHANGE_PAYACCOUNT, data: {payAccountID: payAccountID, processorID: processorID}
 		});
 	},
 
-	getCustomerTransactions: (data) =>{
+	setTransactionAmount: (amount) =>{
 		CashierDispatcher.dispatch({
-			action: actions.CUSTOMER_TRANSACTIONS, data: data
+			action: actions.CHANGE_TRANSACTION_AMOUNT, data: { amount: amount }
 		});
 	},
 
-	changePayAccount: (data) =>{
+	setTransactionFee: (fee) =>{
 		CashierDispatcher.dispatch({
-			action: actions.CHANGE_PAYACCOUNT, data: data
+			action: actions.CHANGE_TRANSACTION_FEE, data: { fee: fee }
 		});
 	},
 
-	setTransactionAmount: (data) =>{
+	setTransactionTerms: (checked) =>{
 		CashierDispatcher.dispatch({
-			action: actions.CHANGE_TRANSACTION_AMOUNT, data: data
-		});
-	},
-
-	setTransactionFee: (data) =>{
-		CashierDispatcher.dispatch({
-			action: actions.CHANGE_TRANSACTION_FEE, data: data
-		});
-	},
-
-	setTransactionTerms: (data) =>{
-		CashierDispatcher.dispatch({
-			action: actions.CHANGE_TRANSACTION_TERMS, data: data
+			action: actions.CHANGE_TRANSACTION_TERMS, data: { checked: checked }
 		});
 	},
 
 	selectProcessor: (processorId) =>{
 		CashierDispatcher.dispatch({
-			action: actions.SELECT_PROCESSOR, data:{processorId: processorId}
+			action: actions.SELECT_PROCESSOR, data: { processorId: processorId }
 		});
 	},
 
@@ -56,13 +44,12 @@ let CashierActions = {
 		});
 	},
 
-	responses: (action, data) => {
+	responses: (action, data) =>{
 		CashierDispatcher.dispatch({
 			action: action,
 			data: data
 		});
 	}
-
 
 };
 

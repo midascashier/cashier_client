@@ -62,7 +62,7 @@ let SelectPayAccount = React.createClass({
 		if(payAccountID == 0){
 			console.log("Add PayAccount");
 		} else{
-			CashierActions.changePayAccount({ payAccountID: payAccountID, processorID: processorID });
+			CashierActions.changePayAccount(payAccountID, processorID);
 		}
 	},
 
