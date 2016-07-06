@@ -56,6 +56,7 @@ let VisaConfirm = React.createClass({
 	 *
 	 */
 	processTransaction(){
+		controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/');
 		transactionService.process();
 	},
 
@@ -66,7 +67,7 @@ let VisaConfirm = React.createClass({
 		let extraData = this.state.payAccount.extra;
 
 		return (
-			<div id="confirmBitCoinWithdraw" className="internal-content">
+			<div id="confirmVisa" className="internal-content">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="modules">
@@ -145,8 +146,7 @@ let VisaConfirm = React.createClass({
 															<input type="date" className="form-control" id="dob" value={extraData.dob} readOnly/>
 														</div>
 													</div>
-														<button type="submit" onClick={this.processTransaction}
-																		className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_DEPOSIT', 'Complete')}</button>
+														<button type="submit" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_DEPOSIT', 'Complete')}</button>
 													<p>
 														<a href="#">Use a different method</a>
 													</p>

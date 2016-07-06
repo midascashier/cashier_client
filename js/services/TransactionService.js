@@ -2,6 +2,7 @@ import { CashierStore } from '../stores/CashierStore'
 import { stompConnector } from './StompConnector'
 
 class TransactionService {
+	
 	/**
 	 * this function sends to process a transaction
 	 */
