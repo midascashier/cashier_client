@@ -56,9 +56,7 @@ let Header = React.createClass({
 		return (
 			<div id="header">
 				{(() =>{
-					if(showStepsHeader){
 						return <Steps isWithDraw={isWithDraw} step={step} steps={steps} customerAction={currentView}/>
-					}
 				})()}
 				<Info />
 			</div>

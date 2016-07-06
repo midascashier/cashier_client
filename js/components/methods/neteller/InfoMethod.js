@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router'
 import { CashierStore } from '../../../stores/CashierStore'
 import { Loading } from '../../loading/Loading'
 import { transactionService } from '../../../services/TransactionService'

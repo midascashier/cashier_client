@@ -1,6 +1,4 @@
 import { CashierStore } from '../stores/CashierStore'
-import { CashierActions } from '../actions/CashierActions'
-import Cashier from '../constants/Cashier'
 import RouterContainer from './RouterContainer'
 
 class ControllerUIService {

@@ -5,7 +5,6 @@ import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 import { translate } from '../../../constants/Translate'
 import { AskInfo } from './AskInfo'
 import { InfoMethod } from './InfoMethod'
-import { controllerUIService } from '../../../services/ControllerService'
 
 let Neteller = React.createClass({
 	/**
