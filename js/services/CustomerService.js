@@ -3,11 +3,13 @@ import { CashierStore } from '../stores/CashierStore'
 import { CashierActions } from '../actions/CashierActions'
 import { stompConnector } from './StompConnector'
 
+import { applicationService } from './ApplicationService'
+import { controllerUIService } from './ControllerService'
+
 class CustomerService {
 
 	/**
 	 * Create RabbitMQ connection and login to client
-	 *
 	 */
 	login(){
 		this.stompConnection(loginInfo);
@@ -26,7 +28,7 @@ class CustomerService {
 	};
 
 	/**
-	 *sends login information to RabbitMQ to be process
+	 * Sends login information to RabbitMQ to be process
 	 *
 	 * @param loginInfo
 	 */
@@ -38,7 +40,25 @@ class CustomerService {
 	};
 
 	/**
-	 * function to get Customer Information
+	 * Do some other actions after login response
+	 */
+	customerLoginResponse(){
+
+		let customerAction = "deposit";
+		if(CashierStore.getIsWithdraw()){
+			customerAction = "withdraw";
+		}
+
+		controllerUIService.loginSuccess(customerAction);
+		this.getCustomerInfo();
+		this.getCustomerProcessors();
+		this.getCustomerTransactions();
+		applicationService.getCompanyInfo();
+		applicationService.getCountries();
+	};
+
+	/**
+	 * Function to get Customer Information
 	 */
 	getCustomerInfo(){
 		let data = { f: "customerInfo" };
@@ -48,7 +68,7 @@ class CustomerService {
 	};
 
 	/**
-	 * function to get Customer Processors
+	 * Function to get Customer Processors
 	 */
 	getCustomerProcessors(){
 		let data = { f: "processors" };
@@ -58,7 +78,21 @@ class CustomerService {
 	};
 
 	/**
-	 * function to get Customer Last transactions
+	 * Do some actions after processors response
+	 */
+	CustomerProcessorsResponse(processor) {
+		let customerOption = "deposit";
+
+		if(CashierStore.getIsWithdraw()){
+			customerOption = "withdraw";
+		}
+
+		let processorID = processor.response.processors[customerOption][0].caProcessor_Id;
+		this.changeProcessor(processorID);
+	};
+
+	/**
+	 * Function to get Customer Last transactions
 	 */
 	getCustomerTransactions(){
 		let data = { f: "transactions", type: 0, limit: 10 };
@@ -68,7 +102,7 @@ class CustomerService {
 	};
 
 	/**
-	 * function to get pay account previous pay accounts
+	 * Function to get pay account previous pay accounts
 	 */
 	getCustomerPreviousPayAccount(processorID){
 		let data = {
@@ -80,7 +114,7 @@ class CustomerService {
 	};
 
 	/**
-	 * function to disable pay account
+	 * Function to disable pay account
 	 */
 	getDisablePayAccount(){
 		let data = { f: "disableCustomerPayAccount", payAccountId: CashierStore.getUI().payAccountId };
@@ -90,7 +124,7 @@ class CustomerService {
 	};
 
 	/**
-	 * function to get pay account previous pay accounts
+	 * Function to get pay account previous pay accounts
 	 */
 	getCustomerProcessorsMinMax(processorID){
 		let data = {
@@ -102,7 +136,7 @@ class CustomerService {
 	};
 
 	/**
-	 * function to get processor limit rules
+	 * Function to get processor limit rules
 	 */
 	getProcessorLimitRules(processorID){
 		let data = {
@@ -114,7 +148,7 @@ class CustomerService {
 	};
 
 	/**
-	 * function to change current processor
+	 * Function to change current processor
 	 */
 	changeProcessor(processorID){
 		CashierActions.selectProcessor(processorID);
