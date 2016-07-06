@@ -4,8 +4,6 @@ let CashierDispatcher = require('../dispatcher/CashierDispatcher');
 import assign from 'object-assign'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
-import { UIService } from '../services/UIService'
-import { TransactionService } from '../services/TransactionService'
 
 /**
  * UI
@@ -555,7 +553,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.PROCESS_RESPONSE:
-
 			if(data.response && data.response.transaction){
 				_transactionResponse.journalId = data.response.transaction.caJournal_Id;
 				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
@@ -570,28 +567,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			if(_transactionResponse.userMessage == ""){
 				_transactionResponse.userMessage = data.userMessage;
 			}
-
-			let ticketResult = 'rejected';
-			if (_transactionResponse.status == cashier.TRANSACTION_STATUS_APPROVED){
-				ticketResult = 'approved';
-			}else if (_transactionResponse.status == cashier.TRANSACTION_STATUS_PENDING){
-				ticketResult = 'pending';
-			}else if (_transactionResponse.status == cashier.TRANSACTION_STATUS_DEFERRED){
-				ticketResult = 'deferred';
-			}
-
-			UIService.changeUIState('/'+UIService.getCurrentView()+'/'+UIService.getProcessorName().toLowerCase()+'/ticket/'+ticketResult+'/');
-
 			break;
 
 		case actions.START_TRANSACTION:
-
 			//do some work before start the transaction
 			_transaction.cleanTransaction();
-
-			//calculate the route to be redirected
-			let route = "/" + _UI.currentView + "/" + UIService.getProcessorName().toLowerCase() + '/';
-			UIService.changeUIState(route);
 			break;
 
 		case actions.SELECT_PROCESSOR:

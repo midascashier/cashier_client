@@ -1,7 +1,7 @@
 import { CashierStore } from '../stores/CashierStore'
 import { CashierActions } from '../actions/CashierActions'
 import { stompConnector } from './StompConnector'
-
+import { UIService } from './UIService'
 class transactionService {
 
 	/**
@@ -9,6 +9,7 @@ class transactionService {
 	 */
 	startTransaction(){
 		CashierActions.startTransaction();
+		UIService.startTransaction();
 	};
 
 	/**

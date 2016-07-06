@@ -2,6 +2,7 @@ import { CashierStore } from '../stores/CashierStore'
 import { CashierActions } from '../actions/CashierActions'
 import { TransactionService } from './TransactionService'
 import RouterContainer from './RouterContainer'
+import cashier from '../constants/Cashier'
 
 class UiService {
 
@@ -19,7 +20,6 @@ class UiService {
 		this.loginSuccess(this.customerAction);
 	};
 
-
 	/**
 	 * Redirect to first screen after login success
 	 */
@@ -29,10 +29,37 @@ class UiService {
 	}
 
 	/**
+	 * here is where we redirect to start transaction
+	 */
+	startTransaction(){
+		let route = "/" + this.customerAction + "/" + this.getProcessorName().toLowerCase() + '/';
+		this.changeUIState(route);
+	}
+
+	/**
 	 * redirect to a specific route
 	 */
 	changeUIState(route){
 		RouterContainer.get().props.history.push(route);
+	}
+
+	/**
+	 * Redirect depends of the transaction response
+	 */
+	processResponse(data){
+		let status = Number(data.response.transaction.caTransactionStatus_Id);
+
+		let ticketResult = 'rejected';
+		if (status == cashier.TRANSACTION_STATUS_APPROVED){
+			ticketResult = 'approved';
+		}else if (status == cashier.TRANSACTION_STATUS_PENDING){
+			ticketResult = 'pending';
+		}else if (status == cashier.TRANSACTION_STATUS_DEFERRED){
+			ticketResult = 'deferred';
+		}
+
+		this.changeUIState('/'+this.getCurrentView()+'/'+this.getProcessorName().toLowerCase()+'/ticket/'+ticketResult+'/');
+
 	}
 
 	/**
@@ -148,11 +175,11 @@ class UiService {
 		CashierActions.selectProcessor(processorID);
 		TransactionService.selectProcessor(processorID);
 	};
-	
+
 	/**
 	 * Do some actions after processors response
 	 */
-	CustomerProcessorsResponse(processor) {
+	CustomerProcessorsResponse(processor){
 		let processorID = processor.response.processors[this.customerAction][0].caProcessor_Id;
 		this.selectProcessor(processorID);
 	}

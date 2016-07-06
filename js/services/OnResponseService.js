@@ -1,6 +1,7 @@
 import { CashierActions } from '../actions/CashierActions'
 import { CustomerService } from '../services/CustomerService'
 import { ApplicationService } from './ApplicationService'
+import { UIService } from './UIService'
 import actions from '../constants/Actions'
 
 /**
@@ -26,6 +27,10 @@ class OnResponseService {
 
 			case actions.PROCESSORS_RESPONSE:
 				CustomerService.CustomerProcessorsResponse(data);
+				break;
+
+			case actions.PROCESS_RESPONSE:
+				UIService.processResponse(data);
 				break;
 
 			default:
