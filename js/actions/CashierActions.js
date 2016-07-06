@@ -8,75 +8,9 @@ let CashierActions = {
 		});
 	},
 
-	login_response: (data) =>{
-		CashierDispatcher.dispatch({
-			action: actions.LOGIN_RESPONSE, data: data
-		});
-	},
-
-	customerInfo_response: (data) =>{
-		CashierDispatcher.dispatch({
-			action: actions.CUSTOMER_INFO_RESPONSE, data: data
-		});
-	},
-
-	getCustomerProcessors_response: (data) =>{
-		CashierDispatcher.dispatch({
-			action: actions.PROCESSORS_RESPONSE, data: data
-		});
-	},
-
 	getCustomerTransactions: (data) =>{
 		CashierDispatcher.dispatch({
 			action: actions.CUSTOMER_TRANSACTIONS, data: data
-		});
-	},
-
-	getCustomerTransactions_response: (data) =>{
-		CashierDispatcher.dispatch({
-			action: actions.CUSTOMER_TRANSACTIONS_RESPONSE, data: data
-		});
-	},
-
-	companyInfo_response: (data) =>{
-		CashierDispatcher.dispatch({
-			action: actions.COMPANY_INFO_RESPONSE, data: data
-		});
-	},
-
-	countries_response: (data) =>{
-		CashierDispatcher.dispatch({
-			action: actions.COUNTRIES_RESPONSE, data: data
-		});
-	},
-
-	states_response: (data) =>{
-		CashierDispatcher.dispatch({
-			action: actions.STATES_RESPONSE, data: data
-		});
-	},
-
-	getCustomerPreviousPayAccount_response: (data) =>{
-		CashierDispatcher.dispatch({
-			action: actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE, data: data
-		});
-	},
-
-	getDisablePayAccount_response: (data) =>{
-		CashierDispatcher.dispatch({
-			action: actions.PAYACCOUNTS_DISABLE_RESPONSE, data: data
-		});
-	},
-
-	getProcessorLimitRules_response: (data) =>{
-		CashierDispatcher.dispatch({
-			action: actions.PROCESSORS_LIMIT_RULES_RESPONSE, data: data
-		});
-	},
-
-	getProcessorMinMaxLimits_response: (data) =>{
-		CashierDispatcher.dispatch({
-			action: actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE, data: data
 		});
 	},
 
@@ -104,12 +38,6 @@ let CashierActions = {
 		});
 	},
 
-	processResponse: (data) =>{
-		CashierDispatcher.dispatch({
-			action: actions.PROCESS_RESPONSE, data: data
-		});
-	},
-
 	selectProcessor: (processorId) =>{
 		CashierDispatcher.dispatch({
 			action: actions.SELECT_PROCESSOR, data:{processorId: processorId}
@@ -126,7 +54,16 @@ let CashierActions = {
 		CashierDispatcher.dispatch({
 			action: actions.PROCESS
 		});
+	},
+
+	responses: (action, data) => {
+		CashierDispatcher.dispatch({
+			action: action,
+			data: data
+		});
 	}
+
+
 };
 
 module.exports.CashierActions = CashierActions;
