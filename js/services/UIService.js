@@ -5,16 +5,18 @@ import RouterContainer from './RouterContainer'
 
 class UiService {
 
+	constructor(){
+		this.customerAction = "deposit";
+	};
+
 	/**
 	 * Do some other actions after login response
 	 */
 	loginResponse(){
-		let customerAction = "deposit";
 		if(CashierStore.getIsWithdraw()){
-			customerAction = "withdraw";
+			this.customerAction = "withdraw";
 		}
-
-		this.loginSuccess(customerAction);
+		this.loginSuccess(this.customerAction);
 	};
 
 
@@ -151,14 +153,7 @@ class UiService {
 	 * Do some actions after processors response
 	 */
 	CustomerProcessorsResponse(processor) {
-
-		let customerOption = "deposit";
-
-		if(CashierStore.getIsWithdraw()){
-			customerOption = "withdraw";
-		}
-
-		let processorID = processor.response.processors[customerOption][0].caProcessor_Id;
+		let processorID = processor.response.processors[this.customerAction][0].caProcessor_Id;
 		this.selectProcessor(processorID);
 	}
 

@@ -63,10 +63,10 @@ class customerService {
 	 * Do some actions after processors response
 	 */
 	CustomerProcessorsResponse(processor) {
-		let customerOption = "deposit";
+		let customerAction = "deposit";
 
 		if(CashierStore.getIsWithdraw()){
-			customerOption = "withdraw";
+			customerAction = "withdraw";
 		}
 
 		UIService.CustomerProcessorsResponse(processor);

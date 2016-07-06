@@ -38,12 +38,6 @@ let CashierActions = {
 		});
 	},
 
-	process: () =>{
-		CashierDispatcher.dispatch({
-			action: actions.PROCESS
-		});
-	},
-
 	responses: (action, data) =>{
 		CashierDispatcher.dispatch({
 			action: action,

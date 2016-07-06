@@ -11,7 +11,6 @@ let BitCoin = React.createClass({
 	/**
 	 * React function to set component initial state
 	 */
-
 	getInitialState(){
 		return this.refreshLocalState();
 	},

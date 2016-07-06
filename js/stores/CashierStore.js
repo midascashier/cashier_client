@@ -311,15 +311,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		this.emit(CHANGE_EVENT);
 	},
 
-	/**
-	 * received selected payAccount and set it as current
-	 *
-	 * @param payAccount
-	 */
-	changeCurrentPayAccount(payAccount) {
-		_payAccount = payAccount;
-	},
-
 	removeChangeListener(callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
@@ -516,7 +507,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					payAccount.load(item);
 					payAccounts_processor[payAccount.payAccountId] = payAccount;
 					if(setDefault){
-						CashierStore.changeCurrentPayAccount(payAccount);
+						_payAccount = payAccount;
 						setDefault = false;
 					}
 				});
@@ -544,7 +535,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.CHANGE_PAYACCOUNT:
-			CashierStore.changeCurrentPayAccount(_payAccounts[data.processorID][data.payAccountID]);
+			_payAccount = _payAccounts[data.processorID][data.payAccountID];
 			CashierStore.emitChange();
 			break;
 
@@ -601,11 +592,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			//calculate the route to be redirected
 			let route = "/" + _UI.currentView + "/" + UIService.getProcessorName().toLowerCase() + '/';
 			UIService.changeUIState(route);
-			break;
-
-		case actions.PROCESS:
-			TransactionService.process();
-			UIService.changeUIState('/'+UIService.getCurrentView()+'/'+UIService.getProcessorName().toLowerCase()+'/ticket/');
 			break;
 
 		case actions.SELECT_PROCESSOR:
