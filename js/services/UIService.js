@@ -4,6 +4,19 @@ import RouterContainer from './RouterContainer'
 class UiService {
 
 	/**
+	 * Do some other actions after login response
+	 */
+	loginResponse(){
+		let customerAction = "deposit";
+		if(CashierStore.getIsWithdraw()){
+			customerAction = "withdraw";
+		}
+
+		this.loginSuccess(customerAction);
+	};
+
+
+	/**
 	 * Redirect to first screen after login success
 	 */
 	loginSuccess(){

@@ -5,7 +5,7 @@ import assign from 'object-assign'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
 import { UIService } from '../services/UIService'
-import { transactionService } from '../services/TransactionService'
+import { TransactionService } from '../services/TransactionService'
 
 /**
  * UI
@@ -604,7 +604,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.PROCESS:
-			transactionService.process();
+			TransactionService.process();
 			UIService.changeUIState('/'+UIService.getCurrentView()+'/'+UIService.getProcessorName().toLowerCase()+'/ticket/');
 			break;
 

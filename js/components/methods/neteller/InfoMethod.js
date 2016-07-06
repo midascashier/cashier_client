@@ -1,7 +1,7 @@
 import React from 'react'
 import { CashierStore } from '../../../stores/CashierStore'
 import { Loading } from '../../loading/Loading'
-import { transactionService } from '../../../services/TransactionService'
+import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
@@ -94,7 +94,7 @@ let InfoMethod = React.createClass({
 		let dynamicParams = {};
 		dynamicParams.password = password;
 
-		transactionService.process(dynamicParams);
+		TransactionService.process(dynamicParams);
 	},
 
 	render() {

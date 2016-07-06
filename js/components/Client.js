@@ -1,9 +1,9 @@
 import React from 'react'
-import { customerService } from './../services/CustomerService'
+import { CustomerService } from './../services/CustomerService'
 
 let Client = React.createClass({
 	componentDidMount() {
-		customerService.login();
+		CustomerService.customerLogin();
 	},
 
 	render() {

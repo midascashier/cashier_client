@@ -2,7 +2,7 @@ import React from 'react'
 import { CashierStore } from '../../../stores/CashierStore'
 import { Loading } from '../../loading/Loading'
 import { translate } from '../../../constants/Translate'
-import { transactionService } from '../../../services/TransactionService'
+import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
@@ -93,7 +93,7 @@ let InfoMethod = React.createClass({
 		}
 		else{
 			//process the deposit
-			transactionService.process();
+			TransactionService.process();
 			UIService.changeUIState("/deposit/btcscreen/ticket/");
 		}
 	},

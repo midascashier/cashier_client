@@ -2,16 +2,15 @@ import assign from 'object-assign'
 import { CashierStore } from '../stores/CashierStore'
 import { CashierActions } from '../actions/CashierActions'
 import { stompConnector } from './StompConnector'
-
-import { applicationService } from './ApplicationService'
+import { ApplicationService } from './ApplicationService'
 import { UIService } from './UIService'
 
-class CustomerService {
+class customerService {
 
 	/**
 	 * Create RabbitMQ connection and login to client
 	 */
-	login(){
+	customerLogin(){
 		this.stompConnection(loginInfo);
 	};
 
@@ -23,7 +22,7 @@ class CustomerService {
 	stompConnection(loginInfo){
 		stompConnector.initConnection()
 			.then(()=>{
-				this.customerLogin(loginInfo);
+				this.login(loginInfo);
 			});
 	};
 
@@ -32,7 +31,7 @@ class CustomerService {
 	 *
 	 * @param loginInfo
 	 */
-	customerLogin(loginInfo){
+	login(loginInfo){
 		let data = { f: "authCustomer", companyId: 9 };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = assign(data, loginInfo, application);
@@ -42,19 +41,12 @@ class CustomerService {
 	/**
 	 * Do some other actions after login response
 	 */
-	customerLoginResponse(){
-
-		let customerAction = "deposit";
-		if(CashierStore.getIsWithdraw()){
-			customerAction = "withdraw";
-		}
-
-		UIService.loginSuccess(customerAction);
+	loginResponse(){
 		this.getCustomerInfo();
 		this.getCustomerProcessors();
 		this.getCustomerTransactions();
-		applicationService.getCompanyInfo();
-		applicationService.getCountries();
+		UIService.loginResponse();
+		ApplicationService.loginResponse();
 	};
 
 	/**
@@ -159,4 +151,4 @@ class CustomerService {
 
 }
 
-export let customerService = new CustomerService();
+export let CustomerService = new customerService();

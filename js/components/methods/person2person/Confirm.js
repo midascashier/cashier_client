@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router'
 import {CashierStore} from '../../../stores/CashierStore'
 import {translate} from '../../../constants/Translate'
-import {transactionService} from '../../../services/TransactionService'
+import {TransactionService} from '../../../services/TransactionService'
 import {UIService} from '../../../services/UIService'
 
 let Person2PersonConfirm = React.createClass({
@@ -56,7 +56,7 @@ let Person2PersonConfirm = React.createClass({
 	 *
 	 */
 	processTransaction(){
-		transactionService.process();
+		TransactionService.process();
 	},
 
 	render(){

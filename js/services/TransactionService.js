@@ -1,7 +1,7 @@
 import { CashierStore } from '../stores/CashierStore'
 import { stompConnector } from './StompConnector'
 
-class TransactionService {
+class transactionService {
 	
 	/**
 	 * this function sends to process a transaction
@@ -45,4 +45,4 @@ class TransactionService {
 	};
 }
 
-export let transactionService = new TransactionService();
+export let TransactionService = new transactionService();

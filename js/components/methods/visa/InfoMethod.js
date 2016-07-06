@@ -3,7 +3,7 @@ import { translate } from '../../../constants/Translate'
 import { CashierStore } from '../../../stores/CashierStore'
 import { Loading } from '../../loading/Loading'
 import { UIService } from '../../../services/UIService'
-import { transactionService } from '../../../services/TransactionService'
+import { TransactionService } from '../../../services/TransactionService'
 
 let InfoMethod = React.createClass({
 	propTypes: {
