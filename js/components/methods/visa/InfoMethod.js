@@ -1,9 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router'
 import { translate } from '../../../constants/Translate'
 import { CashierStore } from '../../../stores/CashierStore'
 import { Loading } from '../../loading/Loading'
 import { controllerUIService } from '../../../services/ControllerService'
+import { transactionService } from '../../../services/TransactionService'
 
 let InfoMethod = React.createClass({
 	propTypes: {
@@ -87,6 +87,14 @@ let InfoMethod = React.createClass({
 		return { "minPayAccount": minPayAccount, "maxPayAccount": maxPayAccount, "payAccountId": payAccount.payAccountId }
 	},
 
+	/**
+	 * this function sends deposit info to cashier
+	 *
+	 */
+	continueTransaction(){
+		transactionService.process();
+	},
+
 	render() {
 		let allowContinue = this.allowProcess();
 		let payAccountInfo = this.getPayAccountLimits();
@@ -100,7 +108,7 @@ let InfoMethod = React.createClass({
 		});
 
 		return (
-			<div id="InfoMethodVIsa" className="row">
+			<div id="InfoMethodVisa">
 				<div className="col-sm-12">
 					<div className="title">{title}</div>
 					<div className="table-responsive">
@@ -124,8 +132,7 @@ let InfoMethod = React.createClass({
 									{(() =>{
 										if(payAccountInfo.payAccountId && allowContinue){
 											return (
-													<button type='button'
-																	className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
+													<button type='button' className='btn btn-green' onClick={this.continueTransaction}>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
 											)
 										}
 									})()}

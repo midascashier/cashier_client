@@ -103,7 +103,7 @@ let InfoMethod = React.createClass({
 		let originPath = controllerUIService.getOriginPath();
 
 		return (
-			<div id="InfoMethodNeteller" className="row">
+			<div id="InfoMethodNeteller">
 				<div className="col-sm-12">
 					<div className="title">Neteller Deposit Limits*</div>
 					<div className="table-responsive">

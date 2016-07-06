@@ -39,7 +39,7 @@ let BitCoinTicketPending = React.createClass({
 													<div className="infoCol">
 														<div className="subtitle">Send the Bitcoin to the following address</div>
 														<p>Please include any Miners Fee your Bitcoin wallet charges.</p>
-														<div class="form-inline">
+														<div className="form-inline">
 															<input type="text" className="form-control" id="bitCoinAddress"/>
 															<button type="submit" className="btn btn-green">Copy</button>
 														</div>

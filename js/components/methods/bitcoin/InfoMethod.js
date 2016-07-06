@@ -103,7 +103,7 @@ let InfoMethod = React.createClass({
 		let payAccountInfo = this.getPayAccountLimits();
 		let originPath = controllerUIService.getOriginPath();
 		return (
-			<div id="infoLimits" className="row">
+			<div id="InfoMethodBitCoin">
 				<div className="col-sm-12">
 					<div className="title">Bitcoin Deposit Limits</div>
 					<div className="table-responsive">
