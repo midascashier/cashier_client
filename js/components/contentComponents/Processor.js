@@ -1,6 +1,6 @@
 import React from 'react'
 import { customerService } from '../../services/CustomerService'
-import { controllerUIService } from '../../services/ControllerService'
+import { UIService } from '../../services/UIService'
 
 let Processor = React.createClass({
 	propTypes: {
@@ -16,7 +16,7 @@ let Processor = React.createClass({
 
 	render() {
 		let isActive = "";
-		let originPath = controllerUIService.getOriginPath();
+		let originPath = UIService.getOriginPath();
 		if(this.props.selected){
 			isActive = "active";
 		}

@@ -4,7 +4,7 @@ import { CashierActions } from '../actions/CashierActions'
 import { stompConnector } from './StompConnector'
 
 import { applicationService } from './ApplicationService'
-import { controllerUIService } from './ControllerService'
+import { UIService } from './UIService'
 
 class CustomerService {
 
@@ -49,7 +49,7 @@ class CustomerService {
 			customerAction = "withdraw";
 		}
 
-		controllerUIService.loginSuccess(customerAction);
+		UIService.loginSuccess(customerAction);
 		this.getCustomerInfo();
 		this.getCustomerProcessors();
 		this.getCustomerTransactions();

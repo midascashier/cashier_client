@@ -1,7 +1,7 @@
 import React from 'react'
 import {translate} from '../../../constants/Translate'
 import {AmountController} from '../../AmountController'
-import {controllerUIService} from '../../../services/ControllerService'
+import {UIService} from '../../../services/UIService'
 
 let AskInfo = React.createClass({
 
@@ -10,9 +10,9 @@ let AskInfo = React.createClass({
 	},
 
 	render() {
-		let originPath = controllerUIService.getOriginPath();
+		let originPath = UIService.getOriginPath();
 		let processingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P', "Please Enter the Sender's Information");
-		let displayName = controllerUIService.getProcessorDisplayName();
+		let displayName = UIService.getProcessorDisplayName();
 
 		return (
 			<div id="askAmountVisa" className="box">

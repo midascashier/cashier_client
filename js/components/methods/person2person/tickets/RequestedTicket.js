@@ -1,12 +1,12 @@
 import React from 'react'
-import {controllerUIService} from '../../../../services/ControllerService'
+import {UIService} from '../../../../services/UIService'
 
 let RequestedTicket = React.createClass({
 
 	render() {
-		let originPath = controllerUIService.getOriginPath();
-		let transaction = controllerUIService.getTransactionInformation();
-		let customer = controllerUIService.getCustomerInformation();
+		let originPath = UIService.getOriginPath();
+		let transaction = UIService.getTransactionInformation();
+		let customer = UIService.getCustomerInformation();
 
 		return (
 			<div className="internal-content">

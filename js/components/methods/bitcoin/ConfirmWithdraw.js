@@ -1,7 +1,7 @@
 import React from 'react'
 import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
-import { controllerUIService } from '../../../services/ControllerService'
+import { UIService } from '../../../services/UIService'
 import { CashierActions } from '../../../actions/CashierActions'
 
 let ConfirmWithdraw = React.createClass({
@@ -58,7 +58,7 @@ let ConfirmWithdraw = React.createClass({
 	},
 
 	render(){
-		let originPath = controllerUIService.getOriginPath();
+		let originPath = UIService.getOriginPath();
 		return (
 			<div id="confirmBitCoinWithdraw" className="internal-content">
 				<div className="row">

@@ -3,7 +3,7 @@ import {Link} from 'react-router'
 import {CashierStore} from '../../../stores/CashierStore'
 import {translate} from '../../../constants/Translate'
 import {transactionService} from '../../../services/TransactionService'
-import {controllerUIService} from '../../../services/ControllerService'
+import {UIService} from '../../../services/UIService'
 
 let Person2PersonConfirm = React.createClass({
 

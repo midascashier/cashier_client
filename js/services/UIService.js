@@ -1,7 +1,7 @@
 import { CashierStore } from '../stores/CashierStore'
 import RouterContainer from './RouterContainer'
 
-class ControllerUIService {
+class UiService {
 
 	/**
 	 * Redirect to first screen after login success
@@ -126,4 +126,4 @@ class ControllerUIService {
 
 }
 
-export let controllerUIService = new ControllerUIService();
+export let UIService = new UiService();

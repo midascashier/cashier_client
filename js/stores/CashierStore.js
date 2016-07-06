@@ -4,8 +4,7 @@ let CashierDispatcher = require('../dispatcher/CashierDispatcher');
 import assign from 'object-assign'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
-import processors from '../constants/Processors'
-import { controllerUIService } from '../services/ControllerService'
+import { UIService } from '../services/UIService'
 import { transactionService } from '../services/TransactionService'
 
 /**
@@ -590,7 +589,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				ticketResult = 'deferred';
 			}
 
-			controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/'+ticketResult+'/');
+			UIService.changeUIState('/'+UIService.getCurrentView()+'/'+UIService.getProcessorName().toLowerCase()+'/ticket/'+ticketResult+'/');
 
 			break;
 
@@ -600,13 +599,13 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			_transaction.cleanTransaction();
 
 			//calculate the route to be redirected
-			let route = "/" + _UI.currentView + "/" + controllerUIService.getProcessorName().toLowerCase() + '/';
-			controllerUIService.changeUIState(route);
+			let route = "/" + _UI.currentView + "/" + UIService.getProcessorName().toLowerCase() + '/';
+			UIService.changeUIState(route);
 			break;
 
 		case actions.PROCESS:
 			transactionService.process();
-			controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/');
+			UIService.changeUIState('/'+UIService.getCurrentView()+'/'+UIService.getProcessorName().toLowerCase()+'/ticket/');
 			break;
 
 		case actions.SELECT_PROCESSOR:

@@ -3,7 +3,7 @@ import { translate } from '../../../constants/Translate'
 import { SelectPayAccount } from '../../SelectPayAccount'
 import { Input } from '../../Inputs'
 import { AmountController } from '../../AmountController'
-import { controllerUIService } from '../../../services/ControllerService'
+import { UIService } from '../../../services/UIService'
 
 let AskInfo = React.createClass({
 
@@ -16,8 +16,8 @@ let AskInfo = React.createClass({
 	render() {
 		let netellerPasswordInput = this.props.netellerPasswordInput;
 		let password = this.props.password;
-		let isWithDraw = controllerUIService.getIsWithDraw();
-		let originPath = controllerUIService.getOriginPath();
+		let isWithDraw = UIService.getIsWithDraw();
+		let originPath = UIService.getOriginPath();
 
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
 		if(isWithDraw){

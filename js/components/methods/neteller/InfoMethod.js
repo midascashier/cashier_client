@@ -2,7 +2,7 @@ import React from 'react'
 import { CashierStore } from '../../../stores/CashierStore'
 import { Loading } from '../../loading/Loading'
 import { transactionService } from '../../../services/TransactionService'
-import { controllerUIService } from '../../../services/ControllerService'
+import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
 	propTypes: {
@@ -100,7 +100,7 @@ let InfoMethod = React.createClass({
 	render() {
 		let allowContinue = this.allowProcess();
 		let payAccountinfo = this.getPayAccountLimits();
-		let originPath = controllerUIService.getOriginPath();
+		let originPath = UIService.getOriginPath();
 
 		return (
 			<div id="InfoMethodNeteller">

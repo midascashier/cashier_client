@@ -2,7 +2,7 @@ import React from 'react'
 import { translate } from '../constants/Translate'
 import { CashierActions } from './../actions/CashierActions'
 import { CashierStore } from './../stores/CashierStore'
-import { controllerUIService } from '../services/ControllerService'
+import { UIService } from '../services/UIService'
 
 let AmountController = React.createClass({
 
@@ -17,7 +17,7 @@ let AmountController = React.createClass({
 	refreshLocalState() {
 		return {
 			value: CashierStore.getTransaction().amount,
-			limits: controllerUIService.getProcessorLimitMinMax()
+			limits: UIService.getProcessorLimitMinMax()
 		}
 	},
 

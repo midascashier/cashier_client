@@ -5,7 +5,7 @@ import { translate } from '../../constants/Translate'
 import { ProcessorsList } from '../contentComponents/ProcessorsList'
 import { ProcessorInfo } from '../contentComponents/ProcessorInfo'
 import { LoadingSpinner } from '../../components/loading/LoadingSpinner'
-import { controllerUIService } from '../../services/ControllerService'
+import { UIService } from '../../services/UIService'
 
 let ProcessorsInfo = React.createClass({
 	/**
@@ -58,7 +58,7 @@ let ProcessorsInfo = React.createClass({
 	 * @returns {Array}
 	 */
 	getProcessors(){
-		if(controllerUIService.getIsWithDraw()){
+		if(UIService.getIsWithDraw()){
 			return this.state.customer.withdrawProcessors;
 		} else{
 			return this.state.customer.depositProcessors;
