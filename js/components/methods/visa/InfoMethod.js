@@ -92,7 +92,7 @@ let InfoMethod = React.createClass({
 	 *
 	 */
 	continueTransaction(){
-		transactionService.process();
+		controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/confirm/');
 	},
 
 	render() {
