@@ -1,5 +1,4 @@
 import React from 'react'
-import { CustomerService } from '../../services/CustomerService'
 import { UIService } from '../../services/UIService'
 
 let Processor = React.createClass({
@@ -11,7 +10,7 @@ let Processor = React.createClass({
 	 * this function change current processor
 	 */
 	selectProcessor() {
-		CustomerService.changeProcessor(this.props.processorId);
+		UIService.selectProcessor(this.props.processorId);
 	},
 
 	render() {

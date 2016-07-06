@@ -1,4 +1,6 @@
 import { CashierStore } from '../stores/CashierStore'
+import { CashierActions } from '../actions/CashierActions'
+import { TransactionService } from './TransactionService'
 import RouterContainer from './RouterContainer'
 
 class UiService {
@@ -135,6 +137,29 @@ class UiService {
 	 */
 	getLastTransactionResponse(){
 		return CashierStore.getLastTransactionResponse();
+	}
+
+	/**
+	 * Function to change current processor
+	 */
+	selectProcessor(processorID){
+		CashierActions.selectProcessor(processorID);
+		TransactionService.selectProcessor(processorID);
+	};
+	
+	/**
+	 * Do some actions after processors response
+	 */
+	CustomerProcessorsResponse(processor) {
+
+		let customerOption = "deposit";
+
+		if(CashierStore.getIsWithdraw()){
+			customerOption = "withdraw";
+		}
+
+		let processorID = processor.response.processors[customerOption][0].caProcessor_Id;
+		this.selectProcessor(processorID);
 	}
 
 }

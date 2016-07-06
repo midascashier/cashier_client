@@ -1,7 +1,7 @@
 import React from 'react'
 import { translate } from '../../constants/Translate'
 import { UIService } from '../../services/UIService'
-import { CashierActions } from '../../actions/CashierActions'
+import { TransactionService } from '../../services/TransactionService'
 
 let ProcessorInfo = React.createClass({
 	propTypes: {
@@ -38,7 +38,7 @@ let ProcessorInfo = React.createClass({
 	 * start a new transaction based on the current selected processor
 	 */
 	startTransaction() {
-		CashierActions.startTransaction();
+		TransactionService.startTransaction();
 	},
 
 	render() {

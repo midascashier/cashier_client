@@ -1,9 +1,9 @@
 import assign from 'object-assign'
 import { CashierStore } from '../stores/CashierStore'
-import { CashierActions } from '../actions/CashierActions'
 import { stompConnector } from './StompConnector'
 import { ApplicationService } from './ApplicationService'
 import { UIService } from './UIService'
+import { TransactionService } from './TransactionService'
 
 class customerService {
 
@@ -43,8 +43,8 @@ class customerService {
 	 */
 	loginResponse(){
 		this.getCustomerInfo();
-		this.getCustomerProcessors();
 		this.getCustomerTransactions();
+		TransactionService.loginResponse();
 		UIService.loginResponse();
 		ApplicationService.loginResponse();
 	};
@@ -60,16 +60,6 @@ class customerService {
 	};
 
 	/**
-	 * Function to get Customer Processors
-	 */
-	getCustomerProcessors(){
-		let data = { f: "processors" };
-		let application = CashierStore.getApplication();
-		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
-	};
-
-	/**
 	 * Do some actions after processors response
 	 */
 	CustomerProcessorsResponse(processor) {
@@ -79,8 +69,7 @@ class customerService {
 			customerOption = "withdraw";
 		}
 
-		let processorID = processor.response.processors[customerOption][0].caProcessor_Id;
-		this.changeProcessor(processorID);
+		UIService.CustomerProcessorsResponse(processor);
 	};
 
 	/**
@@ -92,63 +81,6 @@ class customerService {
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
 	};
-
-	/**
-	 * Function to get pay account previous pay accounts
-	 */
-	getCustomerPreviousPayAccount(processorID){
-		let data = {
-			f: "getPayAccountsByCustomer", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
-		};
-		let application = CashierStore.getApplication();
-		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
-	};
-
-	/**
-	 * Function to disable pay account
-	 */
-	getDisablePayAccount(){
-		let data = { f: "disableCustomerPayAccount", payAccountId: CashierStore.getUI().payAccountId };
-		let application = CashierStore.getApplication();
-		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
-	};
-
-	/**
-	 * Function to get pay account previous pay accounts
-	 */
-	getCustomerProcessorsMinMax(processorID){
-		let data = {
-			f: "getProcessorMinMaxLimits", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
-		};
-		let application = CashierStore.getApplication();
-		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
-	};
-
-	/**
-	 * Function to get processor limit rules
-	 */
-	getProcessorLimitRules(processorID){
-		let data = {
-			f: "getProcessorLimits", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
-		};
-		let application = CashierStore.getApplication();
-		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
-	};
-
-	/**
-	 * Function to change current processor
-	 */
-	changeProcessor(processorID){
-		CashierActions.selectProcessor(processorID);
-		this.getProcessorLimitRules(processorID);
-		this.getCustomerProcessorsMinMax(processorID);
-		this.getCustomerPreviousPayAccount(processorID);
-	};
-
 }
 
 export let CustomerService = new customerService();
