@@ -81,6 +81,80 @@ class customerService {
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
 	};
+
+	/**
+	 * Function to get Customer transaction
+	 *
+	 * @param data
+	 */
+	getCustomerTransaction(){
+		let transactionResponse = CashierStore.getLastTransactionResponse();
+		if(transactionResponse.journalId){
+			let data = { f: "getCustomerTransaction", journalId: transactionResponse.journalId};
+			let application = CashierStore.getApplication();
+			let rabbitRequest = Object.assign(data, application);
+			stompConnector.makeCustomerRequest("", rabbitRequest);
+		}else{
+			UIService.processResponse(transactionResponse);
+		}
+	};
+
+	/**
+	 * Function to get pay account previous pay accounts
+	 */
+	getCustomerPreviousPayAccount(processorID){
+		let data = {
+			f: "getPayAccountsByCustomer", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
+		};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeCustomerRequest("", rabbitRequest);
+	};
+
+	/**
+	 * Function to disable pay account
+	 */
+	getDisablePayAccount(){
+		let data = { f: "disableCustomerPayAccount", payAccountId: CashierStore.getUI().payAccountId };
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeCustomerRequest("", rabbitRequest);
+	};
+
+	/**
+	 * Function to get pay account previous pay accounts
+	 */
+	getCustomerProcessorsMinMax(processorID){
+		let data = {
+			f: "getProcessorMinMaxLimits", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
+		};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeCustomerRequest("", rabbitRequest);
+	};
+
+	/**
+	 * Function to get processor limit rules
+	 */
+	getProcessorLimitRules(processorID){
+		let data = {
+			f: "getProcessorLimits", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
+		};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeCustomerRequest("", rabbitRequest);
+	};
+
+	/**
+	 * Function to change current processor
+	 */
+	changeProcessor(processorID){
+		CashierActions.selectProcessor(processorID);
+		this.getProcessorLimitRules(processorID);
+		this.getCustomerProcessorsMinMax(processorID);
+		this.getCustomerPreviousPayAccount(processorID);
+	};
+
 }
 
 export let CustomerService = new customerService();

@@ -1,9 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router'
 import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
 import { TransactionService } from '../../../services/TransactionService'
-import { UIService } from '../../../services/UIService'
 
 let VisaConfirm = React.createClass({
 
@@ -56,7 +54,6 @@ let VisaConfirm = React.createClass({
 	 *
 	 */
 	processTransaction(){
-		controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/');
 		TransactionService.process();
 	},
 
@@ -146,7 +143,7 @@ let VisaConfirm = React.createClass({
 															<input type="date" className="form-control" id="dob" value={extraData.dob} readOnly/>
 														</div>
 													</div>
-														<button type="submit" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_DEPOSIT', 'Complete')}</button>
+														<button type="button" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_DEPOSIT', 'Complete')}</button>
 													<p>
 														<a href="#">Use a different method</a>
 													</p>

@@ -6,7 +6,7 @@
 </head>
 <body>
 <form id="alForm" action="/" method="POST">
-  <input type="hidden" id="username" name="username" value="midasbkr">
+  <input type="hidden" id="username" name="username" value="MidasBC">
   <input type="hidden" id="password" name="password" value="t3st0m1das">
   <input type="hidden" id="option" name="option" value="<?php echo $_REQUEST['option'] ?>">
   <input type="hidden" id="ioBB" name="ioBB" value="">

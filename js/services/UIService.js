@@ -25,7 +25,7 @@ class UiService {
 	 */
 	loginSuccess(){
 		let nextPath = "/" + this.getCurrentView() + "/";
-		RouterContainer.get().props.history.push(nextPath);
+		this.changeUIState(nextPath);
 	}
 
 	/**
@@ -33,6 +33,14 @@ class UiService {
 	 */
 	startTransaction(){
 		let route = "/" + this.customerAction + "/" + this.getProcessorName().toLowerCase() + '/';
+		this.changeUIState(route);
+	}
+
+	/**
+	 * here is where we redirect to process transaction
+	 */
+	processTransaction(){
+		let route = '/'+UIService.getCurrentView()+'/'+UIService.getProcessorName().toLowerCase()+'/ticket/';
 		this.changeUIState(route);
 	}
 
@@ -47,7 +55,10 @@ class UiService {
 	 * Redirect depends of the transaction response
 	 */
 	processResponse(data){
-		let status = Number(data.response.transaction.caTransactionStatus_Id);
+		let status = 0;
+		if(data && data.response && data.response.transaction){
+			status = Number(data.response.transaction.caTransactionStatus_Id);
+		}
 
 		let ticketResult = 'rejected';
 		if (status == cashier.TRANSACTION_STATUS_APPROVED){
@@ -59,16 +70,6 @@ class UiService {
 		}
 
 		this.changeUIState('/'+this.getCurrentView()+'/'+this.getProcessorName().toLowerCase()+'/ticket/'+ticketResult+'/');
-
-	}
-
-	/**
-	 * return if steps header should appear
-	 *
-	 * @returns {number}
-	 */
-	getShowStepsHeader(){
-		return this.showStepsHeader;
 	}
 
 	/**
@@ -160,9 +161,9 @@ class UiService {
 	}
 
 	/**
-	 * get last transaction information
-	 *
-	 * @returns {*}
+	 * Return last transaction cashier response
+	 * 
+	 * @returns {*|{transactionId: number, journalId: number, status: number, userMessage: string, state: string, transaction: {journalId: null, transactionId: null, payAccountId: null, transactionStatusId: null, journalTransactionStatusId: null, statusName: null, processorId: null, processorIdSelected: null, processorClassId: null, processorName: null, processorDisplayName: null, dateTrans: null, dateTransModified: null, transUniqueId: null, transactionIdProcessor: null, currencyAmount: null, currencyFee: null, amount: null, fee: null, feeBP: null, currencyId: null, currencyCode: null, transactionTypeId: null, transType: null, errorCode: null, errorMessage: null, userMessage: null, journalNotes: null, descriptor: null}, p2pTransaction: {P2PNameId: null, P2PNameStatus_Id: null, payAccountId: null, submitPayAccountId: null, nameId: null, name: null, Country: null, State: null, SenderTimeFrame: null, ControlNumber: null, DateRequest: null, DateUpdate: null, PAFirstName: null, PAMiddleName: null, PALastName: null, PAPhone: null, PAEmail: null, PACity: null, PAState: null, PAStateName: null, PACountry: null, PACountryName: null, currencyAmount: number, amount: number, currencyFee: string, transactionStatusId: null, processorDisplayName: null, errorMessage: null, processorId: null}, bitCoinTransaction: {Address: null}, load: (function(*))}}
 	 */
 	getLastTransactionResponse(){
 		return CashierStore.getLastTransactionResponse();

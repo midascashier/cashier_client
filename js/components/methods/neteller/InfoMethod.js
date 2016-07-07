@@ -61,11 +61,15 @@ let InfoMethod = React.createClass({
 	allowProcess(){
 		let password = this.props.password;
 		let amount = this.props.transaction.amount;
-		if(password && amount){
-			if((String(password).length >= 5) && amount > 0){
-				return true;
-			}
+		let isWithDraw = UIService.getIsWithDraw();
+
+		if((String(password).length >= 5) && amount > 0){
+			return true;
 		}
+		else if(amount > 0 && isWithDraw){
+			return true
+		}
+
 		return false;
 	},
 
@@ -126,7 +130,8 @@ let InfoMethod = React.createClass({
 								<div className="col-sm-6">
 									{(() =>{
 										if(payAccountinfo.payAccountId && allowContinue){
-											return <button type='button' onClick={this.processTransaction} className='btn btn-green'>Next</button>
+											return <button type='button' onClick={this.processTransaction} className='btn btn-green'>
+												Next</button>
 										}
 									})()}
 								</div>

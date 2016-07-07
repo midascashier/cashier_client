@@ -3,7 +3,6 @@ import { translate } from '../../../constants/Translate'
 import { CashierStore } from '../../../stores/CashierStore'
 import { Loading } from '../../loading/Loading'
 import { UIService } from '../../../services/UIService'
-import { TransactionService } from '../../../services/TransactionService'
 
 let InfoMethod = React.createClass({
 	propTypes: {
@@ -92,7 +91,7 @@ let InfoMethod = React.createClass({
 	 *
 	 */
 	continueTransaction(){
-		controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/confirm/');
+		UIService.changeUIState('/'+UIService.getCurrentView()+'/'+UIService.getProcessorName().toLowerCase()+'/confirm/');
 	},
 
 	render() {

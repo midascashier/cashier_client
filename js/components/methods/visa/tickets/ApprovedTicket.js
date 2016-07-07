@@ -1,10 +1,11 @@
 import React from 'react'
-import { UIService } from '../../services/UIService'
+import { UIService } from '../../../../services/UIService'
 
-let ApprovedTicket = React.createClass({
+let VisaApprovedTicket = React.createClass({
 
 	render() {
 		let originPath = UIService.getOriginPath();
+		let transaction = UIService.getLastTransactionResponse();
 		let customer = UIService.getCustomerInformation();
 
 		return (
@@ -20,6 +21,7 @@ let ApprovedTicket = React.createClass({
 							<i className="fa fa-check-circle-o green"></i>
 							<div className="title">Your $ deposit was successful.</div>
 							<p>Your balance is now {customer.currencySymbol + " " + customer.balance}</p>
+							<p>This charge will show up on your statement as {transaction.descriptor}.</p>
 							<p>An email has been sent to {customer.personalInformation.email} with the transaction details.</p>
 						</div>
 					</div>
@@ -29,4 +31,4 @@ let ApprovedTicket = React.createClass({
 	}
 });
 
-module.exports.ApprovedTicket = ApprovedTicket;
+module.exports.VisaApprovedTicket = VisaApprovedTicket;

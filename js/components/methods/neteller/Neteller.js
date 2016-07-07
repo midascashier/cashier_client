@@ -7,10 +7,10 @@ import { AskInfo } from './AskInfo'
 import { InfoMethod } from './InfoMethod'
 
 let Neteller = React.createClass({
+
 	/**
 	 * React function to set component initial state
 	 */
-
 	getInitialState(){
 		return this.refreshLocalState();
 	},

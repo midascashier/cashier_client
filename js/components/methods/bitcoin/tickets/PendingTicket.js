@@ -1,7 +1,12 @@
 import React from 'react'
+import { UIService } from '../../../../services/UIService'
 
 let BitCoinTicketPending = React.createClass({
 	render() {
+		
+		let transaction = UIService.getLastTransactionResponse();
+		let btcAddress = transaction.bitCoinTransaction.Address;
+
 		return (
 			<div id="BitCoinTicketInstructions">
 
@@ -37,10 +42,10 @@ let BitCoinTicketPending = React.createClass({
 												<div className="col-sm-12">
 													<div className="title">2</div>
 													<div className="infoCol">
-														<div className="subtitle">Send the Bitcoin to the following address</div>
-														<p>Please include any Miners Fee your Bitcoin wallet charges.</p>
+														<div className="subtitle">Send the BitCoin to the following address</div>
+														<p>Please include any Miners Fee your BitCoin wallet charges.</p>
 														<div className="form-inline">
-															<input type="text" className="form-control" id="bitCoinAddress"/>
+															<input type="text" className="form-control" id="bitCoinAddress" value={btcAddress} readOnly/>
 															<button type="submit" className="btn btn-green">Copy</button>
 														</div>
 													</div>

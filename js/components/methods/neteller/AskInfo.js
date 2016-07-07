@@ -47,10 +47,14 @@ let AskInfo = React.createClass({
 													<label for="">{translate('NETELLER_ACCOUNT', 'Neteller Account')}:</label>
 													<SelectPayAccount />
 												</div>
-												<div className="form-group">
-													<label for="">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
-													<Input onChange={netellerPasswordInput} value={password} type="password"/>
-												</div>
+												{(() =>{
+													if(!isWithDraw){
+														return <div className="form-group">
+															<label for="">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
+															<Input onChange={netellerPasswordInput} value={password} type="password"/>
+														</div>
+													}
+												})()}
 												<AmountController />
 											</div>
 										</div>

@@ -112,6 +112,7 @@ class transactionService {
 			dynamicParams: dynamicParams
 		};
 
+		UIService.processTransaction();
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 }

@@ -24,6 +24,13 @@ let Header = React.createClass({
 	},
 
 	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
+	},
+
+	/**
 	 * this function sets and return object with local states
 	 *
 	 * @returns {{step: (*|string), processorSteps: *}}
@@ -51,7 +58,6 @@ let Header = React.createClass({
 		let steps = this.state.processorSteps;
 		let isWithDraw = this.state.isWithDraw;
 		let currentView = this.state.UI.currentView;
-		let showStepsHeader = UIService.getShowStepsHeader();
 
 		return (
 			<div id="header">

@@ -94,7 +94,6 @@ let InfoMethod = React.createClass({
 		else{
 			//process the deposit
 			TransactionService.process();
-			UIService.changeUIState("/deposit/btcscreen/ticket/");
 		}
 	},
 

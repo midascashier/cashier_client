@@ -6,14 +6,35 @@ import { UIService } from '../services/UIService'
 
 let AmountController = React.createClass({
 
+	/**
+	 * React function to set component inital state
+	 *
+	 * @returns {*|{step, processorSteps}}
+	 */
 	getInitialState() {
 		return this.refreshLocalState();
 	},
 
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
 	componentDidMount() {
 		CashierStore.addChangeListener(this._onChange);
 	},
 
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
+	},
+
+	/**
+	 * this function sets and return object with local states
+	 *
+	 * @returns {{step: (*|string), processorSteps: *}}
+	 */
 	refreshLocalState() {
 		return {
 			value: CashierStore.getTransaction().amount,
@@ -21,12 +42,22 @@ let AmountController = React.createClass({
 		}
 	},
 
+	/**
+	 * this is the callback function the store calls when a state change
+	 *
+	 * @private
+	 */
 	_onChange() {
 		if(this.isMounted() === true){
 			this.setState(this.refreshLocalState());
 		}
 	},
 
+	/**
+	 * Set transaction amount in the store
+	 *
+	 * @param event
+	 */
 	changeValue(event) {
 		let amount = event.currentTarget.value;
 		amount = amount.replace(/[^0-9\-]/g, '');
