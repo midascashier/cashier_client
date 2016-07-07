@@ -1,6 +1,7 @@
 import { CashierActions } from '../actions/CashierActions'
-import { customerService } from '../services/CustomerService'
-import { applicationService } from './ApplicationService'
+import { CustomerService } from '../services/CustomerService'
+import { ApplicationService } from './ApplicationService'
+import { UIService } from './UIService'
 import actions from '../constants/Actions'
 
 /**
@@ -17,15 +18,19 @@ class OnResponseService {
 
 		switch(action){
 			case actions.LOGIN_RESPONSE:
-				customerService.customerLoginResponse();
+				CustomerService.loginResponse();
 				break;
 
 			case actions.CUSTOMER_INFO_RESPONSE:
-				applicationService.getStates();
+				ApplicationService.getStates();
 				break;
 
 			case actions.PROCESSORS_RESPONSE:
-				customerService.CustomerProcessorsResponse(data);
+				CustomerService.CustomerProcessorsResponse(data);
+				break;
+
+			case actions.PROCESS_RESPONSE:
+				UIService.processResponse(data);
 				break;
 
 			case actions.PROCESS_RESPONSE:

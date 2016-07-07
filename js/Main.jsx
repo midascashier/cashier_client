@@ -96,6 +96,12 @@ let routes = (
 					<Route path="deferred/" component={DeferredTicket}/>
 				</Route>
 
+				<Route path="neteller_new/" component={Neteller}/>
+				<Route path="neteller_new/ticket/" component={LoadingTicket}>
+					<Route path="deferred/" component={DeferredTicket}/>
+				</Route>
+
+
 			</Route>
 		</Route>
 	</Router>

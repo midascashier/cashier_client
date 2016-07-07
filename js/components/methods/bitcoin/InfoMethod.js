@@ -2,8 +2,8 @@ import React from 'react'
 import { CashierStore } from '../../../stores/CashierStore'
 import { Loading } from '../../loading/Loading'
 import { translate } from '../../../constants/Translate'
-import { transactionService } from '../../../services/TransactionService'
-import { controllerUIService } from '../../../services/ControllerService'
+import { TransactionService } from '../../../services/TransactionService'
+import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
 	/**
@@ -87,21 +87,21 @@ let InfoMethod = React.createClass({
 	 *
 	 */
 	continueTransaction(){
-		let isWithDraw = controllerUIService.getIsWithDraw();
+		let isWithDraw = UIService.getIsWithDraw();
 		if(isWithDraw){
-			controllerUIService.changeUIState("/withdraw/"+controllerUIService.getProcessorName().toLowerCase()+"/confirm/");
+			UIService.changeUIState("/withdraw/"+UIService.getProcessorName().toLowerCase()+"/confirm/");
 		}
 		else{
 			//process the deposit
-			transactionService.process();
-			controllerUIService.changeUIState("/deposit/btcscreen/ticket/");
+			TransactionService.process();
+			UIService.changeUIState("/deposit/btcscreen/ticket/");
 		}
 	},
 
 	render() {
 		let allowContinue = this.allowProcess();
 		let payAccountInfo = this.getPayAccountLimits();
-		let originPath = controllerUIService.getOriginPath();
+		let originPath = UIService.getOriginPath();
 		return (
 			<div id="InfoMethodBitCoin">
 				<div className="col-sm-12">

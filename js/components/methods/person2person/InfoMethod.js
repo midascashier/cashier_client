@@ -3,7 +3,7 @@ import {Link} from 'react-router'
 import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
 import {Loading} from '../../loading/Loading'
-import {controllerUIService} from '../../../services/ControllerService'
+import {UIService} from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
 	propTypes: {
@@ -91,8 +91,8 @@ let InfoMethod = React.createClass({
 		let allowContinue = this.allowProcess();
 		let payAccountInfo = this.getPayAccountLimits();
 		let displayName = this.props.selectedProcessor.displayName;
-		let originPath = controllerUIService.getOriginPath();
-		let currentView = controllerUIService.getCurrentView().toUpperCase();
+		let originPath = UIService.getOriginPath();
+		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Deposit Limits', {processorName:displayName, transactionType:transactionType});
 

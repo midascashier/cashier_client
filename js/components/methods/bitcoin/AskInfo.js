@@ -2,7 +2,7 @@ import React from 'react'
 import { translate } from '../../../constants/Translate'
 import { SelectPayAccount } from '../../SelectPayAccount'
 import { AmountController } from '../../AmountController'
-import { controllerUIService } from '../../../services/ControllerService'
+import { UIService } from '../../../services/UIService'
 import { FeeController } from '../../FeeController'
 
 let AskInfo = React.createClass({
@@ -11,8 +11,8 @@ let AskInfo = React.createClass({
 	},
 
 	render() {
-		let isWithDraw = controllerUIService.getIsWithDraw();
-		let originPath = controllerUIService.getOriginPath();
+		let isWithDraw = UIService.getIsWithDraw();
+		let originPath = UIService.getOriginPath();
 		let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
 		if(isWithDraw){
 			title = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information')

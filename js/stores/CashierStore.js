@@ -4,9 +4,6 @@ let CashierDispatcher = require('../dispatcher/CashierDispatcher');
 import assign from 'object-assign'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
-import processors from '../constants/Processors'
-import { controllerUIService } from '../services/ControllerService'
-import { transactionService } from '../services/TransactionService'
 
 /**
  * UI
@@ -449,15 +446,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		this.emit(CHANGE_EVENT);
 	},
 
-	/**
-	 * received selected payAccount and set it as current
-	 *
-	 * @param payAccount
-	 */
-	changeCurrentPayAccount(payAccount) {
-		_payAccount = payAccount;
-	},
-
 	removeChangeListener(callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
@@ -654,7 +642,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					payAccount.load(item);
 					payAccounts_processor[payAccount.payAccountId] = payAccount;
 					if(setDefault){
-						CashierStore.changeCurrentPayAccount(payAccount);
+						_payAccount = payAccount;
 						setDefault = false;
 					}
 				});
@@ -682,27 +670,26 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.CHANGE_PAYACCOUNT:
-			CashierStore.changeCurrentPayAccount(_payAccounts[data.processorID][data.payAccountID]);
+			_payAccount = _payAccounts[data.processorID][data.payAccountID];
 			CashierStore.emitChange();
 			break;
 
 		case actions.CHANGE_TRANSACTION_AMOUNT:
-			_transaction.amount = data;
+			_transaction.amount = data.amount;
 			CashierStore.emitChange();
 			break;
 
 		case actions.CHANGE_TRANSACTION_FEE:
-			_transaction.fee = data;
+			_transaction.fee = data.fee;
 			CashierStore.emitChange();
 			break;
 
 		case actions.CHANGE_TRANSACTION_TERMS:
-			_transaction.checkTermsAndConditions = data;
+			_transaction.checkTermsAndConditions = data.checked;
 			CashierStore.emitChange();
 			break;
 
 		case actions.PROCESS_RESPONSE:
-
 			if(data.response && data.response.transaction){
 				_transactionResponse.journalId = data.response.transaction.caJournal_Id;
 				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
@@ -717,37 +704,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			if(_transactionResponse.userMessage == ""){
 				_transactionResponse.userMessage = data.userMessage;
 			}
-
-			let ticketResult = 'rejected';
-			if (_transactionResponse.status == cashier.TRANSACTION_STATUS_APPROVED){
-				ticketResult = 'approved';
-			}else if (_transactionResponse.status == cashier.TRANSACTION_STATUS_PENDING){
-				ticketResult = 'pending';
-			}else if (_transactionResponse.status == cashier.TRANSACTION_STATUS_DEFERRED){
-				ticketResult = 'deferred';
-			}
-
-			controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/'+ticketResult+'/');
-			break;
-
-		case actions.CUSTOMER_TRANSACTION_RESPONSE:
-			_transactionResponse.load(data.response);
-			CashierStore.emitChange();
 			break;
 
 		case actions.START_TRANSACTION:
-
 			//do some work before start the transaction
 			_transaction.cleanTransaction();
-
-			//calculate the route to be redirected
-			let route = "/" + _UI.currentView + "/" + controllerUIService.getProcessorName().toLowerCase() + '/';
-			controllerUIService.changeUIState(route);
-			break;
-
-		case actions.PROCESS:
-			transactionService.process();
-			controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/');
 			break;
 
 		case actions.SELECT_PROCESSOR:

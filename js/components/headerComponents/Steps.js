@@ -1,7 +1,7 @@
 import React from 'react'
 import { translate } from '../../constants/Translate'
 import { Link } from 'react-router'
-import { controllerUIService } from '../../services/ControllerService'
+import { UIService } from '../../services/UIService'
 
 let Steps = React.createClass({
 	propTypes: {
@@ -12,7 +12,7 @@ let Steps = React.createClass({
 		let step1 = "step1";
 		let step2 = "step2";
 		let step3 = "step3";
-		let currentView = "/" + controllerUIService.getCurrentView() + "/";
+		let currentView = "/" + UIService.getCurrentView() + "/";
 
 		switch(this.props.step){
 			case 1:
@@ -36,7 +36,7 @@ let Steps = React.createClass({
 
 		let steps_method = translate('STEPS_DEPOSIT_METHOD');
 		let steps_how_much = translate('STEPS_HOW_MUCH_DEPOSIT');
-		if(controllerUIService.getIsWithDraw()){
+		if(UIService.getIsWithDraw()){
 			steps_method = translate('STEPS_WITHDRAW_METHOD');
 			steps_how_much = translate('STEPS_HOW_MUCH_WITHDRAW');
 		}

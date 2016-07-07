@@ -1,7 +1,7 @@
 import React from 'react'
 import { translate } from '../../constants/Translate'
-import { controllerUIService } from '../../services/ControllerService'
-import { CashierActions } from '../../actions/CashierActions'
+import { UIService } from '../../services/UIService'
+import { TransactionService } from '../../services/TransactionService'
 
 let ProcessorInfo = React.createClass({
 	propTypes: {
@@ -38,12 +38,12 @@ let ProcessorInfo = React.createClass({
 	 * start a new transaction based on the current selected processor
 	 */
 	startTransaction() {
-		CashierActions.startTransaction();
+		TransactionService.startTransaction();
 	},
 
 	render() {
-		let originPath = controllerUIService.getOriginPath();
-		let isWithDraw = controllerUIService.getIsWithDraw();
+		let originPath = UIService.getOriginPath();
+		let isWithDraw = UIService.getIsWithDraw();
 		let processorDisplayName = this.props.selectedProcessor.displayName;
 
 		let minProcessorLimit = this.getMinProcessorLimit();
@@ -54,7 +54,7 @@ let ProcessorInfo = React.createClass({
 			buttonNext = translate('PROCESSING_BUTTON_NEXT_WITHDRAW', 'Next')
 		}
 
-		let currentView = controllerUIService.getCurrentView().toUpperCase();
+		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
 			processorName: processorDisplayName,

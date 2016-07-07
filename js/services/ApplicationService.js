@@ -1,7 +1,17 @@
 import { CashierStore } from '../stores/CashierStore'
 import { stompConnector } from './StompConnector'
 
-class ApplicationService {
+class applicationService {
+
+	/**
+	 * Do some other actions after login response
+	 */
+	loginResponse(){
+		this.getCompanyInfo();
+		this.getCountries();
+	};
+
+
 	/**
 	 * function to get Company Info
 	 */
@@ -38,4 +48,4 @@ class ApplicationService {
 	};
 }
 
-export let applicationService = new ApplicationService();
+export let ApplicationService = new applicationService();

@@ -2,7 +2,7 @@ import React from 'react'
 import { translate } from '../../constants/Translate'
 import { LoadingSpinner } from '../loading/LoadingSpinner'
 import { Processor } from './Processor'
-import { controllerUIService } from '../../services/ControllerService'
+import { UIService } from '../../services/UIService'
 
 let ProcessorsList = React.createClass({
 	propTypes: {
@@ -11,7 +11,7 @@ let ProcessorsList = React.createClass({
 
 	render() {
 		let titleText = translate('METHOD_SELECT_YOUR_DEPOSIT_METHOD');
-		if(controllerUIService.getIsWithDraw()){
+		if(UIService.getIsWithDraw()){
 			titleText = translate('METHOD_SELECT_YOUR_WITHDRAW_METHOD');
 		}
 		let isSelected = false;

@@ -1,8 +1,8 @@
 import React from 'react'
 import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
-import { transactionService } from '../../../services/TransactionService'
-import { controllerUIService } from '../../../services/ControllerService'
+import { TransactionService } from '../../../services/TransactionService'
+import { UIService } from '../../../services/UIService'
 
 let VisaConfirm = React.createClass({
 
@@ -55,8 +55,8 @@ let VisaConfirm = React.createClass({
 	 *
 	 */
 	processTransaction(){
-		transactionService.process();
 		controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/');
+		TransactionService.process();
 	},
 
 	render(){

@@ -1,7 +1,8 @@
 import React from 'react'
 import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
-import { controllerUIService } from '../../../services/ControllerService'
+import { UIService } from '../../../services/UIService'
+import { TransactionService } from '../../../services/TransactionService'
 import { CashierActions } from '../../../actions/CashierActions'
 
 let ConfirmWithdraw = React.createClass({
@@ -9,7 +10,6 @@ let ConfirmWithdraw = React.createClass({
 	/**
 	 * React function to set component initial state
 	 */
-
 	getInitialState(){
 		return this.refreshLocalState();
 	},
@@ -54,11 +54,12 @@ let ConfirmWithdraw = React.createClass({
 	 *
 	 */
 	processTransaction(){
-		CashierActions.process();
+		TransactionService.process();
+		UIService.changeUIState('/'+UIService.getCurrentView()+'/'+UIService.getProcessorName().toLowerCase()+'/ticket/');
 	},
 
 	render(){
-		let originPath = controllerUIService.getOriginPath();
+		let originPath = UIService.getOriginPath();
 		return (
 			<div id="confirmBitCoinWithdraw" className="internal-content">
 				<div className="row">

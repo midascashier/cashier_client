@@ -1,17 +1,16 @@
 import assign from 'object-assign'
 import { CashierStore } from '../stores/CashierStore'
-import { CashierActions } from '../actions/CashierActions'
 import { stompConnector } from './StompConnector'
+import { ApplicationService } from './ApplicationService'
+import { UIService } from './UIService'
+import { TransactionService } from './TransactionService'
 
-import { applicationService } from './ApplicationService'
-import { controllerUIService } from './ControllerService'
-
-class CustomerService {
+class customerService {
 
 	/**
 	 * Create RabbitMQ connection and login to client
 	 */
-	login(){
+	customerLogin(){
 		this.stompConnection(loginInfo);
 	};
 
@@ -23,7 +22,7 @@ class CustomerService {
 	stompConnection(loginInfo){
 		stompConnector.initConnection()
 			.then(()=>{
-				this.customerLogin(loginInfo);
+				this.login(loginInfo);
 			});
 	};
 
@@ -32,7 +31,7 @@ class CustomerService {
 	 *
 	 * @param loginInfo
 	 */
-	customerLogin(loginInfo){
+	login(loginInfo){
 		let data = { f: "authCustomer", companyId: 9 };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = assign(data, loginInfo, application);
@@ -42,19 +41,12 @@ class CustomerService {
 	/**
 	 * Do some other actions after login response
 	 */
-	customerLoginResponse(){
-
-		let customerAction = "deposit";
-		if(CashierStore.getIsWithdraw()){
-			customerAction = "withdraw";
-		}
-
-		controllerUIService.loginSuccess(customerAction);
+	loginResponse(){
 		this.getCustomerInfo();
-		this.getCustomerProcessors();
 		this.getCustomerTransactions();
-		applicationService.getCompanyInfo();
-		applicationService.getCountries();
+		TransactionService.loginResponse();
+		UIService.loginResponse();
+		ApplicationService.loginResponse();
 	};
 
 	/**
@@ -68,27 +60,16 @@ class CustomerService {
 	};
 
 	/**
-	 * Function to get Customer Processors
-	 */
-	getCustomerProcessors(){
-		let data = { f: "processors" };
-		let application = CashierStore.getApplication();
-		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
-	};
-
-	/**
 	 * Do some actions after processors response
 	 */
 	CustomerProcessorsResponse(processor) {
-		let customerOption = "deposit";
+		let customerAction = "deposit";
 
 		if(CashierStore.getIsWithdraw()){
-			customerOption = "withdraw";
+			customerAction = "withdraw";
 		}
 
-		let processorID = processor.response.processors[customerOption][0].caProcessor_Id;
-		this.changeProcessor(processorID);
+		UIService.CustomerProcessorsResponse(processor);
 	};
 
 	/**
@@ -174,4 +155,4 @@ class CustomerService {
 
 }
 
-export let customerService = new CustomerService();
+export let CustomerService = new customerService();

@@ -1,7 +1,78 @@
 import { CashierStore } from '../stores/CashierStore'
+import { CashierActions } from '../actions/CashierActions'
 import { stompConnector } from './StompConnector'
+import { UIService } from './UIService'
+class transactionService {
 
-class TransactionService {
+	/**
+	 * here is where we start the transaction process
+	 */
+	startTransaction(){
+		CashierActions.startTransaction();
+		UIService.startTransaction();
+	};
+
+	/**
+	 * Do some other actions after login response
+	 */
+	loginResponse(){
+		this.getProcessors();
+	}
+
+	/**
+	 * Function to get Customer Processors
+	 */
+	getProcessors(){
+		let data = { f: "processors" };
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeCustomerRequest("", rabbitRequest);
+	};
+
+	/**
+	 * Function to get pay account previous pay accounts
+	 */
+	getProcessorsMinMax(processorID){
+		let data = {
+			f: "getProcessorMinMaxLimits", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
+		};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeCustomerRequest("", rabbitRequest);
+	};
+
+	/**
+	 * Function to get processor limit rules
+	 */
+	getProcessorLimitRules(processorID){
+		let data = {
+			f: "getProcessorLimits", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
+		};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeCustomerRequest("", rabbitRequest);
+	};
+	
+	/**
+	 * Function to get pay account previous pay accounts
+	 */
+	getPreviousPayAccount(processorID){
+		let data = {
+			f: "getPayAccountsByCustomer", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
+		};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeCustomerRequest("", rabbitRequest);
+	};
+
+	/**
+	 * Function to change current processor
+	 */
+	selectProcessor(processorID){
+		this.getProcessorLimitRules(processorID);
+		this.getProcessorsMinMax(processorID);
+		this.getPreviousPayAccount(processorID);
+	}
 	
 	/**
 	 * this function sends to process a transaction
@@ -45,4 +116,4 @@ class TransactionService {
 	};
 }
 
-export let transactionService = new TransactionService();
+export let TransactionService = new transactionService();

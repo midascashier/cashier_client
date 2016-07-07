@@ -1,8 +1,8 @@
 import React from 'react'
 import { CashierStore } from '../../../stores/CashierStore'
 import { Loading } from '../../loading/Loading'
-import { transactionService } from '../../../services/TransactionService'
-import { controllerUIService } from '../../../services/ControllerService'
+import { TransactionService } from '../../../services/TransactionService'
+import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
 	propTypes: {
@@ -61,11 +61,15 @@ let InfoMethod = React.createClass({
 	allowProcess(){
 		let password = this.props.password;
 		let amount = this.props.transaction.amount;
-		if(password && amount){
-			if((String(password).length >= 5) && amount > 0){
-				return true;
-			}
+		let isWithDraw = UIService.getIsWithDraw();
+
+		if((String(password).length >= 5) && amount > 0){
+			return true;
 		}
+		else if(amount > 0 && isWithDraw){
+			return true
+		}
+
 		return false;
 	},
 
@@ -93,7 +97,7 @@ let InfoMethod = React.createClass({
 		let password = this.props.password;
 		let dynamicParams = {};
 		dynamicParams.password = password;
-
+		
 		transactionService.process(dynamicParams);
 		controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/');
 	},
@@ -101,7 +105,7 @@ let InfoMethod = React.createClass({
 	render() {
 		let allowContinue = this.allowProcess();
 		let payAccountinfo = this.getPayAccountLimits();
-		let originPath = controllerUIService.getOriginPath();
+		let originPath = UIService.getOriginPath();
 
 		return (
 			<div id="InfoMethodNeteller">
@@ -127,7 +131,8 @@ let InfoMethod = React.createClass({
 								<div className="col-sm-6">
 									{(() =>{
 										if(payAccountinfo.payAccountId && allowContinue){
-											return <button type='button' onClick={this.processTransaction} className='btn btn-green'>Next</button>
+											return <button type='button' onClick={this.processTransaction} className='btn btn-green'>
+												Next</button>
 										}
 									})()}
 								</div>
