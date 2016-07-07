@@ -15,10 +15,19 @@ let AskInfo = React.createClass({
 		selectedProcessor: React.PropTypes.object
 	},
 
+	/**
+	 * check limits to allow transaction
+	 */
+	checkAllow(){
+		return this.props.allowContinue;
+	},
+
+
 	render() {
 		let netellerPassword = this.props.netellerPassword;
 		let transactionAmount = this.props.transactionAmount;
 		let amount = this.props.amount;
+		let allowContinue = this.checkAllow();
 		let password = this.props.password;
 		let isWithDraw = UIService.getIsWithDraw();
 		let originPath = UIService.getOriginPath();
@@ -44,7 +53,7 @@ let AskInfo = React.createClass({
 												<div className="method active pull-left">
 													<img className="img-responsive" src={originPath + '/images/processors/333.png'}
 															 alt="Neteller"/>
-												</div>
+												</div>{allowContinue}
 											</div>
 											<div className="col-sm-9">
 												<div className="form-group">

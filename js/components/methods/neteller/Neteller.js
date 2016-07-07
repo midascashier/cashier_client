@@ -35,8 +35,9 @@ let Neteller = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			selectedProcessor: CashierStore.getProcessor(), transaction: CashierStore.getTransaction()
-
+			selectedProcessor: CashierStore.getProcessor(),
+			transaction: CashierStore.getTransaction(),
+			allowContinue: this.props.checkLimitsLite(3)
 		}
 	},
 
@@ -79,6 +80,7 @@ let Neteller = React.createClass({
 									 transactionAmount={this.transactionAmount}
 									 password={this.state.password}
 									 amount={this.state.amount}
+									 allowContinue={this.state.allowContinue}
 									 selectedProcessor={this.state.selectedProcessor}/>
 				</div>
 				<div className="col-sm-6">

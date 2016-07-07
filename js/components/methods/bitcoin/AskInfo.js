@@ -7,7 +7,9 @@ import { FeeController } from '../../FeeController'
 
 let AskInfo = React.createClass({
 	propTypes: {
-		selectedProcessor: React.PropTypes.object
+		selectedProcessor: React.PropTypes.object,
+		transactionAmount: React.PropTypes.func,
+		amount: React.PropTypes.number
 	},
 
 	render() {
