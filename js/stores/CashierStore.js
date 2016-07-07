@@ -299,136 +299,7 @@ let _transactionResponse = {
 	status: 0,
 	userMessage: "",
 	state: "",
-	payAccountId: null,
-	transactionStatusId: null,
-	journalTransactionStatusId: null,
-	statusName: null,
-	processorId: null,
-	processorIdSelected: null,
-	processorClassId: null,
-	processorName: null,
-	processorDisplayName: null,
-	dateTrans: null,
-	dateTransModified: null,
-	transUniqueId: null,
-	transactionIdProcessor: null,
-	currencyAmount: null,
-	currencyFee: null,
-	amount: null,
-	fee: null,
-	feeBP: null,
-	currencyId: null,
-	currencyCode: null,
-	transactionTypeId: null,
-	transType: null,
-	errorCode: null,
-	errorMessage: null,
-	journalNotes: null,
-	descriptor: null,
-	p2pTransaction: {
-		P2PNameId: null,
-		P2PNameStatusId: null,
-		payAccountId: null,
-		submitPayAccountId: null,
-		nameId: null,
-		name: null,
-		country: null,
-		state: null,
-		senderTimeFrame: null,
-		controlNumber: null,
-		dateRequest: null,
-		dateUpdate: null,
-		PAFirstName: null,
-		PAMiddleName: null,
-		PALastName: null,
-		PAPhone: null,
-		PAEmail: null,
-		PACity: null,
-		PAState: null,
-		PAStateName: null,
-		PACountry: null,
-		PACountryName: null,
-		currencyAmount: 0,
-		amount: 0,
-		currencyFee: "0",
-		transactionStatusId: null,
-		processorDisplayName: null,
-		errorMessage: null,
-		processorId: null
-	},
-	bitCoinTransaction: { Address: null },
-	load(response){
-		// transaction data
-		let transaction = response.transaction;
-		this.journalId = transaction.journalId;
-		this.transactionId = transaction.transactionId;
-		this.payAccountId = transaction.caPayAccount_Id;
-		this.transactionStatusId = transaction.caTransactionStatus_Id;
-		this.journalTransactionStatusId = transaction.journalTransactionStatus_Id;
-		this.statusName = transaction.StatusName;
-		this.processorId = transaction.caProcessor_Id;
-		this.processorIdSelected = transaction.caProcessor_Id_Selected;
-		this.processorClassId = transaction.caProcessorClass_Id;
-		this.processorName = transaction.ProcessorName;
-		this.processorDisplayName = transaction.ProcessorDisplayName;
-		this.dateTrans = transaction.DateTrans;
-		this.dateTransModified = transaction.DateTrans_Modified;
-		this.transUniqueId = transaction.TransUniqueId;
-		this.transactionIdProcessor = transaction.Transaction_Id_Processor;
-		this.currencyAmount = transaction.CurrencyAmount;
-		this.currencyFee = transaction.CurrencyFee;
-		this.amount = transaction.Amount;
-		this.fee = transaction.Fee;
-		this.feeBP = transaction.FeeBP;
-		this.currencyCode = transaction.CurrencyCode;
-		this.transactionTypeId = transaction.caTransactionType_Id;
-		this.transType = transaction.TransType;
-		this.errorCode = transaction.ErrorCode;
-		this.errorMessage = transaction.ErrorMessage;
-		this.journalNotes = transaction.JournalNotes;
-		this.descriptor = transaction.Descriptor;
-
-		// P2P transaction data
-		let p2pTransaction = response.p2pTransaction;
-		if(p2pTransaction){
-			this.p2pTransaction.P2PNameId = p2pTransaction.caP2PName_Id;
-			this.p2pTransaction.P2PNameStatusId = p2pTransaction.caP2PNameStatus_Id;
-			this.p2pTransaction.payAccountId = p2pTransaction.caPayAccount_Id;
-			this.p2pTransaction.submitPayAccountId = p2pTransaction.SubmitPayAccount_Id;
-			this.p2pTransaction.nameId = p2pTransaction.Name_Id;
-			this.p2pTransaction.name = p2pTransaction.Name;
-			this.p2pTransaction.country = p2pTransaction.Country;
-			this.p2pTransaction.state = p2pTransaction.State;
-			this.p2pTransaction.senderTimeFrame = p2pTransaction.SenderTimeFrame;
-			this.p2pTransaction.controlNumber = p2pTransaction.ControlNumber;
-			this.p2pTransaction.dateRequest = p2pTransaction.DateRequest;
-			this.p2pTransaction.dateUpdate = p2pTransaction.DateUpdate;
-			this.p2pTransaction.PAFirstName = p2pTransaction.PAFirstName;
-			this.p2pTransaction.PAMiddleName = p2pTransaction.PAMiddleName;
-			this.p2pTransaction.PALastName = p2pTransaction.PALastName;
-			this.p2pTransaction.PAPhone = p2pTransaction.PAPhone;
-			this.p2pTransaction.PAEmail = p2pTransaction.PAEmail;
-			this.p2pTransaction.PACity = p2pTransaction.PACity;
-			this.p2pTransaction.PAState = p2pTransaction.PAState;
-			this.p2pTransaction.PAStateName = p2pTransaction.PAStateName;
-			this.p2pTransaction.PACountry = p2pTransaction.PACountry;
-			this.p2pTransaction.PACountryName = p2pTransaction.PACountryName;
-			this.p2pTransaction.currencyAmount = p2pTransaction.CurrencyAmount;
-			this.p2pTransaction.amount = p2pTransaction.Amount;
-			this.p2pTransaction.currencyFee = p2pTransaction.CurrencyFee;
-			this.p2pTransaction.transactionStatusId = p2pTransaction.caTransactionStatus_Id;
-			this.p2pTransaction.processorDisplayName = p2pTransaction.ProcDisplayName;
-			this.p2pTransaction.errorMessage = p2pTransaction.ErrorMessage;
-			this.p2pTransaction.processorId = p2pTransaction.caProcessor_Id;
-		}
-
-		// BitCoin transaction Data
-		let bitCoinTransaction = response.bitCoinTransaction;
-		if(bitCoinTransaction){
-			this.bitCoinTransaction.Address = bitCoinTransaction.Address;
-		}
-
-	}
+	details: [] //specific details for different type of transactions (BTC, CC, P2P, etc)
 };
 
 let CHANGE_EVENT = 'change';
@@ -703,8 +574,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			_transaction.cleanTransaction();
 			break;
 
-		case actions.CUSTOMER_TRANSACTION_RESPONSE:
-			_transactionResponse.load(data.response);
+		case actions.GET_BITCOIN_TRANSACTION_RESPONSE:
+			_transactionResponse.details = data.response;
 			CashierStore.emitChange();
 			break;
 
