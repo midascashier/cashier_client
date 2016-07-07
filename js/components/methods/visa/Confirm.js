@@ -133,14 +133,13 @@ let VisaConfirm = React.createClass({
 													<div className="form-group">
 														<label for="" className="col-sm-4 control-label">{translate('CREDIT_CARD_SSN')}:</label>
 														<div className="col-sm-8">
-															<Input type="text" className="form-control" id="ssn" defaultValue={extraData.ssn}
-																		 autoComplete="off" readOnly/>
+															<Input type="text" id="ssn" defaultValue={extraData.ssn} autoComplete="off" readOnly/>
 														</div>
 													</div>
 													<div className="form-group">
 														<label for="" className="col-sm-4 control-label">{translate('CREDIT_CARD_DOB')}:</label>
 														<div className="col-sm-8">
-															<Input type="date" className="form-control" id="dob" value={extraData.dob} readOnly/>
+															<Input type="date" id="dob" value={extraData.dob} readOnly/>
 														</div>
 													</div>
 														<button type="button" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_DEPOSIT', 'Complete')}</button>

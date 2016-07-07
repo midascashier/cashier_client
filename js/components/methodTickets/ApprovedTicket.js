@@ -6,6 +6,9 @@ let ApprovedTicket = React.createClass({
 	render() {
 		let originPath = UIService.getOriginPath();
 		let customer = UIService.getCustomerInformation();
+		let transaction = UIService.getLastTransactionResponse();
+		let currencyAmount = transaction.currencyAmount;
+		let currencyCode = transaction.currencyCode;
 
 		return (
 			<div className="internal-content">
@@ -18,7 +21,7 @@ let ApprovedTicket = React.createClass({
 					<div className="col-sm-6">
 						<div className="success-message">
 							<i className="fa fa-check-circle-o green"></i>
-							<div className="title">Your $ deposit was successful.</div>
+							<div className="title">Your {currencyAmount + '' + currencyCode} deposit was successful.</div>
 							<p>Your balance is now {customer.currencySymbol + " " + customer.balance}</p>
 							<p>An email has been sent to {customer.personalInformation.email} with the transaction details.</p>
 						</div>
