@@ -73,15 +73,6 @@ class UiService {
 	}
 
 	/**
-	 * return if steps header should appear
-	 *
-	 * @returns {number}
-	 */
-	getShowStepsHeader(){
-		return this.showStepsHeader;
-	}
-
-	/**
 	 * return the origin path
 	 *
 	 * @returns {*|string}

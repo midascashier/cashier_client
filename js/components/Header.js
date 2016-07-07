@@ -58,7 +58,6 @@ let Header = React.createClass({
 		let steps = this.state.processorSteps;
 		let isWithDraw = this.state.isWithDraw;
 		let currentView = this.state.UI.currentView;
-		let showStepsHeader = UIService.getShowStepsHeader();
 
 		return (
 			<div id="header">
