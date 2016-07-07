@@ -28,6 +28,10 @@ class OnResponseService {
 				customerService.CustomerProcessorsResponse(data);
 				break;
 
+			case actions.PROCESS_RESPONSE:
+				customerService.getCustomerTransaction();
+				break;
+
 			default:
 				console.log(data.state);
 		}

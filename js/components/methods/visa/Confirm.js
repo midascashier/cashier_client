@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router'
 import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
 import { transactionService } from '../../../services/TransactionService'
@@ -56,8 +55,8 @@ let VisaConfirm = React.createClass({
 	 *
 	 */
 	processTransaction(){
-		controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/');
 		transactionService.process();
+		controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/');
 	},
 
 	render(){

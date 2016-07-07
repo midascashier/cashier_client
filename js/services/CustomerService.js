@@ -102,6 +102,21 @@ class CustomerService {
 	};
 
 	/**
+	 * Function to get Customer transaction
+	 *
+	 * @param data
+	 */
+	getCustomerTransaction(){
+		let transactionResponse = CashierStore.getLastTransactionResponse();
+		if(transactionResponse.journalId){
+			let data = { f: "getCustomerTransaction", journalId: transactionResponse.journalId};
+			let application = CashierStore.getApplication();
+			let rabbitRequest = Object.assign(data, application);
+			stompConnector.makeCustomerRequest("", rabbitRequest);
+		}
+	};
+
+	/**
 	 * Function to get pay account previous pay accounts
 	 */
 	getCustomerPreviousPayAccount(processorID){
