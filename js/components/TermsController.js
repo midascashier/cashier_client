@@ -13,6 +13,13 @@ let TermsController = React.createClass({
 		CashierStore.addChangeListener(this._onChange);
 	},
 
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
+	},
+
 	refreshLocalState() {
 		return {
 			check: CashierStore.getTransaction().checkTermsAndConditions

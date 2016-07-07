@@ -13,6 +13,13 @@ let FeeController = React.createClass({
 		CashierStore.addChangeListener(this._onChange);
 	},
 
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
+	},
+
 	refreshLocalState() {
 		return {
 			value: CashierStore.getTransaction().fee
