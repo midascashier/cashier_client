@@ -30,10 +30,6 @@ class OnResponseService {
 				break;
 
 			case actions.PROCESS_RESPONSE:
-				CustomerService.getCustomerTransaction();
-				break;
-
-			case actions.CUSTOMER_TRANSACTION_RESPONSE:
 				UIService.processResponse(data);
 				break;
 
