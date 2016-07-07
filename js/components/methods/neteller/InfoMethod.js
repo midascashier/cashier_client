@@ -97,9 +97,9 @@ let InfoMethod = React.createClass({
 		let password = this.props.password;
 		let dynamicParams = {};
 		dynamicParams.password = password;
-		
-		transactionService.process(dynamicParams);
-		controllerUIService.changeUIState('/'+controllerUIService.getCurrentView()+'/'+controllerUIService.getProcessorName().toLowerCase()+'/ticket/');
+
+		TransactionService.process(dynamicParams);
+		UIService.changeUIState('/'+UIService.getCurrentView()+'/'+UIService.getProcessorName().toLowerCase()+'/ticket/');
 	},
 
 	render() {

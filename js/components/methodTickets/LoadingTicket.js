@@ -51,7 +51,7 @@ let LoadingTicket = React.createClass({
 	render() {
 		let transactionResponse = this.state.transactionResponse;
 		return (
-			<div id="bitCoinTicket">
+			<div id="loadingTicket">
 				{(() =>{
 					if((!transactionResponse.status) && (!transactionResponse.userMessage)){
 						return (

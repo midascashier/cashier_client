@@ -1,10 +1,10 @@
 import React from 'react'
-import { controllerUIService } from '../../../../services/ControllerService'
+import { UIService } from '../../../../services/UIService'
 
 let BitCoinTicketPending = React.createClass({
 	render() {
 		
-		let transaction = controllerUIService.getLastTransactionResponse();
+		let transaction = UIService.getLastTransactionResponse();
 		let btcAddress = transaction.bitCoinTransaction.Address;
 
 		console.log(transaction);
