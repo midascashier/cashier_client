@@ -358,7 +358,6 @@ let _transactionResponse = {
 	},
 	bitCoinTransaction: { Address: null },
 	load(response){
-
 		// transaction data
 		let transaction = response.transaction;
 		this.journalId = transaction.journalId;
@@ -645,7 +644,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.PAYACCOUNTS_DISABLE_RESPONSE:
-			let currentPayAccountId = CashierStore.getUI().payAccountId;
+			let currentPayAccountId = _UI().payAccountId;
 			if(currentPayAccountId){
 				_payAccounts.splice(currentPayAccountId, 1);
 			}
