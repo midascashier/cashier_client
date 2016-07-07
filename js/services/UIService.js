@@ -25,7 +25,7 @@ class UiService {
 	 */
 	loginSuccess(){
 		let nextPath = "/" + this.getCurrentView() + "/";
-		RouterContainer.get().props.history.push(nextPath);
+		this.changeUIState(nextPath);
 	}
 
 	/**
