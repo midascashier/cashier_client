@@ -279,7 +279,6 @@ let _transaction = {
 	feeType: '',
 	bonusId: 0,
 	checkTermsAndConditions: 0,
-	descriptor: '',
 	cleanTransaction(){
 		this.amount = "";
 		this.fee = 0;
@@ -300,37 +299,32 @@ let _transactionResponse = {
 	status: 0,
 	userMessage: "",
 	state: "",
-	transaction: {
-		journalId: null,
-		transactionId: null,
-		payAccountId: null,
-		transactionStatusId: null,
-		journalTransactionStatusId: null,
-		statusName: null,
-		processorId: null,
-		processorIdSelected: null,
-		processorClassId: null,
-		processorName: null,
-		processorDisplayName: null,
-		dateTrans: null,
-		dateTransModified: null,
-		transUniqueId: null,
-		transactionIdProcessor: null,
-		currencyAmount: null,
-		currencyFee: null,
-		amount: null,
-		fee: null,
-		feeBP: null,
-		currencyId: null,
-		currencyCode: null,
-		transactionTypeId: null,
-		transType: null,
-		errorCode: null,
-		errorMessage: null,
-		userMessage: null,
-		journalNotes: null,
-		descriptor: null
-	},
+	payAccountId: null,
+	transactionStatusId: null,
+	journalTransactionStatusId: null,
+	statusName: null,
+	processorId: null,
+	processorIdSelected: null,
+	processorClassId: null,
+	processorName: null,
+	processorDisplayName: null,
+	dateTrans: null,
+	dateTransModified: null,
+	transUniqueId: null,
+	transactionIdProcessor: null,
+	currencyAmount: null,
+	currencyFee: null,
+	amount: null,
+	fee: null,
+	feeBP: null,
+	currencyId: null,
+	currencyCode: null,
+	transactionTypeId: null,
+	transType: null,
+	errorCode: null,
+	errorMessage: null,
+	journalNotes: null,
+	descriptor: null,
 	p2pTransaction: {
 		P2PNameId: null,
 		P2PNameStatusId: null,
@@ -367,34 +361,33 @@ let _transactionResponse = {
 
 		// transaction data
 		let transaction = response.transaction;
-		this.transaction.journalId = transaction.journalId;
-		this.transaction.transactionId = transaction.transactionId;
-		this.transaction.payAccountId = transaction.caPayAccount_Id;
-		this.transaction.transactionStatusId = transaction.caTransactionStatus_Id;
-		this.transaction.journalTransactionStatusId = transaction.journalTransactionStatus_Id;
-		this.transaction.statusName = transaction.StatusName;
-		this.transaction.processorId = transaction.caProcessor_Id;
-		this.transaction.processorIdSelected = transaction.caProcessor_Id_Selected;
-		this.transaction.processorClassId = transaction.caProcessorClass_Id;
-		this.transaction.processorName = transaction.ProcessorName;
-		this.transaction.processorDisplayName = transaction.ProcessorDisplayName;
-		this.transaction.dateTrans = transaction.DateTrans;
-		this.transaction.dateTransModified = transaction.DateTrans_Modified;
-		this.transaction.transUniqueId = transaction.TransUniqueId;
-		this.transaction.transactionIdProcessor = transaction.Transaction_Id_Processor;
-		this.transaction.currencyAmount = transaction.CurrencyAmount;
-		this.transaction.currencyFee = transaction.CurrencyFee;
-		this.transaction.amount = transaction.Amount;
-		this.transaction.fee = transaction.Fee;
-		this.transaction.feeBP = transaction.FeeBP;
-		this.transaction.currencyCode = transaction.CurrencyCode;
-		this.transaction.transactionTypeId = transaction.caTransactionType_Id;
-		this.transaction.transType = transaction.TransType;
-		this.transaction.errorCode = transaction.ErrorCode;
-		this.transaction.errorMessage = transaction.ErrorMessage;
-		this.transaction.userMessage = transaction.userMessage;
-		this.transaction.journalNotes = transaction.JournalNotes;
-		this.transaction.descriptor = transaction.Descriptor;
+		this.journalId = transaction.journalId;
+		this.transactionId = transaction.transactionId;
+		this.payAccountId = transaction.caPayAccount_Id;
+		this.transactionStatusId = transaction.caTransactionStatus_Id;
+		this.journalTransactionStatusId = transaction.journalTransactionStatus_Id;
+		this.statusName = transaction.StatusName;
+		this.processorId = transaction.caProcessor_Id;
+		this.processorIdSelected = transaction.caProcessor_Id_Selected;
+		this.processorClassId = transaction.caProcessorClass_Id;
+		this.processorName = transaction.ProcessorName;
+		this.processorDisplayName = transaction.ProcessorDisplayName;
+		this.dateTrans = transaction.DateTrans;
+		this.dateTransModified = transaction.DateTrans_Modified;
+		this.transUniqueId = transaction.TransUniqueId;
+		this.transactionIdProcessor = transaction.Transaction_Id_Processor;
+		this.currencyAmount = transaction.CurrencyAmount;
+		this.currencyFee = transaction.CurrencyFee;
+		this.amount = transaction.Amount;
+		this.fee = transaction.Fee;
+		this.feeBP = transaction.FeeBP;
+		this.currencyCode = transaction.CurrencyCode;
+		this.transactionTypeId = transaction.caTransactionType_Id;
+		this.transType = transaction.TransType;
+		this.errorCode = transaction.ErrorCode;
+		this.errorMessage = transaction.ErrorMessage;
+		this.journalNotes = transaction.JournalNotes;
+		this.descriptor = transaction.Descriptor;
 
 		// P2P transaction data
 		let p2pTransaction = response.p2pTransaction;
