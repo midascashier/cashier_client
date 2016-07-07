@@ -179,7 +179,7 @@ class UiService {
 	/**
 	 * Do some actions after processors response
 	 */
-	CustomerProcessorsResponse(processor){
+	customerProcessorsResponse(processor){
 		let processorID = processor.response.processors[this.customerAction][0].caProcessor_Id;
 		this.selectProcessor(processorID);
 	}
