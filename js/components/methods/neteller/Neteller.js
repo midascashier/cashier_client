@@ -52,15 +52,20 @@ let Neteller = React.createClass({
 	},
 
 	/**
-	 * custom function to sets password in askInfo Component
+	 * set local state with neteller password
 	 *
 	 * @param value
 	 * @constructor
 	 */
-	netellerPasswordInput(value) {
-		this.setState({
-			password: value
-		});
+	netellerPassword(value) {
+		this.setState({password: value});
+	},
+
+	/**
+	 * set local state with transaction amount
+	 */
+	transactionAmount(amount){
+		this.setState({amount: Number(amount)});
 	},
 
 	render() {
@@ -70,8 +75,10 @@ let Neteller = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<AskInfo netellerPasswordInput={this.netellerPasswordInput}
+					<AskInfo netellerPassword={this.netellerPassword}
+									 transactionAmount={this.transactionAmount}
 									 password={this.state.password}
+									 amount={this.state.amount}
 									 selectedProcessor={this.state.selectedProcessor}/>
 				</div>
 				<div className="col-sm-6">
@@ -81,6 +88,7 @@ let Neteller = React.createClass({
 						} else{
 							return <InfoMethod selectedProcessor={this.state.selectedProcessor}
 																 password={this.state.password}
+																 amount={this.state.amount}
 																 transaction={this.state.transaction}/>;
 						}
 					})()}

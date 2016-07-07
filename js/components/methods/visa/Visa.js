@@ -52,6 +52,13 @@ let Visa = React.createClass({
 		}
 	},
 
+	/**
+	 * set local state with transaction amount
+	 */
+	transactionAmount(amount){
+		this.setState({amount: Number(amount)});
+	},
+
 	render() {
 		return (
 			<div id="visa">
@@ -59,7 +66,9 @@ let Visa = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<AskInfo selectedProcessor={this.state.selectedProcessor}/>
+					<AskInfo selectedProcessor={this.state.selectedProcessor}
+									 amount={this.state.amount}
+									 transactionAmount={this.transactionAmount}/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
@@ -67,6 +76,7 @@ let Visa = React.createClass({
 							return <LoadingSpinner />;
 						} else{
 							return <InfoMethod selectedProcessor={this.state.selectedProcessor}
+																 amount={this.state.amount}
 																 transaction={this.state.transaction}/>;
 						}
 					})()}

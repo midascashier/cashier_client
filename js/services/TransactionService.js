@@ -72,7 +72,16 @@ class transactionService {
 		this.getProcessorLimitRules(processorID);
 		this.getProcessorsMinMax(processorID);
 		this.getPreviousPayAccount(processorID);
-	}
+	};
+
+	/**
+	 *
+	 * @param amount
+	 */
+	setAmount(amount){
+		CashierActions.setTransactionAmount(amount);
+	};
+
 	
 	/**
 	 * this function sends to process a transaction

@@ -6,7 +6,8 @@ import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
 	propTypes: {
-		password: React.PropTypes.string
+		password: React.PropTypes.string,
+		amount: React.PropTypes.number
 	},
 
 	/**
@@ -40,7 +41,8 @@ let InfoMethod = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			processor: CashierStore.getProcessor(), currentPayAccount: CashierStore.getCurrentPayAccount()
+			processor: CashierStore.getProcessor(),
+			currentPayAccount: CashierStore.getCurrentPayAccount()
 		}
 	},
 
@@ -60,7 +62,7 @@ let InfoMethod = React.createClass({
 	 */
 	allowProcess(){
 		let password = this.props.password;
-		let amount = this.props.transaction.amount;
+		let amount = this.props.amount;
 		let isWithDraw = UIService.getIsWithDraw();
 
 		if((String(password).length >= 5) && amount > 0){
@@ -97,7 +99,7 @@ let InfoMethod = React.createClass({
 		let password = this.props.password;
 		let dynamicParams = {};
 		dynamicParams.password = password;
-
+		TransactionService.setAmount(this.props.amount);
 		TransactionService.process(dynamicParams);
 	},
 

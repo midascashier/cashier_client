@@ -3,10 +3,12 @@ import { translate } from '../../../constants/Translate'
 import { CashierStore } from '../../../stores/CashierStore'
 import { Loading } from '../../loading/Loading'
 import { UIService } from '../../../services/UIService'
+import { TransactionService } from '../../../services/TransactionService'
 
 let InfoMethod = React.createClass({
 	propTypes: {
-		password: React.PropTypes.string
+		password: React.PropTypes.string,
+		amount: React.PropTypes.number
 	},
 
 	/**
@@ -60,7 +62,7 @@ let InfoMethod = React.createClass({
 	 * this function checks if password and amount are valid
 	 */
 	allowProcess(){
-		let amount = this.props.transaction.amount;
+		let amount = this.props.amount;
 		let checkTerms = this.props.transaction.checkTermsAndConditions;
 		if(amount && checkTerms){
 			if(amount > 0){
@@ -91,6 +93,7 @@ let InfoMethod = React.createClass({
 	 *
 	 */
 	continueTransaction(){
+		TransactionService.setAmount(this.props.amount);
 		UIService.changeUIState('/'+UIService.getCurrentView()+'/'+UIService.getProcessorName().toLowerCase()+'/confirm/');
 	},
 

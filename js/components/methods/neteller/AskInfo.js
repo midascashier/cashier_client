@@ -8,13 +8,17 @@ import { UIService } from '../../../services/UIService'
 let AskInfo = React.createClass({
 
 	propTypes: {
-		netellerPasswordInput: React.PropTypes.func,
+		netellerPassword: React.PropTypes.func,
+		transactionAmount: React.PropTypes.func,
 		password: React.PropTypes.string,
+		amount: React.PropTypes.number,
 		selectedProcessor: React.PropTypes.object
 	},
 
 	render() {
-		let netellerPasswordInput = this.props.netellerPasswordInput;
+		let netellerPassword = this.props.netellerPassword;
+		let transactionAmount = this.props.transactionAmount;
+		let amount = this.props.amount;
 		let password = this.props.password;
 		let isWithDraw = UIService.getIsWithDraw();
 		let originPath = UIService.getOriginPath();
@@ -51,11 +55,11 @@ let AskInfo = React.createClass({
 													if(!isWithDraw){
 														return <div className="form-group">
 															<label for="">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
-															<Input onChange={netellerPasswordInput} value={password} type="password"/>
+															<Input onChange={netellerPassword} value={password} type="password"/>
 														</div>
 													}
 												})()}
-												<AmountController />
+												<AmountController transactionAmount={transactionAmount} value={amount}/>
 											</div>
 										</div>
 									</div>
