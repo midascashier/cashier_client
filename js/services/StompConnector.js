@@ -112,12 +112,54 @@ class StompConnector {
 		}
 	};
 
+	/**
+	 * send message to the customer queue
+	 *
+	 * @param headers
+	 * @param message
+	 */
 	makeCustomerRequest(headers, message){
 		this.sendMessage("customer", headers, message)
 	};
 
+	/**
+	 * send message to the process queue
+	 *
+	 * @param headers
+	 * @param message
+	 */
 	makeProcessRequest(headers, message){
 		this.sendMessage("process", headers, message)
+	};
+
+	/**
+	 * send message to the backend queue
+	 *
+	 * @param headers
+	 * @param message
+	 */
+	makeBackendRequest(headers, message){
+		this.sendMessage("backend", headers, message)
+	};
+
+	/**
+	 * send message to the transaction queue
+	 *
+	 * @param headers
+	 * @param message
+	 */
+	makeTransactionRequest(headers, message){
+		this.sendMessage("transaction", headers, message)
+	};
+
+	/**
+	 * send message to the bonus queue
+	 *
+	 * @param headers
+	 * @param message
+	 */
+	makeBonusRequest(headers, message){
+		this.sendMessage("bonus", headers, message)
 	};
 
 	/**

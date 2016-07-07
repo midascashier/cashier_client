@@ -44,9 +44,7 @@ let ConfirmWithdraw = React.createClass({
 	 * @private
 	 */
 	_onChange() {
-		if(this.isMounted() === true){
-			this.setState(this.refreshLocalState());
-		}
+		this.setState(this.refreshLocalState());
 	},
 
 	/**
@@ -55,7 +53,6 @@ let ConfirmWithdraw = React.createClass({
 	 */
 	processTransaction(){
 		TransactionService.process();
-		UIService.changeUIState('/'+UIService.getCurrentView()+'/'+UIService.getProcessorName().toLowerCase()+'/ticket/');
 	},
 
 	render(){

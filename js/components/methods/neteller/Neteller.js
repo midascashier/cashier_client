@@ -46,9 +46,7 @@ let Neteller = React.createClass({
 	 * @private
 	 */
 	_onChange() {
-		if(this.isMounted() === true){
-			this.setState(this.refreshLocalState());
-		}
+		this.setState(this.refreshLocalState());
 	},
 
 	/**

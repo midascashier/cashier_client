@@ -38,7 +38,7 @@ class transactionService {
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		stompConnector.makeTransactionRequest("", rabbitRequest);
 	};
 
 	/**
@@ -50,7 +50,7 @@ class transactionService {
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		stompConnector.makeTransactionRequest("", rabbitRequest);
 	};
 	
 	/**
@@ -72,7 +72,7 @@ class transactionService {
 		this.getProcessorLimitRules(processorID);
 		this.getProcessorsMinMax(processorID);
 		this.getPreviousPayAccount(processorID);
-	}
+	};
 	
 	/**
 	 * this function sends to process a transaction
@@ -114,6 +114,30 @@ class transactionService {
 
 		UIService.processTransaction();
 		stompConnector.makeProcessRequest("", rabbitRequest);
+	};
+
+	/**
+	 * get the details for the specific transaction Id
+	 */
+	getTransactionDetails(){
+		let transaction = CashierStore.getLastTransactionResponse();
+		let transactionId = transaction.transactionId;
+		let data = {
+			f: "getBitCoinTransaction", module: 'transaction', transactionId: transactionId
+		};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeBackendRequest("", rabbitRequest);
+	};
+
+	/**
+	 * process the transaction response
+	 *
+	 * @param data
+	 */
+	processResponse(data){
+		this.getTransactionDetails();
+		UIService.processResponse(data);
 	};
 }
 

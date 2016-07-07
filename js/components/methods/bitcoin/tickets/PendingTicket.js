@@ -1,12 +1,52 @@
 import React from 'react'
 import { UIService } from '../../../../services/UIService'
+import { CashierStore } from '../../../../stores/CashierStore'
 
 let BitCoinTicketPending = React.createClass({
-	render() {
-		
-		let transaction = UIService.getLastTransactionResponse();
-		let btcAddress = transaction.bitCoinTransaction.Address;
 
+	/**
+	 * initialize the state
+	 *
+	 * @returns {*|{address}}
+	 */
+	getInitialState(){
+		return this.refreshLocalState();
+	},
+
+	/**
+	 * build the state
+	 *
+	 * @returns {{address: null}}
+	 */
+	refreshLocalState() {
+		let transaction = UIService.getLastTransactionResponse();
+		let address = "...";
+		if (transaction && transaction.details && transaction.details.bitCoinTransaction){
+			address = transaction.details.bitCoinTransaction.Address;
+		}
+		return {
+			address: address
+		}
+	},
+
+	/**
+	 * component is ready
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * refresh the state when changes occur
+	 *
+	 * @private
+	 */
+	_onChange() {
+		this.setState(this.refreshLocalState());
+	},
+
+	render() {
+		let address = this.state.address;
 		return (
 			<div id="BitCoinTicketInstructions">
 
@@ -45,7 +85,7 @@ let BitCoinTicketPending = React.createClass({
 														<div className="subtitle">Send the BitCoin to the following address</div>
 														<p>Please include any Miners Fee your BitCoin wallet charges.</p>
 														<div className="form-inline">
-															<input type="text" className="form-control" id="bitCoinAddress" value={btcAddress} readOnly/>
+															<input type="text" className="form-control" id="bitCoinAddress" value={address} readOnly/>
 															<button type="submit" className="btn btn-green">Copy</button>
 														</div>
 													</div>

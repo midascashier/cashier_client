@@ -27,9 +27,7 @@ let TermsController = React.createClass({
 	},
 
 	_onChange() {
-		if(this.isMounted() === true){
-			this.setState(this.refreshLocalState());
-		}
+		this.setState(this.refreshLocalState());
 	},
 
 	changeValue(event) {
