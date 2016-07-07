@@ -21,14 +21,15 @@ import { Neteller } from './components/methods/neteller/Neteller'
  * Bitcoin set of components to create routes
  */
 import { BitCoin } from './components/methods/bitcoin/Bitcoin'
-import { BitCoinTicketPending } from './components/methods/bitcoin/tickets/PendingTicket'
 import { ConfirmWithdraw } from './components/methods/bitcoin/ConfirmWithdraw'
+import { BitCoinTicketPending } from './components/methods/bitcoin/tickets/PendingTicket'
 
 /**
  * Visa set of components to create routes
  */
 import { Visa } from './components/methods/visa/Visa'
 import { VisaConfirm } from './components/methods/visa/Confirm'
+import { VisaApprovedTicket } from './components/methods/visa/tickets/ApprovedTicket'
 
 /**
  * Person2Person set of components to create routes
@@ -73,7 +74,7 @@ let routes = (
 				<Route path="visa/" component={Visa}/>
 				<Route path="visa/confirm/" component={VisaConfirm}/>
 				<Route path="visa/ticket/" component={LoadingTicket}>
-					<Route path="approved/" component={ApprovedTicket}/>
+					<Route path="approved/" component={VisaApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 

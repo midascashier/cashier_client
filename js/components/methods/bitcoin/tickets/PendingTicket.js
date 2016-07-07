@@ -7,8 +7,6 @@ let BitCoinTicketPending = React.createClass({
 		let transaction = UIService.getLastTransactionResponse();
 		let btcAddress = transaction.bitCoinTransaction.Address;
 
-		console.log(transaction);
-		
 		return (
 			<div id="BitCoinTicketInstructions">
 
