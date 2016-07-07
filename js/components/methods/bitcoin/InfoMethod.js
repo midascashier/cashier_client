@@ -6,6 +6,10 @@ import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
+	propTypes: {
+		amount: React.PropTypes.number
+	},
+
 	/**
 	 * React function to set component initial state
 	 *
@@ -55,7 +59,7 @@ let InfoMethod = React.createClass({
 	 * this function checks if password and amount are valid
 	 */
 	allowProcess(){
-		let amount = this.props.transaction.amount;
+		let amount = this.props.amount;
 		if(amount){
 			if(amount > 0){
 				return true;
@@ -86,6 +90,7 @@ let InfoMethod = React.createClass({
 	 */
 	continueTransaction(){
 		let isWithDraw = UIService.getIsWithDraw();
+		TransactionService.setAmount(this.props.amount);
 		if(isWithDraw){
 			UIService.changeUIState("/withdraw/"+UIService.getProcessorName().toLowerCase()+"/confirm/");
 		}

@@ -5,7 +5,6 @@ import { TransactionService } from '../../../services/TransactionService'
 import { Input } from '../../Inputs'
 
 let VisaConfirm = React.createClass({
-
 	/**
 	 * React function to set component initial state
 	 */

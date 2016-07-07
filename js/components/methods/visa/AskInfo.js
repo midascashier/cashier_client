@@ -8,11 +8,15 @@ import { UIService } from '../../../services/UIService'
 let AskInfo = React.createClass({
 
 	propTypes: {
-		selectedProcessor: React.PropTypes.object
+		selectedProcessor: React.PropTypes.object,
+		transactionAmount: React.PropTypes.func,
+		amount: React.PropTypes.number
 	},
 
 	render() {
 		let originPath = UIService.getOriginPath();
+		let transactionAmount = this.props.transactionAmount;
+		let amount = this.props.amount;
 		let processingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_CREDIT_CARD', 'Please Enter Your Card Details');
 		let information = translate('CREDIT_CARD_INFO', '');
 
@@ -38,7 +42,7 @@ let AskInfo = React.createClass({
 													<label for="">{translate('CREDIT_CARD_SELECT', 'Credit Card')}:</label>
 													<SelectPayAccount />
 												</div>
-												<AmountController />
+												<AmountController transactionAmount={transactionAmount} value={amount}/>
 												<TermsController />
 											</div>
 										</div>

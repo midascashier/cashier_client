@@ -7,7 +7,8 @@ import {UIService} from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
 	propTypes: {
-		password: React.PropTypes.string
+		password: React.PropTypes.string,
+		amount: React.PropTypes.number
 	},
 
 	/**
@@ -59,7 +60,7 @@ let InfoMethod = React.createClass({
 	 * this function checks if password and amount are valid
 	 */
 	allowProcess(){
-		let amount = this.props.transaction.amount;
+		let amount = this.props.amount;
 		let checkTerms = this.props.transaction.checkTermsAndConditions;
 		if (amount && checkTerms) {
 			if (amount > 0) {

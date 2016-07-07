@@ -13,6 +13,8 @@ let AskInfo = React.createClass({
 		let originPath = UIService.getOriginPath();
 		let processingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P', "Please Enter the Sender's Information");
 		let displayName = UIService.getProcessorDisplayName();
+		let amount = this.props.amount;
+		let transactionAmount = this.props.transactionAmount;
 
 		return (
 			<div id="askAmountVisa" className="box">
@@ -103,7 +105,7 @@ let AskInfo = React.createClass({
 
 														</div>
 													</div>
-													<AmountController />
+													<AmountController transactionAmount={transactionAmount} value={amount}/>
 													<p><a href="#">Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></a></p>
 
 												</form>

@@ -13,6 +13,8 @@ let AskInfo = React.createClass({
 	render() {
 		let isWithDraw = UIService.getIsWithDraw();
 		let originPath = UIService.getOriginPath();
+		let transactionAmount = this.props.transactionAmount;
+		let amount = this.props.amount;
 		let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
 		if(isWithDraw){
 			title = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information')
@@ -48,7 +50,7 @@ let AskInfo = React.createClass({
 														}
 													})()}
 												</div>
-												<AmountController />
+												<AmountController transactionAmount={transactionAmount} value={amount}/>
 												{(() =>{
 													if(isWithDraw){
 														return <FeeController />;
