@@ -55,7 +55,10 @@ class UiService {
 	 * Redirect depends of the transaction response
 	 */
 	processResponse(data){
-		let status = Number(data.response.transaction.caTransactionStatus_Id);
+		let status = 0;
+		if(data && data.response && data.response.transaction){
+			status = Number(data.response.transaction.caTransactionStatus_Id);
+		}
 
 		let ticketResult = 'rejected';
 		if (status == cashier.TRANSACTION_STATUS_APPROVED){
@@ -67,7 +70,6 @@ class UiService {
 		}
 
 		this.changeUIState('/'+this.getCurrentView()+'/'+this.getProcessorName().toLowerCase()+'/ticket/'+ticketResult+'/');
-
 	}
 
 	/**

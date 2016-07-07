@@ -94,6 +94,8 @@ class customerService {
 			let application = CashierStore.getApplication();
 			let rabbitRequest = Object.assign(data, application);
 			stompConnector.makeCustomerRequest("", rabbitRequest);
+		}else{
+			UIService.processResponse(transactionResponse);
 		}
 	};
 
