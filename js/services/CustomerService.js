@@ -62,14 +62,14 @@ class customerService {
 	/**
 	 * Do some actions after processors response
 	 */
-	CustomerProcessorsResponse(processor) {
+	customerProcessorsResponse(processor) {
 		let customerAction = "deposit";
 
 		if(CashierStore.getIsWithdraw()){
 			customerAction = "withdraw";
 		}
 
-		UIService.CustomerProcessorsResponse(processor);
+		UIService.customerProcessorsResponse(processor);
 	};
 
 	/**

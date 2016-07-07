@@ -26,7 +26,7 @@ class OnResponseService {
 				break;
 
 			case actions.PROCESSORS_RESPONSE:
-				CustomerService.CustomerProcessorsResponse(data);
+				CustomerService.customerProcessorsResponse(data);
 				break;
 
 			case actions.PROCESS_RESPONSE:
