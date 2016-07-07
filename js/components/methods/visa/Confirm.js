@@ -2,6 +2,7 @@ import React from 'react'
 import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
 import { TransactionService } from '../../../services/TransactionService'
+import { Input } from '../../Inputs'
 
 let VisaConfirm = React.createClass({
 
@@ -133,14 +134,14 @@ let VisaConfirm = React.createClass({
 													<div className="form-group">
 														<label for="" className="col-sm-4 control-label">{translate('CREDIT_CARD_SSN')}:</label>
 														<div className="col-sm-8">
-															<input type="text" className="form-control" id="ssn" defaultValue={extraData.ssn}
+															<Input type="text" className="form-control" id="ssn" defaultValue={extraData.ssn}
 																		 autoComplete="off" readOnly/>
 														</div>
 													</div>
 													<div className="form-group">
 														<label for="" className="col-sm-4 control-label">{translate('CREDIT_CARD_DOB')}:</label>
 														<div className="col-sm-8">
-															<input type="date" className="form-control" id="dob" value={extraData.dob} readOnly/>
+															<Input type="date" className="form-control" id="dob" value={extraData.dob} readOnly/>
 														</div>
 													</div>
 														<button type="button" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_DEPOSIT', 'Complete')}</button>
