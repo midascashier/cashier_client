@@ -101,7 +101,7 @@ class transactionService {
 			lang: application.lang,
 			platform: application.platform,
 			userAgent: application.userAgent,
-			createdBy: customerInfo.customerId,
+			createdBy: 10093, //TODO: temporary
 			type: action,
 			isDefer: isDefer,
 			processorId: processorSelected.processorId,
