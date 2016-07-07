@@ -711,6 +711,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			_transaction.cleanTransaction();
 			break;
 
+		case actions.CUSTOMER_TRANSACTION_RESPONSE:
+			_transactionResponse.load(data.response);
+			CashierStore.emitChange();
+			break;
+
 		case actions.SELECT_PROCESSOR:
 			_UI.processorId = data.processorId;
 			_processor.load(data.processorId);
