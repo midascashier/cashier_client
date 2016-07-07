@@ -37,6 +37,14 @@ class UiService {
 	}
 
 	/**
+	 * here is where we redirect to process transaction
+	 */
+	processTransaction(){
+		let route = '/'+UIService.getCurrentView()+'/'+UIService.getProcessorName().toLowerCase()+'/ticket/';
+		this.changeUIState(route);
+	}
+
+	/**
 	 * redirect to a specific route
 	 */
 	changeUIState(route){

@@ -56,7 +56,6 @@ let VisaConfirm = React.createClass({
 	 */
 	processTransaction(){
 		TransactionService.process();
-		UIService.changeUIState('/'+UIService.getCurrentView()+'/'+UIService.getProcessorName().toLowerCase()+'/ticket/');
 	},
 
 	render(){
