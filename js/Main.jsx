@@ -15,13 +15,14 @@ import { LoadingTicket } from './components/methodTickets/LoadingTicket'
  * Neteller set of components to create routes
  */
 import { Neteller } from './components/methods/neteller/Neteller'
+import { NetellerConfirmWithdraw } from './components/methods/neteller/ConfirmWithdraw'
 
 
 /**
  * Bitcoin set of components to create routes
  */
 import { BitCoin } from './components/methods/bitcoin/Bitcoin'
-import { ConfirmWithdraw } from './components/methods/bitcoin/ConfirmWithdraw'
+import { BitCoinConfirmWithdraw } from './components/methods/bitcoin/ConfirmWithdraw'
 import { BitCoinTicketPending } from './components/methods/bitcoin/tickets/PendingTicket'
 
 /**
@@ -90,7 +91,7 @@ let routes = (
 				<IndexRoute component={ProcessorsInfo}/>
 
 				<Route path="btcscreen/" component={BitCoin}/>
-				<Route path="btcscreen/confirm/" component={ConfirmWithdraw}/>
+				<Route path="btcscreen/confirm/" component={BitCoinConfirmWithdraw}/>
 				<Route path="btcscreen/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -98,6 +99,7 @@ let routes = (
 				</Route>
 
 				<Route path="neteller_new/" component={Neteller}/>
+				<Route path="neteller_new/confirm/" component={NetellerConfirmWithdraw}/>
 				<Route path="neteller_new/ticket/" component={LoadingTicket}>
 					<Route path="deferred/" component={DeferredTicket}/>
 				</Route>
