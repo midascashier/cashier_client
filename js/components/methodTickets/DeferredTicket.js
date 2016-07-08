@@ -1,5 +1,6 @@
 import React from 'react'
 import { UIService } from '../../services/UIService'
+import { CashierStore } from '../../stores/CashierStore'
 
 let DeferredTicket = React.createClass({
 
@@ -14,7 +15,7 @@ let DeferredTicket = React.createClass({
 
 	/**
 	 * build the state
-	 * 
+	 *
 	 * @returns {{email: string, currency: string, balance: string}}
 	 */
 	refreshLocalState() {
@@ -60,7 +61,7 @@ let DeferredTicket = React.createClass({
 						<div className="success-message">
 							<i className="fa fa-check-circle-o green"></i>
 							<div className="title">Your withdraw was successfully submitted.</div>
-							<p>Your balance is now {currency + '' + balance}</p>
+							<p>Your balance is now {balance + ' ' + currency}</p>
 							<p>An email has been sent to {email} with the transaction details.</p>
 						</div>
 					</div>

@@ -2,6 +2,7 @@ import { CashierStore } from '../stores/CashierStore'
 import { CashierActions } from '../actions/CashierActions'
 import { stompConnector } from './StompConnector'
 import { UIService } from './UIService'
+import { CustomerService } from './CustomerService'
 import cashier from '../constants/Cashier'
 
 class transactionService {
@@ -157,9 +158,15 @@ class transactionService {
 		let transactionResponse = CashierStore.getLastTransactionResponse();
 		let transactionId = transactionResponse.transactionId;
 
-		//get specific info
-		if(!isWithdraw && processorId == cashier.PROCESSOR_ID_BITCOIN){
-			this.getBitCoinTransaction(transactionId);
+		if(transactionId){
+
+			// reload customer information to refresh balance
+			CustomerService.getCustomerInfo();
+
+			//get specific info
+			if(!isWithdraw && processorId == cashier.PROCESSOR_ID_BITCOIN){
+				this.getBitCoinTransaction(transactionId);
+			}
 		}
 
 	};
