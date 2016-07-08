@@ -7,7 +7,8 @@ import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
 	propTypes: {
-		amount: React.PropTypes.number
+		amount: React.PropTypes.number,
+		allowContinue: React.PropTypes.number
 	},
 
 	/**
@@ -56,17 +57,12 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 * this function checks if password and amount are valid
+	 * check limits to allow transaction
 	 */
-	allowProcess(){
-		let amount = this.props.amount;
-		if(amount){
-			if(amount > 0){
-				return true;
-			}
-		}
-		return false;
+	checkAllow(){
+		return this.props.allowContinue;
 	},
+
 
 	/**
 	 * this function return payAccount limits and ID
@@ -101,7 +97,7 @@ let InfoMethod = React.createClass({
 	},
 
 	render() {
-		let allowContinue = this.allowProcess();
+		let allowContinue = this.checkAllow();
 		let payAccountInfo = this.getPayAccountLimits();
 		let originPath = UIService.getOriginPath();
 		return (

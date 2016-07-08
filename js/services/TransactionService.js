@@ -82,7 +82,13 @@ class transactionService {
 		CashierActions.setTransactionAmount(amount);
 	};
 
-	
+	/**
+	 * return PayAccount
+	 */
+	getCurrentPayAccount(){
+		return CashierStore.getCurrentPayAccount();
+	}
+
 	/**
 	 * this function sends to process a transaction
 	 */
