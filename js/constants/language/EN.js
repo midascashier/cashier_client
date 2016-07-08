@@ -65,7 +65,6 @@ let _langTags = {
 	PROCESSING_DEPOSIT_INFORMATION_TITLE_CREDIT_CARD: "Please Enter Your Card Details",
 	PROCESSING_WITHDRAW_INFORMATION_TITLE: "Please Enter the Withdraw Information",
 	PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P: "Please Enter the Sender's Information",
-  PROCESSING_WITHDRAW_INFORMATION_TITLE: "Please Enter the Withdraw Information",
 	PROCESSING_LIMIT_INFORMATION_TITLE: "{processorName} {transactionType} Limits",
 	PROCESSING_BILLING_INFO_TITLE: "Double-check Your Billing Information",
 	PROCESSING_BILLING_INFO_EDIT: "Edit the billing address",
@@ -101,7 +100,17 @@ let _langTags = {
 	CREDIT_CARD_SSN: "Social Secuirty #",
 	CREDIT_CARD_DOB: "Date of Birth",
 	CREDIT_CARD_CHECK_TERMENS: "I agree to the terms and conditions.",
-	CREDIT_CARD_INFO: "Certain banks may interpret increased transaction volumes over the internet as a fraud risk and may decline subsequent deposit requests. We highly recommend depositing enough money now to cover your planned bets for the day."
+	CREDIT_CARD_INFO: "Certain banks may interpret increased transaction volumes over the internet as a fraud risk and may decline subsequent deposit requests. We highly recommend depositing enough money now to cover your planned bets for the day.",
+	P2P_FIRST_NAME: 'First Name',
+	P2P_LAST_NAME: 'Last Name',
+	P2P_COUNTRY: 'Country',
+	P2P_STATE: 'State',
+	P2P_CITY: 'City',
+	P2P_PHONE: 'Phone',
+	P2P_EMAIL: 'Email',
+	P2P_TIME_FRAME: 'What time will you send these funds?',
+	P2P_TIME_FRAME_TODAY: 'Today',
+	P2P_TIME_FRAME_TOMORROW: 'Tomorrow'
 };
 
 export function EN(){

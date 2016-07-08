@@ -92,10 +92,18 @@ let InfoMethod = React.createClass({
 		let allowContinue = this.props.allowContinue;
 		let payAccountInfo = this.getPayAccountLimits();
 		let originPath = UIService.getOriginPath();
+
+		let displayName = this.props.selectedProcessor.displayName;
+		let currentView = UIService.getCurrentView().toUpperCase();
+		let transactionType = translate(currentView);
+		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
+			processorName:displayName, transactionType:transactionType
+		});
+
 		return (
 			<div id="InfoMethodBitCoin">
 				<div className="col-sm-12">
-					<div className="title">Bitcoin Deposit Limits</div>
+					<div className="title">title</div>
 					<div className="table-responsive">
 						<table className="table table-striped">
 							<tbody>

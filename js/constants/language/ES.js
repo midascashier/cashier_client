@@ -100,7 +100,17 @@ let _langTags = {
 	CREDIT_CARD_SSN: "Social Secuirty #",
 	CREDIT_CARD_DOB: "Date of Birth",
 	CREDIT_CARD_CHECK_TERMENS: "Acepto términos y condiciones.",
-	CREDIT_CARD_INFO: "Algunos bancos pueden interpretar el aumento de los volúmenes de transacciones en internet como un riesgo de fraude y pueden rechazar las solicitudes de depósitos posteriores. Recomendamos altamente depositar dinero suficiente para cubrir sus apuestas previstas para el día."
+	CREDIT_CARD_INFO: "Algunos bancos pueden interpretar el aumento de los volúmenes de transacciones en internet como un riesgo de fraude y pueden rechazar las solicitudes de depósitos posteriores. Recomendamos altamente depositar dinero suficiente para cubrir sus apuestas previstas para el día.",
+	P2P_FIRST_NAME: 'Nombre',
+	P2P_LAST_NAME: 'Apellidos',
+	P2P_COUNTRY: 'País',
+	P2P_STATE: 'Estado',
+	P2P_CITY: 'Ciudad',
+	P2P_PHONE: 'Teléfono',
+	P2P_EMAIL: 'Correo Electrónico',
+	P2P_TIME_FRAME: '¿A qué hora va a enviar estos fondos?',
+	P2P_TIME_FRAME_TODAY: 'Hoy',
+	P2P_TIME_FRAME_TOMORROW: 'Mañana'
 };
 
 export function ES(){

@@ -98,14 +98,15 @@ let InfoMethod = React.createClass({
 	render() {
 		let allowContinue = this.allowProcess();
 		let payAccountInfo = this.getPayAccountLimits();
-		let displayName = this.props.selectedProcessor.displayName;
 		let originPath = UIService.getOriginPath();
+
+		let displayName = this.props.selectedProcessor.displayName;
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
-		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Deposit Limits', {
-			processorName: displayName,
-			transactionType: transactionType
+		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
+			processorName:displayName, transactionType:transactionType
 		});
+
 
 		return (
 			<div id="InfoMethodVisa">

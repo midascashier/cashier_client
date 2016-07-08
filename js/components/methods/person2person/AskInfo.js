@@ -38,11 +38,11 @@ let AskInfo = React.createClass({
 											<div className="col-sm-9">
 												<form>
 													<div className="form-group">
-														<label for="" className="control-label">First Name:</label>
+														<label for="" className="control-label">{translate('P2P_FIRST_NAME', 'First Name')}:</label>
 														<input type="text" className="form-control" id="firstName" readOnly/>
 													</div>
 													<div className="form-group">
-														<label for="" className="control-label">Last Name:</label>
+														<label for="" className="control-label">{translate('P2P_LAST_NAME', 'Last Name')}:</label>
 														<input type="text" className="form-control" id="lastName" readOnly/>
 													</div>
 
@@ -50,43 +50,48 @@ let AskInfo = React.createClass({
 														<div className="row">
 															<div className="col-sm-6">
 																<div className="form-group">
-																	<label for="" className="control-label">Country:</label>
+																	<label for="" className="control-label">{translate('P2P_COUNTRY', 'Country')}:</label>
 																	<select className="form-control" id="country">
 																		<option value="0">United State</option>
 																	</select>
 																</div>
 															</div>
 															<div className="col-sm-6">
-																<label for="" className="control-label">State:</label>
+																<label for="" className="control-label">{translate('P2P_STATE', 'State')}:</label>
 																<select className="form-control" id="countryState">
 																	<option value="0">Florida</option>
 																</select>
 															</div>
+														</div>
+													</div>
+
+													<div className="form-group">
+														<div className="row">
 															<div className="col-sm-6">
-																<label for="" className="control-label">City:</label>
+																<label for="" className="control-label">{translate('P2P_CITY', 'City')}:</label>
 																<input type="text" className="form-control" id="city" readOnly/>
 															</div>
 															<div className="col-sm-6">
-																<label for="" className="control-label">Phone:</label>
+																<label for="" className="control-label">{translate('P2P_PHONE', 'Phone')}:</label>
 																<input type="text" className="form-control" id="phone" readOnly/>
 															</div>
 														</div>
 													</div>
 
 													<div className="form-group">
-														<label for="" className="control-label">Email:</label>
+														<label for="" className="control-label">{translate('P2P_EMAIL', 'Email')}:</label>
 														<input type="email" className="form-control" id="email" readOnly/>
 													</div>
 													<div className="form-group">
 														<div className="row">
 															<div className="col-sm-6">
-																<label for="" className="control-label">What time will you send these funds?</label>
+																<label for="" className="control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
 															</div>
 															<div className="col-sm-3">
 																<div className="form-group">
 																	<select className="form-control">
-																		<option value="Today" selected="Today">Today</option>
-																		<option value="Tomorrow">Tomorrow</option>
+																		<option value="1" selected="1">{translate('P2P_TIME_FRAME_TODAY', 'Today')}</option>
+																		<option value="2">{translate('P2P_TIME_FRAME_TOMORROW', 'Tomorrow')}</option>
 																	</select>
 																</div>
 															</div>

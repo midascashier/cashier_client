@@ -1,4 +1,5 @@
 import React from 'react'
+import { translate } from '../../../constants/Translate'
 import { CashierStore } from '../../../stores/CashierStore'
 import { Loading } from '../../loading/Loading'
 import { TransactionService } from '../../../services/TransactionService'
@@ -115,10 +116,18 @@ let InfoMethod = React.createClass({
 		let payAccountinfo = this.getPayAccountLimits();
 		let originPath = UIService.getOriginPath();
 
+		let processorDisplayName = UIService.getProcessorName().toLowerCase();
+		let currentView = UIService.getCurrentView().toUpperCase();
+		let transactionType = translate(currentView);
+		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
+			processorName: processorDisplayName,
+			transactionType: transactionType
+		});
+
 		return (
 			<div id="InfoMethodNeteller">
 				<div className="col-sm-12">
-					<div className="title">Neteller Deposit Limits*</div>
+					<div className="title">{title}</div>
 					<div className="table-responsive">
 						<table className="table table-striped">
 							<tbody>
