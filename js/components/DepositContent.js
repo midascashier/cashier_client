@@ -53,7 +53,7 @@ let DepositContent = React.createClass({
 
 	checkLimits(){
 		let currentProcessor = TransactionService.getCurrentProcessor();
-		let limitsValidationVersion = ProcessorSettings.settings[currentProcessor.processorId].validationVersion;
+		let limitsValidationVersion = ProcessorSettings.settings[currentProcessor.processorId][ProcessorSettings.LIMITS_VALIDATION_VERSION];
 		if(limitsValidationVersion == "lite"){
 			this.setState({ allowContinue: this.checkLimitsLite() });
 		}

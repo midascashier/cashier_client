@@ -2,12 +2,10 @@ import React from 'react'
 import { translate } from '../../constants/Translate'
 import { Link } from 'react-router'
 import { UIService } from '../../services/UIService'
+import { TransactionService } from '../../services/TransactionService'
+import  ProcessorSettings from '../../constants/Processors'
 
 let Steps = React.createClass({
-	propTypes: {
-		step: React.PropTypes.number, steps: React.PropTypes.number, isWithDraw: React.PropTypes.number
-	},
-
 	render() {
 		let step1 = "step1";
 		let step2 = "step2";
@@ -40,6 +38,10 @@ let Steps = React.createClass({
 			steps_method = translate('STEPS_WITHDRAW_METHOD');
 			steps_how_much = translate('STEPS_HOW_MUCH_WITHDRAW');
 		}
+
+		let currentProcessor = TransactionService.getCurrentProcessor();
+		let limitsValidationVersion = ProcessorSettings.settings[currentProcessor.processorId];
+
 
 		return (
 			<div id="steps" className="steps">
