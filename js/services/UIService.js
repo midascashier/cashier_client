@@ -83,7 +83,7 @@ class UiService {
 
 	/**
 	 * get transaction information
-	 *
+	 * 
 	 * @returns {*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())}}
 	 */
 	getTransactionInformation(){

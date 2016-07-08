@@ -270,7 +270,7 @@ let _payAccounts = [];
 /**
  * Stores information of the transaction
  *
- * @type {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())}}
+ * @type {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, cleanTransaction: (function())}}
  * @private
  */
 let _transaction = {
@@ -421,7 +421,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * get transaction
 	 *
-	 * @returns {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())}}
+	 * @returns {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, cleanTransaction: (function())}}
 	 */
 	getTransaction: ()=>{
 		return _transaction;
