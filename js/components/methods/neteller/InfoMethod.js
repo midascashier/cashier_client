@@ -57,20 +57,12 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 * check limits to allow transaction
-	 */
-	checkAllow(){
-		return this.props.allowContinue;
-	},
-
-
-	/**
 	 * this function checks if password and amount are valid
 	 */
 	allowProcess(){
 		let password = this.props.password;
 		let isWithDraw = UIService.getIsWithDraw();
-		let checkAmount = this.checkAllow();
+		let checkAmount = this.props.allowContinue;
 
 		if(password && String(password).length >= 5 && checkAmount){
 			return true;

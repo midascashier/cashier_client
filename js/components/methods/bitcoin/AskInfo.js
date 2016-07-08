@@ -7,24 +7,16 @@ import { FeeController } from '../../FeeController'
 
 let AskInfo = React.createClass({
 	propTypes: {
-		selectedProcessor: React.PropTypes.object,
-		transactionAmount: React.PropTypes.func,
-		allowContinue: React.PropTypes.number,
-		amount: React.PropTypes.number
-	},
-
-	/**
-	 * check limits to allow transaction
-	 */
-	checkAllow(){
-		return this.props.allowContinue;
+		setAmount: React.PropTypes.func,
+		amount: React.PropTypes.string,
+		allowContinue: React.PropTypes.number
 	},
 
 	render() {
 		let isWithDraw = UIService.getIsWithDraw();
 		let originPath = UIService.getOriginPath();
-		let allowContinue = this.checkAllow();
-		let transactionAmount = this.props.transactionAmount;
+		let allowContinue = this.props.allowContinue;
+		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
 		let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
 		if(isWithDraw){
@@ -61,10 +53,10 @@ let AskInfo = React.createClass({
 														}
 													})()}
 												</div>
-												<AmountController transactionAmount={transactionAmount} value={amount}/>
+												<AmountController setAmount={setAmount} value={amount}/>
 
 												{(() =>{
-													if(!allowContinue && amount){
+													if(!allowContinue){
 														return <span>LIMITS ERROR</span>
 													}
 												})()}

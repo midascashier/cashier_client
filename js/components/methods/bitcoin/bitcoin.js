@@ -5,12 +5,12 @@ import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 import { translate } from '../../../constants/Translate'
 import { AskInfo } from './AskInfo'
 import { InfoMethod } from './InfoMethod'
-import { TransactionService } from '../../../services/TransactionService'
-import { UIService } from '../../../services/UIService'
 
 let BitCoin = React.createClass({
 	propTypes: {
-		checkLimitsLite: React.PropTypes.func
+		setAmount: React.PropTypes.func,
+		allowContinue: React.PropTypes.number,
+		amount: React.PropTypes.amount
 	},
 	/**
 	 * React function to set component initial state
@@ -52,45 +52,26 @@ let BitCoin = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
-	/**
-	 * set local state with transaction amount
-	 */
-	transactionAmount(amount){
-		let payAccountInfo =TransactionService.getCurrentPayAccount();
-		let limitsInfo=payAccountInfo.limitsData;
-		let min, max =0;
-		if (UIService.getIsWithDraw()){
-			min = limitsInfo.minAmountWithdraw;
-			max = limitsInfo.maxAmountWithdraw;
-		}
-		else{
-			min = limitsInfo.minAmount;
-			max = limitsInfo.maxAmount;
-		}
-		this.setState({amount: Number(amount), allowContinue: this.props.checkLimitsLite(amount, min, max)});
-	},
-
 	render() {
+		let allowContinue = this.props.allowContinue;
 		return (
 			<div id="bitCoin">
 				<div className="col-sm-6">
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<AskInfo selectedProcessor={this.state.selectedProcessor}
-									 amount={this.state.amount}
-									 allowContinue={this.state.allowContinue}
-									 transactionAmount={this.transactionAmount}/>
+					<AskInfo amount={this.props.amount}
+									 setAmount={this.props.setAmount}
+									 allowContinue={allowContinue}
+					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
 						} else{
-							return <InfoMethod selectedProcessor={this.state.selectedProcessor}
-																 transaction={this.state.transaction}
-																 allowContinue={this.state.allowContinue}
-																 amount={this.state.amount}/>
+							return <InfoMethod amount={this.props.amount}
+																 allowContinue={allowContinue}/>
 						}
 					})()}
 				</div>

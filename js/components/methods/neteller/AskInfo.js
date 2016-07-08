@@ -12,22 +12,14 @@ let AskInfo = React.createClass({
 		transactionAmount: React.PropTypes.func,
 		allowContinue: React.PropTypes.number,
 		password: React.PropTypes.string,
-		amount: React.PropTypes.number,
-		selectedProcessor: React.PropTypes.object
-	},
-
-	/**
-	 * check limits to allow transaction
-	 */
-	checkAllow(){
-		return this.props.allowContinue;
+		amount: React.PropTypes.number
 	},
 
 	render() {
 		let netellerPassword = this.props.netellerPassword;
-		let transactionAmount = this.props.transactionAmount;
+		let allowContinue = this.props.allowContinue;
+		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
-		let allowContinue = this.checkAllow();
 		let password = this.props.password;
 		let isWithDraw = UIService.getIsWithDraw();
 		let originPath = UIService.getOriginPath();
@@ -68,9 +60,9 @@ let AskInfo = React.createClass({
 														</div>
 													}
 												})()}
-												<AmountController transactionAmount={transactionAmount} value={amount}/>
+												<AmountController setAmount={setAmount} value={amount}/>
 												{(() =>{
-													if(!allowContinue && amount){
+													if(!allowContinue){
 														return <span>LIMITS ERROR</span>
 													}
 												})()}

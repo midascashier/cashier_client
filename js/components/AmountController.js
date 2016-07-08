@@ -15,10 +15,9 @@ let AmountController = React.createClass({
 	 */
 	changeValue(event) {
 		let amount = event.currentTarget.value;
-		amount = amount.replace(/[^0-9\-]/g, '');
-		this.setState({ value: amount });
-		if(amount >= 0){
-			this.props.transactionAmount(amount);
+		amount = Number(amount);
+		if (amount !== ""){
+			this.props.setAmount(amount);
 		}
 	},
 
@@ -29,7 +28,8 @@ let AmountController = React.createClass({
 				<label for="">{translate('PROCESSING_AMOUNT', 'Amount')}:</label>
 				<input className="form-control" type="number" id="amount" name="amount" onChange={this.changeValue}
 							 value={this.props.amount}/>
-				<span>{translate('PROCESSING_MIN', 'Min')}: {limits.minAmount} - {translate('PROCESSING_MAX', 'Max')}: {limits.maxAmount}</span>
+				<span>{translate('PROCESSING_MIN', 'Min')}: {limits.minAmount}
+					- {translate('PROCESSING_MAX', 'Max')}: {limits.maxAmount}</span>
 			</div>
 		)
 	}
