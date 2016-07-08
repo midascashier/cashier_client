@@ -91,15 +91,23 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 * this function sends transaction info to cashier
+	 * this function sends deposit info to cashier
 	 *
 	 */
-	processTransaction(){
-		let password = this.props.password;
-		let dynamicParams = {};
-		dynamicParams.password = password;
+	continueTransaction(){
+		let isWithDraw = UIService.getIsWithDraw();
 		TransactionService.setAmount(this.props.amount);
-		TransactionService.process(dynamicParams);
+		if(isWithDraw){
+			UIService.changeUIState("/withdraw/"+UIService.getProcessorName().toLowerCase()+"/confirm/");
+		}
+		else{
+			//process the deposit
+			let password = this.props.password;
+			let dynamicParams = {};
+			dynamicParams.password = password;
+			TransactionService.setAmount(this.props.amount);
+			TransactionService.process(dynamicParams);
+		}
 	},
 
 	render() {
@@ -131,7 +139,7 @@ let InfoMethod = React.createClass({
 								<div className="col-sm-6">
 									{(() =>{
 										if(payAccountinfo.payAccountId && allowContinue){
-											return <button type='button' onClick={this.processTransaction} className='btn btn-green'>
+											return <button type='button' onClick={this.continueTransaction} className='btn btn-green'>
 												Next</button>
 										}
 									})()}

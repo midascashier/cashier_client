@@ -1,11 +1,53 @@
 import React from 'react'
 import { UIService } from '../../services/UIService'
+import { CashierStore } from '../../stores/CashierStore'
 
 let DeferredTicket = React.createClass({
 
+	/**
+	 * initialize the state
+	 *
+	 * @returns {*|{address}}
+	 */
+	getInitialState(){
+		return this.refreshLocalState();
+	},
+
+	/**
+	 * build the state
+	 *
+	 * @returns {{email: string, currency: string, balance: string}}
+	 */
+	refreshLocalState() {
+		let customer = UIService.getCustomerInformation();
+		return {
+			email: customer.personalInformation.email,
+			currency: customer.currency,
+			balance: customer.balance
+		}
+	},
+
+	/**
+	 * component is ready
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * refresh the state when changes occur
+	 *
+	 * @private
+	 */
+	_onChange() {
+		this.setState(this.refreshLocalState());
+	},
+
 	render() {
 		let originPath = UIService.getOriginPath();
-		let customer = UIService.getCustomerInformation();
+		let email = this.state.email;
+		let currency = this.state.currency;
+		let balance = this.state.balance;
 
 		return (
 			<div className="internal-content">
@@ -19,8 +61,8 @@ let DeferredTicket = React.createClass({
 						<div className="success-message">
 							<i className="fa fa-check-circle-o green"></i>
 							<div className="title">Your withdraw was successfully submitted.</div>
-							<p>Your balance is now {customer.currencySymbol + " " + customer.balance}</p>
-							<p>An email has been sent to {customer.personalInformation.email} with the transaction details.</p>
+							<p>Your balance is now {balance + ' ' + currency}</p>
+							<p>An email has been sent to {email} with the transaction details.</p>
 						</div>
 					</div>
 				</div>

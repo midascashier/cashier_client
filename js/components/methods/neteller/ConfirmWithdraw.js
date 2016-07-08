@@ -4,7 +4,7 @@ import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 
-let BitCoinConfirmWithdraw = React.createClass({
+let NetellerConfirmWithdraw = React.createClass({
 
 	/**
 	 * React function to set component initial state
@@ -57,7 +57,7 @@ let BitCoinConfirmWithdraw = React.createClass({
 	render(){
 		let originPath = UIService.getOriginPath();
 		return (
-			<div id="confirmBitCoinWithdraw" className="internal-content">
+			<div id="confirmNetellerWithdraw" className="internal-content">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="modules">
@@ -143,4 +143,4 @@ let BitCoinConfirmWithdraw = React.createClass({
 	}
 });
 
-module.exports.BitCoinConfirmWithdraw = BitCoinConfirmWithdraw;
+module.exports.NetellerConfirmWithdraw = NetellerConfirmWithdraw;
