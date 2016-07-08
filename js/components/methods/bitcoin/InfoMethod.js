@@ -57,14 +57,6 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 * check limits to allow transaction
-	 */
-	checkAllow(){
-		return this.props.allowContinue;
-	},
-
-
-	/**
 	 * this function return payAccount limits and ID
 	 *
 	 * @returns {{minPayAccount: XML, maxPayAccount: XML, payAccountId: (*|number|null)}}
@@ -97,7 +89,7 @@ let InfoMethod = React.createClass({
 	},
 
 	render() {
-		let allowContinue = this.checkAllow();
+		let allowContinue = this.props.allowContinue;
 		let payAccountInfo = this.getPayAccountLimits();
 		let originPath = UIService.getOriginPath();
 		return (

@@ -10,7 +10,9 @@ import { UIService } from '../../../services/UIService'
 
 let Neteller = React.createClass({
 	propTypes: {
-		checkLimitsLite: React.PropTypes.func
+		setAmount: React.PropTypes.func,
+		allowContinue: React.PropTypes.number,
+		amount: React.PropTypes.amount
 	},
 	/**
 	 * React function to set component initial state
@@ -63,25 +65,8 @@ let Neteller = React.createClass({
 		this.setState({password: value});
 	},
 
-	/**
-	 * set local state with transaction amount
-	 */
-	transactionAmount(amount){
-		let payAccountInfo =TransactionService.getCurrentPayAccount();
-		let limitsInfo=payAccountInfo.limitsData;
-		let min, max =0;
-		if (UIService.getIsWithDraw()){
-			min = limitsInfo.minAmountWithdraw;
-			max = limitsInfo.maxAmountWithdraw;
-		}
-		else{
-			min = limitsInfo.minAmount;
-			max = limitsInfo.maxAmount;
-		}
-		this.setState({amount: Number(amount), allowContinue: this.props.checkLimitsLite(amount, min, max)});
-	},
-
 	render() {
+		let allowContinue = this.props.allowContinue;
 		return (
 			<div id="neteller">
 				<div className="col-sm-6">
@@ -89,21 +74,19 @@ let Neteller = React.createClass({
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
 					<AskInfo netellerPassword={this.netellerPassword}
-									 transactionAmount={this.transactionAmount}
 									 password={this.state.password}
-									 amount={this.state.amount}
-									 allowContinue={this.state.allowContinue}
-									 selectedProcessor={this.state.selectedProcessor}/>
+									 amount={this.props.amount}
+									 setAmount={this.props.setAmount}
+									 allowContinue={allowContinue}/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
 						} else{
-							return <InfoMethod selectedProcessor={this.state.selectedProcessor}
-																 password={this.state.password}
-																 amount={this.state.amount}
-																 allowContinue={this.state.allowContinue}
+							return <InfoMethod password={this.state.password}
+																 amount={this.props.amount}
+																 allowContinue={allowContinue}
 																 transaction={this.state.transaction}/>;
 						}
 					})()}

@@ -90,6 +90,15 @@ class transactionService {
 	}
 
 	/**
+	 * return selected processor
+	 */
+	getCurrentProcessor(){
+		return CashierStore.getProcessor();
+	}
+
+
+
+	/**
 	 * this function sends to process a transaction
 	 */
 	process(dynamicParams){
