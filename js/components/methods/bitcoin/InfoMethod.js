@@ -80,7 +80,7 @@ let InfoMethod = React.createClass({
 		let isWithDraw = UIService.getIsWithDraw();
 		TransactionService.setAmount(this.props.amount);
 		if(isWithDraw){
-			UIService.changeUIState("/withdraw/"+UIService.getProcessorName().toLowerCase()+"/confirm/");
+			UIService.changeUIState("/withdraw/" + UIService.getProcessorName().toLowerCase() + "/confirm/");
 		}
 		else{
 			//process the deposit
@@ -117,7 +117,8 @@ let InfoMethod = React.createClass({
 									{(() =>{
 										if(payAccountInfo.payAccountId && allowContinue){
 											return (
-													<button type='button' onClick={this.continueTransaction} className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
+												<button type='button' onClick={this.continueTransaction}
+																className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
 											)
 										}
 									})()}

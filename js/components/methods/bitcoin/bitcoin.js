@@ -54,14 +54,17 @@ let BitCoin = React.createClass({
 
 	render() {
 		let allowContinue = this.props.allowContinue;
+		let amount = this.props.amount;
+		let setAmount = this.props.setAmount;
+
 		return (
 			<div id="bitCoin">
 				<div className="col-sm-6">
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<AskInfo amount={this.props.amount}
-									 setAmount={this.props.setAmount}
+					<AskInfo amount={amount}
+									 setAmount={setAmount}
 									 allowContinue={allowContinue}
 					/>
 				</div>
@@ -70,7 +73,7 @@ let BitCoin = React.createClass({
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
 						} else{
-							return <InfoMethod amount={this.props.amount}
+							return <InfoMethod amount={amount}
 																 allowContinue={allowContinue}/>
 						}
 					})()}

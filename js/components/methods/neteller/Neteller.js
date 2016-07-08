@@ -5,8 +5,6 @@ import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 import { translate } from '../../../constants/Translate'
 import { AskInfo } from './AskInfo'
 import { InfoMethod } from './InfoMethod'
-import { TransactionService } from '../../../services/TransactionService'
-import { UIService } from '../../../services/UIService'
 
 let Neteller = React.createClass({
 	propTypes: {
@@ -62,7 +60,7 @@ let Neteller = React.createClass({
 	 * @constructor
 	 */
 	netellerPassword(value) {
-		this.setState({password: value});
+		this.setState({ password: value });
 	},
 
 	render() {
@@ -86,8 +84,7 @@ let Neteller = React.createClass({
 						} else{
 							return <InfoMethod password={this.state.password}
 																 amount={this.props.amount}
-																 allowContinue={allowContinue}
-																 transaction={this.state.transaction}/>;
+																 allowContinue={allowContinue}/>;
 						}
 					})()}
 				</div>
