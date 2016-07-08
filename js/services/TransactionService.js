@@ -2,6 +2,8 @@ import { CashierStore } from '../stores/CashierStore'
 import { CashierActions } from '../actions/CashierActions'
 import { stompConnector } from './StompConnector'
 import { UIService } from './UIService'
+import cashier from '../constants/Cashier'
+
 class transactionService {
 
 	/**
@@ -52,7 +54,7 @@ class transactionService {
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeTransactionRequest("", rabbitRequest);
 	};
-	
+
 	/**
 	 * Function to get pay account previous pay accounts
 	 */
@@ -132,17 +134,34 @@ class transactionService {
 	};
 
 	/**
-	 * get the details for the specific transaction Id
+	 * get the BitCoin transaction details for the specific transaction Id
+	 *
+	 * @param transactionId
 	 */
-	getTransactionDetails(){
-		let transaction = CashierStore.getLastTransactionResponse();
-		let transactionId = transaction.transactionId;
+	getBitCoinTransaction(transactionId){
 		let data = {
 			f: "getBitCoinTransaction", module: 'transaction', transactionId: transactionId
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeBackendRequest("", rabbitRequest);
+	};
+
+	/**
+	 * get the details for the specific transaction Id
+	 */
+	getTransactionDetails(){
+		let isWithdraw = CashierStore.getIsWithdraw();
+		let processor = CashierStore.getProcessor();
+		let processorId = processor.processorId;
+		let transactionResponse = CashierStore.getLastTransactionResponse();
+		let transactionId = transactionResponse.transactionId;
+
+		//get specific info
+		if(!isWithdraw && processorId == cashier.PROCESSOR_ID_BITCOIN){
+			this.getBitCoinTransaction(transactionId);
+		}
+
 	};
 
 	/**

@@ -70,9 +70,9 @@ let VisaApprovedTicket = React.createClass({
 					<div className="col-sm-6">
 						<div className="success-message">
 							<i className="fa fa-check-circle-o green"></i>
-							<div className="title">Your {currencyAmount + ' ' + currency} deposit was successful.</div>
+							<div className="title">Your {currencyAmount + '' + currency} deposit was successful.</div>
 							<p>This charge will show up on your statement as {descriptor}.</p>
-							<p>Your balance is now {balance + ' ' + currency}</p>
+							<p>Your balance is now {balance + '' + currency}</p>
 							<p>An email has been sent to {email} with the transaction details.</p>
 						</div>
 					</div>
