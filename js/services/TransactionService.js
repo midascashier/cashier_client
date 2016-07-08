@@ -158,12 +158,27 @@ class transactionService {
 	};
 
 	/**
+	 * get the BitCoin transaction details for the specific transaction Id
+	 *
+	 * @param transactionId
+	 */
+	getCreditCardTransaction(transactionId){
+		let data = {
+			f: "getCreditCardTransaction", module: 'transaction', transactionId: transactionId
+		};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeBackendRequest("", rabbitRequest);
+	};
+
+	/**
 	 * get the details for the specific transaction Id
 	 */
 	getTransactionDetails(){
 		let isWithdraw = CashierStore.getIsWithdraw();
 		let processor = CashierStore.getProcessor();
 		let processorId = processor.processorId;
+		let processorClassId = processor.processorClass;
 		let transactionResponse = CashierStore.getLastTransactionResponse();
 		let transactionId = transactionResponse.transactionId;
 
@@ -173,8 +188,13 @@ class transactionService {
 			CustomerService.getCustomerInfo();
 
 			//get specific info
-			if(!isWithdraw && processorId == cashier.PROCESSOR_ID_BITCOIN){
-				this.getBitCoinTransaction(transactionId);
+			if(!isWithdraw){
+				if(processorId == cashier.PROCESSOR_ID_BITCOIN){
+					this.getBitCoinTransaction(transactionId);
+				}
+				if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS){
+					this.getCreditCardTransaction(transactionId);
+				}
 			}
 		}
 

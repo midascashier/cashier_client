@@ -22,9 +22,9 @@ let VisaApprovedTicket = React.createClass({
 		let customer = UIService.getCustomerInformation();
 		let transaction = UIService.getTransactionInformation();
 		let transactionResponse = UIService.getLastTransactionResponse();
-		let descriptor = "........";
-		if (transactionResponse && transactionResponse.details && transactionResponse.details.descriptor && transactionResponse.details.descriptor){
-			descriptor = transactionResponse.details.descriptor;
+		let descriptor = "Loading...";
+		if (transactionResponse && transactionResponse.details && transactionResponse.details.creditCardTransaction){
+			descriptor = transactionResponse.details.creditCardTransaction.Descriptor;
 		}
 		return {
 			email: customer.personalInformation.email,
@@ -71,7 +71,7 @@ let VisaApprovedTicket = React.createClass({
 						<div className="success-message">
 							<i className="fa fa-check-circle-o green"></i>
 							<div className="title">Your {currencyAmount + ' ' + currency} deposit was successful.</div>
-							<p>This charge will show up on your statement as {descriptor}.</p>
+							<p>This charge will show up on your statement as <strong>{descriptor}</strong>.</p>
 							<p>Your balance is now {balance + ' ' + currency}</p>
 							<p>An email has been sent to {email} with the transaction details.</p>
 						</div>

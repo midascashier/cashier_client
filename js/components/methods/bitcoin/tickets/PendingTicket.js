@@ -20,7 +20,7 @@ let BitCoinTicketPending = React.createClass({
 	 */
 	refreshLocalState() {
 		let transaction = UIService.getLastTransactionResponse();
-		let address = "...";
+		let address = "Loading...";
 		if (transaction && transaction.details && transaction.details.bitCoinTransaction){
 			address = transaction.details.bitCoinTransaction.Address;
 		}
