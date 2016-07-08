@@ -23,7 +23,6 @@ let AskInfo = React.createClass({
 		return this.props.allowContinue;
 	},
 
-
 	render() {
 		let netellerPassword = this.props.netellerPassword;
 		let transactionAmount = this.props.transactionAmount;

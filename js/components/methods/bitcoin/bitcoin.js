@@ -5,9 +5,13 @@ import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 import { translate } from '../../../constants/Translate'
 import { AskInfo } from './AskInfo'
 import { InfoMethod } from './InfoMethod'
+import { TransactionService } from '../../../services/TransactionService'
+import { UIService } from '../../../services/UIService'
 
 let BitCoin = React.createClass({
-
+	propTypes: {
+		checkLimitsLite: React.PropTypes.func
+	},
 	/**
 	 * React function to set component initial state
 	 */
@@ -52,7 +56,18 @@ let BitCoin = React.createClass({
 	 * set local state with transaction amount
 	 */
 	transactionAmount(amount){
-		this.setState({amount: Number(amount)});
+		let payAccountInfo =TransactionService.getCurrentPayAccount();
+		let limitsInfo=payAccountInfo.limitsData;
+		let min, max =0;
+		if (UIService.getIsWithDraw()){
+			min = limitsInfo.minAmountWithdraw;
+			max = limitsInfo.maxAmountWithdraw;
+		}
+		else{
+			min = limitsInfo.minAmount;
+			max = limitsInfo.maxAmount;
+		}
+		this.setState({amount: Number(amount), allowContinue: this.props.checkLimitsLite(amount, min, max)});
 	},
 
 	render() {
@@ -64,6 +79,7 @@ let BitCoin = React.createClass({
 					</Link>
 					<AskInfo selectedProcessor={this.state.selectedProcessor}
 									 amount={this.state.amount}
+									 allowContinue={this.state.allowContinue}
 									 transactionAmount={this.transactionAmount}/>
 				</div>
 				<div className="col-sm-6">
@@ -73,6 +89,7 @@ let BitCoin = React.createClass({
 						} else{
 							return <InfoMethod selectedProcessor={this.state.selectedProcessor}
 																 transaction={this.state.transaction}
+																 allowContinue={this.state.allowContinue}
 																 amount={this.state.amount}/>
 						}
 					})()}

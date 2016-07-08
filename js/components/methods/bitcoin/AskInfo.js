@@ -9,12 +9,21 @@ let AskInfo = React.createClass({
 	propTypes: {
 		selectedProcessor: React.PropTypes.object,
 		transactionAmount: React.PropTypes.func,
+		allowContinue: React.PropTypes.number,
 		amount: React.PropTypes.number
+	},
+
+	/**
+	 * check limits to allow transaction
+	 */
+	checkAllow(){
+		return this.props.allowContinue;
 	},
 
 	render() {
 		let isWithDraw = UIService.getIsWithDraw();
 		let originPath = UIService.getOriginPath();
+		let allowContinue = this.checkAllow();
 		let transactionAmount = this.props.transactionAmount;
 		let amount = this.props.amount;
 		let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
@@ -53,6 +62,12 @@ let AskInfo = React.createClass({
 													})()}
 												</div>
 												<AmountController transactionAmount={transactionAmount} value={amount}/>
+
+												{(() =>{
+													if(!allowContinue && amount){
+														return <span>LIMITS ERROR</span>
+													}
+												})()}
 												{(() =>{
 													if(isWithDraw){
 														return <FeeController />;
