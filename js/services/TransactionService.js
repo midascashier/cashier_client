@@ -172,6 +172,20 @@ class transactionService {
 	};
 
 	/**
+	 * get the P2P transaction details for the specific transaction Id
+	 *
+	 * @param transactionId
+	 */
+	getP2PTransaction(uniqueId){
+		let data = {
+			f: "getP2PNameInfo", module: 'transaction', tuid: uniqueId
+		};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeTransactionRequest("", rabbitRequest);
+	};
+
+	/**
 	 * get the details for the specific transaction Id
 	 */
 	getTransactionDetails(){
@@ -194,6 +208,9 @@ class transactionService {
 				}
 				if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS){
 					this.getCreditCardTransaction(transactionId);
+				}
+				if(processorClassId == cashier.PROCESSOR_CLASS_ID_PERSON_2_PERSON){
+					this.getP2PTransaction(transactionId);
 				}
 			}
 		}
