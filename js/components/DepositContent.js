@@ -11,7 +11,7 @@ let DepositContent = React.createClass({
 	 */
 	getInitialState(){
 		return {
-			amount: 0
+			amount: ""
 		};
 	},
 

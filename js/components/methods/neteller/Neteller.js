@@ -10,7 +10,7 @@ let Neteller = React.createClass({
 	propTypes: {
 		setAmount: React.PropTypes.func,
 		allowContinue: React.PropTypes.number,
-		amount: React.PropTypes.amount
+		amount: React.PropTypes.string
 	},
 	/**
 	 * React function to set component initial state

@@ -12,7 +12,7 @@ let AskInfo = React.createClass({
 		transactionAmount: React.PropTypes.func,
 		allowContinue: React.PropTypes.number,
 		password: React.PropTypes.string,
-		amount: React.PropTypes.number
+		amount: React.PropTypes.string
 	},
 
 	render() {
@@ -62,7 +62,7 @@ let AskInfo = React.createClass({
 												})()}
 												<AmountController setAmount={setAmount} value={amount}/>
 												{(() =>{
-													if(!allowContinue){
+													if(!allowContinue && amount != ""){
 														return <span>LIMITS ERROR</span>
 													}
 												})()}
