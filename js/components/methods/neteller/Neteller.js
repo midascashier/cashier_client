@@ -5,9 +5,13 @@ import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 import { translate } from '../../../constants/Translate'
 import { AskInfo } from './AskInfo'
 import { InfoMethod } from './InfoMethod'
+import { TransactionService } from '../../../services/TransactionService'
+import { UIService } from '../../../services/UIService'
 
 let Neteller = React.createClass({
-
+	propTypes: {
+		checkLimitsLite: React.PropTypes.func
+	},
 	/**
 	 * React function to set component initial state
 	 */
@@ -36,8 +40,7 @@ let Neteller = React.createClass({
 	refreshLocalState() {
 		return {
 			selectedProcessor: CashierStore.getProcessor(),
-			transaction: CashierStore.getTransaction(),
-			allowContinue: this.props.checkLimitsLite(3)
+			transaction: CashierStore.getTransaction()
 		}
 	},
 
@@ -64,7 +67,18 @@ let Neteller = React.createClass({
 	 * set local state with transaction amount
 	 */
 	transactionAmount(amount){
-		this.setState({amount: Number(amount)});
+		let payAccountInfo =TransactionService.getCurrentPayAccount();
+		let limitsInfo=payAccountInfo.limitsData;
+		let min, max =0;
+		if (UIService.getIsWithDraw()){
+			min = limitsInfo.minAmountWithdraw;
+			max = limitsInfo.maxAmountWithdraw;
+		}
+		else{
+			min = limitsInfo.minAmount;
+			max = limitsInfo.maxAmount;
+		}
+		this.setState({amount: Number(amount), allowContinue: this.props.checkLimitsLite(amount, min, max)});
 	},
 
 	render() {
@@ -89,6 +103,7 @@ let Neteller = React.createClass({
 							return <InfoMethod selectedProcessor={this.state.selectedProcessor}
 																 password={this.state.password}
 																 amount={this.state.amount}
+																 allowContinue={this.state.allowContinue}
 																 transaction={this.state.transaction}/>;
 						}
 					})()}

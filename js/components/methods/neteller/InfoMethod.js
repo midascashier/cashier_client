@@ -7,6 +7,7 @@ import { UIService } from '../../../services/UIService'
 let InfoMethod = React.createClass({
 	propTypes: {
 		password: React.PropTypes.string,
+		allowContinue: React.PropTypes.number,
 		amount: React.PropTypes.number
 	},
 
@@ -56,17 +57,25 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
+	 * check limits to allow transaction
+	 */
+	checkAllow(){
+		return this.props.allowContinue;
+	},
+
+
+	/**
 	 * this function checks if password and amount are valid
 	 */
 	allowProcess(){
 		let password = this.props.password;
-		let amount = this.props.amount;
 		let isWithDraw = UIService.getIsWithDraw();
+		let checkAmount = this.checkAllow();
 
-		if((String(password).length >= 5) && amount > 0){
+		if(password && String(password).length >= 5 && checkAmount){
 			return true;
 		}
-		else if(amount > 0 && isWithDraw){
+		else if(checkAmount && isWithDraw){
 			return true
 		}
 

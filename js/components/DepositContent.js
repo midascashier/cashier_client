@@ -17,8 +17,12 @@ let DepositContent = React.createClass({
 	 *
 	 * @returns {number}
 	 */
-	checkLimitsLite(amount){
-		return amount;
+	checkLimitsLite(amount, min, max){
+		if (min < amount && amount < max){
+			return 1;
+		}else{
+			return 0;
+		}
 	},
 
 	render() {

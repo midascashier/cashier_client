@@ -10,6 +10,7 @@ let AskInfo = React.createClass({
 	propTypes: {
 		netellerPassword: React.PropTypes.func,
 		transactionAmount: React.PropTypes.func,
+		allowContinue: React.PropTypes.number,
 		password: React.PropTypes.string,
 		amount: React.PropTypes.number,
 		selectedProcessor: React.PropTypes.object
@@ -53,7 +54,7 @@ let AskInfo = React.createClass({
 												<div className="method active pull-left">
 													<img className="img-responsive" src={originPath + '/images/processors/333.png'}
 															 alt="Neteller"/>
-												</div>{allowContinue}
+												</div>
 											</div>
 											<div className="col-sm-9">
 												<div className="form-group">
@@ -69,6 +70,11 @@ let AskInfo = React.createClass({
 													}
 												})()}
 												<AmountController transactionAmount={transactionAmount} value={amount}/>
+												{(() =>{
+													if(!allowContinue && amount){
+														return <span>LIMITS ERROR</span>
+													}
+												})()}
 											</div>
 										</div>
 									</div>
