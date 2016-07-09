@@ -8,16 +8,18 @@ import { UIService } from '../../../services/UIService'
 let AskInfo = React.createClass({
 
 	propTypes: {
-		selectedProcessor: React.PropTypes.object,
 		transactionAmount: React.PropTypes.func,
+		allowContinue: React.PropTypes.number,
 		amount: React.PropTypes.number
 	},
 
 	render() {
-		let originPath = UIService.getOriginPath();
-		let transactionAmount = this.props.transactionAmount;
+		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
-		let processingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_CREDIT_CARD', 'Please Enter Your Card Details');
+
+		let originPath = UIService.getOriginPath();
+		let displayName = UIService.getProcessorDisplayName();
+		let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_CREDIT_CARD', 'Please Enter Your Card Details');
 		let information = translate('CREDIT_CARD_INFO', '');
 
 		return (
@@ -26,7 +28,7 @@ let AskInfo = React.createClass({
 					<div className="col-sm-12">
 						<div className="row">
 							<div className="col-sm-12">
-								<div className="title">{processingTitle}</div>
+								<div className="title">{title}</div>
 							</div>
 							<div className="col-sm-12">
 								<div className="infoCol">
@@ -34,7 +36,7 @@ let AskInfo = React.createClass({
 										<div className="row">
 											<div className="col-sm-3">
 												<div className="method active pull-left">
-													<img className="img-responsive" src={originPath + '/images/processors/11001.png'} alt="Card"/>
+													<img className="img-responsive" src={originPath + '/images/processors/11001.png'} alt={displayName}/>
 												</div>
 											</div>
 											<div className="col-sm-9">
@@ -42,7 +44,7 @@ let AskInfo = React.createClass({
 													<label for="">{translate('CREDIT_CARD_SELECT', 'Credit Card')}:</label>
 													<SelectPayAccount />
 												</div>
-												<AmountController transactionAmount={transactionAmount} value={amount}/>
+												<AmountController setAmount={setAmount} value={amount}/>
 												<TermsController />
 											</div>
 										</div>

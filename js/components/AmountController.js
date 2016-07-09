@@ -5,7 +5,7 @@ import { UIService } from '../services/UIService'
 let AmountController = React.createClass({
 	propTypes: {
 		transactionAmount: React.PropTypes.func,
-		amount: React.PropTypes.number
+		amount: React.PropTypes.string
 	},
 
 	/**

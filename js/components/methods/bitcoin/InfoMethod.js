@@ -7,7 +7,7 @@ import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
 	propTypes: {
-		amount: React.PropTypes.string,
+		amount: React.PropTypes.number,
 		allowContinue: React.PropTypes.number
 	},
 
@@ -93,17 +93,18 @@ let InfoMethod = React.createClass({
 		let payAccountInfo = this.getPayAccountLimits();
 		let originPath = UIService.getOriginPath();
 
-		let displayName = this.props.selectedProcessor.displayName;
+		let processorDisplayName = UIService.getProcessorName().toLowerCase();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
-			processorName:displayName, transactionType:transactionType
+			processorName: processorDisplayName,
+			transactionType: transactionType
 		});
 
 		return (
 			<div id="InfoMethodBitCoin">
 				<div className="col-sm-12">
-					<div className="title">title</div>
+					<div className="title">{title}</div>
 					<div className="table-responsive">
 						<table className="table table-striped">
 							<tbody>

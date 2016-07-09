@@ -1,4 +1,5 @@
 import React from 'react'
+import { Input } from '../../Inputs'
 import {translate} from '../../../constants/Translate'
 import {AmountController} from '../../AmountController'
 import {UIService} from '../../../services/UIService'
@@ -6,16 +7,18 @@ import {UIService} from '../../../services/UIService'
 let AskInfo = React.createClass({
 
 	propTypes: {
-		selectedProcessor: React.PropTypes.object
+		transactionAmount: React.PropTypes.func,
+		allowContinue: React.PropTypes.number,
+		amount: React.PropTypes.number
 	},
 
 	render() {
-		let originPath = UIService.getOriginPath();
-		let processingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P', "Please Enter the Sender's Information");
-		let displayName = UIService.getProcessorDisplayName();
+		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
-		let transactionAmount = this.props.transactionAmount;
 
+		let originPath = UIService.getOriginPath();
+		let displayName = UIService.getProcessorDisplayName();
+		let processingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P', "Please Enter the Sender's Information");
 		return (
 			<div id="askAmountVisa" className="box">
 				<div className="row">
@@ -39,11 +42,11 @@ let AskInfo = React.createClass({
 												<form>
 													<div className="form-group">
 														<label for="" className="control-label">{translate('P2P_FIRST_NAME', 'First Name')}:</label>
-														<input type="text" className="form-control" id="firstName" readOnly/>
+														<Input type="text" id="firstName" readOnly/>
 													</div>
 													<div className="form-group">
 														<label for="" className="control-label">{translate('P2P_LAST_NAME', 'Last Name')}:</label>
-														<input type="text" className="form-control" id="lastName" readOnly/>
+														<Input type="text" id="lastName" readOnly/>
 													</div>
 
 													<div className="form-group">
@@ -69,18 +72,18 @@ let AskInfo = React.createClass({
 														<div className="row">
 															<div className="col-sm-6">
 																<label for="" className="control-label">{translate('P2P_CITY', 'City')}:</label>
-																<input type="text" className="form-control" id="city" readOnly/>
+																<Input type="text" id="city" readOnly/>
 															</div>
 															<div className="col-sm-6">
 																<label for="" className="control-label">{translate('P2P_PHONE', 'Phone')}:</label>
-																<input type="text" className="form-control" id="phone" readOnly/>
+																<Input type="text" id="phone" readOnly/>
 															</div>
 														</div>
 													</div>
 
 													<div className="form-group">
 														<label for="" className="control-label">{translate('P2P_EMAIL', 'Email')}:</label>
-														<input type="email" className="form-control" id="email" readOnly/>
+														<Input type="email" id="email" readOnly/>
 													</div>
 													<div className="form-group">
 														<div className="row">
@@ -110,7 +113,7 @@ let AskInfo = React.createClass({
 
 														</div>
 													</div>
-													<AmountController transactionAmount={transactionAmount} value={amount}/>
+													<AmountController setAmount={setAmount} value={amount}/>
 													<p><a href="#">Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></a></p>
 
 												</form>

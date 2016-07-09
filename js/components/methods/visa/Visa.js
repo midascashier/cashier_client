@@ -8,6 +8,12 @@ import { InfoMethod } from './InfoMethod'
 
 let Visa = React.createClass({
 
+	propTypes: {
+		setAmount: React.PropTypes.func,
+		allowContinue: React.PropTypes.number,
+		amount: React.PropTypes.number
+	},
+
 	/**
 	 * React function to set component initial state
 	 */
@@ -36,8 +42,7 @@ let Visa = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			selectedProcessor: CashierStore.getProcessor(),
-			transaction: CashierStore.getTransaction()
+			selectedProcessor: CashierStore.getProcessor()
 		}
 	},
 
@@ -64,18 +69,17 @@ let Visa = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<AskInfo selectedProcessor={this.state.selectedProcessor}
-									 amount={this.state.amount}
-									 transactionAmount={this.transactionAmount}/>
+					<AskInfo amount={this.props.amount}
+									 setAmount={this.props.setAmount}
+									 allowContinue={this.props.allowContinue}
+					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
 						} else{
-							return <InfoMethod selectedProcessor={this.state.selectedProcessor}
-																 amount={this.state.amount}
-																 transaction={this.state.transaction}/>;
+							return <InfoMethod amount={this.props.amount} allowContinue={this.props.allowContinue}/>;
 						}
 					})()}
 				</div>

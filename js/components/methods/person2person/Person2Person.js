@@ -5,9 +5,14 @@ import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {translate} from '../../../constants/Translate'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
-import {UIService} from '../../../services/UIService'
 
 let Person2Person = React.createClass({
+
+	propTypes: {
+		setAmount: React.PropTypes.func,
+		allowContinue: React.PropTypes.number,
+		amount: React.PropTypes.number
+	},
 
 	/**
 	 * React function to set component initial state
@@ -37,8 +42,7 @@ let Person2Person = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			selectedProcessor: CashierStore.getProcessor(),
-			transaction: CashierStore.getTransaction()
+			selectedProcessor: CashierStore.getProcessor()
 		}
 	},
 
@@ -59,24 +63,24 @@ let Person2Person = React.createClass({
 	},
 
 	render() {
+		let allowContinue = this.props.allowContinue;
 		return (
 			<div id="visa">
 				<div className="col-sm-6">
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<AskInfo selectedProcessor={this.state.selectedProcessor}
-									 transactionAmount={this.transactionAmount}
-									 amount={this.state.amount}/>
+					<AskInfo amount={this.props.amount}
+									 setAmount={this.props.setAmount}
+									 allowContinue={this.props.allowContinue}
+					/>
 				</div>
 				<div className="col-sm-6">
 					{(() => {
 						if (!this.state.selectedProcessor.processorId) {
 							return <LoadingSpinner />;
 						} else {
-							return <InfoMethod selectedProcessor={this.state.selectedProcessor}
-																 amount={this.state.amount}
-																 transaction={this.state.transaction}/>;
+							return <InfoMethod amount={this.props.amount} allowContinue={allowContinue}/>;
 						}
 					})()}
 				</div>

@@ -7,11 +7,13 @@ import { AskInfo } from './AskInfo'
 import { InfoMethod } from './InfoMethod'
 
 let Neteller = React.createClass({
+
 	propTypes: {
 		setAmount: React.PropTypes.func,
 		allowContinue: React.PropTypes.number,
-		amount: React.PropTypes.string
+		amount: React.PropTypes.number
 	},
+
 	/**
 	 * React function to set component initial state
 	 */
@@ -39,8 +41,7 @@ let Neteller = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			selectedProcessor: CashierStore.getProcessor(),
-			transaction: CashierStore.getTransaction()
+			selectedProcessor: CashierStore.getProcessor()
 		}
 	},
 
@@ -64,7 +65,6 @@ let Neteller = React.createClass({
 	},
 
 	render() {
-		let allowContinue = this.props.allowContinue;
 		return (
 			<div id="neteller">
 				<div className="col-sm-6">
@@ -75,16 +75,15 @@ let Neteller = React.createClass({
 									 password={this.state.password}
 									 amount={this.props.amount}
 									 setAmount={this.props.setAmount}
-									 allowContinue={allowContinue}/>
+									 allowContinue={this.props.allowContinue}
+					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
 						} else{
-							return <InfoMethod password={this.state.password}
-																 amount={this.props.amount}
-																 allowContinue={allowContinue}/>;
+							return <InfoMethod amount={this.props.amount} allowContinue={this.props.allowContinue} password={this.state.password}/>;
 						}
 					})()}
 				</div>

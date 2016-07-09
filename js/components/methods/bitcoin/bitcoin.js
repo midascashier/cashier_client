@@ -10,7 +10,7 @@ let BitCoin = React.createClass({
 	propTypes: {
 		setAmount: React.PropTypes.func,
 		allowContinue: React.PropTypes.number,
-		amount: React.PropTypes.string
+		amount: React.PropTypes.number
 	},
 	/**
 	 * React function to set component initial state
@@ -39,7 +39,7 @@ let BitCoin = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			selectedProcessor: CashierStore.getProcessor(), transaction: CashierStore.getTransaction()
+			selectedProcessor: CashierStore.getProcessor()
 		}
 	},
 
@@ -53,19 +53,15 @@ let BitCoin = React.createClass({
 	},
 
 	render() {
-		let allowContinue = this.props.allowContinue;
-		let amount = this.props.amount;
-		let setAmount = this.props.setAmount;
-
 		return (
 			<div id="bitCoin">
 				<div className="col-sm-6">
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<AskInfo amount={amount}
-									 setAmount={setAmount}
-									 allowContinue={allowContinue}
+					<AskInfo amount={this.props.amount}
+									 setAmount={this.props.setAmount}
+									 allowContinue={this.props.allowContinue}
 					/>
 				</div>
 				<div className="col-sm-6">
@@ -73,8 +69,7 @@ let BitCoin = React.createClass({
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
 						} else{
-							return <InfoMethod amount={amount}
-																 allowContinue={allowContinue}/>
+							return <InfoMethod amount={this.props.amount} allowContinue={this.props.allowContinue}/>;
 						}
 					})()}
 				</div>

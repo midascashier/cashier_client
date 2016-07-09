@@ -6,8 +6,8 @@ import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 
 let InfoMethod = React.createClass({
+
 	propTypes: {
-		password: React.PropTypes.string,
 		amount: React.PropTypes.number
 	},
 
@@ -42,6 +42,7 @@ let InfoMethod = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
+			transaction: CashierStore.getTransaction(),
 			processor: CashierStore.getProcessor(),
 			currentPayAccount: CashierStore.getCurrentPayAccount()
 		}
@@ -61,7 +62,7 @@ let InfoMethod = React.createClass({
 	 */
 	allowProcess(){
 		let amount = this.props.amount;
-		let checkTerms = this.props.transaction.checkTermsAndConditions;
+		let checkTerms = this.state.transaction.checkTermsAndConditions;
 		if(amount && checkTerms){
 			if(amount > 0){
 				return true;
@@ -100,11 +101,11 @@ let InfoMethod = React.createClass({
 		let payAccountInfo = this.getPayAccountLimits();
 		let originPath = UIService.getOriginPath();
 
-		let displayName = this.props.selectedProcessor.displayName;
+		let processorDisplayName = UIService.getProcessorName().toLowerCase();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
-			processorName:displayName, transactionType:transactionType
+			processorName:processorDisplayName, transactionType:transactionType
 		});
 
 
@@ -133,7 +134,9 @@ let InfoMethod = React.createClass({
 									{(() =>{
 										if(payAccountInfo.payAccountId && allowContinue){
 											return (
-													<button type='button' className='btn btn-green' onClick={this.continueTransaction}>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
+													<button type='button' className='btn btn-green' onClick={this.continueTransaction}>
+														{translate('PROCESSING_BUTTON_NEXT', 'Next')}
+													</button>
 											)
 										}
 									})()}
