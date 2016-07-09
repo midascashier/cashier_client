@@ -1,13 +1,14 @@
 import React from 'react'
 import { UIService } from '../../../../services/UIService'
 import { CashierStore } from '../../../../stores/CashierStore'
+import { translate } from '../../../../constants/Translate'
 
 let BitCoinTicketPending = React.createClass({
 
 	/**
 	 * initialize the state
 	 *
-	 * @returns {*|{address}}
+	 * @returns {*|{address, amount, minutes}|{address: string, amount: number, minutes: number}}
 	 */
 	getInitialState(){
 		return this.refreshLocalState();
@@ -16,7 +17,7 @@ let BitCoinTicketPending = React.createClass({
 	/**
 	 * build the state
 	 *
-	 * @returns {{address: null}}
+	 * @returns {{address: string, amount: number, minutes: number}}
 	 */
 	refreshLocalState() {
 		let transaction = UIService.getLastTransactionResponse();
@@ -25,7 +26,9 @@ let BitCoinTicketPending = React.createClass({
 			address = transaction.details.bitCoinTransaction.Address;
 		}
 		return {
-			address: address
+			address: address,
+			amount: 1.1892967,
+			minutes: 15
 		}
 	},
 
@@ -45,14 +48,34 @@ let BitCoinTicketPending = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
-	render() {
+	/**
+	 * copy to clipboard the BitCoin Address
+	 */
+	copyToClipboard() {
 		let address = this.state.address;
+		let clipBoard = document.createElement("input");
+		clipBoard.setAttribute("value", address);
+		document.body.appendChild(clipBoard);
+		clipBoard.select();
+		document.execCommand("copy");
+		document.body.removeChild(clipBoard);
+	},
+
+	render() {
+
+		let address = this.state.address;
+		let amount = this.state.amount;
+		let minutes = this.state.minutes;
+
+		let btcAmount = translate('BITCOIN_INSTRUCTIONS_AMOUNT', '', {btcAmount: amount});
+		let btcTimer = translate('BITCOIN_INSTRUCTIONS_TIME_INFO', '', {btcMinutes: minutes});
+
 		return (
 			<div id="BitCoinTicketInstructions">
 
 				<div className="col-sm-12">
 					<div className="rejected-message">
-						<div className="title">Now send your BitCoin to us.</div>
+						<div className="title">{translate('BITCOIN_INSTRUCTIONS', 'Now send your BitCoin to us.')}</div>
 					</div>
 				</div>
 
@@ -66,8 +89,8 @@ let BitCoinTicketPending = React.createClass({
 										<div className="col-sm-12">
 											<div className="title">1</div>
 											<div className="infoCol">
-												<div className="subtitle">Send exactly 1.1892967 BTC</div>
-												<p>Otherwise, your transaction will not be successful</p>
+												<div className="subtitle">{btcAmount}</div>
+												<p>{translate('BITCOIN_INSTRUCTIONS_AMOUNT_INFO', 'Otherwise, your transaction will not be successful')}</p>
 											</div>
 										</div>
 									</div>
@@ -82,11 +105,13 @@ let BitCoinTicketPending = React.createClass({
 												<div className="col-sm-12">
 													<div className="title">2</div>
 													<div className="infoCol">
-														<div className="subtitle">Send the BitCoin to the following address</div>
-														<p>Please include any Miners Fee your BitCoin wallet charges.</p>
-														<div className="form-inline">
+														<div className="subtitle">{translate('BITCOIN_INSTRUCTIONS_ADDRESS', 'Send the BitCoin to the following address')}</div>
+														<p>{translate('BITCOIN_INSTRUCTIONS_ADDRESS_INFO', 'Please include any Miners Fee your BitCoin wallet charges.')}</p>
+														<div>
 															<input type="text" className="form-control" id="bitCoinAddress" value={address} readOnly/>
-															<button type="submit" className="btn btn-green">Copy</button>
+															<button type='button' onClick={this.copyToClipboard} disabled={!address} className='btn btn-green'>
+																{translate('PROCESSING_BUTTON_COPY', 'Copy')}
+															</button>
 														</div>
 													</div>
 												</div>
@@ -102,8 +127,8 @@ let BitCoinTicketPending = React.createClass({
 										<div className="col-sm-12">
 											<div className="title">3</div>
 											<div className="infoCol">
-												<div className="subtitle">Prompty complete your transaction.</div>
-												<p>This BTC transaction price is only valid for 15 minutes. After that, the transaction price will change, and you many receive a different amount that expected.</p>
+												<div className="subtitle">{translate('BITCOIN_INSTRUCTIONS_TIME', 'Prompty complete your transaction.')}</div>
+												<p>{btcTimer}</p>
 											</div>
 										</div>
 									</div>
@@ -111,7 +136,7 @@ let BitCoinTicketPending = React.createClass({
 							</div>
 
 							<div className="col-sm-6">
-								<p>Your funds should be available within 30 minutes of making the transfer from your wallet.</p>
+								<p>{translate('BITCOIN_INSTRUCTIONS_INFO', '')}</p>
 							</div>
 
 						</div>

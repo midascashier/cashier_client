@@ -92,21 +92,21 @@ let AskInfo = React.createClass({
 															</div>
 															<div className="col-sm-3">
 																<div className="form-group">
-																	<select className="form-control">
-																		<option value="1" selected="1">{translate('P2P_TIME_FRAME_TODAY', 'Today')}</option>
+																	<select className="form-control" defaultValue="1">
+																		<option value="1">{translate('P2P_TIME_FRAME_TODAY', 'Today')}</option>
 																		<option value="2">{translate('P2P_TIME_FRAME_TOMORROW', 'Tomorrow')}</option>
 																	</select>
 																</div>
 															</div>
 															<div className="col-sm-3">
 																<div className="form-group">
-																	<select className="form-control">
-																		<option value="12:00">12:00</option>
-																		<option value="13:00">13:00</option>
-																		<option value="14:00">14:00</option>
-																		<option value="15:00">15:00</option>
-																		<option value="16:00">16:00</option>
-																		<option value="17:00">17:00</option>
+																	<select className="form-control" defaultValue="12">
+																		<option value="">12:00</option>
+																		<option value="13">13:00</option>
+																		<option value="14">14:00</option>
+																		<option value="15">15:00</option>
+																		<option value="16">16:00</option>
+																		<option value="17">17:00</option>
 																	</select>
 																</div>
 															</div>
