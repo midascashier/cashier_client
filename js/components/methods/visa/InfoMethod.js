@@ -120,7 +120,7 @@ let InfoMethod = React.createClass({
 								<td><span>{payAccountInfo.minPayAccount}</span></td>
 							</tr>
 							<tr>
-								<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
+								<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
 								<td><span>{payAccountInfo.maxPayAccount}</span></td>
 							</tr>
 							</tbody>

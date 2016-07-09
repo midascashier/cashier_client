@@ -113,7 +113,7 @@ let InfoMethod = React.createClass({
 
 	render() {
 		let allowContinue = this.allowProcess();
-		let payAccountinfo = this.getPayAccountLimits();
+		let payAccountInfo = this.getPayAccountLimits();
 		let originPath = UIService.getOriginPath();
 
 		let processorDisplayName = UIService.getProcessorName().toLowerCase();
@@ -132,12 +132,12 @@ let InfoMethod = React.createClass({
 						<table className="table table-striped">
 							<tbody>
 							<tr>
-								<td>Min. Deposit:</td>
-								<td><span>{payAccountinfo.minPayAccount}</span></td>
+								<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+								<td><span>{payAccountInfo.minPayAccount}</span></td>
 							</tr>
 							<tr>
-								<td>Max. Deposit:</td>
-								<td><span>{payAccountinfo.maxPayAccount}</span></td>
+								<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+								<td><span>{payAccountInfo.maxPayAccount}</span></td>
 							</tr>
 							</tbody>
 						</table>
@@ -147,9 +147,12 @@ let InfoMethod = React.createClass({
 							<div className="row">
 								<div className="col-sm-6">
 									{(() =>{
-										if(payAccountinfo.payAccountId && allowContinue){
-											return <button type='button' onClick={this.continueTransaction} className='btn btn-green'>
-												Next</button>
+										if(payAccountInfo.payAccountId && allowContinue){
+											return (
+												<button type='button' onClick={this.continueTransaction} className='btn btn-green'>
+													{translate('PROCESSING_BUTTON_NEXT', 'Next')}
+												</button>
+											)
 										}
 									})()}
 								</div>

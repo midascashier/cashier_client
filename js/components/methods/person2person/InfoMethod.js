@@ -1,14 +1,15 @@
 import React from 'react'
-import {Link} from 'react-router'
-import {translate} from '../../../constants/Translate'
-import {CashierStore} from '../../../stores/CashierStore'
-import {Loading} from '../../loading/Loading'
-import {UIService} from '../../../services/UIService'
+import { translate } from '../../../constants/Translate'
+import { CashierStore } from '../../../stores/CashierStore'
+import { Loading } from '../../loading/Loading'
+import { TransactionService } from '../../../services/TransactionService'
+import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
 	propTypes: {
 		password: React.PropTypes.string,
-		amount: React.PropTypes.number
+		allowContinue: React.PropTypes.number,
+		amount: React.PropTypes.string
 	},
 
 	/**
@@ -60,13 +61,17 @@ let InfoMethod = React.createClass({
 	 * this function checks if password and amount are valid
 	 */
 	allowProcess(){
-		let amount = this.props.amount;
-		let checkTerms = this.props.transaction.checkTermsAndConditions;
-		if (amount && checkTerms) {
-			if (amount > 0) {
-				return true;
-			}
+		let password = this.props.password;
+		let isWithDraw = UIService.getIsWithDraw();
+		let checkAmount = this.props.allowContinue;
+
+		if(password && String(password).length >= 5 && checkAmount){
+			return true;
 		}
+		else if(checkAmount && isWithDraw){
+			return true
+		}
+
 		return false;
 	},
 
@@ -79,27 +84,48 @@ let InfoMethod = React.createClass({
 		let minPayAccount = <Loading />;
 		let maxPayAccount = <Loading />;
 		let payAccount = this.state.currentPayAccount;
-		if (payAccount.payAccountId) {
+		if(payAccount.payAccountId){
 			minPayAccount = payAccount.limitsData.minAmount + " " + payAccount.limitsData.currencyCode;
 			maxPayAccount = payAccount.limitsData.maxAmount + " " + payAccount.limitsData.currencyCode;
 		}
-		return {"minPayAccount":minPayAccount, "maxPayAccount":maxPayAccount,"payAccountId":payAccount.payAccountId}
+		return { "minPayAccount": minPayAccount, "maxPayAccount": maxPayAccount, "payAccountId": payAccount.payAccountId }
+	},
+
+	/**
+	 * this function sends deposit info to cashier
+	 *
+	 */
+	continueTransaction(){
+		let isWithDraw = UIService.getIsWithDraw();
+		TransactionService.setAmount(this.props.amount);
+		if(isWithDraw){
+			UIService.changeUIState("/withdraw/" + UIService.getProcessorName().toLowerCase() + "/confirm/");
+		}
+		else{
+			//process the deposit
+			let password = this.props.password;
+			let dynamicParams = {};
+			dynamicParams.password = password;
+			TransactionService.setAmount(this.props.amount);
+			TransactionService.process(dynamicParams);
+		}
 	},
 
 	render() {
-		let originPath = UIService.getOriginPath();
 		let allowContinue = this.allowProcess();
 		let payAccountInfo = this.getPayAccountLimits();
+		let originPath = UIService.getOriginPath();
 
-		let displayName = this.props.selectedProcessor.displayName;
+		let processorDisplayName = UIService.getProcessorName().toLowerCase();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
-			processorName:displayName, transactionType:transactionType
+			processorName: processorDisplayName,
+			transactionType: transactionType
 		});
 
 		return (
-			<div id="InfoMethodVIsa" className="row">
+			<div id="InfoMethodP2P">
 				<div className="col-sm-12">
 					<div className="title">{title}</div>
 					<div className="table-responsive">
@@ -110,7 +136,7 @@ let InfoMethod = React.createClass({
 								<td><span>{payAccountInfo.minPayAccount}</span></td>
 							</tr>
 							<tr>
-								<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
+								<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
 								<td><span>{payAccountInfo.maxPayAccount}</span></td>
 							</tr>
 							</tbody>
@@ -120,10 +146,12 @@ let InfoMethod = React.createClass({
 						<div className="col-sm-12">
 							<div className="row">
 								<div className="col-sm-6">
-									{(() => {
-										if (payAccountInfo.payAccountId && allowContinue) {
+									{(() =>{
+										if(payAccountInfo.payAccountId && allowContinue){
 											return (
-													<button type='button' className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
+												<button type='button' onClick={this.continueTransaction} className='btn btn-green'>
+													{translate('PROCESSING_BUTTON_NEXT', 'Next')}
+												</button>
 											)
 										}
 									})()}

@@ -108,11 +108,11 @@ let InfoMethod = React.createClass({
 						<table className="table table-striped">
 							<tbody>
 							<tr>
-								<td>Min. Deposit:</td>
+								<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
 								<td><span>{payAccountInfo.minPayAccount}</span></td>
 							</tr>
 							<tr>
-								<td>Max. Deposit:</td>
+								<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
 								<td><span>{payAccountInfo.maxPayAccount}</span></td>
 							</tr>
 							</tbody>
@@ -125,8 +125,9 @@ let InfoMethod = React.createClass({
 									{(() =>{
 										if(payAccountInfo.payAccountId && allowContinue){
 											return (
-												<button type='button' onClick={this.continueTransaction}
-																className='btn btn-green'>{translate('PROCESSING_BUTTON_NEXT', 'Next')}</button>
+												<button type='button' onClick={this.continueTransaction} className='btn btn-green'>
+													{translate('PROCESSING_BUTTON_NEXT', 'Next')}
+												</button>
 											)
 										}
 									})()}
