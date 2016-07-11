@@ -52,6 +52,7 @@ class UiService {
 	 * Redirects to confirm route
 	 */
 	confirmTransaction(){
+		CashierActions.setCurrentStep("confirm");
 		UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + "/confirm/");
 	}
 

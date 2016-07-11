@@ -13,7 +13,7 @@ let settings = [];
 
 settings[0] = [];
 settings[0][DEPOSIT_STEPS] = ["selectMethod", "askInfo"];
-settings[0][WITHDRAW_STEPS] = ["askInfo", "confirm"];
+settings[0][WITHDRAW_STEPS] = ["selectMethod","askInfo", "confirm"];
 
 settings[Cashier.PROCESSOR_ID_NETELLER] = [];
 settings[Cashier.PROCESSOR_ID_NETELLER][LIMITS_VALIDATION_VERSION] = "lite";
@@ -21,6 +21,7 @@ settings[Cashier.PROCESSOR_ID_NETELLER][SETTING_ROUTE] = 'neteller_new/';
 
 settings[Cashier.PROCESSOR_ID_BITCOIN] = [];
 settings[Cashier.PROCESSOR_ID_BITCOIN][LIMITS_VALIDATION_VERSION] = "lite";
+settings[Cashier.PROCESSOR_ID_BITCOIN][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "instructions"];
 settings[Cashier.PROCESSOR_ID_BITCOIN][SETTING_ROUTE] = 'btcscreen/';
 
 settings[Cashier.PROCESSOR_ID_VISA] = [];

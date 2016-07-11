@@ -61,7 +61,8 @@ let Steps = React.createClass({
 		let stepTexts = {
 			"selectMethod": UIService.getIsWithDraw() ? translate('STEPS_WITHDRAW_METHOD') : translate('STEPS_DEPOSIT_METHOD'),
 			"askInfo": UIService.getIsWithDraw() ? translate('STEPS_HOW_MUCH_WITHDRAW') : translate('STEPS_HOW_MUCH_DEPOSIT'),
-			"confirm": translate('STEPS_CONFIRMATION')
+			"confirm": translate('STEPS_CONFIRMATION'),
+			"instructions": translate('STEPS_INSTRUCTIONS')
 		};
 
 		return (

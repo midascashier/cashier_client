@@ -51,7 +51,7 @@ let BitCoinConfirmWithdraw = React.createClass({
 	 *
 	 */
 	processTransaction(){
-		TransactionService.process();
+		TransactionService.process(null,'ticket');
 	},
 
 	render(){
