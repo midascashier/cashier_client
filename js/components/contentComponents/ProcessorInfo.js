@@ -63,7 +63,7 @@ let ProcessorInfo = React.createClass({
 
 		return (
 			<div id="infoLimits">
-				<p><a href="#">Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></a></p>
+				<p>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></p>
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="deposit-limits">
