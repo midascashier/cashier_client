@@ -4,7 +4,7 @@ let CashierDispatcher = require('../dispatcher/CashierDispatcher');
 let CashierActions = {
 	changePayAccount: (payAccountID, processorID) =>{
 		CashierDispatcher.dispatch({
-			action: actions.CHANGE_PAYACCOUNT, data: {payAccountID: payAccountID, processorID: processorID}
+			action: actions.CHANGE_PAYACCOUNT, data: { payAccountID: payAccountID, processorID: processorID }
 		});
 	},
 
@@ -26,15 +26,22 @@ let CashierActions = {
 		});
 	},
 
-	selectProcessor: (processorId) =>{
+	selectProcessor: (processorId, processorSteps, currentStep) =>{
 		CashierDispatcher.dispatch({
-			action: actions.SELECT_PROCESSOR, data: { processorId: processorId }
+			action: actions.SELECT_PROCESSOR, data: { processorId: processorId, processorSteps: processorSteps, currentStep: currentStep}
 		});
 	},
 
 	startTransaction: () =>{
 		CashierDispatcher.dispatch({
 			action: actions.START_TRANSACTION
+		});
+	},
+
+	setCurrentStep: (step) =>{
+		CashierDispatcher.dispatch({
+			action: actions.SET_STEP,
+			data: { step: step }
 		});
 	},
 

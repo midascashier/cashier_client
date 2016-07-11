@@ -99,12 +99,10 @@ class transactionService {
 		return CashierStore.getProcessor();
 	}
 
-
-
 	/**
 	 * this function sends to process a transaction
 	 */
-	process(dynamicParams){
+	process(dynamicParams, nextStep){
 		let application = CashierStore.getApplication();
 		let customerInfo = CashierStore.getCustomer();
 		let transaction = CashierStore.getTransaction();
@@ -139,7 +137,7 @@ class transactionService {
 			dynamicParams: dynamicParams
 		};
 
-		UIService.processTransaction();
+		UIService.processTransaction(nextStep);
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 

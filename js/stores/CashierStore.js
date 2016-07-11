@@ -14,6 +14,8 @@ import cashier from '../constants/Cashier'
 let _UI = {
 	language: '',
 	currentView: '',
+	currentStep: '',
+	currentProcessorSteps:[],
 	processorId: 0,
 	payAccountId: 0,
 	countryInfo: null,
@@ -193,10 +195,28 @@ let _processor = {
 let _payAccount = {
 	payAccountId: null,
 	displayName: null,
-	personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null},
-	address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null},
-	secure: {account: null, password: null, extra1: null, extra2: null, extra3: null},
-	extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null},
+	personal: {
+		firstName: null,
+		middleName: null,
+		lastName: null,
+		lastName2: null,
+		phone: null,
+		email: null,
+		personalId: null,
+		personalIdType: null
+	},
+	address: {
+		country: null,
+		countryName: null,
+		state: null,
+		stateName: null,
+		city: null,
+		address1: null,
+		address2: null,
+		zip: null
+	},
+	secure: { account: null, password: null, extra1: null, extra2: null, extra3: null },
+	extra: { ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null },
 	limitsData: {
 		available: null,
 		type: null,
@@ -356,6 +376,21 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
+	 * Return current processor steps
+ 	 */
+	getCurrentProcessorSteps: () => {
+		return _UI.currentProcessorSteps;
+	},
+
+	/**
+	 * return current step
+	 */
+	getCurrentStep: () => {
+		return _UI.currentStep;
+	},
+
+
+	/**
 	 * get application object
 	 *
 	 * @returns {{sys_access_pass: string, sid: null, tuid: null, format: string, lang: string, platform: string, remoteAddr: string, remoteHost: string, userAgent: string, remoteAddress: string, referrer: string, xForwardedFor: string, atDeviceId: string, ioBB: string}}
@@ -402,7 +437,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * get current processor
-	 * 
+	 *
 	 * @returns {{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, fees: Array, limits: Array, limitRules: Array, load: (function(*))}}
 	 */
 	getProcessor: () =>{
@@ -574,6 +609,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			_transaction.cleanTransaction();
 			break;
 
+		case actions.SET_STEP:
+			_UI.currentStep = data.step;
+			CashierStore.emitChange();
+			break;
+
 		case actions.GET_BITCOIN_TRANSACTION_RESPONSE:
 			_transactionResponse.details = data.response;
 			CashierStore.emitChange();
@@ -586,6 +626,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 		case actions.SELECT_PROCESSOR:
 			_UI.processorId = data.processorId;
+			_UI.currentProcessorSteps = data.processorSteps;
+			_UI.currentStep = data.currentStep;
 			_processor.load(data.processorId);
 			CashierStore.emitChange();
 			break;

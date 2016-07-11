@@ -6,9 +6,7 @@ let Header = React.createClass({
 	render() {
 		return (
 			<div id="header">
-				{(() =>{
-						return <Steps />
-				})()}
+				<Steps />
 				<Info />
 			</div>
 		)

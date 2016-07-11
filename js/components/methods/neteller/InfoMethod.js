@@ -99,7 +99,7 @@ let InfoMethod = React.createClass({
 		let isWithDraw = UIService.getIsWithDraw();
 		TransactionService.setAmount(this.props.amount);
 		if(isWithDraw){
-			UIService.changeUIState("/withdraw/" + UIService.getProcessorName().toLowerCase() + "/confirm/");
+			UIService.confirmTransaction();
 		}
 		else{
 			//process the deposit
@@ -107,7 +107,7 @@ let InfoMethod = React.createClass({
 			let dynamicParams = {};
 			dynamicParams.password = password;
 			TransactionService.setAmount(this.props.amount);
-			TransactionService.process(dynamicParams);
+			TransactionService.process(dynamicParams,"ticket");
 		}
 	},
 

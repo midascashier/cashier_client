@@ -3,6 +3,7 @@ import { CashierActions } from '../actions/CashierActions'
 import { TransactionService } from './TransactionService'
 import RouterContainer from './RouterContainer'
 import cashier from '../constants/Cashier'
+import  ProcessorSettings from '../constants/Processors'
 
 class UiService {
 
@@ -32,6 +33,8 @@ class UiService {
 	 * here is where we redirect to start transaction
 	 */
 	startTransaction(){
+		let processorSteps = CashierStore.getCurrentProcessorSteps();
+		CashierActions.setCurrentStep(processorSteps[1]);
 		let route = "/" + this.customerAction + "/" + this.getProcessorName().toLowerCase() + '/';
 		this.changeUIState(route);
 	}
@@ -39,9 +42,17 @@ class UiService {
 	/**
 	 * here is where we redirect to process transaction
 	 */
-	processTransaction(){
-		let route = '/'+UIService.getCurrentView()+'/'+UIService.getProcessorName().toLowerCase()+'/ticket/';
+	processTransaction(nextStep){
+		CashierActions.setCurrentStep(nextStep);
+		let route = '/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + '/ticket/';
 		this.changeUIState(route);
+	}
+
+	/**
+	 * Redirects to confirm route
+	 */
+	confirmTransaction(){
+		UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + "/confirm/");
 	}
 
 	/**
@@ -61,15 +72,15 @@ class UiService {
 		}
 
 		let ticketResult = 'rejected';
-		if (status == cashier.TRANSACTION_STATUS_APPROVED){
+		if(status == cashier.TRANSACTION_STATUS_APPROVED){
 			ticketResult = 'approved';
-		}else if (status == cashier.TRANSACTION_STATUS_PENDING){
+		} else if(status == cashier.TRANSACTION_STATUS_PENDING){
 			ticketResult = 'pending';
-		}else if (status == cashier.TRANSACTION_STATUS_DEFERRED){
+		} else if(status == cashier.TRANSACTION_STATUS_DEFERRED){
 			ticketResult = 'deferred';
 		}
 
-		this.changeUIState('/'+this.getCurrentView()+'/'+this.getProcessorName().toLowerCase()+'/ticket/'+ticketResult+'/');
+		this.changeUIState('/' + this.getCurrentView() + '/' + this.getProcessorName().toLowerCase() + '/ticket/' + ticketResult + '/');
 	}
 
 	/**
@@ -83,7 +94,7 @@ class UiService {
 
 	/**
 	 * get transaction information
-	 * 
+	 *
 	 * @returns {*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())}}
 	 */
 	getTransactionInformation(){
@@ -162,7 +173,7 @@ class UiService {
 
 	/**
 	 * Return last transaction cashier response
-	 * 
+	 *
 	 * @returns {*|{transactionId: number, journalId: number, status: number, userMessage: string, state: string, transaction: {journalId: null, transactionId: null, payAccountId: null, transactionStatusId: null, journalTransactionStatusId: null, statusName: null, processorId: null, processorIdSelected: null, processorClassId: null, processorName: null, processorDisplayName: null, dateTrans: null, dateTransModified: null, transUniqueId: null, transactionIdProcessor: null, currencyAmount: null, currencyFee: null, amount: null, fee: null, feeBP: null, currencyId: null, currencyCode: null, transactionTypeId: null, transType: null, errorCode: null, errorMessage: null, userMessage: null, journalNotes: null, descriptor: null}, p2pTransaction: {P2PNameId: null, P2PNameStatus_Id: null, payAccountId: null, submitPayAccountId: null, nameId: null, name: null, Country: null, State: null, SenderTimeFrame: null, ControlNumber: null, DateRequest: null, DateUpdate: null, PAFirstName: null, PAMiddleName: null, PALastName: null, PAPhone: null, PAEmail: null, PACity: null, PAState: null, PAStateName: null, PACountry: null, PACountryName: null, currencyAmount: number, amount: number, currencyFee: string, transactionStatusId: null, processorDisplayName: null, errorMessage: null, processorId: null}, bitCoinTransaction: {Address: null}, load: (function(*))}}
 	 */
 	getLastTransactionResponse(){
@@ -173,7 +184,16 @@ class UiService {
 	 * Function to change current processor
 	 */
 	selectProcessor(processorID){
-		CashierActions.selectProcessor(processorID);
+		let stepOption = ProcessorSettings.DEPOSIT_STEPS;
+		if (this.getIsWithDraw()){
+			stepOption = ProcessorSettings.WITHDRAW_STEPS;
+		}
+		let stepsSetting = ProcessorSettings.settings[processorID][stepOption];
+		if(!stepsSetting){
+			stepsSetting = ProcessorSettings.settings[0][stepOption];
+		}
+		let processorSteps = stepsSetting;
+		CashierActions.selectProcessor(processorID, processorSteps, processorSteps[0]);
 		TransactionService.selectProcessor(processorID);
 	};
 
@@ -183,7 +203,29 @@ class UiService {
 	customerProcessorsResponse(processor){
 		let processorID = processor.response.processors[this.customerAction][0].caProcessor_Id;
 		this.selectProcessor(processorID);
-	}
+	};
+
+	/**
+	 * Return current step
+	 */
+	getCurrentStep() {
+		return CashierStore.getCurrentStep();
+	};
+
+	/**
+	 * Return Processor Steps
+	 */
+	getCurrentProcessorSteps(){
+		return CashierStore.getCurrentProcessorSteps();
+	};
+
+	/**
+	 * Set first step as current
+	 */
+	setFirstStep(){
+		let firstStep=this.getCurrentProcessorSteps();
+		CashierActions.setCurrentStep(firstStep[0]);
+	};
 
 }
 
