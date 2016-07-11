@@ -79,15 +79,17 @@ let Steps = React.createClass({
 
 		let steps_method = translate('STEPS_DEPOSIT_METHOD');
 		let steps_how_much = translate('STEPS_HOW_MUCH_DEPOSIT');
+		let proccesorNumSteps =ProcessorSettings.DEPOSIT_SETTING_NUM_OF_STEPS;
 		if(UIService.getIsWithDraw()){
 			steps_method = translate('STEPS_WITHDRAW_METHOD');
 			steps_how_much = translate('STEPS_HOW_MUCH_WITHDRAW');
+			proccesorNumSteps = ProcessorSettings.WITHDRAW_SETTING_NUM_OF_STEPS
 		}
 
 		let headerNumSteps= 0;
 		let stepsNumber = ProcessorSettings.settings[this.state.currentProcessor.processorId];
 		if (stepsNumber){
-			headerNumSteps = stepsNumber.numOfSteps;
+			headerNumSteps = stepsNumber[proccesorNumSteps];
 		}
 
 		return (
