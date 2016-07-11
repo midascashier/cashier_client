@@ -4,8 +4,53 @@ import { Link } from 'react-router'
 import { UIService } from '../../services/UIService'
 import { TransactionService } from '../../services/TransactionService'
 import  ProcessorSettings from '../../constants/Processors'
+import { CashierStore } from '../../stores/CashierStore'
 
 let Steps = React.createClass({
+	/**
+	 * React function to set component inital state
+	 *
+	 * @returns {*|{step, processorSteps}}
+	 */
+	getInitialState() {
+		return this.refreshLocalState();
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
+	},
+
+	/**
+	 * this function sets and return object with local states
+	 *
+	 * @returns {{step: (*|string), processorSteps: *}}
+	 */
+	refreshLocalState() {
+		return {
+			currentProcessor: TransactionService.getCurrentProcessor()
+		}
+	},
+
+	/**
+	 * this is the callback function the store calls when a state change
+	 *
+	 * @private
+	 */
+	_onChange() {
+		this.setState(this.refreshLocalState());
+	},
+
 	render() {
 		let step1 = "step1";
 		let step2 = "step2";
@@ -39,9 +84,11 @@ let Steps = React.createClass({
 			steps_how_much = translate('STEPS_HOW_MUCH_WITHDRAW');
 		}
 
-		let currentProcessor = TransactionService.getCurrentProcessor();
-		let limitsValidationVersion = ProcessorSettings.settings[currentProcessor.processorId];
-
+		let headerNumSteps= 0;
+		let stepsNumber = ProcessorSettings.settings[this.state.currentProcessor.processorId];
+		if (stepsNumber){
+			headerNumSteps = stepsNumber.numOfSteps;
+		}
 
 		return (
 			<div id="steps" className="steps">
@@ -61,7 +108,7 @@ let Steps = React.createClass({
 
 				</div>
 				{(() =>{
-					if(this.props.steps > 2){
+					if(headerNumSteps > 2){
 						let thirdStep = <div key="1" className={step3}><p><span>3</span>{translate('STEPS_BILLING_INFO')}</p></div>;
 						let thirdStep2 = <div key="2" className={step3} hidden='hidden'><p>
 							<span>3</span>{translate('STEPS_INSTRUCTIONS')}</p></div>;

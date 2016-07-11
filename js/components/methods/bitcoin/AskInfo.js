@@ -16,7 +16,7 @@ let AskInfo = React.createClass({
 	render() {
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
-
+		let allowContinue = this.props.allowContinue;
 		let isWithDraw = UIService.getIsWithDraw();
 		let originPath = UIService.getOriginPath();
 		let displayName = UIService.getProcessorDisplayName();
@@ -39,7 +39,8 @@ let AskInfo = React.createClass({
 										<div className="row">
 											<div className="col-sm-3">
 												<div className="method active pull-left">
-													<img className="img-responsive" src={originPath + '/images/processors/814.png'} alt={displayName}/>
+													<img className="img-responsive" src={originPath + '/images/processors/814.png'}
+															 alt={displayName}/>
 												</div>
 											</div>
 											<div className="col-sm-9">
@@ -56,6 +57,11 @@ let AskInfo = React.createClass({
 													})()}
 												</div>
 												<AmountController setAmount={setAmount} value={amount}/>
+												{(() =>{
+													if(!allowContinue && amount != ""){
+														return <span>LIMITS ERROR</span>
+													}
+												})()}
 												{(() =>{
 													if(isWithDraw){
 														return <FeeController />;
