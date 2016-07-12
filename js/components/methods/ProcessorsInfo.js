@@ -8,6 +8,9 @@ import { LoadingSpinner } from '../../components/loading/LoadingSpinner'
 import { UIService } from '../../services/UIService'
 
 let ProcessorsInfo = React.createClass({
+	propTypes: {
+		setAmount: React.PropTypes.func
+	},
 	/**
 	 * React function to set component inital state
 	 *
@@ -21,6 +24,7 @@ let ProcessorsInfo = React.createClass({
 	 * here the component listen changes from the store
 	 */
 	componentDidMount() {
+		this.props.setAmount("");
 		CashierStore.addChangeListener(this._onChange);
 	},
 

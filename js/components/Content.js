@@ -4,7 +4,8 @@ import { TransactionService } from '../services/TransactionService'
 import { UIService } from '../services/UIService'
 import  ProcessorSettings from '../constants/Processors'
 
-let WithdrawContent = React.createClass({
+let Content = React.createClass({
+
 	/**
 	 * React function to set component initial state
 	 */
@@ -52,7 +53,7 @@ let WithdrawContent = React.createClass({
 
 	checkLimits(){
 		let currentProcessor = TransactionService.getCurrentProcessor();
-		let limitsValidationVersion = ProcessorSettings.settings[currentProcessor.processorId].validationVersion;
+		let limitsValidationVersion = ProcessorSettings.settings[currentProcessor.processorId][ProcessorSettings.LIMITS_VALIDATION_VERSION];
 		if(limitsValidationVersion == "lite"){
 			this.setState({ allowContinue: this.checkLimitsLite() });
 		}
@@ -69,7 +70,7 @@ let WithdrawContent = React.createClass({
 	setAmount(amount){
 		this.setState({ amount: amount }, function afterAmountChange(){this.checkLimits()});
 	},
-	
+
 	render() {
 		const childrenWithProps = React.Children.map(this.props.children,
 			(child) => React.cloneElement(child, {
@@ -80,7 +81,7 @@ let WithdrawContent = React.createClass({
 		);
 
 		return (
-			<div id="withdrawContent">
+			<div id="depositContent">
 				<Header />
 				<div id="internal-content" className="internal-content">
 					<div className="row">
@@ -98,4 +99,4 @@ let WithdrawContent = React.createClass({
 	}
 });
 
-module.exports.WithdrawContent = WithdrawContent;
+module.exports.Content = Content;

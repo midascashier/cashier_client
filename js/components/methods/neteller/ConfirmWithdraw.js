@@ -54,6 +54,16 @@ let NetellerConfirmWithdraw = React.createClass({
 		TransactionService.process(null,'ticket');
 	},
 
+	/**
+	 * Sends customer to previous step and start transaction
+	 */
+	editWithdraw(){
+		UIService.startTransaction();
+	},
+
+	/**
+	 * send the customer to select the processor again
+	 */
 	setFirstStep() {
 		UIService.setFirstStep();
 	},
@@ -108,16 +118,12 @@ let NetellerConfirmWithdraw = React.createClass({
 																<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
 																<td><span>{this.state.transaction.amount}</span></td>
 															</tr>
-															<tr>
-																<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
-																<td><span>{this.state.transaction.fee}</span></td>
-															</tr>
 															</tbody>
 														</table>
 													</div>
 													<p>
 														<i className="fa fa-pencil green"></i>
-														<a href="#">Edit the withdraw details</a>
+														<a href="#" onClick={this.editWithdraw}>Edit the withdraw details</a>
 													</p>
 												</div>
 												<div className="row">

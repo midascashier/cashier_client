@@ -1,11 +1,10 @@
 import React from 'react'
+import "babel-polyfill";
 import { render }  from 'react-dom'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { Client } from './components/Client'
 import { Welcome } from './components/Welcome'
-import { DepositContent } from './components/DepositContent'
-import { WithdrawContent } from './components/WithdrawContent'
-
+import { Content } from './components/Content'
 import { RejectedTicket } from './components/methodTickets/RejectedTicket'
 import { ApprovedTicket } from './components/methodTickets/ApprovedTicket'
 import { DeferredTicket } from './components/methodTickets/DeferredTicket'
@@ -56,7 +55,7 @@ let routes = (
 			<IndexRoute component={Welcome}/>
 			<Route path="/welcome/" component={Welcome}/>
 			<Route path="/transaction_history/" component={TransactionHistoryContent}/>
-			<Route path="/deposit/" component={DepositContent}>
+			<Route path="/deposit/" component={Content}>
 				<IndexRoute component={ProcessorsInfo}/>
 
 				<Route path="neteller_new/" component={Neteller}/>
@@ -85,7 +84,7 @@ let routes = (
 				</Route>
 
 			</Route>
-			<Route path="/withdraw/" component={WithdrawContent}>
+			<Route path="/withdraw/" component={Content}>
 				<IndexRoute component={ProcessorsInfo}/>
 
 				<Route path="btcscreen/" component={BitCoin}/>

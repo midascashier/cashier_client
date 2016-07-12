@@ -114,6 +114,12 @@ class transactionService {
 			action = "w";
 			isDefer = 1;
 		}
+
+		let feeType = 'FREE';
+		let currencyFee = 0;
+		let feeBP = 0
+
+
 		let rabbitRequest = {
 			f: "process",
 			companyId: customerInfo.companyId,
@@ -129,6 +135,9 @@ class transactionService {
 			createdBy: 10093, //TODO: temporary
 			type: action,
 			isDefer: isDefer,
+			feeType: feeType,
+			currencyFee: currencyFee,
+			feeBP: feeBP,
 			processorId: processorSelected.processorId,
 			amount: transaction.amount,
 			payAccountId: payAccountSelected.payAccountId,
