@@ -118,10 +118,6 @@ let NetellerConfirmWithdraw = React.createClass({
 																<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
 																<td><span>{this.state.transaction.amount}</span></td>
 															</tr>
-															<tr>
-																<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
-																<td><span>{this.state.transaction.fee}</span></td>
-															</tr>
 															</tbody>
 														</table>
 													</div>
