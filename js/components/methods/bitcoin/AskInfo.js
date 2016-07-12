@@ -63,7 +63,7 @@ let AskInfo = React.createClass({
 													}
 												})()}
 												{(() =>{
-													if(isWithDraw){
+													if(isWithDraw && false){
 														return <FeeController />;
 													}
 												})()}
