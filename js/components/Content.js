@@ -4,7 +4,7 @@ import { TransactionService } from '../services/TransactionService'
 import { UIService } from '../services/UIService'
 import  ProcessorSettings from '../constants/Processors'
 
-let DepositContent = React.createClass({
+let Content = React.createClass({
 
 	/**
 	 * React function to set component initial state
@@ -82,7 +82,7 @@ let DepositContent = React.createClass({
 
 		return (
 			<div id="depositContent">
-				<Header test={this.test}/>
+				<Header />
 				<div id="internal-content" className="internal-content">
 					<div className="row">
 						<div className="col-sm-12">
@@ -99,4 +99,4 @@ let DepositContent = React.createClass({
 	}
 });
 
-module.exports.DepositContent = DepositContent;
+module.exports.Content = Content;
