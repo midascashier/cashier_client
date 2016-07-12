@@ -9,7 +9,7 @@ let AskInfo = React.createClass({
 	propTypes: {
 		transactionAmount: React.PropTypes.func,
 		allowContinue: React.PropTypes.number,
-		amount: React.PropTypes.number
+		amount: React.PropTypes.string
 	},
 
 	render() {

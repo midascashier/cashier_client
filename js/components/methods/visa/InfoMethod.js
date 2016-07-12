@@ -8,7 +8,7 @@ import { TransactionService } from '../../../services/TransactionService'
 let InfoMethod = React.createClass({
 
 	propTypes: {
-		amount: React.PropTypes.number
+		amount: React.PropTypes.string
 	},
 
 	/**

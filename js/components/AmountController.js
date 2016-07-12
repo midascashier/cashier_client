@@ -5,7 +5,7 @@ import { UIService } from '../services/UIService'
 let AmountController = React.createClass({
 	propTypes: {
 		transactionAmount: React.PropTypes.func,
-		amount: React.PropTypes.number
+		amount: React.PropTypes.string
 	},
 
 	/**
@@ -15,8 +15,9 @@ let AmountController = React.createClass({
 	 */
 	changeValue(event) {
 		let amount = event.currentTarget.value;
-		amount = Number(amount);
-		if (amount !== ""){
+		//amount = Number(amount);
+		//if (amount !== "")
+		{
 			this.props.setAmount(amount);
 		}
 	},

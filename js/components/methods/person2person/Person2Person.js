@@ -11,7 +11,7 @@ let Person2Person = React.createClass({
 	propTypes: {
 		setAmount: React.PropTypes.func,
 		allowContinue: React.PropTypes.number,
-		amount: React.PropTypes.number
+		amount: React.PropTypes.string
 	},
 
 	/**

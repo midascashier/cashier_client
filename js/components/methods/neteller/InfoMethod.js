@@ -9,7 +9,7 @@ let InfoMethod = React.createClass({
 	propTypes: {
 		password: React.PropTypes.string,
 		allowContinue: React.PropTypes.number,
-		amount: React.PropTypes.number
+		amount: React.PropTypes.string
 	},
 
 	/**

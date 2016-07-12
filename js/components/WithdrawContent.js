@@ -10,7 +10,7 @@ let WithdrawContent = React.createClass({
 	 */
 	getInitialState(){
 		return {
-			amount: 0
+			amount: ""
 		};
 	},
 
