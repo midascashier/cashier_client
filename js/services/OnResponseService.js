@@ -32,9 +32,6 @@ class OnResponseService {
 			case actions.PROCESS_RESPONSE:
 				TransactionService.processResponse(data);
 				break;
-
-			default:
-				console.log(data.state);
 		}
 	};
 }
