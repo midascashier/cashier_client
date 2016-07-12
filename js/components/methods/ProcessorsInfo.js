@@ -9,7 +9,7 @@ import { UIService } from '../../services/UIService'
 
 let ProcessorsInfo = React.createClass({
 	propTypes: {
-		setAmount: React.PropTypes.object.isRequired
+		setAmount: React.PropTypes.func
 	},
 	/**
 	 * React function to set component inital state
