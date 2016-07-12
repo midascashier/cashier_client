@@ -226,6 +226,8 @@ class UiService {
 	setFirstStep(){
 		let firstStep=this.getCurrentProcessorSteps();
 		CashierActions.setCurrentStep(firstStep[0]);
+		let route = "/" + this.customerAction + "/";
+		this.changeUIState(route);
 	};
 
 }

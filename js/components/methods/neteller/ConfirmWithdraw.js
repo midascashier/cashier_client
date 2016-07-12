@@ -54,6 +54,10 @@ let NetellerConfirmWithdraw = React.createClass({
 		TransactionService.process(null,'ticket');
 	},
 
+	setFirstStep() {
+		UIService.setFirstStep();
+	},
+
 	render(){
 		let originPath = UIService.getOriginPath();
 		return (
@@ -121,7 +125,7 @@ let NetellerConfirmWithdraw = React.createClass({
 															<button type="submit" onClick={this.processTransaction}
 																			className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}</button>
 														<p>
-															<a href="#">Use a different method.</a>
+															<a href="#" onClick={this.setFirstStep}>Use a different method.</a>
 														</p>
 													</div>
 													<div className="col-sm-6">
