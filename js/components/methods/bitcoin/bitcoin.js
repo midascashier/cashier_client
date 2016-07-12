@@ -56,9 +56,6 @@ let BitCoin = React.createClass({
 		return (
 			<div id="bitCoin">
 				<div className="col-sm-6">
-					<Link to={`/transaction_history/`}>
-						<p>{translate('TRANSACTION_HISTORY')}</p>
-					</Link>
 					<AskInfo amount={this.props.amount}
 									 setAmount={this.props.setAmount}
 									 allowContinue={this.props.allowContinue}

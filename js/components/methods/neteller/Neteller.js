@@ -68,9 +68,6 @@ let Neteller = React.createClass({
 		return (
 			<div id="neteller">
 				<div className="col-sm-6">
-					<Link to={`/transaction_history/`}>
-						<p>{translate('TRANSACTION_HISTORY')}</p>
-					</Link>
 					<AskInfo netellerPassword={this.netellerPassword}
 									 password={this.state.password}
 									 amount={this.props.amount}
