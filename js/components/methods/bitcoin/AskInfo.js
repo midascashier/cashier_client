@@ -56,7 +56,7 @@ let AskInfo = React.createClass({
 														}
 													})()}
 												</div>
-												<AmountController setAmount={setAmount} value={amount}/>
+												<AmountController setAmount={setAmount} amount={amount}/>
 												{(() =>{
 													if(!allowContinue && amount != ""){
 														return <span>LIMITS ERROR</span>
