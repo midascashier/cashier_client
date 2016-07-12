@@ -6,9 +6,9 @@ import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
 
 /**
- * UI
+ * IU
  *
- * @type {{language: string, currentView: string, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
+ * @type {{language: string, currentView: string, currentStep: string, currentProcessorSteps: Array, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
  * @private
  */
 let _UI = {
@@ -25,7 +25,7 @@ let _UI = {
 
 /**
  *
- * @type {{sys_access_pass: string, sid: null, tuid: null, format: string, lang: string, platform: string, remoteAddr: string, remoteHost: string, userAgent: string, remoteAddress: string, referrer: string, xForwardedFor: string, atDeviceId: string, ioBB: string}}
+ * @type {{sys_access_pass: string, sid: null, tuid: null, format: string, lang: string, platform: string, remoteAddr: string, remoteHost: string, userAgent: string, remoteAddress: string, referrer: string, xForwardedFor: string}}
  * @private
  */
 let _application = {
@@ -530,34 +530,36 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
-			data.response.payAccounts.forEach((payAccount)=>{
-				payAccount.limitsData.available = Math.ceil(payAccount.limitsData.available);
-				payAccount.limitsData.availableWithdraw = Math.ceil(payAccount.limitsData.availableWithdraw);
-				payAccount.limitsData.maxAmount = Math.ceil(payAccount.limitsData.maxAmount);
-				payAccount.limitsData.maxAmountWithdraw = Math.ceil(payAccount.limitsData.maxAmountWithdraw);
-				payAccount.limitsData.minAmount = Math.ceil(payAccount.limitsData.minAmount);
-				payAccount.limitsData.minAmountWithdraw = Math.ceil(payAccount.limitsData.minAmountWithdraw);
-			});
-			let payAccounts = data.response.payAccounts;
-			let setDefault = true;
-			if(payAccounts){
-				let payAccounts_processor = {};
-				payAccounts.map((item, key) =>{
-					let payAccount = Object.assign({}, _payAccount);
-					payAccount.load(item);
-					payAccounts_processor[payAccount.payAccountId] = payAccount;
-					if(setDefault){
-						_payAccount = payAccount;
-						setDefault = false;
-					}
+			if(data.response && data.response.payAccounts){
+				data.response.payAccounts.forEach((payAccount)=>{
+					payAccount.limitsData.available = Math.ceil(payAccount.limitsData.available);
+					payAccount.limitsData.availableWithdraw = Math.ceil(payAccount.limitsData.availableWithdraw);
+					payAccount.limitsData.maxAmount = Math.ceil(payAccount.limitsData.maxAmount);
+					payAccount.limitsData.maxAmountWithdraw = Math.ceil(payAccount.limitsData.maxAmountWithdraw);
+					payAccount.limitsData.minAmount = Math.ceil(payAccount.limitsData.minAmount);
+					payAccount.limitsData.minAmountWithdraw = Math.ceil(payAccount.limitsData.minAmountWithdraw);
 				});
-				_payAccounts[_processor.processorId] = payAccounts_processor;
+				let payAccounts = data.response.payAccounts;
+				let setDefault = true;
+				if(payAccounts){
+					let payAccounts_processor = {};
+					payAccounts.map((item, key) =>{
+						let payAccount = Object.assign({}, _payAccount);
+						payAccount.load(item);
+						payAccounts_processor[payAccount.payAccountId] = payAccount;
+						if(setDefault){
+							_payAccount = payAccount;
+							setDefault = false;
+						}
+					});
+					_payAccounts[_processor.processorId] = payAccounts_processor;
+				}
 			}
 			CashierStore.emitChange();
 			break;
 
 		case actions.PAYACCOUNTS_DISABLE_RESPONSE:
-			let currentPayAccountId = _UI().payAccountId;
+			let currentPayAccountId = _UI.payAccountId;
 			if(currentPayAccountId){
 				_payAccounts.splice(currentPayAccountId, 1);
 			}
