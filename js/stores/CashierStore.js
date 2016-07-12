@@ -294,13 +294,13 @@ let _payAccounts = [];
  * @private
  */
 let _transaction = {
-	amount: 0,
+	amount: "",
 	fee: 0,
 	feeType: '',
 	bonusId: 0,
 	checkTermsAndConditions: 0,
 	cleanTransaction(){
-		this.amount = 0;
+		this.amount = "";
 		this.fee = 0;
 		this.feeType = "";
 		this.bonusId = 0;
