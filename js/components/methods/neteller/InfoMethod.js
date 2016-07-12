@@ -116,6 +116,7 @@ let InfoMethod = React.createClass({
 		let payAccountInfo = this.getPayAccountLimits();
 		let originPath = UIService.getOriginPath();
 
+
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {

@@ -15,7 +15,7 @@ let _UI = {
 	language: '',
 	currentView: '',
 	currentStep: '',
-	currentProcessorSteps:[],
+	currentProcessorSteps: [],
 	processorId: 0,
 	payAccountId: 0,
 	countryInfo: null,
@@ -377,18 +377,17 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * Return current processor steps
- 	 */
-	getCurrentProcessorSteps: () => {
+	 */
+	getCurrentProcessorSteps: () =>{
 		return _UI.currentProcessorSteps;
 	},
 
 	/**
 	 * return current step
 	 */
-	getCurrentStep: () => {
+	getCurrentStep: () =>{
 		return _UI.currentStep;
 	},
-
 
 	/**
 	 * get application object
@@ -531,6 +530,14 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
+			data.response.payAccounts.forEach((payAccount)=>{
+				payAccount.limitsData.available = Math.ceil(payAccount.limitsData.available);
+				payAccount.limitsData.availableWithdraw = Math.ceil(payAccount.limitsData.availableWithdraw);
+				payAccount.limitsData.maxAmount = Math.ceil(payAccount.limitsData.maxAmount);
+				payAccount.limitsData.maxAmountWithdraw = Math.ceil(payAccount.limitsData.maxAmountWithdraw);
+				payAccount.limitsData.minAmount = Math.ceil(payAccount.limitsData.minAmount);
+				payAccount.limitsData.minAmountWithdraw = Math.ceil(payAccount.limitsData.minAmountWithdraw);
+			});
 			let payAccounts = data.response.payAccounts;
 			let setDefault = true;
 			if(payAccounts){
@@ -558,6 +565,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE:
+			data.response.processorMinMaxLimits.currencyMax = Math.ceil(data.response.processorMinMaxLimits.currencyMax);
+			data.response.processorMinMaxLimits.currencyMin = Math.ceil(data.response.processorMinMaxLimits.currencyMin);
 			_processor.limits = data.response.processorMinMaxLimits;
 			CashierStore.emitChange();
 			break;

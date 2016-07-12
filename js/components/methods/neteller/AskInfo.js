@@ -44,7 +44,8 @@ let AskInfo = React.createClass({
 										<div className="row">
 											<div className="col-sm-3">
 												<div className="method active pull-left">
-													<img className="img-responsive" src={originPath + '/images/processors/333.png'} alt={displayName}/>
+													<img className="img-responsive" src={originPath + '/images/processors/333.png'}
+															 alt={displayName}/>
 												</div>
 											</div>
 											<div className="col-sm-9">
