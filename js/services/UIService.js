@@ -182,6 +182,15 @@ class UiService {
 	}
 
 	/**
+	 * get payAccounts by processor
+	 * 
+	 * @returns {*}
+	 */
+	getProcessorPayAccount(){
+		return CashierStore.getProcessorPayAccount();
+	}
+
+	/**
 	 * Function to change current processor
 	 */
 	selectProcessor(processorID){

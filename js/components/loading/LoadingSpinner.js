@@ -1,7 +1,9 @@
 import React from 'react'
+import {translate} from '../../constants/Translate'
 
 let LoadingSpinner = React.createClass({
 	render() {
+		let processing = translate('PROCESSING_SPINNER', '...please wait!');
 		return (
 			<div className="row" id="loadingSpinner">
 				<div className="col-sm-12">
@@ -10,7 +12,7 @@ let LoadingSpinner = React.createClass({
 							<div className="col-sm-12">
 								<div className="loader-sm"></div>
 								<h3>
-									Processing... please wait!
+									{processing}
 								</h3>
 							</div>
 						</div>

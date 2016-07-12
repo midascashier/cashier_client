@@ -2,6 +2,7 @@
  * Created by jobando on 03-Jun-16.
  */
 let _langTags = {
+	PROCESSING_SPINNER: 'Procesando... favor espere!',
 	WELCOME: "Inicio",
 	WELCOME_TITLE: "Bienvenido(a) a ",
 	WELCOME_TITLE_TO: "Poker con Dinero Real!",
@@ -118,6 +119,8 @@ let _langTags = {
 	P2P_INSTRUCTIONS_RECEIVER: "Receiver's Information",
 	P2P_INSTRUCTIONS_PENDING_MTCN: "Información del Receptor",
 	P2P_INSTRUCTIONS_INFO: "Usted debe ingresar su Número de Control aquí para ser capaz de reclamar su bono. Las confirmaciones por medio del centro de llamadas no son elegibles para los bonos.",
+	P2P_SELECT_DEPOSIT: "Seleccione el remitente",
+	P2P_SELECT_WITHDRAW: "Seleccione el beneficiario",
 	P2P_FIRST_NAME: 'Nombre',
 	P2P_LAST_NAME: 'Apellidos',
 	P2P_NAME: "Nombre",

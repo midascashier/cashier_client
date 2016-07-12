@@ -17,7 +17,6 @@ let Person2Person = React.createClass({
 	/**
 	 * React function to set component initial state
 	 */
-
 	getInitialState(){
 		return this.refreshLocalState();
 	},
@@ -55,17 +54,9 @@ let Person2Person = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
-	/**
-	 * set local state with transaction amount
-	 */
-	transactionAmount(amount){
-		this.setState({amount: Number(amount)});
-	},
-
 	render() {
-		let allowContinue = this.props.allowContinue;
 		return (
-			<div id="visa">
+			<div id="person2person">
 				<div className="col-sm-6">
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
@@ -76,11 +67,11 @@ let Person2Person = React.createClass({
 					/>
 				</div>
 				<div className="col-sm-6">
-					{(() => {
-						if (!this.state.selectedProcessor.processorId) {
+					{(() =>{
+						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
-						} else {
-							return <InfoMethod amount={this.props.amount} allowContinue={allowContinue}/>;
+						} else{
+							return <InfoMethod amount={this.props.amount} allowContinue={this.props.allowContinue}/>;
 						}
 					})()}
 				</div>

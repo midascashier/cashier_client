@@ -6,6 +6,7 @@ import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
+
 	propTypes: {
 		amount: React.PropTypes.string,
 		allowContinue: React.PropTypes.number

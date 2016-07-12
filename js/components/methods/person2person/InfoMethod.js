@@ -6,10 +6,10 @@ import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
+
 	propTypes: {
-		password: React.PropTypes.string,
-		allowContinue: React.PropTypes.number,
-		amount: React.PropTypes.string
+		amount: React.PropTypes.string,
+		allowContinue: React.PropTypes.number
 	},
 
 	/**
@@ -58,24 +58,6 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 * this function checks if password and amount are valid
-	 */
-	allowProcess(){
-		let password = this.props.password;
-		let isWithDraw = UIService.getIsWithDraw();
-		let checkAmount = this.props.allowContinue;
-
-		if(password && String(password).length >= 5 && checkAmount){
-			return true;
-		}
-		else if(checkAmount && isWithDraw){
-			return true
-		}
-
-		return false;
-	},
-
-	/**
 	 * this function return payAccount limits and ID
 	 *
 	 * @returns {{minPayAccount: XML, maxPayAccount: XML, payAccountId: (*|number|null)}}
@@ -99,15 +81,11 @@ let InfoMethod = React.createClass({
 		let isWithDraw = UIService.getIsWithDraw();
 		TransactionService.setAmount(this.props.amount);
 		if(isWithDraw){
-			UIService.changeUIState("/withdraw/" + UIService.getProcessorName().toLowerCase() + "/confirm/");
+			UIService.confirmTransaction();
 		}
 		else{
 			//process the deposit
-			let password = this.props.password;
-			let dynamicParams = {};
-			dynamicParams.password = password;
-			TransactionService.setAmount(this.props.amount);
-			TransactionService.process(dynamicParams);
+			TransactionService.process(null,'instructions');
 		}
 	},
 
