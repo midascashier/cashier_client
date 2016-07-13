@@ -202,6 +202,29 @@ class transactionService {
 	};
 
 	/**
+	 * this function sends to process a cc transaction
+	 */
+	processCC(){
+
+		let transaction = CashierStore.getTransaction();
+		let transactionResponse = CashierStore.getLastTransactionResponse();
+		let processorSelected = CashierStore.getProcessor();
+		let payAccountSelected = CashierStore.getCurrentPayAccount();
+
+		let p2pRequest = {
+			f: "ccProcess",
+			processorId: processorSelected.processorId,
+			payAccountId: payAccountSelected.payAccountId,
+			amount: transaction.amount,
+			journalIdSelected: transactionResponse.journalId
+		};
+		let rabbitRequest = assign(this.getProxyRequest(), p2pRequest);
+
+		UIService.processTransaction();
+		stompConnector.makeProcessRequest("", rabbitRequest);
+	};
+
+	/**
 	 * get the BitCoin transaction details for the specific transaction Id
 	 *
 	 * @param transactionId

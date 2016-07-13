@@ -588,6 +588,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 		case actions.PROCESS_RESPONSE:
 		case actions.PROCESS_P2P_GET_NAME_RESPONSE:
+		case actions.PROCESS_CC_RESPONSE:
 			if(data.response && data.response.transaction){
 				_transactionResponse.journalId = data.response.transaction.caJournal_Id;
 				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;

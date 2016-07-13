@@ -53,7 +53,7 @@ let VisaConfirm = React.createClass({
 	 *
 	 */
 	processTransaction(){
-		TransactionService.process();
+		TransactionService.processCC();
 	},
 
 	render(){
