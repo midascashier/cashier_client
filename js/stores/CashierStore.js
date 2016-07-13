@@ -189,7 +189,7 @@ let _processor = {
 /**
  * PayAccount Data
  *
- * @type {{payAccountId: null, customerId: null, processorClassId: null, processorId: null, processorSkinId: null, processorIdRoot: null, processorRootName: null, typesSupported: null, displayName: null, isActive: null, isAllowed: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, bank: {id: null, alias: null, name: null, address: null, city: null, state: null, stateName: null, country: null, countryName: null, zip: null, phone: null, transferNumber: null, accountNumber: null, accountType: null, swift: null, iban: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limits: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))}}
+ * @type {{payAccountId: null, displayName: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limitsData: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))}}
  * @private
  */
 let _payAccount = {
@@ -241,41 +241,16 @@ let _payAccount = {
 	load(data){
 		this.payAccountId = data.payAccountId;
 		this.displayName = data.displayName;
+		//limits information
 		this.limitsData = data.limitsData;
-
 		//personal information
-		this.personal.firstName = data.personalData.firstName;
-		this.personal.middleName = data.personalData.middleName;
-		this.personal.lastName = data.personalData.lastName;
-		this.personal.lastName2 = data.personalData.lastName2;
-		this.personal.phone = data.personalData.phone;
-		this.personal.email = data.personalData.email;
-		this.personal.personalId = data.personalData.personalId;
-		this.personal.personalIdType = data.personalData.personalIdType;
-
+		this.personal = data.personalData;
 		//address information
-		this.address.country = data.addressData.country;
-		this.address.countryName = data.addressData.countryName;
-		this.address.state = data.addressData.state;
-		this.address.stateName = data.addressData.stateName;
-		this.address.city = data.addressData.city;
-		this.address.address1 = data.addressData.address1;
-		this.address.address2 = data.addressData.address2;
-		this.address.zip = data.addressData.zip;
-
+		this.address = data.addressData;
 		//secure information
-		this.secure.account = data.secureData.account;
-		this.secure.password = data.secureData.password;
-		this.secure.extra1 = data.secureData.extra1;
-		this.secure.extra2 = data.secureData.extra2;
-		this.secure.extra3 = data.secureData.extra3;
-
+		this.secure = data.secureData;
 		//extra information
-		this.extra.ssn = data.extraData.ssn;
-		this.extra.dob = data.extraData.dob;
-		this.extra.dobDay = data.extraData.dobDay;
-		this.extra.dobMonth = data.extraData.dobMonth;
-		this.extra.dobYear = data.extraData.dobYear;
+		this.extra = data.extraData;
 	}
 };
 
@@ -353,7 +328,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * Return last transaction cashier response
-	 * 
+	 *
 	 * @returns {{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array}}
 	 */
 	getLastTransactionResponse: () =>{
@@ -545,18 +520,19 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					payAccount.limitsData.minAmountWithdraw = Math.ceil(payAccount.limitsData.minAmountWithdraw);
 				});
 				let payAccounts = data.response.payAccounts;
-				let setDefault = true;
 				if(payAccounts){
+					let firstPayAccount = 0;
 					let payAccounts_processor = {};
+					let payAccountTemp = Object.assign({}, _payAccount);
 					payAccounts.map((item, key) =>{
-						let payAccount = Object.assign({}, _payAccount);
+						let payAccount = Object.assign({key: key}, payAccountTemp);
 						payAccount.load(item);
 						payAccounts_processor[payAccount.payAccountId] = payAccount;
-						if(setDefault){
-							_payAccount = payAccount;
-							setDefault = false;
+						if(!firstPayAccount){
+							firstPayAccount = payAccount.payAccountId;
 						}
 					});
+					_payAccount = payAccounts_processor[firstPayAccount];
 					_payAccounts[_processor.processorId] = payAccounts_processor;
 				}
 			}
@@ -632,7 +608,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			if(_transactionResponse.userMessage == ""){
 				_transactionResponse.userMessage = data.userMessage;
 			}
-			console.log(data.response);
 			break;
 
 		case actions.START_TRANSACTION:
