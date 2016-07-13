@@ -1,7 +1,6 @@
 import React from 'react'
 import { translate } from '../../../constants/Translate'
 import { CashierStore } from '../../../stores/CashierStore'
-import { Loading } from '../../loading/Loading'
 import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
 
@@ -81,13 +80,14 @@ let InfoMethod = React.createClass({
 	 * @returns {{minPayAccount: XML, maxPayAccount: XML, payAccountId: (*|number|null)}}
 	 */
 	getPayAccountLimits(){
-		let minPayAccount = <Loading />;
-		let maxPayAccount = <Loading />;
+		let minPayAccount = "";
+		let maxPayAccount = "";
 		let payAccount = this.state.currentPayAccount;
-		if(payAccount.payAccountId){
+		if(payAccount.payAccountId != 0){
 			minPayAccount = payAccount.limitsData.minAmount + " " + payAccount.limitsData.currencyCode;
 			maxPayAccount = payAccount.limitsData.maxAmount + " " + payAccount.limitsData.currencyCode;
 		}
+
 		return { "minPayAccount": minPayAccount, "maxPayAccount": maxPayAccount, "payAccountId": payAccount.payAccountId }
 	},
 
@@ -107,7 +107,7 @@ let InfoMethod = React.createClass({
 			let dynamicParams = {};
 			dynamicParams.password = password;
 			TransactionService.setAmount(this.props.amount);
-			TransactionService.process(dynamicParams,"ticket");
+			TransactionService.process(dynamicParams, "ticket");
 		}
 	},
 
@@ -115,7 +115,6 @@ let InfoMethod = React.createClass({
 		let allowContinue = this.allowProcess();
 		let payAccountInfo = this.getPayAccountLimits();
 		let originPath = UIService.getOriginPath();
-
 
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);

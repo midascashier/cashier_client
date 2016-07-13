@@ -552,6 +552,12 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 							setDefault = false;
 						}
 					});
+
+					let addPayAccountOption = Object.assign({}, _payAccount);
+					addPayAccountOption.payAccountId=0;
+					addPayAccountOption.displayName="Register new account";
+					payAccounts_processor[addPayAccountOption.payAccountId] = addPayAccountOption;
+
 					_payAccounts[_processor.processorId] = payAccounts_processor;
 				}
 			}
@@ -641,6 +647,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			_UI.currentStep = data.currentStep;
 			_processor.load(data.processorId);
 			CashierStore.emitChange();
+			break;
+
+		case actions.ADD_MODIFY_PAYACCOUNT:
 			break;
 
 		default:

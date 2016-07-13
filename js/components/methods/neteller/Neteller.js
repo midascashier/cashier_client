@@ -1,10 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router'
 import { CashierStore } from '../../../stores/CashierStore'
 import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
-import { translate } from '../../../constants/Translate'
 import { AskInfo } from './AskInfo'
 import { InfoMethod } from './InfoMethod'
+import { TransactionService } from '../../../services/TransactionService'
 
 let Neteller = React.createClass({
 
@@ -41,7 +40,8 @@ let Neteller = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			selectedProcessor: CashierStore.getProcessor()
+			selectedProcessor: CashierStore.getProcessor(),
+			payAccount: TransactionService.getCurrentPayAccount()
 		}
 	},
 
@@ -72,6 +72,7 @@ let Neteller = React.createClass({
 									 password={this.state.password}
 									 amount={this.props.amount}
 									 setAmount={this.props.setAmount}
+									 payAccount={this.state.payAccount}
 									 allowContinue={this.props.allowContinue}
 					/>
 				</div>
