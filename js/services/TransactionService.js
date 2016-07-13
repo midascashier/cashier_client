@@ -1,3 +1,4 @@
+import assign from 'object-assign'
 import { CashierStore } from '../stores/CashierStore'
 import { CashierActions } from '../actions/CashierActions'
 import { stompConnector } from './StompConnector'
@@ -86,6 +87,14 @@ class transactionService {
 	};
 
 	/**
+	 *
+	 * @param timeFrame
+	 */
+	setTimeFrame(timeFrame){
+		CashierActions.setTransactionTimeFrame(timeFrame);
+	}
+
+	/**
 	 * return PayAccount
 	 */
 	getCurrentPayAccount(){
@@ -100,27 +109,16 @@ class transactionService {
 	}
 
 	/**
-	 * this function sends to process a transaction
+	 * Adds all the default parameters for the proxy request
+	 *
+	 * @returns {{companyId: number, username: string, password: string, remoteAddr: string, remoteHost: string, referrer: string, xForwardedFor: string, lang: string, platform: string, userAgent: string, createdBy: number, sys_access_pass: string, sid: null, type: string, isDefer: number}}
 	 */
-	process(dynamicParams, nextStep){
+	getProxyRequest(){
+
 		let application = CashierStore.getApplication();
 		let customerInfo = CashierStore.getCustomer();
-		let transaction = CashierStore.getTransaction();
-		let processorSelected = CashierStore.getProcessor();
-		let payAccountSelected = CashierStore.getCurrentPayAccount();
-		let action = "d";
-		let isDefer = 0;
-		if(CashierStore.getIsWithdraw()){
-			action = "w";
-			isDefer = 1;
-		}
 
-		let feeType = 'FREE';
-		let currencyFee = 0;
-		let feeBP = 0
-
-		let rabbitRequest = {
-			f: "process",
+		var req = {
 			companyId: customerInfo.companyId,
 			username: customerInfo.username,
 			password: customerInfo.password,
@@ -132,20 +130,96 @@ class transactionService {
 			platform: application.platform,
 			userAgent: application.userAgent,
 			createdBy: 10093, //TODO: temporary
-			type: action,
-			isDefer: isDefer,
-			feeType: feeType,
-			currencyFee: currencyFee,
-			feeBP: feeBP,
-			processorId: processorSelected.processorId,
-			amount: transaction.amount,
-			payAccountId: payAccountSelected.payAccountId,
 			sys_access_pass: application.sys_access_pass,
 			sid: application.sid,
-			dynamicParams: dynamicParams
+			type: "d",
+			isDefer: 0
 		};
 
+		//payouts params
+		if(CashierStore.getIsWithdraw()){
+			req.type = "w";
+			req.isDefer = 1;
+			req.feeType = 'FREE';
+			req.currencyFee = 0;
+			req.feeBP = 0;
+		}
+
+		return req;
+	}
+
+	/**
+	 * this function sends to process a transaction
+	 */
+	process(dynamicParams, nextStep){
+
+		let transaction = CashierStore.getTransaction();
+		let processorSelected = CashierStore.getProcessor();
+		let payAccountSelected = CashierStore.getCurrentPayAccount();
+
+		let rabbitRequest = {
+			f: "process",
+			processorId: processorSelected.processorId,
+			payAccountId: payAccountSelected.payAccountId,
+			amount: transaction.amount,
+			dynamicParams: dynamicParams
+		};
+		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
+
 		UIService.processTransaction(nextStep);
+		stompConnector.makeProcessRequest("", rabbitRequest);
+	};
+
+	/**
+	 * this function sends to process a p2p transaction (get name)
+	 */
+	processGetName(nextStep){
+
+		let transaction = CashierStore.getTransaction();
+		let processorSelected = CashierStore.getProcessor();
+		let payAccountSelected = CashierStore.getCurrentPayAccount();
+
+		let p2pRequest = {
+			f: "p2pGetName",
+			processorId: processorSelected.processorId,
+			payAccountId: payAccountSelected.payAccountId,
+			amount: transaction.amount,
+			firstName: payAccountSelected.personal.firstName,
+			lastName: payAccountSelected.personal.lastName,
+			country: payAccountSelected.address.country,
+			state: payAccountSelected.address.state,
+			city: payAccountSelected.address.city,
+			phone: payAccountSelected.personal.phone,
+			email: payAccountSelected.personal.email,
+			timeFrameDay: transaction.timeFrameDay,
+			timeFrameTime: transaction.timeFrameTime,
+			sendEmail: 0
+		};
+		let rabbitRequest = assign(this.getProxyRequest(), p2pRequest);
+
+		UIService.processTransaction(nextStep);
+		stompConnector.makeProcessRequest("", rabbitRequest);
+	};
+
+	/**
+	 * this function sends to process a cc transaction
+	 */
+	processCC(){
+
+		let transaction = CashierStore.getTransaction();
+		let processorSelected = CashierStore.getProcessor();
+		let payAccountSelected = CashierStore.getCurrentPayAccount();
+
+		let p2pRequest = {
+			f: "ccProcess",
+			processorId: processorSelected.processorId,
+			payAccountId: payAccountSelected.payAccountId,
+			amount: transaction.amount,
+			journalIdSelected: 0
+		};
+		let rabbitRequest = assign(this.getProxyRequest(), p2pRequest);
+
+		UIService.processTransaction();
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 
@@ -214,9 +288,6 @@ class transactionService {
 				}
 				if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS){
 					this.getCreditCardTransaction(transactionId);
-				}
-				if(processorClassId == cashier.PROCESSOR_CLASS_ID_PERSON_2_PERSON){
-					this.getP2PTransaction(transactionId);
 				}
 			}
 		}

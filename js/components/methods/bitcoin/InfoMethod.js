@@ -6,6 +6,7 @@ import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
+
 	propTypes: {
 		amount: React.PropTypes.string,
 		allowContinue: React.PropTypes.number
@@ -96,7 +97,7 @@ let InfoMethod = React.createClass({
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
-			processorName: "Bitcoin",
+			processorName: "BitCoin",
 			transactionType: transactionType
 		});
 

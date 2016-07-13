@@ -1,8 +1,6 @@
 import React from 'react'
-import {Link} from 'react-router'
 import {CashierStore} from '../../../stores/CashierStore'
 import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
-import {translate} from '../../../constants/Translate'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
 
@@ -17,7 +15,6 @@ let Person2Person = React.createClass({
 	/**
 	 * React function to set component initial state
 	 */
-
 	getInitialState(){
 		return this.refreshLocalState();
 	},
@@ -42,7 +39,9 @@ let Person2Person = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			selectedProcessor: CashierStore.getProcessor()
+			selectedProcessor: CashierStore.getProcessor(),
+			timeFrameDay: 'TODAY',
+			timeFrameTime: 12
 		}
 	},
 
@@ -56,31 +55,46 @@ let Person2Person = React.createClass({
 	},
 
 	/**
-	 * set local state with transaction amount
+	 *
+	 * @param event
 	 */
-	transactionAmount(amount){
-		this.setState({amount: Number(amount)});
+	timeFrameDayChange: function(event) {
+		this.setState({timeFrameDay: event.target.value});
+	},
+
+	/**
+	 *
+	 * @param event
+	 */
+	timeFrameTimeChange: function(event) {
+		this.setState({timeFrameTime: Number(event.target.value)});
 	},
 
 	render() {
-		let allowContinue = this.props.allowContinue;
 		return (
-			<div id="visa">
+			<div id="person2person">
 				<div className="col-sm-6">
-					<Link to={`/transaction_history/`}>
-						<p>{translate('TRANSACTION_HISTORY')}</p>
-					</Link>
 					<AskInfo amount={this.props.amount}
 									 setAmount={this.props.setAmount}
 									 allowContinue={this.props.allowContinue}
+									 timeFrameDay={this.state.timeFrameDay}
+									 timeFrameTime={this.state.timeFrameTime}
+									 timeFrameTimeChange={this.timeFrameTimeChange}
+									 timeFrameDayChange={this.timeFrameDayChange}
 					/>
 				</div>
 				<div className="col-sm-6">
-					{(() => {
-						if (!this.state.selectedProcessor.processorId) {
+					{(() =>{
+						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
-						} else {
-							return <InfoMethod amount={this.props.amount} allowContinue={allowContinue}/>;
+						} else{
+							return <InfoMethod amount={this.props.amount}
+																 allowContinue={this.props.allowContinue}
+																 timeFrameDay={this.state.timeFrameDay}
+																 timeFrameTime={this.state.timeFrameTime}
+																 timeFrameTimeChange={this.timeFrameTimeChange}
+																 timeFrameDayChange={this.timeFrameDayChange}
+							/>;
 						}
 					})()}
 				</div>

@@ -189,7 +189,7 @@ let _processor = {
 /**
  * PayAccount Data
  *
- * @type {{payAccountId: null, customerId: null, processorClassId: null, processorId: null, processorSkinId: null, processorIdRoot: null, processorRootName: null, typesSupported: null, displayName: null, isActive: null, isAllowed: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, bank: {id: null, alias: null, name: null, address: null, city: null, state: null, stateName: null, country: null, countryName: null, zip: null, phone: null, transferNumber: null, accountNumber: null, accountType: null, swift: null, iban: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limits: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))}}
+ * @type {{payAccountId: null, displayName: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limitsData: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))}}
  * @private
  */
 let _payAccount = {
@@ -241,41 +241,16 @@ let _payAccount = {
 	load(data){
 		this.payAccountId = data.payAccountId;
 		this.displayName = data.displayName;
+		//limits information
 		this.limitsData = data.limitsData;
-
 		//personal information
-		this.personal.firstName = data.personalData.firstName;
-		this.personal.middleName = data.personalData.middleName;
-		this.personal.lastName = data.personalData.lastName;
-		this.personal.lastName2 = data.personalData.lastName2;
-		this.personal.phone = data.personalData.phone;
-		this.personal.email = data.personalData.email;
-		this.personal.personalId = data.personalData.personalId;
-		this.personal.personalIdType = data.personalData.personalIdType;
-
+		this.personal = data.personalData;
 		//address information
-		this.address.country = data.addressData.country;
-		this.address.countryName = data.addressData.countryName;
-		this.address.state = data.addressData.state;
-		this.address.stateName = data.addressData.stateName;
-		this.address.city = data.addressData.city;
-		this.address.address1 = data.addressData.address1;
-		this.address.address2 = data.addressData.address2;
-		this.address.zip = data.addressData.zip;
-
+		this.address = data.addressData;
 		//secure information
-		this.secure.account = data.secureData.account;
-		this.secure.password = data.secureData.password;
-		this.secure.extra1 = data.secureData.extra1;
-		this.secure.extra2 = data.secureData.extra2;
-		this.secure.extra3 = data.secureData.extra3;
-
+		this.secure = data.secureData;
 		//extra information
-		this.extra.ssn = data.extraData.ssn;
-		this.extra.dob = data.extraData.dob;
-		this.extra.dobDay = data.extraData.dobDay;
-		this.extra.dobMonth = data.extraData.dobMonth;
-		this.extra.dobYear = data.extraData.dobYear;
+		this.extra = data.extraData;
 	}
 };
 
@@ -290,7 +265,7 @@ let _payAccounts = [];
 /**
  * Stores information of the transaction
  *
- * @type {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, cleanTransaction: (function())}}
+ * @type {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, timeFrameDay: null, timeFrameTime: null, cleanTransaction: (function())}}
  * @private
  */
 let _transaction = {
@@ -299,18 +274,23 @@ let _transaction = {
 	feeType: '',
 	bonusId: 0,
 	checkTermsAndConditions: 0,
+	timeFrameDay: null,
+	timeFrameTime: null,
 	cleanTransaction(){
 		this.amount = "";
 		this.fee = 0;
 		this.feeType = "";
 		this.bonusId = 0;
+		this.checkTermsAndConditions = 0;
+		this.timeFrameDay = null;
+		this.timeFrameTime = null;
 	}
 };
 
 /**
  * Stores transaction result
  *
- * @type {{transactionId: number, journalId: number, status: number, userMessage: string, state: string, transaction: {journalId: null, transactionId: null, payAccountId: null, transactionStatusId: null, journalTransactionStatusId: null, statusName: null, processorId: null, processorIdSelected: null, processorClassId: null, processorName: null, processorDisplayName: null, dateTrans: null, dateTransModified: null, transUniqueId: null, transactionIdProcessor: null, currencyAmount: null, currencyFee: null, amount: null, fee: null, feeBP: null, currencyId: null, currencyCode: null, transactionTypeId: null, transType: null, errorCode: null, errorMessage: null, userMessage: null, journalNotes: null, descriptor: null}, p2pTransaction: {P2PNameId: null, P2PNameStatus_Id: null, payAccountId: null, submitPayAccountId: null, nameId: null, name: null, Country: null, State: null, SenderTimeFrame: null, ControlNumber: null, DateRequest: null, DateUpdate: null, PAFirstName: null, PAMiddleName: null, PALastName: null, PAPhone: null, PAEmail: null, PACity: null, PAState: null, PAStateName: null, PACountry: null, PACountryName: null, currencyAmount: number, amount: number, currencyFee: string, transactionStatusId: null, processorDisplayName: null, errorMessage: null, processorId: null}, bitCoinTransaction: {Address: null}, load: (function(*))}}
+ * @type {{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array}}
  * @private
  */
 let _transactionResponse = {
@@ -349,7 +329,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * Return last transaction cashier response
 	 *
-	 * @returns {{transactionId: number, journalId: number, status: number, userMessage: string, state: string, transaction: {journalId: null, transactionId: null, payAccountId: null, transactionStatusId: null, journalTransactionStatusId: null, statusName: null, processorId: null, processorIdSelected: null, processorClassId: null, processorName: null, processorDisplayName: null, dateTrans: null, dateTransModified: null, transUniqueId: null, transactionIdProcessor: null, currencyAmount: null, currencyFee: null, amount: null, fee: null, feeBP: null, currencyId: null, currencyCode: null, transactionTypeId: null, transType: null, errorCode: null, errorMessage: null, userMessage: null, journalNotes: null, descriptor: null}, p2pTransaction: {P2PNameId: null, P2PNameStatus_Id: null, payAccountId: null, submitPayAccountId: null, nameId: null, name: null, Country: null, State: null, SenderTimeFrame: null, ControlNumber: null, DateRequest: null, DateUpdate: null, PAFirstName: null, PAMiddleName: null, PALastName: null, PAPhone: null, PAEmail: null, PACity: null, PAState: null, PAStateName: null, PACountry: null, PACountryName: null, currencyAmount: number, amount: number, currencyFee: string, transactionStatusId: null, processorDisplayName: null, errorMessage: null, processorId: null}, bitCoinTransaction: {Address: null}, load: (function(*))}}
+	 * @returns {{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array}}
 	 */
 	getLastTransactionResponse: () =>{
 		return _transactionResponse;
@@ -540,24 +520,26 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					payAccount.limitsData.minAmountWithdraw = Math.ceil(payAccount.limitsData.minAmountWithdraw);
 				});
 				let payAccounts = data.response.payAccounts;
-				let setDefault = true;
 				if(payAccounts){
+					let firstPayAccount = 0;
 					let payAccounts_processor = {};
+					let payAccountTemp = Object.assign({}, _payAccount);
 					payAccounts.map((item, key) =>{
-						let payAccount = Object.assign({}, _payAccount);
+						let payAccount = Object.assign({key: key}, payAccountTemp);
 						payAccount.load(item);
 						payAccounts_processor[payAccount.payAccountId] = payAccount;
-						if(setDefault){
-							_payAccount = payAccount;
-							setDefault = false;
+						if(!firstPayAccount){
+							firstPayAccount = payAccount.payAccountId;
 						}
 					});
+					_payAccount = payAccounts_processor[firstPayAccount];
 
 					let addPayAccountOption = Object.assign({}, _payAccount);
 					addPayAccountOption.payAccountId=0;
 					addPayAccountOption.displayName="Register new account";
 					payAccounts_processor[addPayAccountOption.payAccountId] = addPayAccountOption;
-
+					
+					
 					_payAccounts[_processor.processorId] = payAccounts_processor;
 				}
 			}
@@ -604,12 +586,27 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			CashierStore.emitChange();
 			break;
 
+		case actions.CHANGE_TRANSACTION_TIMEFRAME:
+			let timeFrame = data.timeFrame;
+			_transaction.timeFrameDay = timeFrame.timeFrameDay;
+			_transaction.timeFrameTime = timeFrame.timeFrameTime;
+			CashierStore.emitChange();
+			break;
+
 		case actions.PROCESS_RESPONSE:
+		case actions.PROCESS_P2P_GET_NAME_RESPONSE:
+		case actions.PROCESS_CC_RESPONSE:
 			if(data.response && data.response.transaction){
 				_transactionResponse.journalId = data.response.transaction.caJournal_Id;
 				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
 				_transactionResponse.status = Number(data.response.transaction.caTransactionStatus_Id);
 				_transactionResponse.userMessage = data.response.transaction.userMessage;
+
+				let processorClassId = _processor.processorClass;
+				if(processorClassId == cashier.PROCESSOR_CLASS_ID_PERSON_2_PERSON){
+					_transactionResponse.details = data.response.transaction;
+				}
+
 			} else if(data.state){
 				_transactionResponse.state = data.state;
 				_transactionResponse.status = 0;

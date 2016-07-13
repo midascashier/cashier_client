@@ -53,7 +53,7 @@ let VisaConfirm = React.createClass({
 	 *
 	 */
 	processTransaction(){
-		TransactionService.process();
+		TransactionService.processCC();
 	},
 
 	render(){
@@ -132,7 +132,7 @@ let VisaConfirm = React.createClass({
 													<div className="form-group">
 														<label for="" className="col-sm-4 control-label">{translate('CREDIT_CARD_SSN')}:</label>
 														<div className="col-sm-8">
-															<Input type="text" id="ssn" defaultValue={extraData.ssn} autoComplete="off" readOnly/>
+															<Input type="text" id="ssn" value={extraData.ssn} autoComplete="off" readOnly/>
 														</div>
 													</div>
 													<div className="form-group">

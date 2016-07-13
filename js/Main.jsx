@@ -30,13 +30,13 @@ import { BitCoinTicketPending } from './components/methods/bitcoin/tickets/Pendi
 import { Visa } from './components/methods/visa/Visa'
 import { VisaConfirm } from './components/methods/visa/Confirm'
 import { VisaApprovedTicket } from './components/methods/visa/tickets/ApprovedTicket'
+import { VisaRejectedTicket } from './components/methods/visa/tickets/RejectedTicket'
 
 /**
  * Person2Person set of components to create routes
  */
 import {Person2Person} from './components/methods/person2person/Person2Person'
-import {Person2PersonConfirm} from './components/methods/person2person/Confirm'
-import {Person2PersonTicketInstructions} from './components/methods/person2person/tickets/InstructionsTicket'
+import {P2PTicketPending} from './components/methods/person2person/tickets/InstructionsTicket'
 
 /**
  * Common components
@@ -56,6 +56,7 @@ let routes = (
 			<IndexRoute component={Welcome}/>
 			<Route path="/welcome/" component={Welcome}/>
 			<Route path="/transaction_history/" component={TransactionHistoryContent}/>
+
 			<Route path="/deposit/" component={Content}>
 				<IndexRoute component={ProcessorsInfo}/>
 
@@ -75,17 +76,17 @@ let routes = (
 				<Route path="visa/confirm/" component={VisaConfirm}/>
 				<Route path="visa/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={VisaApprovedTicket}/>
-					<Route path="rejected/" component={RejectedTicket}/>
+					<Route path="rejected/" component={VisaRejectedTicket}/>
 				</Route>
 
 				<Route path="moneygram/" component={Person2Person}/>
-				<Route path="moneygram/confirm/" component={Person2PersonConfirm}/>
 				<Route path="moneygram/ticket/" component={LoadingTicket}>
-					<Route path="instructions/" component={Person2PersonTicketInstructions}/>
+					<Route path="pending/" component={P2PTicketPending}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
 			</Route>
+
 			<Route path="/withdraw/" component={Content}>
 				<IndexRoute component={ProcessorsInfo}/>
 

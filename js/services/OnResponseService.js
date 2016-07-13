@@ -30,6 +30,8 @@ class OnResponseService {
 				break;
 
 			case actions.PROCESS_RESPONSE:
+			case actions.PROCESS_P2P_GET_NAME_RESPONSE:
+			case actions.PROCESS_CC_RESPONSE:
 				TransactionService.processResponse(data);
 				break;
 

@@ -26,6 +26,12 @@ let CashierActions = {
 		});
 	},
 
+	setTransactionTimeFrame: (timeFrame) =>{
+		CashierDispatcher.dispatch({
+			action: actions.CHANGE_TRANSACTION_TIMEFRAME, data: { timeFrame: timeFrame }
+		});
+	},
+
 	selectProcessor: (processorId, processorSteps, currentStep) =>{
 		CashierDispatcher.dispatch({
 			action: actions.SELECT_PROCESSOR, data: { processorId: processorId, processorSteps: processorSteps, currentStep: currentStep}

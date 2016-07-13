@@ -8,8 +8,8 @@ let P2PTicketPending = React.createClass({
 
 	/**
 	 * initialize the state
-	 *
-	 * @returns {*|{transaction}|{transaction: (*|{transactionId: number, journalId: number, status: number, userMessage: string, state: string, transaction: {journalId: null, transactionId: null, payAccountId: null, transactionStatusId: null, journalTransactionStatusId: null, statusName: null, processorId: null, processorIdSelected: null, processorClassId: null, processorName: null, processorDisplayName: null, dateTrans: null, dateTransModified: null, transUniqueId: null, transactionIdProcessor: null, currencyAmount: null, currencyFee: null, amount: null, fee: null, feeBP: null, currencyId: null, currencyCode: null, transactionTypeId: null, transType: null, errorCode: null, errorMessage: null, userMessage: null, journalNotes: null, descriptor: null}, p2pTransaction: {P2PNameId: null, P2PNameStatus_Id: null, payAccountId: null, submitPayAccountId: null, nameId: null, name: null, Country: null, State: null, SenderTimeFrame: null, ControlNumber: null, DateRequest: null, DateUpdate: null, PAFirstName: null, PAMiddleName: null, PALastName: null, PAPhone: null, PAEmail: null, PACity: null, PAState: null, PAStateName: null, PACountry: null, PACountryName: null, currencyAmount: number, amount: number, currencyFee: string, transactionStatusId: null, processorDisplayName: null, errorMessage: null, processorId: null}, bitCoinTransaction: {Address: null}, load: (function(*))})}}
+	 * 
+	 * @returns {*|{transaction}|{transaction: (*|{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array})}}
 	 */
 	getInitialState(){
 		return this.refreshLocalState();
@@ -18,7 +18,7 @@ let P2PTicketPending = React.createClass({
 	/**
 	 * build the state
 	 *
-	 * @returns {{transaction: (*|{transactionId: number, journalId: number, status: number, userMessage: string, state: string, transaction: {journalId: null, transactionId: null, payAccountId: null, transactionStatusId: null, journalTransactionStatusId: null, statusName: null, processorId: null, processorIdSelected: null, processorClassId: null, processorName: null, processorDisplayName: null, dateTrans: null, dateTransModified: null, transUniqueId: null, transactionIdProcessor: null, currencyAmount: null, currencyFee: null, amount: null, fee: null, feeBP: null, currencyId: null, currencyCode: null, transactionTypeId: null, transType: null, errorCode: null, errorMessage: null, userMessage: null, journalNotes: null, descriptor: null}, p2pTransaction: {P2PNameId: null, P2PNameStatus_Id: null, payAccountId: null, submitPayAccountId: null, nameId: null, name: null, Country: null, State: null, SenderTimeFrame: null, ControlNumber: null, DateRequest: null, DateUpdate: null, PAFirstName: null, PAMiddleName: null, PALastName: null, PAPhone: null, PAEmail: null, PACity: null, PAState: null, PAStateName: null, PACountry: null, PACountryName: null, currencyAmount: number, amount: number, currencyFee: string, transactionStatusId: null, processorDisplayName: null, errorMessage: null, processorId: null}, bitCoinTransaction: {Address: null}, load: (function(*))})}}
+	 * @returns {{transaction: (*|{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array})}}
 	 */
 	refreshLocalState() {
 		let transaction = UIService.getLastTransactionResponse();
@@ -45,6 +45,7 @@ let P2PTicketPending = React.createClass({
 
 	render() {
 		let transaction = this.state.transaction;
+		let details = transaction.details;
 		return (
 			<div id="P2PTicketPending">
 
@@ -65,12 +66,12 @@ let P2PTicketPending = React.createClass({
 											<div className="title">{translate('P2P_INSTRUCTIONS_SENDER', "Sender's Information")}</div>
 											<div className="infoCol">
 												<ul>
-													<li>{translate('P2P_NAME', 'Name')}: Test1</li>
-													<li>{translate('P2P_COUNTRY', 'Country')}: XXX</li>
-													<li>{translate('P2P_STATE', 'State')}: XXX</li>
-													<li>{translate('P2P_CITY', 'City')}: XXX</li>
-													<li>{translate('P2P_PHONE', 'Phone')}: 123-456-7891</li>
-													<li>{translate('P2P_EMAIL', 'Email')}: test@gmail.com</li>
+													<li>{translate('P2P_NAME', 'Name')}: {details.PAFirstName + ' ' + details.PALastName}</li>
+													<li>{translate('P2P_COUNTRY', 'Country')}: {details.PACountryName}</li>
+													<li>{translate('P2P_STATE', 'State')}: {details.PAStateName}</li>
+													<li>{translate('P2P_CITY', 'City')}: {details.PACity}</li>
+													<li>{translate('P2P_PHONE', 'Phone')}: {details.PAPhone}</li>
+													<li>{translate('P2P_EMAIL', 'Email')}: {details.PAEmail}</li>
 												</ul>
 											</div>
 										</div>
@@ -86,22 +87,19 @@ let P2PTicketPending = React.createClass({
 												<div className="col-sm-12">
 													<div className="title">{translate('P2P_INSTRUCTIONS_RECEIVER', "Receiver's Information")}</div>
 													<div className="infoCol">
-
 														<div className="row">
-															<div className="col-sm-6">
-																<ul>
-																	<li>{translate('P2P_NAME', 'Name')}: Bob Jones</li>
-																	<li>{translate('P2P_COUNTRY', 'Country')}: Costa Rica</li>
-																	<li>{translate('P2P_CITY', 'City')}: La Guacima</li>
-																</ul>
-															</div>
-															<div className="col-sm-6">
-																<p><a href="#">Get New Receiver</a></p>
-															</div>
+															<p><a href="#">Get New Receiver</a></p>
+														</div>
+														<div className="row">
+															<ul>
+																<li>{translate('P2P_NAME', 'Name')}: {details.Name}</li>
+																<li>{translate('P2P_COUNTRY', 'Country')}: {details.Country}</li>
+																<li>{translate('P2P_CITY', 'City')}: {details.State}</li>
+															</ul>
 														</div>
 													</div>
 													<p>
-														<strong>Important Notice: Not following the instructions below will result in a rejected transaction.</strong>
+														<strong>Important Notice: Not following the instructions below will result in a rejected details.</strong>
 													</p>
 													<ul>
 														<li>This receiver's information is only valid for the next 48 hours.</li>
@@ -126,19 +124,19 @@ let P2PTicketPending = React.createClass({
 												<div className="form-group">
 													<label for="" className="col-sm-4 control-label">{translate('P2P_CONTROL_NUMBER', 'Control #')}:</label>
 													<div className="col-sm-8">
-														<Input type="text" className="form-control" id="controlNumber" readOnly/>
+														<Input type="text" className="form-control" id="controlNumber" value={details.ControlNumber}/>
 													</div>
 												</div>
 												<div className="form-group">
 													<label for="" className="col-sm-4 control-label">{translate('P2P_AMOUNT_SEND', 'Funds Sent')}:</label>
 													<div className="col-sm-8">
-														<Input type="number" className="form-control" id="amount" readOnly/>
+														<Input type="number" className="form-control" id="amount" value={details.Amount}/>
 													</div>
 												</div>
 												<div className="form-group">
 													<label for="" className="col-sm-4 control-label">{translate('P2P_FEE_SEND', 'Fee')}:</label>
 													<div className="col-sm-8">
-														<Input type="number" className="form-control" id="fee" readOnly/>
+														<Input type="number" className="form-control" id="fee" value={details.Fee}/>
 													</div>
 												</div>
 												<button type="button" className="btn btn-green">{translate('PROCESSING_BUTTON_SUBMIT', 'Submit')}</button>

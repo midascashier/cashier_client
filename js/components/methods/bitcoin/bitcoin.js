@@ -1,12 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router'
 import { CashierStore } from '../../../stores/CashierStore'
 import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
-import { translate } from '../../../constants/Translate'
 import { AskInfo } from './AskInfo'
 import { InfoMethod } from './InfoMethod'
 
 let BitCoin = React.createClass({
+	
 	propTypes: {
 		setAmount: React.PropTypes.func,
 		allowContinue: React.PropTypes.number,

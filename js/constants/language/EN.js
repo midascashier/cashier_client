@@ -2,6 +2,7 @@
  * Created by jobando on 03-Jun-16.
  */
 let _langTags = {
+	PROCESSING_SPINNER: 'Processing... please wait!',
 	WELCOME: "Welcome",
 	WELCOME_TITLE: "Welcome to",
 	WELCOME_TITLE_TO: "Real Money Poker!",
@@ -112,12 +113,14 @@ let _langTags = {
 	CREDIT_CARD_CHECK_TERMENS: "I agree to the terms and conditions.",
 	CREDIT_CARD_INFO: "Certain banks may interpret increased transaction volumes over the internet as a fraud risk and may decline subsequent deposit requests. We highly recommend depositing enough money now to cover your planned bets for the day.",
 	P2P_TITLE_INFO_DEPOSIT: "Please Enter the Sender's Information",
-	P2P_TITLE_INFO_WITHDRAW: "Please Enter the Sender's Information",
+	P2P_TITLE_INFO_WITHDRAW: "Please Enter the Receiver's Information",
 	P2P_INSTRUCTIONS: "Now send your funds.",
 	P2P_INSTRUCTIONS_SENDER: "Sender's Information",
 	P2P_INSTRUCTIONS_RECEIVER: "Receiver's Information",
 	P2P_INSTRUCTIONS_PENDING_MTCN: "Pending Control Number",
 	P2P_INSTRUCTIONS_INFO: "You must submit your control number here to be able to claim your bonus. Call center submissions are not eligible for bonuses.",
+	P2P_SELECT_DEPOSIT: "Select your Sender",
+	P2P_SELECT_WITHDRAW: "Select your Receiver",
 	P2P_FIRST_NAME: "First Name",
 	P2P_LAST_NAME: "Last Name",
 	P2P_NAME: "Name",

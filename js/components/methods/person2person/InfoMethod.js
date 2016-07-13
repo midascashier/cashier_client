@@ -1,15 +1,17 @@
 import React from 'react'
-import { translate } from '../../../constants/Translate'
 import { CashierStore } from '../../../stores/CashierStore'
 import { Loading } from '../../loading/Loading'
+import { translate } from '../../../constants/Translate'
 import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
+
 	propTypes: {
-		password: React.PropTypes.string,
+		amount: React.PropTypes.string,
 		allowContinue: React.PropTypes.number,
-		amount: React.PropTypes.string
+		timeFrameDay: React.PropTypes.string,
+		timeFrameTime: React.PropTypes.number
 	},
 
 	/**
@@ -58,24 +60,6 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 * this function checks if password and amount are valid
-	 */
-	allowProcess(){
-		let password = this.props.password;
-		let isWithDraw = UIService.getIsWithDraw();
-		let checkAmount = this.props.allowContinue;
-
-		if(password && String(password).length >= 5 && checkAmount){
-			return true;
-		}
-		else if(checkAmount && isWithDraw){
-			return true
-		}
-
-		return false;
-	},
-
-	/**
 	 * this function return payAccount limits and ID
 	 *
 	 * @returns {{minPayAccount: XML, maxPayAccount: XML, payAccountId: (*|number|null)}}
@@ -99,24 +83,21 @@ let InfoMethod = React.createClass({
 		let isWithDraw = UIService.getIsWithDraw();
 		TransactionService.setAmount(this.props.amount);
 		if(isWithDraw){
-			UIService.changeUIState("/withdraw/" + UIService.getProcessorName().toLowerCase() + "/confirm/");
+			//UIService.confirmTransaction();
 		}
 		else{
-			//process the deposit
-			let password = this.props.password;
-			let dynamicParams = {};
-			dynamicParams.password = password;
-			TransactionService.setAmount(this.props.amount);
-			TransactionService.process(dynamicParams);
+			//process to get new name
+			TransactionService.setTimeFrame({timeFrameDay: this.props.timeFrameDay, timeFrameTime: this.props.timeFrameTime});
+			TransactionService.processGetName('instructions');
 		}
 	},
 
 	render() {
-		let allowContinue = this.allowProcess();
+		let allowContinue = this.props.allowContinue;
 		let payAccountInfo = this.getPayAccountLimits();
 		let originPath = UIService.getOriginPath();
 
-		let processorDisplayName = UIService.getProcessorName().toLowerCase();
+		let processorDisplayName = UIService.getProcessorDisplayName().toUpperCase();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
