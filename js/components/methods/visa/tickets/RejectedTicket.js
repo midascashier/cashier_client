@@ -49,7 +49,7 @@ let VisaRejectedTicket = React.createClass({
 		return (
 			<div id="visaRejectedTicket">
 				{(() =>{
-					if(transactionDetails && transactionDetails.PendingReprocess){
+					if(transactionDetails && transactionDetails.PendingReprocess == 1){
 						let layout = transactionDetails.Layout;
 						switch(layout){
 							case 'card':
@@ -62,7 +62,7 @@ let VisaRejectedTicket = React.createClass({
 								return <VisaRejectBankTicket/>;
 								break;
 							default:
-								return <h3>{transactionDetails.ErrorMessage}</h3>
+								return <h3>{transactionDetails.UserMassage}</h3>
 						}
 					}else{
 						return (
