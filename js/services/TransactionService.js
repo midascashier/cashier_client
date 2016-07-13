@@ -207,7 +207,6 @@ class transactionService {
 	processCC(){
 
 		let transaction = CashierStore.getTransaction();
-		let transactionResponse = CashierStore.getLastTransactionResponse();
 		let processorSelected = CashierStore.getProcessor();
 		let payAccountSelected = CashierStore.getCurrentPayAccount();
 
@@ -216,7 +215,7 @@ class transactionService {
 			processorId: processorSelected.processorId,
 			payAccountId: payAccountSelected.payAccountId,
 			amount: transaction.amount,
-			journalIdSelected: transactionResponse.journalId
+			journalIdSelected: 0
 		};
 		let rabbitRequest = assign(this.getProxyRequest(), p2pRequest);
 

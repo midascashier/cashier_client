@@ -1,5 +1,6 @@
 import React from 'react'
 import { UIService } from '../../../../services/UIService'
+import { TransactionService } from '../../../../services/TransactionService'
 import { CashierStore } from '../../../../stores/CashierStore'
 import { VisaRejectBankTicket } from './RejectBankTicket'
 import { VisaRejectAmountTicket } from './RejectAmountTicket'
@@ -44,6 +45,13 @@ let VisaRejectedTicket = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
+	/**
+	 * reprocesses a credit card transaction that just failed.
+	 */
+	reProcessTransaction(){
+		TransactionService.processCC();
+	},
+
 	render() {
 		let transactionDetails = this.state.transactionDetails;
 		return (
@@ -59,7 +67,7 @@ let VisaRejectedTicket = React.createClass({
 								return <VisaRejectAmountTicket/>;
 								break;
 							case 'invalid-card':
-								return <VisaRejectBankTicket/>;
+								return <VisaRejectCardTicket/>;
 								break;
 							default:
 								return <h3>{transactionDetails.UserMassage}</h3>
