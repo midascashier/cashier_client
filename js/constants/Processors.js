@@ -31,7 +31,7 @@ settings[Cashier.PROCESSOR_ID_VISA][SETTING_ROUTE] = 'visa/';
 
 settings[Cashier.PROCESSOR_ID_MONEYGRAM] = [];
 settings[Cashier.PROCESSOR_ID_MONEYGRAM][LIMITS_VALIDATION_VERSION] = "lite";
-settings[Cashier.PROCESSOR_ID_MONEYGRAM] = ["selectMethod", "askInfo", "instructions"];
+settings[Cashier.PROCESSOR_ID_MONEYGRAM][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "instructions"];
 settings[Cashier.PROCESSOR_ID_MONEYGRAM][SETTING_ROUTE] = 'moneygram/';
 
 export default {

@@ -55,6 +55,7 @@ let routes = (
 			<IndexRoute component={Welcome}/>
 			<Route path="/welcome/" component={Welcome}/>
 			<Route path="/transaction_history/" component={TransactionHistoryContent}/>
+
 			<Route path="/deposit/" component={Content}>
 				<IndexRoute component={ProcessorsInfo}/>
 
@@ -79,11 +80,12 @@ let routes = (
 
 				<Route path="moneygram/" component={Person2Person}/>
 				<Route path="moneygram/ticket/" component={LoadingTicket}>
-					<Route path="instructions/" component={P2PTicketPending}/>
+					<Route path="pending/" component={P2PTicketPending}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
 			</Route>
+
 			<Route path="/withdraw/" component={Content}>
 				<IndexRoute component={ProcessorsInfo}/>
 

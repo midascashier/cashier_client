@@ -1,8 +1,6 @@
 import React from 'react'
-import {Link} from 'react-router'
 import {CashierStore} from '../../../stores/CashierStore'
 import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
-import {translate} from '../../../constants/Translate'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
 
@@ -41,7 +39,9 @@ let Person2Person = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			selectedProcessor: CashierStore.getProcessor()
+			selectedProcessor: CashierStore.getProcessor(),
+			timeFrameDay: 'TODAY',
+			timeFrameTime: 12
 		}
 	},
 
@@ -54,16 +54,33 @@ let Person2Person = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
+	/**
+	 *
+	 * @param event
+	 */
+	timeFrameDayChange: function(event) {
+		this.setState({timeFrameDay: event.target.value});
+	},
+
+	/**
+	 *
+	 * @param event
+	 */
+	timeFrameTimeChange: function(event) {
+		this.setState({timeFrameTime: Number(event.target.value)});
+	},
+
 	render() {
 		return (
 			<div id="person2person">
 				<div className="col-sm-6">
-					<Link to={`/transaction_history/`}>
-						<p>{translate('TRANSACTION_HISTORY')}</p>
-					</Link>
 					<AskInfo amount={this.props.amount}
 									 setAmount={this.props.setAmount}
 									 allowContinue={this.props.allowContinue}
+									 timeFrameDay={this.state.timeFrameDay}
+									 timeFrameTime={this.state.timeFrameTime}
+									 timeFrameTimeChange={this.timeFrameTimeChange}
+									 timeFrameDayChange={this.timeFrameDayChange}
 					/>
 				</div>
 				<div className="col-sm-6">
@@ -71,7 +88,13 @@ let Person2Person = React.createClass({
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
 						} else{
-							return <InfoMethod amount={this.props.amount} allowContinue={this.props.allowContinue}/>;
+							return <InfoMethod amount={this.props.amount}
+																 allowContinue={this.props.allowContinue}
+																 timeFrameDay={this.state.timeFrameDay}
+																 timeFrameTime={this.state.timeFrameTime}
+																 timeFrameTimeChange={this.timeFrameTimeChange}
+																 timeFrameDayChange={this.timeFrameDayChange}
+							/>;
 						}
 					})()}
 				</div>

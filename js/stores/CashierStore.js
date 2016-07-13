@@ -290,7 +290,7 @@ let _payAccounts = [];
 /**
  * Stores information of the transaction
  *
- * @type {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, cleanTransaction: (function())}}
+ * @type {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, timeFrameDay: null, timeFrameTime: null, cleanTransaction: (function())}}
  * @private
  */
 let _transaction = {
@@ -299,18 +299,23 @@ let _transaction = {
 	feeType: '',
 	bonusId: 0,
 	checkTermsAndConditions: 0,
+	timeFrameDay: null,
+	timeFrameTime: null,
 	cleanTransaction(){
 		this.amount = "";
 		this.fee = 0;
 		this.feeType = "";
 		this.bonusId = 0;
+		this.checkTermsAndConditions = 0;
+		this.timeFrameDay = null;
+		this.timeFrameTime = null;
 	}
 };
 
 /**
  * Stores transaction result
  *
- * @type {{transactionId: number, journalId: number, status: number, userMessage: string, state: string, transaction: {journalId: null, transactionId: null, payAccountId: null, transactionStatusId: null, journalTransactionStatusId: null, statusName: null, processorId: null, processorIdSelected: null, processorClassId: null, processorName: null, processorDisplayName: null, dateTrans: null, dateTransModified: null, transUniqueId: null, transactionIdProcessor: null, currencyAmount: null, currencyFee: null, amount: null, fee: null, feeBP: null, currencyId: null, currencyCode: null, transactionTypeId: null, transType: null, errorCode: null, errorMessage: null, userMessage: null, journalNotes: null, descriptor: null}, p2pTransaction: {P2PNameId: null, P2PNameStatus_Id: null, payAccountId: null, submitPayAccountId: null, nameId: null, name: null, Country: null, State: null, SenderTimeFrame: null, ControlNumber: null, DateRequest: null, DateUpdate: null, PAFirstName: null, PAMiddleName: null, PALastName: null, PAPhone: null, PAEmail: null, PACity: null, PAState: null, PAStateName: null, PACountry: null, PACountryName: null, currencyAmount: number, amount: number, currencyFee: string, transactionStatusId: null, processorDisplayName: null, errorMessage: null, processorId: null}, bitCoinTransaction: {Address: null}, load: (function(*))}}
+ * @type {{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array}}
  * @private
  */
 let _transactionResponse = {
@@ -348,8 +353,8 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * Return last transaction cashier response
-	 *
-	 * @returns {{transactionId: number, journalId: number, status: number, userMessage: string, state: string, transaction: {journalId: null, transactionId: null, payAccountId: null, transactionStatusId: null, journalTransactionStatusId: null, statusName: null, processorId: null, processorIdSelected: null, processorClassId: null, processorName: null, processorDisplayName: null, dateTrans: null, dateTransModified: null, transUniqueId: null, transactionIdProcessor: null, currencyAmount: null, currencyFee: null, amount: null, fee: null, feeBP: null, currencyId: null, currencyCode: null, transactionTypeId: null, transType: null, errorCode: null, errorMessage: null, userMessage: null, journalNotes: null, descriptor: null}, p2pTransaction: {P2PNameId: null, P2PNameStatus_Id: null, payAccountId: null, submitPayAccountId: null, nameId: null, name: null, Country: null, State: null, SenderTimeFrame: null, ControlNumber: null, DateRequest: null, DateUpdate: null, PAFirstName: null, PAMiddleName: null, PALastName: null, PAPhone: null, PAEmail: null, PACity: null, PAState: null, PAStateName: null, PACountry: null, PACountryName: null, currencyAmount: number, amount: number, currencyFee: string, transactionStatusId: null, processorDisplayName: null, errorMessage: null, processorId: null}, bitCoinTransaction: {Address: null}, load: (function(*))}}
+	 * 
+	 * @returns {{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array}}
 	 */
 	getLastTransactionResponse: () =>{
 		return _transactionResponse;
@@ -598,12 +603,26 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			CashierStore.emitChange();
 			break;
 
+		case actions.CHANGE_TRANSACTION_TIMEFRAME:
+			let timeFrame = data.timeFrame;
+			_transaction.timeFrameDay = timeFrame.timeFrameDay;
+			_transaction.timeFrameTime = timeFrame.timeFrameTime;
+			CashierStore.emitChange();
+			break;
+
 		case actions.PROCESS_RESPONSE:
+		case actions.PROCESS_P2P_GET_NAME_RESPONSE:
 			if(data.response && data.response.transaction){
 				_transactionResponse.journalId = data.response.transaction.caJournal_Id;
 				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
 				_transactionResponse.status = Number(data.response.transaction.caTransactionStatus_Id);
 				_transactionResponse.userMessage = data.response.transaction.userMessage;
+
+				let processorClassId = _processor.processorClass;
+				if(processorClassId == cashier.PROCESSOR_CLASS_ID_PERSON_2_PERSON){
+					_transactionResponse.details = data.response.transaction;
+				}
+
 			} else if(data.state){
 				_transactionResponse.state = data.state;
 				_transactionResponse.status = 0;
@@ -613,6 +632,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			if(_transactionResponse.userMessage == ""){
 				_transactionResponse.userMessage = data.userMessage;
 			}
+			console.log(data.response);
 			break;
 
 		case actions.START_TRANSACTION:
