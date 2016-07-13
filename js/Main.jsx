@@ -30,7 +30,7 @@ import { BitCoinTicketPending } from './components/methods/bitcoin/tickets/Pendi
 import { Visa } from './components/methods/visa/Visa'
 import { VisaConfirm } from './components/methods/visa/Confirm'
 import { VisaApprovedTicket } from './components/methods/visa/tickets/ApprovedTicket'
-import { VisaRejectBankTicket } from './components/methods/visa/tickets/RejectBankTicket'
+import { VisaRejectedTicket } from './components/methods/visa/tickets/RejectedTicket'
 
 /**
  * Person2Person set of components to create routes
@@ -76,8 +76,7 @@ let routes = (
 				<Route path="visa/confirm/" component={VisaConfirm}/>
 				<Route path="visa/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={VisaApprovedTicket}/>
-					<Route path="rejected/" component={RejectedTicket}/>
-					<Route path="preApproved/" component={VisaRejectBankTicket}/>
+					<Route path="rejected/" component={VisaRejectedTicket}/>
 				</Route>
 
 				<Route path="moneygram/" component={Person2Person}/>

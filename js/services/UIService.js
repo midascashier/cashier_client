@@ -79,8 +79,6 @@ class UiService {
 			ticketResult = 'pending';
 		} else if(status == cashier.TRANSACTION_STATUS_DEFERRED){
 			ticketResult = 'deferred';
-		} else if(status == cashier.TRANSACTION_STATUS_PRE_APPROVE){
-			ticketResult = 'preApproved';
 		}
 
 		this.changeUIState('/' + this.getCurrentView() + '/' + this.getProcessorName().toLowerCase() + '/ticket/' + ticketResult + '/');
