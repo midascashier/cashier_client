@@ -131,7 +131,7 @@ let NetellerConfirmWithdraw = React.createClass({
 															<button type="submit" onClick={this.processTransaction}
 																			className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}</button>
 														<p>
-															<a href="#" onClick={this.setFirstStep}>Use a different method.</a>
+															<a onClick={this.setFirstStep}>Use a different method.</a>
 														</p>
 													</div>
 													<div className="col-sm-6">

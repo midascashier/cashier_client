@@ -290,7 +290,7 @@ let _transaction = {
 /**
  * Stores transaction result
  *
- * @type {{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array}}
+ * @type {{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
  * @private
  */
 let _transactionResponse = {
@@ -299,7 +299,15 @@ let _transactionResponse = {
 	status: 0,
 	userMessage: "",
 	state: "",
-	details: [] //specific details for different type of transactions (BTC, CC, P2P, etc)
+	details: [], //specific details for different type of transactions (BTC, CC, P2P, etc)
+	cleanTransaction(){
+		this.transactionId = 0;
+		this.journalId = 0;
+		this.status = 0;
+		this.userMessage = "";
+		this.state = "";
+		this.details = [];
+	}
 };
 
 let CHANGE_EVENT = 'change';
@@ -328,8 +336,8 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * Return last transaction cashier response
-	 *
-	 * @returns {{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array}}
+	 * 
+	 * @returns {{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
 	 */
 	getLastTransactionResponse: () =>{
 		return _transactionResponse;

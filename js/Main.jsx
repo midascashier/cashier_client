@@ -31,6 +31,9 @@ import { Visa } from './components/methods/visa/Visa'
 import { VisaConfirm } from './components/methods/visa/Confirm'
 import { VisaApprovedTicket } from './components/methods/visa/tickets/ApprovedTicket'
 import { VisaRejectedTicket } from './components/methods/visa/tickets/RejectedTicket'
+import { VisaRejectBankTicket } from './components/methods/visa/tickets/RejectBankTicket'
+import { VisaRejectAmountTicket } from './components/methods/visa/tickets/RejectAmountTicket'
+import { VisaRejectCardTicket } from './components/methods/visa/tickets/RejectCardTicket'
 
 /**
  * Person2Person set of components to create routes
@@ -77,6 +80,9 @@ let routes = (
 				<Route path="visa/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={VisaApprovedTicket}/>
 					<Route path="rejected/" component={VisaRejectedTicket}/>
+					<Route path="rejected/blockByBank/" component={VisaRejectBankTicket}/>
+					<Route path="rejected/invalidAmount/" component={VisaRejectAmountTicket}/>
+					<Route path="rejected/invalidCard/" component={VisaRejectCardTicket}/>
 				</Route>
 
 				<Route path="moneygram/" component={Person2Person}/>

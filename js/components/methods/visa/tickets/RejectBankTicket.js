@@ -1,5 +1,6 @@
 import React from 'react'
 import { UIService } from '../../../../services/UIService'
+import { TransactionService } from '../../../../services/TransactionService'
 import { CashierStore } from '../../../../stores/CashierStore'
 
 let VisaRejectBankTicket = React.createClass({
@@ -7,23 +8,45 @@ let VisaRejectBankTicket = React.createClass({
 	/**
 	 * initialize the state
 	 *
-	 * @returns {*|{transaction, transactionResponse}|{transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())}), transactionResponse: (*|{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array})}}
+	 * @returns {*}
 	 */
 	getInitialState(){
-		return this.refreshLocalState();
+		let ticketDate = Date();
+		let state = Object.assign(this.refreshLocalState(), {ticketDate: ticketDate, timer: '5:00', enableReprocess: false});
+		return state;
+	},
+
+	timerTick(){
+		if(this.isMounted()){
+			let now = new Date();
+			let ticketDateEvaluate = new Date(this.state.ticketDate);
+			let timeDifference = (now.getTime() - ticketDateEvaluate.getTime())/1000;
+			if(timeDifference > 300){
+				clearInterval(this.timerTick);
+				this.setState({timer: '0:00', enableReprocess: true})
+			}else{
+
+				let minutes = Math.floor((300 - timeDifference) / 60);
+				let seconds = Math.round((300 - timeDifference) - minutes * 60);
+				if(seconds < 10){
+					seconds = "0" + seconds;
+				}
+
+				let score = minutes + ":" + seconds;
+				this.setState({timer: score});
+			}
+		}
 	},
 
 	/**
 	 * build the state
 	 *
-	 * @returns {{transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())}), transactionResponse: (*|{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array})}}
+	 * @returns {{transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())})}}
 	 */
 	refreshLocalState() {
 		let transaction = UIService.getTransactionInformation();
-		let transactionResponse = UIService.getLastTransactionResponse();
 		return {
-			transaction: transaction,
-			transactionResponse: transactionResponse
+			transaction: transaction
 		}
 	},
 
@@ -31,7 +54,15 @@ let VisaRejectBankTicket = React.createClass({
 	 * component is ready
 	 */
 	componentDidMount() {
+		this.interval = setInterval(this.timerTick, 1000);
 		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	},
 
 	/**
@@ -43,6 +74,20 @@ let VisaRejectBankTicket = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
+	/**
+	 * reprocesses a credit card transaction that just failed.
+	 */
+	reProcessTransaction(){
+		TransactionService.processCC();
+	},
+
+	/**
+	 * send the customer to select the processor again
+	 */
+	setFirstStep() {
+		UIService.setFirstStep();
+	},
+
 	render() {
 		return (
 			<div className="internal-content" id="visaRejectBankTicket">
@@ -51,9 +96,9 @@ let VisaRejectBankTicket = React.createClass({
 						<div className="rejected-message">
 							<div className="title">Quick fix...</div>
 							<p>Your credit card account is not setup to accept international transactions. You can call them and ask them to allow international transactions.</p>
-							<p>After that, we can get you to the poker tables with your stack of chips.  We'll give you a few minutes to take care of it: 3:32</p>
-							<button type="button" className="btn btn-green">I took care of it. Try again</button>
-							<p><a href="#">No thanks.  I'll deposit a different way.</a></p>
+							<p>After that, we can get you to the poker tables with your stack of chips.  We'll give you a few minutes to take care of it: <strong>{this.state.timer}</strong></p>
+							<button type="button" className="btn btn-green" disabled={!this.state.enableReprocess} onClick={this.reProcessTransaction}>I took care of it. Try again</button>
+							<p><a onClick={this.setFirstStep}>No thanks.  I'll deposit a different way.</a></p>
 						</div>
 					</div>
 				</div>
@@ -63,4 +108,3 @@ let VisaRejectBankTicket = React.createClass({
 });
 
 module.exports.VisaRejectBankTicket = VisaRejectBankTicket;
-

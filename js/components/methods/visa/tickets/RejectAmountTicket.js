@@ -1,5 +1,6 @@
 import React from 'react'
 import { UIService } from '../../../../services/UIService'
+import { TransactionService } from '../../../../services/TransactionService'
 import { CashierStore } from '../../../../stores/CashierStore'
 
 let VisaRejectAmountTicket = React.createClass({
@@ -7,7 +8,7 @@ let VisaRejectAmountTicket = React.createClass({
 	/**
 	 * initialize the state
 	 *
-	 * @returns {*|{transaction, transactionResponse}|{transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())}), transactionResponse: (*|{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array})}}
+	 * @returns {*|{transaction}|{transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())})}}
 	 */
 	getInitialState(){
 		return this.refreshLocalState();
@@ -16,14 +17,12 @@ let VisaRejectAmountTicket = React.createClass({
 	/**
 	 * build the state
 	 *
-	 * @returns {{transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())}), transactionResponse: (*|{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array})}}
+	 * @returns {{transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())})}}
 	 */
 	refreshLocalState() {
 		let transaction = UIService.getTransactionInformation();
-		let transactionResponse = UIService.getLastTransactionResponse();
 		return {
-			transaction: transaction,
-			transactionResponse: transactionResponse
+			transaction: transaction
 		}
 	},
 
@@ -35,12 +34,33 @@ let VisaRejectAmountTicket = React.createClass({
 	},
 
 	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
+	},
+
+	/**
 	 * refresh the state when changes occur
 	 *
 	 * @private
 	 */
 	_onChange() {
 		this.setState(this.refreshLocalState());
+	},
+
+	/**
+	 * reprocesses a credit card transaction that just failed.
+	 */
+	reProcessTransaction(){
+		TransactionService.processCC();
+	},
+
+	/**
+	 * send the customer to select the processor again
+	 */
+	setFirstStep() {
+		UIService.setFirstStep();
 	},
 
 	render() {
@@ -57,8 +77,8 @@ let VisaRejectAmountTicket = React.createClass({
 								<span>Enter a Smaller Deposit Amount:</span>
 								<input type="number" name="quantity" defaultValue="0" readOnly/>
 								<small>Min: $10 - Max: Check your credit card limit.</small>
-								<button type="button" className="btn btn-green">Complete this deposit</button>
-								<p><a href="#">No thanks.  I'll deposit a different way.</a></p>
+								<button type="button" className="btn btn-green" onClick={this.reProcessTransaction}>Complete this deposit</button>
+								<p><a onClick={this.setFirstStep}>No thanks.  I'll deposit a different way.</a></p>
 
 							</div>
 

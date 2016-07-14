@@ -78,7 +78,7 @@ let ProcessorInfo = React.createClass({
 										</td>
 									</tr>
 									<tr>
-										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+										<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
 										<td>
 											<span>{maxProcessorLimit} {currencyCode}</span>
 										</td>

@@ -76,8 +76,8 @@ let InfoMethod = React.createClass({
 
 	/**
 	 * this function return payAccount limits and ID
-	 *
-	 * @returns {{minPayAccount: XML, maxPayAccount: XML, payAccountId: (*|number|null)}}
+	 * 
+	 * @returns {{minPayAccount: string, maxPayAccount: string, payAccountId: null}}
 	 */
 	getPayAccountLimits(){
 		let minPayAccount = "";
