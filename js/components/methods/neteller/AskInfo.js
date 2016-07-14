@@ -4,6 +4,7 @@ import { SelectPayAccount } from '../../SelectPayAccount'
 import { Input } from '../../Inputs'
 import { AmountController } from '../../AmountController'
 import { UIService } from '../../../services/UIService'
+import { Register } from './Register.js'
 
 let AskInfo = React.createClass({
 
@@ -12,7 +13,8 @@ let AskInfo = React.createClass({
 		transactionAmount: React.PropTypes.func,
 		allowContinue: React.PropTypes.number,
 		password: React.PropTypes.string,
-		amount: React.PropTypes.string
+		amount: React.PropTypes.string,
+		payAccount: React.PropTypes.object
 	},
 
 	render() {
@@ -21,7 +23,7 @@ let AskInfo = React.createClass({
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
 		let password = this.props.password;
-
+		let payAccountId = this.props.payAccount.payAccountId;
 		let isWithDraw = UIService.getIsWithDraw();
 		let originPath = UIService.getOriginPath();
 		let displayName = UIService.getProcessorDisplayName();
@@ -54,16 +56,28 @@ let AskInfo = React.createClass({
 													<SelectPayAccount />
 												</div>
 												{(() =>{
-													if(!isWithDraw){
+													if(payAccountId == 0){
+														return <Register />
+													}
+												})()}
+
+												{(() =>{
+													if(!isWithDraw && payAccountId != 0){
 														return <div className="form-group">
 															<label for="">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
 															<Input onChange={netellerPassword} value={password} type="password"/>
 														</div>
 													}
 												})()}
-												<AmountController setAmount={setAmount} amount={amount}/>
+
 												{(() =>{
-													if(!allowContinue && amount != ""){
+													if(payAccountId != 0){
+														return <AmountController setAmount={setAmount} amount={amount}/>
+													}
+												})()}
+
+												{(() =>{
+													if(!allowContinue && amount != "" && payAccountId != 0){
 														return <span>LIMITS ERROR</span>
 													}
 												})()}

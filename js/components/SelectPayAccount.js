@@ -57,11 +57,7 @@ let SelectPayAccount = React.createClass({
 	changeValue(event) {
 		let processorID = this.state.processor.processorId;
 		let payAccountID = event.currentTarget.value;
-		if(payAccountID == 0){
-			console.log("Add PayAccount");
-		} else{
-			CashierActions.changePayAccount(payAccountID, processorID);
-		}
+		CashierActions.changePayAccount(payAccountID, processorID);
 	},
 
 	/**
@@ -90,9 +86,8 @@ let SelectPayAccount = React.createClass({
 		};
 		let payAccounts = this.state.payAccounts;
 
-		if(this.state.currentPayAccount.payAccountId){
+		if(this.state.currentPayAccount){
 			defaultValue = this.state.currentPayAccount.payAccountId;
-			//optionNodes.push(renderOption({ "label": "Register new account" }, 0));
 			for(let index in payAccounts){
 				optionNodes.push(renderOption({ "label": payAccounts[index].displayName }, index));
 			}
@@ -100,6 +95,7 @@ let SelectPayAccount = React.createClass({
 			defaultValue = "";
 			optionNodes.push(renderOption({ "label": "Loading..." }, -1));
 		}
+
 		return (
 			<select ref="element" className="form-control" value={defaultValue} onChange={this.changeValue}>
 				{optionNodes}

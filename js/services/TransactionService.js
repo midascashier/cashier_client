@@ -303,6 +303,29 @@ class transactionService {
 		this.getTransactionDetails();
 		UIService.processResponse(data);
 	};
+
+	/**
+	 * Send info to register payaccount
+	 */
+	registerPayAccount(payAccountInfo){
+		let transactionType = UIService.getIsWithDraw();
+
+		let data = {
+			f: "validatePayAccount",
+			module: 'payAccount'
+		};
+
+		let payAccount = {
+			processorIdRoot: this.getCurrentProcessor().processorId,
+			customerId: CashierStore.getCustomer().customerId,
+			account: payAccountInfo.account,
+			transactionType: transactionType
+		};
+		data = Object.assign(data,payAccount);
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeBackendRequest("", rabbitRequest);
+	};
 }
 
 export let TransactionService = new transactionService();
