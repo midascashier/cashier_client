@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './js/main.jsx',
+  entry: ['babel-polyfill', './js/main.jsx'],
 
   output: {
     path: './build/',
