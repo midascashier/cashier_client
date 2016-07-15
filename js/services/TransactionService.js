@@ -153,6 +153,9 @@ class transactionService {
 	 */
 	process(dynamicParams, nextStep){
 
+		//clean current transaction response
+		CashierStore.getLastTransactionResponse().cleanTransaction();
+
 		let transaction = CashierStore.getTransaction();
 		let processorSelected = CashierStore.getProcessor();
 		let payAccountSelected = CashierStore.getCurrentPayAccount();
@@ -173,7 +176,10 @@ class transactionService {
 	/**
 	 * this function sends to process a p2p transaction (get name)
 	 */
-	processGetName(nextStep){
+	processGetName(){
+
+		//clean current transaction response
+		CashierStore.getLastTransactionResponse().cleanTransaction();
 
 		let transaction = CashierStore.getTransaction();
 		let processorSelected = CashierStore.getProcessor();
@@ -197,7 +203,7 @@ class transactionService {
 		};
 		let rabbitRequest = assign(this.getProxyRequest(), p2pRequest);
 
-		UIService.processTransaction(nextStep);
+		UIService.processTransaction('instructions');
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 
@@ -205,6 +211,9 @@ class transactionService {
 	 * this function sends to process a cc transaction
 	 */
 	processCC(){
+
+		//clean current transaction response
+		CashierStore.getLastTransactionResponse().cleanTransaction();
 
 		let transaction = CashierStore.getTransaction();
 		let processorSelected = CashierStore.getProcessor();
@@ -219,7 +228,7 @@ class transactionService {
 		};
 		let rabbitRequest = assign(this.getProxyRequest(), p2pRequest);
 
-		UIService.processTransaction();
+		UIService.processTransaction('instructions');
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 
@@ -228,7 +237,7 @@ class transactionService {
 	 *
 	 * @param transactionId
 	 */
-	getBitCoinTransaction(transactionId){
+	bitCoinTransaction(transactionId){
 		let data = {
 			f: "getBitCoinTransaction", module: 'transaction', transactionId: transactionId
 		};
@@ -242,7 +251,7 @@ class transactionService {
 	 *
 	 * @param transactionId
 	 */
-	getCreditCardTransaction(transactionId){
+	creditCardTransaction(transactionId){
 		let data = {
 			f: "getCreditCardTransaction", module: 'transaction', transactionId: transactionId
 		};
@@ -256,7 +265,7 @@ class transactionService {
 	 *
 	 * @param transactionId
 	 */
-	getP2PTransaction(uniqueId){
+	p2pTransaction(uniqueId){
 		let data = {
 			f: "getP2PNameInfo", module: 'transaction', tuid: uniqueId
 		};
@@ -284,10 +293,10 @@ class transactionService {
 			//get specific info
 			if(!isWithdraw){
 				if(processorId == cashier.PROCESSOR_ID_BITCOIN){
-					this.getBitCoinTransaction(transactionId);
+					this.bitCoinTransaction(transactionId);
 				}
 				if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS){
-					this.getCreditCardTransaction(transactionId);
+					this.creditCardTransaction(transactionId);
 				}
 			}
 		}
@@ -305,7 +314,17 @@ class transactionService {
 	};
 
 	/**
-	 * Send info to register payaccount
+	 * process the cc transaction response
+	 *
+	 * @param data
+	 */
+	creditCardTransactionResponse(data){
+		UIService.creditCardTransactionResponse(data);
+	};
+
+
+	/**
+	 * Send info to register payAccount
 	 */
 	registerPayAccount(payAccountInfo){
 		let transactionType = UIService.getIsWithDraw();

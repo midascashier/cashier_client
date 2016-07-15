@@ -1,6 +1,7 @@
 import React from 'react'
 import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
+import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 import { Input } from '../../Inputs'
 
@@ -54,6 +55,13 @@ let VisaConfirm = React.createClass({
 	 */
 	processTransaction(){
 		TransactionService.processCC();
+	},
+
+	/**
+	 * send the customer to select the processor again
+	 */
+	setFirstStep() {
+		UIService.setFirstStep();
 	},
 
 	render(){
@@ -142,9 +150,7 @@ let VisaConfirm = React.createClass({
 														</div>
 													</div>
 														<button type="button" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_DEPOSIT', 'Complete')}</button>
-													<p>
-														<a href="#">Use a different method</a>
-													</p>
+														<p><a onClick={this.setFirstStep}>No thanks.  I'll deposit a different way.</a></p>
 												</form>
 											</div>
 										</div>

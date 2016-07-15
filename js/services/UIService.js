@@ -85,6 +85,32 @@ class UiService {
 	}
 
 	/**
+	 * Redirect depends of the cc transaction response
+	 */
+	creditCardTransactionResponse(data){
+
+		let layout = 'rejected';
+		let transactionDetails = data.response;
+		if (transactionDetails && transactionDetails.creditCardTransaction){
+			let creditCardTransaction = transactionDetails.creditCardTransaction;
+			if(creditCardTransaction && creditCardTransaction.PendingReprocess == 1){
+				layout = creditCardTransaction.Layout;
+			}
+		}
+
+		let ticketResult = 'rejected';
+		if(layout == 'card'){
+			ticketResult += '/blockByBank';
+		} else if(layout == 'amount'){
+			ticketResult += '/invalidAmount';
+		} else if(layout == 'invalid-card'){
+			ticketResult += '/invalidCard';
+		}
+
+		this.changeUIState('/' + this.getCurrentView() + '/' + this.getProcessorName().toLowerCase() + '/ticket/' + ticketResult + '/');
+	}
+
+	/**
 	 * return the origin path
 	 *
 	 * @returns {*|string}
@@ -173,6 +199,25 @@ class UiService {
 	}
 
 	/**
+	 * get the payAccount currency amount
+	 *
+	 * @returns {Array}
+	 */
+	getPayAccountLimits(){
+		let payAccount = CashierStore.getCurrentPayAccount();
+		let limits = [];
+
+		limits.available = Number(payAccount.limitsData.available);
+		limits.availableWithdraw = Number(payAccount.limitsData.availableWithdraw);
+		limits.maxAmount = Number(payAccount.limitsData.maxAmount);
+		limits.maxAmountWithdraw = Number(payAccount.limitsData.maxAmountWithdraw);
+		limits.minAmount = Number(payAccount.limitsData.minAmount);
+		limits.minAmountWithdraw = Number(payAccount.limitsData.minAmountWithdraw);
+
+		return limits;
+	}
+
+	/**
 	 * Return last transaction cashier response
 	 * 
 	 * @returns {*|{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array}}
@@ -233,6 +278,10 @@ class UiService {
 	 * Set first step as current
 	 */
 	setFirstStep(){
+
+		//clean current transaction response
+		CashierStore.getLastTransactionResponse().cleanTransaction();
+
 		let firstStep=this.getCurrentProcessorSteps();
 		CashierActions.setCurrentStep(firstStep[0]);
 		let route = "/" + this.customerAction + "/";
