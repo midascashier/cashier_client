@@ -219,8 +219,8 @@ class UiService {
 
 	/**
 	 * Return last transaction cashier response
-	 * 
-	 * @returns {*|{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array}}
+	 *
+	 * @returns {*|{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
 	 */
 	getLastTransactionResponse(){
 		return CashierStore.getLastTransactionResponse();

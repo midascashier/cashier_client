@@ -25,8 +25,8 @@ settings[Cashier.PROCESSOR_ID_BITCOIN][DEPOSIT_STEPS] = ["selectMethod", "askInf
 settings[Cashier.PROCESSOR_ID_BITCOIN][SETTING_ROUTE] = 'btcscreen/';
 
 settings[Cashier.PROCESSOR_ID_VISA] = [];
-settings[Cashier.PROCESSOR_ID_BITCOIN][LIMITS_VALIDATION_VERSION] = "lite";
-settings[Cashier.PROCESSOR_ID_VISA][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "instructions"];
+settings[Cashier.PROCESSOR_ID_VISA][LIMITS_VALIDATION_VERSION] = "lite";
+settings[Cashier.PROCESSOR_ID_VISA][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "confirm"];
 settings[Cashier.PROCESSOR_ID_VISA][SETTING_ROUTE] = 'visa/';
 
 settings[Cashier.PROCESSOR_ID_MONEYGRAM] = [];

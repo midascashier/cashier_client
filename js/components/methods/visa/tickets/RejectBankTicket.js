@@ -70,7 +70,7 @@ let VisaRejectBankTicket = React.createClass({
 
 	render() {
 		return (
-			<div className="internal-content" id="visaRejectBankTicket">
+			<div id="visaRejectBankTicket">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="rejected-message">

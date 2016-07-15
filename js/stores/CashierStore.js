@@ -291,19 +291,24 @@ let _transaction = {
 /**
  * Stores transaction result
  *
- * @type {{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
+ * @type {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
  * @private
  */
 let _transactionResponse = {
 	transactionId: 0,
 	journalId: 0,
-	status: 0,
+	amount: "",
+	feeType: '',
+	fee: 0,
 	userMessage: "",
 	state: "",
 	details: [], //specific details for different type of transactions (BTC, CC, P2P, etc)
 	cleanTransaction(){
 		this.transactionId = 0;
 		this.journalId = 0;
+		this.amount = "";
+		this.fee = 0;
+		this.feeType = "";
 		this.status = 0;
 		this.userMessage = "";
 		this.state = "";
@@ -338,7 +343,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * Return last transaction cashier response
 	 * 
-	 * @returns {{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
+	 * @returns {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
 	 */
 	getLastTransactionResponse: () =>{
 		return _transactionResponse;
@@ -614,6 +619,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.PROCESS_RESPONSE:
 		case actions.PROCESS_P2P_GET_NAME_RESPONSE:
 		case actions.PROCESS_CC_RESPONSE:
+			_transactionResponse.amount = _transaction.amount;
+			_transactionResponse.fee = _transaction.fee;
+			_transactionResponse.feeType = _transaction.feeType;
 			if(data.response && data.response.transaction){
 				_transactionResponse.journalId = data.response.transaction.caJournal_Id;
 				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;

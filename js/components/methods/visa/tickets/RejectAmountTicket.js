@@ -12,8 +12,8 @@ let VisaRejectAmountTicket = React.createClass({
 	 * @returns {*}
 	 */
 	getInitialState(){
-		let transaction = UIService.getTransactionInformation();
-		let state = Object.assign(this.refreshLocalState(), {transactionAmount: transaction.amount});
+		let transactionResponse = UIService.getLastTransactionResponse();
+		let state = Object.assign(this.refreshLocalState(), {transactionAmount: transactionResponse.amount});
 		return state;
 	},
 
@@ -81,7 +81,7 @@ let VisaRejectAmountTicket = React.createClass({
 		TransactionService.setAmount(amount);
 
 		let limits = this.state.limits;
-		let maxCurrencyAmount = this.state.transactionAmount;
+		let maxCurrencyAmount = Number(this.state.transactionAmount);
 
 		if(limits.minAmount <= amount && amount < maxCurrencyAmount){
 			this.setState({enableReprocess: true});
@@ -98,7 +98,7 @@ let VisaRejectAmountTicket = React.createClass({
 		let limits = this.state.limits;
 
 		return (
-			<div className="internal-content" id="visaRejectAmountTicket">
+			<div id="visaRejectAmountTicket">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="rejected-message">

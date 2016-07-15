@@ -8,7 +8,8 @@ import { TransactionService } from '../../../services/TransactionService'
 let InfoMethod = React.createClass({
 
 	propTypes: {
-		amount: React.PropTypes.string
+		amount: React.PropTypes.string,
+		allowContinue: React.PropTypes.number
 	},
 
 	/**
@@ -61,12 +62,10 @@ let InfoMethod = React.createClass({
 	 * this function checks if password and amount are valid
 	 */
 	allowProcess(){
-		let amount = this.props.amount;
+		let checkAmount = this.props.allowContinue;
 		let checkTerms = this.state.transaction.checkTermsAndConditions;
-		if(amount && checkTerms){
-			if(amount > 0){
-				return true;
-			}
+		if(checkAmount && checkTerms){
+			return true;
 		}
 		return false;
 	},
@@ -93,7 +92,7 @@ let InfoMethod = React.createClass({
 	 */
 	continueTransaction(){
 		TransactionService.setAmount(this.props.amount);
-		UIService.changeUIState('/'+UIService.getCurrentView()+'/'+UIService.getProcessorName().toLowerCase()+'/confirm/');
+		UIService.confirmTransaction();
 	},
 
 	render() {

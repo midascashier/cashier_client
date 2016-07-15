@@ -8,10 +8,13 @@ let Content = React.createClass({
 
 	/**
 	 * React function to set component initial state
+	 * 
+	 * @returns {{amount: string, allowContinue: number}}
 	 */
 	getInitialState(){
 		return {
-			amount: ""
+			amount: "",
+			allowContinue: 0
 		};
 	},
 
