@@ -2,7 +2,8 @@ import React from 'react'
 
 let Input = React.createClass({
 	propTypes: {
-		value: React.PropTypes.string, onChange: React.PropTypes.func
+		value: React.PropTypes.string,
+		onChange: React.PropTypes.func
 	},
 
 	/**

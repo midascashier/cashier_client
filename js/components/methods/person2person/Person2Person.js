@@ -3,6 +3,7 @@ import {CashierStore} from '../../../stores/CashierStore'
 import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
+import { TransactionService } from '../../../services/TransactionService'
 
 let Person2Person = React.createClass({
 
@@ -41,7 +42,8 @@ let Person2Person = React.createClass({
 		return {
 			selectedProcessor: CashierStore.getProcessor(),
 			timeFrameDay: 'TODAY',
-			timeFrameTime: 12
+			timeFrameTime: 12,
+			payAccount: TransactionService.getCurrentPayAccount()
 		}
 	},
 
@@ -81,6 +83,7 @@ let Person2Person = React.createClass({
 									 timeFrameTime={this.state.timeFrameTime}
 									 timeFrameTimeChange={this.timeFrameTimeChange}
 									 timeFrameDayChange={this.timeFrameDayChange}
+									 payAccount={this.state.payAccount}
 					/>
 				</div>
 				<div className="col-sm-6">

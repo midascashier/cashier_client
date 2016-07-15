@@ -65,8 +65,8 @@ let InfoMethod = React.createClass({
 	 * @returns {{minPayAccount: XML, maxPayAccount: XML, payAccountId: (*|number|null)}}
 	 */
 	getPayAccountLimits(){
-		let minPayAccount = <Loading />;
-		let maxPayAccount = <Loading />;
+		let minPayAccount = "";
+		let maxPayAccount = "";
 		let payAccount = this.state.currentPayAccount;
 		if(payAccount.payAccountId){
 			minPayAccount = payAccount.limitsData.minAmount + " " + payAccount.limitsData.currencyCode;

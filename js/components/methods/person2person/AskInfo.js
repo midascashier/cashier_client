@@ -1,9 +1,9 @@
 import React from 'react'
-import { Input } from '../../Inputs'
-import {translate} from '../../../constants/Translate'
+import { translate } from '../../../constants/Translate'
 import { SelectPayAccount } from '../../SelectPayAccount'
-import {AmountController} from '../../AmountController'
-import {UIService} from '../../../services/UIService'
+import { AmountController } from '../../AmountController'
+import { UIService } from '../../../services/UIService'
+import { Register } from './Register.js'
 
 let AskInfo = React.createClass({
 
@@ -21,13 +21,13 @@ let AskInfo = React.createClass({
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
 		let allowContinue = this.props.allowContinue;
-		let payAccounts = UIService.getProcessorPayAccount();
+		let payAccountId = this.props.payAccount.payAccountId;
 
 		let isWithDraw = UIService.getIsWithDraw();
 		let originPath = UIService.getOriginPath();
 		let displayName = UIService.getProcessorDisplayName();
 		let processingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P', "Please Enter the Sender's Information");
-		let selectType = (!isWithDraw)?translate('P2P_SELECT_DEPOSIT'):translate('P2P_SELECT_WITHDRAW');
+		let selectType = (!isWithDraw) ? translate('P2P_SELECT_DEPOSIT') : translate('P2P_SELECT_WITHDRAW');
 
 		return (
 			<div id="askAmountVisa" className="box">
@@ -37,162 +37,81 @@ let AskInfo = React.createClass({
 							<div className="col-sm-12">
 								<div className="title">{processingTitle}</div>
 							</div>
-
 							<div className="col-sm-12">
 								<div className="infoCol">
 									<div className="col-sm-12">
 										<div className="row">
-
 											<div className="col-sm-3">
 												<div className="method active pull-left">
-													<img className="img-responsive" src={originPath + '/images/processors/16.png'} title={displayName} />
+													<img className="img-responsive" src={originPath + '/images/processors/16.png'}
+															 title={displayName}/>
 												</div>
 											</div>
-
 											<div className="col-sm-9">
-												{(() =>{
-													if(!(payAccounts instanceof Object)){
-														return (
-															<div>
-																<div className="form-group">
-																	<label for="" className="control-label">{translate('P2P_FIRST_NAME', 'First Name')}:</label>
-																	<Input type="text" id="firstName" readOnly/>
-																</div>
-																<div className="form-group">
-																	<label for="" className="control-label">{translate('P2P_LAST_NAME', 'Last Name')}:</label>
-																	<Input type="text" id="lastName" readOnly/>
-																</div>
-
-																<div className="form-group">
-																	<div className="row">
-																		<div className="col-sm-6">
-																			<div className="form-group">
-																				<label for="" className="control-label">{translate('P2P_COUNTRY', 'Country')}:</label>
-																				<select className="form-control" id="country">
-																					<option value="0">United State</option>
-																				</select>
-																			</div>
-																		</div>
-																		<div className="col-sm-6">
-																			<label for="" className="control-label">{translate('P2P_STATE', 'State')}:</label>
-																			<select className="form-control" id="countryState">
-																				<option value="0">Florida</option>
+												<div>
+													<div className="form-group">
+														<label for="">{selectType}:</label>
+														<SelectPayAccount />
+													</div>
+													<div className="form-group">
+														{(() =>{
+															if(payAccountId == 0){
+																return <Register />
+															}
+																else{
+																return <div className="row">
+																	<div>
+																		<label for=""
+																					 className="control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
+																	</div>
+																	<div className="col-sm-6">
+																		<div className="form-group">
+																			<select className="form-control" value={this.props.timeFrameDay}
+																							onChange={this.props.timeFrameDayChange}>
+																				<option value="TODAY">{translate('P2P_TIME_FRAME_TODAY', 'Today')}</option>
+																				<option
+																					value="TOMORROW">{translate('P2P_TIME_FRAME_TOMORROW', 'Tomorrow')}</option>
 																			</select>
 																		</div>
 																	</div>
-																</div>
-
-																<div className="form-group">
-																	<div className="row">
-																		<div className="col-sm-6">
-																			<label for="" className="control-label">{translate('P2P_CITY', 'City')}:</label>
-																			<Input type="text" id="city" readOnly/>
-																		</div>
-																		<div className="col-sm-6">
-																			<label for="" className="control-label">{translate('P2P_PHONE', 'Phone')}:</label>
-																			<Input type="text" id="phone" readOnly/>
+																	<div className="col-sm-6">
+																		<div className="form-group">
+																			<select className="form-control" value={this.props.timeFrameTime}
+																							onChange={this.props.timeFrameTimeChange}>
+																				<option value="12">12:00</option>
+																				<option value="13">13:00</option>
+																				<option value="14">14:00</option>
+																				<option value="15">15:00</option>
+																				<option value="16">16:00</option>
+																				<option value="17">17:00</option>
+																			</select>
 																		</div>
 																	</div>
+																	<AmountController setAmount={setAmount} value={amount}/>
 																</div>
 
-																<div className="form-group">
-																	<label for="" className="control-label">{translate('P2P_EMAIL', 'Email')}:</label>
-																	<Input type="email" id="email" readOnly/>
-																</div>
-																<div className="form-group">
-																	<div className="row">
-																		<div>
-																			<label for="" className="control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
-																		</div>
-																		<div className="col-sm-6">
-																			<div className="form-group">
-																				<select className="form-control" value={this.props.timeFrameDay} onChange={this.props.timeFrameDayChange}>
-																					<option value="TODAY">{translate('P2P_TIME_FRAME_TODAY', 'Today')}</option>
-																					<option value="TOMORROW">{translate('P2P_TIME_FRAME_TOMORROW', 'Tomorrow')}</option>
-																				</select>
-																			</div>
-																		</div>
-																		<div className="col-sm-6">
-																			<div className="form-group">
-																				<select className="form-control" value={this.props.timeFrameTime} onChange={this.props.timeFrameTimeChange}>
-																					<option value="12">12:00</option>
-																					<option value="13">13:00</option>
-																					<option value="14">14:00</option>
-																					<option value="15">15:00</option>
-																					<option value="16">16:00</option>
-																					<option value="17">17:00</option>
-																				</select>
-																			</div>
-																		</div>
-
-																	</div>
-																</div>
-															</div>
-														)
-													}else{
-														return (
-															<div>
-																<div className="form-group">
-																	<label for="">{selectType}:</label>
-																	<SelectPayAccount />
-																</div>
-
-																<div className="form-group">
-																	<div className="row">
-																		<div>
-																			<label for="" className="control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
-																		</div>
-																		<div className="col-sm-6">
-																			<div className="form-group">
-																				<select className="form-control" value={this.props.timeFrameDay} onChange={this.props.timeFrameDayChange}>
-																					<option value="TODAY">{translate('P2P_TIME_FRAME_TODAY', 'Today')}</option>
-																					<option value="TOMORROW">{translate('P2P_TIME_FRAME_TOMORROW', 'Tomorrow')}</option>
-																				</select>
-																			</div>
-																		</div>
-																		<div className="col-sm-6">
-																			<div className="form-group">
-																				<select className="form-control" value={this.props.timeFrameTime} onChange={this.props.timeFrameTimeChange}>
-																					<option value="12">12:00</option>
-																					<option value="13">13:00</option>
-																					<option value="14">14:00</option>
-																					<option value="15">15:00</option>
-																					<option value="16">16:00</option>
-																					<option value="17">17:00</option>
-																				</select>
-																			</div>
-																		</div>
-
-																	</div>
-																</div>
-															</div>
-														)
-													}
-												})()}
-
-												<AmountController setAmount={setAmount} value={amount}/>
+															}
+														})()}
+													</div>
+												</div>
 												{(() =>{
-													if(!allowContinue && amount != ""){
+													if(!allowContinue && amount != "" && payAccountId != 0){
 														return <span>LIMITS ERROR</span>
 													}
 												})()}
 
-												<p><a href="#">Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></a></p>
+												<p>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></p>
 											</div>
-
 										</div>
 									</div>
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
-
 			</div>
 		)
 	}
 });
-
 
 module.exports.AskInfo = AskInfo;
