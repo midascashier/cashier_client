@@ -1,7 +1,6 @@
 import React from 'react'
 import { UIService } from '../../../../services/UIService'
 import { TransactionService } from '../../../../services/TransactionService'
-import { CashierStore } from '../../../../stores/CashierStore'
 
 let VisaRejectBankTicket = React.createClass({
 
@@ -12,10 +11,13 @@ let VisaRejectBankTicket = React.createClass({
 	 */
 	getInitialState(){
 		let ticketDate = Date();
-		let state = Object.assign(this.refreshLocalState(), {ticketDate: ticketDate, timer: '5:00', enableReprocess: false});
+		let state = {ticketDate: ticketDate, timer: '5:00', enableReprocess: false};
 		return state;
 	},
 
+	/**
+	 * timer to reprocess transaction
+	 */
 	timerTick(){
 		if(this.isMounted()){
 			let now = new Date();
@@ -39,39 +41,17 @@ let VisaRejectBankTicket = React.createClass({
 	},
 
 	/**
-	 * build the state
-	 *
-	 * @returns {{transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())})}}
-	 */
-	refreshLocalState() {
-		let transaction = UIService.getTransactionInformation();
-		return {
-			transaction: transaction
-		}
-	},
-
-	/**
 	 * component is ready
 	 */
 	componentDidMount() {
 		this.interval = setInterval(this.timerTick, 1000);
-		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
 	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
-	 * refresh the state when changes occur
-	 *
-	 * @private
-	 */
-	_onChange() {
-		this.setState(this.refreshLocalState());
+		clearInterval(this.interval);
 	},
 
 	/**
