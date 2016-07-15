@@ -2,6 +2,7 @@ import React from 'react'
 import { Input } from '../../Inputs'
 import { translate } from '../../../constants/Translate'
 import { TransactionService } from '../../../services/TransactionService'
+import { ApplicationService } from '../../../services/ApplicationService'
 import { CashierStore } from '../../../stores/CashierStore'
 
 let Register = React.createClass({
@@ -25,7 +26,7 @@ let Register = React.createClass({
 					firstName: "",
 					lastName: "",
 					country: 0,
-					state: 0,
+					state: "",
 					city: "",
 					phone: "",
 					email: ""
@@ -38,16 +39,24 @@ let Register = React.createClass({
 		 *
 		 * @param event
 		 */
-		changeValue(propertyName, selectComponent = 0, event){
+		changeValue(propertyName, isSelectComponent = 0, event){
+			const payAccount = this.state.payAccount;
 			let value = event;
-			if(selectComponent){
+
+			if(isSelectComponent){
 				value = value.target.value;
 			}
-			const payAccount = this.state.payAccount;
+
+			if(propertyName == 'country'){
+				ApplicationService.getStates(value);
+			}
+
 			payAccount[propertyName] = value;
+
 			this.setState(
 				payAccount
 			);
+
 		},
 
 		addNewPayAccount(e){
@@ -64,26 +73,50 @@ let Register = React.createClass({
 			)
 		},
 
+		/**
+		 * React function to add listener to this component once is mounted
+		 * here the component listen changes from the store
+		 */
+		componentDidMount() {
+			CashierStore.addChangeListener(this._onChange);
+		},
+
+		/**
+		 * React function to remove listener to this component once is unmounted
+		 */
+		componentWillUnmount() {
+			CashierStore.removeChangeListener(this._onChange);
+		},
+
+		/**
+		 * this is the callback function the store calls when a state change
+		 *
+		 * @private
+		 */
+		_onChange() {
+			this.setState(this.refreshLocalState());
+		},
+
 		render()
 		{
 			let UI = CashierStore.getUI();
-			let customer = CashierStore.getCustomer();
 
 			let countries = UI.countries;
 			let states = UI.countryStates;
-			let customerCountry = customer.personalInformation.countryName;
+			let customerCountry;
+			if(!this.state.payAccount.country){
+				customerCountry = UI.selectedCountry;
+			}else{
+				customerCountry = this.state.payAccount.country;
+			}
 			let countryOptionNodes = [];
-			let customerCountryID = this.state.payAccount.country;
 			for(let i = 0; i < countries.length; i++){
-				if (customerCountry == countries[i]['Name'] && !customerCountryID){
-					customerCountryID=countries[i]['caLocCountry_Id'];
-				}
-				countryOptionNodes.push(this.renderOption({ label: countries[i]['Name']}, countries[i]['caLocCountry_Id']));
+				countryOptionNodes.push(this.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
 			}
 
 			let stateOptionNodes = [];
 			for(let i = 0; i < states.length; i++){
-				stateOptionNodes.push(this.renderOption({ "label": states[i]['Name'] }, states[i]['caLocState_Id']));
+				stateOptionNodes.push(this.renderOption({ label: states[i]['Name'] }, states[i]['caLocState_Id']));
 			}
 
 			return (
@@ -105,7 +138,8 @@ let Register = React.createClass({
 								<div className="col-sm-6">
 									<div className="form-group">
 										<label for="" className="control-label">{translate('P2P_COUNTRY', 'Country')}:</label>
-										<select className="form-control" id="country" value={customerCountryID} onChange={this.changeValue.bind(this, 'country',1)}>
+										<select className="form-control" id="country" value={customerCountry}
+														onChange={this.changeValue.bind(this, 'country',1)}>
 											{countryOptionNodes}
 										</select>
 									</div>

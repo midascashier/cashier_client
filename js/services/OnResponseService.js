@@ -22,6 +22,7 @@ class OnResponseService {
 				break;
 
 			case actions.CUSTOMER_INFO_RESPONSE:
+				CashierActions.setSelectedCountry();
 				ApplicationService.getStates();
 				break;
 
@@ -40,7 +41,7 @@ class OnResponseService {
 				break;
 
 			case actions.ADD_MODIFY_PAYACCOUNT:
-				let processorID=data.response.payAccount.processorId;
+				let processorID = data.response.payAccount.processorId;
 				TransactionService.getPreviousPayAccount(processorID);
 				break;
 		}

@@ -1,4 +1,5 @@
 import { CashierStore } from '../stores/CashierStore'
+import { CashierActions } from '../actions/CashierActions'
 import { stompConnector } from './StompConnector'
 
 class applicationService {
@@ -39,7 +40,9 @@ class applicationService {
 	 */
 	getStates(country = null){
 		if(!country){
-			country = CashierStore.getCustomer().personalInformation.country
+			country = CashierStore.getUI().selectedCountry;
+		}else{
+			CashierActions.setSelectedCountry(country);
 		}
 		let data = { f: "states", country: country };
 		let application = CashierStore.getApplication();

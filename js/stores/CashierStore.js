@@ -20,6 +20,7 @@ let _UI = {
 	payAccountId: 0,
 	countryInfo: null,
 	countries: {},
+	selectedCountry: '',
 	countryStates: {}
 };
 
@@ -499,6 +500,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.STATES_RESPONSE:
 			_UI.countryStates = data.response.states;
 			_UI.countryInfo = data.response.countryInfo;
+			CashierStore.emitChange();
 			break;
 
 		case actions.PROCESSORS_RESPONSE:
@@ -515,6 +517,14 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			// set default processor
 			_UI.processorId = processor.caProcessor_Id;
 			_processor.load(processor.caProcessor_Id);
+			break;
+
+		case actions.CHANGE_APPLICATION_SELECTED_COUNTRY:
+			if (!data.country){
+				_UI.selectedCountry = _customer.personalInformation.country;
+			}else{
+				_UI.selectedCountry = data.country;
+			}
 			break;
 
 		case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:

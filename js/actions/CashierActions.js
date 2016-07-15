@@ -34,7 +34,8 @@ let CashierActions = {
 
 	selectProcessor: (processorId, processorSteps, currentStep) =>{
 		CashierDispatcher.dispatch({
-			action: actions.SELECT_PROCESSOR, data: { processorId: processorId, processorSteps: processorSteps, currentStep: currentStep}
+			action: actions.SELECT_PROCESSOR,
+			data: { processorId: processorId, processorSteps: processorSteps, currentStep: currentStep }
 		});
 	},
 
@@ -55,6 +56,13 @@ let CashierActions = {
 		CashierDispatcher.dispatch({
 			action: action,
 			data: data
+		});
+	},
+
+	setSelectedCountry: (data) =>{
+		CashierDispatcher.dispatch({
+			action: actions.CHANGE_APPLICATION_SELECTED_COUNTRY,
+			data: { country: data }
 		});
 	}
 
