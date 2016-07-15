@@ -25,8 +25,8 @@ let Register = React.createClass({
 				payAccount: {
 					firstName: "",
 					lastName: "",
-					country: 0,
-					state: "",
+					country: CashierStore.getSelectedCountry(),
+					state: CashierStore.getCountryStates()[0]['caLocState_Id'],
 					city: "",
 					phone: "",
 					email: ""
@@ -41,6 +41,7 @@ let Register = React.createClass({
 		 */
 		changeValue(propertyName, isSelectComponent = 0, event){
 			const payAccount = this.state.payAccount;
+
 			let value = event;
 
 			if(isSelectComponent){
@@ -94,21 +95,18 @@ let Register = React.createClass({
 		 * @private
 		 */
 		_onChange() {
-			this.setState(this.refreshLocalState());
+			const payAccount = this.state.payAccount;
+			this.setState(
+				payAccount.state = ""
+			);
 		},
 
 		render()
 		{
 			let UI = CashierStore.getUI();
-
 			let countries = UI.countries;
 			let states = UI.countryStates;
-			let customerCountry;
-			if(!this.state.payAccount.country){
-				customerCountry = UI.selectedCountry;
-			}else{
-				customerCountry = this.state.payAccount.country;
-			}
+
 			let countryOptionNodes = [];
 			for(let i = 0; i < countries.length; i++){
 				countryOptionNodes.push(this.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
@@ -138,7 +136,7 @@ let Register = React.createClass({
 								<div className="col-sm-6">
 									<div className="form-group">
 										<label for="" className="control-label">{translate('P2P_COUNTRY', 'Country')}:</label>
-										<select className="form-control" id="country" value={customerCountry}
+										<select className="form-control" id="country" value={this.state.payAccount.country}
 														onChange={this.changeValue.bind(this, 'country',1)}>
 											{countryOptionNodes}
 										</select>

@@ -350,6 +350,21 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
+	 * Get selected country
+	 */
+	getSelectedCountry(){
+		return _UI.selectedCountry;
+	},
+
+	/**
+	 * Return country selected states
+	 * @returns {{}|*}
+	 */
+	getCountryStates(){
+		return _UI.countryStates;
+	},
+
+	/**
 	 * get payAccounts by processor
 	 */
 	getProcessorPayAccount: () =>{
@@ -672,7 +687,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			CashierStore.emitChange();
 			break;
 
-		case actions.ADD_MODIFY_PAYACCOUNT:
+		case actions.VALIDATE_PAYACCOUNT:
 			break;
 
 		default:

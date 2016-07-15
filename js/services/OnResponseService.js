@@ -40,7 +40,7 @@ class OnResponseService {
 				TransactionService.creditCardTransactionResponse(data);
 				break;
 
-			case actions.ADD_MODIFY_PAYACCOUNT:
+			case actions.VALIDATE_PAYACCOUNT:
 				let processorID = data.response.payAccount.processorId;
 				TransactionService.getPreviousPayAccount(processorID);
 				break;
