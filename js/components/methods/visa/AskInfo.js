@@ -16,7 +16,7 @@ let AskInfo = React.createClass({
 	render() {
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
-
+		let allowContinue = this.props.allowContinue;
 		let originPath = UIService.getOriginPath();
 		let displayName = UIService.getProcessorDisplayName();
 		let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_CREDIT_CARD', 'Please Enter Your Card Details');
@@ -45,6 +45,11 @@ let AskInfo = React.createClass({
 													<SelectPayAccount />
 												</div>
 												<AmountController setAmount={setAmount} value={amount}/>
+												{(() =>{
+													if(!allowContinue && amount != ""){
+														return <span>LIMITS ERROR</span>
+													}
+												})()}
 												<TermsController />
 											</div>
 										</div>
