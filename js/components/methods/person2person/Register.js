@@ -26,7 +26,7 @@ let Register = React.createClass({
 					firstName: "",
 					lastName: "",
 					country: CashierStore.getSelectedCountry(),
-					state: CashierStore.getCountryStates()[0]['caLocState_Id'],
+					state: CashierStore.getCountryStates()[0]['Small'],
 					city: "",
 					phone: "",
 					email: ""
@@ -49,7 +49,7 @@ let Register = React.createClass({
 			}
 
 			if(propertyName == 'country'){
-				ApplicationService.getStates(value);
+				ApplicationService.getCountryStates(value);
 			}
 
 			payAccount[propertyName] = value;
@@ -96,8 +96,9 @@ let Register = React.createClass({
 		 */
 		_onChange() {
 			const payAccount = this.state.payAccount;
+			payAccount.state = "";
 			this.setState(
-				payAccount.state = ""
+				payAccount
 			);
 		},
 
@@ -114,7 +115,7 @@ let Register = React.createClass({
 
 			let stateOptionNodes = [];
 			for(let i = 0; i < states.length; i++){
-				stateOptionNodes.push(this.renderOption({ label: states[i]['Name'] }, states[i]['caLocState_Id']));
+				stateOptionNodes.push(this.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
 			}
 
 			return (

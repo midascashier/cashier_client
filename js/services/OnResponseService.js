@@ -23,7 +23,7 @@ class OnResponseService {
 
 			case actions.CUSTOMER_INFO_RESPONSE:
 				CashierActions.setSelectedCountry();
-				ApplicationService.getStates();
+				ApplicationService.getCountryStates();
 				break;
 
 			case actions.PROCESSORS_RESPONSE:
@@ -41,7 +41,7 @@ class OnResponseService {
 				break;
 
 			case actions.VALIDATE_PAYACCOUNT:
-				let processorID = data.response.payAccount.processorId;
+				let processorID = data.response.payAccount.processorIdRoot;
 				TransactionService.getPreviousPayAccount(processorID);
 				break;
 		}

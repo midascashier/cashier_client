@@ -337,12 +337,11 @@ class transactionService {
 		let payAccount = {
 			processorIdRoot: this.getCurrentProcessor().processorId,
 			customerId: CashierStore.getCustomer().customerId,
-			account: payAccountInfo.account,
 			transactionType: transactionType
 		};
-		data = Object.assign(data,payAccount);
 		let application = CashierStore.getApplication();
-		let rabbitRequest = Object.assign(data, application);
+		//let rabbitRequest = Object.assign(data, application, payAccount, payAccountInfo);
+		let rabbitRequest = Object.assign(data, application, payAccount);
 		stompConnector.makeBackendRequest("", rabbitRequest);
 	};
 }

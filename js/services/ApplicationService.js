@@ -38,7 +38,7 @@ class applicationService {
 	 *
 	 * @param country
 	 */
-	getStates(country = null){
+	getCountryStates(country = null){
 		if(!country){
 			country = CashierStore.getUI().selectedCountry;
 		}else{
