@@ -30,7 +30,7 @@ let AskInfo = React.createClass({
 		let selectType = (!isWithDraw) ? translate('P2P_SELECT_DEPOSIT') : translate('P2P_SELECT_WITHDRAW');
 
 		return (
-			<div id="askAmountVisa" className="box">
+			<div id="askInfoP2P" className="box">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="row">
@@ -57,53 +57,47 @@ let AskInfo = React.createClass({
 														{(() =>{
 															if(payAccountId == 0){
 																return <Register />
-															}
-																else{
-																return <div>
+															}else{
+																return (
+																	<div>
+																		<label className="control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
+																		<div className="col-sm-6">
+																			<div className="form-group">
+																				<select className="form-control" value={this.props.timeFrameDay}
+																								onChange={this.props.timeFrameDayChange}>
+																					<option value="TODAY">{translate('P2P_TIME_FRAME_TODAY', 'Today')}</option>
+																					<option value="TOMORROW">{translate('P2P_TIME_FRAME_TOMORROW', 'Tomorrow')}</option>
+																				</select>
+																			</div>
+																		</div>
+																		<div className="col-sm-6">
+																			<div className="form-group">
+																				<select className="form-control"
+																								value={this.props.timeFrameTime}
+																								onChange={this.props.timeFrameTimeChange}>
+																					<option value="12">12:00</option>
+																					<option value="13">13:00</option>
+																					<option value="14">14:00</option>
+																					<option value="15">15:00</option>
+																					<option value="16">16:00</option>
+																					<option value="17">17:00</option>
+																				</select>
+																			</div>
+																		</div>
+
+																		<AmountController setAmount={setAmount} value={amount}/>
 																		{(() =>{
-																			if(!isWithDraw){
-																				return (
-																					<div>
-																						<label for="" className="control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
-																					</div>
-																				);
+																			if(!allowContinue && amount != "" && payAccountId != 0){
+																				return <span>LIMITS ERROR</span>
 																			}
-																		})}
-																	<div className="col-sm-6">
-																		<div className="form-group">
-																			<select className="form-control" value={this.props.timeFrameDay}
-																							onChange={this.props.timeFrameDayChange}>
-																				<option value="TODAY">{translate('P2P_TIME_FRAME_TODAY', 'Today')}</option>
-																				<option
-																					value="TOMORROW">{translate('P2P_TIME_FRAME_TOMORROW', 'Tomorrow')}</option>
-																			</select>
-																		</div>
+																		})()}
+
 																	</div>
-																	<div className="col-sm-6">
-																		<div className="form-group">
-																			<select className="form-control" value={this.props.timeFrameTime}
-																							onChange={this.props.timeFrameTimeChange}>
-																				<option value="12">12:00</option>
-																				<option value="13">13:00</option>
-																				<option value="14">14:00</option>
-																				<option value="15">15:00</option>
-																				<option value="16">16:00</option>
-																				<option value="17">17:00</option>
-																			</select>
-																		</div>
-																	</div>
-																	<AmountController setAmount={setAmount} value={amount}/>
-																</div>
+																)
 															}
 														})()}
 													</div>
 												</div>
-												{(() =>{
-													if(!allowContinue && amount != "" && payAccountId != 0){
-														return <span>LIMITS ERROR</span>
-													}
-												})()}
-
 												<p>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></p>
 											</div>
 										</div>

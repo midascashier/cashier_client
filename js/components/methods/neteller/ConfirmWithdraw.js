@@ -113,7 +113,6 @@ let NetellerConfirmWithdraw = React.createClass({
 										<div className="row">
 											<div className="col-sm-12">
 												<div className="title">{translate('METHOD_DETAILS_WITHDRAW', 'Withdraw Details')}</div>
-												<div className="deposit-details">
 													<div className="table-responsive">
 														<table className="table table-striped">
 															<tbody>
@@ -136,7 +135,6 @@ let NetellerConfirmWithdraw = React.createClass({
 														<i className="fa fa-pencil green"></i>
 														<a onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>
 													</p>
-												</div>
 												<div className="row">
 													<div className="col-sm-6">
 														<button type="button" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}</button>
