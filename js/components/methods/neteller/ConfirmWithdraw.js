@@ -33,7 +33,8 @@ let NetellerConfirmWithdraw = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			transaction: CashierStore.getTransaction()
+			transaction: CashierStore.getTransaction(),
+			payAccount: CashierStore.getCurrentPayAccount()
 		}
 	},
 
@@ -70,6 +71,8 @@ let NetellerConfirmWithdraw = React.createClass({
 
 	render(){
 		let originPath = UIService.getOriginPath();
+		let transaction = this.state.transaction;
+		let secureData = this.state.payAccount.secure;
 		return (
 			<div id="confirmNetellerWithdraw" className="internal-content">
 				<div className="row">
@@ -82,7 +85,7 @@ let NetellerConfirmWithdraw = React.createClass({
 
 										<div className="row">
 											<div className="col-sm-12">
-												<div className="title">Double-check Your Billing Information</div>
+												<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 												<div className="infoCol text-justify">
 													<p>In order to activate your debit card, the first payout sent to the card will have the $25
 														activation fee deducted from the payout
@@ -109,29 +112,36 @@ let NetellerConfirmWithdraw = React.createClass({
 
 										<div className="row">
 											<div className="col-sm-12">
-												<div className="title">Withdraw Details</div>
+												<div className="title">{translate('METHOD_DETAILS_WITHDRAW', 'Withdraw Details')}</div>
 												<div className="deposit-details">
 													<div className="table-responsive">
 														<table className="table table-striped">
 															<tbody>
-															<tr>
-																<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
-																<td><span>{this.state.transaction.amount}</span></td>
-															</tr>
+																<tr>
+																	<td>{translate('NETELLER_ACCOUNT', 'Account')}</td>
+																	<td><span>{secureData.account}</span></td>
+																</tr>
+																<tr>
+																	<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
+																	<td><span>{transaction.amount}</span></td>
+																</tr>
+																<tr>
+																	<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
+																	<td><span>{transaction.fee}</span></td>
+																</tr>
 															</tbody>
 														</table>
 													</div>
 													<p>
 														<i className="fa fa-pencil green"></i>
-														<a href="#" onClick={this.editWithdraw}>Edit the withdraw details</a>
+														<a onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>
 													</p>
 												</div>
 												<div className="row">
 													<div className="col-sm-6">
-															<button type="submit" onClick={this.processTransaction}
-																			className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}</button>
+														<button type="button" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}</button>
 														<p>
-															<a onClick={this.setFirstStep}>Use a different method.</a>
+															<a onClick={this.setFirstStep}>{translate('METHOD_USE_DIFFERENT', 'Use a different method.')}</a>
 														</p>
 													</div>
 													<div className="col-sm-6">

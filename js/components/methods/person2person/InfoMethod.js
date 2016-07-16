@@ -83,7 +83,7 @@ let InfoMethod = React.createClass({
 		let isWithDraw = UIService.getIsWithDraw();
 		TransactionService.setAmount(this.props.amount);
 		if(isWithDraw){
-			//UIService.confirmTransaction();
+			UIService.confirmTransaction();
 		}
 		else{
 			//process to get new name

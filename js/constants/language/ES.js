@@ -28,6 +28,9 @@ let _langTags = {
 	METHOD_SELECT_YOUR_WITHDRAW_METHOD: "¿Cómo quiere retirar?",
 	METHOD_DETAILS_DEPOSIT: "Detalles del depósito",
 	METHOD_DETAILS_WITHDRAW: "Detalles del retiro",
+	METHOD_EDIT_DETAILS_DEPOSIT: "Editar detalles del depósito",
+	METHOD_EDIT_DETAILS_WITHDRAW: "Editar detalles del retiro",
+	METHOD_USE_DIFFERENT: "Cambiar Método.",
 	//TransactionHistory
 	TRANSACTION_HISTORY: "Historial de Transacciones",
 	TRANSACTION_HISTORY_TITLE: "Aquí están sus últimas 10 transacciones.",

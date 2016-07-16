@@ -38,6 +38,7 @@ import { VisaRejectCardTicket } from './components/methods/visa/tickets/RejectCa
  * Person2Person set of components to create routes
  */
 import {Person2Person} from './components/methods/person2person/Person2Person'
+import {P2PConfirmWithdraw} from './components/methods/person2person/ConfirmWithdraw'
 import {P2PTicketPending} from './components/methods/person2person/tickets/InstructionsTicket'
 
 /**
@@ -107,8 +108,15 @@ let routes = (
 				<Route path="neteller_new/confirm/" component={NetellerConfirmWithdraw}/>
 				<Route path="neteller_new/ticket/" component={LoadingTicket}>
 					<Route path="deferred/" component={DeferredTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
+				<Route path="moneygram/" component={Person2Person}/>
+				<Route path="moneygram/confirm/" component={P2PConfirmWithdraw}/>
+				<Route path="moneygram/ticket/" component={LoadingTicket}>
+					<Route path="deferred/" component={DeferredTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
+				</Route>
 
 			</Route>
 		</Route>

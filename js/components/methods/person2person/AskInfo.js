@@ -59,11 +59,16 @@ let AskInfo = React.createClass({
 																return <Register />
 															}
 																else{
-																return <div className="row">
-																	<div>
-																		<label for=""
-																					 className="control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
-																	</div>
+																return <div>
+																		{(() =>{
+																			if(!isWithDraw){
+																				return (
+																					<div>
+																						<label for="" className="control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
+																					</div>
+																				);
+																			}
+																		})}
 																	<div className="col-sm-6">
 																		<div className="form-group">
 																			<select className="form-control" value={this.props.timeFrameDay}
@@ -89,7 +94,6 @@ let AskInfo = React.createClass({
 																	</div>
 																	<AmountController setAmount={setAmount} value={amount}/>
 																</div>
-
 															}
 														})()}
 													</div>

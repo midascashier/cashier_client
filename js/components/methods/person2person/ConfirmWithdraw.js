@@ -4,13 +4,27 @@ import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 
-let BitCoinConfirmWithdraw = React.createClass({
+let P2PConfirmWithdraw = React.createClass({
 
 	/**
 	 * React function to set component initial state
+	 *
+	 * @returns {*|{transaction, payAccount}|{transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, cleanTransaction: (function())}), payAccount: (*|{payAccountId: null, displayName: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limitsData: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))})}}
 	 */
 	getInitialState(){
 		return this.refreshLocalState();
+	},
+
+	/**
+	 * this function sets and return object with local states
+	 *
+	 * @returns {{transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, cleanTransaction: (function())}), payAccount: (*|{payAccountId: null, displayName: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limitsData: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))})}}
+	 */
+	refreshLocalState() {
+		return {
+			transaction: CashierStore.getTransaction(),
+			payAccount: CashierStore.getCurrentPayAccount()
+		}
 	},
 
 	/**
@@ -26,16 +40,6 @@ let BitCoinConfirmWithdraw = React.createClass({
 	 */
 	componentWillUnmount() {
 		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
-	 * this function sets and return object with local states
-	 */
-	refreshLocalState() {
-		return {
-			transaction: CashierStore.getTransaction(),
-			payAccount: CashierStore.getCurrentPayAccount()
-		}
 	},
 
 	/**
@@ -72,9 +76,13 @@ let BitCoinConfirmWithdraw = React.createClass({
 	render(){
 		let originPath = UIService.getOriginPath();
 		let transaction = this.state.transaction;
+		let personalData = this.state.payAccount.personal;
 		let secureData = this.state.payAccount.secure;
+		let addressData = this.state.payAccount.address;
+		let extraData = this.state.payAccount.extra;
+
 		return (
-			<div id="confirmBitCoinWithdraw" className="internal-content">
+			<div id="confirmP2PWithdraw" className="internal-content">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="modules">
@@ -87,23 +95,15 @@ let BitCoinConfirmWithdraw = React.createClass({
 											<div className="col-sm-12">
 												<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 												<div className="infoCol text-justify">
-													<p>In order to activate your debit card, the first payout sent to the card will have the $25
-														activation fee deducted from the payout
-														amount. Once loaded, these funds will be immediately available for your use, minus the $2
-														load fee. (i.e. $23)</p>
-													<p>The courier service is for free. Whenever you request a payout the funds will be
-														transferred to your card. You can withdraw funds,
-														purchase online or at a physical store. It is accepted internationally.</p>
-													<p>Please keep in mind that you should not accumulate more than $10,000 in your card account
-														balance at any time.</p>
-													<p>Please be aware your card must always have at least $10 at all times or else it will be
-														closed by the bank in a two month period.
-														In addition to that, if the card hits $0 balance at any moment the bank will charge a $1
-														fee.</p>
+													<p>
+														Ensure your address is correct.
+														If you need to change your address, you can change it in the client.
+														Then you may request your Money Transfer withdraw to the new address.
+													</p>
 												</div>
 											</div>
-
 										</div>
+
 									</div>
 								</div>
 
@@ -117,10 +117,6 @@ let BitCoinConfirmWithdraw = React.createClass({
 													<div className="table-responsive">
 														<table className="table table-striped">
 															<tbody>
-																<tr>
-																	<td>{translate('BITCOIN_ADDRESS', 'Address')}</td>
-																	<td><span>{secureData.account}</span></td>
-																</tr>
 																<tr>
 																	<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
 																	<td><span>{transaction.amount}</span></td>
@@ -163,4 +159,4 @@ let BitCoinConfirmWithdraw = React.createClass({
 	}
 });
 
-module.exports.BitCoinConfirmWithdraw = BitCoinConfirmWithdraw;
+module.exports.P2PConfirmWithdraw = P2PConfirmWithdraw;
