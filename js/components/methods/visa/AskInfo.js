@@ -69,7 +69,7 @@ let AskInfo = React.createClass({
 												})()}
 
 												{(() =>{
-													if(!allowContinue && amount != "" && payAccountId != 0){
+													if(payAccountId != 0){
 														return <TermsController />
 													}
 												})()}
