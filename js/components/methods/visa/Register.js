@@ -2,8 +2,9 @@ import React from 'react'
 import { Input } from '../../Inputs'
 import { translate } from '../../../constants/Translate'
 import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
+import { BillingInformationForm } from './BillingInformationForm'
 import { CashierStore } from '../../../stores/CashierStore'
+import { ApplicationService } from '../../../services/ApplicationService'
 
 let Register = React.createClass({
 		/**
@@ -20,16 +21,24 @@ let Register = React.createClass({
 		 *
 		 */
 		refreshLocalState() {
+			let currentTime = new Date();
 			return {
 				displaySaveButton: true,
 				payAccount: {
-					firstName: "",
-					lastName: "",
+					extra3: "",
+					account: "",
+					password: "",
+					extra1: currentTime.getMonth() + 1,
+					extra2: currentTime.getFullYear(),
 					country: CashierStore.getSelectedCountry(),
 					state: CashierStore.getCountryStates()[0]['Small'],
+					firstName: "",
+					lastName: "",
 					city: "",
-					phone: "",
-					email: ""
+					address1: "",
+					zip: "",
+					email: "",
+					phone: ""
 				}
 			}
 		},
@@ -104,74 +113,71 @@ let Register = React.createClass({
 
 		render()
 		{
-			let UI = CashierStore.getUI();
-			let countries = UI.countries;
-			let states = UI.countryStates;
-
-			let countryOptionNodes = [];
-			for(let i = 0; i < countries.length; i++){
-				countryOptionNodes.push(this.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
+			let selectMonths = [];
+			for(let i = 1; i < 13; i++){
+				selectMonths.push(this.renderOption({ label: i }, i));
 			}
 
-			let stateOptionNodes = [];
-			for(let i = 0; i < states.length; i++){
-				stateOptionNodes.push(this.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
+			let selectYears = [];
+			for(let i = 2016; i < 2030; i++){
+				selectYears.push(this.renderOption({ label: i }, i));
 			}
 
 			return (
 				<form onSubmit={this.addNewPayAccount}>
 					<div>
+
 						<div className="form-group">
-							<label for="" className="control-label">{translate('P2P_FIRST_NAME', 'First Name')}:</label>
-							<Input type="text" id="firstName" onChange={this.changeValue.bind(null, 'firstName', 0)}
-										 value={this.state.payAccount.firstName}/>
-						</div>
-						<div className="form-group">
-							<label for="" className="control-label">{translate('P2P_LAST_NAME', 'Last Name')}:</label>
-							<Input type="text" id="lastName" onChange={this.changeValue.bind(null, 'lastName', 0)}
-										 value={this.state.payAccount.lastName}/>
+							<label for="" className="control-label">{translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}:</label>
+							<Input type="text" id="ccName" onChange={this.changeValue.bind(null, 'extra3', 0)}
+										 value={this.state.payAccount.extra3}/>
 						</div>
 
 						<div className="form-group">
+							<label for="" className="control-label">{translate('CREDIT_CARD_NUMBER', 'Card Number')}:</label>
+							<Input type="text" id="creditCardNumber" onChange={this.changeValue.bind(null, 'account', 0)}
+										 value={this.state.payAccount.account}/>
+						</div>
+
+
+						<div className="form-group">
+							<label for=""
+										 className="control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
 							<div className="row">
 								<div className="col-sm-6">
 									<div className="form-group">
-										<label for="" className="control-label">{translate('P2P_COUNTRY', 'Country')}:</label>
-										<select className="form-control" id="country" value={this.state.payAccount.country}
-														onChange={this.changeValue.bind(null, 'country',1)}>
-											{countryOptionNodes}
+										<select className="form-control" id="ccExpMonth"
+														onChange={this.changeValue.bind(null, 'extra1',1)} value={this.state.payAccount.extra1}>
+											{selectMonths}
 										</select>
 									</div>
 								</div>
 								<div className="col-sm-6">
-									<label for="" className="control-label">{translate('P2P_STATE', 'State')}:</label>
-									<select className="form-control" id="countryState" onChange={this.changeValue.bind(null, 'state',1)}>
-										{stateOptionNodes}
-									</select>
+									<div className="form-group">
+										<select className="form-control" id="ccExpYear"
+														onChange={this.changeValue.bind(null, 'extra2',1)} value={this.state.payAccount.extra2}>
+											{selectYears}
+										</select>
+									</div>
 								</div>
 							</div>
 						</div>
 
 						<div className="form-group">
-							<div className="row">
-								<div className="col-sm-6">
-									<label for="" className="control-label">{translate('P2P_CITY', 'City')}:</label>
-									<Input type="text" id="city" onChange={this.changeValue.bind(null, 'city', 0)}
-												 value={this.state.payAccount.city}/>
-								</div>
-								<div className="col-sm-6">
-									<label for="" className="control-label">{translate('P2P_PHONE', 'Phone')}:</label>
-									<Input type="text" id="phone" onChange={this.changeValue.bind(null, 'phone', 0)}
-												 value={this.state.payAccount.phone}/>
-								</div>
-							</div>
+							<label for="" className="control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
+							<Input type="text" id="cvv" onChange={this.changeValue.bind(null, 'password', 0)}
+										 value={this.state.payAccount.password}/>
 						</div>
 
-						<div className="form-group">
-							<label for="" className="control-label">{translate('P2P_EMAIL', 'Email')}:</label>
-							<Input type="email" id="email" onChange={this.changeValue.bind(null, 'email', 0)}
-										 value={this.state.payAccount.email}/>
-						</div>
+						<BillingInformationForm renderOption={this.renderOption} changeValue ={this.changeValue}
+																		selectedState={this.state.payAccount.state} selectedCountry={this.state.payAccount.country}
+																		firstName={this.state.payAccount.firstName} lastName={this.state.payAccount.lastName}
+																		city={this.state.payAccount.city} zip={this.state.payAccount.zip}
+																		address1={this.state.payAccount.address1}	email={this.state.payAccount.email}
+																		phone={this.state.payAccount.phone}
+						/>
+
+
 						<div className="form-group">
 							<div className="row">
 								{this.state.displaySaveButton ?

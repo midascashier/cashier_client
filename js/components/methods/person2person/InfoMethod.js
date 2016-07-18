@@ -1,6 +1,5 @@
 import React from 'react'
 import { CashierStore } from '../../../stores/CashierStore'
-import { Loading } from '../../loading/Loading'
 import { translate } from '../../../constants/Translate'
 import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'

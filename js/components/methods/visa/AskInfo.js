@@ -4,17 +4,20 @@ import { SelectPayAccount } from '../../SelectPayAccount'
 import { AmountController } from '../../AmountController'
 import { TermsController } from '../../TermsController'
 import { UIService } from '../../../services/UIService'
+import { Register } from './Register.js'
 
 let AskInfo = React.createClass({
 
 	propTypes: {
 		transactionAmount: React.PropTypes.func,
 		allowContinue: React.PropTypes.number,
-		amount: React.PropTypes.string
+		amount: React.PropTypes.string,
+		payAccount: React.PropTypes.object
 	},
 
 	render() {
 		let setAmount = this.props.setAmount;
+		let payAccountId = this.props.payAccount.payAccountId;
 		let amount = this.props.amount;
 		let allowContinue = this.props.allowContinue;
 		let originPath = UIService.getOriginPath();
@@ -36,7 +39,8 @@ let AskInfo = React.createClass({
 										<div className="row">
 											<div className="col-sm-3">
 												<div className="method active pull-left">
-													<img className="img-responsive" src={originPath + '/images/processors/11001.png'} alt={displayName}/>
+													<img className="img-responsive" src={originPath + '/images/processors/11001.png'}
+															 alt={displayName}/>
 												</div>
 											</div>
 											<div className="col-sm-9">
@@ -44,13 +48,32 @@ let AskInfo = React.createClass({
 													<label for="">{translate('CREDIT_CARD_SELECT', 'Credit Card')}:</label>
 													<SelectPayAccount />
 												</div>
-												<AmountController setAmount={setAmount} value={amount}/>
+
 												{(() =>{
-													if(!allowContinue && amount != ""){
+													if(payAccountId == 0){
+														return <Register />
+													}
+												})()}
+
+
+												{(() =>{
+													if(payAccountId != 0){
+														return <AmountController setAmount={setAmount} value={amount}/>
+													}
+												})()}
+
+												{(() =>{
+													if(!allowContinue && amount != "" && payAccountId != 0){
 														return <span>LIMITS ERROR</span>
 													}
 												})()}
-												<TermsController />
+
+												{(() =>{
+													if(!allowContinue && amount != "" && payAccountId != 0){
+														return <TermsController />
+													}
+												})()}
+
 											</div>
 										</div>
 									</div>

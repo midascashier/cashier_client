@@ -1,7 +1,6 @@
 import React from 'react'
 import { translate } from '../../../constants/Translate'
 import { CashierStore } from '../../../stores/CashierStore'
-import { Loading } from '../../loading/Loading'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 
@@ -76,10 +75,10 @@ let InfoMethod = React.createClass({
 	 * @returns {{minPayAccount: XML, maxPayAccount: XML, payAccountId: (*|number|null)}}
 	 */
 	getPayAccountLimits(){
-		let minPayAccount = <Loading />;
-		let maxPayAccount = <Loading />;
+		let minPayAccount = "";
+		let maxPayAccount = "";
 		let payAccount = this.state.currentPayAccount;
-		if(payAccount.payAccountId){
+		if(payAccount.payAccountId != 0){
 			minPayAccount = payAccount.limitsData.minAmount + " " + payAccount.limitsData.currencyCode;
 			maxPayAccount = payAccount.limitsData.maxAmount + " " + payAccount.limitsData.currencyCode;
 		}
