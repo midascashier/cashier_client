@@ -98,7 +98,9 @@ class customerService {
 	 * Function to disable pay account
 	 */
 	getDisablePayAccount(){
-		let data = { f: "disableCustomerPayAccount", payAccountId: CashierStore.getUI().payAccountId };
+		let customerId = CashierStore.getCustomer();
+		let payAccountId = CashierStore.getCurrentPayAccount();
+		let data = { f: "disableCustomerPayAccount", payAccountId: payAccountId.payAccountId, customerId: customerId.customerId };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
