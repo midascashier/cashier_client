@@ -4,6 +4,7 @@ import { SelectPayAccount } from '../../SelectPayAccount'
 import { AmountController } from '../../AmountController'
 import { TermsController } from '../../TermsController'
 import { UIService } from '../../../services/UIService'
+import { CustomerService } from '../../../services/CustomerService'
 import { Register } from './Register.js'
 
 let AskInfo = React.createClass({
@@ -13,6 +14,10 @@ let AskInfo = React.createClass({
 		allowContinue: React.PropTypes.number,
 		amount: React.PropTypes.string,
 		payAccount: React.PropTypes.object
+	},
+
+	disablePayAccount() {
+		CustomerService.getDisablePayAccount();
 	},
 
 	render() {
@@ -48,6 +53,12 @@ let AskInfo = React.createClass({
 													<label for="">{translate('CREDIT_CARD_SELECT', 'Credit Card')}:</label>
 													<SelectPayAccount />
 												</div>
+
+												{(() =>{
+													if(payAccountId != 0){
+														return <button type="button" onClick={this.disablePayAccount}>Delete this card</button>
+													}
+												})()}
 
 												{(() =>{
 													if(payAccountId == 0){

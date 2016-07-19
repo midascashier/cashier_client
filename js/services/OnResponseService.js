@@ -44,6 +44,11 @@ class OnResponseService {
 				let processorID = data.response.payAccount.processorIdRoot;
 				TransactionService.getPreviousPayAccount(processorID);
 				break;
+
+			case actions.PAYACCOUNTS_DISABLE_RESPONSE:
+				let currentProcessor = TransactionService.getCurrentProcessor();
+				TransactionService.getPreviousPayAccount(currentProcessor.processorId);
+				break;
 		}
 	};
 }

@@ -333,7 +333,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * return current PayAccount
-	 * 
+	 *
 	 * @returns {{payAccountId: null, displayName: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limitsData: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))}}
 	 */
 	getCurrentPayAccount: () =>{
@@ -342,7 +342,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * Return last transaction cashier response
-	 * 
+	 *
 	 * @returns {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
 	 */
 	getLastTransactionResponse: () =>{
@@ -540,14 +540,18 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.CHANGE_APPLICATION_SELECTED_COUNTRY:
-			if (!data.country){
+			if(!data.country){
 				_UI.selectedCountry = _customer.personalInformation.country;
-			}else{
+			} else{
 				_UI.selectedCountry = data.country;
 			}
 			break;
 
 		case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
+			let firstPayAccount = 0;
+			_payAccount.payAccountId = 0;
+			let payAccounts_processor = {};
+			let payAccountTemp = Object.assign({}, _payAccount);
 			if(data.response && data.response.payAccounts){
 				data.response.payAccounts.forEach((payAccount)=>{
 					payAccount.limitsData.available = Math.ceil(payAccount.limitsData.available);
@@ -559,11 +563,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				});
 				let payAccounts = data.response.payAccounts;
 				if(payAccounts){
-					let firstPayAccount = 0;
-					let payAccounts_processor = {};
-					let payAccountTemp = Object.assign({}, _payAccount);
 					payAccounts.map((item, key) =>{
-						let payAccount = Object.assign({key: key}, payAccountTemp);
+						let payAccount = Object.assign({ key: key }, payAccountTemp);
 						payAccount.load(item);
 						payAccounts_processor[payAccount.payAccountId] = payAccount;
 						if(!firstPayAccount){
@@ -571,24 +572,16 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 						}
 					});
 					_payAccount = payAccounts_processor[firstPayAccount];
-
-					let addPayAccountOption = Object.assign({}, _payAccount);
-					addPayAccountOption.payAccountId=0;
-					addPayAccountOption.displayName="Register new account";
-					payAccounts_processor[addPayAccountOption.payAccountId] = addPayAccountOption;
-					
-					
-					_payAccounts[_processor.processorId] = payAccounts_processor;
 				}
 			}
-			CashierStore.emitChange();
-			break;
-
-		case actions.PAYACCOUNTS_DISABLE_RESPONSE:
-			let currentPayAccountId = _UI.payAccountId;
-			if(currentPayAccountId){
-				_payAccounts.splice(currentPayAccountId, 1);
+			let addPayAccountOption = Object.assign({}, _payAccount);
+			addPayAccountOption.payAccountId = 0;
+			addPayAccountOption.displayName = "Register new account";
+			payAccounts_processor[addPayAccountOption.payAccountId] = addPayAccountOption;
+			if (_payAccount.payAccountId === null){
+				_payAccount = payAccounts_processor[firstPayAccount];
 			}
+			_payAccounts[_processor.processorId] = payAccounts_processor;
 			CashierStore.emitChange();
 			break;
 

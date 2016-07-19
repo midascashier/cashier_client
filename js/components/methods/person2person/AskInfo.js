@@ -4,6 +4,7 @@ import { SelectPayAccount } from '../../SelectPayAccount'
 import { AmountController } from '../../AmountController'
 import { UIService } from '../../../services/UIService'
 import { Register } from './Register.js'
+import { CustomerService } from '../../../services/CustomerService'
 
 let AskInfo = React.createClass({
 
@@ -15,6 +16,10 @@ let AskInfo = React.createClass({
 		amount: React.PropTypes.string,
 		timeFrameDay: React.PropTypes.string,
 		timeFrameTime: React.PropTypes.number
+	},
+
+	disablePayAccount() {
+		CustomerService.getDisablePayAccount();
 	},
 
 	render() {
@@ -54,6 +59,14 @@ let AskInfo = React.createClass({
 														<SelectPayAccount />
 													</div>
 													<div className="form-group">
+
+														{(() =>{
+															if(payAccountId != 0){
+																return <button type="button" onClick={this.disablePayAccount}>Delete this Sender</button>
+															}
+														})()}
+
+
 														{(() =>{
 															if(payAccountId == 0){
 																return <Register />
