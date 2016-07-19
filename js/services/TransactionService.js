@@ -322,7 +322,6 @@ class transactionService {
 		UIService.creditCardTransactionResponse(data);
 	};
 
-
 	/**
 	 * Send info to register payAccount
 	 */
@@ -343,6 +342,31 @@ class transactionService {
 		let rabbitRequest = Object.assign(data, application, payAccount, payAccountInfo);
 		stompConnector.makeBackendRequest("", rabbitRequest);
 	};
+
+	/**
+	 * Updates the secure information of a credit card.
+	 *
+	 * @param payAccountInfo
+	 */
+	updateCreditCardSecure(payAccountInfo){
+		let customerId = CashierStore.getCustomer().customerId;
+		let payAccountId = CashierStore.getCurrentPayAccount().payAccountId;
+		let secureData = payAccountInfo.secure;
+
+		let payAccountRequest = {
+			f: "updateCreditCardSecureInfo",
+			payAccountId: payAccountId,
+			customerId: customerId,
+			ccNumber: secureData.account,
+			ccCVV: secureData.password,
+			ccName: secureData.extra3,
+			ccExpMonth: secureData.extra1,
+			ccExpYear: secureData.extra2
+		};
+
+		let rabbitRequest = assign(this.getProxyRequest(), payAccountRequest);
+		stompConnector.makeProcessRequest("", rabbitRequest);
+	}
 }
 
 export let TransactionService = new transactionService();

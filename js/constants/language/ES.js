@@ -119,6 +119,8 @@ let _langTags = {
 	CREDIT_CARD_DOB: "Date of Birth",
 	CREDIT_CARD_CHECK_TERMENS: "Acepto términos y condiciones.",
 	CREDIT_CARD_INFO: "Algunos bancos pueden interpretar el aumento de los volúmenes de transacciones en internet como un riesgo de fraude y pueden rechazar las solicitudes de depósitos posteriores. Recomendamos altamente depositar dinero suficiente para cubrir sus apuestas previstas para el día.",
+	CREDIT_COUNTRY: "País",
+	CREDIT_STATE: "Estado",
 	P2P_TITLE_INFO_DEPOSIT: "Por favor, introduzca la información del remitente",
 	P2P_TITLE_INFO_WITHDRAW: "Por favor, introduzca la información del Receptor",
 	P2P_INSTRUCTIONS: "Envíanos tus fondos.",
