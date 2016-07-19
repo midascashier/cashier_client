@@ -1,7 +1,6 @@
 import React from 'react'
 import { Input } from '../../Inputs'
 import { translate } from '../../../constants/Translate'
-import { BillingInformationForm } from './BillingInformationForm'
 import { CashierStore } from '../../../stores/CashierStore'
 import { ApplicationService } from '../../../services/ApplicationService'
 
@@ -202,7 +201,7 @@ let Register = React.createClass({
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">Last Name:</label>
-								<Input type="text" id="lastName" validate="string" onChange={this.changeValue.bind(null, 'lastName', 0)} value={this.state.payAccount.lastName}/>
+								<Input type="text" id="lastName" ref="lastName" validate="string" require onChange={this.changeValue.bind(null, 'lastName', 0)} value={this.state.payAccount.lastName}/>
 							</div>
 							<div className="form-group">
 								<div className="row">
@@ -226,23 +225,23 @@ let Register = React.createClass({
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">City / Town:</label>
-								<Input type="text" id="city" onChange={this.changeValue.bind(null, 'city', 0)} value={this.state.payAccount.city}/>
+								<Input type="text" id="city" ref="city" validate="string" require onChange={this.changeValue.bind(null, 'city', 0)} value={this.state.payAccount.city}/>
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">Address:</label>
-								<Input type="text" id="address" onChange={this.changeValue.bind(null, 'address1', 0)} value={this.state.payAccount.address1}/>
+								<Input type="text" id="address" ref="address" validate="string" require onChange={this.changeValue.bind(null, 'address1', 0)} value={this.state.payAccount.address1}/>
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">ZIP / Postal Code:</label>
-								<Input type="text" id="zip" onChange={this.changeValue.bind(null, 'zip', 0)} value={this.state.payAccount.zip}/>
+								<Input type="text" id="zip" ref="zip" validate="number" require onChange={this.changeValue.bind(null, 'zip', 0)} value={this.state.payAccount.zip}/>
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">Email Address:</label>
-								<Input type="text" id="email" onChange={this.changeValue.bind(null, 'email', 0)} value={this.state.payAccount.email}/>
+								<Input type="text" id="email" ref="email" validate="string" require onChange={this.changeValue.bind(null, 'email', 0)} value={this.state.payAccount.email}/>
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">Phone:</label>
-								<Input type="text" id="phone" onChange={this.changeValue.bind(null, 'phone', 0)} value={this.state.payAccount.phone}/>
+								<Input type="text" id="phone" ref="phone" validate="number" require onChange={this.changeValue.bind(null, 'phone', 0)} value={this.state.payAccount.phone}/>
 							</div>
 						</div>
 
