@@ -549,6 +549,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 		case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
 			let firstPayAccount = 0;
+			_payAccount.payAccountId = 0;
 			let payAccounts_processor = {};
 			let payAccountTemp = Object.assign({}, _payAccount);
 			if(data.response && data.response.payAccounts){
