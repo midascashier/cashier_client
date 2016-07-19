@@ -138,6 +138,15 @@ class UiService {
 	}
 
 	/**
+	 * get company information
+	 *
+	 * @returns {*|{companyId: number, companyName: string, phone: string, companyLabel: Array, load: (function(*))}}
+	 */
+	getCompanyInformation(){
+		return CashierStore.getCompany();
+	}
+
+	/**
 	 * return current view
 	 *
 	 * @returns {*|string}

@@ -15,18 +15,14 @@ let AmountController = React.createClass({
 	 */
 	changeValue(event) {
 		let amount = event.currentTarget.value;
-		//amount = Number(amount);
-		//if (amount !== "")
-		{
-			this.props.setAmount(amount);
-		}
+		this.props.setAmount(amount);
 	},
 
 	render() {
 		let limits = UIService.getProcessorLimitMinMax();
 		return (
-			<div id="amountController" className="form-group">
-				<label for="">{translate('PROCESSING_AMOUNT', 'Amount')}:</label>
+			<div id="amountController">
+				<label>{translate('PROCESSING_AMOUNT', 'Amount')}:</label>
 				<input className="form-control" type="number" id="amount" name="amount" onChange={this.changeValue}
 							 value={this.props.amount}/>
 				<span>{translate('PROCESSING_MIN', 'Min')}: {limits.minAmount}
