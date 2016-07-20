@@ -46,6 +46,13 @@ let P2PTicketPending = React.createClass({
 	},
 
 	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
+	},
+
+	/**
 	 * refresh the state when changes occur
 	 *
 	 * @private
