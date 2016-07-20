@@ -131,11 +131,9 @@ let Register = React.createClass({
 				selectMonths.push(this.renderOption({ label: i }, i));
 			}
 
-
 			for(let i = 2016; i < 2030; i++){
 				selectYears.push(this.renderOption({ label: i }, i));
 			}
-
 
 			for(let i = 0; i < countries.length; i++){
 				countryOptionNodes.push(this.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
@@ -145,7 +143,6 @@ let Register = React.createClass({
 			for(let i = 0; i < states.length; i++){
 				stateOptionNodes.push(this.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
 			}
-
 
 			return (
 				<form onSubmit={this.addNewPayAccount}>
@@ -191,18 +188,21 @@ let Register = React.createClass({
 
 						<div className="form-group">
 							<label for="" className="control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
-							<Input type="text" id="cvv" ref="cvv" validate="number" require onChange={this.changeValue.bind(null, 'password', 0)}
+							<Input type="text" id="cvv" ref="cvv" validate="number" require
+										 onChange={this.changeValue.bind(null, 'password', 0)}
 										 value={this.state.payAccount.password}/>
 						</div>
 
 						<div>
 							<div className="form-group">
 								<label for="" className="control-label">First Name:</label>
-								<Input type="text" id="firstName" ref="firstName" validate="string" require onChange={this.changeValue.bind(null, 'firstName', 0)} value={this.state.payAccount.firstName}/>
+								<Input type="text" id="firstName" ref="firstName" validate="string" require
+											 onChange={this.changeValue.bind(null, 'firstName', 0)} value={this.state.payAccount.firstName}/>
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">Last Name:</label>
-								<Input type="text" id="lastName" ref="lastName" validate="string" require onChange={this.changeValue.bind(null, 'lastName', 0)} value={this.state.payAccount.lastName}/>
+								<Input type="text" id="lastName" ref="lastName" validate="string" require
+											 onChange={this.changeValue.bind(null, 'lastName', 0)} value={this.state.payAccount.lastName}/>
 							</div>
 							<div className="form-group">
 								<div className="row">
@@ -226,23 +226,28 @@ let Register = React.createClass({
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">City / Town:</label>
-								<Input type="text" id="city" ref="city" validate="string" require onChange={this.changeValue.bind(null, 'city', 0)} value={this.state.payAccount.city}/>
+								<Input type="text" id="city" ref="city" validate="string" require
+											 onChange={this.changeValue.bind(null, 'city', 0)} value={this.state.payAccount.city}/>
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">Address:</label>
-								<Input type="text" id="address" ref="address" validate="string" require onChange={this.changeValue.bind(null, 'address1', 0)} value={this.state.payAccount.address1}/>
+								<Input type="text" id="address" ref="address" validate="string" require
+											 onChange={this.changeValue.bind(null, 'address1', 0)} value={this.state.payAccount.address1}/>
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">ZIP / Postal Code:</label>
-								<Input type="text" id="zip" ref="zip" validate="number" require onChange={this.changeValue.bind(null, 'zip', 0)} value={this.state.payAccount.zip}/>
+								<Input type="text" id="zip" ref="zip" validate="number" require
+											 onChange={this.changeValue.bind(null, 'zip', 0)} value={this.state.payAccount.zip}/>
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">Email Address:</label>
-								<Input type="text" id="email" ref="email" validate="email" require onChange={this.changeValue.bind(null, 'email', 0)} value={this.state.payAccount.email}/>
+								<Input type="text" id="email" ref="email" validate="email" require
+											 onChange={this.changeValue.bind(null, 'email', 0)} value={this.state.payAccount.email}/>
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">Phone:</label>
-								<Input type="text" id="phone" ref="phone" validate="number" require onChange={this.changeValue.bind(null, 'phone', 0)} value={this.state.payAccount.phone}/>
+								<Input type="text" id="phone" ref="phone" validate="number" require
+											 onChange={this.changeValue.bind(null, 'phone', 0)} value={this.state.payAccount.phone}/>
 							</div>
 						</div>
 

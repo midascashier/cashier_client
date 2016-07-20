@@ -54,14 +54,14 @@ let Register = React.createClass({
 		});
 	},
 
-
 	render() {
 		return (
 			<div className="form-group">
 				<form onSubmit={this.addNewPayAccount}>
 					<label for="">Enter your Neteller Email Account:</label>
 					<Input className="form-control" ref="netellerNewAccount" type="text" id="netellerNewAccount"
-								 name="netellerNewAccount" ref="email" validate="email" require onChange={this.changeValue} value={this.state.payAccount.account}/>
+								 name="netellerNewAccount" ref="email" validate="email" require onChange={this.changeValue}
+								 value={this.state.payAccount.account}/>
 					{this.state.displaySaveButton ?
 						<button type='submit' className='btn btn-green'>Save</button> : null }
 				</form>
