@@ -5,7 +5,6 @@ import { Input } from '../../../Inputs'
 import { UIService } from '../../../../services/UIService'
 import { TransactionService } from '../../../../services/TransactionService'
 import { CashierStore } from '../../../../stores/CashierStore'
-import { CashierActions } from '../../../../actions/CashierActions'
 
 let P2PTicketPending = React.createClass({
 
