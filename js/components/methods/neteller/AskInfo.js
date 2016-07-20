@@ -5,6 +5,7 @@ import { Input } from '../../Inputs'
 import { AmountController } from '../../AmountController'
 import { UIService } from '../../../services/UIService'
 import { Register } from './Register.js'
+import { CustomerService } from '../../../services/CustomerService'
 
 let AskInfo = React.createClass({
 
@@ -16,6 +17,11 @@ let AskInfo = React.createClass({
 		amount: React.PropTypes.string,
 		payAccount: React.PropTypes.object
 	},
+
+	disablePayAccount() {
+		CustomerService.getDisablePayAccount();
+	},
+
 
 	render() {
 		let netellerPassword = this.props.netellerPassword;
@@ -55,6 +61,14 @@ let AskInfo = React.createClass({
 													<label for="">{translate('NETELLER_ACCOUNT', 'Neteller Account')}:</label>
 													<SelectPayAccount />
 												</div>
+
+												{(() =>{
+													if(payAccountId != 0){
+														return <button type="button" onClick={this.disablePayAccount}>Delete this account</button>
+													}
+												})()}
+
+
 												{(() =>{
 													if(payAccountId == 0){
 														return <Register />
