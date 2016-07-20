@@ -3,6 +3,7 @@ import { Input } from '../../Inputs'
 import { translate } from '../../../constants/Translate'
 import { CashierStore } from '../../../stores/CashierStore'
 import { ApplicationService } from '../../../services/ApplicationService'
+import { TransactionService } from '../../../services/TransactionService'
 
 let Register = React.createClass({
 		/**
@@ -77,7 +78,7 @@ let Register = React.createClass({
 					return false;
 				}
 			}
-			//TransactionService.registerPayAccount(this.state.payAccount);
+			TransactionService.registerPayAccount(this.state.payAccount);
 			this.setState({
 				displaySaveButton: false
 			});
@@ -208,7 +209,7 @@ let Register = React.createClass({
 									<div className="col-sm-6">
 										<div className="form-group">
 											<label for="" className="control-label">{translate('CREDIT_COUNTRY', 'Country')}:</label>
-											<select className="form-control" id="country" value={this.state.payAccount.selectedCountry}
+											<select className="form-control" id="country" value={this.state.payAccount.country}
 															onChange={this.changeValue.bind(null, 'country',1)}>
 												{countryOptionNodes}
 											</select>
@@ -216,7 +217,7 @@ let Register = React.createClass({
 									</div>
 									<div className="col-sm-6">
 										<label for="" className="control-label">{translate('CREDIT_STATE', 'State')}:</label>
-										<select className="form-control" id="countryState" value={this.state.payAccount.selectedState}
+										<select className="form-control" id="countryState" value={this.state.payAccount.state}
 														onChange={this.changeValue.bind(null, 'state',1)}>
 											{stateOptionNodes}
 										</select>
@@ -237,7 +238,7 @@ let Register = React.createClass({
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">Email Address:</label>
-								<Input type="text" id="email" ref="email" validate="string" require onChange={this.changeValue.bind(null, 'email', 0)} value={this.state.payAccount.email}/>
+								<Input type="text" id="email" ref="email" validate="email" require onChange={this.changeValue.bind(null, 'email', 0)} value={this.state.payAccount.email}/>
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">Phone:</label>
