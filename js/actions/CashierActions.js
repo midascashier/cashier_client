@@ -26,6 +26,12 @@ let CashierActions = {
 		});
 	},
 
+	setTransactionControlNumber: (controlNumber) =>{
+		CashierDispatcher.dispatch({
+			action: actions.CHANGE_TRANSACTION_CONTROL_NUMBER, data: { controlNumber: controlNumber }
+		});
+	},
+
 	setTransactionTimeFrame: (timeFrame) =>{
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_TIMEFRAME, data: { timeFrame: timeFrame }

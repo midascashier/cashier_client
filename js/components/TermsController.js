@@ -1,6 +1,6 @@
 import React from 'react'
 import { translate } from '../constants/Translate'
-import { CashierActions } from './../actions/CashierActions'
+import { TransactionService } from './../services/TransactionService'
 import { CashierStore } from './../stores/CashierStore'
 
 let TermsController = React.createClass({
@@ -33,7 +33,7 @@ let TermsController = React.createClass({
 	changeValue(event) {
 		let checked = event.currentTarget.checked;
 		this.setState({ check: checked });
-		CashierActions.setTransactionTerms(checked);
+		TransactionService.setTermsAndConditions(checked);
 	},
 
 	render() {

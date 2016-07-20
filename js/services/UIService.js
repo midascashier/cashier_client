@@ -77,6 +77,8 @@ class UiService {
 			ticketResult = 'approved';
 		} else if(status == cashier.TRANSACTION_STATUS_PENDING){
 			ticketResult = 'pending';
+		} else if(status == cashier.TRANSACTION_STATUS_PROCESSING){
+			ticketResult = 'processing';
 		} else if(status == cashier.TRANSACTION_STATUS_DEFERRED){
 			ticketResult = 'deferred';
 		}
@@ -228,7 +230,7 @@ class UiService {
 
 	/**
 	 * Return last transaction cashier response
-	 *
+	 * 
 	 * @returns {*|{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
 	 */
 	getLastTransactionResponse(){

@@ -266,7 +266,7 @@ let _payAccounts = [];
 /**
  * Stores information of the transaction
  *
- * @type {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, timeFrameDay: null, timeFrameTime: null, cleanTransaction: (function())}}
+ * @type {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, controlNumber: null, timeFrameDay: null, timeFrameTime: null, cleanTransaction: (function())}}
  * @private
  */
 let _transaction = {
@@ -275,6 +275,7 @@ let _transaction = {
 	feeType: '',
 	bonusId: 0,
 	checkTermsAndConditions: 0,
+	controlNumber: null,
 	timeFrameDay: null,
 	timeFrameTime: null,
 	cleanTransaction(){
@@ -342,7 +343,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * Return last transaction cashier response
-	 *
+	 * 
 	 * @returns {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
 	 */
 	getLastTransactionResponse: () =>{
@@ -624,8 +625,15 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			CashierStore.emitChange();
 			break;
 
+		case actions.CHANGE_TRANSACTION_CONTROL_NUMBER:
+			let controlNumber = data.controlNumber;
+			_transaction.controlNumber = controlNumber;
+			CashierStore.emitChange();
+			break;
+
 		case actions.PROCESS_RESPONSE:
 		case actions.PROCESS_P2P_GET_NAME_RESPONSE:
+		case actions.PROCESS_P2P_SUBMIT_RESPONSE:
 		case actions.PROCESS_CC_RESPONSE:
 			_transactionResponse.amount = _transaction.amount;
 			_transactionResponse.fee = _transaction.fee;

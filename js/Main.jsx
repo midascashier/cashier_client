@@ -40,6 +40,7 @@ import { VisaRejectCardTicket } from './components/methods/visa/tickets/RejectCa
 import {Person2Person} from './components/methods/person2person/Person2Person'
 import {P2PConfirmWithdraw} from './components/methods/person2person/ConfirmWithdraw'
 import {P2PTicketPending} from './components/methods/person2person/tickets/InstructionsTicket'
+import {P2PTicketProcessing} from './components/methods/person2person/tickets/ProcessingTicket'
 
 /**
  * Common components
@@ -88,6 +89,7 @@ let routes = (
 				<Route path="moneygram/" component={Person2Person}/>
 				<Route path="moneygram/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={P2PTicketPending}/>
+					<Route path="processing/" component={P2PTicketProcessing}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 

@@ -7,7 +7,7 @@ import { TransactionService } from '../../../../services/TransactionService'
 import { CashierStore } from '../../../../stores/CashierStore'
 import { CashierActions } from '../../../../actions/CashierActions'
 
-let P2PTicketPending = React.createClass({
+let P2PTicketProcessing = React.createClass({
 
 	/**
 	 * initialize the state
@@ -55,40 +55,6 @@ let P2PTicketPending = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
-	/**
-	 * this function sends submit transaction to cashier
-	 *
-	 */
-	submitTransaction(){
-		TransactionService.processSubmit();
-	},
-
-	/**
-	 *
-	 * @param attribute
-	 * @param value
-	 */
-	changeValue(attribute, value) {
-
-		if(attribute == 'controlNumber'){
-			let enableSubmit = isControlNumber(value);
-			this.setState({enableReprocess: enableSubmit, controlNumber: value});
-			TransactionService.setControlNumber(value);
-		}
-
-		if(attribute == 'amount'){
-			this.setState({currencyAmount: value});
-			TransactionService.setAmount(value);
-		}
-
-		if(attribute == 'fee'){
-			this.setState({fee: value});
-			TransactionService.setFeeAmount(value);
-		}
-
-		return true;
-	},
-
 	render() {
 		let transactionDetails = this.state.transactionDetails;
 		let controlNumber = this.state.controlNumber;
@@ -96,7 +62,7 @@ let P2PTicketPending = React.createClass({
 		let fee = this.state.fee;
 
 		return (
-			<div id="P2PTicketPending">
+			<div id="P2PTicketProcessing">
 
 				<div className="col-sm-12">
 					<div className="rejected-message">
@@ -168,32 +134,16 @@ let P2PTicketPending = React.createClass({
 									<div className="row">
 										<div className="col-sm-12">
 											<div className="title">{translate('P2P_INSTRUCTIONS_PENDING_MTCN', 'Pending Control Number')}</div>
-
-											<form className="form-horizontal infoCol">
-												<div className="form-group">
-													<label for="" className="col-sm-4 control-label">{translate('P2P_CONTROL_NUMBER', 'Control #')}:</label>
-													<div className="col-sm-8">
-														<Input type="text" className="form-control" id="controlNumber" value={controlNumber} onChange={this.changeValue.bind(this, 'controlNumber')}/>
-													</div>
+											<div className="infoCol">
+												<div className="row">
+													<ul>
+														<li>{translate('P2P_CONTROL_NUMBER', 'Control #')}: {controlNumber}</li>
+														<li>{translate('P2P_AMOUNT_SEND', 'Funds Sent')}: {currencyAmount}</li>
+														<li>{translate('P2P_FEE_SEND', 'Fee')}: {fee}</li>
+													</ul>
 												</div>
-												<div className="form-group">
-													<label for="" className="col-sm-4 control-label">{translate('P2P_AMOUNT_SEND', 'Funds Sent')}:</label>
-													<div className="col-sm-8">
-														<Input type="number" className="form-control" id="amount" value={currencyAmount} onChange={this.changeValue.bind(this, 'amount')}/>
-													</div>
-												</div>
-												<div className="form-group">
-													<label for="" className="col-sm-4 control-label">{translate('P2P_FEE_SEND', 'Fee')}:</label>
-													<div className="col-sm-8">
-														<Input type="number" className="form-control" id="fee" value={fee} onChange={this.changeValue.bind(this, 'fee')}/>
-													</div>
-												</div>
-												<button type="button" className="btn btn-green" disabled={!this.state.enableReprocess} onClick={this.submitTransaction}>
-													{translate('PROCESSING_BUTTON_SUBMIT', 'Submit')}
-												</button>
 												<p>{translate('P2P_INSTRUCTIONS_INFO', '')}</p>
-											</form>
-
+											</div>
 										</div>
 									</div>
 								</div>
@@ -208,4 +158,4 @@ let P2PTicketPending = React.createClass({
 	}
 });
 
-module.exports.P2PTicketPending = P2PTicketPending;
+module.exports.P2PTicketProcessing = P2PTicketProcessing;

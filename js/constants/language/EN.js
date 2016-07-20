@@ -126,6 +126,7 @@ let _langTags = {
 	P2P_INSTRUCTIONS: "Now send your funds.",
 	P2P_INSTRUCTIONS_SENDER: "Sender's Information",
 	P2P_INSTRUCTIONS_RECEIVER: "Receiver's Information",
+	P2P_INSTRUCTIONS_GET_RECEIVER: "Get New Receiver",
 	P2P_INSTRUCTIONS_PENDING_MTCN: "Pending Control Number",
 	P2P_INSTRUCTIONS_INFO: "You must submit your control number here to be able to claim your bonus. Call center submissions are not eligible for bonuses.",
 	P2P_SELECT_DEPOSIT: "Select your Sender",

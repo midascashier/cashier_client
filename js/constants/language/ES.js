@@ -126,6 +126,7 @@ let _langTags = {
 	P2P_INSTRUCTIONS: "Envíanos tus fondos.",
 	P2P_INSTRUCTIONS_SENDER: "Información del remitente",
 	P2P_INSTRUCTIONS_RECEIVER: "Receiver's Information",
+	P2P_INSTRUCTIONS_GET_RECEIVER: "Solicitar Nuevo Nombre",
 	P2P_INSTRUCTIONS_PENDING_MTCN: "Información del Receptor",
 	P2P_INSTRUCTIONS_INFO: "Usted debe ingresar su Número de Control aquí para ser capaz de reclamar su bono. Las confirmaciones por medio del centro de llamadas no son elegibles para los bonos.",
 	P2P_SELECT_DEPOSIT: "Seleccione el remitente",

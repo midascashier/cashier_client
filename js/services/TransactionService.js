@@ -88,10 +88,34 @@ class transactionService {
 
 	/**
 	 *
+	 * @param amount
+	 */
+	setFeeAmount(fee){
+		CashierActions.setTransactionFee(fee);
+	};
+
+	/**
+	 *
+	 * @param checked
+	 */
+	setTermsAndConditions(checked){
+		CashierActions.setTransactionTerms(checked);
+	};
+
+	/**
+	 *
 	 * @param timeFrame
 	 */
 	setTimeFrame(timeFrame){
 		CashierActions.setTransactionTimeFrame(timeFrame);
+	}
+
+	/**
+	 *
+	 * @param controlNumber
+	 */
+	setControlNumber(controlNumber){
+		CashierActions.setTransactionControlNumber(controlNumber);
 	}
 
 	/**
@@ -233,6 +257,31 @@ class transactionService {
 	};
 
 	/**
+	 * this function sends submit transaction
+	 */
+	processSubmit(){
+
+		let transaction = CashierStore.getTransaction();
+		let transactionResponse = CashierStore.getLastTransactionResponse();
+
+		let p2pRequest = {
+			f: "p2pSendMTCN",
+			id: transactionResponse.transactionId,
+			amount: transaction.amount,
+			fee: transaction.fee,
+			controlNumber: transaction.controlNumber,
+			bonusId: 0
+		};
+		let rabbitRequest = assign(this.getProxyRequest(), p2pRequest);
+
+		UIService.processTransaction('instructions');
+		stompConnector.makeProcessRequest("", rabbitRequest);
+
+		//clean current transaction response
+		CashierStore.getLastTransactionResponse().cleanTransaction();
+	};
+
+	/**
 	 * get the BitCoin transaction details for the specific transaction Id
 	 *
 	 * @param transactionId
@@ -258,20 +307,6 @@ class transactionService {
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeBackendRequest("", rabbitRequest);
-	};
-
-	/**
-	 * get the P2P transaction details for the specific transaction Id
-	 *
-	 * @param transactionId
-	 */
-	p2pTransaction(uniqueId){
-		let data = {
-			f: "getP2PNameInfo", module: 'transaction', tuid: uniqueId
-		};
-		let application = CashierStore.getApplication();
-		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeTransactionRequest("", rabbitRequest);
 	};
 
 	/**

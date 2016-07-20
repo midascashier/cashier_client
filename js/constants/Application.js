@@ -1,6 +1,7 @@
 /**
  * Created by jobando on 03-Jun-16.
  */
+import { CashierStore } from '../stores/CashierStore'
 
 /**
  *
@@ -42,11 +43,21 @@ export function isNumber(value){
  * @returns {boolean}
  */
 export function isControlNumber(value){
-	let regExpMG = new RegExp(/^[0-9]{8}$/);
-	let regExpWU = new RegExp(/^[0-9]{10}$/);
-	let regExpRIA = new RegExp(/^[0-9]{11}$/);
-	let matched = (regExpMG.test(value) || regExpWU.test(value) || regExpRIA.test(value));
-	return matched;
+
+	let processor = CashierStore.getProcessor();
+	let processorName = processor.Name;
+	let regularExp = '';
+
+	if(processorName == 'MoneyGram'){
+		regularExp = /^[0-9]{8}$/;
+	}else if(processorName == 'WesternUnion'){
+		regularExp = /^[0-9]{10}$/;
+	}else if(processorName == 'Ria'){
+		regularExp = /^[0-9]{11}$/;
+	}
+
+	let regExp = new RegExp(regularExp);
+	return regExp.test(value);
 };
 
 /**
