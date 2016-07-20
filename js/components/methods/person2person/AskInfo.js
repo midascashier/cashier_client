@@ -81,11 +81,9 @@ let AskInfo = React.createClass({
 													</div>
 													<div className="form-group">
 														{(() =>{
-															if(payAccountId == 0){
-																return <Register />
-															}else{
+															if(payAccountId != 0 && !isWithDraw){
 																return (
-																	<div>
+																	<div id="timeFrame">
 																		<label className="control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
 																		<div className="col-sm-6">
 																			<div className="form-group">
@@ -101,6 +99,12 @@ let AskInfo = React.createClass({
 																				<select className="form-control"
 																								value={this.props.timeFrameTime}
 																								onChange={this.props.timeFrameTimeChange}>
+																					<option value="6">12:00</option>
+																					<option value="7">13:00</option>
+																					<option value="8">14:00</option>
+																					<option value="9">15:00</option>
+																					<option value="10">16:00</option>
+																					<option value="11">17:00</option>
 																					<option value="12">12:00</option>
 																					<option value="13">13:00</option>
 																					<option value="14">14:00</option>
@@ -110,16 +114,26 @@ let AskInfo = React.createClass({
 																				</select>
 																			</div>
 																		</div>
-
-																		<AmountController setAmount={setAmount} value={amount}/>
-																		{(() =>{
-																			if(!allowContinue && amount != "" && payAccountId != 0){
-																				return <span>LIMITS ERROR</span>
-																			}
-																		})()}
-
 																	</div>
 																)
+															}
+														})()}
+
+														{(() =>{
+															if(payAccountId == 0){
+																return <Register />
+															}
+														})()}
+
+														{(() =>{
+															if(payAccountId != 0){
+																return <AmountController setAmount={setAmount} value={amount}/>
+															}
+														})()}
+
+														{(() =>{
+															if(!allowContinue && amount != "" && payAccountId != 0){
+																return <span>LIMITS ERROR</span>
 															}
 														})()}
 													</div>
