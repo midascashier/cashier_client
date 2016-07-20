@@ -62,6 +62,14 @@ let Register = React.createClass({
 
 		addNewPayAccount(e){
 			e.preventDefault();
+			for(let input in this.refs){
+				if(this.refs[input].props.require && this.refs[input].props.value.length <= 0){
+					return false;
+				}
+				if(!this.refs[input].state.isValid){
+					return false;
+				}
+			}
 			TransactionService.registerPayAccount(this.state.payAccount);
 			this.setState({
 				displaySaveButton: false
@@ -123,12 +131,14 @@ let Register = React.createClass({
 					<div>
 						<div className="form-group">
 							<label for="" className="control-label">{translate('P2P_FIRST_NAME', 'First Name')}:</label>
-							<Input type="text" id="firstName" onChange={this.changeValue.bind(null, 'firstName', 0)}
+							<Input type="text" id="firstName" ref="firstName" validate="string" require
+										 onChange={this.changeValue.bind(null, 'firstName', 0)}
 										 value={this.state.payAccount.firstName}/>
 						</div>
 						<div className="form-group">
 							<label for="" className="control-label">{translate('P2P_LAST_NAME', 'Last Name')}:</label>
-							<Input type="text" id="lastName" onChange={this.changeValue.bind(null, 'lastName', 0)}
+							<Input type="text" id="lastName" ref="lastName" validate="string" require
+										 onChange={this.changeValue.bind(null, 'lastName', 0)}
 										 value={this.state.payAccount.lastName}/>
 						</div>
 
@@ -156,12 +166,14 @@ let Register = React.createClass({
 							<div className="row">
 								<div className="col-sm-6">
 									<label for="" className="control-label">{translate('P2P_CITY', 'City')}:</label>
-									<Input type="text" id="city" onChange={this.changeValue.bind(null, 'city', 0)}
+									<Input type="text" id="city" ref="city" validate="string" require
+												 onChange={this.changeValue.bind(null, 'city', 0)}
 												 value={this.state.payAccount.city}/>
 								</div>
 								<div className="col-sm-6">
 									<label for="" className="control-label">{translate('P2P_PHONE', 'Phone')}:</label>
-									<Input type="text" id="phone" onChange={this.changeValue.bind(null, 'phone', 0)}
+									<Input type="text" id="phone" ref="phone" validate="number" require
+												 onChange={this.changeValue.bind(null, 'phone', 0)}
 												 value={this.state.payAccount.phone}/>
 								</div>
 							</div>
@@ -169,7 +181,8 @@ let Register = React.createClass({
 
 						<div className="form-group">
 							<label for="" className="control-label">{translate('P2P_EMAIL', 'Email')}:</label>
-							<Input type="email" id="email" onChange={this.changeValue.bind(null, 'email', 0)}
+							<Input type="email" id="email" ref="email" validate="email" require
+										 onChange={this.changeValue.bind(null, 'email', 0)}
 										 value={this.state.payAccount.email}/>
 						</div>
 						<div className="form-group">

@@ -40,12 +40,19 @@ let Register = React.createClass({
 
 	addNewPayAccount(e){
 		e.preventDefault();
+		for(let input in this.refs){
+			if(this.refs[input].props.require && this.refs[input].props.value.length <= 0){
+				return false;
+			}
+			if(!this.refs[input].state.isValid){
+				return false;
+			}
+		}
 		TransactionService.registerPayAccount(this.state.payAccount);
 		this.setState({
 			displaySaveButton: false
 		});
 	},
-
 
 	render() {
 		return (
@@ -53,7 +60,8 @@ let Register = React.createClass({
 				<form onSubmit={this.addNewPayAccount}>
 					<label for="">Enter your Neteller Email Account:</label>
 					<Input className="form-control" ref="netellerNewAccount" type="text" id="netellerNewAccount"
-								 name="netellerNewAccount" onChange={this.changeValue} value={this.state.payAccount.account}/>
+								 name="netellerNewAccount" ref="email" validate="email" require onChange={this.changeValue}
+								 value={this.state.payAccount.account}/>
 					{this.state.displaySaveButton ?
 						<button type='submit' className='btn btn-green'>Save</button> : null }
 				</form>
