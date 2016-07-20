@@ -49,41 +49,56 @@ let AskInfo = React.createClass({
 												</div>
 											</div>
 											<div className="col-sm-9">
-												<div className="form-group">
+												<div className="form-group" id="payAccount">
 													<label for="">{translate('CREDIT_CARD_SELECT', 'Credit Card')}:</label>
-													<SelectPayAccount />
+													{(() =>{
+														if(payAccountId != 0){
+															return (
+																<div>
+																	<div className="col-sm-9">
+																		<SelectPayAccount />
+																	</div>
+																	<div className="col-sm-3">
+																		<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+																			Delete Card
+																		</button>
+																	</div>
+																</div>
+															)
+														}else{
+															return (
+																<div>
+																	<SelectPayAccount />
+																</div>
+															)
+														}
+													})()}
+
+													{(() =>{
+														if(payAccountId == 0){
+															return <Register />
+														}
+													})()}
+
+
+													{(() =>{
+														if(payAccountId != 0){
+															return <AmountController setAmount={setAmount} value={amount}/>
+														}
+													})()}
+
+													{(() =>{
+														if(!allowContinue && amount != "" && payAccountId != 0){
+															return <span>LIMITS ERROR</span>
+														}
+													})()}
+
+													{(() =>{
+														if(payAccountId != 0){
+															return <TermsController />
+														}
+													})()}
 												</div>
-
-												{(() =>{
-													if(payAccountId != 0){
-														return <button type="button" onClick={this.disablePayAccount}>Delete this card</button>
-													}
-												})()}
-
-												{(() =>{
-													if(payAccountId == 0){
-														return <Register />
-													}
-												})()}
-
-
-												{(() =>{
-													if(payAccountId != 0){
-														return <AmountController setAmount={setAmount} value={amount}/>
-													}
-												})()}
-
-												{(() =>{
-													if(!allowContinue && amount != "" && payAccountId != 0){
-														return <span>LIMITS ERROR</span>
-													}
-												})()}
-
-												{(() =>{
-													if(payAccountId != 0){
-														return <TermsController />
-													}
-												})()}
 
 											</div>
 										</div>

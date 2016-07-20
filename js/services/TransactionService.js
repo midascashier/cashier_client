@@ -198,6 +198,31 @@ class transactionService {
 	};
 
 	/**
+	 * this function sends to process a cc transaction
+	 */
+	processCC(){
+
+		//clean current transaction response
+		CashierStore.getLastTransactionResponse().cleanTransaction();
+
+		let transaction = CashierStore.getTransaction();
+		let processorSelected = CashierStore.getProcessor();
+		let payAccountSelected = CashierStore.getCurrentPayAccount();
+
+		let p2pRequest = {
+			f: "ccProcess",
+			processorId: processorSelected.processorId,
+			payAccountId: payAccountSelected.payAccountId,
+			amount: transaction.amount,
+			journalIdSelected: 0
+		};
+		let rabbitRequest = assign(this.getProxyRequest(), p2pRequest);
+
+		UIService.processTransaction('instructions');
+		stompConnector.makeProcessRequest("", rabbitRequest);
+	};
+
+	/**
 	 * this function sends to process a p2p transaction (get name)
 	 */
 	processGetName(){
@@ -232,35 +257,12 @@ class transactionService {
 	};
 
 	/**
-	 * this function sends to process a cc transaction
-	 */
-	processCC(){
-
-		//clean current transaction response
-		CashierStore.getLastTransactionResponse().cleanTransaction();
-
-		let transaction = CashierStore.getTransaction();
-		let processorSelected = CashierStore.getProcessor();
-		let payAccountSelected = CashierStore.getCurrentPayAccount();
-
-		let p2pRequest = {
-			f: "ccProcess",
-			processorId: processorSelected.processorId,
-			payAccountId: payAccountSelected.payAccountId,
-			amount: transaction.amount,
-			journalIdSelected: 0
-		};
-		let rabbitRequest = assign(this.getProxyRequest(), p2pRequest);
-
-		UIService.processTransaction('instructions');
-		stompConnector.makeProcessRequest("", rabbitRequest);
-	};
-
-	/**
 	 * this function sends submit transaction
 	 */
 	processSubmit(){
 
+		let processorSelected = CashierStore.getProcessor();
+		let payAccountSelected = CashierStore.getCurrentPayAccount();
 		let transaction = CashierStore.getTransaction();
 		let transactionResponse = CashierStore.getLastTransactionResponse();
 
@@ -270,8 +272,17 @@ class transactionService {
 			amount: transaction.amount,
 			fee: transaction.fee,
 			controlNumber: transaction.controlNumber,
-			bonusId: 0
+			bonusId: 0,
+			processorId: processorSelected.processorId,
+			payAccountId: payAccountSelected.payAccountId,
+			firstName: payAccountSelected.personal.firstName,
+			lastName: payAccountSelected.personal.lastName,
+			country: payAccountSelected.address.country,
+			state: payAccountSelected.address.state,
+			city: payAccountSelected.address.city,
+			phone: payAccountSelected.personal.phone
 		};
+
 		let rabbitRequest = assign(this.getProxyRequest(), p2pRequest);
 
 		UIService.processTransaction('instructions');

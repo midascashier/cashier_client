@@ -54,19 +54,32 @@ let AskInfo = React.createClass({
 											</div>
 											<div className="col-sm-9">
 												<div>
-													<div className="form-group">
+													<div className="form-group" id="payAccount">
 														<label for="">{selectType}:</label>
-														<SelectPayAccount />
-													</div>
-													<div className="form-group">
-
 														{(() =>{
 															if(payAccountId != 0){
-																return <button type="button" onClick={this.disablePayAccount}>Delete this Sender</button>
+																return (
+																<div>
+																	<div className="col-sm-9">
+																		<SelectPayAccount />
+																	</div>
+																	<div className="col-sm-3">
+																		<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+																			Delete
+																		</button>
+																	</div>
+																</div>
+																)
+															}else{
+																return (
+																	<div>
+																		<SelectPayAccount />
+																	</div>
+																)
 															}
 														})()}
-
-
+													</div>
+													<div className="form-group">
 														{(() =>{
 															if(payAccountId == 0){
 																return <Register />
