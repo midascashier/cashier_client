@@ -82,3 +82,14 @@ export function isCVV(value){
 	let matched = regExpCVV.test(value);
 	return matched;
 };
+
+/**
+ *
+ * @param value
+ * @returns {boolean}
+ */
+export function isBitCoinAddress(value){
+	let regExpBTC = new RegExp(/^[13][a-km-zA-HJ-NP-Z0-9]{26,33}$/i);
+	let matched = regExpBTC.test(value);
+	return matched;
+};
