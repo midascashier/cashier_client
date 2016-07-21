@@ -59,18 +59,14 @@ let AskInfo = React.createClass({
 														}
 													})()}
 												</div>
-												<AmountController setAmount={setAmount} amount={amount}/>
-												{(() =>{
-													if(!limitsCheck && amount != ""){
-														return <span>LIMITS ERROR</span>
-													}
-												})()}
+												<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+
 												{(() =>{
 													if(isWithDraw){
 														return <FeeController feeCashValue={this.props.feeCashValue} feeCheck={feeCheck} amount={amount}/>;
 													}
 												})()}
-												
+
 											</div>
 										</div>
 									</div>

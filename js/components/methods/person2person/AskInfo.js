@@ -127,15 +127,10 @@ let AskInfo = React.createClass({
 
 														{(() =>{
 															if(payAccountId != 0){
-																return <AmountController setAmount={setAmount} value={amount}/>
+																return <AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 															}
 														})()}
 
-														{(() =>{
-															if(!limitsCheck && amount != "" && payAccountId != 0){
-																return <span>LIMITS ERROR</span>
-															}
-														})()}
 													</div>
 												</div>
 												<p>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></p>

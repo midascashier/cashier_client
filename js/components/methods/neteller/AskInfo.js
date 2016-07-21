@@ -86,13 +86,7 @@ let AskInfo = React.createClass({
 
 												{(() =>{
 													if(payAccountId != 0){
-														return <AmountController setAmount={setAmount} amount={amount}/>
-													}
-												})()}
-
-												{(() =>{
-													if(!limitsCheck && amount != "" && payAccountId != 0){
-														return <span>LIMITS ERROR</span>
+														return <AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 													}
 												})()}
 											</div>
