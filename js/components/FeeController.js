@@ -1,8 +1,6 @@
 import React from 'react'
-import { CashierActions } from './../actions/CashierActions'
 import { CashierStore } from './../stores/CashierStore'
 import { translate } from '../constants/Translate'
-import { Input } from './Inputs'
 
 let FeeController = React.createClass({
 
@@ -14,7 +12,7 @@ let FeeController = React.createClass({
 	getInitialState() {
 		return this.refreshLocalState();
 	},
-	
+
 	/**
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
@@ -37,7 +35,7 @@ let FeeController = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			value: CashierStore.getTransaction().fee
+			processor: CashierStore.getProcessor()
 		}
 	},
 
@@ -51,30 +49,41 @@ let FeeController = React.createClass({
 	},
 
 	/**
-	 * Set fee amount in the store
+	 * Return option element to a html select
 	 *
-	 * @param event
+	 * @param item
+	 * @param key
+	 * @returns {XML}
 	 */
-	changeValue(event) {
-		let amount = event.currentTarget.value;
-		amount = amount.replace(/[^0-9\-]/g, '');
-		this.setState({ value: amount });
-		if(amount){
-			if(amount != this.state.value){
-				CashierActions.setTransactionFee(amount);
-			}
-		}
+	renderOption(item, key){
+		return (
+			<option key={key} value={key}>{item.label}</option>
+		)
 	},
 
 	render() {
+		let fees = this.state.processor.fees;
+		let customer = CashierStore.getCustomer();
+		let transaction = CashierStore.getTransaction();
+		let options = [];
+		if (fees.enableFree  == 1){ options.push(this.renderOption({ label: "Free" }, "enableFree")) }
+		if (fees.enableBP  == 1){ options.push(this.renderOption({ label: "Betpoints" }, "enableBP")) }
+		if (fees.enableCash  == 1){ options.push(this.renderOption({ label: "Cash" }, "enableCash")) }
 		return (
 			<div>
-				{translate('PROCESSING_FEE', 'Fee')}:
-				<Input className="form-control" type="number" id="feeController" name="feeController"
-							 onChange={this.changeValue} value={this.state.value}/>
-			</div>
-		)
-	}
-});
+				{(() =>{
+					if(fees.enableBP  == 1 || fees.enableFree == 1 || fees.enableCash == 1){
+						return (
+						<div>
+							<label for="" className="control-label">{translate('PROCESSING_FEE', 'Fee')}:</label>
+							<select className="form-control">{options}</select>
+							Fee: {transaction.fee} - Balance: {Math.round(customer.balance*100)/100}
+						</div>)
+					}
+				})()}
+				</div>
+				)
+				}
+				});
 
-module.exports.FeeController = FeeController;
+				module.exports.FeeController = FeeController;

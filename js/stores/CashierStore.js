@@ -161,9 +161,15 @@ let _processor = {
 	Name: '',
 	displayName: '',
 	bonus: [],
-	fees: [],
 	limits: [],
 	limitRules: [],
+	fees: {
+		enableBP: 0,
+		enableCash: 0,
+		enableFree: 0,
+		cashType: "",
+		structure: []
+	},
 	load(processorId){
 		var processor = [];
 		if(_UI.currentView == cashier.VIEW_DEPOSIT && _customer.depositProcessors.length > 0){
@@ -548,6 +554,14 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			}
 			break;
 
+		case actions.PROCESSOR_FEES_CONFIGURATION_RESPONSE:
+			_processor.fees.enableBP = data.response.processorFeesConfig.enableBPOption;
+			_processor.fees.enableCash  = data.response.processorFeesConfig.enableCashOption;
+			_processor.fees.enableFree  = data.response.processorFeesConfig.enableFreeOption;
+			_processor.fees.cashType  = data.response.processorFeesConfig.cashOptionType;
+			CashierStore.emitChange();
+			break;
+
 		case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
 			let firstPayAccount = 0;
 			_payAccount.payAccountId = 0;
@@ -606,6 +620,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.CHANGE_TRANSACTION_AMOUNT:
 			_transaction.amount = data.amount;
 			CashierStore.emitChange();
+			break;
+
+		case actions.PROCESSOR_FEES_RESPONSE:
+			_processor.fees.structure = data.response.processorFees;
 			break;
 
 		case actions.CHANGE_TRANSACTION_FEE:
@@ -692,7 +710,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		default:
-			console.log("Store No Action");
+			console.log("Store No Action: "+ action);
 			break;
 	}
 	return true;

@@ -60,6 +60,12 @@ let Register = React.createClass({
 
 		},
 
+		/**
+		 * Sends request to register new payaccount
+		 *
+		 * @param e
+		 * @returns {boolean}
+		 */
 		addNewPayAccount(e){
 			e.preventDefault();
 			for(let input in this.refs){
@@ -76,6 +82,13 @@ let Register = React.createClass({
 			});
 		},
 
+		/**
+		 * Return option element to a html select
+		 *
+		 * @param item
+		 * @param key
+		 * @returns {XML}
+		 */
 		renderOption(item, key){
 			return (
 				<option key={key} value={key}>{item.label}</option>

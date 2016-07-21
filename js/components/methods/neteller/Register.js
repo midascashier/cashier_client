@@ -38,6 +38,12 @@ let Register = React.createClass({
 		});
 	},
 
+	/**
+	 * Sends request to register new payaccount
+	 *
+	 * @param e
+	 * @returns {boolean}
+	 */
 	addNewPayAccount(e){
 		e.preventDefault();
 		for(let input in this.refs){

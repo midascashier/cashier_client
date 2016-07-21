@@ -14,6 +14,10 @@ class transactionService {
 	startTransaction(){
 		CashierActions.startTransaction();
 		UIService.startTransaction();
+		if(CashierStore.getIsWithdraw()){
+			this.getProcessorFeesConfiguration();
+			this.getProcessorFees();
+		}
 	};
 
 	/**
@@ -67,6 +71,39 @@ class transactionService {
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
+	};
+
+	/**
+	 * Function to get processor fees
+	 */
+	getProcessorFees(){
+		let processorID = UIService.getProcessorId();
+		let customer = CashierStore.getCustomer();
+		let companyId = customer.companyId;
+		let data = {
+			f: "getProcessorFees", processorId: processorID, companyId: companyId, customerId: customer.customerId
+		};
+
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeTransactionRequest("", rabbitRequest);
+	};
+
+	/**
+	 * Function to get processor fees configuration
+	 */
+	getProcessorFeesConfiguration(){
+		let processorID = UIService.getProcessorId();
+		let customer = CashierStore.getCustomer();
+		let companyId = customer.companyId;
+
+		let data = {
+			f: "getProcessorFeesConfig", processorId: processorID, companyId: companyId, customerId: customer.customerId
+		};
+
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeTransactionRequest("", rabbitRequest);
 	};
 
 	/**
