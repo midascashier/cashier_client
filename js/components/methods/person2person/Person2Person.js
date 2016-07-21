@@ -9,7 +9,7 @@ let Person2Person = React.createClass({
 
 	propTypes: {
 		setAmount: React.PropTypes.func,
-		allowContinue: React.PropTypes.number,
+		limitsCheck: React.PropTypes.number,
 		amount: React.PropTypes.string
 	},
 
@@ -78,7 +78,7 @@ let Person2Person = React.createClass({
 				<div className="col-sm-6">
 					<AskInfo amount={this.props.amount}
 									 setAmount={this.props.setAmount}
-									 allowContinue={this.props.allowContinue}
+									 limitsCheck={this.props.limitsCheck}
 									 timeFrameDay={this.state.timeFrameDay}
 									 timeFrameTime={this.state.timeFrameTime}
 									 timeFrameTimeChange={this.timeFrameTimeChange}
@@ -92,7 +92,7 @@ let Person2Person = React.createClass({
 							return <LoadingSpinner />;
 						} else{
 							return <InfoMethod amount={this.props.amount}
-																 allowContinue={this.props.allowContinue}
+																 limitsCheck={this.props.limitsCheck}
 																 timeFrameDay={this.state.timeFrameDay}
 																 timeFrameTime={this.state.timeFrameTime}
 																 timeFrameTimeChange={this.timeFrameTimeChange}

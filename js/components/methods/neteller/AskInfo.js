@@ -12,7 +12,7 @@ let AskInfo = React.createClass({
 	propTypes: {
 		netellerPassword: React.PropTypes.func,
 		transactionAmount: React.PropTypes.func,
-		allowContinue: React.PropTypes.number,
+		limitsCheck: React.PropTypes.number,
 		password: React.PropTypes.string,
 		amount: React.PropTypes.string,
 		payAccount: React.PropTypes.object
@@ -25,7 +25,7 @@ let AskInfo = React.createClass({
 
 	render() {
 		let netellerPassword = this.props.netellerPassword;
-		let allowContinue = this.props.allowContinue;
+		let limitsCheck = this.props.limitsCheck;
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
 		let password = this.props.password;
@@ -91,7 +91,7 @@ let AskInfo = React.createClass({
 												})()}
 
 												{(() =>{
-													if(!allowContinue && amount != "" && payAccountId != 0){
+													if(!limitsCheck && amount != "" && payAccountId != 0){
 														return <span>LIMITS ERROR</span>
 													}
 												})()}

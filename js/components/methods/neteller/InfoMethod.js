@@ -7,7 +7,7 @@ import { UIService } from '../../../services/UIService'
 let InfoMethod = React.createClass({
 	propTypes: {
 		password: React.PropTypes.string,
-		allowContinue: React.PropTypes.number,
+		limitsCheck: React.PropTypes.number,
 		amount: React.PropTypes.string
 	},
 
@@ -62,7 +62,7 @@ let InfoMethod = React.createClass({
 	allowProcess(){
 		let password = this.props.password;
 		let isWithDraw = UIService.getIsWithDraw();
-		let checkAmount = this.props.allowContinue;
+		let checkAmount = this.props.limitsCheck;
 
 		if(password && String(password).length >= 5 && checkAmount){
 			return true;
@@ -112,7 +112,7 @@ let InfoMethod = React.createClass({
 	},
 
 	render() {
-		let allowContinue = this.allowProcess();
+		let limitsCheck = this.allowProcess();
 		let payAccountInfo = this.getPayAccountLimits();
 		let originPath = UIService.getOriginPath();
 
@@ -146,7 +146,7 @@ let InfoMethod = React.createClass({
 							<div className="row">
 								<div className="col-sm-6">
 									{(() =>{
-										if(payAccountInfo.payAccountId && allowContinue){
+										if(payAccountInfo.payAccountId && limitsCheck){
 											return (
 												<button type='button' onClick={this.continueTransaction} className='btn btn-green'>
 													{translate('PROCESSING_BUTTON_NEXT', 'Next')}

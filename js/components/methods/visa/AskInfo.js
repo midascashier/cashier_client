@@ -11,7 +11,7 @@ let AskInfo = React.createClass({
 
 	propTypes: {
 		transactionAmount: React.PropTypes.func,
-		allowContinue: React.PropTypes.number,
+		limitsCheck: React.PropTypes.number,
 		amount: React.PropTypes.string,
 		payAccount: React.PropTypes.object
 	},
@@ -24,7 +24,7 @@ let AskInfo = React.createClass({
 		let setAmount = this.props.setAmount;
 		let payAccountId = this.props.payAccount.payAccountId;
 		let amount = this.props.amount;
-		let allowContinue = this.props.allowContinue;
+		let limitsCheck = this.props.limitsCheck;
 		let originPath = UIService.getOriginPath();
 		let displayName = UIService.getProcessorDisplayName();
 		let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_CREDIT_CARD', 'Please Enter Your Card Details');
@@ -88,7 +88,7 @@ let AskInfo = React.createClass({
 													})()}
 
 													{(() =>{
-														if(!allowContinue && amount != "" && payAccountId != 0){
+														if(!limitsCheck && amount != "" && payAccountId != 0){
 															return <span>LIMITS ERROR</span>
 														}
 													})()}

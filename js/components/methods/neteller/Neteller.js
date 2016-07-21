@@ -9,7 +9,7 @@ let Neteller = React.createClass({
 
 	propTypes: {
 		setAmount: React.PropTypes.func,
-		allowContinue: React.PropTypes.number,
+		limitsCheck: React.PropTypes.number,
 		amount: React.PropTypes.string
 	},
 
@@ -73,7 +73,7 @@ let Neteller = React.createClass({
 									 amount={this.props.amount}
 									 setAmount={this.props.setAmount}
 									 payAccount={this.state.payAccount}
-									 allowContinue={this.props.allowContinue}
+									 limitsCheck={this.props.limitsCheck}
 					/>
 				</div>
 				<div className="col-sm-6">
@@ -81,7 +81,7 @@ let Neteller = React.createClass({
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
 						} else{
-							return <InfoMethod amount={this.props.amount} allowContinue={this.props.allowContinue} password={this.state.password}/>;
+							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck} password={this.state.password}/>;
 						}
 					})()}
 				</div>

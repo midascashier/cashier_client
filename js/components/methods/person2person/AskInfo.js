@@ -12,7 +12,7 @@ let AskInfo = React.createClass({
 		transactionAmount: React.PropTypes.func,
 		timeFrameDayChange: React.PropTypes.func,
 		timeFrameTimeChange: React.PropTypes.func,
-		allowContinue: React.PropTypes.number,
+		limitsCheck: React.PropTypes.number,
 		amount: React.PropTypes.string,
 		timeFrameDay: React.PropTypes.string,
 		timeFrameTime: React.PropTypes.number
@@ -25,7 +25,7 @@ let AskInfo = React.createClass({
 	render() {
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
-		let allowContinue = this.props.allowContinue;
+		let limitsCheck = this.props.limitsCheck;
 		let payAccountId = this.props.payAccount.payAccountId;
 
 		let isWithDraw = UIService.getIsWithDraw();
@@ -132,7 +132,7 @@ let AskInfo = React.createClass({
 														})()}
 
 														{(() =>{
-															if(!allowContinue && amount != "" && payAccountId != 0){
+															if(!limitsCheck && amount != "" && payAccountId != 0){
 																return <span>LIMITS ERROR</span>
 															}
 														})()}

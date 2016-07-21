@@ -9,14 +9,14 @@ let AskInfo = React.createClass({
 
 	propTypes: {
 		transactionAmount: React.PropTypes.func,
-		allowContinue: React.PropTypes.number,
+		limitsCheck: React.PropTypes.number,
 		amount: React.PropTypes.string
 	},
 
 	render() {
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
-		let allowContinue = this.props.allowContinue;
+		let limitsCheck = this.props.limitsCheck;
 		let isWithDraw = UIService.getIsWithDraw();
 		let originPath = UIService.getOriginPath();
 		let displayName = UIService.getProcessorDisplayName();
@@ -58,7 +58,7 @@ let AskInfo = React.createClass({
 												</div>
 												<AmountController setAmount={setAmount} amount={amount}/>
 												{(() =>{
-													if(!allowContinue && amount != ""){
+													if(!limitsCheck && amount != ""){
 														return <span>LIMITS ERROR</span>
 													}
 												})()}

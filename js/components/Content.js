@@ -8,14 +8,16 @@ let Content = React.createClass({
 
 	/**
 	 * React function to set component initial state
-	 * 
-	 * @returns {{amount: string, allowContinue: number}}
+	 *
+	 * @returns {{amount: string, limitsCheck: number}}
 	 */
 	getInitialState(){
 		return {
+			info: {
 			amount: "",
-			allowContinue: 0
-		};
+			limitsCheck: 0,
+			feeCheck: 0
+		}};
 	},
 
 	/**
@@ -34,7 +36,7 @@ let Content = React.createClass({
 	 */
 	checkLimitsLite(){
 		let payAccountInfo = TransactionService.getCurrentPayAccount();
-		let amount = this.state.amount;
+		let amount = this.state.info.amount;
 		let limitsInfo = payAccountInfo.limitsData;
 
 		let min, max = 0;
@@ -54,32 +56,45 @@ let Content = React.createClass({
 		}
 	},
 
+	checkFees(){
+		return 0;
+	},
+
 	checkLimits(){
+		let actualState = this.state.info;
+		if(this.checkFees() == 1){
+			actualState.feeCheck = 1;
+		}
 		let currentProcessor = TransactionService.getCurrentProcessor();
 		let limitsValidationVersion = ProcessorSettings.settings[currentProcessor.processorId][ProcessorSettings.LIMITS_VALIDATION_VERSION];
 		if(limitsValidationVersion == "lite"){
-			this.setState({ allowContinue: this.checkLimitsLite() });
+			actualState.limitsCheck = this.checkLimitsLite();
 		}
 		else if(limitsValidationVersion == "full"){
-			this.setState({ allowContinue: this.checkLimitsFull() });
+			actualState.limitsCheck = this.checkLimitsFull();
 		}
+
+		this.setState({info :actualState});
+
 	},
 
 	/**
-	 * Set local amoun as local state
+	 * Set local amount as local state
 	 *
 	 * @param amount
 	 */
 	setAmount(amount){
-		this.setState({ amount: amount }, function afterAmountChange(){this.checkLimits()});
+		let actualState = this.state.info;
+		actualState.amount = amount;
+		this.setState({info :actualState}, function afterAmountChange(){this.checkLimits()});
 	},
 
 	render() {
 		const childrenWithProps = React.Children.map(this.props.children,
 			(child) => React.cloneElement(child, {
 				setAmount: this.setAmount,
-				allowContinue: this.state.allowContinue,
-				amount: this.state.amount
+				limitsCheck: this.state.info.limitsCheck,
+				amount: this.state.info.amount
 			})
 		);
 
