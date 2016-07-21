@@ -89,7 +89,7 @@ let _customer = {
 	depositProcessors: [],
 	withdrawProcessors: [],
 	pendingP2PTransactions: [],
-	lastTransactions: {},
+	lastTransactions: [],
 	load(data){
 		this.companyId = data.companyId;
 		this.customerId = data.customerId;
@@ -518,6 +518,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 		case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
 			_customer.lastTransactions = data.response.transactions;
+			CashierStore.emitChange();
 			break;
 
 		case actions.COUNTRIES_RESPONSE:

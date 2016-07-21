@@ -8,8 +8,11 @@ let TransactionHistory = React.createClass({
 	},
 
 	render() {
+
+		let transactions = this.props.transactions;
+
 		return (
-			<div className=" table-responsive">
+			<div className=" table-responsive" id="transactionHistoryTable">
 				<table className="table table-striped">
 					<tbody>
 					<tr>
@@ -21,9 +24,9 @@ let TransactionHistory = React.createClass({
 						<th>{translate('TRANSACTION_HISTORY_TABLE_COL_NOTES')}</th>
 					</tr>
 					{(() =>{
-						if(this.props.transactions){
+						if(transactions){
 							var rows = [];
-							this.props.transactions.map((transaction, i)=>{
+							transactions.map((transaction, i)=>{
 								rows.push(<tr key={i} className={transaction.TransactionStatus.toLowerCase()}>
 									<td>{transaction.DateTrans}</td>
 									<td>{translate('TRANSACTION_TYPE_ID_' + transaction.caTransactionType_Id, transaction.TransactionType)}</td>

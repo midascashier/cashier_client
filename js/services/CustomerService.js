@@ -43,7 +43,7 @@ class customerService {
 	 */
 	loginResponse(){
 		this.getCustomerInfo();
-		this.getCustomerTransactions();
+		//this.getCustomerTransactions();
 		TransactionService.loginResponse();
 		UIService.loginResponse();
 		ApplicationService.loginResponse();
@@ -63,12 +63,6 @@ class customerService {
 	 * Do some actions after processors response
 	 */
 	customerProcessorsResponse(processor) {
-		let customerAction = "deposit";
-
-		if(CashierStore.getIsWithdraw()){
-			customerAction = "withdraw";
-		}
-
 		UIService.customerProcessorsResponse(processor);
 	};
 

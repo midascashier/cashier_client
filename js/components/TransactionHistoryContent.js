@@ -4,26 +4,46 @@ import { Info } from './headerComponents/Info'
 import { TransactionHistory } from './contentComponents/TransactionHistory'
 import { translate } from '../constants/Translate'
 import { CashierStore } from '../stores/CashierStore'
+import { CustomerService } from './../services/CustomerService'
 
 let TransactionHistoryContent = React.createClass({
+
 	/**
 	 * React function to set component inital state
 	 *
 	 * @returns {*|{transactions}}
 	 */
 	getInitialState(){
+		CustomerService.getCustomerTransactions();
 		return this.refreshLocalState();
 	},
 
 	/**
 	 * this function sets and return object with local states
 	 *
-	 * @returns {{transactions: ({}|*)}}
+	 * @returns {{transactions: {}}}
 	 */
 	refreshLocalState() {
+		let customer =  CashierStore.getCustomer();
+		let lastTransactions = customer.lastTransactions;
 		return {
-			transactions: CashierStore.getCustomer().lastTransactions
+			transactions: lastTransactions
 		}
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	},
 
 	/**
@@ -36,6 +56,9 @@ let TransactionHistoryContent = React.createClass({
 	},
 
 	render() {
+
+		let transactionHistory = this.state.transactions;
+
 		return (
 			<div id="transactionHistoryContent">
 				<Info />
@@ -44,7 +67,7 @@ let TransactionHistoryContent = React.createClass({
 						<div className="col-sm-12">
 							<div className="modules">
 								<div className="title">{translate('TRANSACTION_HISTORY_TITLE')}</div>
-								<TransactionHistory transactions={this.state.transactions}/>
+								<TransactionHistory transactions={transactionHistory}/>
 								<div className="row">
 									<div className="col-sm-6">
 										<ul>
