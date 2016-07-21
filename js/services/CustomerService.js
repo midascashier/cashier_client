@@ -70,7 +70,7 @@ class customerService {
 	 * Function to get Customer Last transactions
 	 */
 	getCustomerTransactions(){
-		let data = { f: "transactions", type: 0, limit: 10 };
+		let data = { f: "customerLastTransactions", limit: 10 };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
