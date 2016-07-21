@@ -556,8 +556,17 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 		case actions.PROCESSOR_FEES_CONFIGURATION_RESPONSE:
 			_processor.fees.enableBP = data.response.processorFeesConfig.enableBPOption;
+			if (_processor.fees.enableBP == 1 ){
+				_transaction.feeType = "Betpoints";
+			}
 			_processor.fees.enableCash  = data.response.processorFeesConfig.enableCashOption;
+			if (_processor.fees.enableCash == 1 && _transaction.feeType == "" ){
+				_transaction.feeType = "Cash";
+			}
 			_processor.fees.enableFree  = data.response.processorFeesConfig.enableFreeOption;
+			if (_processor.fees.enableFree == 1 && _transaction.feeType == ""){
+				_transaction.feeType = "Free";
+			}
 			_processor.fees.cashType  = data.response.processorFeesConfig.cashOptionType;
 			CashierStore.emitChange();
 			break;

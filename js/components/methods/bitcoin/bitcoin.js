@@ -9,7 +9,9 @@ let BitCoin = React.createClass({
 	propTypes: {
 		setAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.number,
-		amount: React.PropTypes.string
+		amount: React.PropTypes.string,
+		feeCashValue: React.PropTypes.number,
+		feeCheck: React.PropTypes.number
 	},
 	/**
 	 * React function to set component initial state
@@ -58,6 +60,8 @@ let BitCoin = React.createClass({
 					<AskInfo amount={this.props.amount}
 									 setAmount={this.props.setAmount}
 									 limitsCheck={this.props.limitsCheck}
+									 feeCashValue={this.props.feeCashValue}
+									 feeCheck={this.props.feeCheck}
 					/>
 				</div>
 				<div className="col-sm-6">
@@ -65,7 +69,7 @@ let BitCoin = React.createClass({
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
 						} else{
-							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}/>;
+							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck} feeCheck={this.props.feeCheck}/>;
 						}
 					})()}
 				</div>

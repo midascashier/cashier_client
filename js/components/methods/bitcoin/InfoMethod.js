@@ -9,7 +9,8 @@ let InfoMethod = React.createClass({
 
 	propTypes: {
 		amount: React.PropTypes.string,
-		limitsCheck: React.PropTypes.number
+		limitsCheck: React.PropTypes.number,
+		feeCheck: React.PropTypes.number
 	},
 
 	/**
@@ -91,6 +92,7 @@ let InfoMethod = React.createClass({
 
 	render() {
 		let limitsCheck = this.props.limitsCheck;
+		let feeCheck = this.props.feeCheck;
 		let payAccountInfo = this.getPayAccountLimits();
 		let originPath = UIService.getOriginPath();
 
@@ -124,7 +126,7 @@ let InfoMethod = React.createClass({
 							<div className="row">
 								<div className="col-sm-6">
 									{(() =>{
-										if(payAccountInfo.payAccountId && limitsCheck){
+										if(payAccountInfo.payAccountId && limitsCheck && !feeCheck){
 											return (
 												<button type='button' onClick={this.continueTransaction} className='btn btn-green'>
 													{translate('PROCESSING_BUTTON_NEXT', 'Next')}

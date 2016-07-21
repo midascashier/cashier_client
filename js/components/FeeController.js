@@ -4,6 +4,11 @@ import { translate } from '../constants/Translate'
 
 let FeeController = React.createClass({
 
+	propTypes: {
+		feeCashValue: React.PropTypes.number,
+		feeCheck: React.PropTypes.number
+	},
+
 	/**
 	 * React function to set component inital state
 	 *
@@ -64,26 +69,30 @@ let FeeController = React.createClass({
 	render() {
 		let fees = this.state.processor.fees;
 		let customer = CashierStore.getCustomer();
-		let transaction = CashierStore.getTransaction();
 		let options = [];
-		if (fees.enableFree  == 1){ options.push(this.renderOption({ label: "Free" }, "enableFree")) }
-		if (fees.enableBP  == 1){ options.push(this.renderOption({ label: "Betpoints" }, "enableBP")) }
-		if (fees.enableCash  == 1){ options.push(this.renderOption({ label: "Cash" }, "enableCash")) }
+		if(fees.enableFree == 1){ options.push(this.renderOption({ label: "Free" }, "Free")) }
+		if(fees.enableBP == 1){ options.push(this.renderOption({ label: "Betpoints" }, "Betpoints")) }
+		if(fees.enableCash == 1){ options.push(this.renderOption({ label: "Cash" }, "Cash")) }
 		return (
 			<div>
 				{(() =>{
-					if(fees.enableBP  == 1 || fees.enableFree == 1 || fees.enableCash == 1){
+					if(fees.enableBP == 1 || fees.enableFree == 1 || fees.enableCash == 1){
 						return (
-						<div>
-							<label for="" className="control-label">{translate('PROCESSING_FEE', 'Fee')}:</label>
-							<select className="form-control">{options}</select>
-							Fee: {transaction.fee} - Balance: {Math.round(customer.balance*100)/100}
-						</div>)
+							<div>
+								<label for="" className="control-label">{translate('PROCESSING_FEE', 'Fee')}:</label>
+								<select className="form-control">{options}</select>
+								Fee: {this.props.feeCashValue} - Balance: {Math.round(customer.balance * 100) / 100}
+							</div>)
 					}
 				})()}
-				</div>
-				)
-				}
-				});
+				{(() =>{
+					if(this.props.feeCheck && this.props.amount != ""){
+						return <span>You don't have enough balance to cover the required fees</span>
+					}
+				})()}
+			</div>
+		)
+	}
+});
 
-				module.exports.FeeController = FeeController;
+module.exports.FeeController = FeeController;

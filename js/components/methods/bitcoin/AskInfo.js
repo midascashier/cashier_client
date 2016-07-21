@@ -10,13 +10,16 @@ let AskInfo = React.createClass({
 	propTypes: {
 		transactionAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.number,
-		amount: React.PropTypes.string
+		amount: React.PropTypes.string,
+		feeCashValue: React.PropTypes.number,
+		feeCheck: React.PropTypes.number
 	},
 
 	render() {
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
 		let limitsCheck = this.props.limitsCheck;
+		let feeCheck = this.props.feeCheck;
 		let isWithDraw = UIService.getIsWithDraw();
 		let originPath = UIService.getOriginPath();
 		let displayName = UIService.getProcessorDisplayName();
@@ -64,9 +67,10 @@ let AskInfo = React.createClass({
 												})()}
 												{(() =>{
 													if(isWithDraw){
-														return <FeeController />;
+														return <FeeController feeCashValue={this.props.feeCashValue} feeCheck={feeCheck} amount={amount}/>;
 													}
 												})()}
+												
 											</div>
 										</div>
 									</div>
