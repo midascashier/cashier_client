@@ -1,11 +1,7 @@
 import React from 'react'
 import { translate } from '../../../../constants/Translate'
-import { isControlNumber } from '../../../../constants/Application'
-import { Input } from '../../../Inputs'
 import { UIService } from '../../../../services/UIService'
-import { TransactionService } from '../../../../services/TransactionService'
 import { CashierStore } from '../../../../stores/CashierStore'
-import { CashierActions } from '../../../../actions/CashierActions'
 
 let P2PTicketProcessing = React.createClass({
 
@@ -44,6 +40,13 @@ let P2PTicketProcessing = React.createClass({
 	 */
 	componentDidMount() {
 		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	},
 
 	/**
