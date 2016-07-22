@@ -79,7 +79,6 @@ let FeeController = React.createClass({
 		if(fees.enableFree == 1){ options.push(this.renderOption({ label: "Free" }, "Free")) }
 		if(fees.enableBP == 1){ options.push(this.renderOption({ label: "Betpoints" }, "Betpoints")) }
 		if(fees.enableCash == 1){ options.push(this.renderOption({ label: "Cash" }, "Cash")) }
-		options.push(this.renderOption({ label: "Free" }, "Free"))
 		return (
 			<div>
 				{(() =>{
