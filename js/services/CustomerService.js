@@ -43,7 +43,6 @@ class customerService {
 	 */
 	loginResponse(){
 		this.getCustomerInfo();
-		//this.getCustomerTransactions();
 		TransactionService.loginResponse();
 		UIService.loginResponse();
 		ApplicationService.loginResponse();
