@@ -67,6 +67,7 @@ let VisaConfirm = React.createClass({
 	render(){
 		let personalData = this.state.payAccount.personal;
 		let secureData = this.state.payAccount.secure;
+		secureData.account = secureData.account.replace(/\d(?=\d{4})/g, "*");
 		let addressData = this.state.payAccount.address;
 		let extraData = this.state.payAccount.extra;
 
@@ -122,10 +123,6 @@ let VisaConfirm = React.createClass({
 															<tr>
 																<td>{translate('CREDIT_CARD_EXPIRATION')}:</td>
 																<td><span>{secureData.extra1 + ' / ' + secureData.extra2}</span></td>
-															</tr>
-															<tr>
-																<td>{translate('CREDIT_CARD_CVV')}:</td>
-																<td><span>{secureData.password}</span></td>
 															</tr>
 															<tr>
 																<td>{translate('PROCESSING_AMOUNT')}:</td>
