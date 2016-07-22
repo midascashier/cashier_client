@@ -77,7 +77,7 @@ let P2PTicketPending = React.createClass({
 	changeValue(attribute, value) {
 
 		if(attribute == 'controlNumber'){
-			let enableSubmit = ApplicationService.isValidate(value,"isControlNumber");
+			let enableSubmit = ApplicationService.validateInfo(value,"isControlNumber");
 			this.setState({enableReprocess: enableSubmit, controlNumber: value});
 			TransactionService.setControlNumber(value);
 		}

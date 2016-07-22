@@ -43,7 +43,8 @@ let BitCoin = React.createClass({
 		return {
 			info: {
 				selectedProcessor: CashierStore.getProcessor(),
-				bitcoinAddress: ""
+				bitcoinAddress: "",
+				allowContinueToConfirm: false
 			}
 		}
 	},
@@ -57,9 +58,11 @@ let BitCoin = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
-	changeValue(e) {
+	changeValue(e, state) {
 		let actualState = this.state.info;
 		actualState.bitcoinAddress = e;
+		actualState.allowContinueToConfirm = state;
+
 		this.setState(
 			{
 				info: actualState
@@ -85,8 +88,10 @@ let BitCoin = React.createClass({
 						if(!this.state.info.selectedProcessor.processorId){
 							return <LoadingSpinner />;
 						} else{
-							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck} feeCashValue={this.props.feeCashValue}
-																 feeCheck={this.props.feeCheck} bitcoinAddress={this.state.info.bitcoinAddress}/>;
+							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}
+																 feeCashValue={this.props.feeCashValue}
+																 feeCheck={this.props.feeCheck} bitcoinAddress={this.state.info.bitcoinAddress}
+																 allowContinueToConfirm = {this.state.info.allowContinueToConfirm}/>;
 						}
 					})()}
 				</div>

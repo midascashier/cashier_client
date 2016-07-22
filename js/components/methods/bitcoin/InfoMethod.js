@@ -12,6 +12,7 @@ let InfoMethod = React.createClass({
 		limitsCheck: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
 		feeCashValue: React.PropTypes.number,
+		allowContinueToConfirm: React.PropTypes.bool,
 		bitcoinAddress: React.PropTypes.string
 	},
 
@@ -50,6 +51,7 @@ let InfoMethod = React.createClass({
 			currentPayAccount: CashierStore.getCurrentPayAccount()
 		}
 	},
+
 
 	/**
 	 * this is the callback function the store calls when a state change
@@ -98,9 +100,9 @@ let InfoMethod = React.createClass({
 	render() {
 		let limitsCheck = this.props.limitsCheck;
 		let feeCheck = this.props.feeCheck;
+		let allowContinueToConfirm = this.props.allowContinueToConfirm;
 		let payAccountInfo = this.getPayAccountLimits();
 		let originPath = UIService.getOriginPath();
-		let bitcoinAddress = this.props.bitcoinAddress;
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {

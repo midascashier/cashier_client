@@ -202,7 +202,7 @@ class transactionService {
 		if(CashierStore.getIsWithdraw()){
 			req.type = "w";
 			req.isDefer = 1;
-			req.feeType = transaction.feeType;
+			req.feeType = transaction.feeType.toUpperCase();
 			req.currencyFee = transaction.fee;
 			req.feeBP = 0;
 		}

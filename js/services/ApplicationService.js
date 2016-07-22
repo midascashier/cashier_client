@@ -56,7 +56,7 @@ class applicationService {
 	 * @param type
 	 * @returns {*}
 	 */
-	isValidate(value, type){
+	validateInfo(value, type){
 		let regExp = [];
 		regExp['isCreditNumber'] = { Visa: /^4[0-9]{12}(?:[0-9]{3})?$/, MC: /^5[1-5][0-9]{14}$/ };
 		regExp['isCVV'] = { cvv: /^[0-9]{3}$/i };
