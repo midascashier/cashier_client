@@ -1,4 +1,5 @@
 import React from 'react'
+import { isValidate } from '../constants/Application'
 
 let Input = React.createClass({
 	propTypes: {
@@ -31,14 +32,9 @@ let Input = React.createClass({
 	 * @returns {*}
 	 */
 	validateData(e){
-		let Regex = [];
-		Regex['string'] = /^[a-zA-Z\s]*$/;
-		Regex['number'] = /^[0-9]*$/;
-		Regex['email'] = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
 		let errorMessage = " Invalid!";
 
-		if(!Regex[this.props.validate].test(e)){
+		if (!isValidate(e,this.props.validate)){
 			switch(this.props.id){
 				case "ccName":
 					errorMessage = "Card Holder's Name" + errorMessage;

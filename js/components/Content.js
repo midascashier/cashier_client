@@ -89,6 +89,7 @@ let Content = React.createClass({
 							if(transaction.feeType == "CASH" && (amount + feeCashValue) > parseFloat(currentBalance)){
 								feeInsufficientFunds = 1;
 							}
+							break;
 						}
 					}
 				}

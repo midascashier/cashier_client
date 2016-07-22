@@ -5,6 +5,7 @@ import { AmountController } from '../../AmountController'
 import { UIService } from '../../../services/UIService'
 import { Register } from './Register.js'
 import { CustomerService } from '../../../services/CustomerService'
+import { FeeController } from '../../FeeController'
 
 let AskInfo = React.createClass({
 
@@ -13,6 +14,8 @@ let AskInfo = React.createClass({
 		timeFrameDayChange: React.PropTypes.func,
 		timeFrameTimeChange: React.PropTypes.func,
 		limitsCheck: React.PropTypes.number,
+		feeCashValue: React.PropTypes.number,
+		feeCheck: React.PropTypes.number,
 		amount: React.PropTypes.string,
 		timeFrameDay: React.PropTypes.string,
 		timeFrameTime: React.PropTypes.number
@@ -27,7 +30,8 @@ let AskInfo = React.createClass({
 		let amount = this.props.amount;
 		let limitsCheck = this.props.limitsCheck;
 		let payAccountId = this.props.payAccount.payAccountId;
-
+		let feeCheck = this.props.feeCheck;
+		let feeCashValue = this.props.feeCashValue;
 		let isWithDraw = UIService.getIsWithDraw();
 		let originPath = UIService.getOriginPath();
 		let displayName = UIService.getProcessorDisplayName();
@@ -59,18 +63,19 @@ let AskInfo = React.createClass({
 														{(() =>{
 															if(payAccountId != 0){
 																return (
-																<div>
-																	<div className="col-sm-9">
-																		<SelectPayAccount />
+																	<div>
+																		<div className="col-sm-9">
+																			<SelectPayAccount />
+																		</div>
+																		<div className="col-sm-3">
+																			<button type='button' onClick={this.disablePayAccount}
+																							className='btn btn-xs btn-green'>
+																				Delete
+																			</button>
+																		</div>
 																	</div>
-																	<div className="col-sm-3">
-																		<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
-																			Delete
-																		</button>
-																	</div>
-																</div>
 																)
-															}else{
+															} else{
 																return (
 																	<div>
 																		<SelectPayAccount />
@@ -84,13 +89,15 @@ let AskInfo = React.createClass({
 															if(payAccountId != 0 && !isWithDraw){
 																return (
 																	<div id="timeFrame">
-																		<label className="control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
+																		<label
+																			className="control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
 																		<div className="col-sm-6">
 																			<div className="form-group">
 																				<select className="form-control" value={this.props.timeFrameDay}
 																								onChange={this.props.timeFrameDayChange}>
 																					<option value="TODAY">{translate('P2P_TIME_FRAME_TODAY', 'Today')}</option>
-																					<option value="TOMORROW">{translate('P2P_TIME_FRAME_TOMORROW', 'Tomorrow')}</option>
+																					<option
+																						value="TOMORROW">{translate('P2P_TIME_FRAME_TOMORROW', 'Tomorrow')}</option>
 																				</select>
 																			</div>
 																		</div>
@@ -127,7 +134,14 @@ let AskInfo = React.createClass({
 
 														{(() =>{
 															if(payAccountId != 0){
-																return <AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+																return <AmountController setAmount={setAmount} amount={amount}
+																												 limitsCheck={limitsCheck}/>
+															}
+														})()}
+
+														{(() =>{
+															if(isWithDraw){
+																return <FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>;
 															}
 														})()}
 

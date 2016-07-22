@@ -10,7 +10,9 @@ let Person2Person = React.createClass({
 	propTypes: {
 		setAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.number,
-		amount: React.PropTypes.string
+		amount: React.PropTypes.string,
+		feeCashValue: React.PropTypes.number,
+		feeCheck: React.PropTypes.number
 	},
 
 	/**
@@ -84,6 +86,8 @@ let Person2Person = React.createClass({
 									 timeFrameTimeChange={this.timeFrameTimeChange}
 									 timeFrameDayChange={this.timeFrameDayChange}
 									 payAccount={this.state.payAccount}
+									 feeCashValue={this.props.feeCashValue}
+									 feeCheck={this.props.feeCheck}
 					/>
 				</div>
 				<div className="col-sm-6">
@@ -97,6 +101,7 @@ let Person2Person = React.createClass({
 																 timeFrameTime={this.state.timeFrameTime}
 																 timeFrameTimeChange={this.timeFrameTimeChange}
 																 timeFrameDayChange={this.timeFrameDayChange}
+																 feeCheck={this.props.feeCheck}
 							/>;
 						}
 					})()}

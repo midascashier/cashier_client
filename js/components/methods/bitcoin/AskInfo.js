@@ -19,6 +19,7 @@ let AskInfo = React.createClass({
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
 		let limitsCheck = this.props.limitsCheck;
+		let feeCashValue = this.props.feeCashValue;
 		let feeCheck = this.props.feeCheck;
 		let isWithDraw = UIService.getIsWithDraw();
 		let originPath = UIService.getOriginPath();
@@ -63,7 +64,7 @@ let AskInfo = React.createClass({
 
 												{(() =>{
 													if(isWithDraw){
-														return <FeeController feeCashValue={this.props.feeCashValue} feeCheck={feeCheck} amount={amount}/>;
+														return <FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>;
 													}
 												})()}
 

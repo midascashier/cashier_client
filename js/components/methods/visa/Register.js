@@ -163,14 +163,14 @@ let Register = React.createClass({
 
 						<div className="form-group">
 							<label for="" className="control-label">{translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}:</label>
-							<Input type="text" id="ccName" ref="ccName" validate="string" require
+							<Input type="text" id="ccName" ref="ccName" validate="isString" require
 										 onChange={this.changeValue.bind(null, 'extra3', 0)}
 										 value={this.state.payAccount.extra3}/>
 						</div>
 
 						<div className="form-group">
 							<label for="" className="control-label">{translate('CREDIT_CARD_NUMBER', 'Card Number')}:</label>
-							<Input type="text" id="creditCardNumber" ref="creditCardNumber" validate="number" require
+							<Input type="text" id="creditCardNumber" ref="creditCardNumber" validate="isCreditNumber" require
 										 onChange={this.changeValue.bind(null, 'account', 0)}
 										 value={this.state.payAccount.account}/>
 						</div>
@@ -201,7 +201,7 @@ let Register = React.createClass({
 
 						<div className="form-group">
 							<label for="" className="control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
-							<Input type="text" id="cvv" ref="cvv" validate="number" require
+							<Input type="text" id="cvv" ref="cvv" validate="isCVV" require
 										 onChange={this.changeValue.bind(null, 'password', 0)}
 										 value={this.state.payAccount.password}/>
 						</div>
@@ -209,12 +209,12 @@ let Register = React.createClass({
 						<div>
 							<div className="form-group">
 								<label for="" className="control-label">First Name:</label>
-								<Input type="text" id="firstName" ref="firstName" validate="string" require
+								<Input type="text" id="firstName" ref="firstName" validate="isString" require
 											 onChange={this.changeValue.bind(null, 'firstName', 0)} value={this.state.payAccount.firstName}/>
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">Last Name:</label>
-								<Input type="text" id="lastName" ref="lastName" validate="string" require
+								<Input type="text" id="lastName" ref="lastName" validate="isString" require
 											 onChange={this.changeValue.bind(null, 'lastName', 0)} value={this.state.payAccount.lastName}/>
 							</div>
 							<div className="form-group">
@@ -239,27 +239,27 @@ let Register = React.createClass({
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">City / Town:</label>
-								<Input type="text" id="city" ref="city" validate="string" require
+								<Input type="text" id="city" ref="city" validate="isString" require
 											 onChange={this.changeValue.bind(null, 'city', 0)} value={this.state.payAccount.city}/>
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">Address:</label>
-								<Input type="text" id="address" ref="address" validate="string" require
+								<Input type="text" id="address" ref="address" validate="isString" require
 											 onChange={this.changeValue.bind(null, 'address1', 0)} value={this.state.payAccount.address1}/>
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">ZIP / Postal Code:</label>
-								<Input type="text" id="zip" ref="zip" validate="number" require
+								<Input type="text" id="zip" ref="zip" validate="isNumber" require
 											 onChange={this.changeValue.bind(null, 'zip', 0)} value={this.state.payAccount.zip}/>
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">Email Address:</label>
-								<Input type="text" id="email" ref="email" validate="email" require
+								<Input type="text" id="email" ref="email" validate="isEmail" require
 											 onChange={this.changeValue.bind(null, 'email', 0)} value={this.state.payAccount.email}/>
 							</div>
 							<div className="form-group">
 								<label for="" className="control-label">Phone:</label>
-								<Input type="text" id="phone" ref="phone" validate="number" require
+								<Input type="text" id="phone" ref="phone" validate="isNumber" require
 											 onChange={this.changeValue.bind(null, 'phone', 0)} value={this.state.payAccount.phone}/>
 							</div>
 						</div>
