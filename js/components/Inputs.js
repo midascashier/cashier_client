@@ -34,7 +34,7 @@ let Input = React.createClass({
 	validateData(e){
 		let errorMessage = " Invalid!";
 
-		if (!ApplicationService.isValidate(e,this.props.validate)){
+		if(!ApplicationService.isValidate(e, this.props.validate)){
 			switch(this.props.id){
 				case "ccName":
 					errorMessage = "Card Holder's Name" + errorMessage;

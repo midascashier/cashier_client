@@ -14,9 +14,9 @@ let CashierActions = {
 		});
 	},
 
-	setTransactionFee: (fee) =>{
+	setFeeAmount: (amount) =>{
 		CashierDispatcher.dispatch({
-			action: actions.CHANGE_TRANSACTION_FEE, data: { fee: fee }
+			action: actions.CHANGE_TRANSACTION_FEE_AMOUNT, data: { amount: amount }
 		});
 	},
 
@@ -77,8 +77,14 @@ let CashierActions = {
 			action: actions.CHANGE_TRANSACTION_FEE,
 			data: { fee: data }
 		});
-	}
+	},
 
+	setBitcoinAddress: (data) => {
+		CashierDispatcher.dispatch({
+			action: actions.SET_BITCOIN_ADDRESS,
+			data: { bitcoinaddress: data }
+		});
+	}
 };
 
 module.exports.CashierActions = CashierActions;

@@ -128,7 +128,7 @@ class transactionService {
 	 * @param amount
 	 */
 	setFeeAmount(fee){
-		CashierActions.setTransactionFee(fee);
+		CashierActions.setTransactionFeeAmount(fee);
 	};
 
 	/**
@@ -178,6 +178,7 @@ class transactionService {
 
 		let application = CashierStore.getApplication();
 		let customerInfo = CashierStore.getCustomer();
+		let transaction = CashierStore.getTransaction();
 
 		var req = {
 			companyId: customerInfo.companyId,
@@ -201,8 +202,8 @@ class transactionService {
 		if(CashierStore.getIsWithdraw()){
 			req.type = "w";
 			req.isDefer = 1;
-			req.feeType = 'FREE';
-			req.currencyFee = 0;
+			req.feeType = transaction.feeType;
+			req.currencyFee = transaction.fee;
 			req.feeBP = 0;
 		}
 
@@ -249,7 +250,7 @@ class transactionService {
 		let rabbitRequest = {
 			f: "process",
 			processorId: processorSelected.processorId,
-			payAccountId: 0, //Bitcoin doesnt need payaccountID
+			payAccountId: 0, //Bitcoin doesn't need payaccountID
 			amount: transaction.amount,
 			dynamicParams: dynamicParams
 		};
@@ -456,6 +457,22 @@ class transactionService {
 	 */
 	setTransactionFee(fee){
 		CashierActions.setTransactionFee(fee);
+	};
+
+	/**
+	 * Set transaction fee
+	 */
+	setFeeAmount(fee){
+		CashierActions.setFeeAmount(fee);
+	};
+
+	/**
+	 * sets bitcoin address
+	 *
+	 * @param address
+	 */
+	setBitcoinAddress(address){
+		CashierActions.setBitcoinAddress(address);
 	};
 
 	/**

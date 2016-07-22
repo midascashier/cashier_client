@@ -10,7 +10,9 @@ let InfoMethod = React.createClass({
 	propTypes: {
 		amount: React.PropTypes.string,
 		limitsCheck: React.PropTypes.number,
-		feeCheck: React.PropTypes.number
+		feeCheck: React.PropTypes.number,
+		feeCashValue: React.PropTypes.number,
+		bitcoinAddress: React.PropTypes.string
 	},
 
 	/**
@@ -81,12 +83,15 @@ let InfoMethod = React.createClass({
 	continueTransaction(){
 		let isWithDraw = UIService.getIsWithDraw();
 		TransactionService.setAmount(this.props.amount);
+		TransactionService.setBitcoinAddress(this.props.bitcoinAddress);
+		TransactionService.setFeeAmount(this.props.feeCashValue);
 		if(isWithDraw){
 			UIService.confirmTransaction();
 		}
 		else{
 			//process the deposit
-			TransactionService.processBTC(null,'instructions');
+			let customer = UIService.getCustomerInformation();
+			TransactionService.processBTC({account: customer.username},'instructions');
 		}
 	},
 
@@ -95,7 +100,7 @@ let InfoMethod = React.createClass({
 		let feeCheck = this.props.feeCheck;
 		let payAccountInfo = this.getPayAccountLimits();
 		let originPath = UIService.getOriginPath();
-
+		let bitcoinAddress = this.props.bitcoinAddress;
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {

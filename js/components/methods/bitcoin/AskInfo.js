@@ -1,6 +1,6 @@
 import React from 'react'
 import { translate } from '../../../constants/Translate'
-import { SelectPayAccount } from '../../SelectPayAccount'
+import { Input } from '../../Inputs'
 import { AmountController } from '../../AmountController'
 import { UIService } from '../../../services/UIService'
 import { FeeController } from '../../FeeController'
@@ -9,10 +9,12 @@ let AskInfo = React.createClass({
 
 	propTypes: {
 		transactionAmount: React.PropTypes.func,
+		changeValue: React.PropTypes.func,
 		limitsCheck: React.PropTypes.number,
 		amount: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number,
-		feeCheck: React.PropTypes.number
+		feeCheck: React.PropTypes.number,
+		bitcoinAddress: React.PropTypes.string
 	},
 
 	render() {
@@ -21,6 +23,7 @@ let AskInfo = React.createClass({
 		let limitsCheck = this.props.limitsCheck;
 		let feeCashValue = this.props.feeCashValue;
 		let feeCheck = this.props.feeCheck;
+		let bitcoinAddress = this.props.bitcoinAddress;
 		let isWithDraw = UIService.getIsWithDraw();
 		let originPath = UIService.getOriginPath();
 		let displayName = UIService.getProcessorDisplayName();
@@ -55,8 +58,8 @@ let AskInfo = React.createClass({
 																<div>
 																	<label for="">{translate('BITCOIN_ADDRESS', 'BitCoin Address')}:</label>
 																	<Input className="form-control" type="text" id="bitcoinAddress" name="bitcoinAddress"
-																				 ref="bitcoinAddress" validate="isBitCoinAddress" require onChange={this.changeValue}
-																				 value={this.state.bitcoinAddress}/>
+																				 ref="bitcoinAddress" validate="isBitCoinAddress" require onChange={this.props.changeValue}
+																				 value={bitcoinAddress}/>
 																</div>
 															)
 														}

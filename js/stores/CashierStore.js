@@ -280,6 +280,7 @@ let _transaction = {
 	fee: 0,
 	feeType: '',
 	bonusId: 0,
+	bitcoinAddress: '',
 	checkTermsAndConditions: 0,
 	controlNumber: null,
 	timeFrameDay: null,
@@ -287,6 +288,7 @@ let _transaction = {
 	cleanTransaction(){
 		this.amount = "";
 		this.fee = 0;
+		this.bitcoinAddress = "";
 		this.feeType = "";
 		this.bonusId = 0;
 		this.checkTermsAndConditions = 0;
@@ -559,6 +561,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			_transaction.feeType = data.fee;
 			break;
 
+		case actions.CHANGE_TRANSACTION_FEE_AMOUNT:
+			_transaction.fee = data.amount;
+			break;
+
 		case actions.PROCESSOR_FEES_CONFIGURATION_RESPONSE:
 			_processor.fees.enableBP = data.response.processorFeesConfig.enableBPOption;
 			if(_processor.fees.enableBP == 1){
@@ -574,6 +580,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			}
 			_processor.fees.cashType = data.response.processorFeesConfig.cashOptionType;
 			CashierStore.emitChange();
+			break;
+
+		case actions.SET_BITCOIN_ADDRESS:
+			_transaction.bitcoinAddress = data.bitcoinaddress;
 			break;
 
 		case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
