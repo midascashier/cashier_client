@@ -1,6 +1,6 @@
 import React from 'react'
 import { translate } from '../../../../constants/Translate'
-import { isControlNumber } from '../../../../constants/Application'
+import { ApplicationService } from '../../../../services/ApplicationService'
 import { Input } from '../../../Inputs'
 import { UIService } from '../../../../services/UIService'
 import { TransactionService } from '../../../../services/TransactionService'
@@ -77,7 +77,7 @@ let P2PTicketPending = React.createClass({
 	changeValue(attribute, value) {
 
 		if(attribute == 'controlNumber'){
-			let enableSubmit = isControlNumber(value);
+			let enableSubmit = ApplicationService.isValidate(value,"isControlNumber");
 			this.setState({enableReprocess: enableSubmit, controlNumber: value});
 			TransactionService.setControlNumber(value);
 		}

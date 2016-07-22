@@ -54,7 +54,9 @@ let AskInfo = React.createClass({
 															return (
 																<div>
 																	<label for="">{translate('BITCOIN_ADDRESS', 'BitCoin Address')}:</label>
-																	<SelectPayAccount />
+																	<Input className="form-control" type="text" id="bitcoinAddress" name="bitcoinAddress"
+																				 ref="bitcoinAddress" validate="isBitCoinAddress" require onChange={this.changeValue}
+																				 value={this.state.bitcoinAddress}/>
 																</div>
 															)
 														}

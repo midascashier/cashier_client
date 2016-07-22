@@ -86,7 +86,7 @@ let InfoMethod = React.createClass({
 		}
 		else{
 			//process the deposit
-			TransactionService.process(null,'instructions');
+			TransactionService.processBTC(null,'instructions');
 		}
 	},
 

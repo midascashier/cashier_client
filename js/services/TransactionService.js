@@ -234,6 +234,31 @@ class transactionService {
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 
+
+	/**
+	 * this function sends to process a transaction
+	 */
+	processBTC(dynamicParams, nextStep){
+
+		//clean current transaction response
+		CashierStore.getLastTransactionResponse().cleanTransaction();
+
+		let transaction = CashierStore.getTransaction();
+		let processorSelected = CashierStore.getProcessor();
+
+		let rabbitRequest = {
+			f: "process",
+			processorId: processorSelected.processorId,
+			payAccountId: 0, //Bitcoin doesnt need payaccountID
+			amount: transaction.amount,
+			dynamicParams: dynamicParams
+		};
+		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
+
+		UIService.processTransaction(nextStep);
+		stompConnector.makeProcessRequest("", rabbitRequest);
+	};
+
 	/**
 	 * this function sends to process a cc transaction
 	 */
