@@ -133,7 +133,7 @@ let InfoMethod = React.createClass({
 							<div className="row">
 								<div className="col-sm-6">
 									{(() =>{
-										if(payAccountInfo.payAccountId && limitsCheck && !feeCheck){
+										if(payAccountInfo.payAccountId && limitsCheck && !feeCheck && allowContinueToConfirm){
 											return (
 												<button type='button' onClick={this.continueTransaction} className='btn btn-green'>
 													{translate('PROCESSING_BUTTON_NEXT', 'Next')}

@@ -32,9 +32,9 @@ let Input = React.createClass({
 	 * @returns {*}
 	 */
 	validateData(e){
-		let errorMessage = " Invalid!";
-
+		let isValid;
 		if(!ApplicationService.validateInfo(e, this.props.validate)){
+			let errorMessage = " Invalid!";
 			switch(this.props.id){
 				case "ccName":
 					errorMessage = "Card Holder's Name" + errorMessage;
@@ -46,21 +46,23 @@ let Input = React.createClass({
 					errorMessage = "CVV" + errorMessage;
 					break
 			}
+			isValid = false;
 			this.setState(
 				{
 					isValid: false,
 					errorMessage: errorMessage
 				}
-			)
+			);
 		} else{
+			isValid = true;
 			this.setState(
 				{
 					isValid: true,
 					errorMessage: ""
 				}
-			)
+			);
 		}
-		return e;
+		return isValid;
 	},
 
 	/**
@@ -70,11 +72,12 @@ let Input = React.createClass({
 	 */
 	changeHandler(e) {
 		let value = e.target.value;
+		let isValid;
 		if(typeof this.props.onChange === 'function'){
 			if(this.props.validate){
-				this.validateData(value);
+				isValid = this.validateData(value);
 			}
-			this.props.onChange(value, this.state.isValid);
+			this.props.onChange(value, isValid);
 		}
 	},
 
