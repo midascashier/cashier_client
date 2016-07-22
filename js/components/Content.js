@@ -18,8 +18,7 @@ let Content = React.createClass({
 					amount: "",
 					limitsCheck: 0,
 					feeCheck: 0,
-					feeCashValue: 0,
-					feeBPValue: 0
+					feeCashValue: 0
 				}
 			};
 		},
@@ -95,7 +94,7 @@ let Content = React.createClass({
 				}
 			}
 			let actualState = this.state.info;
-			actualState.feeBPValue = feeCashValue;
+			actualState.feeCashValue = feeCashValue;
 			actualState.feeCheck = feeInsufficientFunds;
 			this.setState({ info: actualState });
 		},
@@ -139,7 +138,7 @@ let Content = React.createClass({
 					setAmount: this.setAmount,
 					limitsCheck: this.state.info.limitsCheck,
 					amount: this.state.info.amount,
-					feeCashValue: this.state.info.feeBPValue,
+					feeCashValue: this.state.info.feeCashValue,
 					feeCheck: this.state.info.feeCheck
 				})
 			);

@@ -5,7 +5,7 @@ import { AskInfo } from './AskInfo'
 import { InfoMethod } from './InfoMethod'
 
 let BitCoin = React.createClass({
-	
+
 	propTypes: {
 		setAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.number,
@@ -13,6 +13,7 @@ let BitCoin = React.createClass({
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number
 	},
+
 	/**
 	 * React function to set component initial state
 	 */
@@ -40,7 +41,10 @@ let BitCoin = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			selectedProcessor: CashierStore.getProcessor()
+			info: {
+				selectedProcessor: CashierStore.getProcessor(),
+				bitcoinAddress: ""
+			}
 		}
 	},
 
@@ -53,6 +57,16 @@ let BitCoin = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
+	changeValue(e) {
+		let actualState = this.state.info;
+		actualState.bitcoinAddress = e;
+		this.setState(
+			{
+				info: actualState
+			}
+		)
+	},
+
 	render() {
 		return (
 			<div id="bitCoin">
@@ -62,14 +76,17 @@ let BitCoin = React.createClass({
 									 limitsCheck={this.props.limitsCheck}
 									 feeCashValue={this.props.feeCashValue}
 									 feeCheck={this.props.feeCheck}
+									 changeValue={this.changeValue}
+									 bitcoinAddress={this.state.info.bitcoinAddress}
 					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
-						if(!this.state.selectedProcessor.processorId){
+						if(!this.state.info.selectedProcessor.processorId){
 							return <LoadingSpinner />;
 						} else{
-							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck} feeCheck={this.props.feeCheck}/>;
+							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck} feeCashValue={this.props.feeCashValue}
+																 feeCheck={this.props.feeCheck} bitcoinAddress={this.state.info.bitcoinAddress}/>;
 						}
 					})()}
 				</div>

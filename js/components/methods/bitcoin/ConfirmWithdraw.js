@@ -52,7 +52,8 @@ let BitCoinConfirmWithdraw = React.createClass({
 	 *
 	 */
 	processTransaction(){
-		TransactionService.process(null,'ticket');
+		let transaction = this.state.transaction;
+		TransactionService.processBTC({ account: transaction.bitcoinAddress }, 'ticket');
 	},
 
 	/**
@@ -72,7 +73,6 @@ let BitCoinConfirmWithdraw = React.createClass({
 	render(){
 		let originPath = UIService.getOriginPath();
 		let transaction = this.state.transaction;
-		let secureData = this.state.payAccount.secure;
 		return (
 			<div id="confirmBitCoinWithdraw" className="internal-content">
 				<div className="row">
@@ -85,9 +85,11 @@ let BitCoinConfirmWithdraw = React.createClass({
 
 										<div className="row">
 											<div className="col-sm-12">
-												<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
+												<div
+													className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 												<div className="infoCol text-justify">
-													<p>BitCoin withdraws will be process inside 24 hours, but are typically processed within an hour.</p>
+													<p>BitCoin withdraws will be process inside 24 hours, but are typically processed within an
+														hour.</p>
 												</div>
 											</div>
 
@@ -101,33 +103,36 @@ let BitCoinConfirmWithdraw = React.createClass({
 										<div className="row">
 											<div className="col-sm-12">
 												<div className="title">{translate('METHOD_DETAILS_WITHDRAW', 'Withdraw Details')}</div>
-													<div className="table-responsive">
-														<table className="table table-striped">
-															<tbody>
-																<tr>
-																	<td>{translate('BITCOIN_ADDRESS', 'Address')}</td>
-																	<td><span>{secureData.account}</span></td>
-																</tr>
-																<tr>
-																	<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
-																	<td><span>{transaction.amount}</span></td>
-																</tr>
-																<tr>
-																	<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
-																	<td><span>{transaction.fee}</span></td>
-																</tr>
-															</tbody>
-														</table>
-													</div>
-													<p>
-														<i className="fa fa-pencil green"></i>
-														<a onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>
-													</p>
+												<div className="table-responsive">
+													<table className="table table-striped">
+														<tbody>
+														<tr>
+															<td>{translate('BITCOIN_ADDRESS', 'Address')}</td>
+															<td><span>{transaction.bitcoinAddress}</span></td>
+														</tr>
+														<tr>
+															<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
+															<td><span>{transaction.amount}</span></td>
+														</tr>
+														<tr>
+															<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
+															<td><span>{transaction.fee}</span></td>
+														</tr>
+														</tbody>
+													</table>
+												</div>
+												<p>
+													<i className="fa fa-pencil green"></i>
+													<a
+														onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>
+												</p>
 												<div className="row">
 													<div className="col-sm-6">
-														<button type="button" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}</button>
+														<button type="button" onClick={this.processTransaction}
+																		className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}</button>
 														<p>
-															<a onClick={this.setFirstStep}>{translate('METHOD_USE_DIFFERENT', 'Use a different method.')}</a>
+															<a
+																onClick={this.setFirstStep}>{translate('METHOD_USE_DIFFERENT', 'Use a different method.')}</a>
 														</p>
 													</div>
 													<div className="col-sm-6">

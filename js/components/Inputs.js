@@ -1,5 +1,5 @@
 import React from 'react'
-import { isValidate } from '../constants/Application'
+import { ApplicationService } from '../services/ApplicationService'
 
 let Input = React.createClass({
 	propTypes: {
@@ -34,7 +34,7 @@ let Input = React.createClass({
 	validateData(e){
 		let errorMessage = " Invalid!";
 
-		if (!isValidate(e,this.props.validate)){
+		if(!ApplicationService.isValidate(e, this.props.validate)){
 			switch(this.props.id){
 				case "ccName":
 					errorMessage = "Card Holder's Name" + errorMessage;

@@ -65,7 +65,7 @@ let Register = React.createClass({
 			<div className="form-group">
 				<form onSubmit={this.addNewPayAccount}>
 					<label for="">Enter your Neteller Email Account:</label>
-					<Input className="form-control" ref="netellerNewAccount" type="text" id="netellerNewAccount"
+					<Input className="form-control" type="text" id="netellerNewAccount"
 								 name="netellerNewAccount" ref="email" validate="isEmail" require onChange={this.changeValue}
 								 value={this.state.payAccount.account}/>
 					{this.state.displaySaveButton ?
