@@ -70,6 +70,13 @@ let CashierActions = {
 			action: actions.CHANGE_APPLICATION_SELECTED_COUNTRY,
 			data: { country: data }
 		});
+	},
+
+	setTransactionFee: (data) =>{
+		CashierDispatcher.dispatch({
+			action: actions.CHANGE_TRANSACTION_FEE,
+			data: { fee: data }
+		});
 	}
 
 };

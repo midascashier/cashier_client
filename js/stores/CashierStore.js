@@ -349,7 +349,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * Return last transaction cashier response
-	 * 
+	 *
 	 * @returns {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
 	 */
 	getLastTransactionResponse: () =>{
@@ -555,20 +555,24 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			}
 			break;
 
+		case actions.CHANGE_TRANSACTION_FEE:
+			_transaction.feeType = data.fee;
+			break;
+
 		case actions.PROCESSOR_FEES_CONFIGURATION_RESPONSE:
 			_processor.fees.enableBP = data.response.processorFeesConfig.enableBPOption;
-			if (_processor.fees.enableBP == 1 ){
+			if(_processor.fees.enableBP == 1){
 				_transaction.feeType = "Betpoints";
 			}
-			_processor.fees.enableCash  = data.response.processorFeesConfig.enableCashOption;
-			if (_processor.fees.enableCash == 1 && _transaction.feeType == "" ){
+			_processor.fees.enableCash = data.response.processorFeesConfig.enableCashOption;
+			if(_processor.fees.enableCash == 1 && _transaction.feeType == ""){
 				_transaction.feeType = "Cash";
 			}
-			_processor.fees.enableFree  = data.response.processorFeesConfig.enableFreeOption;
-			if (_processor.fees.enableFree == 1 && _transaction.feeType == ""){
+			_processor.fees.enableFree = data.response.processorFeesConfig.enableFreeOption;
+			if(_processor.fees.enableFree == 1 && _transaction.feeType == ""){
 				_transaction.feeType = "Free";
 			}
-			_processor.fees.cashType  = data.response.processorFeesConfig.cashOptionType;
+			_processor.fees.cashType = data.response.processorFeesConfig.cashOptionType;
 			CashierStore.emitChange();
 			break;
 
@@ -603,7 +607,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			addPayAccountOption.payAccountId = 0;
 			addPayAccountOption.displayName = "Register new account";
 			payAccounts_processor[addPayAccountOption.payAccountId] = addPayAccountOption;
-			if (_payAccount.payAccountId === null){
+			if(_payAccount.payAccountId === null){
 				_payAccount = payAccounts_processor[firstPayAccount];
 			}
 			_payAccounts[_processor.processorId] = payAccounts_processor;
@@ -720,7 +724,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		default:
-			console.log("Store No Action: "+ action);
+			console.log("Store No Action: " + action);
 			break;
 	}
 	return true;

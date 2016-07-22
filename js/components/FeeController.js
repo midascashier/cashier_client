@@ -1,6 +1,7 @@
 import React from 'react'
 import { CashierStore } from './../stores/CashierStore'
 import { translate } from '../constants/Translate'
+import { TransactionService } from '../services/TransactionService'
 
 let FeeController = React.createClass({
 
@@ -66,6 +67,11 @@ let FeeController = React.createClass({
 		)
 	},
 
+	transactionFee(e){
+		let transactionFee = e.target.value;
+		TransactionService.setTransactionFee(transactionFee);
+	},
+
 	render() {
 		let fees = this.state.processor.fees;
 		let customer = CashierStore.getCustomer();
@@ -73,6 +79,7 @@ let FeeController = React.createClass({
 		if(fees.enableFree == 1){ options.push(this.renderOption({ label: "Free" }, "Free")) }
 		if(fees.enableBP == 1){ options.push(this.renderOption({ label: "Betpoints" }, "Betpoints")) }
 		if(fees.enableCash == 1){ options.push(this.renderOption({ label: "Cash" }, "Cash")) }
+		options.push(this.renderOption({ label: "Free" }, "Free"))
 		return (
 			<div>
 				{(() =>{
@@ -80,7 +87,7 @@ let FeeController = React.createClass({
 						return (
 							<div>
 								<label for="" className="control-label">{translate('PROCESSING_FEE', 'Fee')}:</label>
-								<select className="form-control">{options}</select>
+								<select className="form-control" onChange={this.transactionFee}>{options}</select>
 								Fee: {this.props.feeCashValue} - Balance: {Math.round(customer.balance * 100) / 100}
 							</div>)
 					}

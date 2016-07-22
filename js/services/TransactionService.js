@@ -427,6 +427,13 @@ class transactionService {
 	};
 
 	/**
+	 * Set transaction Fee
+	 */
+	setTransactionFee(fee){
+		CashierActions.setTransactionFee(fee);
+	};
+
+	/**
 	 * Updates the secure information of a credit card.
 	 *
 	 * @param payAccountInfo
