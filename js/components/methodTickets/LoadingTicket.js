@@ -57,10 +57,8 @@ let LoadingTicket = React.createClass({
 								<div className="modules">
 									<div className="row">
 										<div className="col-sm-12">
-											<div className="loader-sm"></div>
-											<h3>
-												Processing... please wait!
-											</h3>
+											<h2>Processing... please wait!</h2>
+											<div className="loader"></div>
 										</div>
 									</div>
 								</div>

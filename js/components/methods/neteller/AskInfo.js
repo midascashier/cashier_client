@@ -57,23 +57,37 @@ let AskInfo = React.createClass({
 												</div>
 											</div>
 											<div className="col-sm-9">
-												<div className="form-group">
+												<div className="form-group" id="payAccount">
 													<label for="">{translate('NETELLER_ACCOUNT', 'Neteller Account')}:</label>
-													<SelectPayAccount />
+													{(() =>{
+														if(payAccountId != 0){
+															return (
+																<div>
+																	<div className="col-sm-9">
+																		<SelectPayAccount />
+																	</div>
+																	<div className="col-sm-3">
+																		<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+																			Delete Account
+																		</button>
+																	</div>
+																</div>
+															)
+														}else{
+															return (
+																<div>
+																	<SelectPayAccount />
+																</div>
+															)
+														}
+													})()}
+
+													{(() =>{
+														if(payAccountId == 0){
+															return <Register />
+														}
+													})()}
 												</div>
-
-												{(() =>{
-													if(payAccountId != 0){
-														return <button type="button" onClick={this.disablePayAccount}>Delete this account</button>
-													}
-												})()}
-
-
-												{(() =>{
-													if(payAccountId == 0){
-														return <Register />
-													}
-												})()}
 
 												{(() =>{
 													if(!isWithDraw && payAccountId != 0){

@@ -157,7 +157,11 @@ let BitCoinTicketPending = React.createClass({
 														<div id="QRCode">
 															{(() =>{
 																if(address){
-																	return <QRCode value={address}/>
+																	return(
+																		<div className="img-responsive center-block">
+																			<QRCode value={address}/>
+																		</div>
+																	)
 																}
 															})()}
 														</div>
@@ -183,8 +187,8 @@ let BitCoinTicketPending = React.createClass({
 								</div>
 							</div>
 
-							<div className="col-sm-6">
-								<p>{translate('BITCOIN_INSTRUCTIONS_INFO', '')}</p>
+							<div className="col-sm-12">
+								<p><strong>{translate('BITCOIN_INSTRUCTIONS_INFO', '')}</strong></p>
 							</div>
 
 						</div>

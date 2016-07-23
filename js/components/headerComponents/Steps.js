@@ -65,49 +65,55 @@ let Steps = React.createClass({
 			"instructions": translate('STEPS_INSTRUCTIONS')
 		};
 
+		let processorSteps = this.state.currentProcessorSteps;
+		let stepsNumber = processorSteps.length;
+		let stepsClass = (stepsNumber == 2)?'two-steps':'steps';
+		let currentView = this.state.currentView;
+		let currentStep = this.state.currentStep;
+		let currentPosition = processorSteps.indexOf(currentStep);
+
 		return (
-			<div id="steps" className="steps">
+			<div id="steps" className={stepsClass}>
 				{(() =>{
 					let stepDisplay = [];
-					if(this.state.currentStep != 'ticket'){
 
-						let currentPosition = this.state.currentProcessorSteps.indexOf(this.state.currentStep);
+					for(let i = 0; i < stepsNumber; i++){
+						let stepName = processorSteps[i];
+						let className = "step" + (i + 1);
 
-						for(let i = 0; i < this.state.currentProcessorSteps.length; i++){
-							let stepName = this.state.currentProcessorSteps[i];
-
-							let className = "step" + (i + 1);
-
-							if(this.state.currentProcessorSteps.indexOf(this.state.currentStep) >= i){
-								className += " active";
-							} else{
+						if(currentPosition >= i || currentPosition == -1){
+							className += " active";
+						}else{
+							if(i == (stepsNumber-1)){
 								className += " normal";
+							}else{
+								className += " inactive";
 							}
+						}
 
-							let step;
-							if(i == 0){
-								step = (
-									<Link key={i+1} to={this.state.currentView}>
-										<div onClick={this.setFirstStep} className={className}>
-											<p>
-												<span>{i + 1}</span>
-												{stepTexts[stepName]}
-											</p>
-										</div>
-									</Link>
-								);
-							} else{
-								step = (
-									<div key={i+1} className={className}>
+						let step;
+						if(i == 0){
+							step = (
+								<Link key={i+1} to={currentView}>
+									<div onClick={this.setFirstStep} className={className}>
 										<p>
 											<span>{i + 1}</span>
 											{stepTexts[stepName]}
 										</p>
 									</div>
-								);
-							}
-							stepDisplay.push(step);
+								</Link>
+							);
+						} else{
+							step = (
+								<div key={i+1} className={className}>
+									<p>
+										<span>{i + 1}</span>
+										{stepTexts[stepName]}
+									</p>
+								</div>
+							);
 						}
+						stepDisplay.push(step);
 					}
 					return stepDisplay;
 				})()}

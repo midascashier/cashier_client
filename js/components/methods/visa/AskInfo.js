@@ -79,8 +79,8 @@ let AskInfo = React.createClass({
 															return <Register />
 														}
 													})()}
-
-
+												</div>
+												<div className="form-group">
 													{(() =>{
 														if(payAccountId != 0){
 															return <AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
@@ -93,7 +93,6 @@ let AskInfo = React.createClass({
 														}
 													})()}
 												</div>
-
 											</div>
 										</div>
 									</div>
