@@ -74,6 +74,7 @@ let _langTags = {
 	PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P: "Por favor, introduzca la información del remitente",
   PROCESSING_WITHDRAW_INFORMATION_TITLE: "Ingrese la Información para el Retiro",
 	PROCESSING_LIMIT_INFORMATION_TITLE: "Límites de {processorName} para {transactionType}",
+	PROCESSING_LIMIT_REMAINING: "Restante",
 	PROCESSING_BILLING_INFO_TITLE: "Compruebe la información de facturación",
 	PROCESSING_BILLING_INFO_EDIT: "Editar la dirección de facturación",
 	PROCESSING_BUTTON_NEXT: "Siguiente",

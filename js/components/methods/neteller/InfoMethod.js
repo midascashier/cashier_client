@@ -75,23 +75,6 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 * this function return payAccount limits and ID
-	 * 
-	 * @returns {{minPayAccount: string, maxPayAccount: string, payAccountId: null}}
-	 */
-	getPayAccountLimits(){
-		let minPayAccount = "";
-		let maxPayAccount = "";
-		let payAccount = this.state.currentPayAccount;
-		if(payAccount.payAccountId != 0){
-			minPayAccount = payAccount.limitsData.minAmount + " " + payAccount.limitsData.currencyCode;
-			maxPayAccount = payAccount.limitsData.maxAmount + " " + payAccount.limitsData.currencyCode;
-		}
-
-		return { "minPayAccount": minPayAccount, "maxPayAccount": maxPayAccount, "payAccountId": payAccount.payAccountId }
-	},
-
-	/**
 	 * this function sends deposit info to cashier
 	 *
 	 */
@@ -113,7 +96,7 @@ let InfoMethod = React.createClass({
 
 	render() {
 		let limitsCheck = this.allowProcess();
-		let payAccountInfo = this.getPayAccountLimits();
+		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
 
 		let currentView = UIService.getCurrentView().toUpperCase();

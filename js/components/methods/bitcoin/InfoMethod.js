@@ -63,22 +63,6 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 * this function return payAccount limits and ID
-	 *
-	 * @returns {{minPayAccount: XML, maxPayAccount: XML, payAccountId: (*|number|null)}}
-	 */
-	getPayAccountLimits(){
-		let minPayAccount = <Loading />;
-		let maxPayAccount = <Loading />;
-		let payAccount = this.state.currentPayAccount;
-		if(payAccount.payAccountId){
-			minPayAccount = payAccount.limitsData.minAmount + " " + payAccount.limitsData.currencyCode;
-			maxPayAccount = payAccount.limitsData.maxAmount + " " + payAccount.limitsData.currencyCode;
-		}
-		return { "minPayAccount": minPayAccount, "maxPayAccount": maxPayAccount, "payAccountId": payAccount.payAccountId }
-	},
-
-	/**
 	 * this function sends deposit info to cashier
 	 *
 	 */
@@ -101,7 +85,7 @@ let InfoMethod = React.createClass({
 		let limitsCheck = this.props.limitsCheck;
 		let feeCheck = this.props.feeCheck;
 		let allowContinueToConfirm = this.props.allowContinueToConfirm;
-		let payAccountInfo = this.getPayAccountLimits();
+		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);

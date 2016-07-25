@@ -199,14 +199,14 @@ class UiService {
 	/**
 	 * get the processor currency amount
 	 *
-	 * @returns {Array}
+	 * @returns {{minAmount: number, maxAmount: number, currencyCode}}
 	 */
 	getProcessorLimitMinMax(){
 		let processor = CashierStore.getProcessor();
-		let limits = [];
-		limits.minAmount = Number(processor.limits.currencyMin);
-		limits.maxAmount = Number(processor.limits.currencyMax);
-		return limits;
+		let minAmount = Number(processor.limits.currencyMin);
+		let maxAmount = Number(processor.limits.currencyMax);
+		let currencyCode = processor.limits.currencyCode;
+		return {minAmount: minAmount, maxAmount: maxAmount, currencyCode: currencyCode};
 	}
 
 	/**
@@ -218,6 +218,8 @@ class UiService {
 		let payAccount = CashierStore.getCurrentPayAccount();
 		let limits = [];
 
+		limits.payAccountId = payAccount.payAccountId;
+		limits.currencyCode = payAccount.limitsData.currencyCode;
 		limits.available = Number(payAccount.limitsData.available);
 		limits.availableWithdraw = Number(payAccount.limitsData.availableWithdraw);
 		limits.maxAmount = Number(payAccount.limitsData.maxAmount);
@@ -226,6 +228,36 @@ class UiService {
 		limits.minAmountWithdraw = Number(payAccount.limitsData.minAmountWithdraw);
 
 		return limits;
+	}
+
+	/**
+	 * get the processor/payAccount limits to display
+	 *
+	 * @param currentAmount [temporally amount]
+	 * @returns {{minPayAccount: string, maxPayAccount: string, payAccountId: (*|null|number), remaining: string, currencyCode: *}}
+	 */
+	getDisplayLimits(currentAmount = 0){
+		let transaction = this.getTransactionInformation();
+		let processorLimits = this.getProcessorLimitMinMax();
+		let payAccountLimits = this.getPayAccountLimits();
+
+
+		let amount = (currentAmount > 0) ?currentAmount : transaction.amount;
+		let fee = (transaction.fee > 0) ?transaction.fee : 0;
+		let totalAmount = Number(amount) + Number(fee);
+		let currencyCode = processorLimits.currencyCode;
+
+		let remaining = (processorLimits.maxAmount - totalAmount) + " " + currencyCode;
+		let minPayAccount = processorLimits.minAmount + " " + currencyCode;
+		let maxPayAccount = processorLimits.maxAmount + " " + currencyCode;
+
+		if(payAccountLimits.payAccountId > 0){
+			minPayAccount = payAccountLimits.minAmount + " " + currencyCode;
+			maxPayAccount = payAccountLimits.maxAmount + " " + currencyCode;
+			remaining = (payAccountLimits.maxAmount - totalAmount)  + " " + currencyCode;
+		}
+
+		return {minPayAccount: minPayAccount, maxPayAccount: maxPayAccount, payAccountId: payAccountLimits.payAccountId, remaining: remaining, currencyCode: currencyCode}
 	}
 
 	/**

@@ -24,8 +24,8 @@ let AmountController = React.createClass({
 		return (
 			<div id="amountController">
 				<label>{translate('PROCESSING_AMOUNT', 'Amount')}:</label>
-				<input className="form-control" type="number" id="amount" name="amount" onChange={this.changeValue}
-							 value={this.props.amount}/>
+				<input className="form-control" type="number" id="amount" name="amount" onChange={this.changeValue} value={this.props.amount}
+							 min="0" required/>
 				<span>{translate('PROCESSING_MIN', 'Min')}: {limits.minAmount}
 					- {translate('PROCESSING_MAX', 'Max')}: {limits.maxAmount}</span><br/>
 				{(() =>{

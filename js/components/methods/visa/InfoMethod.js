@@ -14,7 +14,7 @@ let InfoMethod = React.createClass({
 	/**
 	 * React function to set component initial state
 	 *
-	 * @returns {*|{customer, company}}
+	 * @returns {*|{transaction, processor, currentPayAccount, customer}|{transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, cleanTransaction: (function())}), processor: (*|{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, fees: Array, limits: Array, limitRules: Array, load: (function(*))}), currentPayAccount: (*|{payAccountId: null, displayName: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limitsData: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))}), customer: (*|{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: {}, load: (function(*))})}}
 	 */
 	getInitialState(){
 		return this.refreshLocalState();
@@ -36,15 +36,15 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 *  this function sets and return object with local states
+	 * this function sets and return object with local states
 	 *
-	 * @returns {{processor: (*|{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}), currentPayAccount: *, originPath: (*|string)}}
+	 * @returns {{transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, cleanTransaction: (function())}), processor: (*|{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, fees: Array, limits: Array, limitRules: Array, load: (function(*))}), currentPayAccount: (*|{payAccountId: null, displayName: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limitsData: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))}), customer: (*|{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: {}, load: (function(*))})}}
 	 */
 	refreshLocalState() {
 		return {
 			transaction: CashierStore.getTransaction(),
-			processor: CashierStore.getProcessor(),
-			currentPayAccount: CashierStore.getCurrentPayAccount()
+			currentPayAccount: CashierStore.getCurrentPayAccount(),
+			customer: CashierStore.getCustomer()
 		}
 	},
 
@@ -70,22 +70,6 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 * this function return payAccount limits and ID
-	 *
-	 * @returns {{minPayAccount: XML, maxPayAccount: XML, payAccountId: (*|number|null)}}
-	 */
-	getPayAccountLimits(){
-		let minPayAccount = "";
-		let maxPayAccount = "";
-		let payAccount = this.state.currentPayAccount;
-		if(payAccount.payAccountId != 0){
-			minPayAccount = payAccount.limitsData.minAmount + " " + payAccount.limitsData.currencyCode;
-			maxPayAccount = payAccount.limitsData.maxAmount + " " + payAccount.limitsData.currencyCode;
-		}
-		return { "minPayAccount": minPayAccount, "maxPayAccount": maxPayAccount, "payAccountId": payAccount.payAccountId }
-	},
-
-	/**
 	 * this function sends deposit info to cashier
 	 *
 	 */
@@ -96,10 +80,10 @@ let InfoMethod = React.createClass({
 
 	render() {
 		let limitsCheck = this.allowProcess();
-		let payAccountInfo = this.getPayAccountLimits();
+		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
 
-		let processorDisplayName = UIService.getProcessorName().toLowerCase();
+		let processorDisplayName = UIService.getProcessorName().toUpperCase();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
@@ -121,6 +105,10 @@ let InfoMethod = React.createClass({
 							<tr>
 								<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
 								<td><span>{payAccountInfo.maxPayAccount}</span></td>
+							</tr>
+							<tr>
+								<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
+								<td><span>{payAccountInfo.remaining}</span></td>
 							</tr>
 							</tbody>
 						</table>
