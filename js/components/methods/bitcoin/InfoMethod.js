@@ -1,6 +1,5 @@
 import React from 'react'
 import { CashierStore } from '../../../stores/CashierStore'
-import { Loading } from '../../loading/Loading'
 import { translate } from '../../../constants/Translate'
 import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
@@ -8,7 +7,7 @@ import { UIService } from '../../../services/UIService'
 let InfoMethod = React.createClass({
 
 	propTypes: {
-		amount: React.PropTypes.string,
+		amount: React.PropTypes.node,
 		limitsCheck: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
 		feeCashValue: React.PropTypes.number,

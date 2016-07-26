@@ -10,8 +10,10 @@ let AskInfo = React.createClass({
 	propTypes: {
 		transactionAmount: React.PropTypes.func,
 		changeValue: React.PropTypes.func,
+		btcConverter: React.PropTypes.func,
 		limitsCheck: React.PropTypes.number,
-		amount: React.PropTypes.string,
+		amount: React.PropTypes.node,
+		btcAmount: React.PropTypes.number,
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
 		bitcoinAddress: React.PropTypes.string
@@ -20,6 +22,7 @@ let AskInfo = React.createClass({
 	render() {
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
+		let btcAmount = this.props.btcAmount;
 		let limitsCheck = this.props.limitsCheck;
 		let feeCashValue = this.props.feeCashValue;
 		let feeCheck = this.props.feeCheck;
@@ -58,7 +61,7 @@ let AskInfo = React.createClass({
 																<div>
 																	<label for="">{translate('BITCOIN_ADDRESS', 'BitCoin Address')}:</label>
 																	<Input className="form-control" type="text" id="bitcoinAddress" name="bitcoinAddress"
-																				 ref="bitcoinAddress" validate="isBitCoinAddress" require onChange={this.props.changeValue}
+																				 ref="bitcoinAddress" validate="isBitCoinAddress" onChange={this.props.changeValue}
 																				 value={bitcoinAddress}/>
 																</div>
 															)
@@ -66,6 +69,18 @@ let AskInfo = React.createClass({
 													})()}
 												</div>
 												<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+
+												{(() =>{
+													if(!isWithDraw){
+														return (<div>
+															<label>BTC ~</label>
+															<Input className="form-control" type="text" id="btcAmount" name="btcAmount"
+																		 ref="btcAmount" validate="isNumber" require onChange={this.props.btcConverter}
+																		 value={btcAmount}/>
+															</div>);
+													}
+												})()}
+
 
 												{(() =>{
 													if(isWithDraw){

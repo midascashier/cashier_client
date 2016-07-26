@@ -161,6 +161,7 @@ let _processor = {
 	Name: '',
 	displayName: '',
 	bonus: [],
+	rate: 621,
 	limits: [],
 	limitRules: [],
 	fees: {
@@ -450,6 +451,13 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getCompany: () =>{
 		return _company;
+	},
+
+	/**
+	 * Return actual BTC rate
+	 */
+	getBTCRate:() =>{
+		return _processor.rate;
 	},
 
 	/**

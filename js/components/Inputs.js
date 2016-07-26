@@ -3,7 +3,7 @@ import { ApplicationService } from '../services/ApplicationService'
 
 let Input = React.createClass({
 	propTypes: {
-		value: React.PropTypes.string,
+		value: React.PropTypes.node,
 		onChange: React.PropTypes.func
 	},
 

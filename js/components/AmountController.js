@@ -6,7 +6,7 @@ let AmountController = React.createClass({
 	propTypes: {
 		transactionAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.number,
-		amount: React.PropTypes.string
+		amount: React.PropTypes.node
 	},
 
 	/**

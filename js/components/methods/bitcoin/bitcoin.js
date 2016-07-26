@@ -9,7 +9,7 @@ let BitCoin = React.createClass({
 	propTypes: {
 		setAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.number,
-		amount: React.PropTypes.string,
+		amount: React.PropTypes.node,
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number
 	},
@@ -58,6 +58,12 @@ let BitCoin = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
+	/**
+	 * Set local state for bitcoin Address and if is allow to continue
+	 *
+	 * @param e
+	 * @param state
+	 */
 	changeValue(e, state) {
 		let actualState = this.state.info;
 		actualState.bitcoinAddress = e;
@@ -69,11 +75,26 @@ let BitCoin = React.createClass({
 		)
 	},
 
+	/**
+	 *
+	 */
+	btcConverter(value){
+		let amount = value * CashierStore.getBTCRate();
+		if (amount == 0 ){
+			amount = "";
+		}
+		this.props.setAmount(amount);
+	},
+
+
 	render() {
+		let btcAmount = (this.props.amount / CashierStore.getBTCRate());
 		return (
 			<div id="bitCoin">
 				<div className="col-sm-6">
 					<AskInfo amount={this.props.amount}
+									 btcAmount={btcAmount}
+									 btcConverter={this.btcConverter}
 									 setAmount={this.props.setAmount}
 									 limitsCheck={this.props.limitsCheck}
 									 feeCashValue={this.props.feeCashValue}
