@@ -76,19 +76,20 @@ let BitCoin = React.createClass({
 	},
 
 	/**
-	 *
+	 * Receive BTC amount and do the conversion
 	 */
 	btcConverter(value){
+		isNaN(value) ? value = "" : value;
 		let amount = value * CashierStore.getBTCRate();
-		if (amount == 0 ){
+		if(amount == 0){
 			amount = "";
 		}
 		this.props.setAmount(amount);
 	},
 
-
 	render() {
 		let btcAmount = (this.props.amount / CashierStore.getBTCRate());
+
 		return (
 			<div id="bitCoin">
 				<div className="col-sm-6">
@@ -111,7 +112,7 @@ let BitCoin = React.createClass({
 							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}
 																 feeCashValue={this.props.feeCashValue}
 																 feeCheck={this.props.feeCheck} bitcoinAddress={this.state.info.bitcoinAddress}
-																 allowContinueToConfirm = {this.state.info.allowContinueToConfirm}/>;
+																 allowContinueToConfirm={this.state.info.allowContinueToConfirm}/>;
 						}
 					})()}
 				</div>

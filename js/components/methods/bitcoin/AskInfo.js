@@ -75,7 +75,7 @@ let AskInfo = React.createClass({
 														return (<div>
 															<label>BTC ~</label>
 															<Input className="form-control" type="text" id="btcAmount" name="btcAmount"
-																		 ref="btcAmount" validate="isNumber" require onChange={this.props.btcConverter}
+																		 ref="btcAmount" validate="isNumber" onChange={this.props.btcConverter}
 																		 value={btcAmount}/>
 															</div>);
 													}
