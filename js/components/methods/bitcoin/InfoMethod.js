@@ -52,7 +52,6 @@ let InfoMethod = React.createClass({
 		}
 	},
 
-
 	/**
 	 * this is the callback function the store calls when a state change
 	 *
@@ -77,14 +76,18 @@ let InfoMethod = React.createClass({
 		else{
 			//process the deposit
 			let customer = UIService.getCustomerInformation();
-			TransactionService.processBTC({account: customer.username},'instructions');
+			TransactionService.processBTC({ account: customer.username }, 'instructions');
 		}
 	},
 
 	render() {
 		let limitsCheck = this.props.limitsCheck;
 		let feeCheck = this.props.feeCheck;
-		let allowContinueToConfirm = this.props.allowContinueToConfirm;
+		let isWithDraw = UIService.getIsWithDraw();
+		let allowContinueToConfirm = true;
+		if(isWithDraw){
+			this.props.allowContinueToConfirm;
+		}
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
 		let currentView = UIService.getCurrentView().toUpperCase();
