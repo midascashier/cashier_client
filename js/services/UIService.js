@@ -212,20 +212,20 @@ class UiService {
 	/**
 	 * get the payAccount currency amount
 	 *
-	 * @returns {Array}
+	 * @returns {{payAccountId: null, currencyCode: *, available: number, availableWithdraw: number, maxAmount: number, maxAmountWithdraw: number, minAmount: number, minAmountWithdraw: number}}
 	 */
 	getPayAccountLimits(){
 		let payAccount = CashierStore.getCurrentPayAccount();
-		let limits = [];
-
-		limits.payAccountId = payAccount.payAccountId;
-		limits.currencyCode = payAccount.limitsData.currencyCode;
-		limits.available = Number(payAccount.limitsData.available);
-		limits.availableWithdraw = Number(payAccount.limitsData.availableWithdraw);
-		limits.maxAmount = Number(payAccount.limitsData.maxAmount);
-		limits.maxAmountWithdraw = Number(payAccount.limitsData.maxAmountWithdraw);
-		limits.minAmount = Number(payAccount.limitsData.minAmount);
-		limits.minAmountWithdraw = Number(payAccount.limitsData.minAmountWithdraw);
+		let limits = {
+			payAccountId: payAccount.payAccountId,
+			currencyCode: payAccount.limitsData.currencyCode,
+			available: Number(payAccount.limitsData.available),
+			availableWithdraw: Number(payAccount.limitsData.availableWithdraw),
+			maxAmount: Number(payAccount.limitsData.maxAmount),
+			maxAmountWithdraw: Number(payAccount.limitsData.maxAmountWithdraw),
+			minAmount: Number(payAccount.limitsData.minAmount),
+			minAmountWithdraw: Number(payAccount.limitsData.minAmountWithdraw)
+		};
 
 		return limits;
 	}
@@ -241,7 +241,6 @@ class UiService {
 		let processorLimits = this.getProcessorLimitMinMax();
 		let payAccountLimits = this.getPayAccountLimits();
 
-
 		let amount = (currentAmount > 0) ?currentAmount : transaction.amount;
 		let fee = (transaction.fee > 0) ?transaction.fee : 0;
 		let totalAmount = Number(amount) + Number(fee);
@@ -252,9 +251,15 @@ class UiService {
 		let maxPayAccount = processorLimits.maxAmount + " " + currencyCode;
 
 		if(payAccountLimits.payAccountId > 0){
+
+			let availablePayAccount = payAccountLimits.available;
+			if(this.getIsWithDraw()){
+				availablePayAccount = payAccountLimits.availableWithdraw;
+			}
+
 			minPayAccount = payAccountLimits.minAmount + " " + currencyCode;
 			maxPayAccount = payAccountLimits.maxAmount + " " + currencyCode;
-			remaining = (payAccountLimits.maxAmount - totalAmount)  + " " + currencyCode;
+			remaining = (availablePayAccount - totalAmount)  + " " + currencyCode;
 		}
 
 		return {minPayAccount: minPayAccount, maxPayAccount: maxPayAccount, payAccountId: payAccountLimits.payAccountId, remaining: remaining, currencyCode: currencyCode}

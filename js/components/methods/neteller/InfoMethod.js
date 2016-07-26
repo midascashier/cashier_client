@@ -113,14 +113,18 @@ let InfoMethod = React.createClass({
 					<div className="table-responsive">
 						<table className="table table-striped">
 							<tbody>
-							<tr>
-								<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-								<td><span>{payAccountInfo.minPayAccount}</span></td>
-							</tr>
-							<tr>
-								<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-								<td><span>{payAccountInfo.maxPayAccount}</span></td>
-							</tr>
+								<tr>
+									<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+									<td><span>{payAccountInfo.minPayAccount}</span></td>
+								</tr>
+								<tr>
+									<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
+									<td><span>{payAccountInfo.maxPayAccount}</span></td>
+								</tr>
+								<tr>
+									<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
+									<td><span>{payAccountInfo.remaining}</span></td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
