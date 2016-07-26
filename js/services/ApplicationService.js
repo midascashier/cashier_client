@@ -10,6 +10,7 @@ class applicationService {
 	loginResponse(){
 		this.getCompanyInfo();
 		this.getCountries();
+		this.getCurrency();
 	};
 
 	/**
@@ -48,6 +49,18 @@ class applicationService {
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
 	};
+
+	/**
+	 *	function to get currency info or all currencies
+	 *
+	 * @param currencyCode
+	 */
+	getCurrency(currencyCode = null){
+		let data = { f: "getCurrency", currencyCode: currencyCode };
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeCustomerRequest("", rabbitRequest);
+	}
 
 	/**
 	 * Validate form entry data

@@ -6,9 +6,9 @@ import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
 
 /**
- * IU
+ * UI
  *
- * @type {{language: string, currentView: string, currentStep: string, currentProcessorSteps: Array, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
+ * @type {{language: string, currentView: string, currentStep: string, currentProcessorSteps: Array, processorId: number, payAccountId: number, countryInfo: null, countries: {}, selectedCountry: string, countryStates: {}, currencies: {}}}
  * @private
  */
 let _UI = {
@@ -21,7 +21,8 @@ let _UI = {
 	countryInfo: null,
 	countries: {},
 	selectedCountry: '',
-	countryStates: {}
+	countryStates: {},
+	currencies: {}
 };
 
 /**
@@ -152,7 +153,7 @@ let _bonuses = {
 /**
  * Stores the information of the selected processor
  *
- * @type {{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, fees: Array, limits: Array, limitRules: Array, load: (function(*))}}
+ * @type {{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, rate: number, limits: Array, limitRules: Array, fees: {enableBP: number, enableCash: number, enableFree: number, cashType: string, structure: Array}, load: (function(*))}}
  * @private
  */
 let _processor = {
@@ -533,6 +534,16 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 		case actions.COUNTRIES_RESPONSE:
 			_UI.countries = data.response.countries;
+			break;
+
+		case actions.GET_CURRENCY_RESPONSE:
+			let currencyInfo = data.response.currencyInfo;
+			if(currencyInfo && currencyInfo.Rate){
+				_processor.rate = currencyInfo.Rate;
+			}else if(currencyInfo){
+				_UI.currencies = currencyInfo;
+				_processor.rate = currencyInfo[0].Rate;
+			}
 			break;
 
 		case actions.STATES_RESPONSE:
