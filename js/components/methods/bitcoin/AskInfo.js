@@ -10,10 +10,10 @@ let AskInfo = React.createClass({
 	propTypes: {
 		transactionAmount: React.PropTypes.func,
 		changeValue: React.PropTypes.func,
-		btcConverter: React.PropTypes.func,
+		setBTCAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.number,
 		amount: React.PropTypes.node,
-		btcAmount: React.PropTypes.number,
+		btcAmount: React.PropTypes.node,
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
 		bitcoinAddress: React.PropTypes.string
@@ -75,7 +75,7 @@ let AskInfo = React.createClass({
 														return (<div>
 															<label>BTC ~</label>
 															<Input className="form-control" type="text" id="btcAmount" name="btcAmount"
-																		 ref="btcAmount" validate="isNumber" onChange={this.props.btcConverter}
+																		 ref="btcAmount" onChange={this.props.setBTCAmount}
 																		 value={btcAmount}/>
 															</div>);
 													}

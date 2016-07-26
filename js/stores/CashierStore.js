@@ -457,7 +457,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * Return actual BTC rate
 	 */
-	getBTCRate:() =>{
+	getBTCRate: () =>{
 		return _processor.rate;
 	},
 
@@ -540,10 +540,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			let currencyInfo = data.response.currencyInfo;
 			if(currencyInfo && currencyInfo.Rate){
 				_processor.rate = currencyInfo.Rate;
-			}else if(currencyInfo){
+			} else if(currencyInfo){
 				_UI.currencies = currencyInfo;
 				_processor.rate = currencyInfo[0].Rate;
 			}
+			CashierStore.emitChange();
 			break;
 
 		case actions.STATES_RESPONSE:

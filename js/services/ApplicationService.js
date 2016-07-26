@@ -10,7 +10,6 @@ class applicationService {
 	loginResponse(){
 		this.getCompanyInfo();
 		this.getCountries();
-		this.getCurrency();
 	};
 
 	/**

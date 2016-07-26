@@ -4,9 +4,10 @@ import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 import { Input } from '../../Inputs'
+import { Link } from 'react-router'
 
 let VisaConfirm = React.createClass({
-	
+
 	/**
 	 * React function to set component initial state
 	 */
@@ -35,8 +36,10 @@ let VisaConfirm = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			transaction: CashierStore.getTransaction(),
-			payAccount: CashierStore.getCurrentPayAccount()
+			info: {
+				transaction: CashierStore.getTransaction(),
+				payAccount: CashierStore.getCurrentPayAccount()
+			}
 		}
 	},
 
@@ -64,12 +67,17 @@ let VisaConfirm = React.createClass({
 		UIService.setFirstStep();
 	},
 
-	render(){
-		let personalData = this.state.payAccount.personal;
-		let secureData = this.state.payAccount.secure;
+	editBillingInfo(){
+
+	},
+
+
+		render(){
+		let personalData = this.state.info.payAccount.personal;
+		let secureData = this.state.info.payAccount.secure;
 		secureData.account = secureData.account.replace(/\d(?=\d{4})/g, "*");
-		let addressData = this.state.payAccount.address;
-		let extraData = this.state.payAccount.extra;
+		let addressData = this.state.info.payAccount.address;
+		let extraData = this.state.info.payAccount.extra;
 
 		return (
 			<div id="confirmVisa" className="internal-content">
@@ -87,14 +95,17 @@ let VisaConfirm = React.createClass({
 												<div
 													className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 												<div className="infoCol">
-													<ul>
-														<li>{personalData.firstName + ' ' + personalData.lastName}</li>
-														<li>{addressData.address1}</li>
-														<li>{addressData.state}</li>
-														<li>{addressData.country + ' ' + addressData.zip}</li>
-													</ul>
+													{(() =>{
+															return (<ul>
+																<li>{personalData.firstName + ' ' + personalData.lastName}</li>
+																<li>{addressData.address1}</li>
+																<li>{addressData.state}</li>
+																<li>{addressData.country + ' ' + addressData.zip}</li>
+															</ul>);
+													})()}
 													<p><i className="fa fa-pencil green"></i><a
-														href="#">{translate('PROCESSING_BILLING_INFO_EDIT', 'Edit the billing address')}</a></p>
+														onClick={this.editBillingInfo()}>{translate('PROCESSING_BILLING_INFO_EDIT', 'Edit the billing address')}</a>
+													</p>
 												</div>
 											</div>
 
@@ -126,12 +137,13 @@ let VisaConfirm = React.createClass({
 															</tr>
 															<tr>
 																<td>{translate('PROCESSING_AMOUNT')}:</td>
-																<td><span>{this.state.transaction.amount}</span></td>
+																<td><span>{this.state.info.transaction.amount}</span></td>
 															</tr>
 															</tbody>
 														</table>
 													</div>
-													<p><i className="fa fa-pencil green"></i><a href="#">Edit the deposit details</a></p>
+													<p><i className="fa fa-pencil green"></i><Link to={`/deposit/visa/`}>Edit the deposit
+														details</Link></p>
 												</div>
 												<form className="form-horizontal infoCol">
 													<div className="form-group">
@@ -146,8 +158,9 @@ let VisaConfirm = React.createClass({
 															<Input type="date" id="dob" value={extraData.dob} readOnly/>
 														</div>
 													</div>
-														<button type="button" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_DEPOSIT', 'Complete')}</button>
-														<p><a onClick={this.setFirstStep}>No thanks.  I'll deposit a different way.</a></p>
+													<button type="button" onClick={this.processTransaction}
+																	className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_DEPOSIT', 'Complete')}</button>
+													<p><a onClick={this.setFirstStep}>No thanks. I'll deposit a different way.</a></p>
 												</form>
 											</div>
 										</div>

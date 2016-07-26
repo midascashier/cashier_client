@@ -1,5 +1,6 @@
 import React from 'react'
 import { CashierStore } from '../../../stores/CashierStore'
+import { ApplicationService } from '../../../services/ApplicationService'
 import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 import { AskInfo } from './AskInfo'
 import { InfoMethod } from './InfoMethod'
@@ -8,8 +9,10 @@ let BitCoin = React.createClass({
 
 	propTypes: {
 		setAmount: React.PropTypes.func,
+		setBTCAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.number,
 		amount: React.PropTypes.node,
+		btcAmount: React.PropTypes.node,
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number
 	},
@@ -18,6 +21,7 @@ let BitCoin = React.createClass({
 	 * React function to set component initial state
 	 */
 	getInitialState(){
+		ApplicationService.getCurrency("BTC");
 		return this.refreshLocalState();
 	},
 
@@ -75,27 +79,13 @@ let BitCoin = React.createClass({
 		)
 	},
 
-	/**
-	 * Receive BTC amount and do the conversion
-	 */
-	btcConverter(value){
-		isNaN(value) ? value = "" : value;
-		let amount = value * CashierStore.getBTCRate();
-		if(amount == 0){
-			amount = "";
-		}
-		this.props.setAmount(amount);
-	},
-
 	render() {
-		let btcAmount = (this.props.amount / CashierStore.getBTCRate());
-
 		return (
 			<div id="bitCoin">
 				<div className="col-sm-6">
 					<AskInfo amount={this.props.amount}
-									 btcAmount={btcAmount}
-									 btcConverter={this.btcConverter}
+									 btcAmount={this.props.btcAmount}
+									 setBTCAmount={this.props.setBTCAmount}
 									 setAmount={this.props.setAmount}
 									 limitsCheck={this.props.limitsCheck}
 									 feeCashValue={this.props.feeCashValue}

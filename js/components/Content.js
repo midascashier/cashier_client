@@ -16,6 +16,7 @@ let Content = React.createClass({
 			return {
 				info: {
 					amount: "",
+					btcAmount: "",
 					limitsCheck: 0,
 					feeCheck: 0,
 					feeCashValue: 0
@@ -123,21 +124,40 @@ let Content = React.createClass({
 		setAmount(amount)
 		{
 			let actualState = this.state.info;
+			let btcAmount = amount / CashierStore.getBTCRate();
+			actualState.btcAmount = btcAmount;
 			actualState.amount = amount;
 			this.setState({ info: actualState }, function afterAmountChange(){
 				this.checkLimits();
 				this.checkFees()
 			});
-		}
-		,
+		},
+
+		/**
+		 * Set btc amount
+		 *
+		 * @param amount
+		 */
+		setBTCAmount(btcAmount){
+			let actualState = this.state.info;
+			let amount = btcAmount * CashierStore.getBTCRate();
+			actualState.amount = amount;
+			actualState.btcAmount = btcAmount;
+			this.setState({ info: actualState }, function afterAmountChange(){
+				this.checkLimits();
+				this.checkFees()
+			});
+		},
 
 		render()
 		{
 			const childrenWithProps = React.Children.map(this.props.children,
 				(child) => React.cloneElement(child, {
 					setAmount: this.setAmount,
+					setBTCAmount: this.setBTCAmount,
 					limitsCheck: this.state.info.limitsCheck,
 					amount: this.state.info.amount,
+					btcAmount: this.state.info.btcAmount,
 					feeCashValue: this.state.info.feeCashValue,
 					feeCheck: this.state.info.feeCheck
 				})
