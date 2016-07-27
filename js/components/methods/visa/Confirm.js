@@ -38,7 +38,10 @@ let VisaConfirm = React.createClass({
 		return {
 			info: {
 				transaction: CashierStore.getTransaction(),
-				payAccount: CashierStore.getCurrentPayAccount()
+				payAccount: CashierStore.getCurrentPayAccount(),
+				country: CashierStore.getSelectedCountry(),
+				state: CashierStore.getCountryStates()[0]['Small'],
+				editMode: 0
 			}
 		}
 	},
@@ -67,17 +70,57 @@ let VisaConfirm = React.createClass({
 		UIService.setFirstStep();
 	},
 
-	editBillingInfo(){
-
+	/**
+	 * change the billing info view
+	 *
+	 * @param option
+	 */
+	editBillingInfo(option){
+		let actualState = this.state.info;
+		actualState.editMode = option;
+		this.setState({ info: actualState });
 	},
 
+	/**
+	 * Save billing info
+	 */
+	saveBillingInfo(e){
+		e.preventDefault();
+	},
 
-		render(){
+	/**
+	 * Return option element to a html select
+	 *
+	 * @param item
+	 * @param key
+	 * @returns {XML}
+	 */
+	renderOption(item, key){
+		return (
+			<option key={key} value={key}>{item.label}</option>
+		)
+	},
+
+	render(){
 		let personalData = this.state.info.payAccount.personal;
 		let secureData = this.state.info.payAccount.secure;
 		secureData.account = secureData.account.replace(/\d(?=\d{4})/g, "*");
 		let addressData = this.state.info.payAccount.address;
 		let extraData = this.state.info.payAccount.extra;
+		let isEditMode = this.state.info.editMode;
+		let UI = CashierStore.getUI();
+		let countries = UI.countries;
+		let states = UI.countryStates;
+		let stateOptionNodes = [];
+		let countryOptionNodes = [];
+
+		for(let i = 0; i < countries.length; i++){
+			countryOptionNodes.push(this.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
+		}
+
+		for(let i = 0; i < states.length; i++){
+			stateOptionNodes.push(this.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
+		}
 
 		return (
 			<div id="confirmVisa" className="internal-content">
@@ -96,16 +139,88 @@ let VisaConfirm = React.createClass({
 													className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 												<div className="infoCol">
 													{(() =>{
-															return (<ul>
-																<li>{personalData.firstName + ' ' + personalData.lastName}</li>
-																<li>{addressData.address1}</li>
-																<li>{addressData.state}</li>
-																<li>{addressData.country + ' ' + addressData.zip}</li>
-															</ul>);
+														if(isEditMode){
+															return (
+																<div>
+																	<form onSubmit={this.saveBillingInfo}>
+																		<ul>
+																			<li>
+																				<label for="" className="control-label">First Name:</label>
+																				<Input type="text" id="firstName" ref="firstName" validate="isString"
+																							 value={personalData.firstName}/>
+																			</li>
+																			<li>
+																				<label for="" className="control-label">Last Name:</label>
+																				<Input type="text" id="lastName" ref="lastName" validate="isString"
+																							 value={personalData.lastName}/>
+																			</li>
+																			<li>
+																				<label for=""
+																							 className="control-label">{translate('CREDIT_STATE', 'Country')}:</label>
+																				<select className="form-control" id="country" value={this.state.info.country}>
+																					{countryOptionNodes}
+																				</select>
+																			</li>
+																			<li>
+																				<label for=""
+																							 className="control-label">{translate('CREDIT_STATE', 'State')}:</label>
+																				<select className="form-control" id="countryState"
+																								value={this.state.info.state}>
+																					{stateOptionNodes}
+																				</select>
+																			</li>
+																			<li>
+																				<label for="" className="control-label">City / Town:</label>
+																				<Input type="text" id="city" ref="city" validate="isString"
+																							 value={addressData.city}/>
+																			</li>
+																			<li>
+																				<label for="" className="control-label">Address:</label>
+																				<Input type="text" id="address" ref="address" validate="isString"
+																							 value={addressData.address1}/>
+																			</li>
+																			<li>
+																				<label for="" className="control-label">ZIP / Postal Code:</label>
+																				<Input type="text" id="zip" ref="zip" validate="isNumber"
+																							 value={addressData.zip}/>
+																			</li>
+																			<li>
+																				<label for="" className="control-label">Email Address:</label>
+																				<Input type="text" id="email" ref="email" validate="isEmail" require
+																							 value={personalData.email}/>
+																			</li>
+																			<li>
+																				<label for="" className="control-label">Phone:</label>
+																				<Input type="text" id="phone" ref="phone" validate="isNumber" require
+																							 value={personalData.phone}/>
+																			</li>
+																		</ul>
+																		<button onClick={this.saveBillingInfo} type='submit' className='btn btn-green'>
+																			Save
+																		</button>
+																		<button onClick={this.editBillingInfo.bind(null, 0)} type='button'
+																						className='btn btn-green'>Cancel
+																		</button>
+																	</form>
+																</div>
+															)
+														} else{
+															return (
+																<div>
+																	<ul>
+																		<li>{personalData.firstName + ' ' + personalData.lastName}</li>
+																		<li>{addressData.address1}</li>
+																		<li>{addressData.state}</li>
+																		<li>{addressData.country + ' ' + addressData.zip}</li>
+																	</ul>
+
+																	<p><i className="fa fa-pencil green"></i><a
+																		onClick={this.editBillingInfo.bind(null, 1)}>{translate('PROCESSING_BILLING_INFO_EDIT', 'Edit the billing address')}</a>
+																	</p>
+																</div>
+															);
+														}
 													})()}
-													<p><i className="fa fa-pencil green"></i><a
-														onClick={this.editBillingInfo()}>{translate('PROCESSING_BILLING_INFO_EDIT', 'Edit the billing address')}</a>
-													</p>
 												</div>
 											</div>
 
