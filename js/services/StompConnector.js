@@ -168,9 +168,6 @@ class StompConnector {
 	 * @param queue
 	 */
 	sendMessage(queue, headers, message){
-		// TODO Add is dev config. 
-		message.XDEBUG_SESSION_START = 'ECLIPSE_DBGP';
-
 		let correlation_id = message.f + "Response";
 		if(!headers){
 			headers = { "reply-to": this.replyQueue, "correlation_id": correlation_id };

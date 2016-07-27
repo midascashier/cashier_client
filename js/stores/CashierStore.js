@@ -27,14 +27,12 @@ let _UI = {
 
 /**
  *
- * @type {{sys_access_pass: string, sid: null, tuid: null, format: string, lang: string, platform: string, remoteAddr: string, remoteHost: string, userAgent: string, remoteAddress: string, referrer: string, xForwardedFor: string}}
+ * @type {{sid: null, tuid: null, lang: string, platform: string, remoteAddr: string, remoteHost: string, userAgent: string, remoteAddress: string, referrer: string, xForwardedFor: string}}
  * @private
  */
 let _application = {
-	sys_access_pass: "1",
 	sid: null,
 	tuid: null,
-	format: "json",
 	lang: "en",
 	platform: "desktop",
 	remoteAddr: "127.0.0.1",
@@ -411,8 +409,8 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * get application object
-	 *
-	 * @returns {{sys_access_pass: string, sid: null, tuid: null, format: string, lang: string, platform: string, remoteAddr: string, remoteHost: string, userAgent: string, remoteAddress: string, referrer: string, xForwardedFor: string, atDeviceId: string, ioBB: string}}
+	 * 
+	 * @returns {{sid: null, tuid: null, lang: string, platform: string, remoteAddr: string, remoteHost: string, userAgent: string, remoteAddress: string, referrer: string, xForwardedFor: string}}
 	 */
 	getApplication: () =>{
 		return (_application);
