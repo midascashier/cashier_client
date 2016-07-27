@@ -3,6 +3,7 @@ import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
+import { ApplicationService } from '../../../services/ApplicationService'
 import { Input } from '../../Inputs'
 import { Link } from 'react-router'
 
@@ -35,13 +36,22 @@ let VisaConfirm = React.createClass({
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState() {
+		let isEditEnabled;
+		if (this.state != null){
+			if(this.state.info.editMode == 1){
+				isEditEnabled = 1;
+			} else{
+				isEditEnabled = 0;
+			}
+		}else{
+			isEditEnabled = 0;
+		}
+
 		return {
 			info: {
 				transaction: CashierStore.getTransaction(),
 				payAccount: CashierStore.getCurrentPayAccount(),
-				country: CashierStore.getSelectedCountry(),
-				state: CashierStore.getCountryStates()[0]['Small'],
-				editMode: 0
+				editMode: isEditEnabled
 			}
 		}
 	},
@@ -86,7 +96,47 @@ let VisaConfirm = React.createClass({
 	 */
 	saveBillingInfo(e){
 		e.preventDefault();
+		let actualState = this.state.info;
+		actualState.editMode = 0;
+			let value;
+		let payAccountEdit = {};
+		for(let input in this.refs){
+			if(input == 'country' || input == 'state'){
+				value = this.refs[input].value;
+			}else{
+				value = this.refs[input].props.value;
+			}
+			payAccountEdit[input]= value;
+		}
+
+		let CCInfo=this.state.info.payAccount.secure;
+		for (let secureInfo in CCInfo){
+			payAccountEdit[secureInfo]=CCInfo[secureInfo];
+		}
+		TransactionService.registerPayAccount(payAccountEdit);
+		this.setState({ info: actualState });
 	},
+
+	/**
+	 * Edit inputs info
+	 *
+	 * @param event
+	 */
+	changeValue(section, propertyName, isSelectComponent = 0, value){
+		let actualState = this.state.info;
+
+		if(isSelectComponent){
+			value = value.target.value;
+		}
+
+		if(propertyName == 'country'){
+			ApplicationService.getCountryStates(value);
+		}
+
+		actualState.payAccount[section][propertyName] = value;
+		this.setState({ info: actualState });
+	},
+
 
 	/**
 	 * Return option element to a html select
@@ -104,7 +154,7 @@ let VisaConfirm = React.createClass({
 	render(){
 		let personalData = this.state.info.payAccount.personal;
 		let secureData = this.state.info.payAccount.secure;
-		secureData.account = secureData.account.replace(/\d(?=\d{4})/g, "*");
+		let CCMask = secureData.account.replace(/\d(?=\d{4})/g, "*");
 		let addressData = this.state.info.payAccount.address;
 		let extraData = this.state.info.payAccount.extra;
 		let isEditMode = this.state.info.editMode;
@@ -147,17 +197,18 @@ let VisaConfirm = React.createClass({
 																			<li>
 																				<label for="" className="control-label">First Name:</label>
 																				<Input type="text" id="firstName" ref="firstName" validate="isString"
-																							 value={personalData.firstName}/>
+																							 onChange={this.changeValue.bind(null, 'personal','firstName', 0)} value={personalData.firstName}/>
 																			</li>
 																			<li>
 																				<label for="" className="control-label">Last Name:</label>
 																				<Input type="text" id="lastName" ref="lastName" validate="isString"
-																							 value={personalData.lastName}/>
+																							 onChange={this.changeValue.bind(null, 'personal','lastName', 0)} value={personalData.lastName}/>
 																			</li>
 																			<li>
 																				<label for=""
-																							 className="control-label">{translate('CREDIT_STATE', 'Country')}:</label>
-																				<select className="form-control" id="country" value={this.state.info.country}>
+																							 className="control-label">{translate('CREDIT_COUNTRY', 'Country')}:</label>
+																				<select className="form-control" id="country" ref="country" value={this.state.info.payAccount.address.country}
+																								onChange={this.changeValue.bind(null, 'address','country',1)}>
 																					{countryOptionNodes}
 																				</select>
 																			</li>
@@ -165,34 +216,34 @@ let VisaConfirm = React.createClass({
 																				<label for=""
 																							 className="control-label">{translate('CREDIT_STATE', 'State')}:</label>
 																				<select className="form-control" id="countryState"
-																								value={this.state.info.state}>
+																								ref="state" value={this.state.info.state}>
 																					{stateOptionNodes}
 																				</select>
 																			</li>
 																			<li>
 																				<label for="" className="control-label">City / Town:</label>
 																				<Input type="text" id="city" ref="city" validate="isString"
-																							 value={addressData.city}/>
+																							 onChange={this.changeValue.bind(null, 'address','city', 0)} value={addressData.city}/>
 																			</li>
 																			<li>
 																				<label for="" className="control-label">Address:</label>
-																				<Input type="text" id="address" ref="address" validate="isString"
-																							 value={addressData.address1}/>
+																				<Input type="text" id="address" ref="address1" validate="isString"
+																							 onChange={this.changeValue.bind(null, 'address','address1', 0)} value={addressData.address1}/>
 																			</li>
 																			<li>
 																				<label for="" className="control-label">ZIP / Postal Code:</label>
 																				<Input type="text" id="zip" ref="zip" validate="isNumber"
-																							 value={addressData.zip}/>
+																							 onChange={this.changeValue.bind(null, 'address','zip', 0)} value={addressData.zip}/>
 																			</li>
 																			<li>
 																				<label for="" className="control-label">Email Address:</label>
 																				<Input type="text" id="email" ref="email" validate="isEmail" require
-																							 value={personalData.email}/>
+																							 onChange={this.changeValue.bind(null, 'personal','email', 0)} value={personalData.email}/>
 																			</li>
 																			<li>
 																				<label for="" className="control-label">Phone:</label>
 																				<Input type="text" id="phone" ref="phone" validate="isNumber" require
-																							 value={personalData.phone}/>
+																							 onChange={this.changeValue.bind(null, 'personal','phone', 0)} value={personalData.phone}/>
 																			</li>
 																		</ul>
 																		<button onClick={this.saveBillingInfo} type='submit' className='btn btn-green'>
@@ -244,7 +295,7 @@ let VisaConfirm = React.createClass({
 															</tr>
 															<tr>
 																<td>{translate('CREDIT_CARD_NUMBER')}:</td>
-																<td><span>{secureData.account}</span></td>
+																<td><span>{CCMask}</span></td>
 															</tr>
 															<tr>
 																<td>{translate('CREDIT_CARD_EXPIRATION')}:</td>
