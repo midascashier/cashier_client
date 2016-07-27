@@ -171,8 +171,8 @@ class transactionService {
 
 	/**
 	 * Adds all the default parameters for the proxy request
-	 *
-	 * @returns {{companyId: number, username: string, password: string, remoteAddr: string, remoteHost: string, referrer: string, xForwardedFor: string, lang: string, platform: string, userAgent: string, createdBy: number, sys_access_pass: string, sid: null, type: string, isDefer: number}}
+	 * 
+	 * @returns {{companyId: number, username: string, password: string, remoteAddr: string, remoteHost: string, referrer: string, xForwardedFor: string, lang: string, platform: string, userAgent: string, createdBy: number, sid: null, type: string, isDefer: number}}
 	 */
 	getProxyRequest(){
 
@@ -192,7 +192,6 @@ class transactionService {
 			platform: application.platform,
 			userAgent: application.userAgent,
 			createdBy: 10093, //TODO: temporary
-			sys_access_pass: application.sys_access_pass,
 			sid: application.sid,
 			type: "d",
 			isDefer: 0
