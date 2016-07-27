@@ -74,8 +74,8 @@ let AskInfo = React.createClass({
 													if(!isWithDraw){
 														return (<div>
 															<label>BTC ~</label>
-															<Input className="form-control" type="text" id="btcAmount" name="btcAmount"
-																		 ref="btcAmount" onChange={this.props.setBTCAmount}
+															<Input className="form-control" type="number" id="btcAmount" name="btcAmount"
+																		 ref="btcAmount" validate="isNumber" onChange={this.props.setBTCAmount}
 																		 value={btcAmount}/>
 															</div>);
 													}

@@ -43,7 +43,7 @@ let Register = React.createClass({
 		},
 
 		/**
-		 * Sets netellerNewAccount
+		 * Sets visa New Account
 		 *
 		 * @param event
 		 */
