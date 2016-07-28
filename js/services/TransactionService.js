@@ -270,14 +270,14 @@ class transactionService {
 		let processorSelected = CashierStore.getProcessor();
 		let payAccountSelected = CashierStore.getCurrentPayAccount();
 
-		let p2pRequest = {
+		let CCRequest = {
 			f: "ccProcess",
 			processorId: processorSelected.processorId,
 			payAccountId: payAccountSelected.payAccountId,
 			amount: transaction.amount,
 			journalIdSelected: 0
 		};
-		let rabbitRequest = assign(this.getProxyRequest(), p2pRequest);
+		let rabbitRequest = assign(this.getProxyRequest(), CCRequest);
 
 		UIService.processTransaction('instructions');
 		stompConnector.makeProcessRequest("", rabbitRequest);
