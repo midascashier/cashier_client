@@ -234,7 +234,6 @@ class transactionService {
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 
-
 	/**
 	 * this function sends to process a transaction
 	 */
@@ -452,6 +451,32 @@ class transactionService {
 	};
 
 	/**
+	 * Updates the secure information of a credit card.
+	 */
+	updateCreditCardSecure(){
+		let customer = CashierStore.getCustomer();
+		let payAccount = CashierStore.getCurrentPayAccount();
+		
+		let customerId = customer.customerId;
+		let payAccountId = payAccount.payAccountId;
+		let secureData = payAccount.secure;
+
+		let payAccountRequest = {
+			f: "updateCreditCardSecureInfo",
+			payAccountId: payAccountId,
+			customerId: customerId,
+			ccNumber: secureData.account,
+			ccCVV: secureData.password,
+			ccName: secureData.extra3,
+			ccExpMonth: secureData.extra1,
+			ccExpYear: secureData.extra2
+		};
+
+		let rabbitRequest = assign(this.getProxyRequest(), payAccountRequest);
+		stompConnector.makeProcessRequest("", rabbitRequest);
+	}
+
+	/**
 	 * Set transaction Fee
 	 */
 	setTransactionFee(fee){
@@ -474,30 +499,6 @@ class transactionService {
 		CashierActions.setBitcoinAddress(address);
 	};
 
-	/**
-	 * Updates the secure information of a credit card.
-	 *
-	 * @param payAccountInfo
-	 */
-	updateCreditCardSecure(payAccountInfo){
-		let customerId = CashierStore.getCustomer().customerId;
-		let payAccountId = CashierStore.getCurrentPayAccount().payAccountId;
-		let secureData = payAccountInfo.secure;
-
-		let payAccountRequest = {
-			f: "updateCreditCardSecureInfo",
-			payAccountId: payAccountId,
-			customerId: customerId,
-			ccNumber: secureData.account,
-			ccCVV: secureData.password,
-			ccName: secureData.extra3,
-			ccExpMonth: secureData.extra1,
-			ccExpYear: secureData.extra2
-		};
-
-		let rabbitRequest = assign(this.getProxyRequest(), payAccountRequest);
-		stompConnector.makeProcessRequest("", rabbitRequest);
-	}
 }
 
 export let TransactionService = new transactionService();
