@@ -2,8 +2,9 @@ import React from 'react'
 import { Input } from '../../Inputs'
 import { translate } from '../../../constants/Translate'
 import { CashierStore } from '../../../stores/CashierStore'
-import { ApplicationService } from '../../../services/ApplicationService'
 import { TransactionService } from '../../../services/TransactionService'
+import { ApplicationService } from '../../../services/ApplicationService'
+import { ExtraInfo } from './ExtraInfo'
 
 let Register = React.createClass({
 		/**
@@ -37,7 +38,12 @@ let Register = React.createClass({
 					address1: "",
 					zip: "",
 					email: "",
-					phone: ""
+					phone: "",
+					ssn: "",
+					dobDay: "",
+					dobMonth: "",
+					dobYear: "",
+					dob: ""
 				}
 			}
 		},
@@ -48,7 +54,7 @@ let Register = React.createClass({
 		 * @param event
 		 */
 		changeValue(propertyName, isSelectComponent = 0, event){
-			const payAccount = this.state.payAccount;
+			const actualState = this.state;
 
 			let value = event;
 
@@ -60,10 +66,10 @@ let Register = React.createClass({
 				ApplicationService.getCountryStates(value);
 			}
 
-			payAccount[propertyName] = value;
+			actualState.payAccount[propertyName] = value;
 
 			this.setState(
-				payAccount
+				actualState
 			);
 
 		},
@@ -75,22 +81,35 @@ let Register = React.createClass({
 		 * @returns {boolean}
 		 */
 		addNewPayAccount(e){
+			const actualState = this.state;
 			e.preventDefault();
-			for(let input in this.refs){
-				if (this.refs[input].props && this.refs[input].props.require){
-					if(this.refs[input].props.require && this.refs[input].props.value.length <= 0){
-						return false;
-					}
+
+			for(let i = 0; i < e.target.length; i++){
+				if(parseInt(e.target[i].getAttribute('data-isRequired')) == 0 && e.target[i].value.length <= 0){
+					return false;
 				}
-				if (this.refs[input].state && this.refs[input].state.isValid){
-					if(!this.refs[input].state.isValid){
-						return false;
-					}
+
+				if(parseInt(e.target[i].getAttribute('data-isValid'))== 0){
+					return false;
 				}
 			}
+
+			if(!this.state.dobDay){
+				actualState.payAccount.dobDay = e.target.querySelector('[name="dobDay"]').value;
+			}
+			if(!this.dobMonth){
+				actualState.payAccount.dobMonth = e.target.querySelector('[name="dobMonth"]').value;
+			}
+			if(!this.dobYear){
+				actualState.payAccount.dobYear = e.target.querySelector('[name="dobYear"]').value;
+			}
+
+			actualState.payAccount.dob = this.state.payAccount.dobMonth + "-" + this.state.payAccount.dobDay + "-" + this.state.payAccount.dobYear;
+
 			TransactionService.registerPayAccount(this.state.payAccount);
+			actualState.displaySaveButton = false;
 			this.setState({
-				displaySaveButton: false
+				actualState
 			});
 		},
 
@@ -213,7 +232,7 @@ let Register = React.createClass({
 						<div>
 							<div className="form-group">
 								<label for="" className="control-label">First Name:</label>
-								<Input type="text" id="firstName" ref="firstName" validate="isString" require
+								<Input type="text" name="firstName" id="firstName" ref="firstName" validate="isString" require
 											 onChange={this.changeValue.bind(null, 'firstName', 0)} value={this.state.payAccount.firstName}/>
 							</div>
 							<div className="form-group">
@@ -266,9 +285,11 @@ let Register = React.createClass({
 								<Input type="text" id="phone" ref="phone" validate="isNumber" require
 											 onChange={this.changeValue.bind(null, 'phone', 0)} value={this.state.payAccount.phone}/>
 							</div>
+
+							<ExtraInfo changeValue={this.changeValue} ssn={this.state.payAccount.ssn}
+												 dobMonth={this.state.payAccount.dobMonth}
+												 dobDay={this.state.payAccount.dobDay} dobYear={this.state.payAccount.dobYear}/>
 						</div>
-
-
 						<div className="form-group">
 							<div className="row">
 								{this.state.displaySaveButton ?

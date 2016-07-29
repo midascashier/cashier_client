@@ -20,7 +20,7 @@ let Input = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			isValid: true,
+			isValid: 1,
 			errorMessage: ""
 		}
 	},
@@ -46,10 +46,10 @@ let Input = React.createClass({
 					errorMessage = "CVV" + errorMessage;
 					break
 			}
-			isValid = false;
+			isValid = 0;
 			this.setState(
 				{
-					isValid: false,
+					isValid: 0,
 					errorMessage: errorMessage
 				}
 			);
@@ -57,7 +57,7 @@ let Input = React.createClass({
 			isValid = true;
 			this.setState(
 				{
-					isValid: true,
+					isValid: 1,
 					errorMessage: ""
 				}
 			);
@@ -82,14 +82,21 @@ let Input = React.createClass({
 	},
 
 	render() {
+		let require = 0;
+		if (typeof this.props.require != "undefined"){
+			require = 1;
+		}
 		return (
 			<div>
 				<input
 					className="form-control"
 					type={this.props.type || 'text'}
 					name={this.props.name}
+					id={this.props.id}
 					onChange={this.changeHandler}
 					value={this.props.value}
+					data-isValid={this.state.isValid}
+					data-isRequired={require}
 				/>
 				{(() =>{
 					if(this.props.validate && !this.state.isValid && this.props.value){
