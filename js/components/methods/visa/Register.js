@@ -85,7 +85,7 @@ let Register = React.createClass({
 			e.preventDefault();
 
 			for(let i = 0; i < e.target.length; i++){
-				if(parseInt(e.target[i].getAttribute('data-isRequired')) == 0 && e.target[i].value.length <= 0){
+				if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
 					return false;
 				}
 
