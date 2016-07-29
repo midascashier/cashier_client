@@ -169,7 +169,7 @@ let VisaRejectCardTicket = React.createClass({
 
 													{(() =>{
 														if(updateSuccess != 1){
-															return <div className="loader-sm"></div>;
+															return <div className="loader"></div>;
 														}
 													})()}
 
