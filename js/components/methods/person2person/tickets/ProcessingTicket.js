@@ -58,6 +58,13 @@ let P2PTicketProcessing = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
+	/**
+	 * send the customer to select the processor again
+	 */
+	setFirstStep() {
+		UIService.setFirstStep();
+	},
+
 	render() {
 		let transactionDetails = this.state.transactionDetails;
 		let controlNumber = this.state.controlNumber;
@@ -106,7 +113,7 @@ let P2PTicketProcessing = React.createClass({
 													<div className="title">{translate('P2P_INSTRUCTIONS_RECEIVER', "Receiver's Information")}</div>
 													<div className="infoCol">
 														<div className="row">
-															<p><a>{translate('P2P_INSTRUCTIONS_GET_RECEIVER', "Get New Receiver")}</a></p>
+															<p><a onClick={this.setFirstStep}>{translate('P2P_INSTRUCTIONS_GET_RECEIVER', "Get New Receiver")}</a></p>
 														</div>
 														<div className="row">
 															<ul>
@@ -144,8 +151,8 @@ let P2PTicketProcessing = React.createClass({
 														<li>{translate('P2P_AMOUNT_SEND', 'Funds Sent')}: {currencyAmount}</li>
 														<li>{translate('P2P_FEE_SEND', 'Fee')}: {fee}</li>
 													</ul>
+													<p><strong>{translate('P2P_INSTRUCTIONS_INFO_PROCESSING', 'Thank you for your deposit.')}</strong></p>
 												</div>
-												<p>{translate('P2P_INSTRUCTIONS_INFO', '')}</p>
 											</div>
 										</div>
 									</div>

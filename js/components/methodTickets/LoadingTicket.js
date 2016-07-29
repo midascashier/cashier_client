@@ -1,4 +1,5 @@
 import React from 'react'
+import { translate } from '../../constants/Translate'
 import { CashierStore } from '../../stores/CashierStore'
 
 let LoadingTicket = React.createClass({
@@ -57,7 +58,7 @@ let LoadingTicket = React.createClass({
 								<div className="modules">
 									<div className="row">
 										<div className="col-sm-12">
-											<h2>Processing... please wait!</h2>
+											<h2>{translate('PROCESSING', 'Processing... please wait!')}</h2>
 											<div className="loader"></div>
 										</div>
 									</div>

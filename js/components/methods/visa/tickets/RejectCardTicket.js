@@ -11,7 +11,7 @@ let VisaRejectCardTicket = React.createClass({
 	/**
 	 * initialize the state
 	 *
-	 * @returns {*|{transaction}|{transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())})}}
+	 * @returns {*|{payAccount, currency, currencyAmount}|{transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())})}}
 	 */
 	getInitialState(){
 		return this.refreshLocalState();
@@ -20,14 +20,16 @@ let VisaRejectCardTicket = React.createClass({
 	/**
 	 * build the state
 	 *
-	 * @returns {{transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())})}}
+	 * @returns {{payAccount: (*|{payAccountId: null, displayName: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limitsData: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))}), currency: string, currencyAmount: string}}
 	 */
 	refreshLocalState() {
 		let transaction = UIService.getTransactionInformation();
 		let payAccount = UIService.getPayAccountInformation();
+		let customer = UIService.getCustomerInformation();
 		return {
-			transaction: transaction,
-			payAccount: payAccount
+			payAccount: payAccount,
+			currency: customer.currency,
+			currencyAmount: transaction.amount
 		}
 	},
 
@@ -111,6 +113,9 @@ let VisaRejectCardTicket = React.createClass({
 	changeValue(propertyName, isSelectComponent = 0, event){
 		const payAccount = this.state.payAccount;
 		let value = event;
+		if(isSelectComponent){
+			value = value.target.value;
+		}
 		payAccount.secure[propertyName] = value;
 		this.setState({payAccount: payAccount});
 	},
@@ -118,7 +123,15 @@ let VisaRejectCardTicket = React.createClass({
 	render() {
 
 		let payAccount = this.state.payAccount;
+		let updateSuccess = payAccount.updateSuccess;
+
 		let secureData = payAccount.secure;
+		let extra1 = secureData.extra1;
+		let extra2 = secureData.extra2;
+		let extra3 = secureData.extra3;
+		let account = secureData.account.replace(/\d(?=\d{4})/g, "*");
+		let password = secureData.password;
+
 		let selectMonths = [];
 		let selectYears = [];
 		let now = new Date();
@@ -149,66 +162,64 @@ let VisaRejectCardTicket = React.createClass({
 								<div className="col-sm-12">
 									<div className="row">
 
-										<div className="col-sm-6">
+										<div className="col-md-6 col-md-offset-3">
 											<div className="box">
 												<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 												<div className="infoCol">
-													{(!payAccount.updateSuccess) ? <LoadingSpinner /> : null}
 
-														<div id="formEditCC">
-															<div className="form-group">
-																<label className="control-label">{translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}:</label>
-																<Input type="text" id="ccName" ref="ccName" validate="isString" require
-																			 onChange={this.changeValue.bind(null, 'extra3', 0)}
-																			 value={secureData.extra3}/>
-															</div>
+													{(() =>{
+														if(updateSuccess != 1){
+															return <div className="loader"></div>;
+														}
+													})()}
 
-															<div className="form-group">
-																<label className="control-label">{translate('CREDIT_CARD_NUMBER', 'Card Number')}:</label>
-																<Input type="text" id="creditCardNumber" ref="creditCardNumber" validate="isCreditNumber" require
-																			 onChange={this.changeValue.bind(null, 'account', 0)}
-																			 value={secureData.account}/>
-															</div>
+													<div id="formEditCC">
+														<div className="form-group">
+															<label className="control-label">{translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}:</label>
+															<Input type="text" id="ccName" ref="ccName" validate="isString" require
+																		 onChange={this.changeValue.bind(null, 'extra3', 0)}
+																		 value={extra3}/>
+														</div>
 
-															<div className="form-group">
-																<label className="control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
-																<div className="row">
-																	<div className="col-sm-6">
-																		<div className="form-group">
-																			<select className="form-control" id="ccExpMonth" onChange={this.changeValue.bind(null, 'extra1',1)} value={secureData.extra1}>
-																				{selectMonths}
-																			</select>
-																		</div>
-																	</div>
-																	<div className="col-sm-6">
-																		<div className="form-group">
-																			<select className="form-control" id="ccExpYear" onChange={this.changeValue.bind(null, 'extra2',1)} value={secureData.extra2}>
-																				{selectYears}
-																			</select>
-																		</div>
-																	</div>
+														<div className="form-group">
+															<label className="control-label">{translate('CREDIT_CARD_NUMBER', 'Card Number')}:</label>
+															<Input type="text" id="creditCardNumber" ref="creditCardNumber" validate="isCreditNumber" minlength="16" maxlength="16" require
+																		 onChange={this.changeValue.bind(null, 'account', 0)}
+																		 value={account}/>
+														</div>
+
+														<div className="form-group">
+															<label className="control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
+															<div className="form-inline">
+
+																<div className="form-group">
+																	<select className="form-control" id="ccExpMonth" onChange={this.changeValue.bind(null, 'extra1',1)} value={extra1}>
+																		{selectMonths}
+																	</select>
 																</div>
-															</div>
 
-															<div className="form-group">
-																<label className="control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
-																<Input type="text" id="cvv" ref="cvv" validate="isCVV" require
-																			 onChange={this.changeValue.bind(null, 'password', 0)}
-																			 value={secureData.password}/>
-															</div>
-
-															<div className="form-group">
-																<div className="row">
-																	{(() =>{
-																		if(payAccount.updateSuccess){
-																			return <button type='button' className='btn btn-green' onClick={this.updateCreditCardSecure}>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button>;
-																		}else{
-																			return <button type='button' className='btn btn-green'>{translate('PROCESSING_BUTTON_EDIT', 'Edit')}</button>
-																		}
-																	})()}
+																<div className="form-group">
+																	<select className="form-control" id="ccExpYear" onChange={this.changeValue.bind(null, 'extra2',1)} value={extra2}>
+																		{selectYears}
+																	</select>
 																</div>
+
 															</div>
 														</div>
+
+														<div className="form-group">
+															<label className="control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
+															<Input type="text" id="cvv" ref="cvv" validate="isCVV" minlength="3" maxlength="4" require
+																		 onChange={this.changeValue.bind(null, 'password', 0)}
+																		 value={password}/>
+														</div>
+
+														{(() =>{
+															if(updateSuccess == 1){
+																return <button type='button' className='btn btn-green' onClick={this.updateCreditCardSecure}>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button>;
+															}
+														})()}
+													</div>
 
 												</div>
 											</div>
@@ -216,10 +227,8 @@ let VisaRejectCardTicket = React.createClass({
 									</div>
 								</div>
 
-								<div className="col-sm-12">
-									<button type="button" className="btn btn-green" onClick={this.reProcessTransaction}>{translate('PROCESSING_BUTTON_REPROCESS_FIX', 'Try again')}</button>
-									<p><a onClick={this.setFirstStep}>No thanks.  I'll deposit a different way.</a></p>
-								</div>
+								<button type="button" className="btn btn-green" onClick={this.reProcessTransaction}>{translate('PROCESSING_BUTTON_REPROCESS_FIX', 'Try again')}</button>
+								<p><a onClick={this.setFirstStep}>No thanks.  I'll deposit a different way.</a></p>
 
 							</div>
 						</div>
