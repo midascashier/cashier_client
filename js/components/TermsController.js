@@ -39,12 +39,15 @@ let TermsController = React.createClass({
 	render() {
 		let content = translate('CREDIT_CARD_CHECK_TERMENS');
 		return (
-			<div className="checkbox text-center">
-				<label title={content}>
-					<input type="checkbox" id="checkTermsAndConditions" name="checkTermsAndConditions" onChange={this.changeValue}
-								 checked={this.state.check}/>
-					<span>{content}</span>
-				</label>
+			<div className="form-group">
+				<div className="checkbox text-center">
+					<label title={content}>
+						<input type="checkbox" id="checkTermsAndConditions" name="checkTermsAndConditions"
+									 onChange={this.changeValue}
+									 checked={this.state.check}/>
+						<span>{content}</span>
+					</label>
+				</div>
 			</div>
 		)
 	}

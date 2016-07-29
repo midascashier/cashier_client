@@ -5,7 +5,6 @@ import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 import { translate } from '../../../constants/Translate'
 import { AskInfo } from './AskInfo'
 import { InfoMethod } from './InfoMethod'
-import { TransactionService } from '../../../services/TransactionService'
 
 let Visa = React.createClass({
 
@@ -43,8 +42,7 @@ let Visa = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			selectedProcessor: CashierStore.getProcessor(),
-			payAccount: TransactionService.getCurrentPayAccount()
+			selectedProcessor: CashierStore.getProcessor()
 		}
 	},
 
@@ -74,7 +72,6 @@ let Visa = React.createClass({
 					<AskInfo amount={this.props.amount}
 									 setAmount={this.props.setAmount}
 									 limitsCheck={this.props.limitsCheck}
-									 payAccount={this.state.payAccount}
 					/>
 				</div>
 				<div className="col-sm-6">
