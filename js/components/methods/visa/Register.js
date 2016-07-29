@@ -162,12 +162,13 @@ let Register = React.createClass({
 			let states = UI.countryStates;
 			let selectYears = [];
 			let countryOptionNodes = [];
+			let now = new Date();
 
 			for(let i = 1; i < 13; i++){
 				selectMonths.push(this.renderOption({ label: i }, i));
 			}
 
-			for(let i = 2016; i < 2030; i++){
+			for(let i = now.getFullYear(); i < now.getFullYear()+15; i++){
 				selectYears.push(this.renderOption({ label: i }, i));
 			}
 
