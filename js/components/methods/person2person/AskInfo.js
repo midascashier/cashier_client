@@ -140,7 +140,7 @@ let AskInfo = React.createClass({
 														})()}
 
 														{(() =>{
-															if(isWithDraw){
+															if(isWithDraw && payAccountId != 0){
 																return <FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>;
 															}
 														})()}
