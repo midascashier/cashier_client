@@ -120,7 +120,7 @@ let _langTags = {
 	CREDIT_CARD_NUMBER: "Card Number",
 	CREDIT_CARD_CVV: "CVV",
 	CREDIT_CARD_EXPIRATION: "Expiration Date",
-	CREDIT_CARD_SSN: "Social Secuirty #",
+	CREDIT_CARD_SSN: "Social Security #",
 	CREDIT_CARD_DOB: "Date of Birth",
 	CREDIT_CARD_CHECK_TERMENS: "I agree to the terms and conditions.",
 	CREDIT_CARD_INFO: "Certain banks may interpret increased transaction volumes over the internet as a fraud risk and may decline subsequent deposit requests. We highly recommend depositing enough money now to cover your planned bets for the day.",

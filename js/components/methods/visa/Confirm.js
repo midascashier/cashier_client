@@ -5,7 +5,6 @@ import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 import { ApplicationService } from '../../../services/ApplicationService'
 import { Input } from '../../Inputs'
-import { Link } from 'react-router'
 
 let VisaConfirm = React.createClass({
 
@@ -78,6 +77,13 @@ let VisaConfirm = React.createClass({
 	 */
 	setFirstStep() {
 		UIService.setFirstStep();
+	},
+
+	/**
+	 * send the customer to select the payAccount again
+	 */
+	startTransaction() {
+		UIService.startTransaction();
 	},
 
 	/**
@@ -314,8 +320,8 @@ let VisaConfirm = React.createClass({
 															</tbody>
 														</table>
 													</div>
-													<p><i className="fa fa-pencil green"></i><Link to={`/deposit/visa/`}>Edit the deposit
-														details</Link></p>
+													<p><i className="fa fa-pencil green"></i>
+														<a onClick={this.startTransaction}>Edit the deposit details</a></p>
 												</div>
 												<form className="form-horizontal infoCol">
 													<button type="button" onClick={this.processTransaction}

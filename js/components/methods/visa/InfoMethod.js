@@ -87,9 +87,13 @@ let InfoMethod = React.createClass({
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
-			processorName:processorDisplayName, transactionType:transactionType
+			processorName: processorDisplayName, transactionType: transactionType
 		});
 
+		let isNextDisabled = "disabled";
+		if(payAccountInfo.payAccountId && limitsCheck){
+			isNextDisabled = "";
+		}
 
 		return (
 			<div id="InfoMethodVisa">
@@ -117,15 +121,11 @@ let InfoMethod = React.createClass({
 						<div className="col-sm-12">
 							<div className="row">
 								<div className="col-sm-6">
-									{(() =>{
-										if(payAccountInfo.payAccountId && limitsCheck){
-											return (
-													<button type='button' className='btn btn-green' onClick={this.continueTransaction}>
-														{translate('PROCESSING_BUTTON_NEXT', 'Next')}
-													</button>
-											)
-										}
-									})()}
+									<button type='button' className='btn btn-green' disabled={isNextDisabled}
+													onClick={this.continueTransaction}>
+										{translate('PROCESSING_BUTTON_NEXT', 'Next')}
+									</button>
+
 								</div>
 								<div className="col-sm-6">
 									<img src={originPath + '/images/ssl.png'} alt="ssl"/>

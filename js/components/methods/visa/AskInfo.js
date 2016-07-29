@@ -6,6 +6,7 @@ import { TermsController } from '../../TermsController'
 import { UIService } from '../../../services/UIService'
 import { CustomerService } from '../../../services/CustomerService'
 import { Register } from './Register.js'
+import { ExtraInfo } from './ExtraInfo'
 
 let AskInfo = React.createClass({
 
@@ -22,7 +23,8 @@ let AskInfo = React.createClass({
 
 	render() {
 		let setAmount = this.props.setAmount;
-		let payAccountId = this.props.payAccount.payAccountId;
+		let payAccount = this.props.payAccount;
+		let payAccountId = payAccount.payAccountId;
 		let amount = this.props.amount;
 		let limitsCheck = this.props.limitsCheck;
 		let originPath = UIService.getOriginPath();
@@ -84,6 +86,12 @@ let AskInfo = React.createClass({
 													{(() =>{
 														if(payAccountId != 0){
 															return <AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+														}
+													})()}
+
+													{(() =>{
+														if(payAccount.extra.dob != "" && payAccount.extra.ssn != "" && payAccountId != 0){
+															return <div>DOB AND SSN COMPONENT</div>
 														}
 													})()}
 
