@@ -84,10 +84,23 @@ let Steps = React.createClass({
 						if(currentPosition >= i || currentPosition == -1){
 							className += " active";
 						}else{
-							if(i == (stepsNumber-1)){
-								className += " normal";
-							}else{
-								className += " inactive";
+							switch(i){
+								case 1:
+									if(stepsNumber == 2){
+										className += " normal";
+									}else{
+										className += " inactive";
+									}
+									break;
+								case 2:
+									if(currentPosition == 1){
+										className += " inactive";
+									}else{
+										className += " normal";
+									}
+									break;
+								default:
+									className += " inactive";
 							}
 						}
 
