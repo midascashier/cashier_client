@@ -39,7 +39,8 @@ form {}
 select + select {margin-top:15px;}
 .checkbox input[type=checkbox] {position:initial;}
 .col-sm-3 + .col-sm-3 + .col-sm-6 {margin-top:8px;}
-.form-group label + input[type*="number"] {width: 340px!important; margin: 0 auto;}
+.form-group label + input[type*="number"] {/*width: 300px!important;*/ margin: 0 auto;}
+.form-group{/*overflow: hidden;*/}
 
 /*tables*/
 table {margin:0 auto; border:0; border-radius:3px; overflow:hidden; font-size:14px;}
@@ -143,7 +144,7 @@ div[class^="alert"] i {font-size:16px;}
 .modules .box .processors .method i {font-size:25px; position:absolute; right:18px; bottom:53px;}
 .modules .box .processors .method.active {border:1px solid #01b300;}
 .modules .box .processors .method.active i {color:#01b300;}
-.modules .deposit-limits {text-align:center;}
+/*.modules .deposit-limits {text-align:center;}*/
 
 /*-----Success*/
 /*.success-page*/

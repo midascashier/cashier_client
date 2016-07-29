@@ -31,7 +31,12 @@ let AmountController = React.createClass({
 					- {translate('PROCESSING_MAX', 'Max')}: {limits.maxAmount}</span><br/>
 				{(() =>{
 					if(!this.props.limitsCheck && this.props.amount != ""){
-						return <span>LIMITS ERROR</span>
+						return (
+							<div className="alert alert-danger" role="alert">
+								<i className="fa fa-thumbs-o-down red"></i>
+								<strong>Limits Error!</strong>
+							</div>
+						)
 					}
 				})()}
 			</div>

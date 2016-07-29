@@ -93,7 +93,12 @@ let FeeController = React.createClass({
 				})()}
 				{(() =>{
 					if(this.props.feeCheck && this.props.amount != ""){
-						return <span>You don't have enough balance to cover the required fees</span>
+						return (
+								<div className="alert alert-danger" role="alert">
+									<i className="fa fa-thumbs-o-down red"></i>
+									<strong>You don't have enough balance to cover the required fees</strong>
+								</div>
+							)
 					}
 				})()}
 			</div>
