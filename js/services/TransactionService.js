@@ -13,6 +13,8 @@ class transactionService {
 	 */
 	startTransaction(){
 		CashierActions.startTransaction();
+		let processorID = UIService.getProcessorId();
+		this.getPreviousPayAccount(processorID);
 		UIService.startTransaction();
 		if(CashierStore.getIsWithdraw()){
 			this.getProcessorFeesConfiguration();
@@ -110,9 +112,7 @@ class transactionService {
 	 * Function to change current processor
 	 */
 	selectProcessor(processorID){
-		this.getProcessorLimitRules(processorID);
 		this.getProcessorsMinMax(processorID);
-		this.getPreviousPayAccount(processorID);
 	};
 
 	/**
