@@ -61,6 +61,14 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
+	 * send the customer to select the processor again
+	 */
+	setFirstStep() {
+		UIService.setFirstStep();
+	},
+
+
+	/**
 	 * this function sends deposit info to cashier
 	 *
 	 */
@@ -132,7 +140,7 @@ let InfoMethod = React.createClass({
 													className='btn btn-green'>
 										{translate('PROCESSING_BUTTON_NEXT', 'Next')}
 									</button>
-
+									<p><a onClick={this.setFirstStep}>Use different Method.</a></p>
 								</div>
 								<div className="col-sm-6">
 									<img src={originPath + '/images/ssl.png'} alt="ssl"/>

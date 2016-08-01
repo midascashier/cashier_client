@@ -8,7 +8,6 @@ import { CustomerService } from '../../../services/CustomerService'
 import { Register } from './Register.js'
 import { ExtraInfo } from './ExtraInfo'
 
-
 let AskInfo = React.createClass({
 		propTypes: {
 			transactionAmount: React.PropTypes.func,
@@ -101,9 +100,9 @@ let AskInfo = React.createClass({
 																return <AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 															}
 														})()}
-
+														<p>Good news! You have a 100% deposit bonus up to $1000</p>
 														{(() =>{
-															if(payAccount.extra.dob == "" && payAccount.extra.ssn == "" && payAccountId != 0){
+															if(payAccount.extra.dob == null && payAccount.extra.ssn == null && payAccountId != 0){
 																return <ExtraInfo changeValue={changeValue} ssn={ssn}
 																									dobMonth={dobMonth}
 																									dobDay={dobDay}

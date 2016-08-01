@@ -89,6 +89,7 @@ let AskInfo = React.createClass({
 												})()}
 
 											</div>
+											<p>Good News! You have a 100% deposit bonus up to $1000.</p>
 										</div>
 									</div>
 								</div>
