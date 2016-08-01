@@ -171,7 +171,7 @@ class transactionService {
 
 	/**
 	 * Adds all the default parameters for the proxy request
-	 * 
+	 *
 	 * @returns {{companyId: number, username: string, password: string, remoteAddr: string, remoteHost: string, referrer: string, xForwardedFor: string, lang: string, platform: string, userAgent: string, createdBy: number, sid: null, type: string, isDefer: number}}
 	 */
 	getProxyRequest(){
@@ -269,6 +269,30 @@ class transactionService {
 		let transaction = CashierStore.getTransaction();
 		let processorSelected = CashierStore.getProcessor();
 		let payAccountSelected = CashierStore.getCurrentPayAccount();
+		let transactionType = UIService.getIsWithDraw();
+
+		if(!payAccountSelected.extra.dob && !payAccountSelected.extra.dobDay && !payAccountSelected.extra.dobMonth && !payAccountSelected.extra.dobYear && !payAccountSelected.extra.ssn){
+			payAccountSelected.extra.dob = transaction.dobMonth + "-" + transaction.dobDay + "-" + transaction.dobYear;
+			payAccountSelected.extra.dobDay = transaction.dobDay;
+			payAccountSelected.extra.dobMonth = transaction.dobMonth;
+			payAccountSelected.extra.dobYear = transaction.dobYear;
+			payAccountSelected.extra.ssn = transaction.ssn;
+
+			let payAccount = {
+				processorIdRoot: this.getCurrentProcessor().processorId,
+				customerId: CashierStore.getCustomer().customerId,
+				transactionType: transactionType
+			};
+
+			let validateRabbitRequest = {
+				f: "validatePayAccount",
+				module: 'payAccount'
+			};
+
+			validateRabbitRequest = Object.assign(validateRabbitRequest, payAccount, payAccountSelected.extra, payAccountSelected.address, payAccountSelected.personal, payAccountSelected.secure);
+
+			stompConnector.makeBackendRequest("", validateRabbitRequest);
+		}
 
 		let CCRequest = {
 			f: "ccProcess",
@@ -277,6 +301,7 @@ class transactionService {
 			amount: transaction.amount,
 			journalIdSelected: 0
 		};
+
 		let rabbitRequest = assign(this.getProxyRequest(), CCRequest);
 
 		UIService.processTransaction('instructions');
@@ -456,7 +481,7 @@ class transactionService {
 	updateCreditCardSecure(){
 		let customer = CashierStore.getCustomer();
 		let payAccount = CashierStore.getCurrentPayAccount();
-		
+
 		let customerId = customer.customerId;
 		let payAccountId = payAccount.payAccountId;
 		let secureData = payAccount.secure;
