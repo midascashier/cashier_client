@@ -286,6 +286,10 @@ let _transaction = {
 	controlNumber: null,
 	timeFrameDay: null,
 	timeFrameTime: null,
+	dobMonth: 1,
+	dobDay: 1,
+	dobYear: 1970,
+	ssn: '',
 	cleanTransaction(){
 		this.amount = "";
 		this.fee = 0;
@@ -764,6 +768,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			if(data.response && data.response.updateSuccess){
 				_payAccount.updateSuccess = data.response.updateSuccess;
 			}
+			CashierStore.emitChange();
+			break;
+
+		case actions.SET_DOB_SSN:
+			_transaction[data.param] = data.value;
 			CashierStore.emitChange();
 			break;
 

@@ -8,7 +8,8 @@ let InfoMethod = React.createClass({
 
 	propTypes: {
 		amount: React.PropTypes.string,
-		limitsCheck: React.PropTypes.number
+		limitsCheck: React.PropTypes.number,
+		formValidator: React.PropTypes.func
 	},
 
 	/**
@@ -80,6 +81,7 @@ let InfoMethod = React.createClass({
 
 	render() {
 		let limitsCheck = this.allowProcess();
+		let formValidator = this.props.formValidator();
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
 
@@ -91,7 +93,7 @@ let InfoMethod = React.createClass({
 		});
 
 		let isNextDisabled = "disabled";
-		if(payAccountInfo.payAccountId && limitsCheck){
+		if(payAccountInfo.payAccountId && limitsCheck && formValidator){
 			isNextDisabled = "";
 		}
 

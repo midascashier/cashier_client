@@ -5,6 +5,9 @@ import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 import { translate } from '../../../constants/Translate'
 import { AskInfo } from './AskInfo'
 import { InfoMethod } from './InfoMethod'
+import { TransactionService } from '../../../services/TransactionService'
+import { UIService } from '../../../services/UIService'
+import { ApplicationService } from '../../../services/ApplicationService'
 
 let Visa = React.createClass({
 
@@ -42,7 +45,9 @@ let Visa = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			selectedProcessor: CashierStore.getProcessor()
+			selectedProcessor: CashierStore.getProcessor(),
+			payAccount: TransactionService.getCurrentPayAccount(),
+			transaction: UIService.getTransactionInformation()
 		}
 	},
 
@@ -62,6 +67,34 @@ let Visa = React.createClass({
 		this.setState({amount: Number(amount)});
 	},
 
+	/**
+	 * Set visa New Account Info
+	 *
+	 * @param event
+	 */
+	changeValue(propertyName, isSelectComponent = 0, event){
+		const actualState = this.state;
+
+		let value = event;
+
+		if(isSelectComponent){
+			value = value.target.value;
+		}
+
+		actualState[propertyName] = value;
+
+		TransactionService.setDOBSSN(propertyName, value);
+	},
+
+	formValidator(){
+		let payAccount = this.state.payAccount;
+		if (payAccount.extra.dob == "" && payAccount.extra.ssn == "" && payAccount.payAccountId != 0){
+			return ApplicationService.validateInfo(this.state.ssn, "isNumber");
+		}else{
+			return true;
+		}
+	},
+
 	render() {
 		return (
 			<div id="visa">
@@ -71,7 +104,13 @@ let Visa = React.createClass({
 					</Link>
 					<AskInfo amount={this.props.amount}
 									 setAmount={this.props.setAmount}
+									 payAccount={this.state.payAccount}
 									 limitsCheck={this.props.limitsCheck}
+									 dobMonth={this.state.transaction.dobMonth}
+									 dobDay={this.state.transaction.dobDay}
+									 dobYear={this.state.transaction.dobYear}
+									 ssn={this.state.transaction.ssn}
+									 changeValue={this.changeValue}
 					/>
 				</div>
 				<div className="col-sm-6">
@@ -79,7 +118,8 @@ let Visa = React.createClass({
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
 						} else{
-							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}/>;
+							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}
+																 formValidator={this.formValidator}/>;
 						}
 					})()}
 				</div>

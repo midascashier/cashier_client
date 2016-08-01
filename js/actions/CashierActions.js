@@ -84,7 +84,15 @@ let CashierActions = {
 			action: actions.SET_BITCOIN_ADDRESS,
 			data: { bitcoinaddress: data }
 		});
+	},
+
+	setDOBSSN: (param, value) => {
+		CashierDispatcher.dispatch({
+			action: actions.SET_DOB_SSN,
+			data: { param: param, value: value }
+		});
 	}
+
 };
 
 module.exports.CashierActions = CashierActions;

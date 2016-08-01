@@ -30,6 +30,10 @@ let ExtraInfo = React.createClass({
 		let selectMonths = [];
 		let selectYears = [];
 		let selectDays = [];
+		let dobDay = this.props.dobDay;
+		let dobMonth = this.props.dobMonth;
+		let dobYear = this.props.dobYear;
+		let ssn = this.props.ssn;
 
 		for(let i = 1; i < 32; i++){
 			selectDays.push(this.renderOption({ label: i }, i));
@@ -47,30 +51,30 @@ let ExtraInfo = React.createClass({
 			<div>
 				<div className="form-group">
 					<label for="" className="control-label">{translate('CREDIT_CARD_SSN')}:</label>
-					<Input type="text" name="ssn" id="ssn" require ref="ssn"
+					<Input type="text" name="ssn" id="ssn" require ref="ssn" validate="isNumber"
 								 autoComplete="off" onChange={this.props.changeValue.bind(null,'ssn', 0)}
-								 value={this.props.ssn} />
+								 value={ssn}/>
 				</div>
 				<div className="form-group">
 					<label className="col-sm-4 control-label">{translate('CREDIT_CARD_DOB')}:</label>
 					<div className="col-sm-4">
 						<select className="form-control" id="dobMonth" ref="dobMonth" name="dobMonth"
 										onChange={this.props.changeValue.bind(null,'dobMonth', 1)}
-										value={this.props.dobMonth}>
+										value={dobMonth}>
 							{selectMonths}
 						</select>
 					</div>
 					<div className="col-sm-4">
 						<select className="form-control" id="dobDay" ref="dobDay" name="dobDay"
 										onChange={this.props.changeValue.bind(null,'dobDay', 1)}
-										value={this.props.dobDay}>
+										value={dobDay}>
 							{selectDays}
 						</select>
 					</div>
 					<div className="col-sm-4">
 						<select className="form-control" id="dobYear" ref="dobYear" name="dobYear"
 										onChange={this.props.changeValue.bind(null,'dobYear', 1)}
-										value={this.props.dobYear}>
+										value={dobYear}>
 							{selectYears}
 						</select>
 					</div>
