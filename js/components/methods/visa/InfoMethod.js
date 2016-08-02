@@ -63,6 +63,11 @@ let InfoMethod = React.createClass({
 	 * this function checks if password and amount are valid
 	 */
 	allowProcess(){
+
+		if (this.props.amount == ""){
+			return false;
+		}
+
 		let checkAmount = false;
 
 		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){

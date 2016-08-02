@@ -288,7 +288,7 @@ let Register = React.createClass({
 							</div>
 
 							<ExtraInfo changeValue={this.changeValue} ssn={this.state.payAccount.ssn}
-												 dobMonth={this.state.payAccount.dobMonth}
+												 dobMonth={this.state.payAccount.dobMonth} require
 												 dobDay={this.state.payAccount.dobDay} dobYear={this.state.payAccount.dobYear}/>
 						</div>
 						<div className="form-group">
