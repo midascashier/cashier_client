@@ -39,40 +39,41 @@ let Content = React.createClass({
 			if(UIService.getIsWithDraw()){
 				min = parseFloat(limitsInfo.minAmountWithdraw);
 				max = parseFloat(limitsInfo.maxAmountWithdraw);
-				available = limitsInfo.available;
+				available = limitsInfo.availableWithdraw;
 
 			}
 			else{
 				min = parseFloat(limitsInfo.minAmount);
 				max = parseFloat(limitsInfo.maxAmount);
-				available = limitsInfo.availableWithdraw;
+				available = limitsInfo.available;
 			}
 
-			if (available == 0){
-				return Cashier.M_ERROR;
+			if(amount > available){
+				return Cashier.M_AVAILABLE;
 			}
 
-			if (amount < min){
+			if(amount < min){
 				return Cashier.M_BELOW_MIN;
 			}
 
-			if (amount > max){
+			if(amount > max){
 				return Cashier.M_ABOVE_MAX;
 			}
 
-
-			if (version == "full"){
-
+			if(version == "full"){
+				if(limitsInfo.enabled == 0){
+					for(let limit of limitsInfo.limits){
+						if (limit.Type.toLowerCase() == "count" && limit.Minutes <= 59){
+							return Cashier.COUNT_ERROR;
+						}else if (limit.Type.toLowerCase() == "count"){
+							return Cashier.COUNT_ERROR;
+						}
+					}
+				}
 			}
-
 
 			return Cashier.LIMIT_NO_ERRORS;
 
-/*			if(min <= amount && amount <= max){
-				return 1;
-			} else{
-				return 0;
-			}*/
 		},
 
 		checkFees(){

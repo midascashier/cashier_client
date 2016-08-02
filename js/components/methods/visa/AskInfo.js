@@ -82,7 +82,7 @@ let AskInfo = React.createClass({
 															} else{
 																return (
 																	<div>
-																		<SelectPayAccount />
+																		<SelectPayAccount/>
 																	</div>
 																)
 															}

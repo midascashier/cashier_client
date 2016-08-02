@@ -3,6 +3,7 @@ import { CashierActions } from './../actions/CashierActions'
 import { CashierStore } from './../stores/CashierStore'
 
 let SelectPayAccount = React.createClass({
+
 	/**
 	 * React function to set component inital state
 	 *
@@ -66,17 +67,6 @@ let SelectPayAccount = React.createClass({
 	 * @returns {*|XML}
 	 */
 	render() {
-		return (
-			this.renderElement()
-		)
-	},
-
-	/**
-	 * this function create html select input with the payaccounts
-	 *
-	 * @returns {XML}
-	 */
-	renderElement() {
 		let optionNodes = [];
 		let defaultValue = "";
 		let renderOption = function(item, key){
