@@ -35,14 +35,21 @@ let Content = React.createClass({
 			let amount = this.state.info.amount;
 			let limitsInfo = payAccountInfo.limitsData;
 
-			let min, max = 0;
+			let min, max, available = 0;
 			if(UIService.getIsWithDraw()){
 				min = parseFloat(limitsInfo.minAmountWithdraw);
 				max = parseFloat(limitsInfo.maxAmountWithdraw);
+				available = limitsInfo.available;
+
 			}
 			else{
 				min = parseFloat(limitsInfo.minAmount);
 				max = parseFloat(limitsInfo.maxAmount);
+				available = limitsInfo.availableWithdraw;
+			}
+
+			if (available == 0){
+				return Cashier.M_ERROR;
 			}
 
 			if (amount < min){

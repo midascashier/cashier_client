@@ -27,6 +27,7 @@ export default {
 
 	M_BELOW_MIN: "M_BELOW_MIN",
 	M_ABOVE_MAX: "M_ABOVE_MAX",
+	M_ERROR: "M_ERROR",
 	LIMIT_NO_ERRORS: "LIMIT_NO_ERRORS"
 	
 }
