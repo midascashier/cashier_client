@@ -1,5 +1,6 @@
 import React from 'react'
 import { translate } from '../../../constants/Translate'
+import Cashier from '../../../constants/Cashier'
 import { CashierStore } from '../../../stores/CashierStore'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
@@ -8,7 +9,7 @@ let InfoMethod = React.createClass({
 
 	propTypes: {
 		amount: React.PropTypes.string,
-		limitsCheck: React.PropTypes.number,
+		limitsCheck: React.PropTypes.string,
 		formValidator: React.PropTypes.func
 	},
 
@@ -62,7 +63,12 @@ let InfoMethod = React.createClass({
 	 * this function checks if password and amount are valid
 	 */
 	allowProcess(){
-		let checkAmount = this.props.limitsCheck;
+		let checkAmount = false;
+
+		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
+			checkAmount = true;
+		}
+
 		let checkTerms = this.state.transaction.checkTermsAndConditions;
 		if(checkAmount && checkTerms){
 			return true;

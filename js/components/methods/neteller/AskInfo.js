@@ -12,7 +12,7 @@ let AskInfo = React.createClass({
 	propTypes: {
 		netellerPassword: React.PropTypes.func,
 		transactionAmount: React.PropTypes.func,
-		limitsCheck: React.PropTypes.number,
+		limitsCheck: React.PropTypes.string,
 		password: React.PropTypes.string,
 		amount: React.PropTypes.string,
 		payAccount: React.PropTypes.object

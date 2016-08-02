@@ -11,7 +11,7 @@ import { ExtraInfo } from './ExtraInfo'
 let AskInfo = React.createClass({
 		propTypes: {
 			transactionAmount: React.PropTypes.func,
-			limitsCheck: React.PropTypes.number,
+			limitsCheck: React.PropTypes.string,
 			amount: React.PropTypes.string,
 			payAccount: React.PropTypes.object,
 			dobMonth: React.PropTypes.node,

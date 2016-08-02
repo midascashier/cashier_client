@@ -13,7 +13,7 @@ let AskInfo = React.createClass({
 		transactionAmount: React.PropTypes.func,
 		timeFrameDayChange: React.PropTypes.func,
 		timeFrameTimeChange: React.PropTypes.func,
-		limitsCheck: React.PropTypes.number,
+		limitsCheck: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
 		amount: React.PropTypes.string,

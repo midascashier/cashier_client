@@ -1,6 +1,7 @@
 import React from 'react'
 import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
+import Cashier from '../../../constants/Cashier'
 import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
 
@@ -8,7 +9,7 @@ let InfoMethod = React.createClass({
 
 	propTypes: {
 		amount: React.PropTypes.node,
-		limitsCheck: React.PropTypes.number,
+		limitsCheck: React.PropTypes.string,
 		feeCheck: React.PropTypes.number,
 		feeCashValue: React.PropTypes.number,
 		allowContinueToConfirm: React.PropTypes.bool,
@@ -88,7 +89,11 @@ let InfoMethod = React.createClass({
 	},
 
 	render() {
-		let limitsCheck = this.props.limitsCheck;
+		let limitsCheck = false;
+
+		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
+			limitsCheck = true;
+		}
 		let feeCheck = this.props.feeCheck;
 		let isWithDraw = UIService.getIsWithDraw();
 		let allowContinueToConfirm = true;

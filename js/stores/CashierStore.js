@@ -623,10 +623,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			let payAccountTemp = Object.assign({}, _payAccount);
 			if(data.response && data.response.payAccounts){
 				data.response.payAccounts.forEach((payAccount)=>{
-					payAccount.limitsData.available = Math.ceil(payAccount.limitsData.available);
-					payAccount.limitsData.availableWithdraw = Math.ceil(payAccount.limitsData.availableWithdraw);
-					payAccount.limitsData.maxAmount = Math.ceil(payAccount.limitsData.maxAmount);
-					payAccount.limitsData.maxAmountWithdraw = Math.ceil(payAccount.limitsData.maxAmountWithdraw);
+					payAccount.limitsData.available = Math.floor(payAccount.limitsData.available);
+					payAccount.limitsData.availableWithdraw = Math.floor(payAccount.limitsData.availableWithdraw);
+					payAccount.limitsData.maxAmount = Math.floor(payAccount.limitsData.maxAmount);
+					payAccount.limitsData.maxAmountWithdraw = Math.floor(payAccount.limitsData.maxAmountWithdraw);
 					payAccount.limitsData.minAmount = Math.ceil(payAccount.limitsData.minAmount);
 					payAccount.limitsData.minAmountWithdraw = Math.ceil(payAccount.limitsData.minAmountWithdraw);
 				});

@@ -13,7 +13,7 @@ let Visa = React.createClass({
 
 	propTypes: {
 		setAmount: React.PropTypes.func,
-		limitsCheck: React.PropTypes.number,
+		limitsCheck: React.PropTypes.string,
 		amount: React.PropTypes.string
 	},
 

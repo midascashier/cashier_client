@@ -9,7 +9,7 @@ let Person2Person = React.createClass({
 
 	propTypes: {
 		setAmount: React.PropTypes.func,
-		limitsCheck: React.PropTypes.number,
+		limitsCheck: React.PropTypes.string,
 		amount: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number

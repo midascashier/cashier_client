@@ -10,7 +10,7 @@ let BitCoin = React.createClass({
 	propTypes: {
 		setAmount: React.PropTypes.func,
 		setBTCAmount: React.PropTypes.func,
-		limitsCheck: React.PropTypes.number,
+		limitsCheck: React.PropTypes.string,
 		amount: React.PropTypes.node,
 		btcAmount: React.PropTypes.node,
 		feeCashValue: React.PropTypes.number,

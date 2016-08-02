@@ -4,6 +4,7 @@ import { TransactionService } from '../services/TransactionService'
 import { UIService } from '../services/UIService'
 import { CashierStore } from './../stores/CashierStore'
 import  ProcessorSettings from '../constants/Processors'
+import Cashier from '../constants/Cashier'
 
 let Content = React.createClass({
 
@@ -17,7 +18,7 @@ let Content = React.createClass({
 				info: {
 					amount: "",
 					btcAmount: "",
-					limitsCheck: 0,
+					limitsCheck: "",
 					feeCheck: 0,
 					feeCashValue: 0
 				}
@@ -25,39 +26,46 @@ let Content = React.createClass({
 		},
 
 		/**
-		 * Check full set of limits
-		 *
-		 * @returns {number}
-		 */
-		checkLimitsFull(amount){
-			return 1;
-		},
-
-		/**
 		 * Check mix and Max limits
 		 *
 		 * @returns {number}
 		 */
-		checkLimitsLite(){
+		limitCheckStatus(version){
 			let payAccountInfo = TransactionService.getCurrentPayAccount();
 			let amount = this.state.info.amount;
 			let limitsInfo = payAccountInfo.limitsData;
 
 			let min, max = 0;
 			if(UIService.getIsWithDraw()){
-				min = limitsInfo.minAmountWithdraw;
-				max = limitsInfo.maxAmountWithdraw;
+				min = parseFloat(limitsInfo.minAmountWithdraw);
+				max = parseFloat(limitsInfo.maxAmountWithdraw);
 			}
 			else{
-				min = limitsInfo.minAmount;
-				max = limitsInfo.maxAmount;
+				min = parseFloat(limitsInfo.minAmount);
+				max = parseFloat(limitsInfo.maxAmount);
 			}
 
-			if(min <= amount && amount <= max){
+			if (amount < min){
+				return Cashier.M_BELOW_MIN;
+			}
+
+			if (amount > max){
+				return Cashier.M_ABOVE_MAX;
+			}
+
+
+			if (version == "full"){
+
+			}
+
+
+			return Cashier.LIMIT_NO_ERRORS;
+
+/*			if(min <= amount && amount <= max){
 				return 1;
 			} else{
 				return 0;
-			}
+			}*/
 		},
 
 		checkFees(){
@@ -105,13 +113,7 @@ let Content = React.createClass({
 			let actualState = this.state.info;
 			let currentProcessor = TransactionService.getCurrentProcessor();
 			let limitsValidationVersion = ProcessorSettings.settings[currentProcessor.processorId][ProcessorSettings.LIMITS_VALIDATION_VERSION];
-			if(limitsValidationVersion == "lite"){
-				actualState.limitsCheck = this.checkLimitsLite();
-			}
-			else if(limitsValidationVersion == "full"){
-				actualState.limitsCheck = this.checkLimitsFull();
-			}
-
+			actualState.limitsCheck = this.limitCheckStatus(limitsValidationVersion);
 			this.setState({ info: actualState });
 
 		},

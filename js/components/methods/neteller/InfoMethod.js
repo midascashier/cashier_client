@@ -1,5 +1,6 @@
 import React from 'react'
 import { translate } from '../../../constants/Translate'
+import Cashier from '../../../constants/Cashier'
 import { CashierStore } from '../../../stores/CashierStore'
 import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
@@ -7,7 +8,7 @@ import { UIService } from '../../../services/UIService'
 let InfoMethod = React.createClass({
 	propTypes: {
 		password: React.PropTypes.string,
-		limitsCheck: React.PropTypes.number,
+		limitsCheck: React.PropTypes.string,
 		amount: React.PropTypes.string
 	},
 
@@ -62,7 +63,11 @@ let InfoMethod = React.createClass({
 	allowProcess(){
 		let password = this.props.password;
 		let isWithDraw = UIService.getIsWithDraw();
-		let checkAmount = this.props.limitsCheck;
+		let checkAmount = false;
+
+		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
+			checkAmount = true;
+		}
 
 		if(password && String(password).length >= 5 && checkAmount){
 			return true;

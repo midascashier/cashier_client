@@ -1,6 +1,7 @@
 import React from 'react'
 import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
+import Cashier from '../../../constants/Cashier'
 import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
 
@@ -8,7 +9,7 @@ let InfoMethod = React.createClass({
 
 	propTypes: {
 		amount: React.PropTypes.string,
-		limitsCheck: React.PropTypes.number,
+		limitsCheck: React.PropTypes.string,
 		timeFrameDay: React.PropTypes.string,
 		timeFrameTime: React.PropTypes.number
 	},
@@ -79,7 +80,12 @@ let InfoMethod = React.createClass({
 	},
 
 	render() {
-		let limitsCheck = this.props.limitsCheck;
+		let limitsCheck = false;
+
+		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS && this.props.amount){
+			limitsCheck = true;
+		}
+
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
 

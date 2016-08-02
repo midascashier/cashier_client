@@ -1,11 +1,13 @@
 import React from 'react'
 import { translate } from '../constants/Translate'
+import  errorMsgs  from '../constants/ErrorMsgs'
+import Cashier from '../constants/Cashier'
 import { UIService } from '../services/UIService'
 
 let AmountController = React.createClass({
 	propTypes: {
 		transactionAmount: React.PropTypes.func,
-		limitsCheck: React.PropTypes.number,
+		limitsCheck: React.PropTypes.string,
 		amount: React.PropTypes.node
 	},
 
@@ -21,6 +23,13 @@ let AmountController = React.createClass({
 
 	render() {
 		let limits = UIService.getProcessorLimitMinMax();
+		let limitsErrorMsg;
+		let limitsOK = false;
+		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
+			limitsOK = true;
+		} else{
+			limitsErrorMsg = errorMsgs.limitsMsgs[this.props.limitsCheck];
+		}
 		return (
 			<div id="amountController">
 				<label>{translate('PROCESSING_AMOUNT', 'Amount')}:</label>
@@ -30,11 +39,11 @@ let AmountController = React.createClass({
 				<span>{translate('PROCESSING_MIN', 'Min')}: {limits.minAmount}
 					- {translate('PROCESSING_MAX', 'Max')}: {limits.maxAmount}</span><br/>
 				{(() =>{
-					if(!this.props.limitsCheck && this.props.amount != ""){
+					if(!limitsOK && this.props.amount != ""){
 						return (
 							<div className="alert alert-danger" role="alert">
 								<i className="fa fa-thumbs-o-down red"></i>
-								<strong>Limits Error!</strong>
+								<strong>{limitsErrorMsg}</strong>
 							</div>
 						)
 					}
