@@ -64,7 +64,7 @@ let AskInfo = React.createClass({
 															return (
 																<div>
 																	<div className="col-sm-9">
-																		<SelectPayAccount />
+																		<SelectPayAccount setAmount={setAmount} amount={amount}/>
 																	</div>
 																	<div className="col-sm-3">
 																		<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
@@ -76,7 +76,7 @@ let AskInfo = React.createClass({
 														}else{
 															return (
 																<div>
-																	<SelectPayAccount />
+																	<SelectPayAccount setAmount={setAmount} amount={amount}/>
 																</div>
 															)
 														}

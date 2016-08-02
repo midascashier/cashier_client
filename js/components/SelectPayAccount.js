@@ -3,6 +3,10 @@ import { CashierActions } from './../actions/CashierActions'
 import { CashierStore } from './../stores/CashierStore'
 
 let SelectPayAccount = React.createClass({
+	propTypes: {
+		setAmount: React.PropTypes.func,
+		amount: React.PropTypes.node
+	},
 
 	/**
 	 * React function to set component inital state
@@ -58,6 +62,7 @@ let SelectPayAccount = React.createClass({
 	changeValue(event) {
 		let processorID = this.state.processor.processorId;
 		let payAccountID = event.currentTarget.value;
+		this.props.setAmount(this.props.amount);
 		CashierActions.changePayAccount(payAccountID, processorID);
 	},
 
