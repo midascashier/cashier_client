@@ -42,66 +42,67 @@ let AskInfo = React.createClass({
 			<div id="netellerAskInfo" className="box">
 				<div className="row">
 					<div className="col-sm-12">
-						<div className="row">
-							<div className="col-sm-12">
-								<div className="title">{proccesingTitle}</div>
-								<div className="infoCol">
-									<div className="col-sm-12">
-										<div className="row">
-											<div className="col-sm-3">
-												<div className="method active pull-left">
-													<img className="img-responsive" src={originPath + '/images/processors/333.png'}
-															 alt={displayName}/>
-												</div>
-											</div>
-											<div className="col-sm-9">
-												<div className="row">
-													<div className="form-group" id="payAccount">
-														<label for="">{translate('NETELLER_ACCOUNT', 'Neteller Account')}:</label>
-														{(() =>{
-															if(payAccountId != 0){
-																return (
-																	<div>
-																		<SelectPayAccount setAmount={setAmount} amount={amount}/>
-																		<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
-																			{translate('PROCESSING_BUTTON_DELETE_ACCOUNT', 'Delete Account')}
-																		</button>
-																	</div>
-																)
-															}else{
-																return (
-																	<div>
-																		<SelectPayAccount setAmount={setAmount} amount={amount}/>
-																	</div>
-																)
-															}
-														})()}
-
-														{(() =>{
-															if(payAccountId == 0){
-																return <Register />
-															}
-														})()}
-													</div>
-
-													{(() =>{
-														if(!isWithDraw && payAccountId != 0){
-															return <div className="form-group">
-																<label for="">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
-																<Input onChange={netellerPassword} value={password} type="password"/>
-															</div>
-														}
-													})()}
-
-													{(() =>{
-														if(payAccountId != 0){
-															return <AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-														}
-													})()}
-												</div>
-											</div>
-										</div>
+						<div className="title">{proccesingTitle}</div>
+						<div className="infoCol">
+							<div className="row">
+								<div className="col-sm-3">
+									<div className="method active pull-left">
+										<img className="img-responsive" src={originPath + '/images/processors/333.png'} alt={displayName}/>
 									</div>
+								</div>
+								<div className="col-sm-9">
+										<div className="form-group" id="payAccount">
+											<label for="">{translate('NETELLER_ACCOUNT', 'Neteller Account')}:</label>
+											{(() =>{
+												if(payAccountId != 0){
+													return (
+														<div id="selectPayAccount">
+															<SelectPayAccount setAmount={setAmount} amount={amount}/>
+															<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+																{translate('PROCESSING_BUTTON_DELETE_ACCOUNT', 'Delete Account')}
+															</button>
+														</div>
+													)
+												} else{
+													return (
+														<div id="payAccounts">
+															<SelectPayAccount setAmount={setAmount} amount={amount}/>
+														</div>
+													)
+												}
+											})()}
+
+											{(() =>{
+												if(payAccountId == 0){
+													return <Register />
+												}
+											})()}
+										</div>
+									<div className="form-group">
+										{(() =>{
+											if(!isWithDraw && payAccountId != 0){
+												return <div className="form-group">
+													<label for="">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
+													<Input onChange={netellerPassword} value={password} type="password"/>
+												</div>
+											}
+										})()}
+
+										{(() =>{
+											if(payAccountId != 0){
+												return <AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+											}
+										})()}
+									</div>
+
+									{(() =>{
+										if(!isWithDraw){
+											return (
+												<p><em>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></em></p>
+											)
+										}
+									})()}
+
 								</div>
 							</div>
 						</div>

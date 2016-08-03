@@ -34,6 +34,7 @@ let AskInfo = React.createClass({
 			let payAccountId = payAccount.payAccountId;
 			let amount = this.props.amount;
 			let limitsCheck = this.props.limitsCheck;
+			let isWithDraw = UIService.getIsWithDraw();
 			let originPath = UIService.getOriginPath();
 			let displayName = UIService.getProcessorDisplayName();
 			let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_CREDIT_CARD', 'Please Enter Your Card Details');
@@ -98,9 +99,17 @@ let AskInfo = React.createClass({
 																							dobYear={dobYear}/>
 													}
 												})()}
-												<p>Good news! You have a 100% deposit bonus up to $1000</p>
+
 											</div>
 
+											{(() =>{
+												if(!isWithDraw){
+													return (
+														<p><em>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></em></p>
+													)
+												}
+											})()}
+											
 											{(() =>{
 												if(payAccountId != 0){
 													return <TermsController />
