@@ -47,80 +47,72 @@ let AskInfo = React.createClass({
 				<div id="visaAskInfo" className="box">
 					<div className="row">
 						<div className="col-sm-12">
-							<div className="row">
-								<div className="col-sm-12">
-									<div className="title">{title}</div>
-									<div className="infoCol">
-										<div className="col-sm-12">
-											<div className="row">
-												<div className="col-sm-3">
-													<div className="method active pull-left">
-														<img className="img-responsive" src={originPath + '/images/processors/11001.png'}
-																 alt={displayName}/>
-													</div>
-												</div>
-												<div className="col-sm-9">
-													<div className="form-group" id="payAccount">
-														<label for="">{translate('CREDIT_CARD_SELECT', 'Credit Card')}:</label>
-														{(() =>{
-															if(payAccountId != 0){
-																return (
-																	<div>
-																		<SelectPayAccount setAmount={setAmount} amount={amount} />
-																		<button type='button' onClick={this.disablePayAccount}
-																						className='btn btn-xs btn-green'>
-																			Delete Card
-																		</button>
-																	</div>
-																)
-															} else{
-																return (
-																	<div>
-																		<SelectPayAccount setAmount={setAmount} amount={amount}/>
-																	</div>
-																)
-															}
-														})()}
-
-														{(() =>{
-															if(payAccountId == 0){
-																return <Register />
-															}
-														})()}
-													</div>
-													<div className="form-group">
-														{(() =>{
-															if(payAccountId != 0){
-																return <AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-															}
-														})()}
-
-														{(() =>{
-															if((payAccount.extra.dob == null || payAccount.extra.ssn == null) && payAccountId != 0){
-																return <ExtraInfo changeValue={changeValue} ssn={ssn}
-																									dobMonth={dobMonth}
-																									dobDay={dobDay}
-																									dobYear={dobYear}/>
-															}
-														})()}
-														<p>Good news! You have a 100% deposit bonus up to $1000</p>
-													</div>
-												</div>
+							<div className="title">{title}</div>
+							<div className="infoCol">
+									<div className="row">
+										<div className="col-sm-3">
+											<div className="method active pull-left">
+												<img className="img-responsive" src={originPath + '/images/processors/11001.png'} alt={displayName}/>
 											</div>
+										</div>
+										<div className="col-sm-9">
+											<div className="form-group" id="payAccount">
+												<label>{translate('CREDIT_CARD_SELECT', 'Credit Card')}:</label>
+												{(() =>{
+													if(payAccountId != 0){
+														return (
+															<div id="selectPayAccount">
+																<SelectPayAccount setAmount={setAmount} amount={amount}/>
+																<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+																	{translate('PROCESSING_BUTTON_DELETE_CARD', 'Delete Card')}
+																</button>
+															</div>
+														)
+													} else{
+														return (
+															<div id="payAccounts">
+																<SelectPayAccount setAmount={setAmount} amount={amount}/>
+															</div>
+														)
+													}
+												})()}
+
+												{(() =>{
+													if(payAccountId == 0){
+														return <Register />
+													}
+												})()}
+											</div>
+											<div className="form-group">
+												{(() =>{
+													if(payAccountId != 0){
+														return <AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+													}
+												})()}
+
+												{(() =>{
+													if((payAccount.extra.dob == null || payAccount.extra.ssn == null) && payAccountId != 0){
+														return <ExtraInfo changeValue={changeValue} ssn={ssn}
+																							dobMonth={dobMonth}
+																							dobDay={dobDay}
+																							dobYear={dobYear}/>
+													}
+												})()}
+												<p>Good news! You have a 100% deposit bonus up to $1000</p>
+											</div>
+
 											{(() =>{
 												if(payAccountId != 0){
 													return <TermsController />
 												}
 											})()}
 										</div>
+										<div className="col-sm-12">
+											<p>{information}</p>
+										</div>
 									</div>
-								</div>
+
 							</div>
-						</div>
-					</div>
-					<div className="row">
-						<div className="col-sm-12">
-							<p>{information}</p>
 						</div>
 					</div>
 				</div>

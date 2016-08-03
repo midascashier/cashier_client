@@ -68,9 +68,8 @@ let AskInfo = React.createClass({
 																			<SelectPayAccount setAmount={setAmount} amount={amount} />
 																		</div>
 																		<div className="col-sm-3">
-																			<button type='button' onClick={this.disablePayAccount}
-																							className='btn btn-xs btn-green'>
-																				Delete
+																			<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+																				{translate('PROCESSING_BUTTON_DELETE_ACCOUNT', 'Delete Account')}
 																			</button>
 																		</div>
 																	</div>
@@ -93,11 +92,11 @@ let AskInfo = React.createClass({
 																			className="control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
 																		<div className="col-sm-6">
 																			<div className="form-group">
-																				<select className="form-control" value={this.props.timeFrameDay}
+																				<select className="form-control"
+																								value={this.props.timeFrameDay}
 																								onChange={this.props.timeFrameDayChange}>
 																					<option value="TODAY">{translate('P2P_TIME_FRAME_TODAY', 'Today')}</option>
-																					<option
-																						value="TOMORROW">{translate('P2P_TIME_FRAME_TOMORROW', 'Tomorrow')}</option>
+																					<option value="TOMORROW">{translate('P2P_TIME_FRAME_TOMORROW', 'Tomorrow')}</option>
 																				</select>
 																			</div>
 																		</div>

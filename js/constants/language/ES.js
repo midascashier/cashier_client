@@ -89,6 +89,8 @@ let _langTags = {
 	PROCESSING_BUTTON_SAVE: "Guardar",
 	PROCESSING_BUTTON_EDIT: "Modificar",
 	PROCESSING_BUTTON_REPROCESS_FIX: "Corregido. Intentar nuevamente.",
+	PROCESSING_BUTTON_DELETE_ACCOUNT: "Borrar Cuenta",
+	PROCESSING_BUTTON_DELETE_CARD: "Borrar Tarjeta",
 	PROCESSING_AMOUNT: "Monto",
 	PROCESSING_MIN: "Mín.",
 	PROCESSING_MAX: "Máx.",
