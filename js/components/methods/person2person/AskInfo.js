@@ -135,7 +135,14 @@ let AskInfo = React.createClass({
 											}
 										})()}
 									</div>
-									<p><em>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></em></p>
+									
+									{(() =>{
+										if(!isWithDraw){
+											return (
+												<p><em>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></em></p>
+											)
+										}
+									})()}
 								</div>
 							</div>
 						</div>
