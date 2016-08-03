@@ -283,7 +283,7 @@ let _transaction = {
 	bonusId: 0,
 	bitcoinAddress: '',
 	checkTermsAndConditions: 0,
-	controlNumber: null,
+	controlNumber: '',
 	timeFrameDay: null,
 	timeFrameTime: null,
 	dobMonth: 1,
