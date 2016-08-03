@@ -39,14 +39,12 @@ let AskInfo = React.createClass({
 		}
 
 		return (
-			<div id="askAmount" className="box">
+			<div id="netellerAskInfo" className="box">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="row">
 							<div className="col-sm-12">
 								<div className="title">{proccesingTitle}</div>
-							</div>
-							<div className="col-sm-12">
 								<div className="infoCol">
 									<div className="col-sm-12">
 										<div className="row">
@@ -57,48 +55,50 @@ let AskInfo = React.createClass({
 												</div>
 											</div>
 											<div className="col-sm-9">
-												<div className="form-group" id="payAccount">
-													<label for="">{translate('NETELLER_ACCOUNT', 'Neteller Account')}:</label>
+												<div className="row">
+													<div className="form-group" id="payAccount">
+														<label for="">{translate('NETELLER_ACCOUNT', 'Neteller Account')}:</label>
+														{(() =>{
+															if(payAccountId != 0){
+																return (
+																	<div>
+																		<SelectPayAccount setAmount={setAmount} amount={amount}/>
+																		<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+																			{translate('PROCESSING_BUTTON_DELETE_ACCOUNT', 'Delete Account')}
+																		</button>
+																	</div>
+																)
+															}else{
+																return (
+																	<div>
+																		<SelectPayAccount setAmount={setAmount} amount={amount}/>
+																	</div>
+																)
+															}
+														})()}
+
+														{(() =>{
+															if(payAccountId == 0){
+																return <Register />
+															}
+														})()}
+													</div>
+
 													{(() =>{
-														if(payAccountId != 0){
-															return (
-																<div>
-																	<SelectPayAccount setAmount={setAmount} amount={amount}/>
-																	<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
-																		Delete Account
-																	</button>
-																</div>
-															)
-														}else{
-															return (
-																<div>
-																	<SelectPayAccount setAmount={setAmount} amount={amount}/>
-																</div>
-															)
+														if(!isWithDraw && payAccountId != 0){
+															return <div className="form-group">
+																<label for="">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
+																<Input onChange={netellerPassword} value={password} type="password"/>
+															</div>
 														}
 													})()}
 
 													{(() =>{
-														if(payAccountId == 0){
-															return <Register />
+														if(payAccountId != 0){
+															return <AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 														}
 													})()}
 												</div>
-
-												{(() =>{
-													if(!isWithDraw && payAccountId != 0){
-														return <div className="form-group">
-															<label for="">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
-															<Input onChange={netellerPassword} value={password} type="password"/>
-														</div>
-													}
-												})()}
-
-												{(() =>{
-													if(payAccountId != 0){
-														return <AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-													}
-												})()}
 											</div>
 										</div>
 									</div>

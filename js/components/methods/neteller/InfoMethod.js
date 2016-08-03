@@ -117,44 +117,39 @@ let InfoMethod = React.createClass({
 		}
 
 		return (
-			<div id="InfoMethodNeteller">
-				<div className="col-sm-12">
-					<div className="title">{title}</div>
-					<div className="table-responsive">
-						<table className="table table-striped">
-							<tbody>
-							<tr>
-								<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-								<td><span>{payAccountInfo.minPayAccount}</span></td>
-							</tr>
-							<tr>
-								<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-								<td><span>{payAccountInfo.maxPayAccount}</span></td>
-							</tr>
-							<tr>
-								<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
-								<td><span>{payAccountInfo.remaining}</span></td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
+			<div id="netellerInfoMethod">
 					<div className="row">
+						<div className="title">{title}</div>
+						<div className="table-responsive">
+							<table className="table table-striped">
+								<tbody>
+									<tr>
+										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+										<td><span>{payAccountInfo.minPayAccount}</span></td>
+									</tr>
+									<tr>
+										<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
+										<td><span>{payAccountInfo.maxPayAccount}</span></td>
+									</tr>
+									<tr>
+										<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
+										<td><span>{payAccountInfo.remaining}</span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 						<div className="col-sm-12">
 							<div className="row">
 								<div className="col-sm-6">
-
-									<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled}
-													className='btn btn-green'>
+									<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
 										{translate('PROCESSING_BUTTON_NEXT', 'Next')}
 									</button>
-
 								</div>
 								<div className="col-sm-6">
 									<img src={originPath + '/images/ssl.png'} alt="ssl"/>
 								</div>
 							</div>
 						</div>
-					</div>
 				</div>
 			</div>
 		)
