@@ -48,10 +48,6 @@ let Content = React.createClass({
 				available = limitsInfo.available;
 			}
 
-			if(amount > available){
-				return Cashier.M_AVAILABLE;
-			}
-
 			if(amount < min){
 				return Cashier.M_BELOW_MIN;
 			}
@@ -61,6 +57,11 @@ let Content = React.createClass({
 			}
 
 			if(version == "full"){
+
+				if(amount > available){
+					return Cashier.M_AVAILABLE;
+				}
+
 				if(limitsInfo.enabled == 0){
 					for(let limit of limitsInfo.limits){
 						if (limit.Type.toLowerCase() == "count" && limit.Minutes <= 59){
