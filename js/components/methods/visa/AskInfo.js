@@ -91,7 +91,7 @@ let AskInfo = React.createClass({
 												})()}
 
 												{(() =>{
-													if((payAccount.extra.dob == null || payAccount.extra.ssn == null) && payAccountId != 0){
+													if((payAccount.extra.dob == null || payAccount.extra.ssn == null) && payAccountId != null){
 														return <ExtraInfo changeValue={changeValue} ssn={ssn}
 																							dobMonth={dobMonth}
 																							dobDay={dobDay}

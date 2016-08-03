@@ -40,16 +40,10 @@ let Content = React.createClass({
 				min = parseFloat(limitsInfo.minAmountWithdraw);
 				max = parseFloat(limitsInfo.maxAmountWithdraw);
 				available = limitsInfo.availableWithdraw;
-
-			}
-			else{
+			} else{
 				min = parseFloat(limitsInfo.minAmount);
 				max = parseFloat(limitsInfo.maxAmount);
 				available = limitsInfo.available;
-			}
-
-			if(amount > available){
-				return Cashier.M_AVAILABLE;
 			}
 
 			if(amount < min){
@@ -61,18 +55,27 @@ let Content = React.createClass({
 			}
 
 			if(version == "full"){
+
+				if(amount > available){
+					return Cashier.M_AVAILABLE;
+				}
+
 				if(limitsInfo.enabled == 0){
 					for(let limit of limitsInfo.limits){
-						if (limit.Type.toLowerCase() == "count" && limit.Minutes <= 59){
+						if(limit.Type.toLowerCase() == "count" && limit.Minutes <= 59){
 							return Cashier.COUNT_ERROR;
-						}else if (limit.Type.toLowerCase() == "count"){
+						} else if(limit.Type.toLowerCase() == "count"){
 							return Cashier.COUNT_ERROR;
 						}
 					}
 				}
 			}
 
-			return Cashier.LIMIT_NO_ERRORS;
+			if(amount == "" || !available || isNaN(max) || isNaN(min)){
+				return Cashier.LOADING;
+			} else{
+				return Cashier.LIMIT_NO_ERRORS;
+			}
 
 		},
 
@@ -134,8 +137,12 @@ let Content = React.createClass({
 		setAmount(amount)
 		{
 			let actualState = this.state.info;
-			let btcAmount = amount / CashierStore.getBTCRate();
-			actualState.btcAmount = btcAmount;
+			let processorID = UIService.getProcessorId();
+			// Calculate BTC just for bitcoin ProcessorID
+			if(processorID == 814 && CashierStore.getBTCRate()){
+				let btcAmount = amount / CashierStore.getBTCRate();
+				actualState.btcAmount = btcAmount;
+			}
 			actualState.amount = amount;
 			this.setState({ info: actualState }, function afterAmountChange(){
 				this.checkLimits();
