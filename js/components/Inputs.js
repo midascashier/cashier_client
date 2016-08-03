@@ -20,7 +20,7 @@ let Input = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			isValid: 1,
+			isValid: true,
 			errorMessage: ""
 		}
 	},
@@ -37,19 +37,19 @@ let Input = React.createClass({
 			let errorMessage = " Invalid!";
 			switch(this.props.id){
 				case "ccName":
-					errorMessage = "Card Holder's Name" + errorMessage;
+					errorMessage = errorMessage + "Card Holder's Name";
 					break;
 				case "creditCardNumber":
-					errorMessage = "Credit Card" + errorMessage;
+					errorMessage = errorMessage + "Credit Card";
 					break;
 				case "cvv":
-					errorMessage = "CVV" + errorMessage;
+					errorMessage = errorMessage + "CVV";
 					break
 			}
-			isValid = 0;
+			isValid = false;
 			this.setState(
 				{
-					isValid: 0,
+					isValid: false,
 					errorMessage: errorMessage
 				}
 			);
@@ -57,7 +57,7 @@ let Input = React.createClass({
 			isValid = true;
 			this.setState(
 				{
-					isValid: 1,
+					isValid: true,
 					errorMessage: ""
 				}
 			);

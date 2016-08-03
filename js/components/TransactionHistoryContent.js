@@ -5,6 +5,7 @@ import { TransactionHistory } from './contentComponents/TransactionHistory'
 import { translate } from '../constants/Translate'
 import { CashierStore } from '../stores/CashierStore'
 import { CustomerService } from './../services/CustomerService'
+import { UIService } from './../services/UIService'
 import { LoadingSpinner } from './loading/LoadingSpinner'
 
 let TransactionHistoryContent = React.createClass({
@@ -59,7 +60,11 @@ let TransactionHistoryContent = React.createClass({
 	render() {
 
 		let transactionHistory = this.state.transactions;
-
+		let isWithdraw = UIService.getIsWithDraw();
+		let customerOpt = "DEPOSIT";
+		if (isWithdraw == 1 ){
+			customerOpt = "WITHDRAW";
+		}
 		return (
 			<div id="transactionHistoryContent">
 				<Info />
@@ -103,8 +108,8 @@ let TransactionHistoryContent = React.createClass({
 										</ul>
 									</div>
 									<div className="col-sm-6">
-										<Link to={`/deposit/`}>
-											<button type="submit" className="btn btn-green">{translate('DEPOSIT')}</button>
+										<Link to={"/"+customerOpt.toLowerCase()+"/"}>
+											<button type="submit" className="btn btn-green">{translate(customerOpt)}</button>
 										</Link>
 									</div>
 
