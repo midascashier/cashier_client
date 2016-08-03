@@ -115,7 +115,6 @@ let AskInfo = React.createClass({
 													return <TermsController />
 												}
 											})()}
-											<p>Good news! You have a 100% deposit bonus up to $1000</p>
 										</div>
 										<div className="col-sm-12">
 											<p>{information}</p>

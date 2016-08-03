@@ -51,33 +51,33 @@ let AskInfo = React.createClass({
 									</div>
 								</div>
 								<div className="col-sm-9">
-										<div className="form-group" id="payAccount">
-											<label for="">{translate('NETELLER_ACCOUNT', 'Neteller Account')}:</label>
-											{(() =>{
-												if(payAccountId != 0){
-													return (
-														<div id="selectPayAccount">
-															<SelectPayAccount setAmount={setAmount} amount={amount}/>
-															<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
-																{translate('PROCESSING_BUTTON_DELETE_ACCOUNT', 'Delete Account')}
-															</button>
-														</div>
-													)
-												} else{
-													return (
-														<div id="payAccounts">
-															<SelectPayAccount setAmount={setAmount} amount={amount}/>
-														</div>
-													)
-												}
-											})()}
+									<div className="form-group" id="payAccount">
+										<label for="">{translate('NETELLER_ACCOUNT', 'Neteller Account')}:</label>
+										{(() =>{
+											if(payAccountId != 0){
+												return (
+													<div id="selectPayAccount">
+														<SelectPayAccount setAmount={setAmount} amount={amount}/>
+														<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+															{translate('PROCESSING_BUTTON_DELETE_ACCOUNT', 'Delete Account')}
+														</button>
+													</div>
+												)
+											} else{
+												return (
+													<div id="payAccounts">
+														<SelectPayAccount setAmount={setAmount} amount={amount}/>
+													</div>
+												)
+											}
+										})()}
 
-											{(() =>{
-												if(payAccountId == 0){
-													return <Register />
-												}
-											})()}
-										</div>
+										{(() =>{
+											if(payAccountId == 0){
+												return <Register />
+											}
+										})()}
+									</div>
 									<div className="form-group">
 										{(() =>{
 											if(!isWithDraw && payAccountId != 0){
