@@ -19,32 +19,26 @@ let ProcessorsList = React.createClass({
 			<div id="methods" className="box">
 				<div className="row">
 					<div className="col-sm-12">
-						<div className="row">
-							<div className="col-sm-12">
-								<div className="title">{titleText}</div>
+						<div className="title">{titleText}</div>
+						<div className="processors infoCol">
+							{(() =>{
+								if(this.props.processors.length == 0){
+									return <LoadingSpinner />;
+								}
+							})()}
+
+							<div id="processors" className="row">
+								{this.props.processors.map((processor, i)=>{
+									if(this.props.selectedProcessor == processor.caProcessor_Id){
+										isSelected = true;
+									} else{
+										isSelected = false;
+									}
+									return <Processor key={processor.caProcessor_Id} selected={isSelected}
+																		processorId={processor.caProcessor_Id} displayName={processor.DisplayName}/>;
+								})}
 							</div>
-							<div className="col-sm-12">
-								<div className="processors infoCol">
-									<div>
-										{(() =>{
-											if(this.props.processors.length == 0){
-												return <LoadingSpinner />;
-											}
-										})()}
-									</div>
-									<div className="row">
-										{this.props.processors.map((processor, i)=>{
-											if(this.props.selectedProcessor == processor.caProcessor_Id){
-												isSelected = true;
-											} else{
-												isSelected = false;
-											}
-											return <Processor key={processor.caProcessor_Id} selected={isSelected}
-																				processorId={processor.caProcessor_Id} displayName={processor.DisplayName}/>;
-										})}
-									</div>
-								</div>
-							</div>
+
 						</div>
 					</div>
 				</div>
