@@ -73,7 +73,11 @@ let Content = React.createClass({
 				}
 			}
 
-			return Cashier.LIMIT_NO_ERRORS;
+			if (amount == "" || !available || isNaN(max) || isNaN(min) ){
+				return Cashier.LOADING;
+			}else{
+				return Cashier.LIMIT_NO_ERRORS;
+			}
 
 		},
 

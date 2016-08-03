@@ -25,7 +25,7 @@ let AmountController = React.createClass({
 		let limits = UIService.getProcessorLimitMinMax();
 		let limitsErrorMsg;
 		let limitsOK = false;
-		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
+		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS || this.props.limitsCheck == Cashier.LOADING){
 			limitsOK = true;
 		} else{
 			limitsErrorMsg = errorMsgs.limitsMsgs[this.props.limitsCheck];
