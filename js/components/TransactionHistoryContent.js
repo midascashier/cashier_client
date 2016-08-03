@@ -5,6 +5,7 @@ import { TransactionHistory } from './contentComponents/TransactionHistory'
 import { translate } from '../constants/Translate'
 import { CashierStore } from '../stores/CashierStore'
 import { CustomerService } from './../services/CustomerService'
+import { LoadingSpinner } from './loading/LoadingSpinner'
 
 let TransactionHistoryContent = React.createClass({
 
@@ -24,7 +25,7 @@ let TransactionHistoryContent = React.createClass({
 	 * @returns {{transactions: {}}}
 	 */
 	refreshLocalState() {
-		let customer =  CashierStore.getCustomer();
+		let customer = CashierStore.getCustomer();
 		let lastTransactions = customer.lastTransactions;
 		return {
 			transactions: lastTransactions
@@ -67,7 +68,14 @@ let TransactionHistoryContent = React.createClass({
 						<div className="col-sm-12">
 							<div className="modules">
 								<div className="title">{translate('TRANSACTION_HISTORY_TITLE')}</div>
-								<TransactionHistory transactions={transactionHistory}/>
+								{(() =>{
+									if(transactionHistory.length == 0){
+										return <LoadingSpinner/>
+									}else {
+										return <TransactionHistory transactions={transactionHistory}/>
+									}
+								})()}
+
 								<div className="row">
 									<div className="col-sm-6">
 										<ul>
