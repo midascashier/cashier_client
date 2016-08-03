@@ -103,18 +103,20 @@ let AskInfo = React.createClass({
 											</div>
 
 											{(() =>{
+												if(payAccountId != 0){
+													return <TermsController />
+												}
+											})()}
+
+											{(() =>{
 												if(!isWithDraw){
 													return (
 														<p><em>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></em></p>
 													)
 												}
 											})()}
-											
-											{(() =>{
-												if(payAccountId != 0){
-													return <TermsController />
-												}
-											})()}
+
+
 										</div>
 										<div className="col-sm-12">
 											<p>{information}</p>
