@@ -33,7 +33,7 @@ let AmountController = React.createClass({
 		return (
 			<div id="amountController">
 				<label>{translate('PROCESSING_AMOUNT', 'Amount')}:</label>
-				<input className="form-control" type="number" autoComplete="off" id="amount" name="amount" onChange={this.changeValue}
+				<input className="form-control" type="text" autoComplete="off" id="amount" name="amount" onChange={this.changeValue}
 							 value={this.props.amount}
 							 min="0" required/>
 				<span>{translate('PROCESSING_MIN', 'Min')}: {limits.minAmount}

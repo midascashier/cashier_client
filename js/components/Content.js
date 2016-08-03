@@ -35,6 +35,10 @@ let Content = React.createClass({
 			let amount = this.state.info.amount;
 			let limitsInfo = payAccountInfo.limitsData;
 
+			if (isNaN(amount)){
+				return Cashier.LOADING;
+			}
+
 			let min, max, available = 0;
 			if(UIService.getIsWithDraw()){
 				min = parseFloat(limitsInfo.minAmountWithdraw);
