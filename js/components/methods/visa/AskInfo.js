@@ -44,14 +44,12 @@ let AskInfo = React.createClass({
 			let dobYear = this.props.dobYear;
 
 			return (
-				<div id="askAmountVisa" className="box">
+				<div id="visaAskInfo" className="box">
 					<div className="row">
 						<div className="col-sm-12">
 							<div className="row">
 								<div className="col-sm-12">
 									<div className="title">{title}</div>
-								</div>
-								<div className="col-sm-12">
 									<div className="infoCol">
 										<div className="col-sm-12">
 											<div className="row">

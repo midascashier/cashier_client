@@ -184,15 +184,11 @@ let VisaConfirm = React.createClass({
 					<div className="col-sm-12">
 						<div className="modules">
 							<div className="row">
-
-								<div className="col-sm-6 ">
+								<div className="col-sm-6">
 									<div className="box">
-
 										<div className="row">
-
 											<div className="col-sm-12">
-												<div
-													className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
+												<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 												<div className="infoCol">
 													{(() =>{
 														if(isEditMode){
@@ -200,20 +196,19 @@ let VisaConfirm = React.createClass({
 																<form onSubmit={this.saveBillingInfo}>
 																	<ul>
 																		<li>
-																			<label for="" className="control-label">First Name:</label>
+																			<label className="control-label">First Name:</label>
 																			<Input type="text" id="firstName" ref="firstName" validate="isString"
 																						 onChange={this.changeValue.bind(null, 'personal','firstName', 0)}
 																						 value={personalData.firstName}/>
 																		</li>
 																		<li>
-																			<label for="" className="control-label">Last Name:</label>
+																			<label className="control-label">Last Name:</label>
 																			<Input type="text" id="lastName" ref="lastName" validate="isString"
 																						 onChange={this.changeValue.bind(null, 'personal','lastName', 0)}
 																						 value={personalData.lastName}/>
 																		</li>
 																		<li>
-																			<label for=""
-																						 className="control-label">{translate('CREDIT_COUNTRY', 'Country')}:</label>
+																			<label className="control-label">{translate('CREDIT_COUNTRY', 'Country')}:</label>
 																			<select className="form-control" id="country" ref="country"
 																							value={this.state.info.payAccount.address.country}
 																							onChange={this.changeValue.bind(null, 'address','country',1)}>
@@ -221,49 +216,47 @@ let VisaConfirm = React.createClass({
 																			</select>
 																		</li>
 																		<li>
-																			<label for=""
-																						 className="control-label">{translate('CREDIT_STATE', 'State')}:</label>
+																			<label className="control-label">{translate('CREDIT_STATE', 'State')}:</label>
 																			<select className="form-control" id="countryState"
 																							ref="state" value={this.state.info.state}>
 																				{stateOptionNodes}
 																			</select>
 																		</li>
 																		<li>
-																			<label for="" className="control-label">City / Town:</label>
+																			<label className="control-label">City / Town:</label>
 																			<Input type="text" id="city" ref="city" validate="isString"
 																						 onChange={this.changeValue.bind(null, 'address','city', 0)}
 																						 value={addressData.city}/>
 																		</li>
 																		<li>
-																			<label for="" className="control-label">Address:</label>
+																			<label className="control-label">Address:</label>
 																			<Input type="text" id="address" ref="address1" validate="isString"
 																						 onChange={this.changeValue.bind(null, 'address','address1', 0)}
 																						 value={addressData.address1}/>
 																		</li>
 																		<li>
-																			<label for="" className="control-label">ZIP / Postal Code:</label>
+																			<label className="control-label">ZIP / Postal Code:</label>
 																			<Input type="text" id="zip" ref="zip" validate="isNumber"
 																						 onChange={this.changeValue.bind(null, 'address','zip', 0)}
 																						 value={addressData.zip}/>
 																		</li>
 																		<li>
-																			<label for="" className="control-label">Email Address:</label>
+																			<label className="control-label">Email Address:</label>
 																			<Input type="text" id="email" ref="email" validate="isEmail" require
 																						 onChange={this.changeValue.bind(null, 'personal','email', 0)}
 																						 value={personalData.email}/>
 																		</li>
 																		<li>
-																			<label for="" className="control-label">Phone:</label>
+																			<label className="control-label">Phone:</label>
 																			<Input type="text" id="phone" ref="phone" validate="isNumber" require
 																						 onChange={this.changeValue.bind(null, 'personal','phone', 0)}
 																						 value={personalData.phone}/>
 																		</li>
 																	</ul>
 																	<button onClick={this.saveBillingInfo} type='submit' className='btn btn-green'>
-																		Save
+																		{translate('PROCESSING_BUTTON_SAVE', 'Save')}
 																	</button>
-																	<button onClick={this.editBillingInfo.bind(null, 0)} type='button'
-																					className='btn btn-green'>Cancel
+																	<button onClick={this.editBillingInfo.bind(null, 0)} type='button' className='btn btn-green'>Cancel
 																	</button>
 																</form>
 															)
@@ -293,14 +286,12 @@ let VisaConfirm = React.createClass({
 
 								<div className="col-sm-6">
 									<div className="box">
-
 										<div className="row">
 											<div className="col-sm-12">
 												<div className="title">{translate('METHOD_DETAILS_DEPOSIT', 'Deposit Details')}</div>
-												<div className="deposit-details">
-													<div className="table-responsive">
-														<table className="table table-striped">
-															<tbody>
+												<div className="table-responsive">
+													<table className="table table-striped">
+														<tbody>
 															<tr>
 																<td>{translate('CREDIT_CARD_HOLDER')}:</td>
 																<td><span>{secureData.extra3}</span></td>
@@ -317,12 +308,13 @@ let VisaConfirm = React.createClass({
 																<td>{translate('PROCESSING_AMOUNT')}:</td>
 																<td><span>{this.state.info.transaction.amount}</span></td>
 															</tr>
-															</tbody>
-														</table>
-													</div>
-													<p><i className="fa fa-pencil green"></i>
-														<a onClick={this.startTransaction}>Edit the deposit details</a></p>
+														</tbody>
+													</table>
 												</div>
+												<p>
+													<i className="fa fa-pencil green"></i>
+													<a onClick={this.startTransaction}>Edit the deposit details</a>
+												</p>
 												<form className="form-horizontal infoCol">
 													<button type="button" onClick={this.processTransaction}
 																	className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_DEPOSIT', 'Complete')}</button>
@@ -330,7 +322,6 @@ let VisaConfirm = React.createClass({
 												</form>
 											</div>
 										</div>
-
 									</div>
 								</div>
 

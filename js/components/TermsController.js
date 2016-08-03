@@ -40,7 +40,7 @@ let TermsController = React.createClass({
 		let content = translate('CREDIT_CARD_CHECK_TERMENS');
 		return (
 			<div className="form-group">
-				<div className="checkbox text-center">
+				<div className="checkbox">
 					<label title={content}>
 						<input type="checkbox" id="checkTermsAndConditions" name="checkTermsAndConditions"
 									 onChange={this.changeValue}
