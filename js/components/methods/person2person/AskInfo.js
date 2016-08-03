@@ -37,7 +37,7 @@ let AskInfo = React.createClass({
 		let displayName = UIService.getProcessorDisplayName();
 		let processingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P', "Please Enter the Sender's Information");
 		let selectType = (!isWithDraw) ? translate('P2P_SELECT_DEPOSIT') : translate('P2P_SELECT_WITHDRAW');
-		let deleteButton = (!isWithDraw) ? translate('PROCESSING_BUTTON_DELETE_RECEIVER') : translate('PROCESSING_BUTTON_DELETE_SENDER');
+		let deleteButton = (isWithDraw) ? translate('PROCESSING_BUTTON_DELETE_RECEIVER') : translate('PROCESSING_BUTTON_DELETE_SENDER');
 
 		return (
 			<div id="p2pAskInfo" className="box">

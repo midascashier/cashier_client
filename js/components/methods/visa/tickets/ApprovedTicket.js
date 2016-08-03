@@ -64,7 +64,9 @@ let VisaApprovedTicket = React.createClass({
 				<div className="row">
 					<div className="col-sm-6">
 						<div className="box">
-							<img className="img-responsive banner" src={originPath + '/images/momomo.jpg'} alt="Mo Mo Mo"/>
+							<a href="https://www.americascardroom.eu/online-poker-promotions/mo-mo-mo-plo/" target="_blank">
+								<img className="img-responsive banner" src={originPath + '/images/momomo.jpg'} alt="Mo Mo Mo"/>
+							</a>
 						</div>
 					</div>
 					<div className="col-sm-6">
