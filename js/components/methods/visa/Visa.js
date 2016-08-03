@@ -86,6 +86,11 @@ let Visa = React.createClass({
 		TransactionService.setDOBSSN(propertyName, value);
 	},
 
+	/**
+	 * Checks if ssn is valid
+	 *
+	 * @returns {*}
+	 */
 	formValidator(){
 		let payAccount = this.state.payAccount;
 		if (payAccount.extra.dob == null && payAccount.extra.ssn == null && payAccount.payAccountId != 0){

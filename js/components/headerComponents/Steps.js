@@ -53,6 +53,9 @@ let Steps = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
+	/**
+	 * send the customer to select the processor again
+	 */
 	setFirstStep() {
 		UIService.setFirstStep();
 	},

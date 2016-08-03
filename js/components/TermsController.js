@@ -4,11 +4,19 @@ import { TransactionService } from './../services/TransactionService'
 import { CashierStore } from './../stores/CashierStore'
 
 let TermsController = React.createClass({
-
+	/**
+	 * React function to set component inital state
+	 *
+	 * @returns {*|{transactions}}
+	 */
 	getInitialState() {
 		return this.refreshLocalState();
 	},
 
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
 	componentDidMount() {
 		CashierStore.addChangeListener(this._onChange);
 	},
@@ -20,16 +28,31 @@ let TermsController = React.createClass({
 		CashierStore.removeChangeListener(this._onChange);
 	},
 
+	/**
+	 * this function sets and return object with local states
+	 *
+	 * @returns {{transactions: {}}}
+	 */
 	refreshLocalState() {
 		return {
 			check: CashierStore.getTransaction().checkTermsAndConditions
 		}
 	},
 
+	/**
+	 * this is the callback function the store calls when a state change
+	 *
+	 * @private
+	 */
 	_onChange() {
 		this.setState(this.refreshLocalState());
 	},
 
+	/**
+	 * set store with term and condition check box value
+	 *
+	 * @param event
+	 */
 	changeValue(event) {
 		let checked = event.currentTarget.checked;
 		this.setState({ check: checked });

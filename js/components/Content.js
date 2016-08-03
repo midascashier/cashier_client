@@ -83,6 +83,9 @@ let Content = React.createClass({
 
 		},
 
+		/**
+		 * calculate fee amount
+		 */
 		checkFees(){
 			let feeCashValue = 0;
 			let feeInsufficientFunds = 0;
@@ -123,6 +126,9 @@ let Content = React.createClass({
 			this.setState({ info: actualState });
 		},
 
+		/**
+		 * set limits status local state
+		 */
 		checkLimits()
 		{
 			let actualState = this.state.info;

@@ -67,6 +67,11 @@ let FeeController = React.createClass({
 		)
 	},
 
+	/**
+	 * set fee option
+	 *
+	 * @param e
+	 */
 	transactionFee(e){
 		let transactionFee = e.target.value;
 		TransactionService.setTransactionFee(transactionFee);
