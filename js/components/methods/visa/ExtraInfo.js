@@ -48,38 +48,41 @@ let ExtraInfo = React.createClass({
 		}
 
 		return (
-			<div>
+			<div id="visaExtraInfo">
 				<div className="form-group">
-					<label for="" className="control-label">{translate('CREDIT_CARD_SSN')}:</label>
-					<Input type="text" name="ssn" id="ssn" require ref="ssn" validate="isNumber"
+					<label className="control-label">{translate('CREDIT_CARD_SSN')}:</label>
+					<Input type="text" name="ssn" id="ssn" require ref="ssn" validate="isNumber" maxlength="4"
 								 autoComplete="off" onChange={this.props.changeValue.bind(null,'ssn', 0)}
 								 value={ssn}/>
 				</div>
 				<div className="form-group">
-					<label className="col-sm-4 control-label">{translate('CREDIT_CARD_DOB')}:</label>
-					<div className="col-sm-4">
-						<select className="form-control" id="dobMonth" ref="dobMonth" name="dobMonth"
-										onChange={this.props.changeValue.bind(null,'dobMonth', 1)}
-										value={dobMonth}>
-							{selectMonths}
-						</select>
-					</div>
-					<div className="col-sm-4">
-						<select className="form-control" id="dobDay" ref="dobDay" name="dobDay"
-										onChange={this.props.changeValue.bind(null,'dobDay', 1)}
-										value={dobDay}>
-							{selectDays}
-						</select>
-					</div>
-					<div className="col-sm-4">
-						<select className="form-control" id="dobYear" ref="dobYear" name="dobYear"
-										onChange={this.props.changeValue.bind(null,'dobYear', 1)}
-										value={dobYear}>
-							{selectYears}
-						</select>
+					<label className="control-label">{translate('CREDIT_CARD_DOB')}:</label>
+					<div className="form-inline">
+						<div className="form-group">
+							<select className="form-control" id="dobMonth" ref="dobMonth" name="dobMonth"
+											onChange={this.props.changeValue.bind(null,'dobMonth', 1)}
+											value={dobMonth}>
+								{selectMonths}
+							</select>
+						</div>
+						<div className="form-group">
+							<select className="form-control" id="dobDay" ref="dobDay" name="dobDay"
+											onChange={this.props.changeValue.bind(null,'dobDay', 1)}
+											value={dobDay}>
+								{selectDays}
+							</select>
+						</div>
+						<div className="form-group">
+							<select className="form-control" id="dobYear" ref="dobYear" name="dobYear"
+											onChange={this.props.changeValue.bind(null,'dobYear', 1)}
+											value={dobYear}>
+								{selectYears}
+							</select>
+						</div>
 					</div>
 				</div>
-			</div>)
+			</div>
+		)
 	}
 });
 

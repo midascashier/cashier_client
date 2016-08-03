@@ -201,21 +201,18 @@ let Register = React.createClass({
 
 
 						<div className="form-group">
-							<label for=""
-										 className="control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
+							<label className="control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
 							<div className="row">
 								<div className="col-sm-6">
 									<div className="form-group">
-										<select className="form-control" id="ccExpMonth"
-														onChange={this.changeValue.bind(null, 'extra1',1)} value={this.state.payAccount.extra1}>
+										<select className="form-control" id="ccExpMonth" onChange={this.changeValue.bind(null, 'extra1',1)} value={this.state.payAccount.extra1}>
 											{selectMonths}
 										</select>
 									</div>
 								</div>
 								<div className="col-sm-6">
 									<div className="form-group">
-										<select className="form-control" id="ccExpYear"
-														onChange={this.changeValue.bind(null, 'extra2',1)} value={this.state.payAccount.extra2}>
+										<select className="form-control" id="ccExpYear" onChange={this.changeValue.bind(null, 'extra2',1)} value={this.state.payAccount.extra2}>
 											{selectYears}
 										</select>
 									</div>

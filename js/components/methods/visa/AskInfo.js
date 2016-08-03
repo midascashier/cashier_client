@@ -68,15 +68,11 @@ let AskInfo = React.createClass({
 															if(payAccountId != 0){
 																return (
 																	<div>
-																		<div className="col-sm-9">
-																			<SelectPayAccount setAmount={setAmount} amount={amount} />
-																		</div>
-																		<div className="col-sm-3">
-																			<button type='button' onClick={this.disablePayAccount}
-																							className='btn btn-xs btn-green'>
-																				Delete Card
-																			</button>
-																		</div>
+																		<SelectPayAccount setAmount={setAmount} amount={amount} />
+																		<button type='button' onClick={this.disablePayAccount}
+																						className='btn btn-xs btn-green'>
+																			Delete Card
+																		</button>
 																	</div>
 																)
 															} else{
