@@ -210,7 +210,7 @@ let VisaConfirm = React.createClass({
 																		<li>
 																			<label className="control-label">{translate('CREDIT_COUNTRY', 'Country')}:</label>
 																			<select className="form-control" id="country" ref="country"
-																							value={this.state.info.payAccount.address.country}
+																							value={addressData.country}
 																							onChange={this.changeValue.bind(null, 'address','country',1)}>
 																				{countryOptionNodes}
 																			</select>
@@ -218,7 +218,7 @@ let VisaConfirm = React.createClass({
 																		<li>
 																			<label className="control-label">{translate('CREDIT_STATE', 'State')}:</label>
 																			<select className="form-control" id="countryState"
-																							ref="state" value={this.state.info.state}>
+																							ref="state" value={addressData.state}>
 																				{stateOptionNodes}
 																			</select>
 																		</li>
