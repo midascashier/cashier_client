@@ -174,8 +174,11 @@ let VisaConfirm = React.createClass({
 			countryOptionNodes.push(this.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
 		}
 
-		for(let i = 0; i < states.length; i++){
-			stateOptionNodes.push(this.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
+
+		if (states){
+			for(let i = 0; i < states.length; i++){
+				stateOptionNodes.push(this.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
+			}
 		}
 
 		return (
@@ -218,7 +221,8 @@ let VisaConfirm = React.createClass({
 																		<li>
 																			<label className="control-label">{translate('CREDIT_STATE', 'State')}:</label>
 																			<select className="form-control" id="countryState"
-																							ref="state" value={addressData.state}>
+																							ref="state" value={addressData.state}
+																							onChange={this.changeValue.bind(null, 'address','state',1)}>
 																				{stateOptionNodes}
 																			</select>
 																		</li>
