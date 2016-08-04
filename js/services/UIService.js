@@ -1,7 +1,9 @@
+import React from 'react'
+import RouterContainer from './RouterContainer'
 import { CashierStore } from '../stores/CashierStore'
 import { CashierActions } from '../actions/CashierActions'
 import { TransactionService } from './TransactionService'
-import RouterContainer from './RouterContainer'
+import { ApplicationService } from './ApplicationService'
 import cashier from '../constants/Cashier'
 import  ProcessorSettings from '../constants/Processors'
 
@@ -344,6 +346,88 @@ class UiService {
 		let route = "/" + this.customerAction + "/";
 		this.changeUIState(route);
 	};
+
+	/**
+	 *
+	 * @returns {{}}
+	 */
+	getCountries(){
+		return CashierStore.getUI().countries;
+	}
+
+	/**
+	 *
+	 * @param country
+	 * @returns {*}
+	 */
+	getCountry(country){
+		let countries = CashierStore.getUI().countries;
+		for(let i = 0; i < countries.length; i++){
+			let _country = countries[i];
+			if(_country.Small = country){
+				return {Small: _country.Small, Name: _country.Name};
+			}
+		}
+		return {Small: country, Name: country};
+	}
+
+	/**
+	 *
+	 * @param country
+	 * @returns {*}
+	 */
+	getCountryStates(country = null){
+		if(!country){
+			country = CashierStore.getUI().selectedCountry;
+		} else{
+			CashierActions.setSelectedCountry(country);
+		}
+		let countryStates = CashierStore.getUI().countryStates;
+		let states = countryStates[country];
+		if(!states || states.length <= 0){
+			ApplicationService.getCountryStates(country);
+			states = [];
+		}
+
+		return states;
+	}
+
+	/**
+	 *
+	 * @param country
+	 * @param countryState
+	 * @returns {*}
+	 */
+	getState(country, countryState){
+		if(!country){
+			country = CashierStore.getUI().selectedCountry;
+		} else{
+			CashierActions.setSelectedCountry(country);
+		}
+		let countryStates = CashierStore.getUI().countryStates;
+		let states = countryStates[country];
+		for(let i = 0; i < states.length; i++){
+			let _countryState= states[i];
+			if(_countryState.Small = countryState){
+				return {Small: _countryState.Small, Name: _countryState.Name};
+			}
+		}
+
+		return {Small: countryState, Name: countryState};
+	}
+
+	/**
+	 * Return option element to a html select
+	 *
+	 * @param item
+	 * @param key
+	 * @returns {XML}
+	 */
+	renderOption(item, key){
+		return (
+			<option key={key} value={key}>{item.label}</option>
+		)
+	}
 
 }
 

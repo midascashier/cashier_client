@@ -43,10 +43,15 @@ class applicationService {
 		} else{
 			CashierActions.setSelectedCountry(country);
 		}
-		let data = { f: "states", country: country };
-		let application = CashierStore.getApplication();
-		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+
+		let countryStates = CashierStore.getUI().countryStates;
+		let states = countryStates[country];
+		if(!states || states.length <= 0){
+			let data = { f: "states", country: country };
+			let application = CashierStore.getApplication();
+			let rabbitRequest = Object.assign(data, application);
+			stompConnector.makeCustomerRequest("", rabbitRequest);
+		}
 	};
 
 	/**

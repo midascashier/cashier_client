@@ -8,7 +8,7 @@ import cashier from '../constants/Cashier'
 /**
  * UI
  *
- * @type {{language: string, currentView: string, currentStep: string, currentProcessorSteps: Array, processorId: number, payAccountId: number, countryInfo: null, countries: {}, selectedCountry: string, countryStates: {}, currencies: {}}}
+ * @type {{language: string, currentView: string, currentStep: string, currentProcessorSteps: Array, processorId: number, payAccountId: number, countryInfo: Array, countries: {}, selectedCountry: string, countryStates: Array, currencies: {}}}
  * @private
  */
 let _UI = {
@@ -18,10 +18,10 @@ let _UI = {
 	currentProcessorSteps: [],
 	processorId: 0,
 	payAccountId: 0,
-	countryInfo: null,
+	countryInfo: [],
 	countries: {},
 	selectedCountry: '',
-	countryStates: {},
+	countryStates: [],
 	currencies: {}
 };
 
@@ -486,8 +486,8 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * get UI
-	 *
-	 * @returns {{language: string, currentView: string, processorId: number, payAccountId: number, countryInfo: null, countries: {}, countryStates: {}}}
+	 * 
+	 * @returns {{language: string, currentView: string, currentStep: string, currentProcessorSteps: Array, processorId: number, payAccountId: number, countryInfo: Array, countries: {}, selectedCountry: string, countryStates: Array, currencies: {}}}
 	 */
 	getUI: () =>{
 		return _UI;
@@ -562,8 +562,14 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.STATES_RESPONSE:
-			_UI.countryStates = data.response.states;
-			_UI.countryInfo = data.response.countryInfo;
+			let countryInfo = data.response.countryInfo;
+			let states = data.response.states;
+			if(states){
+				_UI.countryStates[countryInfo.Small] = states;
+			}else{
+				_UI.countryStates[countryInfo.Small] = {};
+			}
+			_UI.countryInfo[countryInfo.Small] = countryInfo;
 			CashierStore.emitChange();
 			break;
 
