@@ -1,6 +1,5 @@
 import React from 'react'
 import { Input } from '../../../Inputs'
-import { LoadingSpinner } from '../../../loading/LoadingSpinner'
 import { translate } from '../../../../constants/Translate'
 import { UIService } from '../../../../services/UIService'
 import { TransactionService } from '../../../../services/TransactionService'
@@ -93,19 +92,6 @@ let VisaRejectCardTicket = React.createClass({
 	},
 
 	/**
-	 * Return option element to a html select
-	 *
-	 * @param item
-	 * @param key
-	 * @returns {XML}
-	 */
-	renderOption(item, key){
-		return (
-			<option key={key} value={key}>{item.label}</option>
-		)
-	},
-
-	/**
 	 * Set visa New Account Info
 	 *
 	 * @param event
@@ -137,11 +123,11 @@ let VisaRejectCardTicket = React.createClass({
 		let now = new Date();
 
 		for(let i = 1; i < 13; i++){
-			selectMonths.push(this.renderOption({label: i}, i));
+			selectMonths.push(UIService.renderOption({label: i}, i));
 		}
 
 		for(let i = now.getFullYear(); i < now.getFullYear() + 15; i++){
-			selectYears.push(this.renderOption({label: i}, i));
+			selectYears.push(UIService.renderOption({label: i}, i));
 		}
 
 		return (

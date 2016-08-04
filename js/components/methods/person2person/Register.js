@@ -6,7 +6,7 @@ import { TransactionService } from '../../../services/TransactionService'
 import { CashierStore } from '../../../stores/CashierStore'
 
 let Register = React.createClass({
-	
+
 		/**
 		 * React function to set component inital state
 		 *
@@ -156,7 +156,7 @@ let Register = React.createClass({
 								</div>
 								<div className="col-sm-6">
 									<label for="" className="control-label">{translate('P2P_STATE', 'State')}:</label>
-									<select className="form-control" id="countryState" onChange={this.changeValue.bind(null, 'state',1)}>
+									<select className="form-control" id="countryState" onChange={this.changeValue.bind(null, 'state',1)} disabled={!states.length}>
 										{stateOptionNodes}
 									</select>
 								</div>
