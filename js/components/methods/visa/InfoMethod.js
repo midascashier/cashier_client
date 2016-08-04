@@ -4,7 +4,7 @@ import Cashier from '../../../constants/Cashier'
 import { CashierStore } from '../../../stores/CashierStore'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
-
+import { ApplicationService } from '../../../services/ApplicationService'
 let InfoMethod = React.createClass({
 
 	propTypes: {
@@ -87,6 +87,7 @@ let InfoMethod = React.createClass({
 	 */
 	continueTransaction(){
 		TransactionService.setAmount(this.props.amount);
+		ApplicationService.getCountryStates(this.state.currentPayAccount.address.country);
 		UIService.confirmTransaction();
 	},
 

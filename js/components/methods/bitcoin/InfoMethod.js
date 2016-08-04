@@ -98,7 +98,7 @@ let InfoMethod = React.createClass({
 		let isWithDraw = UIService.getIsWithDraw();
 		let allowContinueToConfirm = true;
 		if(isWithDraw){
-			this.props.allowContinueToConfirm;
+			allowContinueToConfirm = this.props.allowContinueToConfirm;
 		}
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
