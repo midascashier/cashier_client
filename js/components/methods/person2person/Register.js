@@ -1,11 +1,12 @@
 import React from 'react'
 import { Input } from '../../Inputs'
 import { translate } from '../../../constants/Translate'
+import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
 import { CashierStore } from '../../../stores/CashierStore'
 
 let Register = React.createClass({
+
 		/**
 		 * React function to set component inital state
 		 *
@@ -20,13 +21,15 @@ let Register = React.createClass({
 		 *
 		 */
 		refreshLocalState() {
+			let country = CashierStore.getSelectedCountry();
+			let states = UIService.getCountryStates();
 			return {
 				displaySaveButton: true,
 				payAccount: {
 					firstName: "",
 					lastName: "",
-					country: CashierStore.getSelectedCountry(),
-					state: CashierStore.getCountryStates()[0]['Small'],
+					country: country,
+					state: states[0]['Small'],
 					city: "",
 					phone: "",
 					email: ""
@@ -49,7 +52,7 @@ let Register = React.createClass({
 			}
 
 			if(propertyName == 'country'){
-				ApplicationService.getCountryStates(value);
+				UIService.getCountryStates(value);
 			}
 
 			payAccount[propertyName] = value;
@@ -83,19 +86,6 @@ let Register = React.createClass({
 		},
 
 		/**
-		 * Return option element to a html select
-		 *
-		 * @param item
-		 * @param key
-		 * @returns {XML}
-		 */
-		renderOption(item, key){
-			return (
-				<option key={key} value={key}>{item.label}</option>
-			)
-		},
-
-		/**
 		 * React function to add listener to this component once is mounted
 		 * here the component listen changes from the store
 		 */
@@ -123,25 +113,23 @@ let Register = React.createClass({
 			);
 		},
 
-		render()
-		{
-			let UI = CashierStore.getUI();
-			let countries = UI.countries;
-			let states = UI.countryStates;
+		render(){
+			let countries = UIService.getCountries();
+			let states = UIService.getCountryStates();
 
 			let countryOptionNodes = [];
 			for(let i = 0; i < countries.length; i++){
-				countryOptionNodes.push(this.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
+				countryOptionNodes.push(UIService.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
 			}
 
 			let stateOptionNodes = [];
 			for(let i = 0; i < states.length; i++){
-				stateOptionNodes.push(this.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
+				stateOptionNodes.push(UIService.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
 			}
 
 			return (
 				<form onSubmit={this.addNewPayAccount}>
-					<div>
+					<div id="p2pRegister">
 						<div className="form-group">
 							<label for="" className="control-label">{translate('P2P_FIRST_NAME', 'First Name')}:</label>
 							<Input type="text" id="firstName" ref="firstName" validate="isString" require
@@ -168,7 +156,7 @@ let Register = React.createClass({
 								</div>
 								<div className="col-sm-6">
 									<label for="" className="control-label">{translate('P2P_STATE', 'State')}:</label>
-									<select className="form-control" id="countryState" onChange={this.changeValue.bind(null, 'state',1)}>
+									<select className="form-control" id="countryState" onChange={this.changeValue.bind(null, 'state',1)} disabled={!states.length}>
 										{stateOptionNodes}
 									</select>
 								</div>
@@ -200,15 +188,13 @@ let Register = React.createClass({
 						</div>
 						<div className="form-group">
 							<div className="row">
-								{this.state.displaySaveButton ?
-									<button type='submit' className='btn btn-green'>Save</button> : null }
+								{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>Save</button> : null }
 							</div>
 						</div>
 					</div>
 				</form>
 			)
 		}
-	})
-	;
+});
 
 module.exports.Register = Register;

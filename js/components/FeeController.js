@@ -1,6 +1,7 @@
 import React from 'react'
 import { CashierStore } from './../stores/CashierStore'
 import { translate } from '../constants/Translate'
+import { UIService } from '../services/UIService'
 import { TransactionService } from '../services/TransactionService'
 
 let FeeController = React.createClass({
@@ -55,19 +56,6 @@ let FeeController = React.createClass({
 	},
 
 	/**
-	 * Return option element to a html select
-	 *
-	 * @param item
-	 * @param key
-	 * @returns {XML}
-	 */
-	renderOption(item, key){
-		return (
-			<option key={key} value={key}>{item.label}</option>
-		)
-	},
-
-	/**
 	 * set fee option
 	 *
 	 * @param e
@@ -81,9 +69,9 @@ let FeeController = React.createClass({
 		let fees = this.state.processor.fees;
 		let customer = CashierStore.getCustomer();
 		let options = [];
-		if(fees.enableFree == 1){ options.push(this.renderOption({ label: "Free" }, "Free")) }
-		if(fees.enableBP == 1){ options.push(this.renderOption({ label: "Betpoints" }, "Betpoints")) }
-		if(fees.enableCash == 1){ options.push(this.renderOption({ label: "Cash" }, "Cash")) }
+		if(fees.enableFree == 1){ options.push(UIService.renderOption({ label: "Free" }, "Free")) }
+		if(fees.enableBP == 1){ options.push(UIService.renderOption({ label: "Betpoints" }, "Betpoints")) }
+		if(fees.enableCash == 1){ options.push(UIService.renderOption({ label: "Cash" }, "Cash")) }
 		return (
 			<div>
 				{(() =>{

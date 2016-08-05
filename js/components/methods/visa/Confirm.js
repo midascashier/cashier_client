@@ -145,44 +145,30 @@ let VisaConfirm = React.createClass({
 		this.setState({ info: actualState });
 	},
 
-	/**
-	 * Return option element to a html select
-	 *
-	 * @param item
-	 * @param key
-	 * @returns {XML}
-	 */
-	renderOption(item, key){
-		return (
-			<option key={key} value={key}>{item.label}</option>
-		)
-	},
-
 	render(){
 		let personalData = this.state.info.payAccount.personal;
 		let secureData = this.state.info.payAccount.secure;
 		let CCMask = secureData.account.replace(/\d(?=\d{4})/g, "*");
 		let addressData = this.state.info.payAccount.address;
 		let isEditMode = this.state.info.editMode;
-		let UI = CashierStore.getUI();
-		let countries = UI.countries;
-		let states = UI.countryStates;
+
+		let countries = UIService.getCountries();
+		let states = UIService.getCountryStates();
 		let stateOptionNodes = [];
 		let countryOptionNodes = [];
 
 		for(let i = 0; i < countries.length; i++){
-			countryOptionNodes.push(this.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
+			countryOptionNodes.push(UIService.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
 		}
-
 
 		if (states){
 			for(let i = 0; i < states.length; i++){
-				stateOptionNodes.push(this.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
+				stateOptionNodes.push(UIService.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
 			}
 		}
 
 		return (
-			<div id="confirmVisa" className="internal-content">
+			<div id="visaConfirm" className="internal-content">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="modules">
@@ -221,7 +207,7 @@ let VisaConfirm = React.createClass({
 																		<li>
 																			<label className="control-label">{translate('CREDIT_STATE', 'State')}:</label>
 																			<select className="form-control" id="countryState"
-																							ref="state" value={addressData.state}
+																							ref="state" value={addressData.state} disabled={!states.length}
 																							onChange={this.changeValue.bind(null, 'address','state',1)}>
 																				{stateOptionNodes}
 																			</select>
@@ -260,7 +246,8 @@ let VisaConfirm = React.createClass({
 																	<button onClick={this.saveBillingInfo} type='submit' className='btn btn-green'>
 																		{translate('PROCESSING_BUTTON_SAVE', 'Save')}
 																	</button>
-																	<button onClick={this.editBillingInfo.bind(null, 0)} type='button' className='btn btn-green'>Cancel
+																	<button onClick={this.editBillingInfo.bind(null, 0)} type='button' className='btn btn-green'>
+																		{translate('PROCESSING_BUTTON_CANCEL', 'Cancel')}
 																	</button>
 																</form>
 															)

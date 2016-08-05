@@ -1,6 +1,7 @@
 import React from 'react'
 import { translate } from '../../../constants/Translate'
 import { Input } from '../../Inputs'
+import { UIService } from '../../../services/UIService'
 
 let ExtraInfo = React.createClass({
 
@@ -12,21 +13,7 @@ let ExtraInfo = React.createClass({
 		changeValue: React.PropTypes.func
 	},
 
-	/**
-	 * Return option element to a html select
-	 *
-	 * @param item
-	 * @param key
-	 * @returns {XML}
-	 */
-	renderOption(item, key){
-		return (
-			<option key={key} value={key}>{item.label}</option>
-		)
-	},
-
-	render()
-	{
+	render(){
 		let selectMonths = [];
 		let selectYears = [];
 		let selectDays = [];
@@ -36,15 +23,15 @@ let ExtraInfo = React.createClass({
 		let ssn = this.props.ssn;
 
 		for(let i = 1; i < 32; i++){
-			selectDays.push(this.renderOption({ label: i }, i));
+			selectDays.push(UIService.renderOption({ label: i }, i));
 		}
 
 		for(let i = 1; i < 13; i++){
-			selectMonths.push(this.renderOption({ label: i }, i));
+			selectMonths.push(UIService.renderOption({ label: i }, i));
 		}
 
 		for(let i = 1970; i < 2016; i++){
-			selectYears.push(this.renderOption({ label: i }, i));
+			selectYears.push(UIService.renderOption({ label: i }, i));
 		}
 
 		return (
