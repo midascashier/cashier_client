@@ -8,8 +8,8 @@ class HttpRequest {
 		for(let p in obj)
 			if(obj.hasOwnProperty(p) && obj[p]){
 				str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-			}else{
-				str.push(encodeURIComponent(p) + "=" );
+			} else{
+				str.push(encodeURIComponent(p) + "=");
 			}
 		return str.join("&");
 	}
@@ -19,8 +19,10 @@ class HttpRequest {
 	}
 
 	loginSuccess(result){
-		let data = JSON.parse(result);
-		onResponseService.processResponse(actions.LOGIN_RESPONSE, data);
+		if(result){
+			let data = JSON.parse(result);
+			onResponseService.processResponse(actions.LOGIN_RESPONSE, data);
+		}
 	}
 
 	ajaxRequest(parameters, method){
@@ -30,10 +32,10 @@ class HttpRequest {
 		let requestParameters = this.serialize(parameters);
 
 		$.ajax({
-			url : URL,
+			url: URL,
 			type: method,
-			data : requestParameters,
-			success : this.loginSuccess,
+			data: requestParameters,
+			success: this.loginSuccess,
 			error(error)
 			{
 				console.log(error);

@@ -388,7 +388,7 @@ class UiService {
 		let countries = this.getCountries();
 		for(let i = 0; i < countries.length; i++){
 			let _country = countries[i];
-			if(_country.Small = country){
+			if(_country.Small == country){
 				return {Small: _country.Small, Name: _country.Name};
 			}
 		}

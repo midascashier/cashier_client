@@ -1,4 +1,11 @@
 <?php
+
+    session_start();
+
+    if (!$_SESSION["sid"]){
+
+    }
+
     $CashierURL = "http://cashier.localhost:8080/wscashier/wsController.php";
 
     $_POST['sys_access_pass']=1;
@@ -14,8 +21,11 @@
     ));
 
     $resp = curl_exec($curl);
-
     curl_close($curl);
 
-    print_r($resp);
+    $result = json_decode($resp);
+    if ($result->response->sid){
+        $_SESSION["sid"] = $result->response->sid;
+        print_r($resp);
+    }
 ?>
