@@ -10,17 +10,9 @@ import actions from '../constants/Actions'
 class OnResponseService {
 	processResponse(action, data){
 
-		if(action == actions.LOGIN_RESPONSE){
-			data.application = loginInfo;
-		}
-
 		CashierActions.responses(action, data);
 
 		switch(action){
-			case actions.LOGIN_RESPONSE:
-				CustomerService.loginResponse();
-				break;
-
 			case actions.CUSTOMER_INFO_RESPONSE:
 				CashierActions.setSelectedCountry();
 				ApplicationService.getCountryStates();

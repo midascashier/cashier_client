@@ -130,7 +130,10 @@ let _customer = {
  * @private
  */
 let _company = {
-	companyId: 0, companyName: '', phone: '', companyLabel: [],
+	companyId: 0,
+	companyName: '',
+	phone: '',
+	companyLabel: [],
 	load(data){
 		this.companyId = data.companyId;
 		this.companyName = data.name;
@@ -522,12 +525,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 	switch(action){
 		case actions.LOGIN_RESPONSE:
-			_customer.ioBB = data.application.ioBB;
-			_customer.atDeviceId = data.application.atDeviceId;
-			_customer.username = data.application.username;
-			_customer.password = data.application.password;
-			_UI.currentView = data.application.option;
-			_application.sid = data.response.sid;
+			_UI.currentView = data.option;
+			_application.sid = data.sid;
 			CashierStore.emitChange();
 			break;
 

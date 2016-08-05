@@ -8,7 +8,7 @@ let Client = React.createClass({
 	 * here the component listen changes from the store
 	 */
 	componentDidMount() {
-		CustomerService.customerLogin();
+		CustomerService.startConnection();
 	},
 
 	render() {

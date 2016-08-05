@@ -6,13 +6,13 @@
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/css/style.css">
-	<script src="/js/libs/jquery.min.js"></script>
 </head>
 <body>
 	<div id="app"></div>
 	<script>
   	  var loginInfo = <?php echo json_encode($_REQUEST) ?>;
   	</script>
+	<script src="/js/libs/jquery.min.js"></script>
     <script src="/js/libs/stomp.js"></script>
 	<script src="/build/bundle.js"></script>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
