@@ -1,4 +1,4 @@
-import { rabbitConfig } from '../../config/Config';
+import { rabbitConfig } from '../../config/rabbitConfig';
 import { onResponseService } from './OnResponseService'
 
 class StompConnector {

@@ -1,5 +1,4 @@
 import { onResponseService } from './OnResponseService'
-import { Config } from '../../config/Config';
 import actions from '../constants/Actions'
 
 class HttpRequest {
@@ -28,7 +27,7 @@ class HttpRequest {
 
 	ajaxRequest(parameters, method){
 
-		let URL = Config.get('url');
+		let URL = "http://poker.new:8080/c.php";
 		let requestParameters = this.serialize(parameters);
 
 		$.ajax({
