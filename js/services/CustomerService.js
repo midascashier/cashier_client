@@ -36,8 +36,8 @@ class customerService {
 		let data = { f: "authCustomer", companyId: 9 };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = assign(data, loginInfo, application);
-		HTTPRequest.post(rabbitRequest);
-		//stompConnector.makeCustomerRequest("", rabbitRequest);
+		//HTTPRequest.post(rabbitRequest);
+		stompConnector.makeCustomerRequest("", rabbitRequest);
 	};
 
 	/**

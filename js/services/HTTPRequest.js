@@ -1,4 +1,5 @@
 import { onResponseService } from './OnResponseService'
+import { Config } from '../../config/Config';
 import actions from '../constants/Actions'
 
 class HttpRequest {
@@ -27,8 +28,7 @@ class HttpRequest {
 
 	ajaxRequest(parameters, method){
 
-		let URL = "http://new.cashier.client.localhost:8080/c.php";
-
+		let URL = Config.get('url');
 		let requestParameters = this.serialize(parameters);
 
 		$.ajax({
