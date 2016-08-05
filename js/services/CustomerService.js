@@ -1,6 +1,7 @@
 import assign from 'object-assign'
 import { CashierStore } from '../stores/CashierStore'
 import { stompConnector } from './StompConnector'
+import { HTTPRequest } from './HTTPRequest'
 import { ApplicationService } from './ApplicationService'
 import { UIService } from './UIService'
 import { TransactionService } from './TransactionService'
@@ -35,7 +36,8 @@ class customerService {
 		let data = { f: "authCustomer", companyId: 9 };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = assign(data, loginInfo, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		HTTPRequest.post(rabbitRequest);
+		//stompConnector.makeCustomerRequest("", rabbitRequest);
 	};
 
 	/**
