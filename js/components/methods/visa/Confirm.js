@@ -3,7 +3,6 @@ import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
 import { Input } from '../../Inputs'
 
 let VisaConfirm = React.createClass({
@@ -131,14 +130,14 @@ let VisaConfirm = React.createClass({
 	 * @param event
 	 */
 	changeValue(section, propertyName, isSelectComponent = 0, value){
-		let actualState = this.state.info;
+		const actualState = this.state.info;
 
 		if(isSelectComponent){
 			value = value.target.value;
 		}
 
 		if(propertyName == 'country'){
-			ApplicationService.getCountryStates(value);
+			UIService.getCountryStates(value);
 		}
 
 		actualState.payAccount[section][propertyName] = value;
@@ -152,18 +151,22 @@ let VisaConfirm = React.createClass({
 		let addressData = this.state.info.payAccount.address;
 		let isEditMode = this.state.info.editMode;
 
-		let countries = UIService.getCountries();
 		let states = UIService.getCountryStates();
+		let countries = UIService.getCountries();
+		let country = UIService.getCountry(addressData.country);
+		let state = UIService.getState(addressData.country, addressData.state);
 		let stateOptionNodes = [];
 		let countryOptionNodes = [];
 
-		for(let i = 0; i < countries.length; i++){
-			countryOptionNodes.push(UIService.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
-		}
+		if(isEditMode){
+			for(let i = 0; i < countries.length; i++){
+				countryOptionNodes.push(UIService.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
+			}
 
-		if (states){
-			for(let i = 0; i < states.length; i++){
-				stateOptionNodes.push(UIService.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
+			if (states){
+				for(let i = 0; i < states.length; i++){
+					stateOptionNodes.push(UIService.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
+				}
 			}
 		}
 
@@ -199,7 +202,7 @@ let VisaConfirm = React.createClass({
 																		<li>
 																			<label className="control-label">{translate('CREDIT_COUNTRY', 'Country')}:</label>
 																			<select className="form-control" id="country" ref="country"
-																							value={addressData.country}
+																							value={country.Small}
 																							onChange={this.changeValue.bind(null, 'address','country',1)}>
 																				{countryOptionNodes}
 																			</select>
@@ -207,7 +210,7 @@ let VisaConfirm = React.createClass({
 																		<li>
 																			<label className="control-label">{translate('CREDIT_STATE', 'State')}:</label>
 																			<select className="form-control" id="countryState"
-																							ref="state" value={addressData.state} disabled={!states.length}
+																							ref="state" value={state.Small} disabled={!states.length}
 																							onChange={this.changeValue.bind(null, 'address','state',1)}>
 																				{stateOptionNodes}
 																			</select>
@@ -257,8 +260,8 @@ let VisaConfirm = React.createClass({
 																	<ul>
 																		<li>{personalData.firstName + ' ' + personalData.lastName}</li>
 																		<li>{addressData.address1}</li>
-																		<li>{addressData.state}</li>
-																		<li>{addressData.country + ' ' + addressData.zip}</li>
+																		<li>{state.Name}</li>
+																		<li>{country.Name + ' ' + addressData.zip}</li>
 																	</ul>
 																	<p>
 																		<i className="fa fa-pencil green"></i><a

@@ -348,6 +348,7 @@ class UiService {
 	};
 
 	/**
+	 * get countries
 	 *
 	 * @returns {{}}
 	 */
@@ -356,22 +357,7 @@ class UiService {
 	}
 
 	/**
-	 *
-	 * @param country
-	 * @returns {*}
-	 */
-	getCountry(country){
-		let countries = CashierStore.getUI().countries;
-		for(let i = 0; i < countries.length; i++){
-			let _country = countries[i];
-			if(_country.Small = country){
-				return {Small: _country.Small, Name: _country.Name};
-			}
-		}
-		return {Small: country, Name: country};
-	}
-
-	/**
+	 * get country states
 	 *
 	 * @param country
 	 * @returns {*}
@@ -379,7 +365,7 @@ class UiService {
 	getCountryStates(country = null){
 		if(!country){
 			country = CashierStore.getUI().selectedCountry;
-		} else{
+		}else{
 			CashierActions.setSelectedCountry(country);
 		}
 		let countryStates = CashierStore.getUI().countryStates;
@@ -393,26 +379,40 @@ class UiService {
 	}
 
 	/**
+	 * get country info
+	 *
+	 * @param country
+	 * @returns {*}
+	 */
+	getCountry(country){
+		let countries = this.getCountries();
+		for(let i = 0; i < countries.length; i++){
+			let _country = countries[i];
+			if(_country.Small = country){
+				return {Small: _country.Small, Name: _country.Name};
+			}
+		}
+		return {Small: country, Name: country};
+	}
+
+	/**
+	 * get state
 	 *
 	 * @param country
 	 * @param countryState
-	 * @returns {*}
+	 * @returns {{Small: *, Name: *}}
 	 */
 	getState(country, countryState){
-		if(!country){
-			country = CashierStore.getUI().selectedCountry;
-		} else{
-			CashierActions.setSelectedCountry(country);
-		}
 		let countryStates = CashierStore.getUI().countryStates;
 		let states = countryStates[country];
-		for(let i = 0; i < states.length; i++){
-			let _countryState= states[i];
-			if(_countryState.Small = countryState){
-				return {Small: _countryState.Small, Name: _countryState.Name};
+		if(states && states.length > 0){
+			for(let i = 0; i < states.length; i++){
+				let _countryState = states[i];
+				if(_countryState.Small = countryState){
+					return {Small: _countryState.Small, Name: _countryState.Name};
+				}
 			}
 		}
-
 		return {Small: countryState, Name: countryState};
 	}
 
@@ -425,7 +425,7 @@ class UiService {
 	 */
 	renderOption(item, key){
 		return (
-			<option key={key} value={key}>{item.label}</option>
+			<option id={key} key={key} value={key}>{item.label}</option>
 		)
 	}
 

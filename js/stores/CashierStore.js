@@ -272,8 +272,8 @@ let _payAccounts = [];
 
 /**
  * Stores information of the transaction
- *
- * @type {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, controlNumber: null, timeFrameDay: null, timeFrameTime: null, cleanTransaction: (function())}}
+ * 
+ * @type {{amount: string, fee: number, feeType: string, bonusId: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, timeFrameDay: null, timeFrameTime: null, dobMonth: number, dobDay: number, dobYear: number, ssn: string, cleanTransaction: (function())}}
  * @private
  */
 let _transaction = {
@@ -486,7 +486,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * get UI
-	 * 
+	 *
 	 * @returns {{language: string, currentView: string, currentStep: string, currentProcessorSteps: Array, processorId: number, payAccountId: number, countryInfo: Array, countries: {}, selectedCountry: string, countryStates: Array, currencies: {}}}
 	 */
 	getUI: () =>{
@@ -550,15 +550,12 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			_UI.countries = data.response.countries;
 			break;
 
-		case actions.GET_CURRENCY_RESPONSE:
-			let currencyInfo = data.response.currencyInfo;
-			if(currencyInfo && currencyInfo.Rate){
-				_processor.rate = currencyInfo.Rate;
-			} else if(currencyInfo){
-				_UI.currencies = currencyInfo;
-				_processor.rate = currencyInfo[0].Rate;
+		case actions.CHANGE_APPLICATION_SELECTED_COUNTRY:
+			if(!data.country){
+				_UI.selectedCountry = _customer.personalInformation.country;
+			} else{
+				_UI.selectedCountry = data.country;
 			}
-			CashierStore.emitChange();
 			break;
 
 		case actions.STATES_RESPONSE:
@@ -570,6 +567,17 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				_UI.countryStates[countryInfo.Small] = {};
 			}
 			_UI.countryInfo[countryInfo.Small] = countryInfo;
+			CashierStore.emitChange();
+			break;
+
+		case actions.GET_CURRENCY_RESPONSE:
+			let currencyInfo = data.response.currencyInfo;
+			if(currencyInfo && currencyInfo.Rate){
+				_processor.rate = currencyInfo.Rate;
+			} else if(currencyInfo){
+				_UI.currencies = currencyInfo;
+				_processor.rate = currencyInfo[0].Rate;
+			}
 			CashierStore.emitChange();
 			break;
 
@@ -587,14 +595,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			// set default processor
 			_UI.processorId = processor.caProcessor_Id;
 			_processor.load(processor.caProcessor_Id);
-			break;
-
-		case actions.CHANGE_APPLICATION_SELECTED_COUNTRY:
-			if(!data.country){
-				_UI.selectedCountry = _customer.personalInformation.country;
-			} else{
-				_UI.selectedCountry = data.country;
-			}
 			break;
 
 		case actions.CHANGE_TRANSACTION_FEE_AMOUNT:

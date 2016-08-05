@@ -4,7 +4,7 @@ import Cashier from '../../../constants/Cashier'
 import { CashierStore } from '../../../stores/CashierStore'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
+
 let InfoMethod = React.createClass({
 
 	propTypes: {
@@ -87,7 +87,6 @@ let InfoMethod = React.createClass({
 	 */
 	continueTransaction(){
 		TransactionService.setAmount(this.props.amount);
-		ApplicationService.getCountryStates(this.state.currentPayAccount.address.country);
 		UIService.confirmTransaction();
 	},
 
@@ -132,11 +131,9 @@ let InfoMethod = React.createClass({
 						</table>
 					</div>
 					<div className="col-sm-6">
-						<button type='button' className='btn btn-green' disabled={isNextDisabled}
-										onClick={this.continueTransaction}>
+						<button type='button' className='btn btn-green' disabled={isNextDisabled} onClick={this.continueTransaction}>
 							{translate('PROCESSING_BUTTON_NEXT', 'Next')}
 						</button>
-
 					</div>
 					<div className="col-sm-6">
 						<img src={originPath + '/images/ssl.png'} alt="ssl"/>

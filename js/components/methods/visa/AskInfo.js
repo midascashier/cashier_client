@@ -9,6 +9,7 @@ import { Register } from './Register.js'
 import { ExtraInfo } from './ExtraInfo'
 
 let AskInfo = React.createClass({
+	
 		propTypes: {
 			transactionAmount: React.PropTypes.func,
 			limitsCheck: React.PropTypes.string,

@@ -73,16 +73,10 @@ let Visa = React.createClass({
 	 * @param event
 	 */
 	changeValue(propertyName, isSelectComponent = 0, event){
-		const actualState = this.state;
-
 		let value = event;
-
 		if(isSelectComponent){
 			value = value.target.value;
 		}
-
-		actualState[propertyName] = value;
-
 		TransactionService.setDOBSSN(propertyName, value);
 	},
 
