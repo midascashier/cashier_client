@@ -4,3 +4,4 @@ node_modules
 dev
 /config/RabbitConfig.js
 build/
+/config/phpConfig.php

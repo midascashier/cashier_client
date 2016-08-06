@@ -17,7 +17,7 @@ $cashierParams["atDeviceId"] = $_POST["atDeviceId"];
 $cashierParams["sid"] = "";
 $cashierParams["tuid"] = "";
 $cashierParams["lang"] = "";
-$cashierParams["platform"] = "Desktop";
+$cashierParams["platform"] = "desktop";
 $cashierParams["remoteAddr"] = $_SERVER["SERVER_ADDR"];
 $cashierParams["userAgent"] = $_SERVER["HTTP_USER_AGENT"];
 $cashierParams["remoteHost"] = gethostbyaddr($_SERVER["REMOTE_ADDR"]);
@@ -29,15 +29,14 @@ $cashierParams["companyId"] = 9;
 
 if ($_SESSION['referrer']){
     $_SESSION['referrer'] = $_SERVER["HTTP_REFERER"];
- }
+}
 
+require_once(__DIR__ . '/config/phpConfig.php');
 class login
 {
 
   private $cashierParams = array();
-
   private $cashierURL = "";
-
   private $cashierClientURL = "";
 
   /**
@@ -46,7 +45,7 @@ class login
   public function __construct($cashierParams)
   {
     $this->clientParams = $cashierParams;
-    $this->cashierURL = "http://cashier.localhost:8080/wscashier/wsController.php";
+    $this->cashierURL = CASHIER_CONTROLLER_WS;
   }
 
   /**
