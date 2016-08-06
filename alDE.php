@@ -27,8 +27,9 @@ $cashierParams["sys_access_pass"] = "1";
 $cashierParams["format"] = "json";
 $cashierParams["companyId"] = 9;
 
-//primer paso
-$_SESSION['referrer'] = $_SERVER["HTTP_REFERER"];
+if ($_SESSION['referrer']){
+    $_SESSION['referrer'] = $_SERVER["HTTP_REFERER"];
+ }
 
 class login
 {
