@@ -142,7 +142,7 @@ let VisaConfirm = React.createClass({
 	 * @param event
 	 */
 	changeValue(section, propertyName, isSelectComponent = 0, value){
-		const actualState = this.state.info;
+		let actualState = this.state.info;
 
 		if(isSelectComponent){
 			value = value.target.value;

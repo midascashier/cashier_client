@@ -57,7 +57,7 @@ let Register = React.createClass({
 		 * @param event
 		 */
 		changeValue(propertyName, isSelectComponent = 0, event){
-			const actualState = this.state;
+			let actualState = this.state;
 
 			let value = event;
 
@@ -84,7 +84,7 @@ let Register = React.createClass({
 		 * @returns {boolean}
 		 */
 		addNewPayAccount(e){
-			const actualState = this.state;
+			let actualState = this.state;
 			e.preventDefault();
 
 			for(let i = 0; i < e.target.length; i++){
