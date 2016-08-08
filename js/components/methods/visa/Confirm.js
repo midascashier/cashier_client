@@ -102,6 +102,18 @@ let VisaConfirm = React.createClass({
 	saveBillingInfo(e){
 		e.preventDefault();
 		let actualState = this.state.info;
+
+		for(let i = 0; i < e.target.length; i++){
+			if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
+				return false;
+			}
+
+			if(e.target[i].getAttribute('data-isValid') == "false"){
+				return false;
+			}
+		}
+
+
 		actualState.editMode = 0;
 		let value;
 		let payAccountEdit = {};
@@ -189,7 +201,7 @@ let VisaConfirm = React.createClass({
 																	<ul>
 																		<li>
 																			<label className="control-label">First Name:</label>
-																			<Input type="text" id="firstName" ref="firstName" validate="isString"
+																			<Input type="text" id="firstName" ref="firstName" validate="isString" require
 																						 onChange={this.changeValue.bind(null, 'personal','firstName', 0)}
 																						 value={personalData.firstName}/>
 																		</li>
@@ -246,7 +258,7 @@ let VisaConfirm = React.createClass({
 																						 value={personalData.phone}/>
 																		</li>
 																	</ul>
-																	<button onClick={this.saveBillingInfo} type='submit' className='btn btn-green'>
+																	<button type='submit' className='btn btn-green'>
 																		{translate('PROCESSING_BUTTON_SAVE', 'Save')}
 																	</button>
 																	<button onClick={this.editBillingInfo.bind(null, 0)} type='button' className='btn btn-green'>

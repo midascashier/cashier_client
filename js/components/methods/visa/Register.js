@@ -92,7 +92,7 @@ let Register = React.createClass({
 					return false;
 				}
 
-				if(parseInt(e.target[i].getAttribute('data-isValid'))== 0){
+				if(e.target[i].getAttribute('data-isValid') == "false"){
 					return false;
 				}
 			}
