@@ -67,6 +67,28 @@ class applicationService {
 	}
 
 	/**
+	 * Clone Obj
+	 *
+	 * @param obj
+	 * @returns {*}
+	 */
+	clone(obj) {
+		var copy;
+
+		// Handle the 3 simple types, and null or undefined
+		if(null == obj || "object" != typeof obj) return obj;
+
+		// Handle Object
+		if(obj instanceof Object){
+			copy = {};
+			for(var attr in obj){
+				if(obj.hasOwnProperty(attr)) copy[attr] = this.clone(obj[attr]);
+			}
+			return copy;
+		}
+	}
+
+	/**
 	 * Validate form entry data
 	 *
 	 * @param value

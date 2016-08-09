@@ -3,6 +3,7 @@ import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
+import { ApplicationService } from '../../../services/ApplicationService'
 import { Input } from '../../Inputs'
 
 let VisaConfirm = React.createClass({
@@ -30,6 +31,7 @@ let VisaConfirm = React.createClass({
 		CashierStore.removeChangeListener(this._onChange);
 	},
 
+
 	/**
 	 * this function sets and return object with local states
 	 */
@@ -45,10 +47,12 @@ let VisaConfirm = React.createClass({
 			isEditEnabled = 0;
 		}
 
+		let payAccount = ApplicationService.clone(CashierStore.getCurrentPayAccount());
+
 		return {
 			info: {
 				transaction: CashierStore.getTransaction(),
-				payAccount: CashierStore.getCurrentPayAccount(),
+				payAccount: payAccount,
 				editMode: isEditEnabled
 			}
 		}
@@ -68,7 +72,7 @@ let VisaConfirm = React.createClass({
 	 *
 	 */
 	processTransaction(){
-			TransactionService.processCC();
+		TransactionService.processCC();
 	},
 
 	/**
@@ -93,7 +97,11 @@ let VisaConfirm = React.createClass({
 	editBillingInfo(option){
 		let actualState = this.state.info;
 		actualState.editMode = option;
-		this.setState({ info: actualState });
+		if (option == 0){
+			this._onChange();
+		}else{
+			this.setState({ info: actualState });
+		}
 	},
 
 	/**
@@ -112,7 +120,6 @@ let VisaConfirm = React.createClass({
 				return false;
 			}
 		}
-
 
 		actualState.editMode = 0;
 		let value;
@@ -175,7 +182,7 @@ let VisaConfirm = React.createClass({
 				countryOptionNodes.push(UIService.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
 			}
 
-			if (states){
+			if(states){
 				for(let i = 0; i < states.length; i++){
 					stateOptionNodes.push(UIService.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
 				}
@@ -192,7 +199,8 @@ let VisaConfirm = React.createClass({
 									<div className="box">
 										<div className="row">
 											<div className="col-sm-12">
-												<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
+												<div
+													className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 												<div className="infoCol">
 													{(() =>{
 														if(isEditMode){
@@ -261,7 +269,8 @@ let VisaConfirm = React.createClass({
 																	<button type='submit' className='btn btn-green'>
 																		{translate('PROCESSING_BUTTON_SAVE', 'Save')}
 																	</button>
-																	<button onClick={this.editBillingInfo.bind(null, 0)} type='button' className='btn btn-green'>
+																	<button onClick={this.editBillingInfo.bind(null, 0)} type='button'
+																					className='btn btn-green'>
 																		{translate('PROCESSING_BUTTON_CANCEL', 'Cancel')}
 																	</button>
 																</form>
@@ -298,22 +307,22 @@ let VisaConfirm = React.createClass({
 												<div className="table-responsive">
 													<table className="table table-striped">
 														<tbody>
-															<tr>
-																<td>{translate('CREDIT_CARD_HOLDER')}:</td>
-																<td><span>{secureData.extra3}</span></td>
-															</tr>
-															<tr>
-																<td>{translate('CREDIT_CARD_NUMBER')}:</td>
-																<td><span>{CCMask}</span></td>
-															</tr>
-															<tr>
-																<td>{translate('CREDIT_CARD_EXPIRATION')}:</td>
-																<td><span>{secureData.extra1 + ' / ' + secureData.extra2}</span></td>
-															</tr>
-															<tr>
-																<td>{translate('PROCESSING_AMOUNT')}:</td>
-																<td><span>{this.state.info.transaction.amount}</span></td>
-															</tr>
+														<tr>
+															<td>{translate('CREDIT_CARD_HOLDER')}:</td>
+															<td><span>{secureData.extra3}</span></td>
+														</tr>
+														<tr>
+															<td>{translate('CREDIT_CARD_NUMBER')}:</td>
+															<td><span>{CCMask}</span></td>
+														</tr>
+														<tr>
+															<td>{translate('CREDIT_CARD_EXPIRATION')}:</td>
+															<td><span>{secureData.extra1 + ' / ' + secureData.extra2}</span></td>
+														</tr>
+														<tr>
+															<td>{translate('PROCESSING_AMOUNT')}:</td>
+															<td><span>{this.state.info.transaction.amount}</span></td>
+														</tr>
 														</tbody>
 													</table>
 												</div>
