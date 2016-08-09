@@ -6,6 +6,7 @@ import { TransactionService } from './TransactionService'
 import { ApplicationService } from './ApplicationService'
 import cashier from '../constants/Cashier'
 import  ProcessorSettings from '../constants/Processors'
+import { stompConnector } from './StompConnector'
 
 class UiService {
 
@@ -95,7 +96,7 @@ class UiService {
 
 		let layout = 'rejected';
 		let transactionDetails = data.response;
-		if (transactionDetails && transactionDetails.creditCardTransaction){
+		if(transactionDetails && transactionDetails.creditCardTransaction){
 			let creditCardTransaction = transactionDetails.creditCardTransaction;
 			if(creditCardTransaction && creditCardTransaction.PendingReprocess == 1){
 				layout = creditCardTransaction.Layout;
@@ -152,7 +153,7 @@ class UiService {
 
 	/**
 	 * return current PayAccount
-	 * 
+	 *
 	 * @returns {*|{payAccountId: null, displayName: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limitsData: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))}}
 	 */
 	getPayAccountInformation(){
@@ -167,6 +168,16 @@ class UiService {
 	getCurrentView(){
 		return CashierStore.getCurrentView();
 	}
+
+	/**
+	 * get server time
+	 *
+	 * @returns {*|int}
+	 */
+	getServerTime(){
+		return CashierStore.getServerTime();
+	}
+
 
 	/**
 	 * get if is withdraw
@@ -217,7 +228,7 @@ class UiService {
 		let minAmount = Number(processor.limits.currencyMin);
 		let maxAmount = Number(processor.limits.currencyMax);
 		let currencyCode = processor.limits.currencyCode;
-		return {minAmount: minAmount, maxAmount: maxAmount, currencyCode: currencyCode};
+		return { minAmount: minAmount, maxAmount: maxAmount, currencyCode: currencyCode };
 	}
 
 	/**
@@ -252,8 +263,8 @@ class UiService {
 		let processorLimits = this.getProcessorLimitMinMax();
 		let payAccountLimits = this.getPayAccountLimits();
 
-		let amount = (currentAmount > 0) ?currentAmount : transaction.amount;
-		let fee = (transaction.fee > 0) ?transaction.fee : 0;
+		let amount = (currentAmount > 0) ? currentAmount : transaction.amount;
+		let fee = (transaction.fee > 0) ? transaction.fee : 0;
 		let totalAmount = Number(amount) + Number(fee);
 		let currencyCode = processorLimits.currencyCode;
 
@@ -270,15 +281,21 @@ class UiService {
 
 			minPayAccount = payAccountLimits.minAmount + " " + currencyCode;
 			maxPayAccount = payAccountLimits.maxAmount + " " + currencyCode;
-			remaining = (availablePayAccount - totalAmount)  + " " + currencyCode;
+			remaining = (availablePayAccount - totalAmount) + " " + currencyCode;
 		}
 
-		return {minPayAccount: minPayAccount, maxPayAccount: maxPayAccount, payAccountId: payAccountLimits.payAccountId, remaining: remaining, currencyCode: currencyCode}
+		return {
+			minPayAccount: minPayAccount,
+			maxPayAccount: maxPayAccount,
+			payAccountId: payAccountLimits.payAccountId,
+			remaining: remaining,
+			currencyCode: currencyCode
+		}
 	}
 
 	/**
 	 * Return last transaction cashier response
-	 * 
+	 *
 	 * @returns {*|{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
 	 */
 	getLastTransactionResponse(){
@@ -287,7 +304,7 @@ class UiService {
 
 	/**
 	 * get payAccounts by processor
-	 * 
+	 *
 	 * @returns {*}
 	 */
 	getProcessorPayAccount(){
@@ -299,7 +316,7 @@ class UiService {
 	 */
 	selectProcessor(processorID){
 		let stepOption = ProcessorSettings.DEPOSIT_STEPS;
-		if (this.getIsWithDraw()){
+		if(this.getIsWithDraw()){
 			stepOption = ProcessorSettings.WITHDRAW_STEPS;
 		}
 		let stepsSetting = ProcessorSettings.settings[processorID][stepOption];
@@ -322,7 +339,7 @@ class UiService {
 	/**
 	 * Return current step
 	 */
-	getCurrentStep() {
+	getCurrentStep(){
 		return CashierStore.getCurrentStep();
 	};
 
@@ -341,7 +358,7 @@ class UiService {
 		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
 
-		let firstStep=this.getCurrentProcessorSteps();
+		let firstStep = this.getCurrentProcessorSteps();
 		CashierActions.setCurrentStep(firstStep[0]);
 		let route = "/" + this.customerAction + "/";
 		this.changeUIState(route);
@@ -365,7 +382,7 @@ class UiService {
 	getCountryStates(country = null){
 		if(!country){
 			country = CashierStore.getUI().selectedCountry;
-		}else{
+		} else{
 			CashierActions.setSelectedCountry(country);
 		}
 		let countryStates = CashierStore.getUI().countryStates;
@@ -389,10 +406,10 @@ class UiService {
 		for(let i = 0; i < countries.length; i++){
 			let _country = countries[i];
 			if(_country.Small == country){
-				return {Small: _country.Small, Name: _country.Name};
+				return { Small: _country.Small, Name: _country.Name };
 			}
 		}
-		return {Small: country, Name: country};
+		return { Small: country, Name: country };
 	}
 
 	/**
@@ -409,11 +426,11 @@ class UiService {
 			for(let i = 0; i < states.length; i++){
 				let _countryState = states[i];
 				if(_countryState.Small = countryState){
-					return {Small: _countryState.Small, Name: _countryState.Name};
+					return { Small: _countryState.Small, Name: _countryState.Name };
 				}
 			}
 		}
-		return {Small: countryState, Name: countryState};
+		return { Small: countryState, Name: countryState };
 	}
 
 	/**
@@ -427,6 +444,18 @@ class UiService {
 		return (
 			<option id={key} key={key} value={key}>{item.label}</option>
 		)
+	}
+
+	/**
+	 * return left hours of the day
+	 */
+	getP2pHours(){
+		let data = {
+			f: "getPacificTimeHour", module: 'filters'
+		};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeBackendRequest("", rabbitRequest);
 	}
 
 }

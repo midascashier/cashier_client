@@ -26,18 +26,39 @@ let AskInfo = React.createClass({
 	},
 
 	render() {
+		let selectHours = [];
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
 		let limitsCheck = this.props.limitsCheck;
 		let payAccountId = this.props.payAccount.payAccountId;
 		let feeCheck = this.props.feeCheck;
+		let timeFrameDay = this.props.timeFrameDay;
 		let feeCashValue = this.props.feeCashValue;
+		let serverTime = UIService.getServerTime();
 		let isWithDraw = UIService.getIsWithDraw();
 		let originPath = UIService.getOriginPath();
 		let displayName = UIService.getProcessorDisplayName();
 		let processingTitle = (!isWithDraw) ? translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P') : translate('PROCESSING_WITHDRAW_INFORMATION_TITLE_P2P');
 		let selectType = (!isWithDraw) ? translate('P2P_SELECT_DEPOSIT') : translate('P2P_SELECT_WITHDRAW');
 		let deleteButton = (!isWithDraw) ? translate('PROCESSING_BUTTON_DELETE_SENDER') : translate('PROCESSING_BUTTON_DELETE_RECEIVER');
+
+		if(timeFrameDay == "TOMORROW"){
+			for(let i = 0; i < 24; i++){
+				let hour = i + ":00";
+				selectHours.push(UIService.renderOption({ label: hour }, i));
+			}
+		} else{
+			if(!serverTime){
+				UIService.getP2pHours();
+				selectHours.push(UIService.renderOption({ label: "Loading" }, "Loading"));
+			} else{
+				let hour = serverTime.split(":");
+				for(let i = hour[0]; i < 24; i++){
+					let hour = i + ":00";
+					selectHours.push(UIService.renderOption({ label: hour }, i));
+				}
+			}
+		}
 
 		return (
 			<div id="p2pAskInfo" className="box">
@@ -59,10 +80,10 @@ let AskInfo = React.createClass({
 											if(payAccountId != 0){
 												return (
 													<div id="selectPayAccount">
-															<SelectPayAccount setAmount={setAmount} amount={amount}/>
-															<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
-																{deleteButton}
-															</button>
+														<SelectPayAccount setAmount={setAmount} amount={amount}/>
+														<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+															{deleteButton}
+														</button>
 													</div>
 												)
 											} else{
@@ -102,18 +123,7 @@ let AskInfo = React.createClass({
 																<select className="form-control"
 																				value={this.props.timeFrameTime}
 																				onChange={this.props.timeFrameTimeChange}>
-																	<option value="6">12:00</option>
-																	<option value="7">13:00</option>
-																	<option value="8">14:00</option>
-																	<option value="9">15:00</option>
-																	<option value="10">16:00</option>
-																	<option value="11">17:00</option>
-																	<option value="12">12:00</option>
-																	<option value="13">13:00</option>
-																	<option value="14">14:00</option>
-																	<option value="15">15:00</option>
-																	<option value="16">16:00</option>
-																	<option value="17">17:00</option>
+																	{selectHours}
 																</select>
 															</div>
 														</div>
@@ -135,7 +145,7 @@ let AskInfo = React.createClass({
 											}
 										})()}
 									</div>
-									
+
 									{(() =>{
 										if(!isWithDraw){
 											return (

@@ -12,6 +12,7 @@ import cashier from '../constants/Cashier'
  * @private
  */
 let _UI = {
+	serverTime: '',
 	language: '',
 	currentView: '',
 	currentStep: '',
@@ -512,6 +513,15 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getIsWithdraw: () =>{
 		return (_UI.currentView == cashier.VIEW_WITHDRAW) ? 1 : 0;
+	},
+
+	/**
+	 * return server time
+	 *
+	 * @returns {string}
+	 */
+	getServerTime: () =>{
+		return _UI.serverTime;
 	}
 
 });
@@ -777,6 +787,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 		case actions.SET_DOB_SSN:
 			_transaction[data.param] = data.value;
+			CashierStore.emitChange();
+			break;
+
+		case actions.GET_PACIFIC_TIME_HOUR_RESPONSE:
+			_UI.serverTime = data.response.currentHour;
 			CashierStore.emitChange();
 			break;
 
