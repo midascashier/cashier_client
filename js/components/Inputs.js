@@ -77,15 +77,21 @@ let Input = React.createClass({
 			if(this.props.validate){
 				isValid = this.validateData(value);
 			}
+			if(!isValid && value.length > 0){
+				e.target.style['border-color'] = 'red';
+			} else{
+				e.target.style['border-color'] = '';
+			}
 			this.props.onChange(value, isValid);
 		}
 	},
 
 	render() {
 		let require = 0;
-		if (typeof this.props.require != "undefined"){
+		if(typeof this.props.require != "undefined"){
 			require = 1;
 		}
+
 		return (
 			<div>
 				<input

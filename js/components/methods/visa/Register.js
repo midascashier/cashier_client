@@ -8,141 +8,143 @@ import { ExtraInfo } from './ExtraInfo'
 
 let Register = React.createClass({
 
-		/**
-		 * React function to set component inital state
-		 *
-		 * @returns {*|{step, processorSteps}}
-		 */
-		getInitialState() {
-			return this.refreshLocalState();
-		},
+	/**
+	 * React function to set component inital state
+	 *
+	 * @returns {*|{step, processorSteps}}
+	 */
+	getInitialState() {
+		return this.refreshLocalState();
+	},
 
-		/**
-		 * this function sets and return object with local states
-		 *
-		 */
-		refreshLocalState() {
-			let currentTime = new Date();
-			let country = CashierStore.getSelectedCountry();
-			let states = UIService.getCountryStates();
-			return {
-				displaySaveButton: true,
-				payAccount: {
-					extra3: "",
-					account: "",
-					password: "",
-					extra1: currentTime.getMonth() + 1,
-					extra2: currentTime.getFullYear(),
-					country: country,
-					state: states[0]['Small'],
-					firstName: "",
-					lastName: "",
-					city: "",
-					address1: "",
-					zip: "",
-					email: "",
-					phone: "",
-					ssn: "",
-					dobDay: "",
-					dobMonth: "",
-					dobYear: "",
-					dob: ""
-				}
+	/**
+	 * this function sets and return object with local states
+	 *
+	 */
+	refreshLocalState() {
+		let currentTime = new Date();
+		let country = CashierStore.getSelectedCountry();
+		let states = UIService.getCountryStates();
+		return {
+			displaySaveButton: true,
+			payAccount: {
+				extra3: "",
+				account: "",
+				password: "",
+				extra1: currentTime.getMonth() + 1,
+				extra2: currentTime.getFullYear(),
+				country: country,
+				state: states[0]['Small'],
+				firstName: "",
+				lastName: "",
+				city: "",
+				address1: "",
+				zip: "",
+				email: "",
+				phone: "",
+				ssn: "",
+				dobDay: "",
+				dobMonth: "",
+				dobYear: "",
+				dob: ""
 			}
-		},
+		}
+	},
 
-		/**
-		 * Set visa New Account Info
-		 *
-		 * @param event
-		 */
-		changeValue(propertyName, isSelectComponent = 0, event){
-			let actualState = this.state;
+	/**
+	 * Set visa New Account Info
+	 *
+	 * @param event
+	 */
+	changeValue(propertyName, isSelectComponent = 0, event){
+		let actualState = this.state;
 
-			let value = event;
+		let value = event;
 
-			if(isSelectComponent){
-				value = value.target.value;
-			}
+		if(isSelectComponent){
+			value = value.target.value;
+		}
 
-			if(propertyName == 'country'){
-				UIService.getCountryStates(value);
-			}
+		if(propertyName == 'country'){
+			UIService.getCountryStates(value);
+		}
 
-			actualState.payAccount[propertyName] = value;
+		actualState.payAccount[propertyName] = value;
 
-			this.setState(
-				actualState
-			);
+		this.setState(
+			actualState
+		);
 
-		},
+	},
 
-		/**
-		 * Sends request to register new payaccount
-		 *
-		 * @param e
-		 * @returns {boolean}
-		 */
-		addNewPayAccount(e){
-			let actualState = this.state;
-			e.preventDefault();
+	/**
+	 * Sends request to register new payaccount
+	 *
+	 * @param e
+	 * @returns {boolean}
+	 */
+	addNewPayAccount(e){
+		let actualState = this.state;
+		e.preventDefault();
 
-			for(let i = 0; i < e.target.length; i++){
-				if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
-					return false;
-				}
-
-				if(e.target[i].getAttribute('data-isValid') == "false"){
-					return false;
-				}
+		for(let i = 0; i < e.target.length; i++){
+			if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
+				e.target[i].style['border-color']='red';
+				e.target[i].focus();
+				return false;
 			}
 
-			if(!this.state.dobDay){
-				actualState.payAccount.dobDay = e.target.querySelector('[name="dobDay"]').value;
+			if(e.target[i].getAttribute('data-isValid') == "false"){
+				return false;
 			}
-			if(!this.dobMonth){
-				actualState.payAccount.dobMonth = e.target.querySelector('[name="dobMonth"]').value;
-			}
-			if(!this.dobYear){
-				actualState.payAccount.dobYear = e.target.querySelector('[name="dobYear"]').value;
-			}
+		}
 
-			actualState.payAccount.dob = this.state.payAccount.dobMonth + "-" + this.state.payAccount.dobDay + "-" + this.state.payAccount.dobYear;
+		if(!this.state.dobDay){
+			actualState.payAccount.dobDay = e.target.querySelector('[name="dobDay"]').value;
+		}
+		if(!this.dobMonth){
+			actualState.payAccount.dobMonth = e.target.querySelector('[name="dobMonth"]').value;
+		}
+		if(!this.dobYear){
+			actualState.payAccount.dobYear = e.target.querySelector('[name="dobYear"]').value;
+		}
 
-			TransactionService.registerPayAccount(this.state.payAccount);
-			actualState.displaySaveButton = false;
-			this.setState({
-				actualState
-			});
-		},
+		actualState.payAccount.dob = this.state.payAccount.dobMonth + "-" + this.state.payAccount.dobDay + "-" + this.state.payAccount.dobYear;
 
-		/**
-		 * React function to add listener to this component once is mounted
-		 * here the component listen changes from the store
-		 */
-		componentDidMount() {
-			CashierStore.addChangeListener(this._onChange);
-		},
+		TransactionService.registerPayAccount(this.state.payAccount);
+		actualState.displaySaveButton = false;
+		this.setState({
+			actualState
+		});
+	},
 
-		/**
-		 * React function to remove listener to this component once is unmounted
-		 */
-		componentWillUnmount() {
-			CashierStore.removeChangeListener(this._onChange);
-		},
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
 
-		/**
-		 * this is the callback function the store calls when a state change
-		 *
-		 * @private
-		 */
-		_onChange() {
-			const payAccount = this.state.payAccount;
-			payAccount.state = "";
-			this.setState(
-				payAccount
-			);
-		},
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
+	},
+
+	/**
+	 * this is the callback function the store calls when a state change
+	 *
+	 * @private
+	 */
+	_onChange() {
+		const payAccount = this.state.payAccount;
+		payAccount.state = "";
+		this.setState(
+			payAccount
+		);
+	},
 
 	render(){
 		let selectMonths = [];
@@ -153,20 +155,20 @@ let Register = React.createClass({
 		let now = new Date();
 
 		for(let i = 1; i < 13; i++){
-			selectMonths.push(UIService.renderOption({label: i}, i));
+			selectMonths.push(UIService.renderOption({ label: i }, i));
 		}
 
 		for(let i = now.getFullYear(); i < now.getFullYear() + 15; i++){
-			selectYears.push(UIService.renderOption({label: i}, i));
+			selectYears.push(UIService.renderOption({ label: i }, i));
 		}
 
 		for(let i = 0; i < countries.length; i++){
-			countryOptionNodes.push(UIService.renderOption({label: countries[i]['Name']}, countries[i]['Small']));
+			countryOptionNodes.push(UIService.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
 		}
 
 		let stateOptionNodes = [];
 		for(let i = 0; i < states.length; i++){
-			stateOptionNodes.push(UIService.renderOption({label: states[i]['Name']}, states[i]['Small']));
+			stateOptionNodes.push(UIService.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
 		}
 
 		return (
@@ -191,14 +193,16 @@ let Register = React.createClass({
 						<div className="row">
 							<div className="col-sm-6">
 								<div className="form-group">
-									<select className="form-control" id="ccExpMonth" onChange={this.changeValue.bind(null, 'extra1',1)} value={this.state.payAccount.extra1}>
+									<select className="form-control" id="ccExpMonth" onChange={this.changeValue.bind(null, 'extra1',1)}
+													value={this.state.payAccount.extra1}>
 										{selectMonths}
 									</select>
 								</div>
 							</div>
 							<div className="col-sm-6">
 								<div className="form-group">
-									<select className="form-control" id="ccExpYear" onChange={this.changeValue.bind(null, 'extra2',1)} value={this.state.payAccount.extra2}>
+									<select className="form-control" id="ccExpYear" onChange={this.changeValue.bind(null, 'extra2',1)}
+													value={this.state.payAccount.extra2}>
 										{selectYears}
 									</select>
 								</div>
