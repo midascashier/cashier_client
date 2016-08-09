@@ -47,6 +47,7 @@ import {P2PTicketProcessing} from './components/methods/person2person/tickets/Pr
  */
 import { ProcessorsInfo } from './components/methods/ProcessorsInfo'
 import { TransactionHistoryContent } from './components/TransactionHistoryContent'
+import { PendingControlNumber } from './components/PendingMTCNContent'
 import RouterContainer from './services/RouterContainer'
 
 /**
@@ -60,6 +61,7 @@ let routes = (
 			<IndexRoute component={Welcome}/>
 			<Route path="/welcome/" component={Welcome}/>
 			<Route path="/transaction_history/" component={TransactionHistoryContent}/>
+			<Route path="/pendingControlNumber/" component={PendingControlNumber}/>
 
 			<Route path="/deposit/" component={Content}>
 				<IndexRoute component={ProcessorsInfo}/>

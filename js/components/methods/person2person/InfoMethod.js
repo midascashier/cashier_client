@@ -128,8 +128,7 @@ let InfoMethod = React.createClass({
 						<div className="col-sm-12">
 							<div className="row">
 								<div className="col-sm-6">
-									<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled}
-													className='btn btn-green'>
+									<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
 										{translate('PROCESSING_BUTTON_NEXT', 'Next')}
 									</button>
 								</div>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 import { translate } from '../../../constants/Translate'
 import Cashier from '../../../constants/Cashier'
 import { CashierStore } from '../../../stores/CashierStore'
