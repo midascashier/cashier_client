@@ -20,4 +20,15 @@
    * @var bool
    */
 	const SECURITY_ACUITYTEC_ENABLE = false;
+
+ /**
+  * skin name
+  */
+	const SKIN_POKER_HTTP_DOMAIN_NAME = "poker.new";
+
+	/**
+	 * CompanyId
+	 */
+	const COMPANY_ID_POKER = '9';
+
 ?>

@@ -44,6 +44,14 @@ class login
    */
   public function __construct($cashierParams)
   {
+    $HTTPDomainName = $_SERVER['HTTP_HOST'];
+    if(preg_match("~.*".SKIN_POKER_HTTP_DOMAIN_NAME.".*~i", $HTTPDomainName)){
+      $companyId = COMPANY_ID_POKER;
+    }else{
+      $companyId = 9;
+    }
+
+  	$cashierParams['companyId'] = $companyId;
     $this->clientParams = $cashierParams;
     $this->cashierURL = CASHIER_CONTROLLER_WS;
   }
