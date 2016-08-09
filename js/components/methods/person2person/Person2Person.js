@@ -3,6 +3,7 @@ import {CashierStore} from '../../../stores/CashierStore'
 import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
+import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 
 let Person2Person = React.createClass({
@@ -27,6 +28,7 @@ let Person2Person = React.createClass({
 	 * here the component listen changes from the store
 	 */
 	componentDidMount() {
+		UIService.getP2pHours();
 		CashierStore.addChangeListener(this._onChange);
 	},
 
@@ -41,10 +43,13 @@ let Person2Person = React.createClass({
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState() {
+		let serverTime = UIService.getServerTime();
+		let hour = serverTime.split(":");
+
 		return {
 			selectedProcessor: CashierStore.getProcessor(),
 			timeFrameDay: 'TODAY',
-			timeFrameTime: 12,
+			timeFrameTime: hour[0],
 			payAccount: TransactionService.getCurrentPayAccount()
 		}
 	},

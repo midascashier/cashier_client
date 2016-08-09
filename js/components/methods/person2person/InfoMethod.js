@@ -11,7 +11,7 @@ let InfoMethod = React.createClass({
 		amount: React.PropTypes.string,
 		limitsCheck: React.PropTypes.string,
 		timeFrameDay: React.PropTypes.string,
-		timeFrameTime: React.PropTypes.number
+		timeFrameTime: React.PropTypes.node
 	},
 
 	/**

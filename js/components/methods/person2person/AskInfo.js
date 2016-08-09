@@ -18,7 +18,7 @@ let AskInfo = React.createClass({
 		feeCheck: React.PropTypes.number,
 		amount: React.PropTypes.string,
 		timeFrameDay: React.PropTypes.string,
-		timeFrameTime: React.PropTypes.number
+		timeFrameTime: React.PropTypes.node
 	},
 
 	disablePayAccount() {
@@ -34,7 +34,7 @@ let AskInfo = React.createClass({
 		let feeCheck = this.props.feeCheck;
 		let timeFrameDay = this.props.timeFrameDay;
 		let feeCashValue = this.props.feeCashValue;
-		let serverTime = UIService.getServerTime();
+		let serverTime = this.props.timeFrameTime;
 		let isWithDraw = UIService.getIsWithDraw();
 		let originPath = UIService.getOriginPath();
 		let displayName = UIService.getProcessorDisplayName();
@@ -49,11 +49,9 @@ let AskInfo = React.createClass({
 			}
 		} else{
 			if(!serverTime){
-				UIService.getP2pHours();
 				selectHours.push(UIService.renderOption({ label: "Loading" }, "Loading"));
 			} else{
-				let hour = serverTime.split(":");
-				for(let i = hour[0]; i < 24; i++){
+				for(let i = serverTime; i < 24; i++){
 					let hour = i + ":00";
 					selectHours.push(UIService.renderOption({ label: hour }, i));
 				}
