@@ -77,6 +77,19 @@ class customerService {
 	};
 
 	/**
+	 * Function to get pending mtcn transactions
+	 */
+	getPendingMTCNTransactions(){
+		let customer = CashierStore.getCustomer();
+		let username = customer.username;
+		let companyId = customer.companyId;
+		let data = { f: "getAssignedP2PNames", username: username, companyId: companyId, processorId: 0};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeCustomerRequest("", rabbitRequest);
+	};
+
+	/**
 	 * Function to get pay account previous pay accounts
 	 */
 	getCustomerPreviousPayAccount(processorID){

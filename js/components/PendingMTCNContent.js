@@ -6,27 +6,28 @@ import { CashierStore } from '../stores/CashierStore'
 import { CustomerService } from './../services/CustomerService'
 import { UIService } from './../services/UIService'
 import { LoadingSpinner } from './loading/LoadingSpinner'
+import { TransactionPendingMTCN } from '../components/contentComponents/TransactionPendingMTCN'
 
 let PendingControlNumber = React.createClass({
 
 	/**
-	 * React function to set component inital state
+	 * React function to set component initial state
 	 *
 	 * @returns {*|{transactions}}
 	 */
 	getInitialState(){
-		CustomerService.getCustomerTransactions();
+		CustomerService.getPendingMTCNTransactions();
 		return this.refreshLocalState();
 	},
 
 	/**
 	 * this function sets and return object with local states
 	 *
-	 * @returns {{transactions: {}}}
+	 * @returns {{transactions: Array}}
 	 */
 	refreshLocalState() {
 		let customer = CashierStore.getCustomer();
-		let lastTransactions = customer.lastTransactions;
+		let lastTransactions = customer.pendingP2PTransactions;
 		return {
 			transactions: lastTransactions
 		}
@@ -58,7 +59,7 @@ let PendingControlNumber = React.createClass({
 
 	render() {
 
-		let transactionHistory = this.state.transactions;
+		let pendingP2PTransactions = this.state.transactions;
 		let isWithdraw = UIService.getIsWithDraw();
 		let customerOpt = "DEPOSIT";
 		if (isWithdraw == 1 ){
@@ -67,17 +68,17 @@ let PendingControlNumber = React.createClass({
 		return (
 			<div id="pendingControlNumber">
 				<Info />
-				<div id="transactionHistory" className="internal-content">
+				<div id="pendingControlNumberTransactions" className="internal-content">
 					<div className="row">
 						<div className="col-sm-12">
 							<div className="modules">
 								<div className="title">Pending Control Numbers</div>
 
 								{(() =>{
-									if(transactionHistory.length == 0){
+									if(pendingP2PTransactions.length == 0){
 										return <LoadingSpinner/>
 									}else {
-										return <p>Content</p>
+										return <TransactionPendingMTCN transactions={pendingP2PTransactions}/>
 									}
 								})()}
 

@@ -555,6 +555,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			CashierStore.emitChange();
 			break;
 
+		case actions.CUSTOMER_TRANSACTIONS_PENDING_MTCN_RESPONSE:
+			_customer.pendingP2PTransactions = data.response.P2PNames;
+			CashierStore.emitChange();
+			break;
+
 		case actions.COUNTRIES_RESPONSE:
 			_UI.countries = data.response.countries;
 			break;
