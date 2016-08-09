@@ -71,14 +71,20 @@ let Register = React.createClass({
 		 */
 		addNewPayAccount(e){
 			e.preventDefault();
-			for(let input in this.refs){
-				if(this.refs[input].props.require && this.refs[input].props.value.length <= 0){
+
+			for(let i = 0; i < e.target.length; i++){
+				if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
+					e.target[i].style['border-color']='red';
+					e.target[i].focus();
 					return false;
 				}
-				if(!this.refs[input].state.isValid){
+
+				if(e.target[i].getAttribute('data-isValid') == "false"){
+					e.target[i].focus();
 					return false;
 				}
 			}
+
 			TransactionService.registerPayAccount(this.state.payAccount);
 			this.setState({
 				displaySaveButton: false
