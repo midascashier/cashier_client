@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 import { translate } from '../../constants/Translate'
 import { UIService } from '../../services/UIService'
 import { TransactionService } from '../../services/TransactionService'
@@ -89,9 +90,18 @@ let ProcessorInfo = React.createClass({
 						</div>
 
 						<div className="row">
+							<div className="col-sm-6"></div>
 							<div className="col-sm-6">
-								<button onClick={this.startTransaction} type="button"
-												className="btn btn-green">{buttonNext} {processorDisplayName}</button>
+								{(() =>{
+									return (
+										<Link to={`/pendingControlNumber/`}>
+											<p>Enter Pending Control Numbers</p>
+										</Link>
+									)
+								})()}
+							</div>
+							<div className="col-sm-6">
+								<button onClick={this.startTransaction} type="button" className="btn btn-green">{buttonNext} {processorDisplayName}</button>
 							</div>
 							<div className="col-sm-6">
 								<img src={originPath + '/images/ssl.png'} alt="ssl"/>
