@@ -73,7 +73,7 @@ class applicationService {
 	 * @returns {*}
 	 */
 	clone(obj) {
-		var copy;
+		let copy;
 
 		// Handle the 3 simple types, and null or undefined
 		if(null == obj || "object" != typeof obj) return obj;
@@ -81,7 +81,7 @@ class applicationService {
 		// Handle Object
 		if(obj instanceof Object){
 			copy = {};
-			for(var attr in obj){
+			for(let attr in obj){
 				if(obj.hasOwnProperty(attr)) copy[attr] = this.clone(obj[attr]);
 			}
 			return copy;
