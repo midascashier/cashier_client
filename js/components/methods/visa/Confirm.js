@@ -117,6 +117,7 @@ let VisaConfirm = React.createClass({
 			}
 
 			if(e.target[i].getAttribute('data-isValid') == "false"){
+				e.target[i].focus();
 				return false;
 			}
 		}
