@@ -89,6 +89,7 @@ let _langTags = {
 	PROCESSING_BUTTON_COPY: "Copiar",
 	PROCESSING_BUTTON_SAVE: "Guardar",
 	PROCESSING_BUTTON_EDIT: "Modificar",
+	PROCESSING_BUTTON_CONFIRM: "Confirmar",
 	PROCESSING_BUTTON_CANCEL: "Cancelar",
 	PROCESSING_BUTTON_REPROCESS_FIX: "Corregido. Intentar nuevamente.",
 	PROCESSING_BUTTON_DELETE_ACCOUNT: "Borrar Cuenta",
@@ -162,7 +163,15 @@ let _langTags = {
 	P2P_TIME_FRAME_TOMORROW: 'Mañana',
 	P2P_CONTROL_NUMBER: "Número de Control",
 	P2P_AMOUNT_SEND: "Monto Enviado",
-	P2P_FEE_SEND: "Costos"
+	P2P_FEE_SEND: "Costos",
+	PENDING_MTCN: "Confirmaciones Pendientes",
+	PENDING_MTCN_SENDER: "Remitente",
+	PENDING_MTCN_RECEIVER: "Beneficiario",
+	PENDING_MTCN_DESTINATION: "Destino",
+	PENDING_MTCN_MTCN: "Número de Control",
+	PENDING_MTCN_AMOUNT: "Monto",
+	PENDING_MTCN_FEE: "Costos",
+	PENDING_MTCN_DIGITS:"dígitos"
 };
 
 export function ES(){
