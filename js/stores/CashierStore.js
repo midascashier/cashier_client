@@ -370,7 +370,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * Get selected country
 	 */
-	getSelectedCountry(){
+	getSelectedCountry: () =>{
 		return _UI.selectedCountry;
 	},
 
@@ -378,7 +378,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Return country selected states
 	 * @returns {{}|*}
 	 */
-	getCountryStates(){
+	getCountryStates: () =>{
 		return _UI.countryStates;
 	},
 
