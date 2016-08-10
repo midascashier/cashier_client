@@ -55,7 +55,7 @@ class applicationService {
 	};
 
 	/**
-	 *	function to get currency info or all currencies
+	 *  function to get currency info or all currencies
 	 *
 	 * @param currencyCode
 	 */
@@ -72,13 +72,11 @@ class applicationService {
 	 * @param obj
 	 * @returns {*}
 	 */
-	clone(obj) {
+	clone(obj){
 		let copy;
 
-		// Handle the 3 simple types, and null or undefined
-		if(null == obj || "object" != typeof obj) return obj;
+		if(obj == null || typeof obj != "object") return obj;
 
-		// Handle Object
 		if(obj instanceof Object){
 			copy = {};
 			for(let attr in obj){
