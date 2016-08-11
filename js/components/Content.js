@@ -3,10 +3,29 @@ import { Header } from './Header'
 import { TransactionService } from '../services/TransactionService'
 import { UIService } from '../services/UIService'
 import { CashierStore } from './../stores/CashierStore'
+import { CashierActions } from './../actions/CashierActions'
+import { ApplicationService } from './../services/ApplicationService'
 import  ProcessorSettings from '../constants/Processors'
 import Cashier from '../constants/Cashier'
 
 let Content = React.createClass({
+
+		/**
+		 * Restore session form sessionStorage
+		 */
+		restoreSessionData(){
+			let storeObj = {};
+			if(typeof Storage !== "undefined"){
+				let application = CashierStore.getApplication();
+				if((!loginInfo.sid)){
+					for(let obj in localStorage){
+						if (obj && localStorage[obj] && localStorage[obj] != "undefined" && ApplicationService.IsJsonString(localStorage[obj])){
+							CashierActions.restoreSession(obj, JSON.parse(localStorage[obj]));
+						}
+					}
+				}
+			}
+		},
 
 		/**
 		 * React function to set component initial state
@@ -178,6 +197,9 @@ let Content = React.createClass({
 
 		render()
 		{
+
+			this.restoreSessionData();
+
 			const childrenWithProps = React.Children.map(this.props.children,
 				(child) => React.cloneElement(child, {
 					setAmount: this.setAmount,

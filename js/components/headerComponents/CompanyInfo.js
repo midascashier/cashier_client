@@ -4,7 +4,8 @@ import { Loading } from '../loading/Loading'
 
 let CompanyInfo = React.createClass({
 	propTypes: {
-		customer: React.PropTypes.object, company: React.PropTypes.object
+		customer: React.PropTypes.object,
+		company: React.PropTypes.object
 	},
 
 	render() {

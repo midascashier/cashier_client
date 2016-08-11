@@ -91,6 +91,13 @@ let CashierActions = {
 			action: actions.SET_DOB_SSN,
 			data: { param: param, value: value }
 		});
+	},
+
+	restoreSession:(objName, obj) => {
+		CashierDispatcher.dispatch({
+			action: actions.RESTORE_SESSION,
+			data: { name: objName, obj}
+		});
 	}
 
 };

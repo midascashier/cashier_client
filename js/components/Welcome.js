@@ -2,6 +2,7 @@ import React from 'react'
 import { translate } from '../constants/Translate'
 
 let Welcome = React.createClass({
+
 	render() {
 		return (
 			<div id="welcome" className="welcome-page">
