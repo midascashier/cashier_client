@@ -99,6 +99,7 @@ let Input = React.createClass({
 					type={this.props.type || 'text'}
 					name={this.props.name}
 					id={this.props.id}
+					placeholder={this.props.placeholder || ''}
 					onChange={this.changeHandler}
 					value={this.props.value}
 					data-isValid={this.state.isValid}
