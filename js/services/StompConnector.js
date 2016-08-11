@@ -58,7 +58,6 @@ class StompConnector {
 	makeConnection(){
 		return new Promise((resolve) =>{
 			this.resolveConnection = resolve;
-
 			this.stompClient.connect(rabbitConfig.get('user'), rabbitConfig.get('pass'), this.on_connect.bind(this), this.on_error.bind(this), rabbitConfig.get('virtual'));
 		});
 	};

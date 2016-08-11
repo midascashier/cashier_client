@@ -13,6 +13,7 @@ class customerService {
 	 * Create RabbitMQ connection and login to client
 	 */
 	startConnection(){
+		this.setLoginInfo();
 		this.stompConnection();
 	};
 
@@ -21,7 +22,6 @@ class customerService {
 	 *
 	 */
 	stompConnection(){
-		this.setLoginInfo();
 		stompConnector.initConnection()
 			.then(()=>{
 				this.connectionDone();
@@ -62,7 +62,7 @@ class customerService {
 	/**
 	 * Do some actions after processors response
 	 */
-	customerProcessorsResponse(processor) {
+	customerProcessorsResponse(processor){
 		UIService.customerProcessorsResponse(processor);
 	};
 
@@ -83,7 +83,7 @@ class customerService {
 		let customer = CashierStore.getCustomer();
 		let username = customer.username;
 		let companyId = customer.companyId;
-		let data = { f: "getAssignedP2PNames", username: username, companyId: companyId, processorId: 0};
+		let data = { f: "getAssignedP2PNames", username: username, companyId: companyId, processorId: 0 };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
@@ -107,7 +107,11 @@ class customerService {
 	getDisablePayAccount(){
 		let customerId = CashierStore.getCustomer();
 		let payAccountId = CashierStore.getCurrentPayAccount();
-		let data = { f: "disableCustomerPayAccount", payAccountId: payAccountId.payAccountId, customerId: customerId.customerId };
+		let data = {
+			f: "disableCustomerPayAccount",
+			payAccountId: payAccountId.payAccountId,
+			customerId: customerId.customerId
+		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);

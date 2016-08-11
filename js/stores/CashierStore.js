@@ -536,10 +536,13 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return _UI.serverTime;
 	},
 
-	restoreSession: (name, obj) => {
+	restoreSession: (name, obj) =>{
 		switch(name){
-			case "company":
-					_company=obj;
+			case "application":
+				_application = obj;
+				break;
+			case "ui":
+				_UI = obj;
 				break;
 		}
 	}
@@ -557,6 +560,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.LOGIN_RESPONSE:
 			_UI.currentView = data.option;
 			_application.sid = data.sid;
+			CashierStore.storeData("application", _application);
+			CashierStore.storeData("ui", _UI);
 			CashierStore.emitChange();
 			break;
 
@@ -567,7 +572,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 		case actions.COMPANY_INFO_RESPONSE:
 			_company.load(data.response.companyInformation);
-			CashierStore.storeData("company", _company);
 			CashierStore.emitChange();
 			break;
 
