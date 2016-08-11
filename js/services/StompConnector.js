@@ -162,6 +162,16 @@ class StompConnector {
 	};
 
 	/**
+	 * timeout function
+	 *
+	 * @param time
+	 * @returns {Promise}
+	 */
+	sleep(time){
+		return new Promise((resolve) => setTimeout(resolve, time));
+	};
+
+	/**
 	 * get the message and the queue y send them to Rabbit
 	 * @param message
 	 * @param queue
@@ -171,7 +181,13 @@ class StompConnector {
 		if(!headers){
 			headers = { "reply-to": this.replyQueue, "correlation_id": correlation_id };
 		}
-		this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));
+		if(this.stompClient.connected){
+			this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));
+		} else{
+			this.sleep(5).then(() =>{
+				this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));
+			})
+		}
 	};
 
 }
