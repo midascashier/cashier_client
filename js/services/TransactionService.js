@@ -471,7 +471,7 @@ class transactionService {
 			transactionType: transactionType
 		};
 		let application = CashierStore.getApplication();
-		let rabbitRequest = Object.assign(data, application, payAccount, payAccountInfo);
+		let rabbitRequest = Object.assign(this.getProxyRequest(), data, application, payAccount, payAccountInfo);
 		stompConnector.makeBackendRequest("", rabbitRequest);
 	};
 
