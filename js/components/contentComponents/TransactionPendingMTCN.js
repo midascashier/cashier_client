@@ -8,6 +8,38 @@ let TransactionPendingMTCN = React.createClass({
 		transactions: React.PropTypes.array
 	},
 
+	/**
+	 * component is ready
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
+	},
+
+	/**
+	 * refresh the state when changes occur
+	 *
+	 * @private
+	 */
+	_onChange() {
+		this.setState(this.refreshLocalState());
+	},
+
+	/**
+	 * this function sends submit transaction to cashier
+	 *
+	 */
+	submitTransaction(transaction){
+		console.log(transaction);
+		//TransactionService.processSubmit();
+	},
+
 	render() {
 		let transactions = this.props.transactions;
 		return (
@@ -75,10 +107,14 @@ let TransactionPendingMTCN = React.createClass({
 													<Input type="number" id="fee" value={currencyFee}/>
 												</td>
 												<td>
-													<input type="button" className="btn btn-green" value={btnConfirmLabel}/>
+													<button type="button" className="btn btn-green" onClick={this.submitTransaction.bind(this, transaction)}>
+														{btnConfirmLabel}
+													</button>
 												</td>
 												<td>
-													<input type="button" className="btn btn-default" value={btnEditLabel}/>
+													<button type="button" className="btn btn-default">
+														{btnEditLabel}
+													</button>
 												</td>
 											</tr>
 										</tbody>
