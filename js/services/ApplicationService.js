@@ -117,7 +117,23 @@ class applicationService {
 			}
 		}
 		return isValid;
-	};
+	}
+
+	/**
+	 * check if string is a valid JSON
+	 *
+	 * @param str
+	 * @returns {boolean}
+	 * @constructor
+	 */
+	IsJsonString(str) {
+		try {
+			JSON.parse(str);
+		} catch (e) {
+			return false;
+		}
+		return true;
+	}
 
 }
 

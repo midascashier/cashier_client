@@ -97,7 +97,7 @@ let _customer = {
 		this.password = data.password;
 		this.currency = data.currency;
 		this.currencySymbol = data.currencySymbol;
-		this.balance = Math.round(data.balance*100)/100;
+		this.balance = Math.round(data.balance * 100) / 100;
 		this.balanceBP = data.balanceBP;
 		this.lang = data.lang;
 		this.personalInformation.level = data.vip;
@@ -134,7 +134,7 @@ let _company = {
 	companyId: 0,
 	companyName: '',
 	phone: '',
-	companyLabel: [],
+	companyLabel: {},
 	load(data){
 		this.companyId = data.companyId;
 		this.companyName = data.name;
@@ -276,7 +276,7 @@ let _payAccounts = [];
 
 /**
  * Stores information of the transaction
- * 
+ *
  * @type {{amount: string, fee: number, feeType: string, bonusId: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, timeFrameDay: null, timeFrameTime: null, dobMonth: number, dobDay: number, dobYear: number, ssn: string, cleanTransaction: (function())}}
  * @private
  */
@@ -403,6 +403,18 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
+	 * save data from cashier in localstorage
+	 *
+	 * @param name
+	 * @param obj
+	 */
+	storeData: (name, obj) =>{
+		if(typeof Storage !== "undefined"){
+			localStorage.setItem(name, JSON.stringify(obj));
+		}
+	},
+
+	/**
 	 * Return current processor steps
 	 */
 	getCurrentProcessorSteps: () =>{
@@ -522,6 +534,17 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getServerTime: () =>{
 		return _UI.serverTime;
+	},
+
+	restoreSession: (name, obj) =>{
+		switch(name){
+			case "application":
+				_application = obj;
+				break;
+			case "ui":
+				_UI = obj;
+				break;
+		}
 	}
 
 });
@@ -537,6 +560,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.LOGIN_RESPONSE:
 			_UI.currentView = data.option;
 			_application.sid = data.sid;
+			CashierStore.storeData("application", _application);
+			CashierStore.storeData("ui", _UI);
 			CashierStore.emitChange();
 			break;
 
@@ -577,7 +602,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			let states = data.response.states;
 			if(states){
 				_UI.countryStates[countryInfo.Small] = states;
-			}else{
+			} else{
 				_UI.countryStates[countryInfo.Small] = {};
 			}
 			_UI.countryInfo[countryInfo.Small] = countryInfo;
@@ -693,6 +718,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.CHANGE_TRANSACTION_AMOUNT:
 			_transaction.amount = data.amount;
 			CashierStore.emitChange();
+			break;
+
+		case actions.RESTORE_SESSION:
+			CashierStore.restoreSession(data.name, data.obj);
 			break;
 
 		case actions.PROCESSOR_FEES_RESPONSE:

@@ -1,5 +1,6 @@
 import React from 'react'
 import { CustomerService } from './../services/CustomerService'
+import { CashierStore } from './../stores/CashierStore'
 
 let Client = React.createClass({
 
@@ -8,7 +9,10 @@ let Client = React.createClass({
 	 * here the component listen changes from the store
 	 */
 	componentDidMount() {
-		CustomerService.startConnection();
+		let app = CashierStore.getApplication();
+		if(!app.sid){
+			CustomerService.startConnection();
+		}
 	},
 
 	render() {

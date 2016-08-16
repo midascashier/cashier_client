@@ -167,7 +167,10 @@ let VisaConfirm = React.createClass({
 	render(){
 		let personalData = this.state.info.payAccount.personal;
 		let secureData = this.state.info.payAccount.secure;
-		let CCMask = secureData.account.replace(/\d(?=\d{4})/g, "*");
+		let CCMask;
+		if (secureData.account){
+			CCMask = secureData.account.replace(/\d(?=\d{4})/g, "*");
+		}
 		let addressData = this.state.info.payAccount.address;
 		let isEditMode = this.state.info.editMode;
 
