@@ -1,12 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router'
 import { Info } from './headerComponents/Info'
 import { translate } from '../constants/Translate'
 import { CashierStore } from '../stores/CashierStore'
-import { CustomerService } from './../services/CustomerService'
-import { UIService } from './../services/UIService'
 import { LoadingSpinner } from './loading/LoadingSpinner'
 import { TransactionPendingMTCN } from '../components/contentComponents/TransactionPendingMTCN'
+import { CustomerService } from './../services/CustomerService'
 
 let PendingControlNumber = React.createClass({
 
@@ -60,11 +58,7 @@ let PendingControlNumber = React.createClass({
 	render() {
 
 		let pendingP2PTransactions = this.state.transactions;
-		let isWithdraw = UIService.getIsWithDraw();
-		let customerOpt = "DEPOSIT";
-		if (isWithdraw == 1 ){
-			customerOpt = "WITHDRAW";
-		}
+
 		return (
 			<div id="pendingControlNumber">
 				<Info />
@@ -72,19 +66,15 @@ let PendingControlNumber = React.createClass({
 					<div className="row">
 						<div className="col-sm-12">
 							<div className="modules">
-								<div className="title">Pending Control Numbers</div>
+								<div className="title">{translate('PENDING_MTCN', 'Pending Control Numbers')}</div>
 
 								{(() =>{
-									if(pendingP2PTransactions.length == 0){
-										return <LoadingSpinner/>
+									if(pendingP2PTransactions && pendingP2PTransactions.length > 0){
+										return <TransactionPendingMTCN/>
 									}else {
-										return <TransactionPendingMTCN transactions={pendingP2PTransactions}/>
+										return <LoadingSpinner/>
 									}
 								})()}
-
-								<Link to={"/"+customerOpt.toLowerCase()+"/"}>
-									<button type="button" className="btn btn-green">{translate(customerOpt)}</button>
-								</Link>
 
 							</div>
 						</div>

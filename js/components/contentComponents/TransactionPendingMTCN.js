@@ -1,15 +1,39 @@
 import React from 'react'
+import { Link } from 'react-router'
 import { translate } from '../../constants/Translate'
 import { Input } from '../../components/Inputs'
+import { CashierStore } from '../../stores/CashierStore'
+import { UIService } from '../../services/UIService'
+import { ApplicationService } from '../../services/ApplicationService'
+import { TransactionService } from '../../services/TransactionService'
 
 let TransactionPendingMTCN = React.createClass({
 
-	propTypes: {
-		transactions: React.PropTypes.array
+	/**
+	 * React function to set component initial state
+	 *
+	 * @returns {*|{transactions}|{transactions: Array}}
+	 */
+	getInitialState(){
+		return this.refreshLocalState();
 	},
 
 	/**
-	 * component is ready
+	 * this function sets and return object with local states
+	 *
+	 * @returns {{transactions: Array}}
+	 */
+	refreshLocalState() {
+		let customer = CashierStore.getCustomer();
+		let lastTransactions = customer.pendingP2PTransactions;
+		return {
+			transactions: lastTransactions
+		}
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
 	 */
 	componentDidMount() {
 		CashierStore.addChangeListener(this._onChange);
@@ -23,12 +47,29 @@ let TransactionPendingMTCN = React.createClass({
 	},
 
 	/**
-	 * refresh the state when changes occur
+	 * this is the callback function the store calls when a state change
 	 *
 	 * @private
 	 */
 	_onChange() {
 		this.setState(this.refreshLocalState());
+	},
+
+	/**
+	 *
+	 * @param transactionId
+	 * @param attribute
+	 * @param value
+	 * @returns {boolean}
+	 */
+	changeValue(transactionId, attribute, value){
+		const transactions = this.state.transactions;
+		const transaction = transactions[transactionId];
+
+		transaction[attribute] = value;
+		transactions[transactionId] = transaction;
+		this.setState({transactions: transactions});
+		return true;
 	},
 
 	/**
@@ -41,9 +82,15 @@ let TransactionPendingMTCN = React.createClass({
 	},
 
 	render() {
-		let transactions = this.props.transactions;
+		let transactions = this.state.transactions;
+		let isWithdraw = UIService.getIsWithDraw();
+		let customerOpt = "DEPOSIT";
+		if (isWithdraw == 1 ){
+			customerOpt = "WITHDRAW";
+		}
+
 		return (
-			<div>
+			<div id="controlNumberList" className="mtcn scroll">
 				{(() =>{
 					if(transactions){
 
@@ -76,18 +123,18 @@ let TransactionPendingMTCN = React.createClass({
 							}
 
 							tables.push(
-								<div key={i} className=" table-responsive" id="TransactionPendingMTCN">
-									<table className="table table-striped">
+								<div key={i} id={"transactionPendingMTCN" + transactionId} className="table-responsive">
+									<table className="table table-striped mtcn-table">
 										<tbody>
 											<tr>
-												<th colSpan="4">{senderLabel}: {transaction.PAFirstName + ' ' + transaction.PALastName}</th>
+												<th colSpan="4">{senderLabel}: <span>{transaction.PAFirstName + ' ' + transaction.PALastName}</span></th>
 												<th colSpan="1">{transaction.CardType}</th>
 											</tr>
 											<tr>
-												<th colSpan="5">{receiverLabel}: {transaction.Name}</th>
+												<th colSpan="5">{receiverLabel}: <span>{transaction.Name}</span></th>
 											</tr>
 											<tr>
-												<th colSpan="5">{destinationLabel}: {transaction.Country + ', ' + transaction.State}</th>
+												<th colSpan="5">{destinationLabel}: <span>{transaction.Country + ', ' + transaction.State}</span></th>
 											</tr>
 											<tr>
 												<td><strong>{controlNumberLabel}</strong></td>
@@ -98,13 +145,13 @@ let TransactionPendingMTCN = React.createClass({
 											</tr>
 											<tr id={"transaction" + transactionId}>
 												<td>
-													<Input type="text" id="controlNumber" value={controlNumber} maxlength={digits} placeholder={digits + ' ' + digitsLabel}/>
+													<Input type="text" id="controlNumber" value={controlNumber} minLength={digits} maxLength={digits} placeholder={digits + ' ' + digitsLabel} onChange={this.changeValue.bind(this, transactionId, 'ControlNumber')} required/>
 												</td>
 												<td>
-													<Input type="number" id="amount" value={currencyAmount}/>
+													<Input type="number" id="amount" value={currencyAmount} onChange={this.changeValue.bind(this, transactionId, 'CurrencyAmount')} min="0" step="0.1" required/>
 												</td>
 												<td>
-													<Input type="number" id="fee" value={currencyFee}/>
+													<Input type="number" id="fee" value={currencyFee} onChange={this.changeValue.bind(this, transactionId, 'CurrencyFee')} min="0" step="1" required/>
 												</td>
 												<td>
 													<button type="button" className="btn btn-green" onClick={this.submitTransaction.bind(this, transaction)}>
@@ -112,7 +159,7 @@ let TransactionPendingMTCN = React.createClass({
 													</button>
 												</td>
 												<td>
-													<button type="button" className="btn btn-default">
+													<button type="button" className="btn btn-green">
 														{btnEditLabel}
 													</button>
 												</td>
@@ -127,6 +174,10 @@ let TransactionPendingMTCN = React.createClass({
 						return (<p>No records!</p>)
 					}
 				})()}
+
+				<Link to={"/"+customerOpt.toLowerCase()+"/"}>
+					<button type="button" className="btn btn-green">{translate(customerOpt)}</button>
+				</Link>
 			</div>
 		)
 	}
