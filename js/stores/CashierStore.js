@@ -47,7 +47,7 @@ let _application = {
 /**
  * Customer Data
  *
- * @type {{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: Array, load: (function(*))}}
+ * @type {{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, currency: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: Array, load: (function(*))}}
  * @private
  */
 let _customer = {
@@ -58,6 +58,7 @@ let _customer = {
 	username: '',
 	password: '',
 	currencySymbol: '',
+	currency: '',
 	balance: '',
 	balanceBP: '',
 	lang: '',
@@ -584,7 +585,14 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.CUSTOMER_TRANSACTIONS_PENDING_MTCN_RESPONSE:
-			_customer.pendingP2PTransactions = data.response.P2PNames;
+			let p2ptransactions = [];
+			if(data.response && data.response.P2PNames){
+				let p2pNames = data.response.P2PNames;
+				p2pNames.forEach((transaction)=>{
+					p2ptransactions[transaction.caTransaction_Id] = transaction;
+				});
+			}
+			_customer.pendingP2PTransactions = p2ptransactions;
 			CashierStore.emitChange();
 			break;
 
@@ -702,9 +710,13 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE:
-			data.response.processorMinMaxLimits.currencyMax = Math.ceil(data.response.processorMinMaxLimits.currencyMax);
-			data.response.processorMinMaxLimits.currencyMin = Math.ceil(data.response.processorMinMaxLimits.currencyMin);
-			_processor.limits = data.response.processorMinMaxLimits;
+			if(data.response){
+				data.response.processorMinMaxLimits.currencyMax = Math.ceil(data.response.processorMinMaxLimits.currencyMax);
+				data.response.processorMinMaxLimits.currencyMin = Math.ceil(data.response.processorMinMaxLimits.currencyMin);
+				_processor.limits = data.response.processorMinMaxLimits;
+			}else{
+				_processor.limits = {currencyMin: 0, currencyMax: 0, currencyCode: _customer.currency};
+			}
 			CashierStore.emitChange();
 			break;
 

@@ -23,7 +23,7 @@ let TransactionHistoryContent = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 *
-	 * @returns {{transactions: {}}}
+	 * @returns {{transactions: Array}}
 	 */
 	refreshLocalState() {
 		let customer = CashierStore.getCustomer();
@@ -77,7 +77,7 @@ let TransactionHistoryContent = React.createClass({
 									if(transactionHistory.length == 0){
 										return <LoadingSpinner/>
 									}else {
-										return <TransactionHistory transactions={transactionHistory}/>
+										return <TransactionHistory/>
 									}
 								})()}
 
