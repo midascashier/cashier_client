@@ -286,6 +286,7 @@ let _transaction = {
 	fee: 0,
 	feeType: '',
 	bonusId: 0,
+	secondFactorAuth: 0,
 	bitcoinAddress: '',
 	checkTermsAndConditions: 0,
 	controlNumber: '',
@@ -295,14 +296,20 @@ let _transaction = {
 	dobDay: 1,
 	dobYear: 1970,
 	ssn: '',
+	hash: '',
+	isCodeValid: 0,
+	secondFactorMessage: '',
 	cleanTransaction(){
 		this.amount = "";
 		this.fee = 0;
 		this.bitcoinAddress = "";
 		this.feeType = "";
 		this.bonusId = 0;
+		this.secondFactorAuth = 0;
 		this.checkTermsAndConditions = 0;
 		this.timeFrameDay = null;
+		this.isCodeValid = 0;
+		this.secondFactorMessage = "";
 		this.timeFrameTime = null;
 	}
 };
@@ -711,8 +718,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				data.response.processorMinMaxLimits.currencyMax = Math.ceil(data.response.processorMinMaxLimits.currencyMax);
 				data.response.processorMinMaxLimits.currencyMin = Math.ceil(data.response.processorMinMaxLimits.currencyMin);
 				_processor.limits = data.response.processorMinMaxLimits;
-			}else{
-				_processor.limits = {currencyMin: 0, currencyMax: 0, currencyCode: _customer.currency};
+			} else{
+				_processor.limits = { currencyMin: 0, currencyMax: 0, currencyCode: _customer.currency };
 			}
 			CashierStore.emitChange();
 			break;
@@ -838,6 +845,21 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 		case actions.GET_PACIFIC_TIME_HOUR_RESPONSE:
 			_UI.serverTime = data.response.currentHour;
+			CashierStore.emitChange();
+			break;
+
+		case actions.SEND_TRANSACTION_TOKEN_RESPONSE:
+			if (data.response && data.response.hash){
+				_transaction.hash = data.response.hash;
+			}else{
+				_transaction.secondFactorMessage = data.userMessage;
+			}
+			CashierStore.emitChange();
+			break;
+
+		case actions.VERIFY_TRANSACTION_TOKEN_RESPONSE:
+			_transaction.isCodeValid = data.response.verified;
+			_transaction.secondFactorMessage = data.response.reasonMessage;
 			CashierStore.emitChange();
 			break;
 

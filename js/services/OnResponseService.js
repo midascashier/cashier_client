@@ -9,7 +9,6 @@ import actions from '../constants/Actions'
  */
 class OnResponseService {
 	processResponse(action, data){
-
 		CashierActions.responses(action, data);
 
 		switch(action){

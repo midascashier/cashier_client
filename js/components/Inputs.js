@@ -92,21 +92,44 @@ let Input = React.createClass({
 			require = 1;
 		}
 
+		let disabled = false;
+		if(typeof this.props.disabled != "undefined"){
+			disabled = true;
+		}
+
 		return (
 			<div>
-				<input
-					className="form-control"
-					type={this.props.type || 'text'}
-					name={this.props.name}
-					id={this.props.id}
-					placeholder={this.props.placeholder || ''}
-					minLength={this.props.minLength || ''}
-					maxLength={this.props.maxLength || ''}
-					onChange={this.changeHandler}
-					value={this.props.value}
-					data-isValid={this.state.isValid}
-					data-isRequired={require}
-				/>
+
+				{(() =>{
+					if(!disabled){
+						return <input
+							className="form-control"
+							type={this.props.type || 'text'}
+							name={this.props.name}
+							id={this.props.id}
+							placeholder={this.props.placeholder || ''}
+							onChange={this.changeHandler}
+							value={this.props.value}
+							data-isValid={this.state.isValid}
+							data-isRequired={require}
+						/>
+					}else{
+						return <input
+							className="form-control"
+							type={this.props.type || 'text'}
+							name={this.props.name}
+							id={this.props.id}
+							disabled
+							placeholder={this.props.placeholder || ''}
+							onChange={this.changeHandler}
+							value={this.props.value}
+							data-isValid={this.state.isValid}
+							data-isRequired={require}
+						/>
+					}
+				})()}
+
+
 				{(() =>{
 					if(this.props.validate && !this.state.isValid && this.props.value){
 						return <div>{this.state.errorMessage}</div>

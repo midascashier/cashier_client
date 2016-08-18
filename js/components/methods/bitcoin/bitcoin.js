@@ -44,11 +44,26 @@ let BitCoin = React.createClass({
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState() {
+		let bitcoinAddress = "";
+		if(this.state){
+			if(this.state.info.bitcoinAddress != ""){
+				bitcoinAddress = this.state.info.bitcoinAddress;
+			}
+		}
+
+		let allowContinueToConfirm = false;
+		if(this.state){
+			if(this.state.info.allowContinueToConfirm){
+				allowContinueToConfirm = true;
+			}
+		}
+
 		return {
 			info: {
 				selectedProcessor: CashierStore.getProcessor(),
-				bitcoinAddress: "",
-				allowContinueToConfirm: false
+				transaction: CashierStore.getTransaction(),
+				bitcoinAddress: bitcoinAddress,
+				allowContinueToConfirm: allowContinueToConfirm
 			}
 		}
 	},
@@ -92,6 +107,8 @@ let BitCoin = React.createClass({
 									 feeCheck={this.props.feeCheck}
 									 changeValue={this.changeValue}
 									 bitcoinAddress={this.state.info.bitcoinAddress}
+									 allowContinueToConfirm={this.state.info.allowContinueToConfirm}
+									 transaction={this.state.info.transaction}
 					/>
 				</div>
 				<div className="col-sm-6">
