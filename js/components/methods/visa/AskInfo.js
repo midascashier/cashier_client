@@ -89,13 +89,11 @@ let AskInfo = React.createClass({
 											}
 										})()}
 
-										<div className="form-group">
-											{(() =>{
-												if((payAccount.extra.dob == null || payAccount.extra.ssn == null) && payAccountId != null){
-													return <ExtraInfo changeValue={changeValue} ssn={ssn} dobMonth={dobMonth} dobDay={dobDay} dobYear={dobYear}/>
-												}
-											})()}
-										</div>
+										{(() =>{
+											if((payAccount.extra.dob == null || payAccount.extra.ssn == null) && payAccountId != null){
+												return <ExtraInfo changeValue={changeValue} ssn={ssn} dobMonth={dobMonth} dobDay={dobDay} dobYear={dobYear}/>
+											}
+										})()}
 
 										{(() =>{
 											if(payAccountId != 0){
