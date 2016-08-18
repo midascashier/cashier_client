@@ -136,67 +136,64 @@ let Register = React.createClass({
 			return (
 				<form onSubmit={this.addNewPayAccount}>
 					<div id="p2pRegister">
-						<div className="form-group">
-							<label for="" className="control-label">{translate('P2P_FIRST_NAME', 'First Name')}:</label>
-							<Input type="text" id="firstName" ref="firstName" validate="isString" require
-										 onChange={this.changeValue.bind(null, 'firstName', 0)}
-										 value={this.state.payAccount.firstName}/>
-						</div>
-						<div className="form-group">
-							<label for="" className="control-label">{translate('P2P_LAST_NAME', 'Last Name')}:</label>
-							<Input type="text" id="lastName" ref="lastName" validate="isString" require
-										 onChange={this.changeValue.bind(null, 'lastName', 0)}
-										 value={this.state.payAccount.lastName}/>
-						</div>
 
 						<div className="form-group">
-							<div className="row">
-								<div className="col-sm-6">
-									<div className="form-group">
-										<label for="" className="control-label">{translate('P2P_COUNTRY', 'Country')}:</label>
-										<select className="form-control" id="country" value={this.state.payAccount.country}
-														onChange={this.changeValue.bind(null, 'country',1)}>
-											{countryOptionNodes}
-										</select>
-									</div>
-								</div>
-								<div className="col-sm-6">
-									<label for="" className="control-label">{translate('P2P_STATE', 'State')}:</label>
-									<select className="form-control" id="countryState" onChange={this.changeValue.bind(null, 'state',1)} disabled={!states.length}>
-										{stateOptionNodes}
-									</select>
-								</div>
+							<label className="col-sm-4 control-label">{translate('P2P_FIRST_NAME', 'First Name')}:</label>
+							<div className="col-sm-8">
+								<Input type="text" id="firstName" ref="firstName" validate="isString" onChange={this.changeValue.bind(null, 'firstName', 0)} value={this.state.payAccount.firstName} require/>
 							</div>
 						</div>
 
 						<div className="form-group">
-							<div className="row">
-								<div className="col-sm-6">
-									<label for="" className="control-label">{translate('P2P_CITY', 'City')}:</label>
-									<Input type="text" id="city" ref="city" validate="isString" require
-												 onChange={this.changeValue.bind(null, 'city', 0)}
-												 value={this.state.payAccount.city}/>
-								</div>
-								<div className="col-sm-6">
-									<label for="" className="control-label">{translate('P2P_PHONE', 'Phone')}:</label>
-									<Input type="text" id="phone" ref="phone" validate="isNumber" require
-												 onChange={this.changeValue.bind(null, 'phone', 0)}
-												 value={this.state.payAccount.phone}/>
-								</div>
+							<label className="col-sm-4 control-label">{translate('P2P_LAST_NAME', 'Last Name')}:</label>
+							<div className="col-sm-8">
+								<Input type="text" id="lastName" ref="lastName" validate="isString" onChange={this.changeValue.bind(null, 'lastName', 0)} value={this.state.payAccount.lastName} require/>
 							</div>
 						</div>
 
 						<div className="form-group">
-							<label for="" className="control-label">{translate('P2P_EMAIL', 'Email')}:</label>
-							<Input type="email" id="email" ref="email" validate="isEmail" require
-										 onChange={this.changeValue.bind(null, 'email', 0)}
-										 value={this.state.payAccount.email}/>
-						</div>
-						<div className="form-group">
-							<div className="row">
-								{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>Save</button> : null }
+							<label className="col-sm-4 control-label">{translate('P2P_COUNTRY', 'Country')}:</label>
+							<div className="col-sm-8">
+								<select className="form-control" id="country" value={this.state.payAccount.country} onChange={this.changeValue.bind(null, 'country',1)}>
+									{countryOptionNodes}
+								</select>
 							</div>
 						</div>
+
+						<div className="form-group">
+							<label className="col-sm-4 control-label">{translate('P2P_STATE', 'State')}:</label>
+							<div className="col-sm-8">
+								<select className="form-control" id="countryState" onChange={this.changeValue.bind(null, 'state',1)} disabled={!states.length}>
+									{stateOptionNodes}
+								</select>
+							</div>
+						</div>
+
+						<div className="form-group">
+							<label className="col-sm-4 control-label">{translate('P2P_CITY', 'City')}:</label>
+							<div className="col-sm-8">
+								<Input type="text" id="city" ref="city" validate="isString" onChange={this.changeValue.bind(null, 'city', 0)} value={this.state.payAccount.city} require/>
+							</div>
+						</div>
+
+						<div className="form-group">
+							<label className="col-sm-4 control-label">{translate('P2P_PHONE', 'Phone')}:</label>
+							<div className="col-sm-8">
+								<Input type="text" id="phone" ref="phone" validate="isNumber" onChange={this.changeValue.bind(null, 'phone', 0)} value={this.state.payAccount.phone} require/>
+							</div>
+						</div>
+
+						<div className="form-group">
+							<label className="col-sm-4 control-label">{translate('P2P_EMAIL', 'Email')}:</label>
+							<div className="col-sm-8">
+								<Input type="email" id="email" ref="email" validate="isEmail" onChange={this.changeValue.bind(null, 'email', 0)} value={this.state.payAccount.email} require/>
+							</div>
+						</div>
+
+						<div className="form-group">
+							{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>Save</button> : null }
+						</div>
+
 					</div>
 				</form>
 			)

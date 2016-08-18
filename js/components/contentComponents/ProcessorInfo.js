@@ -46,6 +46,7 @@ let ProcessorInfo = React.createClass({
 		let originPath = UIService.getOriginPath();
 		let isWithDraw = UIService.getIsWithDraw();
 		let processorDisplayName = this.props.selectedProcessor.displayName;
+		let processorClass = this.props.selectedProcessor.processorClass;
 
 		let minProcessorLimit = this.getMinProcessorLimit();
 		let maxProcessorLimit = this.getMaxProcessorLimit();
@@ -63,7 +64,7 @@ let ProcessorInfo = React.createClass({
 		});
 
 		return (
-			<div id="infoLimits">
+			<div id="processorInfo">
 				<p>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></p>
 				<div className="row">
 					<div className="col-sm-12">
@@ -93,11 +94,13 @@ let ProcessorInfo = React.createClass({
 							<div className="col-sm-6"></div>
 							<div className="col-sm-6">
 								{(() =>{
-									return (
-										<Link to={`/pendingControlNumber/`}>
-											<p>Enter Pending Control Numbers</p>
-										</Link>
-									)
+									if(processorClass == 23 && !isWithDraw){
+										return (
+											<Link to={`/pendingControlNumber/`}>
+												<p>{translate('PENDING_MTCN', 'Enter Pending Control Numbers')}</p>
+											</Link>
+										)
+									}
 								})()}
 							</div>
 							<div className="col-sm-6">

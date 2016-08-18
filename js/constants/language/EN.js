@@ -99,8 +99,10 @@ let _langTags = {
 	PROCESSING_AMOUNT: "Amount",
 	PROCESSING_MIN: "Min.",
 	PROCESSING_MAX: "Max.",
+	PROCESSING_BALANCE: "Balance",
 	PROCESSING_FEE: "Fee",
 	PROCESSING_FEE_TYPE_OPTIONS: "Pay the fees with",
+	PROCESSING_FEE_ENOUGH_BALANCE: "You don't have enough balance to cover the required fees",
 	//Transaction
 	TRANSACTION_AMOUNT: "Amount",
 	TRANSACTION_FEE_TYPE_CASH: "Cash",
