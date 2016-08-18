@@ -32,22 +32,21 @@ let AmountController = React.createClass({
 		}
 		return (
 			<div id="amountController">
-				<label>{translate('PROCESSING_AMOUNT', 'Amount')}:</label>
-				<input className="form-control" type="number" autoComplete="off" id="amount" name="amount" onChange={this.changeValue}
-							 value={this.props.amount}
-							 min="0" required/>
-				<span>{translate('PROCESSING_MIN', 'Min')}: {limits.minAmount}
-					- {translate('PROCESSING_MAX', 'Max')}: {limits.maxAmount}</span><br/>
-				{(() =>{
-					if(!limitsOK && this.props.amount != ""){
-						return (
-							<div className="alert alert-danger" role="alert">
-								<i className="fa fa-thumbs-o-down red"></i>
-								<strong>{limitsErrorMsg}</strong>
-							</div>
-						)
-					}
-				})()}
+				<label className="col-sm-4 control-label">{translate('PROCESSING_AMOUNT', 'Amount')}:</label>
+				<div className="col-sm-8">
+					<input className="form-control" type="number" autoComplete="off" id="amount" name="amount" onChange={this.changeValue} value={this.props.amount} min="0" required/>
+					<span>{translate('PROCESSING_MIN', 'Min')}: {limits.minAmount} - {translate('PROCESSING_MAX', 'Max')}: {limits.maxAmount}</span><br/>
+					{(() =>{
+						if(!limitsOK && this.props.amount != ""){
+							return (
+								<div className="alert alert-danger" role="alert">
+									<i className="fa fa-thumbs-o-down red"></i>
+									<strong>{limitsErrorMsg}</strong>
+								</div>
+							)
+						}
+					})()}
+				</div>
 			</div>
 		)
 	}

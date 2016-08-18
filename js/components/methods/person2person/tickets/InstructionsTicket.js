@@ -62,6 +62,13 @@ let P2PTicketPending = React.createClass({
 	},
 
 	/**
+	 * send the customer to select the processor again
+	 */
+	setFirstStep() {
+		UIService.setFirstStep();
+	},
+
+	/**
 	 * this function sends submit transaction to cashier
 	 *
 	 */
@@ -141,7 +148,7 @@ let P2PTicketPending = React.createClass({
 											<div className="title">{translate('P2P_INSTRUCTIONS_RECEIVER', "Receiver's Information")}</div>
 											<div className="infoCol">
 												<div className="row">
-													<p><a>{translate('P2P_INSTRUCTIONS_GET_RECEIVER', "Get New Receiver")}</a></p>
+													<p><a onClick={this.setFirstStep}>{translate('P2P_INSTRUCTIONS_GET_RECEIVER', "Get New Receiver")}</a></p>
 												</div>
 												<div className="row">
 													<ul>

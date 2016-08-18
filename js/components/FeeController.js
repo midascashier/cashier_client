@@ -70,28 +70,35 @@ let FeeController = React.createClass({
 		let customer = CashierStore.getCustomer();
 		let options = [];
 		if(fees.enableFree == 1){ options.push(UIService.renderOption({ label: "Free" }, "Free")) }
-		if(fees.enableBP == 1){ options.push(UIService.renderOption({ label: "Betpoints" }, "Betpoints")) }
+		if(fees.enableBP == 1){ options.push(UIService.renderOption({ label: "Betpoints" }, "BetPoints")) }
 		if(fees.enableCash == 1){ options.push(UIService.renderOption({ label: "Cash" }, "Cash")) }
 		return (
-			<div>
+			<div id="feeController">
 				{(() =>{
 					if(fees.enableBP == 1 || fees.enableFree == 1 || fees.enableCash == 1){
 						return (
-							<div>
-								<label for="" className="control-label">{translate('PROCESSING_FEE', 'Fee')}:</label>
-								<select className="form-control" onChange={this.transactionFee}>{options}</select>
-								Fee: {this.props.feeCashValue} - Balance: {Math.round(customer.balance * 100) / 100}
-							</div>)
+							<div id="feeSelection">
+								<label className="col-sm-4 control-label">{translate('PROCESSING_FEE', 'Fee')}:</label>
+								<div className="col-sm-8">
+									<select className="form-control" onChange={this.transactionFee}>
+										{options}
+									</select>
+									{translate('PROCESSING_FEE', 'Fee')}: {this.props.feeCashValue} - {translate('PROCESSING_BALANCE', 'Balance')}: {Math.round(customer.balance * 100) / 100}
+								</div>
+							</div>
+						)
 					}
 				})()}
 				{(() =>{
 					if(this.props.feeCheck && this.props.amount != ""){
 						return (
+							<div className="col-sm-8">
 								<div className="alert alert-danger" role="alert">
 									<i className="fa fa-thumbs-o-down red"></i>
-									<strong>You don't have enough balance to cover the required fees</strong>
+									<strong>{translate('PROCESSING_FEE_ENOUGH_BALANCE')}</strong>
 								</div>
-							)
+							</div>
+						)
 					}
 				})()}
 			</div>

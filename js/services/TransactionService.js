@@ -379,30 +379,60 @@ class transactionService {
 
 	/**
 	 * this function sends submit transaction
+	 *
+	 * @param p2pTransaction [optional]
 	 */
-	processSubmit(){
+	processSubmit(p2pTransaction = null){
 
-		let processorSelected = CashierStore.getProcessor();
-		let payAccountSelected = CashierStore.getCurrentPayAccount();
-		let transaction = CashierStore.getTransaction();
-		let transactionResponse = CashierStore.getLastTransactionResponse();
+		let p2pRequest = {};
+		if(!p2pTransaction){
+			let processorSelected = CashierStore.getProcessor();
+			let payAccountSelected = CashierStore.getCurrentPayAccount();
+			let transaction = CashierStore.getTransaction();
+			let transactionResponse = CashierStore.getLastTransactionResponse();
 
-		let p2pRequest = {
-			f: "p2pSendMTCN",
-			id: transactionResponse.transactionId,
-			amount: transaction.amount,
-			fee: transaction.fee,
-			controlNumber: transaction.controlNumber,
-			bonusId: 0,
-			processorId: processorSelected.processorId,
-			payAccountId: payAccountSelected.payAccountId,
-			firstName: payAccountSelected.personal.firstName,
-			lastName: payAccountSelected.personal.lastName,
-			country: payAccountSelected.address.country,
-			state: payAccountSelected.address.state,
-			city: payAccountSelected.address.city,
-			phone: payAccountSelected.personal.phone
-		};
+			p2pRequest = {
+				f: "p2pSendMTCN",
+				id: transactionResponse.transactionId,
+				amount: transaction.amount,
+				fee: transaction.fee,
+				controlNumber: transaction.controlNumber,
+				bonusId: 0,
+				processorId: processorSelected.processorId,
+				payAccountId: payAccountSelected.payAccountId,
+				firstName: payAccountSelected.personal.firstName,
+				lastName: payAccountSelected.personal.lastName,
+				country: payAccountSelected.address.country,
+				state: payAccountSelected.address.state,
+				city: payAccountSelected.address.city,
+				phone: payAccountSelected.personal.phone,
+				email: payAccountSelected.personal.email
+			};
+
+		}else{
+
+			this.setAmount(p2pTransaction.CurrencyAmount);
+			this.setFeeAmount(p2pTransaction.CurrencyFee);
+			this.setControlNumber(p2pTransaction.ControlNumber);
+
+			p2pRequest = {
+				f: "p2pSendMTCN",
+				id: p2pTransaction.caTransaction_Id,
+				amount: p2pTransaction.CurrencyAmount,
+				fee: p2pTransaction.CurrencyFee,
+				controlNumber: p2pTransaction.ControlNumber,
+				bonusId: 0,
+				processorId: p2pTransaction.caProcessor_Id_Root,
+				payAccountId: p2pTransaction.caPayAccount_Id,
+				firstName: p2pTransaction.PAFirstName,
+				lastName: p2pTransaction.PALastName,
+				country: p2pTransaction.PACountry,
+				state: p2pTransaction.PAState,
+				city: p2pTransaction.PACity,
+				phone: p2pTransaction.PAPhone,
+				email: p2pTransaction.PAEmail
+			};
+		}
 
 		let rabbitRequest = assign(this.getProxyRequest(), p2pRequest);
 

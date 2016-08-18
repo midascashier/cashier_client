@@ -36,8 +36,6 @@ let AskInfo = React.createClass({
 		let feeCashValue = this.props.feeCashValue;
 		let serverTime = this.props.timeFrameTime;
 		let isWithDraw = UIService.getIsWithDraw();
-		let originPath = UIService.getOriginPath();
-		let displayName = UIService.getProcessorDisplayName();
 		let processingTitle = (!isWithDraw) ? translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P') : translate('PROCESSING_WITHDRAW_INFORMATION_TITLE_P2P');
 		let selectType = (!isWithDraw) ? translate('P2P_SELECT_DEPOSIT') : translate('P2P_SELECT_WITHDRAW');
 		let deleteButton = (!isWithDraw) ? translate('PROCESSING_BUTTON_DELETE_SENDER') : translate('PROCESSING_BUTTON_DELETE_RECEIVER');
@@ -63,51 +61,46 @@ let AskInfo = React.createClass({
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="title">{processingTitle}</div>
-						<div className="infoCol">
+						<div className="infoCol scroll">
 							<div className="row">
-								<div className="col-sm-3">
-									<div className="method active pull-left">
-										<img className="img-responsive" src={originPath + '/images/processors/16.png'}
-												 title={displayName}/>
-									</div>
-								</div>
-								<div className="col-sm-9">
-									<div className="form-group" id="payAccount">
-										<label className="control-label">{selectType}:</label>
-										{(() =>{
-											if(payAccountId != 0){
-												return (
-													<div id="selectPayAccount">
-														<SelectPayAccount setAmount={setAmount} amount={amount}/>
-														<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
-															{deleteButton}
-														</button>
-													</div>
-												)
-											} else{
-												return (
-													<div id="payAccounts">
-														<SelectPayAccount setAmount={setAmount} amount={amount}/>
-													</div>
-												)
-											}
-										})()}
 
-										{(() =>{
-											if(payAccountId == 0){
-												return <Register />
-											}
-										})()}
-									</div>
-									<div className="form-group">
-										{(() =>{
-											if(payAccountId != 0 && !isWithDraw){
-												return (
-													<div id="timeFrame">
-														<label
-															className="control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
-														<div className="col-sm-6">
-															<div className="form-group">
+								<div className="col-sm-12">
+									<div className="form-horizontal">
+										<div className="form-group" id="payAccount">
+											<label className="col-sm-4 control-label">{selectType}:</label>
+											{(() =>{
+												if(payAccountId != 0){
+													return (
+														<div className="col-sm-8" id="selectPayAccount">
+															<SelectPayAccount setAmount={setAmount} amount={amount}/>
+															<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+																{deleteButton}
+															</button>
+														</div>
+													)
+												} else{
+													return (
+														<div className="col-sm-8" id="payAccounts">
+															<SelectPayAccount setAmount={setAmount} amount={amount}/>
+														</div>
+													)
+												}
+											})()}
+										</div>
+										<div>
+											{(() =>{
+												if(payAccountId == 0){
+													return <Register />
+												}
+											})()}
+										</div>
+										<div className="form-group">
+											{(() =>{
+												if(payAccountId != 0 && !isWithDraw){
+													return (
+														<div id="timeFrame">
+															<label className="col-sm-4 control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
+															<div className="col-sm-4">
 																<select className="form-control"
 																				value={this.props.timeFrameDay}
 																				onChange={this.props.timeFrameDayChange}>
@@ -115,43 +108,47 @@ let AskInfo = React.createClass({
 																	<option value="TOMORROW">{translate('P2P_TIME_FRAME_TOMORROW', 'Tomorrow')}</option>
 																</select>
 															</div>
-														</div>
-														<div className="col-sm-6">
-															<div className="form-group">
-																<select className="form-control"
-																				value={this.props.timeFrameTime}
-																				onChange={this.props.timeFrameTimeChange}>
+															<div className="col-sm-4">
+																<select className="form-control" value={this.props.timeFrameTime} onChange={this.props.timeFrameTimeChange}>
 																	{selectHours}
 																</select>
 															</div>
 														</div>
+													)
+												}
+											})()}
+										</div>
+
+										{(() =>{
+											if(payAccountId != 0){
+												return (
+													<div className="form-group">
+														<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 													</div>
 												)
 											}
 										})()}
 
 										{(() =>{
-											if(payAccountId != 0){
-												return <AmountController setAmount={setAmount} amount={amount}
-																								 limitsCheck={limitsCheck}/>
+											if(isWithDraw && payAccountId != 0){
+												return (
+													<div className="form-group">
+														<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
+													</div>
+												)
 											}
 										})()}
 
 										{(() =>{
-											if(isWithDraw && payAccountId != 0){
-												return <FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>;
+											if(!isWithDraw){
+												return (
+													<p><em>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></em></p>
+												)
 											}
 										})()}
 									</div>
-
-									{(() =>{
-										if(!isWithDraw){
-											return (
-												<p><em>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></em></p>
-											)
-										}
-									})()}
 								</div>
+
 							</div>
 						</div>
 					</div>

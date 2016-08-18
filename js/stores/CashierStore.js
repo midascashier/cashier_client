@@ -589,14 +589,14 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.CUSTOMER_TRANSACTIONS_PENDING_MTCN_RESPONSE:
-			let p2ptransactions = [];
+			let p2pTransactions = [];
 			if(data.response && data.response.P2PNames){
 				let p2pNames = data.response.P2PNames;
 				p2pNames.forEach((transaction)=>{
-					p2ptransactions[transaction.caTransaction_Id] = transaction;
+					p2pTransactions[transaction.caTransaction_Id] = transaction;
 				});
 			}
-			_customer.pendingP2PTransactions = p2ptransactions;
+			_customer.pendingP2PTransactions = p2pTransactions;
 			CashierStore.emitChange();
 			break;
 

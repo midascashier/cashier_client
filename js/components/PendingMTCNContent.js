@@ -1,10 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router'
 import { Info } from './headerComponents/Info'
 import { translate } from '../constants/Translate'
 import { CashierStore } from '../stores/CashierStore'
 import { LoadingSpinner } from './loading/LoadingSpinner'
 import { TransactionPendingMTCN } from '../components/contentComponents/TransactionPendingMTCN'
 import { CustomerService } from './../services/CustomerService'
+import { UIService } from './../services/UIService'
 
 let PendingControlNumber = React.createClass({
 
@@ -58,6 +60,11 @@ let PendingControlNumber = React.createClass({
 	render() {
 
 		let pendingP2PTransactions = this.state.transactions;
+		let isWithdraw = UIService.getIsWithDraw();
+		let customerOpt = "DEPOSIT";
+		if (isWithdraw == 1 ){
+			customerOpt = "WITHDRAW";
+		}
 
 		return (
 			<div id="pendingControlNumber">
@@ -71,8 +78,18 @@ let PendingControlNumber = React.createClass({
 								{(() =>{
 									if(pendingP2PTransactions && pendingP2PTransactions.length > 0){
 										return <TransactionPendingMTCN/>
-									}else {
+									}else{
 										return <LoadingSpinner/>
+									}
+								})()}
+
+								{(() =>{
+									if(!pendingP2PTransactions || pendingP2PTransactions.length == 0){
+										return (
+											<Link to={"/"+customerOpt.toLowerCase()+"/"}>
+												<button type="button" className="btn btn-green">{translate(customerOpt)}</button>
+											</Link>
+										)
 									}
 								})()}
 
