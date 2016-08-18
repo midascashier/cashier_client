@@ -100,7 +100,6 @@ let InfoMethod = React.createClass({
 		if(isWithDraw){
 			allowContinueToConfirm = this.props.allowContinueToConfirm;
 		}
-
 		let secondFactor = this.state.transaction.isCodeValid;
 
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);

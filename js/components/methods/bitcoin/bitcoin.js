@@ -50,12 +50,20 @@ let BitCoin = React.createClass({
 				bitcoinAddress = this.state.info.bitcoinAddress;
 			}
 		}
+
+		let allowContinueToConfirm = false;
+		if(this.state){
+			if(this.state.info.allowContinueToConfirm){
+				allowContinueToConfirm = true;
+			}
+		}
+
 		return {
 			info: {
 				selectedProcessor: CashierStore.getProcessor(),
 				transaction: CashierStore.getTransaction(),
 				bitcoinAddress: bitcoinAddress,
-				allowContinueToConfirm: false
+				allowContinueToConfirm: allowContinueToConfirm
 			}
 		}
 	},

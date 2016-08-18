@@ -145,7 +145,7 @@ let SecondFactor = React.createClass({
 					})()}
 
 					{(() =>{
-						if(verifyMsg != ""){
+						if(verifyMsg!=null && verifyMsg != ""){
 							return <div className="alert alert-danger" role="alert">
 								<i class="fa fa-thumbs-o-down red"></i>
 								<strong>{verifyMsg}</strong>
