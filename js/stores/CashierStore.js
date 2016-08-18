@@ -285,6 +285,7 @@ let _transaction = {
 	fee: 0,
 	feeType: '',
 	bonusId: 0,
+	secondFactorAuth: 0,
 	bitcoinAddress: '',
 	checkTermsAndConditions: 0,
 	controlNumber: '',
@@ -294,12 +295,14 @@ let _transaction = {
 	dobDay: 1,
 	dobYear: 1970,
 	ssn: '',
+	hash: '',
 	cleanTransaction(){
 		this.amount = "";
 		this.fee = 0;
 		this.bitcoinAddress = "";
 		this.feeType = "";
 		this.bonusId = 0;
+		this.secondFactorAuth = 0;
 		this.checkTermsAndConditions = 0;
 		this.timeFrameDay = null;
 		this.timeFrameTime = null;
@@ -826,6 +829,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 		case actions.GET_PACIFIC_TIME_HOUR_RESPONSE:
 			_UI.serverTime = data.response.currentHour;
+			CashierStore.emitChange();
+			break;
+
+		case actions.SEND_TRANSACTION_TOKEN_RESPONSE:
+			_transaction.hash = data.response.hash;
 			CashierStore.emitChange();
 			break;
 

@@ -47,6 +47,7 @@ let BitCoin = React.createClass({
 		return {
 			info: {
 				selectedProcessor: CashierStore.getProcessor(),
+				transaction: CashierStore.getTransaction(),
 				bitcoinAddress: "",
 				allowContinueToConfirm: false
 			}
@@ -92,6 +93,8 @@ let BitCoin = React.createClass({
 									 feeCheck={this.props.feeCheck}
 									 changeValue={this.changeValue}
 									 bitcoinAddress={this.state.info.bitcoinAddress}
+									 allowContinueToConfirm={this.state.info.allowContinueToConfirm}
+									 transaction={this.state.info.transaction}
 					/>
 				</div>
 				<div className="col-sm-6">

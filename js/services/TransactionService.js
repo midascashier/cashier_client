@@ -92,6 +92,30 @@ class transactionService {
 	};
 
 	/**
+	 * Request transaction Token
+	 */
+	sendTransactionToken(phone){
+		let randomTuid = Math.floor(Math.random() * 1000000000);
+
+		let data = {
+			f: "sendTransactionToken", phone: phone
+		};
+
+		let application = CashierStore.getApplication();
+
+		let rabbitRequest = Object.assign(data, application);
+		rabbitRequest.tuid = randomTuid;
+		stompConnector.makeTransactionRequest("", rabbitRequest);
+	};
+
+	/**
+	 * Verify is token is valid
+	 */
+	verifyTransactionToken(){
+
+	};
+
+	/**
 	 * Function to get processor fees configuration
 	 */
 	getProcessorFeesConfiguration(){

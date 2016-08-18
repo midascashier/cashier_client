@@ -4,6 +4,7 @@ import { Input } from '../../Inputs'
 import { AmountController } from '../../AmountController'
 import { UIService } from '../../../services/UIService'
 import { FeeController } from '../../FeeController'
+import { SecondFactor } from '../../SecondFactor'
 
 let AskInfo = React.createClass({
 
@@ -16,7 +17,8 @@ let AskInfo = React.createClass({
 		btcAmount: React.PropTypes.node,
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
-		bitcoinAddress: React.PropTypes.string
+		bitcoinAddress: React.PropTypes.string,
+		transaction: React.PropTypes.object
 	},
 
 	render() {
@@ -76,12 +78,18 @@ let AskInfo = React.createClass({
 											}
 										})()}
 
-
 										{(() =>{
 											if(isWithDraw){
 												return <FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>;
 											}
 										})()}
+
+										{(() =>{
+											if(isWithDraw){
+												return <SecondFactor transaction={this.props.transaction} limitsCheck={limitsCheck} allowContinueToConfirm={this.props.allowContinueToConfirm}/>
+											}
+										})()}
+
 									</div>
 
 									{(() =>{
