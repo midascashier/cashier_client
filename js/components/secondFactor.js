@@ -25,7 +25,10 @@ let SecondFactor = React.createClass({
 		 */
 		refreshLocalState() {
 			return {
-				customer: CashierStore.getCustomer()
+				info: {
+					customer: CashierStore.getCustomer(),
+					code: ""
+				}
 			}
 		},
 
@@ -33,7 +36,7 @@ let SecondFactor = React.createClass({
 		 * Request transaction Token
 		 */
 		sendTransactionToken(){
-			TransactionService.sendTransactionToken(this.state.customer.personalInformation.phone);
+			TransactionService.sendTransactionToken(this.state.info.customer.personalInformation.phone);
 		},
 
 		/**
@@ -41,7 +44,8 @@ let SecondFactor = React.createClass({
 		 */
 		verifyTransactionToken()
 		{
-			TransactionService.verifyTransactionToken();
+			let token = this.state.info.code;
+			TransactionService.verifyTransactionToken(token);
 		},
 
 		/**
@@ -50,23 +54,20 @@ let SecondFactor = React.createClass({
 		 * @param event
 		 */
 		changeValue(propertyName, event){
-			let actualState = this.state;
 
-			let value = event;
+			let actualState = this.state.info;
 
-			/*if(isSelectComponent){
-				value = value.target.value;
+			if(propertyName == "phone"){
+				actualState.customer.personalInformation.phone = event;
 			}
 
-			if(propertyName == 'country'){
-				UIService.getCountryStates(value);
+			if(propertyName == "code"){
+				actualState.code = event;
 			}
-
-			actualState.payAccount[propertyName] = value;
 
 			this.setState(
 				actualState
-			);*/
+			);
 
 		},
 
@@ -77,9 +78,9 @@ let SecondFactor = React.createClass({
 			if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
 				limitsCheck = true;
 			}
-
+			let verifyMsg = this.props.transaction.secondFactorMessage;
 			let allowContinueToConfirm = this.props.allowContinueToConfirm;
-			let customerPersonalInfo = this.state.customer.personalInformation;
+			let customerPersonalInfo = this.state.info.customer.personalInformation;
 			let phoneCountryCode = customerPersonalInfo.countryPhoneCode;
 			let phone = customerPersonalInfo.phone.replace(/\d(?=\d{4})/g, "*");
 			let isNextDisabled = "disabled";
@@ -108,12 +109,13 @@ let SecondFactor = React.createClass({
 						{(() =>{
 							if(phoneDisabled == "disabled"){
 								return (
-									<Input className="form-control" type="text" onChange={this.changeValue.bind(null, 'phone')} id="customerPhone" name="customerPhone" value={phone}
+									<Input className="form-control" type="text" id="customerPhone" name="customerPhone" value={phone}
 												 disabled readonly/>
 								)
 							} else{
 								return (
-									<Input className="form-control" onChange={this.changeValue.bind(null, 'code')} type="text" id="customerPhone" name="customerPhone" value={phone}/>
+									<Input className="form-control" onChange={this.changeValue.bind(null, 'phone')} type="text"
+												 id="customerPhone" name="customerPhone" value={phone}/>
 								)
 							}
 						})()}
@@ -134,13 +136,22 @@ let SecondFactor = React.createClass({
 						} else{
 							return (
 								<div>
-									<Input className="form-control" type="text" id="verificationCode" name="verificationCode"/>
-									<button>{translate('SECOND_FACTOR_VERIFY_CODE')}</button>
+									<Input className="form-control" type="text" validate="isNumber" id="verificationCode"
+												 onChange={this.changeValue.bind(null, 'code')} name="verificationCode"/>
+									<button onClick={this.verifyTransactionToken}>{translate('SECOND_FACTOR_VERIFY_CODE')}</button>
 								</div>
 							)
 						}
 					})()}
 
+					{(() =>{
+						if(verifyMsg != ""){
+							return <div className="alert alert-danger" role="alert">
+								<i class="fa fa-thumbs-o-down red"></i>
+								<strong>{verifyMsg}</strong>
+							</div>
+						}
+					})()}
 					<br />
 				</div>
 			)

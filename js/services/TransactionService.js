@@ -111,8 +111,19 @@ class transactionService {
 	/**
 	 * Verify is token is valid
 	 */
-	verifyTransactionToken(){
+	verifyTransactionToken(token){
 
+		let transaction = CashierStore.getTransaction();
+		let hash = transaction.hash;
+
+		let data = {
+			f: "verifyTransactionToken", token: token, hash: hash
+		};
+
+		let application = CashierStore.getApplication();
+
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeTransactionRequest("", rabbitRequest);
 	};
 
 	/**

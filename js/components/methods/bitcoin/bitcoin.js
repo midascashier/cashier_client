@@ -44,11 +44,17 @@ let BitCoin = React.createClass({
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState() {
+		let bitcoinAddress = "";
+		if(this.state){
+			if(this.state.info.bitcoinAddress != ""){
+				bitcoinAddress = this.state.info.bitcoinAddress;
+			}
+		}
 		return {
 			info: {
 				selectedProcessor: CashierStore.getProcessor(),
 				transaction: CashierStore.getTransaction(),
-				bitcoinAddress: "",
+				bitcoinAddress: bitcoinAddress,
 				allowContinueToConfirm: false
 			}
 		}

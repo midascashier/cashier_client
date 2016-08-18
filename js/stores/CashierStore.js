@@ -297,6 +297,8 @@ let _transaction = {
 	dobYear: 1970,
 	ssn: '',
 	hash: '',
+	isCodeValid: 0,
+	secondFactorMessage: '',
 	cleanTransaction(){
 		this.amount = "";
 		this.fee = 0;
@@ -306,6 +308,8 @@ let _transaction = {
 		this.secondFactorAuth = 0;
 		this.checkTermsAndConditions = 0;
 		this.timeFrameDay = null;
+		this.isCodeValid = 0;
+		this.secondFactorMessage = "";
 		this.timeFrameTime = null;
 	}
 };
@@ -714,8 +718,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				data.response.processorMinMaxLimits.currencyMax = Math.ceil(data.response.processorMinMaxLimits.currencyMax);
 				data.response.processorMinMaxLimits.currencyMin = Math.ceil(data.response.processorMinMaxLimits.currencyMin);
 				_processor.limits = data.response.processorMinMaxLimits;
-			}else{
-				_processor.limits = {currencyMin: 0, currencyMax: 0, currencyCode: _customer.currency};
+			} else{
+				_processor.limits = { currencyMin: 0, currencyMax: 0, currencyCode: _customer.currency };
 			}
 			CashierStore.emitChange();
 			break;
@@ -845,7 +849,17 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.SEND_TRANSACTION_TOKEN_RESPONSE:
-			_transaction.hash = data.response.hash;
+			if (data.response && data.response.hash){
+				_transaction.hash = data.response.hash;
+			}else{
+				_transaction.secondFactorMessage = data.userMessage;
+			}
+			CashierStore.emitChange();
+			break;
+
+		case actions.VERIFY_TRANSACTION_TOKEN_RESPONSE:
+			_transaction.isCodeValid = data.response.verified;
+			_transaction.secondFactorMessage = data.response.reasonMessage;
 			CashierStore.emitChange();
 			break;
 

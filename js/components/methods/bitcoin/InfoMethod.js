@@ -48,7 +48,8 @@ let InfoMethod = React.createClass({
 	refreshLocalState() {
 		return {
 			processor: CashierStore.getProcessor(),
-			currentPayAccount: CashierStore.getCurrentPayAccount()
+			currentPayAccount: CashierStore.getCurrentPayAccount(),
+			transaction: CashierStore.getTransaction()
 		}
 	},
 
@@ -67,7 +68,6 @@ let InfoMethod = React.createClass({
 	setFirstStep() {
 		UIService.setFirstStep();
 	},
-
 
 	/**
 	 * this function sends deposit info to cashier
@@ -100,6 +100,9 @@ let InfoMethod = React.createClass({
 		if(isWithDraw){
 			allowContinueToConfirm = this.props.allowContinueToConfirm;
 		}
+
+		let secondFactor = this.state.transaction.isCodeValid;
+
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
 		let currentView = UIService.getCurrentView().toUpperCase();
@@ -110,8 +113,14 @@ let InfoMethod = React.createClass({
 		});
 
 		let isNextDisabled = "disabled";
-		if(payAccountInfo.payAccountId && limitsCheck && !feeCheck && allowContinueToConfirm){
-			isNextDisabled = "";
+		if(isWithDraw){
+			if(payAccountInfo.payAccountId && limitsCheck && !feeCheck && allowContinueToConfirm && secondFactor == 1){
+				isNextDisabled = "";
+			}
+		} else{
+			if(payAccountInfo.payAccountId && limitsCheck && allowContinueToConfirm){
+				isNextDisabled = "";
+			}
 		}
 
 		return (
