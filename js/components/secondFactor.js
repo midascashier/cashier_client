@@ -42,6 +42,7 @@ let SecondFactor = React.createClass({
 			let actualState = this.state.info;
 			TransactionService.startSecondFactorProcess();
 			actualState.requestedCode = true;
+			actualState.verifyCodeSent = false;
 			this.setState(
 				actualState
 			);

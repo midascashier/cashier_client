@@ -870,6 +870,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 		case actions.START_SECOND_FACTOR:
 			_transaction.secondFactorMaxAttempts = false;
+			_transaction.secondFactorMessage = "";
+			CashierStore.emitChange();
 			break;
 
 		default:
