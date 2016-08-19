@@ -29,7 +29,7 @@ let SecondFactor = React.createClass({
 				info: {
 					customer: CashierStore.getCustomer(),
 					code: "",
-					requestedCode: true,
+					requestedCode: false,
 					verifyCodeSent: false
 				}
 			}
@@ -40,7 +40,8 @@ let SecondFactor = React.createClass({
 		 */
 		sendTransactionToken(){
 			let actualState = this.state.info;
-			actualState.requestedCode = false;
+			TransactionService.startSecondFactorProcess();
+			actualState.requestedCode = true;
 			this.setState(
 				actualState
 			);
@@ -101,10 +102,13 @@ let SecondFactor = React.createClass({
 			let phoneCountryCode = customerPersonalInfo.countryPhoneCode;
 			let requestedCode = this.state.info.requestedCode;
 			let phone = customerPersonalInfo.phone.replace(/\d(?=\d{4})/g, "*");
-
+			let maxAttempts = this.props.transaction.secondFactorMaxAttempts;
+			if (maxAttempts){
+				requestedCode = false;
+			}
 
 			let isNextDisabled = "disabled";
-			if(limitsCheck && allowContinueToConfirm && typeof phone != "undefined" && phone != "" && hash == ""){
+			if(limitsCheck && allowContinueToConfirm && typeof phone != "undefined" && phone != "" && hash == "" && !requestedCode){
 				isNextDisabled = "";
 			}
 
@@ -150,7 +154,7 @@ let SecondFactor = React.createClass({
 						})()}
 				</span>
 					{(() =>{
-						if(!requestedCode && hash == "" && (verifyMsg == null || verifyMsg == "")){
+						if(requestedCode && hash == ""){
 							return (<img src={originPath + '/images/loader-xs_17x17.gif'}/>)
 						}
 

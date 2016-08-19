@@ -98,7 +98,13 @@ let CashierActions = {
 			action: actions.RESTORE_SESSION,
 			data: { name: objName, obj}
 		});
-	}
+	},
+
+	startSecondFactorProcess: () => {
+	CashierDispatcher.dispatch({
+		action: actions.START_SECOND_FACTOR,
+	});
+},
 
 };
 

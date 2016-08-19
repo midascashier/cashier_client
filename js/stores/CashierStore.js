@@ -299,6 +299,7 @@ let _transaction = {
 	hash: '',
 	isCodeValid: 0,
 	secondFactorMessage: '',
+	secondFactorMaxAttempts: false,
 	cleanTransaction(){
 		this.amount = "";
 		this.fee = 0;
@@ -860,10 +861,15 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.VERIFY_TRANSACTION_TOKEN_RESPONSE:
 			if (data.response.reason == cashier.SECOND_FACTOR_MAX_ATTEMPTS_REACHED){
 				_transaction.hash = "";
+				_transaction.secondFactorMaxAttempts = true;
 			}
 			_transaction.isCodeValid = data.response.verified;
 			_transaction.secondFactorMessage = data.response.reasonMessage;
 			CashierStore.emitChange();
+			break;
+
+		case actions.START_SECOND_FACTOR:
+			_transaction.secondFactorMaxAttempts = false;
 			break;
 
 		default:

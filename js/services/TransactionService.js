@@ -127,6 +127,13 @@ class transactionService {
 	};
 
 	/**
+	 * Change max attempts to star over
+	 */
+	startSecondFactorProcess(){
+		CashierActions.startSecondFactorProcess();
+	};
+
+	/**
 	 * Function to get processor fees configuration
 	 */
 	getProcessorFeesConfiguration(){
