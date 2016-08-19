@@ -114,6 +114,7 @@ let _langTags = {
 	NETELLER: "Neteller",
 	NETELLER_ACCOUNT: "Cuenta de Neteller",
 	NETELLER_SECURE: "2FA o ID de Seguridad",
+	NETELLER_NEW: "Ingrese su cuenta de Neteller",
 	BITCOIN: "BitCoin",
 	BITCOIN_INSTRUCTIONS: "Envíenos sus BitCoin's",
 	BITCOIN_INSTRUCTIONS_INFO: "Sus fondos deben estar disponibles dentro de los 30 minutos después de hacer su transferencia.",
