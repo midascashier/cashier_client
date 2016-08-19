@@ -4,6 +4,7 @@ import { CashierStore } from '../stores/CashierStore'
 import { Input } from './Inputs'
 import Cashier from '../constants/Cashier'
 import { TransactionService } from '../services/TransactionService'
+import { UIService } from '../services/UIService'
 
 let SecondFactor = React.createClass({
 
@@ -27,7 +28,9 @@ let SecondFactor = React.createClass({
 			return {
 				info: {
 					customer: CashierStore.getCustomer(),
-					code: ""
+					code: "",
+					requestedCode: true,
+					verifyCodeSent: false
 				}
 			}
 		},
@@ -36,6 +39,11 @@ let SecondFactor = React.createClass({
 		 * Request transaction Token
 		 */
 		sendTransactionToken(){
+			let actualState = this.state.info;
+			actualState.requestedCode = false;
+			this.setState(
+				actualState
+			);
 			TransactionService.sendTransactionToken(this.state.info.customer.personalInformation.phone);
 		},
 
@@ -45,6 +53,11 @@ let SecondFactor = React.createClass({
 		verifyTransactionToken()
 		{
 			let token = this.state.info.code;
+			let actualState = this.state.info;
+			actualState.verifyCodeSent = true;
+			this.setState(
+				actualState
+			);
 			TransactionService.verifyTransactionToken(token);
 		},
 
@@ -79,13 +92,19 @@ let SecondFactor = React.createClass({
 				limitsCheck = true;
 			}
 			let verifyMsg = this.props.transaction.secondFactorMessage;
+			let hash = this.props.transaction.hash;
+			let isCodeValid = this.props.transaction.isCodeValid;
+			let originPath = UIService.getOriginPath();
+			let verifyCodeSent = this.state.info.verifyCodeSent;
 			let allowContinueToConfirm = this.props.allowContinueToConfirm;
 			let customerPersonalInfo = this.state.info.customer.personalInformation;
 			let phoneCountryCode = customerPersonalInfo.countryPhoneCode;
+			let requestedCode = this.state.info.requestedCode;
 			let phone = customerPersonalInfo.phone.replace(/\d(?=\d{4})/g, "*");
-			let isNextDisabled = "disabled";
 
-			if(limitsCheck && allowContinueToConfirm && typeof phone != "undefined" && phone != ""){
+
+			let isNextDisabled = "disabled";
+			if(limitsCheck && allowContinueToConfirm && typeof phone != "undefined" && phone != "" && hash == ""){
 				isNextDisabled = "";
 			}
 
@@ -94,9 +113,13 @@ let SecondFactor = React.createClass({
 				phoneDisabled = "";
 			}
 
-			let verifyCode = "disabled";
-			if(this.props.transaction != "" && this.props.transaction.hash != ""){
-				verifyCode = "";
+			let disableVerifyButton = true;
+			if(hash != ""){
+				disableVerifyButton = false;
+			}
+
+			if(isCodeValid == 1){
+				disableVerifyButton = true;
 			}
 
 			return (
@@ -105,12 +128,18 @@ let SecondFactor = React.createClass({
 					<label for="" className="control-label">{translate('SECOND_FACTOR_PHONE_CONFIMATION')}</label><br />
 					<label for=""
 								 className="control-label">{translate('SECOND_FACTOR_PHONE_REGISTERED')}</label>
-					<span>{phoneCountryCode}
+					<span>
 						{(() =>{
 							if(phoneDisabled == "disabled"){
 								return (
-									<Input className="form-control" type="text" id="customerPhone" name="customerPhone" value={phone}
-												 disabled readonly/>
+									<div className="row">
+										<div className="col-sm-6">
+											<Input className="form-control" type="text" id="phoneCountryCode" name="phoneCountryCode"
+														 value={phoneCountryCode} disabled readonly/>
+											<Input className="form-control" type="text" id="customerPhone" name="customerPhone" value={phone}
+														 disabled readonly/>
+										</div>
+									</div>
 								)
 							} else{
 								return (
@@ -120,17 +149,26 @@ let SecondFactor = React.createClass({
 							}
 						})()}
 				</span>
-					<button disabled={isNextDisabled}
+					{(() =>{
+						if(!requestedCode && hash == "" && (verifyMsg == null || verifyMsg == "")){
+							return (<img src={originPath + '/images/loader-xs_17x17.gif'}/>)
+						}
+
+						if(hash != ""){
+							return (<span>V</span>)
+						}
+
+					})()}
+					<button disabled={isNextDisabled} className="btn btn-green"
 									onClick={this.sendTransactionToken}>{translate('SECOND_FACTOR_REQUEST_CODE_BUTTON')}</button>
 					<br />
 					<label for="" className="control-label">{translate('SECOND_FACTOR_ENTER_CODE')}</label>
 
 					{(() =>{
-						if(verifyCode == "disabled"){
+						if(disableVerifyButton){
 							return (
 								<div>
 									<Input className="form-control" type="text" id="verificationCode" name="verificationCode" disabled/>
-									<button disabled>{translate('SECOND_FACTOR_VERIFY_CODE')}</button>
 								</div>
 							)
 						} else{
@@ -138,20 +176,39 @@ let SecondFactor = React.createClass({
 								<div>
 									<Input className="form-control" type="text" validate="isNumber" id="verificationCode"
 												 onChange={this.changeValue.bind(null, 'code')} name="verificationCode"/>
-									<button onClick={this.verifyTransactionToken}>{translate('SECOND_FACTOR_VERIFY_CODE')}</button>
 								</div>
 							)
 						}
 					})()}
 
 					{(() =>{
-						if(verifyMsg!=null && verifyMsg != ""){
+
+						if(verifyMsg != null && verifyMsg != "" && isCodeValid == 0){
+							return null;
+						}
+
+						if(verifyCodeSent && isCodeValid == 0){
+							return (<img src={originPath + '/images/loader-xs_17x17.gif'}/>)
+						}
+
+						if(isCodeValid == 1){
+							return (<span>V</span>)
+						}
+
+					})()}
+
+					{(() =>{
+						if(verifyMsg != null && verifyMsg != ""){
 							return <div className="alert alert-danger" role="alert">
 								<i class="fa fa-thumbs-o-down red"></i>
 								<strong>{verifyMsg}</strong>
 							</div>
 						}
 					})()}
+
+					<button className="btn btn-green" disabled={disableVerifyButton}
+									onClick={this.verifyTransactionToken}>{translate('SECOND_FACTOR_VERIFY_CODE')}</button>
+
 					<br />
 				</div>
 			)

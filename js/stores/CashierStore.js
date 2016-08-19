@@ -858,6 +858,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.VERIFY_TRANSACTION_TOKEN_RESPONSE:
+			if (data.response.reason == cashier.SECOND_FACTOR_MAX_ATTEMPTS_REACHED){
+				_transaction.hash = "";
+			}
 			_transaction.isCodeValid = data.response.verified;
 			_transaction.secondFactorMessage = data.response.reasonMessage;
 			CashierStore.emitChange();

@@ -132,7 +132,7 @@ let Input = React.createClass({
 
 				{(() =>{
 					if(this.props.validate && !this.state.isValid && this.props.value){
-						return <div>{this.state.errorMessage}</div>
+						return <div className="alert alert-danger" role="alert"><i class="fa fa-thumbs-o-down red"></i><span>{this.state.errorMessage}</span></div>
 					}
 				})()}
 			</div>
