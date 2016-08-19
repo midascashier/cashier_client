@@ -99,10 +99,12 @@ let SecondFactor = React.createClass({
 			let allowContinueToConfirm = this.props.allowContinueToConfirm;
 			let customerPersonalInfo = this.state.info.customer.personalInformation;
 			let phoneCountryCode = customerPersonalInfo.countryPhoneCode;
-			let requestCode = this.state.info.requestedCode;
+			let requestedCode = this.state.info.requestedCode;
 			let phone = customerPersonalInfo.phone.replace(/\d(?=\d{4})/g, "*");
+
+
 			let isNextDisabled = "disabled";
-			if(limitsCheck && allowContinueToConfirm && typeof phone != "undefined" && phone != "" && requestCode){
+			if(limitsCheck && allowContinueToConfirm && typeof phone != "undefined" && phone != "" && hash == ""){
 				isNextDisabled = "";
 			}
 
@@ -148,8 +150,8 @@ let SecondFactor = React.createClass({
 						})()}
 				</span>
 					{(() =>{
-						if(!requestCode && hash == ""){
-							return (<img src={originPath + '/images/loader-xs_17x17.gif'} />)
+						if(!requestedCode && hash == "" && (verifyMsg == null || verifyMsg == "")){
+							return (<img src={originPath + '/images/loader-xs_17x17.gif'}/>)
 						}
 
 						if(hash != ""){
@@ -186,7 +188,7 @@ let SecondFactor = React.createClass({
 						}
 
 						if(verifyCodeSent && isCodeValid == 0){
-							return (<img src={originPath + '/images/loader-xs_17x17.gif'} />)
+							return (<img src={originPath + '/images/loader-xs_17x17.gif'}/>)
 						}
 
 						if(isCodeValid == 1){
@@ -204,7 +206,8 @@ let SecondFactor = React.createClass({
 						}
 					})()}
 
-					<button className="btn btn-green" disabled={disableVerifyButton} onClick={this.verifyTransactionToken}>{translate('SECOND_FACTOR_VERIFY_CODE')}</button>
+					<button className="btn btn-green" disabled={disableVerifyButton}
+									onClick={this.verifyTransactionToken}>{translate('SECOND_FACTOR_VERIFY_CODE')}</button>
 
 					<br />
 				</div>
