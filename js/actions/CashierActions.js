@@ -79,33 +79,39 @@ let CashierActions = {
 		});
 	},
 
-	setBitcoinAddress: (data) => {
+	setBitcoinAddress: (data) =>{
 		CashierDispatcher.dispatch({
 			action: actions.SET_BITCOIN_ADDRESS,
 			data: { bitcoinaddress: data }
 		});
 	},
 
-	setDOBSSN: (param, value) => {
+	setDOBSSN: (param, value) =>{
 		CashierDispatcher.dispatch({
 			action: actions.SET_DOB_SSN,
 			data: { param: param, value: value }
 		});
 	},
 
-	restoreSession:(objName, obj) => {
+	restoreSession: (objName, obj) =>{
 		CashierDispatcher.dispatch({
 			action: actions.RESTORE_SESSION,
-			data: { name: objName, obj}
+			data: { name: objName, obj }
 		});
 	},
 
-	startSecondFactorProcess: () => {
-	CashierDispatcher.dispatch({
-		action: actions.START_SECOND_FACTOR,
-	});
-},
+	startSecondFactorProcess: () =>{
+		CashierDispatcher.dispatch({
+			action: actions.START_SECOND_FACTOR,
+		});
+	},
 
+	setTransactionRandomTuid: (tuid) =>{
+		CashierDispatcher.dispatch({
+			action: actions.SET_TUID,
+			data: { tuid: tuid }
+		});
+	}
 };
 
 module.exports.CashierActions = CashierActions;

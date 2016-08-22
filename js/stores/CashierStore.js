@@ -296,6 +296,7 @@ let _transaction = {
 	dobDay: 1,
 	dobYear: 1970,
 	ssn: '',
+	randomTuid: '',
 	hash: '',
 	isCodeValid: 0,
 	secondFactorMessage: '',
@@ -837,6 +838,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				_payAccount.updateSuccess = data.response.updateSuccess;
 			}
 			CashierStore.emitChange();
+			break;
+
+		case actions.SET_TUID:
+			_transaction.randomTuid = data.tuid;
 			break;
 
 		case actions.SET_DOB_SSN:

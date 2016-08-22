@@ -96,7 +96,8 @@ class transactionService {
 	 */
 	sendTransactionToken(phone){
 		let randomTuid = Math.floor(Math.random() * 1000000000);
-
+		CashierActions.setTransactionRandomTuid(randomTuid);
+		
 		let data = {
 			f: "sendTransactionToken", phone: phone
 		};
@@ -292,6 +293,8 @@ class transactionService {
 			processorId: processorSelected.processorId,
 			payAccountId: 0, //Bitcoin doesn't need payaccountID
 			amount: transaction.amount,
+			authHash: transaction.hash,
+			authUniqueId: transaction.randomTuid,
 			dynamicParams: dynamicParams
 		};
 		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
