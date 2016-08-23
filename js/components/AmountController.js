@@ -25,6 +25,10 @@ let AmountController = React.createClass({
 		let limits = UIService.getProcessorLimitMinMax();
 		let limitsErrorMsg;
 		let limitsOK = false;
+		let amountFieldDisable = true;
+		if (limits.minAmount && limits.maxAmount){
+			amountFieldDisable = false;
+		}
 		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS || this.props.limitsCheck == Cashier.LOADING){
 			limitsOK = true;
 		} else{
@@ -34,7 +38,7 @@ let AmountController = React.createClass({
 			<div id="amountController">
 				<label className="col-sm-4 control-label">{translate('PROCESSING_AMOUNT', 'Amount')}:</label>
 				<div className="col-sm-8">
-					<input className="form-control" type="number" autoComplete="off" id="amount" name="amount" onChange={this.changeValue} value={this.props.amount} min="0" required/>
+					<input className="form-control" type="number" autoComplete="off" disabled={amountFieldDisable} id="amount" name="amount" onChange={this.changeValue} value={this.props.amount} min="0" required/>
 					<span>{translate('PROCESSING_MIN', 'Min')}: {limits.minAmount} - {translate('PROCESSING_MAX', 'Max')}: {limits.maxAmount}</span><br/>
 					{(() =>{
 						if(!limitsOK && this.props.amount != ""){
