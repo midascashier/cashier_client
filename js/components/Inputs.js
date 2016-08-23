@@ -98,7 +98,7 @@ let Input = React.createClass({
 		}
 
 		return (
-			<div id={this.props.id + "Content"}>
+			<div id={this.props.id + "InputContent"}>
 				{(() =>{
 					if(!disabled){
 						return <input
@@ -128,10 +128,14 @@ let Input = React.createClass({
 					}
 				})()}
 
-
 				{(() =>{
 					if(this.props.validate && !this.state.isValid && this.props.value){
-						return <div className="alert alert-danger" role="alert"><i class="fa fa-thumbs-o-down red"></i><span>{this.state.errorMessage}</span></div>
+						return (
+							<div className="alert alert-danger" role="alert">
+								<i class="fa fa-thumbs-o-down red"></i>
+								<span>{this.state.errorMessage}</span>
+							</div>
+						)
 					}
 				})()}
 			</div>
