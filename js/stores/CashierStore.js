@@ -683,7 +683,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			let payAccounts_processor = {};
 			let payAccountTemp = Object.assign({}, _payAccount);
 			if(data.response && data.response.payAccounts){
-				data.response.payAccounts.forEach((payAccount)=>{
+				if (data.response.payAccounts[0].processorIdRoot == _processor.processorId){
+					data.response.payAccounts.forEach((payAccount)=>{
 					payAccount.limitsData.available = Math.floor(payAccount.limitsData.available);
 					payAccount.limitsData.availableWithdraw = Math.floor(payAccount.limitsData.availableWithdraw);
 					payAccount.limitsData.maxAmount = Math.floor(payAccount.limitsData.maxAmount);
@@ -713,6 +714,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			}
 			_payAccounts[_processor.processorId] = payAccounts_processor;
 			CashierStore.emitChange();
+	}
 			break;
 
 		case actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE:
