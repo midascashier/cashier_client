@@ -67,12 +67,14 @@ class transactionService {
 	 * Function to get pay account previous pay accounts
 	 */
 	getPreviousPayAccount(processorID){
-		let data = {
-			f: "getPayAccountsByCustomer", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
-		};
-		let application = CashierStore.getApplication();
-		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		if (processorID != cashier.PROCESSOR_ID_BITCOIN){
+			let data = {
+				f: "getPayAccountsByCustomer", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
+			};
+			let application = CashierStore.getApplication();
+			let rabbitRequest = Object.assign(data, application);
+			stompConnector.makeCustomerRequest("", rabbitRequest);
+		}
 	};
 
 	/**
