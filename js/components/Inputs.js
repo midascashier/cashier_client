@@ -98,8 +98,7 @@ let Input = React.createClass({
 		}
 
 		return (
-			<div>
-
+			<div id={this.props.id + "Content"}>
 				{(() =>{
 					if(!disabled){
 						return <input
@@ -136,7 +135,6 @@ let Input = React.createClass({
 					}
 				})()}
 			</div>
-
 		)
 	}
 });

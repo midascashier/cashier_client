@@ -183,7 +183,7 @@ let _langTags = {
 	PENDING_MTCN_FEE: "Fee",
 	PENDING_MTCN_DIGITS:"digits",
 	SECOND_FACTOR_INFO: "As a new security measure we are requesting 2 factor authentication every time you request a withdraw",
-	SECOND_FACTOR_PHONE_CONFIMATION: "Please confirm your phone number bellow and request your code when ready",
+	SECOND_FACTOR_PHONE_CONFIRMATION: "Please confirm your phone number bellow and request your code when ready",
 	SECOND_FACTOR_PHONE_REGISTERED: "Registered phone number",
 	SECOND_FACTOR_CODE: "Enter code here",
 	SECOND_FACTOR_REQUEST_CODE_BUTTON: "Request Code",

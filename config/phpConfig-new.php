@@ -29,6 +29,6 @@
 	/**
 	 * CompanyId
 	 */
-	const COMPANY_ID_POKER = '9';
+	const COMPANY_ID_POKER = '100';
 
 ?>
