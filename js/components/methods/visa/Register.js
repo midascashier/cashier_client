@@ -219,7 +219,7 @@ let Register = React.createClass({
 					</div>
 
 					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_FIRST_NAME', 'Last Name')}:</label>
+						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_LAST_NAME', 'Last Name')}:</label>
 						<div className="col-sm-8">
 							<Input type="text" id="lastName" ref="lastName" validate="isString" onChange={this.changeValue.bind(null, 'lastName', 0)} value={this.state.payAccount.lastName} require/>
 						</div>
