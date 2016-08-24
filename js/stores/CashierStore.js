@@ -683,26 +683,27 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			let payAccounts_processor = {};
 			let payAccountTemp = Object.assign({}, _payAccount);
 			if(data.response && data.response.payAccounts){
-				if (data.response.payAccounts[0].processorIdRoot == _processor.processorId){
+				if(data.response.payAccounts[0].processorIdRoot == _processor.processorId){
 					data.response.payAccounts.forEach((payAccount)=>{
-					payAccount.limitsData.available = Math.floor(payAccount.limitsData.available);
-					payAccount.limitsData.availableWithdraw = Math.floor(payAccount.limitsData.availableWithdraw);
-					payAccount.limitsData.maxAmount = Math.floor(payAccount.limitsData.maxAmount);
-					payAccount.limitsData.maxAmountWithdraw = Math.floor(payAccount.limitsData.maxAmountWithdraw);
-					payAccount.limitsData.minAmount = Math.ceil(payAccount.limitsData.minAmount);
-					payAccount.limitsData.minAmountWithdraw = Math.ceil(payAccount.limitsData.minAmountWithdraw);
-				});
-				let payAccounts = data.response.payAccounts;
-				if(payAccounts){
-					payAccounts.map((item, key) =>{
-						let payAccount = Object.assign({ key: key }, payAccountTemp);
-						payAccount.load(item);
-						payAccounts_processor[payAccount.payAccountId] = payAccount;
-						if(!firstPayAccount){
-							firstPayAccount = payAccount.payAccountId;
-						}
+						payAccount.limitsData.available = Math.floor(payAccount.limitsData.available);
+						payAccount.limitsData.availableWithdraw = Math.floor(payAccount.limitsData.availableWithdraw);
+						payAccount.limitsData.maxAmount = Math.floor(payAccount.limitsData.maxAmount);
+						payAccount.limitsData.maxAmountWithdraw = Math.floor(payAccount.limitsData.maxAmountWithdraw);
+						payAccount.limitsData.minAmount = Math.ceil(payAccount.limitsData.minAmount);
+						payAccount.limitsData.minAmountWithdraw = Math.ceil(payAccount.limitsData.minAmountWithdraw);
 					});
-					_payAccount = payAccounts_processor[firstPayAccount];
+					let payAccounts = data.response.payAccounts;
+					if(payAccounts){
+						payAccounts.map((item, key) =>{
+							let payAccount = Object.assign({ key: key }, payAccountTemp);
+							payAccount.load(item);
+							payAccounts_processor[payAccount.payAccountId] = payAccount;
+							if(!firstPayAccount){
+								firstPayAccount = payAccount.payAccountId;
+							}
+						});
+						_payAccount = payAccounts_processor[firstPayAccount];
+					}
 				}
 			}
 			let addPayAccountOption = Object.assign({}, _payAccount);
@@ -714,7 +715,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			}
 			_payAccounts[_processor.processorId] = payAccounts_processor;
 			CashierStore.emitChange();
-	}
 			break;
 
 		case actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE:
