@@ -27,12 +27,31 @@ let TransactionHistory = React.createClass({
 						if(transactions){
 							var rows = [];
 							transactions.map((transaction, i)=>{
+								let fontColor = "black";
+								switch (transaction.TransactionStatus.toLowerCase()){
+									case "failed":
+										fontColor="tomato";
+										break;
+									case "deferred":
+										fontColor="red";
+										break;
+									case "processing":
+										fontColor="coral";
+										break;
+									case "rejected":
+										fontColor="grey";
+										break;
+									case "pre-approved":
+										fontColor="aqua";
+										break;
+								}
+
 								rows.push(<tr key={i} className={transaction.TransactionStatus.toLowerCase()}>
 									<td>{transaction.DateTrans}</td>
 									<td>{translate('TRANSACTION_TYPE_ID_' + transaction.caTransactionType_Id, transaction.TransactionType)}</td>
 									<td>{transaction.Method}</td>
 									<td>{transaction.CurrencyAmount + ' ' + transaction.CurrencyCode}</td>
-									<td>{translate('TRANSACTION_STATUS_' + transaction.TransactionStatus.toUpperCase(), transaction.TransactionStatus)}</td>
+									<td><font color={fontColor}>{translate('TRANSACTION_STATUS_' + transaction.TransactionStatus.toUpperCase(), transaction.TransactionStatus)}</font></td>
 									<td>{transaction.Notes}</td>
 								</tr>);
 							});
