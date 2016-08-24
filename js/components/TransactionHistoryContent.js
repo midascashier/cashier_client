@@ -77,7 +77,7 @@ let TransactionHistoryContent = React.createClass({
 									if(transactionHistory.length == 0){
 										return <LoadingSpinner/>
 									}else {
-										return <TransactionHistory/>
+										return <TransactionHistory transactions={transactionHistory} />
 									}
 								})()}
 
