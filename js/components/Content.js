@@ -72,6 +72,13 @@ let Content = React.createClass({
 				available = limitsInfo.available;
 			}
 
+			if (!min && !max){
+				let limits = UIService.getProcessorLimitMinMax();
+				min = limits.minAmount;
+				max = limits.maxAmount;
+				available = true;
+			}
+
 			if(amount < min){
 				return Cashier.M_BELOW_MIN;
 			}
