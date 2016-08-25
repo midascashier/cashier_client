@@ -85,7 +85,6 @@ let SecondFactor = React.createClass({
 		let verifyMsg = this.props.transaction.secondFactorMessage;
 		let hash = this.props.transaction.hash;
 		let isCodeValid = this.props.transaction.isCodeValid;
-		let originPath = UIService.getOriginPath();
 		let verifyCodeSent = this.state.info.verifyCodeSent;
 		let allowContinueToConfirm = this.props.allowContinueToConfirm;
 		let customerPersonalInfo = this.state.info.customer.personalInformation;

@@ -76,7 +76,6 @@ let Content = React.createClass({
 				let limits = UIService.getProcessorLimitMinMax();
 				min = limits.minAmount;
 				max = limits.maxAmount;
-				available = true;
 			}
 
 			if(amount < min){
@@ -104,7 +103,7 @@ let Content = React.createClass({
 				}
 			}
 
-			if(amount == "" || !available || isNaN(max) || isNaN(min)){
+			if(amount == "" || isNaN(max) || isNaN(min)){
 				return Cashier.LOADING;
 			} else{
 				return Cashier.LIMIT_NO_ERRORS;
