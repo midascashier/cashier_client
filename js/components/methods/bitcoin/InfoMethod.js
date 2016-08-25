@@ -113,11 +113,11 @@ let InfoMethod = React.createClass({
 
 		let isNextDisabled = "disabled";
 		if(isWithDraw){
-			if(payAccountInfo.payAccountId && limitsCheck && !feeCheck && allowContinueToConfirm && secondFactor == 1){
+			if(limitsCheck && !feeCheck && allowContinueToConfirm && secondFactor == 1){
 				isNextDisabled = "";
 			}
 		} else{
-			if(payAccountInfo.payAccountId && limitsCheck && allowContinueToConfirm){
+			if(limitsCheck && allowContinueToConfirm){
 				isNextDisabled = "";
 			}
 		}
