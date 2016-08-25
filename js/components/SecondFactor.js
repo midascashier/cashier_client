@@ -4,12 +4,13 @@ import {CashierStore} from '../stores/CashierStore'
 import {Input} from './Inputs'
 import Cashier from '../constants/Cashier'
 import {TransactionService} from '../services/TransactionService'
-import {UIService} from '../services/UIService'
 
 let SecondFactor = React.createClass({
 
 	propTypes: {
-		limitsCheck: React.PropTypes.string, allowContinueToConfirm: React.PropTypes.bool, transaction: React.PropTypes.object
+		limitsCheck: React.PropTypes.string,
+		allowContinueToConfirm: React.PropTypes.bool,
+		transaction: React.PropTypes.object
 	},
 
 	/**
