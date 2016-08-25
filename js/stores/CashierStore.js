@@ -304,6 +304,8 @@ let _transaction = {
 	cleanTransaction(){
 		this.amount = "";
 		this.fee = 0;
+		this.hash = "";
+		this.randomTuid = "";
 		this.bitcoinAddress = "";
 		this.feeType = "";
 		this.bonusId = 0;
