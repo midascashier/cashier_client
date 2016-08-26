@@ -6,6 +6,7 @@
 </head>
 <body>
 <?php
+require_once('config/phpConfig.php');
 session_start();
 
 $cashierParams = array();
@@ -126,11 +127,11 @@ else
   <input type="hidden" id="atDeviceId" name="atDeviceId" value="">
   <input type="hidden" id="f" name="doLogin" value="1">
 </form>
+HTML;
 
+  $iovation = <<<IOVATION
     <!-- IOVATION -->
     <script src="https://mpsnare.iesnare.com/snare.js"></script>
-    <!-- ACUITYTEC -->
-    <script src="https://service1.acuitytec.com/detect/detect3.min.js"></script>
     <script>
 
         // IOVATION
@@ -153,7 +154,14 @@ else
               }
             }
         };
+    </script>
+IOVATION;
 
+
+  $auitytec = <<<ACUITYTEC
+    <!-- ACUITYTEC -->
+    <script src="https://service1.acuitytec.com/detect/detect3.min.js"></script>
+    <script>
         // ACUITYTEC
         var at_max_wait = 30;
         function receiveData(data){
@@ -181,9 +189,24 @@ else
         }, 100);
 
     </script>
-HTML;
-  
-  echo $html;
+ACUITYTEC;
+
+    echo $html;
+
+    if (SECURITY_IOVATION_ENABLE === true){
+        echo $iovation;
+    }
+    if (SECURITY_ACUITYTEC_ENABLE === true){
+        echo $auitytec;
+    }else{
+        echo '<script>
+            var login_form = document.getElementById("alForm");
+            if(login_form){
+                login_form.submit();
+            };
+        </script>
+        ';
+    }
 }
 
 ?>

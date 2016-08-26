@@ -34,16 +34,16 @@ let Input = React.createClass({
 	validateData(e){
 		let isValid;
 		if(!ApplicationService.validateInfo(e, this.props.validate)){
-			let errorMessage = " Invalid!";
+			let errorMessage = "Invalid Data";
 			switch(this.props.id){
 				case "ccName":
-					errorMessage = errorMessage + "Card Holder's Name";
+					errorMessage =  "Invalid Card Holder's Name";
 					break;
 				case "creditCardNumber":
-					errorMessage = errorMessage + "Credit Card";
+					errorMessage =  "Invalid Card Number";
 					break;
 				case "cvv":
-					errorMessage = errorMessage + "CVV";
+					errorMessage =  "CVV";
 					break
 			}
 			isValid = false;
