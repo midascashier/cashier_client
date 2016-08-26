@@ -26,14 +26,13 @@ $cashierParams["referrer"] = $_SESSION['referrer'];
 $cashierParams["xForwardedFor"] = "127.0.0.1";
 $cashierParams["sys_access_pass"] = "1";
 $cashierParams["format"] = "json";
-$cashierParams["companyId"] = 9;
+$cashierParams["companyId"] = COMPANY_ID_POKER;
 $cashierParams["XDEBUG_SESSION_START"] = "ECLIPSE_DBGP";
 
 if ($_SESSION['referrer']){
     $_SESSION['referrer'] = $_SERVER["HTTP_REFERER"];
 }
 
-require_once(__DIR__ . '/config/phpConfig.php');
 class login
 {
 
@@ -67,6 +66,8 @@ class login
     
     curl_setopt_array($curl, array(
       CURLOPT_RETURNTRANSFER => 1,
+      CURLOPT_SSL_VERIFYHOST => 0,
+      CURLOPT_SSL_VERIFYPEER => 0,
       CURLOPT_URL => $URL,
       CURLOPT_POST => 1,
       CURLOPT_USERAGENT => "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)",
