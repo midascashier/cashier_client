@@ -121,8 +121,8 @@ else
 {
   $html = <<<HTML
 <form id="alForm" action="/alDE.php" method="POST">
-  <input type="hidden" id="username" name="username" value="MidasBKR">
-  <input type="hidden" id="password" name="password" value="t3st0m1das">
+  <input type="hidden" id="username" name="username" value={$_REQUEST["username"]}>
+  <input type="hidden" id="password" name="password" value={$_REQUEST["password"]}>
   <input type="hidden" id="option" name="option" value={$_REQUEST["option"]}>
   <input type="hidden" id="ioBB" name="ioBB" value="">
   <input type="hidden" id="atDeviceId" name="atDeviceId" value="">
