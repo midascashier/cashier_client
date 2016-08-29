@@ -44,6 +44,12 @@ let TransactionHistory = React.createClass({
 									case "pre-approved":
 										fontColor="aqua";
 										break;
+									case "cancelled":
+										fontColor="navy";
+										break;
+									case "approved":
+										fontColor="green";
+										break;
 								}
 
 								rows.push(<tr key={i} className={transaction.TransactionStatus.toLowerCase()}>
