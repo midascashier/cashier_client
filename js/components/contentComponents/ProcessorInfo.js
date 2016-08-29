@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { translate } from '../../constants/Translate'
+import  Cashier  from '../../constants/Cashier'
 import { UIService } from '../../services/UIService'
 import { TransactionService } from '../../services/TransactionService'
 
@@ -94,7 +95,7 @@ let ProcessorInfo = React.createClass({
 							<div className="col-sm-6"></div>
 							<div className="col-sm-6">
 								{(() =>{
-									if(processorClass == 23 && !isWithDraw){
+									if(processorClass == Cashier.PROCESSOR_CLASS_ID_PERSON_2_PERSON && !isWithDraw){
 										return (
 											<Link to={`/pendingControlNumber/`}>
 												<p>{translate('PENDING_MTCN', 'Enter Pending Control Numbers')}</p>
