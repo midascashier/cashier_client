@@ -23,16 +23,25 @@ let Register = React.createClass({
 		refreshLocalState() {
 			let country = CashierStore.getSelectedCountry();
 			let states = UIService.getCountryStates();
+
+			let customer = CashierStore.getCustomer();
+
+			let firstName = customer.personalInformation.firstName ? customer.personalInformation.firstName : "";
+			let	lastName = customer.personalInformation.lastName ? customer.personalInformation.lastName : "";
+			let	city = customer.personalInformation.city ? customer.personalInformation.city : "";
+			let	email = customer.personalInformation.email ? customer.personalInformation.email : "";
+			let	phone = customer.personalInformation.phone ? customer.personalInformation.phone : "";
+
 			return {
 				displaySaveButton: true,
 				payAccount: {
-					firstName: "",
-					lastName: "",
+					firstName: firstName,
+					lastName: lastName,
 					country: country,
 					state: states[0]['Small'],
-					city: "",
-					phone: "",
-					email: ""
+					city: city,
+					phone: phone,
+					email: email
 				}
 			}
 		},
