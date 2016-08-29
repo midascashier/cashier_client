@@ -178,7 +178,6 @@ class UiService {
 		return CashierStore.getServerTime();
 	}
 
-
 	/**
 	 * get if is withdraw
 	 *
@@ -316,16 +315,18 @@ class UiService {
 	 */
 	selectProcessor(processorID){
 		let stepOption = ProcessorSettings.DEPOSIT_STEPS;
-		if(this.getIsWithDraw()){
-			stepOption = ProcessorSettings.WITHDRAW_STEPS;
+		if(stepOption){
+			if(this.getIsWithDraw()){
+				stepOption = ProcessorSettings.WITHDRAW_STEPS;
+			}
+			let stepsSetting = ProcessorSettings.settings[processorID][stepOption];
+			if(!stepsSetting){
+				stepsSetting = ProcessorSettings.settings[0][stepOption];
+			}
+			let processorSteps = stepsSetting;
+			CashierActions.selectProcessor(processorID, processorSteps, processorSteps[0]);
+			TransactionService.selectProcessor(processorID);
 		}
-		let stepsSetting = ProcessorSettings.settings[processorID][stepOption];
-		if(!stepsSetting){
-			stepsSetting = ProcessorSettings.settings[0][stepOption];
-		}
-		let processorSteps = stepsSetting;
-		CashierActions.selectProcessor(processorID, processorSteps, processorSteps[0]);
-		TransactionService.selectProcessor(processorID);
 	};
 
 	/**
