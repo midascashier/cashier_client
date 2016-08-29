@@ -25,6 +25,18 @@ let Register = React.createClass({
 		let currentTime = new Date();
 		let country = CashierStore.getSelectedCountry();
 		let states = UIService.getCountryStates();
+		let customer = CashierStore.getCustomer();
+
+		let firstName = customer.personalInformation.firstName ? customer.personalInformation.firstName : "";
+		let	lastName = customer.personalInformation.lastName ? customer.personalInformation.lastName : "";
+		let	city = customer.personalInformation.city ? customer.personalInformation.city : "";
+		let	address1 = customer.personalInformation.addressOne ? customer.personalInformation.addressOne : "";
+		let	zip = customer.personalInformation.postalCode ? customer.personalInformation.postalCode : "";
+		let	email = customer.personalInformation.email ? customer.personalInformation.email : "";
+		let	phone = customer.personalInformation.phone ? customer.personalInformation.phone : "";
+		let	ssn = customer.personalInformation.ssn ? customer.personalInformation.ssn : "";
+
+
 		return {
 			displaySaveButton: true,
 			payAccount: {
@@ -35,14 +47,14 @@ let Register = React.createClass({
 				extra2: currentTime.getFullYear(),
 				country: country,
 				state: states[0]['Small'],
-				firstName: "",
-				lastName: "",
-				city: "",
-				address1: "",
-				zip: "",
-				email: "",
-				phone: "",
-				ssn: "",
+				firstName: firstName,
+				lastName: lastName,
+				city: city,
+				address1: address1,
+				zip: zip,
+				email: email,
+				phone: phone,
+				ssn: ssn,
 				dobDay: "",
 				dobMonth: "",
 				dobYear: "",
