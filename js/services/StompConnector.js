@@ -11,7 +11,7 @@ class StompConnector {
 		 * Stomp connection handler
 		 * @type {}
 		 */
-		let ws = new WebSocket(`ws://${rabbitConfig.get('ip')}:${rabbitConfig.get('port')}/ws`);
+		let ws = new WebSocket(`${rabbitConfig.get('protocol')}://${rabbitConfig.get('host')}:${rabbitConfig.get('port')}/${rabbitConfig.get('type')}`);
 		this.stompClient = Stomp.over(ws);
 
 		/**
