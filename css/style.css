@@ -17,6 +17,7 @@ a:hover {color: #1a8dea; cursor:pointer;}
 
 /*icons*/
 i {color:#6d6d6d; margin-right:4px;}
+i.i-top{margin-top: 8px;}
 
 /*colors*/
 .green {color:#01b300;}
@@ -30,9 +31,10 @@ button.btn-welcome {border:1px solid #6b89ac; font-size:53px; margin-top:14px; p
 	font-weight:normal;}
 button.btn-welcome:hover {box-shadow:0 0 7px 1px #6172a1; font-weight:normal;}
 button.btn-welcome:hover, button.btn-welcome:focus, .btn-green, .btn-green:focus {color:#FFF;}
-.btn-green, .btn-green:active {font-weight:bold; margin-top:4px; margin-bottom:2px; background:#01b300; background:-moz-linear-gradient(top, #01b300 0%, #3a9637 100%); background: -webkit-linear-gradient(top, #01b300 0%, #3a9637 100%); background: linear-gradient(to bottom, #01b300 0%, #3a9637 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#01b300', endColorstr='#3a9637', GradientType=0);}
+.btn-green, .btn-green:active {font-weight:bold; /*margin-top:4px;*/ margin-bottom:2px; background:#01b300; background:-moz-linear-gradient(top, #01b300 0%, #3a9637 100%); background: -webkit-linear-gradient(top, #01b300 0%, #3a9637 100%); background: linear-gradient(to bottom, #01b300 0%, #3a9637 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#01b300', endColorstr='#3a9637', GradientType=0);}
 .btn-green:hover {box-shadow:0 0 7px 1px green; border:1px solid #6dd66c; color:#FFF;}
 .btn:hover {-webkit-transition: all 100ms ease-in; -moz-transition: all 100ms ease-in; -ms-transition: all 100ms ease-in; -o-transition: all 100ms ease-in; transition: all 100ms ease-in;}
+.btn-top{ margin-top:4px;}
 
 /*form*/
 form { margin-bottom:5px;}

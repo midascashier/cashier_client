@@ -84,25 +84,24 @@ let AskInfo = React.createClass({
 												)
 											}
 										})()}
-
-										{(() =>{
-											if(isWithDraw){
-												return (
-													<div className="form-group">
-														<SecondFactor transaction={this.props.transaction} limitsCheck={limitsCheck} allowContinueToConfirm={this.props.allowContinueToConfirm}/>
-													</div>
-												)
-											}
-										})()}
-
-										{(() =>{
-											if(!isWithDraw){
-												return (
-													<p><em>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></em></p>
-												)
-											}
-										})()}
 									</div>
+
+									{(() =>{
+										if(isWithDraw){
+											return (
+												<SecondFactor transaction={this.props.transaction} limitsCheck={limitsCheck} allowContinueToConfirm={this.props.allowContinueToConfirm}/>
+											)
+										}
+									})()}
+
+									{(() =>{
+										if(!isWithDraw){
+											return (
+												<p><em>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></em></p>
+											)
+										}
+									})()}
+
 								</div>
 							</div>
 						</div>

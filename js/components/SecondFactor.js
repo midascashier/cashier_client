@@ -4,6 +4,7 @@ import {CashierStore} from '../stores/CashierStore'
 import {Input} from './Inputs'
 import Cashier from '../constants/Cashier'
 import {TransactionService} from '../services/TransactionService'
+import {UIService} from '../services/UIService'
 
 let SecondFactor = React.createClass({
 
@@ -78,8 +79,8 @@ let SecondFactor = React.createClass({
 
 	render()
 	{
+		let originPath = UIService.getOriginPath();
 		let limitsCheck = false;
-
 		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
 			limitsCheck = true;
 		}
@@ -120,87 +121,94 @@ let SecondFactor = React.createClass({
 			<div id="SecondFactor">
 				<p><em>{translate('SECOND_FACTOR_INFO')}</em></p>
 				<p><em>{translate('SECOND_FACTOR_PHONE_CONFIRMATION')}</em></p>
-				<div id="requestedCodeHash">
-					<label className="col-sm-4 control-label">{translate('SECOND_FACTOR_PHONE_REGISTERED')}</label>
+
+				<div className="form-group">
+					<div id="requestedCodeHash">
+						<label className="col-sm-12 control-label text-left">{translate('SECOND_FACTOR_PHONE_REGISTERED')}</label>
+						{(() =>{
+							if(phoneDisabled == "disabled"){
+								return (
+									<div id="phoneCountryCode">
+										<div className="col-sm-2">
+											<Input type="text" id="phoneCountryCode" name="phoneCountryCode" value={phoneCountryCode} disabled readonly/>
+										</div>
+										<div className="col-sm-5">
+											<Input type="text" id="customerPhone" name="customerPhone" value={phone} disabled readonly/>
+										</div>
+									</div>
+								)
+							} else{
+								return (
+									<div id="customerPhone" className="col-sm-7">
+										<Input onChange={this.changeValue.bind(null, 'phone')} type="text" id="customerPhone" name="customerPhone" value={phone}/>
+									</div>
+								)
+							}
+						})()}
+
+						<div className="col-sm-1">
+							{(() =>{
+								if(requestedCode && hash == ""){
+									return (<img src={originPath + '/images/loader-xs_17x17.gif'}/>)
+								}
+								if(hash != ""){
+									return (<i className="fa fa-check green"></i>)
+								}
+							})()}
+						</div>
+
+						<div className="col-sm-4">
+							<button disabled={isNextDisabled} className="btn btn-green" onClick={this.sendTransactionToken}>{translate('SECOND_FACTOR_REQUEST_CODE_BUTTON')}</button>
+						</div>
+					</div>
+
+					<div id="verificationCodeContent" className="form-group">
+						<label className="col-sm-12 control-label text-left">{translate('SECOND_FACTOR_ENTER_CODE')}</label>
+						{(() =>{
+							if(disableVerifyButton){
+								return (
+									<div className="col-sm-7">
+										<Input type="text" id="verificationCode" name="verificationCode" disabled/>
+									</div>
+								)
+							} else{
+								return (
+									<div className="col-sm-1">
+										<Input type="text" validate="isNumber" id="verificationCode" onChange={this.changeValue.bind(null, 'code')} name="verificationCode"/>
+									</div>
+								)
+							}
+						})()}
+						<div className="col-sm-1">
+							{(() =>{
+								if(verifyMsg != null && verifyMsg != "" && isCodeValid == 0){
+									return null;
+								}
+								if(verifyCodeSent && isCodeValid == 0){
+									return (<img src={originPath + '/images/loader-xs_17x17.gif'}/>)
+								}
+
+								if(isCodeValid == 1){
+									return (<i className="fa fa-check green"></i>)
+								}
+							})()}
+						</div>
+						<div className="col-sm-3">
+							<button className="btn btn-green" disabled={disableVerifyButton} onClick={this.verifyTransactionToken}>{translate('SECOND_FACTOR_VERIFY_CODE')}</button>
+						</div>
+					</div>
+
 					{(() =>{
-						if(phoneDisabled == "disabled"){
+						if(verifyMsg != null && verifyMsg != ""){
 							return (
-								<div id="phoneDisabled">
-									<div className="col-sm-2">
-										<Input type="text" id="phoneCountryCode" name="phoneCountryCode" value={phoneCountryCode} disabled readonly/>
-									</div>
-									<div className="col-sm-3">
-										<Input type="text" id="customerPhone" name="customerPhone" value={phone} disabled readonly/>
-									</div>
+								<div className="alert alert-danger" role="alert">
+									<i class="fa fa-thumbs-o-down red"></i>
+									<strong>{verifyMsg}</strong>
 								</div>
-							)
-						} else{
-							return (
-								<Input onChange={this.changeValue.bind(null, 'phone')} type="text" id="customerPhone" name="customerPhone" value={phone}/>
 							)
 						}
 					})()}
-
-					<div className="col-sm-2">
-						{(() =>{
-							if(requestedCode && hash == ""){
-								return (<i className="fa fa-spinner" aria-hidden="true"></i>)
-							}
-							if(hash != ""){
-								return (<i className="fa fa-check green"></i>)
-							}
-						})()}
-					</div>
-					<button disabled={isNextDisabled} className="btn btn-green" onClick={this.sendTransactionToken}>{translate('SECOND_FACTOR_REQUEST_CODE_BUTTON')}</button>
 				</div>
-
-				<div id="verificationCodeContent">
-					<label className="col-sm-4 control-label">{translate('SECOND_FACTOR_ENTER_CODE')}</label>
-					{(() =>{
-						if(disableVerifyButton){
-							return (
-								<div className="col-sm-4">
-									<Input type="text" id="verificationCode" name="verificationCode" disabled/>
-								</div>
-							)
-						} else{
-							return (
-								<div className="col-sm-4">
-									<Input type="text" validate="isNumber" id="verificationCode" onChange={this.changeValue.bind(null, 'code')} name="verificationCode"/>
-								</div>
-							)
-						}
-					})()}
-					<div className="col-sm-2">
-						{(() =>{
-							if(verifyMsg != null && verifyMsg != "" && isCodeValid == 0){
-								return null;
-							}
-							if(verifyCodeSent && isCodeValid == 0){
-								return (<i className="fa fa-spinner" aria-hidden="true"></i>)
-							}
-
-							if(isCodeValid == 1){
-								return (<i className="fa fa-check green"></i>)
-							}
-						})()}
-					</div>
-					<div className="col-sm-2">
-						<button className="btn btn-green" disabled={disableVerifyButton} onClick={this.verifyTransactionToken}>{translate('SECOND_FACTOR_VERIFY_CODE')}</button>
-					</div>
-				</div>
-
-				{(() =>{
-					if(verifyMsg != null && verifyMsg != ""){
-						return (
-							<div className="alert alert-danger" role="alert">
-								<i class="fa fa-thumbs-o-down red"></i>
-								<strong>{verifyMsg}</strong>
-							</div>
-						)
-					}
-				})()}
-
 			</div>
 		)
 	}
