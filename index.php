@@ -11,10 +11,7 @@
 <body>
 	<div id="app"></div>
 	<script>
-  	  let loginInfo = <?php echo((count($_REQUEST)) > 0 ? json_encode($_REQUEST) : "null") ?>;
-  	  if (!loginInfo){
-  	    loginInfo = {companyID: localStorage.companyID, option: localStorage.option, sid: localStorage.sid};
-  	  }
+  	  let loginInfo = <?php echo((count($_REQUEST)) > 0 ? json_encode($_REQUEST) : "{}") ?>;
   	</script>
 	<script src="./js/libs/jquery.min.js"></script>
     <script src="./js/libs/stomp.js"></script>
