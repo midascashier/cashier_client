@@ -206,6 +206,9 @@ let Content = React.createClass({
 
 		render()
 		{
+			
+			this.restoreSessionData();
+
 			const childrenWithProps = React.Children.map(this.props.children,
 				(child) => React.cloneElement(child, {
 					setAmount: this.setAmount,
