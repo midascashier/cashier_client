@@ -11,7 +11,13 @@
 <body>
 	<div id="app"></div>
 	<script>
-  	  let loginInfo = <?php echo((count($_REQUEST)) > 0 ? json_encode($_REQUEST) : "{}") ?>;
+  	  let loginInfo = <?php echo((count($_REQUEST)) > 0 ? json_encode($_REQUEST) : "null") ?>;
+  	  if (!loginInfo){
+  	    let application = JSON.parse(localStorage.application);
+  	    let ui = JSON.parse(localStorage.ui);
+  	    let company = JSON.parse(localStorage.company);
+        loginInfo = {companyID: company.companyId, option: ui.currentView, sid: application.sid};
+      }
   	</script>
 	<script src="/js/libs/jquery.min.js"></script>
     <script src="/js/libs/stomp.js"></script>

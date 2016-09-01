@@ -546,17 +546,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getServerTime: () =>{
 		return _UI.serverTime;
-	},
-
-	restoreSession: (name, obj) =>{
-		switch(name){
-			case "application":
-				_application = obj;
-				break;
-			case "ui":
-				_UI = obj;
-				break;
-		}
 	}
 
 });
@@ -584,6 +573,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 		case actions.COMPANY_INFO_RESPONSE:
 			_company.load(data.response.companyInformation);
+			CashierStore.storeData("company", _company);
 			CashierStore.emitChange();
 			break;
 
@@ -743,10 +733,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.CHANGE_TRANSACTION_AMOUNT:
 			_transaction.amount = data.amount;
 			CashierStore.emitChange();
-			break;
-
-		case actions.RESTORE_SESSION:
-			CashierStore.restoreSession(data.name, data.obj);
 			break;
 
 		case actions.PROCESSOR_FEES_RESPONSE:
