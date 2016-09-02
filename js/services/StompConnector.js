@@ -74,7 +74,14 @@ class StompConnector {
 	 * triggered when a stomp connection fails
 	 */
 	on_error(){
-		console.log('Connection Error');
+		if (this.stompClient.connected){
+			$('#msjs').hide();
+		}else{
+			$('#msjs').show();
+		}
+
+		this.sleep(5000);
+		location.reload();
 	};
 
 	/**
@@ -167,9 +174,14 @@ class StompConnector {
 	 * @param time
 	 * @returns {Promise}
 	 */
-	sleep(time){
-		return new Promise((resolve) => setTimeout(resolve, time));
-	};
+	sleep(ms){
+		$('#msjs').show();
+		let start = new Date().getTime();
+		let end = start;
+		while(end < start + ms) {
+			end = new Date().getTime();
+		}
+	}
 
 	/**
 	 * get the message and the queue y send them to Rabbit
@@ -184,9 +196,10 @@ class StompConnector {
 		if(this.stompClient.connected){
 			this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));
 		} else{
-			this.sleep(5).then(() =>{
+			this.sleep(2000);
+			if(this.stompClient.connected){
 				this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));
-			})
+			}
 		}
 	};
 
