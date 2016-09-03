@@ -1,5 +1,7 @@
 import { rabbitConfig } from '../../config/rabbitConfig';
 import { onResponseService } from './OnResponseService'
+import { UIService } from './UIService'
+import { CashierActions } from '../actions/CashierActions'
 
 class StompConnector {
 
@@ -66,6 +68,8 @@ class StompConnector {
 	 * triggered after a successful stomp connection is made
 	 */
 	on_connect(){
+		$('#msjs').hide();
+		CashierActions.connectionError(0);
 		// Resolve our Promise to the caller
 		this.resolveConnection();
 	};
@@ -74,14 +78,9 @@ class StompConnector {
 	 * triggered when a stomp connection fails
 	 */
 	on_error(){
-		if (this.stompClient.connected){
-			$('#msjs').hide();
-		}else{
-			$('#msjs').show();
-		}
-
-		this.sleep(5000);
-		location.reload();
+		$('#msjs').show();
+		CashierActions.connectionError(1);
+		UIService.changeUIState("/");
 	};
 
 	/**
@@ -178,7 +177,7 @@ class StompConnector {
 		$('#msjs').show();
 		let start = new Date().getTime();
 		let end = start;
-		while(end < start + ms) {
+		while(end < start + ms){
 			end = new Date().getTime();
 		}
 	}

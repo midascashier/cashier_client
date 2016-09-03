@@ -1,9 +1,17 @@
 import React from 'react'
 import { translate } from '../constants/Translate'
+import { CashierStore } from '../stores/CashierStore'
+import { stompConnector } from '../services/StompConnector'
 
 let Welcome = React.createClass({
 
 	render() {
+
+		if (CashierStore.getConnectionStatus()){
+			stompConnector.sleep(9000);
+			location.reload();
+		}
+
 		return (
 			<div id="welcome" className="welcome-page">
 				<div className="internal-content">

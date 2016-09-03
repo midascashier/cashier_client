@@ -72,6 +72,13 @@ let CashierActions = {
 		});
 	},
 
+	connectionError: (data) => {
+		CashierDispatcher.dispatch({
+			action: actions.CONNECTION_ERRROR,
+			data: { opt: data }
+		});
+	},
+
 	setTransactionFee: (data) =>{
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_FEE,

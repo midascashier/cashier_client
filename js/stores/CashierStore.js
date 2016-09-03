@@ -23,7 +23,8 @@ let _UI = {
 	countries: {},
 	selectedCountry: '',
 	countryStates: [],
-	currencies: {}
+	currencies: {},
+	connectionError: 0
 };
 
 /**
@@ -522,6 +523,14 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
+	 *
+	 * @returns {number}
+	 */
+	getConnectionStatus: () =>{
+		return _UI.connectionError;
+	},
+
+	/**
 	 * get transaction
 	 *
 	 * @returns {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, cleanTransaction: (function())}}
@@ -616,6 +625,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			}
 			_UI.countryInfo[countryInfo.Small] = countryInfo;
 			CashierStore.emitChange();
+			break;
+
+		case actions.CONNECTION_ERRROR:
+			_UI.connectionError = data.opt;
 			break;
 
 		case actions.GET_CURRENCY_RESPONSE:
