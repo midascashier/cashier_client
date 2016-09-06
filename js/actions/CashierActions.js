@@ -72,6 +72,13 @@ let CashierActions = {
 		});
 	},
 
+	connectionError: (data) => {
+		CashierDispatcher.dispatch({
+			action: actions.CONNECTION_ERRROR,
+			data: { opt: data }
+		});
+	},
+
 	setTransactionFee: (data) =>{
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_FEE,
@@ -90,13 +97,6 @@ let CashierActions = {
 		CashierDispatcher.dispatch({
 			action: actions.SET_DOB_SSN,
 			data: { param: param, value: value }
-		});
-	},
-
-	restoreSession: (objName, obj) =>{
-		CashierDispatcher.dispatch({
-			action: actions.RESTORE_SESSION,
-			data: { name: objName, obj }
 		});
 	},
 

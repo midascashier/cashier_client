@@ -173,7 +173,7 @@ let SecondFactor = React.createClass({
 								)
 							} else{
 								return (
-									<div className="col-sm-1">
+									<div className="col-sm-7">
 										<Input type="text" validate="isNumber" id="verificationCode" onChange={this.changeValue.bind(null, 'code')} name="verificationCode"/>
 									</div>
 								)

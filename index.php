@@ -3,21 +3,28 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Cashier</title>
-	<link rel="stylesheet" href="./css/bootstrap.min.css">
-	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="./css/font-awesome.min.css">
-	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+	<div id="msjs" style="width:100%; background-color:red; text-align: center;font-weight: bold;display:none;">Connection Error</div>
 	<div id="app"></div>
 	<script>
-  	  var loginInfo = <?php echo json_encode($_REQUEST) ?>;
+  	  let loginInfo = <?php echo((count($_REQUEST)) > 0 ? json_encode($_REQUEST) : "null") ?>;
+  	  if (!loginInfo){
+  	    let application = JSON.parse(localStorage.application);
+  	    let ui = JSON.parse(localStorage.ui);
+  	    let company = JSON.parse(localStorage.company);
+        loginInfo = {companyID: company.companyId, option: ui.currentView, sid: application.sid};
+      }
   	</script>
-	<script src="./js/libs/jquery.min.js"></script>
-    <script src="./js/libs/stomp.js"></script>
-	<script src="./build/bundle.js"></script>
+	<script src="/js/libs/jquery.min.js"></script>
+    <script src="/js/libs/stomp.js"></script>
+	<script src="/build/bundle.js"></script>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="./js/libs/bootstrap.min.js"></script>
+	<script src="/js/libs/bootstrap.min.js"></script>
 </body>
 </html>
