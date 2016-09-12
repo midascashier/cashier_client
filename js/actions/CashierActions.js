@@ -102,7 +102,7 @@ let CashierActions = {
 
 	startSecondFactorProcess: () =>{
 		CashierDispatcher.dispatch({
-			action: actions.START_SECOND_FACTOR,
+			action: actions.START_SECOND_FACTOR
 		});
 	},
 
