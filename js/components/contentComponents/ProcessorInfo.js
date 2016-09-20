@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { translate } from '../../constants/Translate'
-import  Cashier  from '../../constants/Cashier'
 import { UIService } from '../../services/UIService'
 import { TransactionService } from '../../services/TransactionService'
 
@@ -47,7 +46,6 @@ let ProcessorInfo = React.createClass({
 		let originPath = UIService.getOriginPath();
 		let isWithDraw = UIService.getIsWithDraw();
 		let processorDisplayName = this.props.selectedProcessor.displayName;
-		let processorClass = this.props.selectedProcessor.processorClass;
 
 		let minProcessorLimit = this.getMinProcessorLimit();
 		let maxProcessorLimit = this.getMaxProcessorLimit();
@@ -95,7 +93,7 @@ let ProcessorInfo = React.createClass({
 							<div className="col-sm-6"></div>
 							<div className="col-sm-6">
 								{(() =>{
-									if(processorClass == Cashier.PROCESSOR_CLASS_ID_PERSON_2_PERSON && !isWithDraw){
+									if(!isWithDraw){
 										return (
 											<Link to={`/pendingControlNumber/`}>
 												<p>{translate('PENDING_MTCN', 'Enter Pending Control Numbers')}</p>
