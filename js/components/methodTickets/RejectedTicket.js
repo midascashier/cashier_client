@@ -63,6 +63,13 @@ let RejectedTicket = React.createClass({
 		let currency = this.state.currency;
 		let processorName = this.state.processorName;
 		let companyPhone = this.state.companyPhone;
+		let isWithDraw = UIService.getIsWithDraw();
+		let action;
+		if (isWithDraw){
+			action = "withdraw";
+		}else{
+			action = "deposit";
+		}
 
 		return (
 			<div className="col-sm-12">
@@ -73,7 +80,7 @@ let RejectedTicket = React.createClass({
 								<i className="fa fa-ban red"></i>
 								<strong>Transaction Rejected</strong>
 								<p>
-									<strong>Unfortunately</strong>, we were unable to process your <strong>{processorName}</strong> deposit for {currencyAmount + ' ' + currency} at this time.
+									<strong>Unfortunately</strong>, we were unable to process your <strong>{processorName}</strong> {action} for {currencyAmount + ' ' + currency} at this time.
 									Perhaps our Customer Support team can help. Call us at {companyPhone} or Live Chat. Or, you could try a <a onClick={this.setFirstStep}>different deposit method</a>.
 								</p>
 							</div>

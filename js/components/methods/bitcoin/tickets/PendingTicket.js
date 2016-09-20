@@ -128,7 +128,7 @@ let BitCoinTicketPending = React.createClass({
 								<div className="box">
 									<div className="row">
 										<div className="col-sm-12">
-											<div className="title">1</div>
+											<div className="title">#1</div>
 											<div className="infoCol">
 												<div className="subtitle">{btcAmount}</div>
 												<p>{translate('BITCOIN_INSTRUCTIONS_AMOUNT_INFO', 'Otherwise, your transaction will not be successful')}</p>
@@ -144,7 +144,7 @@ let BitCoinTicketPending = React.createClass({
 										<div className="col-sm-12">
 											<div className="row">
 												<div className="col-sm-12">
-													<div className="title">2</div>
+													<div className="title">#2</div>
 													<div className="infoCol">
 														<div className="subtitle">{translate('BITCOIN_INSTRUCTIONS_ADDRESS', 'Send the BitCoin to the following address')}</div>
 														<p>{translate('BITCOIN_INSTRUCTIONS_ADDRESS_INFO', 'Please include any Miners Fee your BitCoin wallet charges.')}</p>
@@ -177,7 +177,7 @@ let BitCoinTicketPending = React.createClass({
 								<div className="box">
 									<div className="row">
 										<div className="col-sm-12">
-											<div className="title">3</div>
+											<div className="title">#3</div>
 											<div className="infoCol">
 												<div className="subtitle">{translate('BITCOIN_INSTRUCTIONS_TIME', 'Prompty complete your transaction.')}</div>
 												<p>{btcTimer}</p>
@@ -185,6 +185,7 @@ let BitCoinTicketPending = React.createClass({
 										</div>
 									</div>
 								</div>
+								<button type="button" className="btn btn-green">Go to Poker Lobby</button>
 							</div>
 
 							<div className="col-sm-12">

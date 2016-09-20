@@ -1,28 +1,35 @@
+var webpack = require('webpack');
+
 module.exports = {
-  entry: ['babel-polyfill', './js/main.jsx'],
+	entry: ['babel-polyfill', './js/main.jsx'],
 
-  output: {
-    path: './build/',
-    filename: 'bundle.js'
-  },
+	plugins: [
+		new webpack.DefinePlugin({ 'process.env.NODE_ENV': "'production'" })
+	],
 
-  devtool: "source-map",
+	output: {
+		// If in production mode we put the files into the dist folder instead
+		path: process.env.NODE_ENV === 'production' ? './dist/' : './build/',
+		filename: 'bundle.js'
+	},
 
-  devServer: {
-    inline: true,
-    port: 7777
-  },
+	devtool: "source-map",
 
-  module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: 'babel',
+	devServer: {
+		inline: true,
+		port: 7777
+	},
 
-      query: {
-        presets: ['es2015', 'react']
-      }
-    }]
-  }
+	module: {
+		loaders: [{
+			test: /\.jsx?$/,
+			exclude: /node_modules/,
+			loader: 'babel',
+
+			query: {
+				presets: ['es2015', 'react']
+			}
+		}]
+	}
 
 };

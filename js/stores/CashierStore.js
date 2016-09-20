@@ -150,10 +150,6 @@ let _company = {
 	}
 };
 
-let _bonuses = {
-	bonus: []
-};
-
 /**
  * Stores the information of the selected processor
  *
