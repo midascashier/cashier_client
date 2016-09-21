@@ -267,7 +267,12 @@ class UiService {
 		let totalAmount = Number(amount) + Number(fee);
 		let currencyCode = processorLimits.currencyCode;
 
-		let remaining = (processorLimits.maxAmount - totalAmount) + " " + currencyCode;
+		let remaining = processorLimits.maxAmount - totalAmount;
+		if ( remaining < 0 ){
+			remaining = 0;
+		}
+		remaining = remaining + " " + currencyCode;
+
 		let minPayAccount = processorLimits.minAmount + " " + currencyCode;
 		let maxPayAccount = processorLimits.maxAmount + " " + currencyCode;
 
