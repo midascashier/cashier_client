@@ -62,7 +62,7 @@ let TransactionHistoryContent = React.createClass({
 		let transactionHistory = this.state.transactions;
 		let isWithdraw = UIService.getIsWithDraw();
 		let customerOpt = "DEPOSIT";
-		if (isWithdraw == 1 ){
+		if(isWithdraw == 1){
 			customerOpt = "WITHDRAW";
 		}
 		return (
@@ -72,51 +72,54 @@ let TransactionHistoryContent = React.createClass({
 					<div className="row">
 						<div className="col-sm-12">
 							<div className="modules">
-								<div className="title">{translate('TRANSACTION_HISTORY_TITLE')}</div>
-								{(() =>{
-									if(transactionHistory.length == 0){
-										return <LoadingSpinner/>
-									}else {
-										return <TransactionHistory transactions={transactionHistory} />
-									}
-								})()}
+								<div className="historyContent">
+									<div className="title">{translate('TRANSACTION_HISTORY_TITLE')}</div>
+									{(() =>{
+										if(transactionHistory.length == 0){
+											return <LoadingSpinner/>
+										} else{
+											return <TransactionHistory transactions={transactionHistory}/>
+										}
+									})()}
 
-								<div className="row">
-									<div className="col-sm-6">
-										<ul>
-											<li>
-												<span>{translate('TRANSACTION_STATUS_PENDING')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PENDING')}
-											</li>
-											<li>
-												<span>{translate('TRANSACTION_STATUS_PROCESSING')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PROCESSING')}
-											</li>
-											<li>
-												<span>{translate('TRANSACTION_STATUS_PRE_APPROVE')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PRE_APPROVE')}
-											</li>
-											<li>
-												<span>{translate('TRANSACTION_STATUS_APPROVED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_APPROVED')}
-											</li>
-											<li>
-												<span>{translate('TRANSACTION_STATUS_REJECTED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_REJECTED')}
-											</li>
-											<li>
-												<span>{translate('TRANSACTION_STATUS_CANCELLED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_CANCELLED')}
-											</li>
-											<li>
-												<span>{translate('TRANSACTION_STATUS_FAILED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_FAILED')}
-											</li>
-										</ul>
+									<div className="row">
+										<div className="col-sm-6">
+											<ul>
+												<li>
+													<span>{translate('TRANSACTION_STATUS_PENDING')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PENDING')}
+												</li>
+												<li>
+													<span>{translate('TRANSACTION_STATUS_PROCESSING')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PROCESSING')}
+												</li>
+												<li>
+													<span>{translate('TRANSACTION_STATUS_PRE_APPROVE')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PRE_APPROVE')}
+												</li>
+												<li>
+													<span>{translate('TRANSACTION_STATUS_APPROVED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_APPROVED')}
+												</li>
+												<li>
+													<span>{translate('TRANSACTION_STATUS_REJECTED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_REJECTED')}
+												</li>
+												<li>
+													<span>{translate('TRANSACTION_STATUS_CANCELLED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_CANCELLED')}
+												</li>
+												<li>
+													<span>{translate('TRANSACTION_STATUS_FAILED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_FAILED')}
+												</li>
+											</ul>
+										</div>
 									</div>
-									<div className="col-sm-6">
-										<Link to={"/"+customerOpt.toLowerCase()+"/"}>
-											<button type="submit" className="btn btn-green">{translate(customerOpt)}</button>
-										</Link>
-										&nbsp;&nbsp;&nbsp;
-										<button type="button" className="btn btn-green">Go to Poker Lobby</button>
-									</div>
-
 								</div>
-
+							</div>
+							<div className="row">
+								<div className="col-sm-8"></div>
+								<div className="col-sm-4">
+									<Link to={"/"+customerOpt.toLowerCase()+"/"}>
+										<button type="submit" className="btn btn-green">{translate(customerOpt)}</button>
+									</Link>
+									&nbsp;&nbsp;&nbsp;
+									<button type="button" className="btn btn-green">Go to Poker Lobby</button>
+								</div>
 							</div>
 						</div>
 					</div>
