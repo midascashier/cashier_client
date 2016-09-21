@@ -51,6 +51,12 @@ let ApprovedTicket = React.createClass({
 		let currency = this.state.currency;
 		let email = this.state.email;
 		let balance = this.state.balance;
+		let action;
+		if (isWithDraw){
+			action = "withdraw";
+		}else{
+			action = "deposit";
+		}
 
 		return (
 			<div className="internal-content" id="approvedTicket">
@@ -65,7 +71,7 @@ let ApprovedTicket = React.createClass({
 					<div className="col-sm-6">
 						<div className="success-message">
 							<i className="fa fa-check-circle-o green"></i>
-							<div className="title">Your {currencyAmount + ' ' + currency} deposit was successful.</div>
+							<div className="title">Your {currencyAmount + ' ' + currency} {action} was successful.</div>
 							<p>Your balance is now {balance + '' + currency}</p>
 							<p>An email has been sent to {email} with the transaction details.</p>
 						</div>
