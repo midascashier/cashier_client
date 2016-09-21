@@ -34,9 +34,19 @@ let AmountController = React.createClass({
 		} else{
 			limitsErrorMsg = errorMsgs.limitsMsgs[this.props.limitsCheck];
 		}
+
+		let action;
+		let isWithDraw = UIService.getIsWithDraw();
+		if (isWithDraw){
+			action = translate('WITHDRAW');
+		}
+		else{
+			action = translate('DEPOSIT');
+		}
+
 		return (
 			<div id="amountController">
-				<label className="col-sm-4 control-label">{translate('PROCESSING_AMOUNT', 'Amount')}:</label>
+				<label className="col-sm-4 control-label">{action} {translate('PROCESSING_AMOUNT', 'Amount')}:</label>
 				<div className="col-sm-8">
 					<input className="form-control" type="number" autoComplete="off" disabled={amountFieldDisable} id="amount"
 								 name="amount" onChange={this.changeValue} value={this.props.amount} min="0" required/>

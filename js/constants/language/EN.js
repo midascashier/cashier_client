@@ -126,7 +126,7 @@ let _langTags = {
 	BITCOIN_INSTRUCTIONS_TIME_INFO: "This BTC transaction price is only valid for {btcMinutes} minutes. After that, the transaction price will change, and you may receive a different amount than expected.",
 	BITCOIN_ADDRESS: "BitCoin Address",
 	CREDIT_CARD: "Card",
-	CREDIT_CARD_SELECT: "Select your card",
+	CREDIT_CARD_SELECT: "Credit Card",
 	CREDIT_CARD_HOLDER: "Holder's Name",
 	CREDIT_CARD_NUMBER: "Card Number",
 	CREDIT_CARD_CVV: "CVV",

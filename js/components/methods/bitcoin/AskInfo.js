@@ -10,6 +10,7 @@ let AskInfo = React.createClass({
 
 	propTypes: {
 		transactionAmount: React.PropTypes.func,
+		setAmount: React.PropTypes.func,
 		changeValue: React.PropTypes.func,
 		setBTCAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.string,
