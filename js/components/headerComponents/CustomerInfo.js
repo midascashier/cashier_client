@@ -9,7 +9,7 @@ let CustomerInfo = React.createClass({
 
 	render() {
 		return (
-			<div id="customerInfo" className="col-xs-5">
+			<div id="customerInfo" className="col-xs-4">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="row">
