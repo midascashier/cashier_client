@@ -10,11 +10,11 @@ let CompanyInfo = React.createClass({
 
 	render() {
 		return (
-			<div id="companyInfo" className="col-xs-6">
+			<div id="companyInfo" className="col-xs-7">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="row">
-							<div className="col-sm-5">{translate('CUSTOMER_INFO_BALANCE')}:
+							<div className="col-sm-6">{translate('CUSTOMER_INFO_BALANCE')}:
 								<span>
 									{(() =>{
 										if(!this.props.customer.customerId){
@@ -25,7 +25,7 @@ let CompanyInfo = React.createClass({
 									})()}
 								</span>
 							</div>
-							<div className="col-sm-7">
+							<div className="col-sm-6">
 								{translate('CUSTOMER_INFO_NEED_HELP')}
 								<a>{translate('CUSTOMER_INFO_LIVE_CHAT')}</a>
 								{(() =>{

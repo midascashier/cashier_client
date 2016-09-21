@@ -1,12 +1,12 @@
 import React from 'react'
-import {translate} from '../../../constants/Translate'
-import {SelectPayAccount} from '../../SelectPayAccount'
-import {AmountController} from '../../AmountController'
-import {TermsController} from '../../TermsController'
-import {UIService} from '../../../services/UIService'
-import {CustomerService} from '../../../services/CustomerService'
-import {Register} from './Register.js'
-import {ExtraInfo} from './ExtraInfo'
+import { translate } from '../../../constants/Translate'
+import { SelectPayAccount } from '../../SelectPayAccount'
+import { AmountController } from '../../AmountController'
+import { TermsController } from '../../TermsController'
+import { UIService } from '../../../services/UIService'
+import { CustomerService } from '../../../services/CustomerService'
+import { Register } from './Register.js'
+import { ExtraInfo } from './ExtraInfo'
 
 let AskInfo = React.createClass({
 
@@ -51,15 +51,19 @@ let AskInfo = React.createClass({
 								<div className="col-sm-12">
 									<div className="form-horizontal">
 										<div className="form-group" id="payAccount">
-											<label className="col-sm-4 control-label">{translate('CREDIT_CARD_SELECT', 'Credit Card')}:</label>
+											<label className="col-sm-3 control-label">{translate('CREDIT_CARD_SELECT', 'Credit Card')}:</label>
 											{(() =>{
 												if(payAccountId != 0){
 													return (
-														<div className="col-sm-8" id="selectPayAccount">
-															<SelectPayAccount setAmount={setAmount} amount={amount}/>
-															<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
-																{translate('PROCESSING_BUTTON_DELETE_CARD', 'Delete Card')}
-															</button>
+														<div >
+															<div className="col-sm-6" id="selectPayAccount">
+																<SelectPayAccount setAmount={setAmount} amount={amount}/>
+															</div>
+															<div className="col-sm-3">
+																<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+																	{translate('PROCESSING_BUTTON_DELETE_CARD', 'Delete Card')}
+																</button>
+															</div>
 														</div>
 													)
 												} else{
@@ -91,7 +95,8 @@ let AskInfo = React.createClass({
 
 										{(() =>{
 											if((payAccount.extra.dob == null || payAccount.extra.ssn == null) && payAccountId != null){
-												return <ExtraInfo changeValue={changeValue} ssn={ssn} dobMonth={dobMonth} dobDay={dobDay} dobYear={dobYear}/>
+												return <ExtraInfo changeValue={changeValue} ssn={ssn} dobMonth={dobMonth} dobDay={dobDay}
+																					dobYear={dobYear}/>
 											}
 										})()}
 
@@ -104,7 +109,8 @@ let AskInfo = React.createClass({
 										{(() =>{
 											if(!isWithDraw){
 												return (
-													<p><em>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></em></p>
+													<p><em>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></em>
+													</p>
 												)
 											}
 										})()}
