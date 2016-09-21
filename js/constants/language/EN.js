@@ -78,7 +78,7 @@ let _langTags = {
 	PROCESSING_DEPOSIT_INFORMATION_EDIT: "Edit the deposit details",
 	PROCESSING_LIMIT_INFORMATION_TITLE: "{processorName} {transactionType} Limits",
 	PROCESSING_LIMIT_REMAINING: "Remaining Limit",
-	PROCESSING_BILLING_INFO_TITLE: "Double-check Your Billing Information",
+	PROCESSING_BILLING_INFO_TITLE: "Ensure Your Billing Information is Correct",
 	PROCESSING_BILLING_INFO_EDIT: "Edit the billing address",
 	PROCESSING_BUTTON_NEXT: "Next",
 	PROCESSING_BUTTON_NEXT_DEPOSIT: "Deposit with",
