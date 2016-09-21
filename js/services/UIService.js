@@ -271,6 +271,7 @@ class UiService {
 		if ( remaining < 0 ){
 			remaining = 0;
 		}
+
 		remaining = remaining + " " + currencyCode;
 
 		let minPayAccount = processorLimits.minAmount + " " + currencyCode;
@@ -285,7 +286,11 @@ class UiService {
 
 			minPayAccount = payAccountLimits.minAmount + " " + currencyCode;
 			maxPayAccount = payAccountLimits.maxAmount + " " + currencyCode;
-			remaining = (availablePayAccount - totalAmount) + " " + currencyCode;
+			remaining = availablePayAccount - totalAmount;
+			if ( remaining < 0 ){
+				remaining = 0;
+			}
+			remaining = remaining	+ " " + currencyCode;
 		}
 
 		return {
