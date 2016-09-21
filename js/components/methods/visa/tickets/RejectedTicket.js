@@ -57,6 +57,7 @@ let VisaRejectedTicket = React.createClass({
 
 	render() {
 		let creditCardTransaction = this.state.creditCardTransaction;
+		let transaction = CashierStore.getTransaction();
 		return (
 			<div id="visaRejectedTicket">
 				{(() =>{
@@ -70,7 +71,7 @@ let VisaRejectedTicket = React.createClass({
 												<i className="fa fa-ban red"></i>
 												<strong>Transaction Rejected</strong>
 												<p>
-													<strong>Unfortunately</strong>, we were unable to process your deposit for $ at this time.
+													<strong>Unfortunately</strong>, we were unable to process your visa deposit for ${transaction.amount} at this time.
 													Perhaps our Customer Support team can help. Call us at 877-314-4195 or Live Chat. Or, you could try a <a onClick={this.setFirstStep}>different deposit method</a>.
 												</p>
 											</div>
