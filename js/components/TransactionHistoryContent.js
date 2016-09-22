@@ -118,7 +118,7 @@ let TransactionHistoryContent = React.createClass({
 										<button type="submit" className="btn btn-green">{translate(customerOpt)}</button>
 									</Link>
 									&nbsp;&nbsp;&nbsp;
-									<button type="button" className="btn btn-green">Go to Poker Lobby</button>
+									<button type="button" className="btn btn-green">{translate("GO_TO_POKER_LOBBY")}</button>
 								</div>
 							</div>
 						</div>

@@ -65,7 +65,7 @@ let DeferredTicket = React.createClass({
 							<div className="title">Your withdraw was successfully submitted.</div>
 							<p>Your balance is now {balance + ' ' + currency}</p>
 							<p>An email has been sent to {email} with the transaction details.</p>
-							<button type="button" className="btn btn-green">Go to Poker Lobby</button>
+							<button type="button" className="btn btn-green">{translate("GO_TO_POKER_LOBBY")}</button>
 						</div>
 					</div>
 				</div>

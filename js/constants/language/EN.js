@@ -193,7 +193,8 @@ let _langTags = {
 	BONUS_NEWS: "Good News! You have a 100% deposit bonus up to $1,000.",
 	USE_DIFFERENT_METHOD: "Use different Method",
 	EDIT_DEPOSIT_DETAILS: "Edit the deposit details",
-	ILL_DEPOSIT_DIFFERENT_WAY: "No thanks. I'll deposit a different way"
+	ILL_DEPOSIT_DIFFERENT_WAY: "No thanks. I'll deposit a different way",
+	GO_TO_POKER_LOBBY: "Go to Poker Lobby"
 };
 
 export function EN(){

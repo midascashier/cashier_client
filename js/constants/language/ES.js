@@ -194,7 +194,8 @@ let _langTags = {
 	CREDIT_CARD_TERMS_COND: "términos y condiciones.",
 	USE_DIFFERENT_METHOD: "Usar otro método",
 	EDIT_DEPOSIT_DETAILS: "Editar detalles del depósito",
-	ILL_DEPOSIT_DIFFERENT_WAY: "No gracias, voy a depositar de otra forma"
+	ILL_DEPOSIT_DIFFERENT_WAY: "No gracias, voy a depositar de otra forma",
+	GO_TO_POKER_LOBBY: "Ir al salón de Poker"
 };
 
 export function ES(){

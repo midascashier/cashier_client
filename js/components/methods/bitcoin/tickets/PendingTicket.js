@@ -185,7 +185,7 @@ let BitCoinTicketPending = React.createClass({
 										</div>
 									</div>
 								</div>
-								<button type="button" className="btn btn-green">Go to Poker Lobby</button>
+								<button type="button" className="btn btn-green">{translate("GO_TO_POKER_LOBBY")}</button>
 							</div>
 
 							<div className="col-sm-12">
