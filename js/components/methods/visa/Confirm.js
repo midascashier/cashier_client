@@ -354,11 +354,11 @@ let VisaConfirm = React.createClass({
 									</div>
 									<p>
 										<i className="fa fa-pencil green"></i>
-										<a onClick={this.startTransaction}>Edit the deposit details</a>
+										<a onClick={this.startTransaction}>{translate('EDIT_DEPOSIT_DETAILS')}</a>
 									</p>
 									<form className="form-horizontal infoCol">
 										<button type="button" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_DEPOSIT', 'Complete')}</button>
-										<p><a onClick={this.setFirstStep}>No thanks. I'll deposit a different way.</a></p>
+										<p><a onClick={this.setFirstStep}>{translate('ILL_DEPOSIT_DIFFERENT_WAY')}</a></p>
 									</form>
 								</div>
 							</div>

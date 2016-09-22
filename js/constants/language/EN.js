@@ -189,7 +189,11 @@ let _langTags = {
 	SECOND_FACTOR_CODE: "Enter code here",
 	SECOND_FACTOR_REQUEST_CODE_BUTTON: "Request Code",
 	SECOND_FACTOR_ENTER_CODE: "Enter code Here",
-	SECOND_FACTOR_VERIFY_CODE: "Verify Code"
+	SECOND_FACTOR_VERIFY_CODE: "Verify Code",
+	BONUS_NEWS: "Good News! You have a 100% deposit bonus up to $1,000.",
+	USE_DIFFERENT_METHOD: "Use different Method",
+	EDIT_DEPOSIT_DETAILS: "Edit the deposit details",
+	ILL_DEPOSIT_DIFFERENT_WAY: "No thanks. I'll deposit a different way"
 };
 
 export function EN(){

@@ -188,7 +188,13 @@ let _langTags = {
 	SECOND_FACTOR_CODE: "Enter code here",
 	SECOND_FACTOR_REQUEST_CODE_BUTTON: "Request Code",
 	SECOND_FACTOR_ENTER_CODE: "Enter code Here",
-	SECOND_FACTOR_VERIFY_CODE: "Verify Code"
+	SECOND_FACTOR_VERIFY_CODE: "Verify Code",
+	BONUS_NEWS: "Buenas Noticias! Tiene 100% de bono en sus depositos por mas de $1,000",
+	CREDIT_CARD_CHECK_TERMENS: "Estoy de acuerdo con los ",
+	CREDIT_CARD_TERMS_COND: "términos y condiciones.",
+	USE_DIFFERENT_METHOD: "Usar otro método",
+	EDIT_DEPOSIT_DETAILS: "Editar detalles del depósito",
+	ILL_DEPOSIT_DIFFERENT_WAY: "No gracias, voy a depositar de otra forma"
 };
 
 export function ES(){

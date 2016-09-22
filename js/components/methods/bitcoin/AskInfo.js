@@ -98,7 +98,7 @@ let AskInfo = React.createClass({
 									{(() =>{
 										if(!isWithDraw){
 											return (
-												<p><em>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></em></p>
+												<p>{translate('BONUS_NEWS')}</p>
 											)
 										}
 									})()}

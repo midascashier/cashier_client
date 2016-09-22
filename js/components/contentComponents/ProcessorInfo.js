@@ -64,7 +64,7 @@ let ProcessorInfo = React.createClass({
 
 		return (
 			<div id="processorInfo">
-				<p>Good news! You have a <span>100%</span> deposit bonus up to <span>$1,000.</span></p>
+				<p>{translate('BONUS_NEWS')}</p>
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="deposit-limits">

@@ -141,7 +141,7 @@ let InfoMethod = React.createClass({
 						<button type='button' className='btn btn-green' disabled={isNextDisabled} onClick={this.continueTransaction}>
 							{translate('PROCESSING_BUTTON_NEXT', 'Next')}
 						</button>
-						<p><a onClick={this.setFirstStep}>Use different Method.</a></p>
+						<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
 					</div>
 					<div className="col-sm-6">
 						<img src={originPath + '/images/ssl.png'} alt="ssl"/>
