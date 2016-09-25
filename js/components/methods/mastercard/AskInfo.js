@@ -77,7 +77,6 @@ let AskInfo = React.createClass({
 										</div>
 										<div id="register">
 											{(() =>{
-												console.log(payAccountId);
 												if(payAccountId == 0){
 													return <Register />
 												}
