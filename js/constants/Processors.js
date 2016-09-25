@@ -29,6 +29,11 @@ settings[Cashier.PROCESSOR_ID_VISA][LIMITS_VALIDATION_VERSION] = "full";
 settings[Cashier.PROCESSOR_ID_VISA][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "confirm"];
 settings[Cashier.PROCESSOR_ID_VISA][SETTING_ROUTE] = 'visa/';
 
+settings[Cashier.PROCESSOR_ID_MC] = [];
+settings[Cashier.PROCESSOR_ID_MC][LIMITS_VALIDATION_VERSION] = "full";
+settings[Cashier.PROCESSOR_ID_MC][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "confirm"];
+settings[Cashier.PROCESSOR_ID_MC][SETTING_ROUTE] = 'mastercard/';
+
 settings[Cashier.PROCESSOR_ID_MONEYGRAM] = [];
 settings[Cashier.PROCESSOR_ID_MONEYGRAM][LIMITS_VALIDATION_VERSION] = "lite";
 settings[Cashier.PROCESSOR_ID_MONEYGRAM][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "instructions"];

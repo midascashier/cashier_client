@@ -34,6 +34,19 @@ import { VisaRejectBankTicket } from './components/methods/visa/tickets/RejectBa
 import { VisaRejectAmountTicket } from './components/methods/visa/tickets/RejectAmountTicket'
 import { VisaRejectCardTicket } from './components/methods/visa/tickets/RejectCardTicket'
 
+
+/**
+ * MC set of components to create routes
+ */
+import { MasterCard } from './components/methods/mastercard/MasterCard'
+import { MasterCardConfirm } from './components/methods/mastercard/Confirm'
+import { MasterCardApprovedTicket } from './components/methods/mastercard/tickets/ApprovedTicket'
+import { MasterCardRejectedTicket } from './components/methods/mastercard/tickets/RejectedTicket'
+import { MasterCardRejectBankTicket } from './components/methods/mastercard/tickets/RejectBankTicket'
+import { MasterCardRejectAmountTicket } from './components/methods/mastercard/tickets/RejectAmountTicket'
+import { MasterCardRejectCardTicket } from './components/methods/mastercard/tickets/RejectCardTicket'
+
+
 /**
  * Person2Person set of components to create routes
  */
@@ -87,6 +100,17 @@ let routes = (
 					<Route path="rejected/invalidAmount/" component={VisaRejectAmountTicket}/>
 					<Route path="rejected/invalidCard/" component={VisaRejectCardTicket}/>
 				</Route>
+
+				<Route path="mastercard/" component={MasterCard}/>
+				<Route path="mastercard/confirm/" component={MasterCardConfirm}/>
+				<Route path="mastercard/ticket/" component={LoadingTicket}>
+					<Route path="approved/" component={MasterCardApprovedTicket}/>
+					<Route path="rejected/" component={MasterCardRejectedTicket}/>
+					<Route path="rejected/blockByBank/" component={MasterCardRejectBankTicket}/>
+					<Route path="rejected/invalidAmount/" component={MasterCardRejectAmountTicket}/>
+					<Route path="rejected/invalidCard/" component={MasterCardRejectCardTicket}/>
+				</Route>
+
 
 				<Route path="moneygram/" component={Person2Person}/>
 				<Route path="moneygram/ticket/" component={LoadingTicket}>

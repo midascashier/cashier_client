@@ -248,6 +248,11 @@ let _payAccount = {
 		 */
 		limitsPassed: false
 	},
+	cleanPayAccount(){
+		this.payAccountId = null;
+		this.displayName = null;
+
+	},
 	load(data){
 		this.payAccountId = data.payAccountId;
 		this.displayName = data.displayName;
@@ -803,6 +808,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.START_TRANSACTION:
 			//do some work before start the transaction
 			_transaction.cleanTransaction();
+			_payAccount.cleanPayAccount();
 			break;
 
 		case actions.SET_STEP:
@@ -854,16 +860,16 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.SEND_TRANSACTION_TOKEN_RESPONSE:
-			if (data.response && data.response.hash){
+			if(data.response && data.response.hash){
 				_transaction.hash = data.response.hash;
-			}else{
+			} else{
 				_transaction.secondFactorMessage = data.userMessage;
 			}
 			CashierStore.emitChange();
 			break;
 
 		case actions.VERIFY_TRANSACTION_TOKEN_RESPONSE:
-			if (data.response.reason == cashier.SECOND_FACTOR_MAX_ATTEMPTS_REACHED){
+			if(data.response.reason == cashier.SECOND_FACTOR_MAX_ATTEMPTS_REACHED){
 				_transaction.hash = "";
 				_transaction.secondFactorMaxAttempts = true;
 			}
