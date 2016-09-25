@@ -35,6 +35,14 @@ settings[Cashier.PROCESSOR_ID_MONEYGRAM][DEPOSIT_STEPS] = ["selectMethod", "askI
 settings[Cashier.PROCESSOR_ID_MONEYGRAM][WITHDRAW_STEPS] = ["selectMethod", "askInfo", "confirm"];
 settings[Cashier.PROCESSOR_ID_MONEYGRAM][SETTING_ROUTE] = 'moneygram/';
 
+
+settings[Cashier.PROCESSOR_ID_WU] = [];
+settings[Cashier.PROCESSOR_ID_WU][LIMITS_VALIDATION_VERSION] = "lite";
+settings[Cashier.PROCESSOR_ID_WU][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "instructions"];
+settings[Cashier.PROCESSOR_ID_WU][WITHDRAW_STEPS] = ["selectMethod", "askInfo", "confirm"];
+settings[Cashier.PROCESSOR_ID_WU][SETTING_ROUTE] = 'westernunion/';
+
+
 export default {
 	settings: settings,
 	SETTING_ROUTE: SETTING_ROUTE,
