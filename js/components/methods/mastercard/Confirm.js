@@ -6,7 +6,7 @@ import { TransactionService } from '../../../services/TransactionService'
 import { ApplicationService } from '../../../services/ApplicationService'
 import { Input } from '../../Inputs'
 
-let VisaConfirm = React.createClass({
+let MasterCardConfirm = React.createClass({
 
 	/**
 	 * React function to set component initial state
@@ -194,7 +194,7 @@ let VisaConfirm = React.createClass({
 		}
 
 		return (
-			<div id="visaConfirm" className="internal-content">
+			<div id="mastercardConfirm" className="internal-content">
 				<div className="row">
 
 					<div className="col-sm-6">
@@ -370,4 +370,4 @@ let VisaConfirm = React.createClass({
 	}
 });
 
-module.exports.VisaConfirm = VisaConfirm;
+module.exports.MasterCardConfirm = MasterCardConfirm;

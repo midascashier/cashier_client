@@ -2,7 +2,7 @@ import React from 'react'
 import { UIService } from '../../../../services/UIService'
 import { CashierStore } from '../../../../stores/CashierStore'
 
-let VisaApprovedTicket = React.createClass({
+let MasterCardApprovedTicket = React.createClass({
 
 	/**
 	 * initialize the state
@@ -60,7 +60,7 @@ let VisaApprovedTicket = React.createClass({
 		let descriptor = this.state.descriptor;
 
 		return (
-			<div className="internal-content" id="visaApprovedTicket">
+			<div className="internal-content" id="mastercardApprovedTicket">
 				<div className="row">
 					<div className="col-sm-6">
 						<div className="box">
@@ -84,5 +84,5 @@ let VisaApprovedTicket = React.createClass({
 	}
 });
 
-module.exports.VisaApprovedTicket = VisaApprovedTicket;
+module.exports.MasterCardApprovedTicket = MasterCardApprovedTicket;
 

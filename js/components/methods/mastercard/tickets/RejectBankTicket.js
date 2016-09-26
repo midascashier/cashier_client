@@ -2,7 +2,7 @@ import React from 'react'
 import { UIService } from '../../../../services/UIService'
 import { TransactionService } from '../../../../services/TransactionService'
 
-let VisaRejectBankTicket = React.createClass({
+let MasterCardRejectBankTicket = React.createClass({
 
 	/**
 	 * initialize the state
@@ -70,7 +70,7 @@ let VisaRejectBankTicket = React.createClass({
 
 	render() {
 		return (
-			<div id="visaRejectBankTicket">
+			<div id="mastercardRejectBankTicket">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="rejected-message">
@@ -87,4 +87,4 @@ let VisaRejectBankTicket = React.createClass({
 	}
 });
 
-module.exports.VisaRejectBankTicket = VisaRejectBankTicket;
+module.exports.MasterCardRejectBankTicket = MasterCardRejectBankTicket;

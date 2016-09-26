@@ -51,7 +51,8 @@ let AskInfo = React.createClass({
 								<div className="col-sm-12">
 									<div className="form-horizontal">
 										<div className="form-group" id="payAccount">
-											<label className="col-sm-3 control-label">{translate('CREDIT_CARD_SELECT', 'Credit Card')}:</label>
+											<label
+												className="col-sm-3 control-label">{translate('CREDIT_CARD_SELECT', 'Credit Card')}:</label>
 											{(() =>{
 												if(payAccountId != 0){
 													return (
@@ -94,7 +95,7 @@ let AskInfo = React.createClass({
 										})()}
 
 										{(() =>{
-											if((payAccount.extra.dob == null || payAccount.extra.ssn == null) && payAccountId != null){
+											if((payAccount.extra.dob == null || payAccount.extra.ssn == null || payAccount.extra.dob == "" || payAccount.extra.ssn == "") && payAccountId != null && payAccountId != 0){
 												return <ExtraInfo changeValue={changeValue} ssn={ssn} dobMonth={dobMonth} dobDay={dobDay}
 																					dobYear={dobYear}/>
 											}

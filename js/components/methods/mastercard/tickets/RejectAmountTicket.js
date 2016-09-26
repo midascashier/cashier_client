@@ -4,7 +4,7 @@ import { UIService } from '../../../../services/UIService'
 import { TransactionService } from '../../../../services/TransactionService'
 import { CashierStore } from '../../../../stores/CashierStore'
 
-let VisaRejectAmountTicket = React.createClass({
+let MasterCardRejectAmountTicket = React.createClass({
 
 	/**
 	 * initialize the state
@@ -98,7 +98,7 @@ let VisaRejectAmountTicket = React.createClass({
 		let limits = this.state.limits;
 
 		return (
-			<div id="visaRejectAmountTicket">
+			<div id="mastercardRejectAmountTicket">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="rejected-message">
@@ -122,4 +122,4 @@ let VisaRejectAmountTicket = React.createClass({
 	}
 });
 
-module.exports.VisaRejectAmountTicket = VisaRejectAmountTicket;
+module.exports.MasterCardRejectAmountTicket = MasterCardRejectAmountTicket;
