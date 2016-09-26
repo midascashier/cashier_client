@@ -126,6 +126,13 @@ let routes = (
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
+				<Route path="billpay/" component={Person2Person}/>
+				<Route path="billpay/ticket/" component={LoadingTicket}>
+					<Route path="pending/" component={P2PTicketPending}/>
+					<Route path="processing/" component={P2PTicketProcessing}/>
+					<Route path="rejected/" component={RejectedTicket}/>
+				</Route>
+
 			</Route>
 
 			<Route path="/withdraw/" component={Content}>
@@ -159,8 +166,6 @@ let routes = (
 					<Route path="deferred/" component={DeferredTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
-
-
 			</Route>
 		</Route>
 	</Router>

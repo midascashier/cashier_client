@@ -47,6 +47,11 @@ settings[Cashier.PROCESSOR_ID_WU][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "
 settings[Cashier.PROCESSOR_ID_WU][WITHDRAW_STEPS] = ["selectMethod", "askInfo", "confirm"];
 settings[Cashier.PROCESSOR_ID_WU][SETTING_ROUTE] = 'westernunion/';
 
+settings[Cashier.PROCESSOR_ID_BILLPAY] = [];
+settings[Cashier.PROCESSOR_ID_BILLPAY][LIMITS_VALIDATION_VERSION] = "lite";
+settings[Cashier.PROCESSOR_ID_BILLPAY][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "instructions"];
+settings[Cashier.PROCESSOR_ID_BILLPAY][WITHDRAW_STEPS] = ["selectMethod", "askInfo", "confirm"];
+settings[Cashier.PROCESSOR_ID_BILLPAY][SETTING_ROUTE] = 'billpay/';
 
 export default {
 	settings: settings,
