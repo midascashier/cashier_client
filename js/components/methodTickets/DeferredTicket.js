@@ -1,6 +1,7 @@
 import React from 'react'
 import { UIService } from '../../services/UIService'
 import { CashierStore } from '../../stores/CashierStore'
+import { translate } from '../../constants/Translate'
 
 let DeferredTicket = React.createClass({
 

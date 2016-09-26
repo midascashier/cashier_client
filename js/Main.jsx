@@ -153,6 +153,14 @@ let routes = (
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
+				<Route path="westernunion/" component={Person2Person}/>
+				<Route path="westernunion/confirm/" component={P2PConfirmWithdraw}/>
+				<Route path="westernunion/ticket/" component={LoadingTicket}>
+					<Route path="deferred/" component={DeferredTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
+				</Route>
+
+
 			</Route>
 		</Route>
 	</Router>
