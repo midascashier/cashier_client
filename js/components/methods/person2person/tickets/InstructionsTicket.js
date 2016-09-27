@@ -10,7 +10,7 @@ let P2PTicketPending = React.createClass({
 
 	/**
 	 * initialize the state
-	 * 
+	 *
 	 * @returns {*|{transaction}|{transaction: (*|{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array})}}
 	 */
 	getInitialState(){
@@ -84,18 +84,18 @@ let P2PTicketPending = React.createClass({
 	changeValue(attribute, value) {
 
 		if(attribute == 'controlNumber'){
-			let enableSubmit = ApplicationService.validateInfo(value,"isControlNumber");
-			this.setState({enableReprocess: enableSubmit, controlNumber: value});
+			let enableSubmit = ApplicationService.validateInfo(value, "isControlNumber");
+			this.setState({ enableReprocess: enableSubmit, controlNumber: value });
 			TransactionService.setControlNumber(value);
 		}
 
 		if(attribute == 'amount'){
-			this.setState({currencyAmount: value});
+			this.setState({ currencyAmount: value });
 			TransactionService.setAmount(value);
 		}
 
 		if(attribute == 'fee'){
-			this.setState({fee: value});
+			this.setState({ fee: value });
 			TransactionService.setFeeAmount(value);
 		}
 
@@ -107,7 +107,6 @@ let P2PTicketPending = React.createClass({
 		let controlNumber = this.state.controlNumber;
 		let currencyAmount = this.state.currencyAmount;
 		let fee = this.state.fee;
-
 		return (
 			<div id="P2PTicketPending">
 
@@ -148,18 +147,46 @@ let P2PTicketPending = React.createClass({
 											<div className="title">{translate('P2P_INSTRUCTIONS_RECEIVER', "Receiver's Information")}</div>
 											<div className="infoCol">
 												<div className="row">
-													<p><a onClick={this.setFirstStep}>{translate('P2P_INSTRUCTIONS_GET_RECEIVER', "Get New Receiver")}</a></p>
+													<p><a
+														onClick={this.setFirstStep}>{translate('P2P_INSTRUCTIONS_GET_RECEIVER', "Get New Receiver")}</a>
+													</p>
 												</div>
 												<div className="row">
-													<ul>
-														<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
-														<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
-														<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
-													</ul>
+
+													{(() =>{
+														if(transactionDetails.caProcessor_Id == 500){
+															return <ul>
+																<li>{translate('P2P_AGENCY_NAME', 'Agency_Name')}: Easypay - Phillgus</li>
+																<li>{translate('P2P_ADDRESS', 'ADDRESS')}: 150 mts Norte de la farmacia La Bomba, frente
+																	al
+																	hostel Cataluña, San Pedro de Montes de Oca
+																</li>
+																<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
+																<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
+																<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
+															</ul>
+														} else{
+															return <ul>
+																<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
+																<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
+																<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
+															</ul>
+														}
+													})()}
 												</div>
 											</div>
+											{(() =>{
+												if(transactionDetails.caProcessor_Id == 500){
+													return <p>
+														<strong>Make your payment in one of the following establishments</strong><br />
+														<img src="/images/ria.jpg"/>
+													</p>
+												}
+											})()}
+
 											<p>
-												<strong>Important Notice: Not following the instructions below will result in a rejected transactionDetails.</strong>
+												<strong>Important Notice: Not following the instructions below will result in a rejected
+													transaction Details.</strong>
 											</p>
 											<ul>
 												<li>This receiver's information is only valid for the next 48 hours.</li>
@@ -176,28 +203,35 @@ let P2PTicketPending = React.createClass({
 								<div className="box">
 									<div className="row">
 										<div className="col-sm-12">
-											<div className="title">{translate('P2P_INSTRUCTIONS_PENDING_MTCN', 'Pending Control Number')}</div>
+											<div
+												className="title">{translate('P2P_INSTRUCTIONS_PENDING_MTCN', 'Pending Control Number')}</div>
 
 											<form className="form-horizontal infoCol">
 												<div className="form-group">
-													<label className="col-sm-4 control-label">{translate('P2P_CONTROL_NUMBER', 'Control #')}:</label>
+													<label
+														className="col-sm-4 control-label">{translate('P2P_CONTROL_NUMBER', 'Control #')}:</label>
 													<div className="col-sm-8">
-														<Input type="text" className="form-control" id="controlNumber" value={controlNumber} onChange={this.changeValue.bind(this, 'controlNumber')}/>
+														<Input type="text" className="form-control" id="controlNumber" value={controlNumber}
+																	 onChange={this.changeValue.bind(this, 'controlNumber')}/>
 													</div>
 												</div>
 												<div className="form-group">
-													<label className="col-sm-4 control-label">{translate('P2P_AMOUNT_SEND', 'Funds Sent')}:</label>
+													<label
+														className="col-sm-4 control-label">{translate('P2P_AMOUNT_SEND', 'Funds Sent')}:</label>
 													<div className="col-sm-8">
-														<Input type="number" className="form-control" id="amount" value={currencyAmount} onChange={this.changeValue.bind(this, 'amount')}/>
+														<Input type="number" className="form-control" id="amount" value={currencyAmount}
+																	 onChange={this.changeValue.bind(this, 'amount')}/>
 													</div>
 												</div>
 												<div className="form-group">
 													<label className="col-sm-4 control-label">{translate('P2P_FEE_SEND', 'Fee')}:</label>
 													<div className="col-sm-8">
-														<Input type="number" className="form-control" id="fee" value={fee} onChange={this.changeValue.bind(this, 'fee')}/>
+														<Input type="number" className="form-control" id="fee" value={fee}
+																	 onChange={this.changeValue.bind(this, 'fee')}/>
 													</div>
 												</div>
-												<button type="button" className="btn btn-green" disabled={!this.state.enableReprocess} onClick={this.submitTransaction}>
+												<button type="button" className="btn btn-green" disabled={!this.state.enableReprocess}
+																onClick={this.submitTransaction}>
 													{translate('PROCESSING_BUTTON_SUBMIT', 'Submit')}
 												</button>
 												<p>{translate('P2P_INSTRUCTIONS_INFO', '')}</p>

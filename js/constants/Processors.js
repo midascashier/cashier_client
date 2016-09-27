@@ -53,6 +53,12 @@ settings[Cashier.PROCESSOR_ID_BILLPAY][DEPOSIT_STEPS] = ["selectMethod", "askInf
 settings[Cashier.PROCESSOR_ID_BILLPAY][WITHDRAW_STEPS] = ["selectMethod", "askInfo", "confirm"];
 settings[Cashier.PROCESSOR_ID_BILLPAY][SETTING_ROUTE] = 'billpay/';
 
+settings[Cashier.PROCESSOR_ID_RIA] = [];
+settings[Cashier.PROCESSOR_ID_RIA][LIMITS_VALIDATION_VERSION] = "lite";
+settings[Cashier.PROCESSOR_ID_RIA][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "instructions"];
+settings[Cashier.PROCESSOR_ID_RIA][WITHDRAW_STEPS] = ["selectMethod", "askInfo", "confirm"];
+settings[Cashier.PROCESSOR_ID_RIA][SETTING_ROUTE] = 'ria/';
+
 export default {
 	settings: settings,
 	SETTING_ROUTE: SETTING_ROUTE,

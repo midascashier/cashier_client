@@ -70,7 +70,6 @@ let P2PTicketProcessing = React.createClass({
 		let controlNumber = this.state.controlNumber;
 		let currencyAmount = this.state.currencyAmount;
 		let fee = this.state.fee;
-
 		return (
 			<div id="P2PTicketProcessing">
 
@@ -116,15 +115,39 @@ let P2PTicketProcessing = React.createClass({
 															<p><a onClick={this.setFirstStep}>{translate('P2P_INSTRUCTIONS_GET_RECEIVER', "Get New Receiver")}</a></p>
 														</div>
 														<div className="row">
-															<ul>
-																<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
-																<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
-																<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
-															</ul>
+															{(() =>{
+																if(transactionDetails.caProcessor_Id == 500){
+																	return <ul>
+																		<li>{translate('P2P_AGENCY_NAME', 'Agency_Name')}: Easypay - Phillgus</li>
+																		<li>{translate('P2P_ADDRESS', 'ADDRESS')}: 150 mts Norte de la farmacia La Bomba, frente
+																			al
+																			hostel Cataluña, San Pedro de Montes de Oca
+																		</li>
+																		<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
+																		<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
+																		<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
+																	</ul>
+																} else{
+																	return <ul>
+																		<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
+																		<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
+																		<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
+																	</ul>
+																}
+															})()}
 														</div>
 													</div>
+													{(() =>{
+														if(transactionDetails.caProcessor_Id == 500){
+															return <p>
+																<strong>Make your payment in one of the following establishments</strong><br />
+																<img src="/images/ria.jpg"/>
+															</p>
+														}
+													})()}
 													<p>
-														<strong>Important Notice: Not following the instructions below will result in a rejected transactionDetails.</strong>
+														<strong>Make your payment</strong>
+														<strong>Important Notice: Not following the instructions below will result in a rejected transaction details.</strong>
 													</p>
 													<ul>
 														<li>This receiver's information is only valid for the next 48 hours.</li>

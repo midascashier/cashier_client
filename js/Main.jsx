@@ -133,6 +133,14 @@ let routes = (
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
+				<Route path="ria/" component={Person2Person}/>
+				<Route path="ria/ticket/" component={LoadingTicket}>
+					<Route path="pending/" component={P2PTicketPending}/>
+					<Route path="processing/" component={P2PTicketProcessing}/>
+					<Route path="rejected/" component={RejectedTicket}/>
+				</Route>
+
+
 			</Route>
 
 			<Route path="/withdraw/" component={Content}>
