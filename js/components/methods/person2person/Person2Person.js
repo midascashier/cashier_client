@@ -107,6 +107,7 @@ let Person2Person = React.createClass({
 																 timeFrameTimeChange={this.timeFrameTimeChange}
 																 timeFrameDayChange={this.timeFrameDayChange}
 																 feeCheck={this.props.feeCheck}
+																 feeCashValue={this.props.feeCashValue}
 							/>;
 						}
 					})()}

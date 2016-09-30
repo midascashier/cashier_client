@@ -197,7 +197,8 @@ let _langTags = {
 	USE_DIFFERENT_METHOD: "Use different Method",
 	EDIT_DEPOSIT_DETAILS: "Edit the deposit details",
 	ILL_DEPOSIT_DIFFERENT_WAY: "No thanks. I'll deposit a different way",
-	GO_TO_POKER_LOBBY: "Go to Poker Lobby"
+	GO_TO_POKER_LOBBY: "Go to Poker Lobby",
+	SKRILL_EMAIL: "Skrill's Email"
 };
 
 export function EN(){

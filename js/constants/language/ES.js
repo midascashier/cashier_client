@@ -198,7 +198,8 @@ let _langTags = {
 	USE_DIFFERENT_METHOD: "Usar otro método",
 	EDIT_DEPOSIT_DETAILS: "Editar detalles del depósito",
 	ILL_DEPOSIT_DIFFERENT_WAY: "No gracias, voy a depositar de otra forma",
-	GO_TO_POKER_LOBBY: "Ir al salón de Poker"
+	GO_TO_POKER_LOBBY: "Ir al salón de Poker",
+	SKRILL_EMAIL: "Correo del Skrill"
 };
 
 export function ES(){

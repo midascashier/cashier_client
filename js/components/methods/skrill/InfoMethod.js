@@ -1,18 +1,14 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
 import Cashier from '../../../constants/Cashier'
+import { CashierStore } from '../../../stores/CashierStore'
 import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
-
 	propTypes: {
-		amount: React.PropTypes.string,
 		limitsCheck: React.PropTypes.string,
-		timeFrameDay: React.PropTypes.string,
-		timeFrameTime: React.PropTypes.node,
-		feeCashValue: React.PropTypes.number
+		amount: React.PropTypes.string
 	},
 
 	/**
@@ -52,13 +48,6 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 * send the customer to select the processor again
-	 */
-	setFirstStep() {
-		UIService.setFirstStep();
-	},
-
-	/**
 	 * this is the callback function the store calls when a state change
 	 *
 	 * @private
@@ -68,41 +57,61 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
+	 * this function checks if password and amount are valid
+	 */
+	allowProcess(){
+		let isWithDraw = UIService.getIsWithDraw();
+		let checkAmount = false;
+
+		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
+			checkAmount = true;
+		}
+
+		if(checkAmount){
+			return true;
+		}
+
+		else if(checkAmount && isWithDraw){
+			return true
+		}
+
+		return false;
+	},
+
+	/**
+	 * send the customer to select the processor again
+	 */
+	setFirstStep() {
+		UIService.setFirstStep();
+	},
+
+	/**
 	 * this function sends deposit info to cashier
 	 *
 	 */
 	continueTransaction(){
 		let isWithDraw = UIService.getIsWithDraw();
 		TransactionService.setAmount(this.props.amount);
-		TransactionService.setFeeAmount(this.props.feeCashValue);
 		if(isWithDraw){
 			UIService.confirmTransaction();
 		}
 		else{
-			//process to get new name
-			TransactionService.setTimeFrame({
-				timeFrameDay: this.props.timeFrameDay,
-				timeFrameTime: this.props.timeFrameTime
-			});
-			TransactionService.processGetName('instructions');
+			//process the deposit
+			let dynamicParams = {};
+			TransactionService.setAmount(this.props.amount);
+			TransactionService.process("", "ticket");
 		}
 	},
 
 	render() {
-		let limitsCheck = false;
-
-		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS && this.props.amount){
-			limitsCheck = true;
-		}
-
+		let limitsCheck = this.allowProcess();
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
 
-		let processorDisplayName = UIService.getProcessorDisplayName().toUpperCase();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
-			processorName: processorDisplayName,
+			processorName: "Skrill",
 			transactionType: transactionType
 		});
 
@@ -112,28 +121,27 @@ let InfoMethod = React.createClass({
 		}
 
 		return (
-			<div id="InfoMethodP2P">
-				<div className="col-sm-12">
-					<div className="title">{title}</div>
-					<div className="table-responsive">
-						<table className="table table-striped">
-							<tbody>
-							<tr>
-								<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-								<td><span>{payAccountInfo.minPayAccount}</span></td>
-							</tr>
-							<tr>
-								<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-								<td><span>{payAccountInfo.maxPayAccount}</span></td>
-							</tr>
-							<tr>
-								<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
-								<td><span>{payAccountInfo.remaining}</span></td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
+			<div id="skrillInfoMethod">
 					<div className="row">
+						<div className="title">{title}</div>
+						<div className="table-responsive">
+							<table className="table table-striped">
+								<tbody>
+									<tr>
+										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+										<td><span>{payAccountInfo.minPayAccount}</span></td>
+									</tr>
+									<tr>
+										<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
+										<td><span>{payAccountInfo.maxPayAccount}</span></td>
+									</tr>
+									<tr>
+										<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
+										<td><span>{payAccountInfo.remaining}</span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 						<div className="col-sm-12">
 							<div className="row">
 								<div className="col-sm-6">
@@ -147,7 +155,6 @@ let InfoMethod = React.createClass({
 								</div>
 							</div>
 						</div>
-					</div>
 				</div>
 			</div>
 		)

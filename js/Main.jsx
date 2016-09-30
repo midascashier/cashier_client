@@ -15,6 +15,11 @@ import { LoadingTicket } from './components/methodTickets/LoadingTicket'
 import { Neteller } from './components/methods/neteller/Neteller'
 import { NetellerConfirmWithdraw } from './components/methods/neteller/ConfirmWithdraw'
 
+/**
+ * Skrill set of components to create routes
+ */
+import { Skrill } from './components/methods/skrill/Skrill'
+
 
 /**
  * Bitcoin set of components to create routes
@@ -34,7 +39,6 @@ import { VisaRejectBankTicket } from './components/methods/visa/tickets/RejectBa
 import { VisaRejectAmountTicket } from './components/methods/visa/tickets/RejectAmountTicket'
 import { VisaRejectCardTicket } from './components/methods/visa/tickets/RejectCardTicket'
 
-
 /**
  * MC set of components to create routes
  */
@@ -46,14 +50,13 @@ import { MasterCardRejectBankTicket } from './components/methods/mastercard/tick
 import { MasterCardRejectAmountTicket } from './components/methods/mastercard/tickets/RejectAmountTicket'
 import { MasterCardRejectCardTicket } from './components/methods/mastercard/tickets/RejectCardTicket'
 
-
 /**
  * Person2Person set of components to create routes
  */
-import {Person2Person} from './components/methods/person2person/Person2Person'
-import {P2PConfirmWithdraw} from './components/methods/person2person/ConfirmWithdraw'
-import {P2PTicketPending} from './components/methods/person2person/tickets/InstructionsTicket'
-import {P2PTicketProcessing} from './components/methods/person2person/tickets/ProcessingTicket'
+import { Person2Person } from './components/methods/person2person/Person2Person'
+import { P2PConfirmWithdraw } from './components/methods/person2person/ConfirmWithdraw'
+import { P2PTicketPending } from './components/methods/person2person/tickets/InstructionsTicket'
+import { P2PTicketProcessing } from './components/methods/person2person/tickets/ProcessingTicket'
 
 /**
  * Common components
@@ -85,6 +88,13 @@ let routes = (
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
+				<Route path="skrill_ew/" component={Skrill}/>
+				<Route path="skrill_ew/ticket/" component={LoadingTicket}>
+					<Route path="approved/" component={ApprovedTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
+				</Route>
+
+
 				<Route path="btcscreen/" component={BitCoin}/>
 				<Route path="btcscreen/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={BitCoinTicketPending}/>
@@ -94,6 +104,16 @@ let routes = (
 				<Route path="visa/" component={Visa}/>
 				<Route path="visa/confirm/" component={VisaConfirm}/>
 				<Route path="visa/ticket/" component={LoadingTicket}>
+					<Route path="approved/" component={VisaApprovedTicket}/>
+					<Route path="rejected/" component={VisaRejectedTicket}/>
+					<Route path="rejected/blockByBank/" component={VisaRejectBankTicket}/>
+					<Route path="rejected/invalidAmount/" component={VisaRejectAmountTicket}/>
+					<Route path="rejected/invalidCard/" component={VisaRejectCardTicket}/>
+				</Route>
+
+				<Route path="etew_visa/" component={Visa}/>
+				<Route path="etew_visa/confirm/" component={VisaConfirm}/>
+				<Route path="etew_visa/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={VisaApprovedTicket}/>
 					<Route path="rejected/" component={VisaRejectedTicket}/>
 					<Route path="rejected/blockByBank/" component={VisaRejectBankTicket}/>
@@ -174,7 +194,17 @@ let routes = (
 					<Route path="deferred/" component={DeferredTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
+				
+				<Route path="ria/" component={Person2Person}/>
+				<Route path="ria/confirm/" component={P2PConfirmWithdraw}/>
+				<Route path="ria/ticket/" component={LoadingTicket}>
+					<Route path="deferred/" component={DeferredTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
+				</Route>
+
+
 			</Route>
+
 		</Route>
 	</Router>
 );
