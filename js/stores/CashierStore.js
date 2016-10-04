@@ -4,7 +4,7 @@ let CashierDispatcher = require('../dispatcher/CashierDispatcher');
 import assign from 'object-assign'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
-
+import { translate } from '../constants/Translate'
 /**
  * UI
  *
@@ -714,7 +714,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			}
 			let addPayAccountOption = Object.assign({}, _payAccount);
 			addPayAccountOption.payAccountId = 0;
-			addPayAccountOption.displayName = "Register new account";
+			addPayAccountOption.displayName = translate('REGISTER_NEW_ACCOUNT', 'register');
 			payAccounts_processor[addPayAccountOption.payAccountId] = addPayAccountOption;
 			if(_payAccount.payAccountId === null){
 				_payAccount = payAccounts_processor[firstPayAccount];

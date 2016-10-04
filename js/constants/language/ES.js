@@ -10,14 +10,14 @@ let _langTags = {
 	WELCOME_GET_STARTED: "Iniciar",
 	DEPOSIT: "Depósito",
 	WITHDRAW: "Retiro",
-	STEPS_DEPOSIT_METHOD: "Depósito",
+	STEPS_DEPOSIT_METHOD: "Metodo de Depósito",
 	STEPS_WITHDRAW_METHOD: "Retiro",
 	STEPS_HOW_MUCH_DEPOSIT: "¿Cuánto quiere depositar?",
 	STEPS_HOW_MUCH_WITHDRAW: "¿Cuánto quiere retirar?",
 	STEPS_BILLING_INFO: "Revise Su Información",
-	STEPS_INSTRUCTIONS: "Instruciones",
+	STEPS_INSTRUCTIONS: "Instrucciones",
 	STEPS_CONFIRMATION: "Confirmación",
-	CUSTOMER_INFO_USER: "Cuenta",
+	CUSTOMER_INFO_USER: "Usuario",
 	CUSTOMER_INFO_EMAIL: "Correo",
 	CUSTOMER_INFO_BALANCE: "Balance Disponible",
 	CUSTOMER_INFO_NEED_HELP: "¿Necesita Ayuda? ",
@@ -71,7 +71,7 @@ let _langTags = {
 	//ProcessingTransaction
 	PROCESSING: "Procesando... por favor espere!",
 	PROCESSING_DEPOSIT_INFORMATION_TITLE: "Ingrese la Información para el Depósito",
-	PROCESSING_DEPOSIT_INFORMATION_TITLE_CREDIT_CARD: "Por favor introduzca sus datos de la tarjeta",
+	PROCESSING_DEPOSIT_INFORMATION_TITLE_CREDIT_CARD: "Por favor introduzca los datos de la tarjeta",
 	PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P: "Por favor, introduzca la información del destinatario",
 	PROCESSING_WITHDRAW_INFORMATION_TITLE_P2P: "Por favor, introduzca la información del beneficiario",
 	PROCESSING_DEPOSIT_INFORMATION_EDIT: "Editar los detalles del depósito",
@@ -193,14 +193,16 @@ let _langTags = {
 	SECOND_FACTOR_REQUEST_CODE_BUTTON: "Request Code",
 	SECOND_FACTOR_ENTER_CODE: "Enter code Here",
 	SECOND_FACTOR_VERIFY_CODE: "Verify Code",
-	BONUS_NEWS: "Buenas Noticias! Tiene 100% de bono en sus depositos por mas de $1,000",
+	BONUS_NEWS: "Buenas Noticias! Tiene 100% de bono en sus depósitos por mas de $1,000",
 	CREDIT_CARD_CHECK_TERMENS: "Estoy de acuerdo con los ",
 	CREDIT_CARD_TERMS_COND: "términos y condiciones.",
 	USE_DIFFERENT_METHOD: "Usar otro método",
 	EDIT_DEPOSIT_DETAILS: "Editar detalles del depósito",
 	ILL_DEPOSIT_DIFFERENT_WAY: "No gracias, voy a depositar de otra forma",
 	GO_TO_POKER_LOBBY: "Ir al salón de Poker",
-	SKRILL_EMAIL: "Correo del Skrill"
+	SKRILL_EMAIL: "Correo del Skrill",
+	REGISTER_NEW_ACCOUNT: "Registrar una cuenta",
+	LOADING: "Cargando..."
 };
 
 export function ES(){

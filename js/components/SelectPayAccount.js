@@ -1,6 +1,7 @@
 import React from 'react'
 import { CashierActions } from './../actions/CashierActions'
 import { CashierStore } from './../stores/CashierStore'
+import { translate } from '../constants/Translate'
 
 let SelectPayAccount = React.createClass({
 	propTypes: {
@@ -88,7 +89,7 @@ let SelectPayAccount = React.createClass({
 			}
 		} else{
 			defaultValue = "";
-			optionNodes.push(renderOption({ label: "Loading..." }, -1));
+			optionNodes.push(renderOption({ label: translate('LOADING', 'loading') }, -1));
 		}
 
 		return (
