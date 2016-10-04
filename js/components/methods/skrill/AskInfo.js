@@ -1,7 +1,7 @@
 import React from 'react'
 import {translate} from '../../../constants/Translate'
 import {SelectPayAccount} from '../../SelectPayAccount'
-import {Input} from '../../Inputs'
+import {FeeController} from '../../FeeController'
 import {AmountController} from '../../AmountController'
 import {UIService} from '../../../services/UIService'
 import {Register} from './Register.js'
@@ -13,6 +13,8 @@ let AskInfo = React.createClass({
 		transactionAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.string,
 		amount: React.PropTypes.string,
+		feeCashValue: React.PropTypes.number,
+		feeCheck: React.PropTypes.number,
 		payAccount: React.PropTypes.object
 	},
 
@@ -27,13 +29,14 @@ let AskInfo = React.createClass({
 		let amount = this.props.amount;
 		let payAccountId = this.props.payAccount.payAccountId;
 		let isWithDraw = UIService.getIsWithDraw();
+		let feeCashValue = this.props.feeCashValue;
+		let feeCheck = this.props.feeCheck;
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
 		if(isWithDraw){
 			proccesingTitle = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information');
 		}
-
 		return (
-			<div id="netellerAskInfo" className="box">
+			<div id="skrillAskInfo" className="box">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="title">{proccesingTitle}</div>
@@ -43,7 +46,7 @@ let AskInfo = React.createClass({
 								<div className="col-sm-12">
 									<div className="form-horizontal">
 										<div className="form-group" id="payAccount">
-											<label className="col-sm-4 control-label">{translate('NETELLER_ACCOUNT', 'Neteller Account')}:</label>
+											<label className="col-sm-4 control-label">{translate('SKRILL_ACCOUNT', 'skrill Account')}:</label>
 											{(() =>{
 												if(payAccountId != 0){
 													return (
@@ -87,6 +90,10 @@ let AskInfo = React.createClass({
 												return (
 													<p>{translate('BONUS_NEWS')}</p>
 												)
+											}else{
+												return <div className="form-group">
+													<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
+												</div>
 											}
 										})()}
 									</div>

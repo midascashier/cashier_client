@@ -4,7 +4,7 @@ import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 
-let NetellerConfirmWithdraw = React.createClass({
+let SkrillConfirmWithdraw = React.createClass({
 
 	/**
 	 * React function to set component initial state
@@ -74,7 +74,7 @@ let NetellerConfirmWithdraw = React.createClass({
 		let transaction = this.state.transaction;
 		let secureData = this.state.payAccount.secure;
 		return (
-			<div id="confirmNetellerWithdraw" className="internal-content">
+			<div id="confirmSkrillWithdraw" className="internal-content">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="modules">
@@ -117,7 +117,7 @@ let NetellerConfirmWithdraw = React.createClass({
 														<table className="table table-striped">
 															<tbody>
 																<tr>
-																	<td>{translate('NETELLER_ACCOUNT', 'Account')}</td>
+																	<td>{translate('SKRILL', 'Account')}</td>
 																	<td><span>{secureData.account}</span></td>
 																</tr>
 																<tr>
@@ -161,4 +161,4 @@ let NetellerConfirmWithdraw = React.createClass({
 	}
 });
 
-module.exports.NetellerConfirmWithdraw = NetellerConfirmWithdraw;
+module.exports.SkrillConfirmWithdraw = SkrillConfirmWithdraw;

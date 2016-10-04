@@ -10,7 +10,9 @@ let Skrill = React.createClass({
 	propTypes: {
 		setAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.string,
-		amount: React.PropTypes.string
+		amount: React.PropTypes.string,
+		feeCashValue: React.PropTypes.number,
+		feeCheck: React.PropTypes.number
 	},
 
 	/**
@@ -72,6 +74,8 @@ let Skrill = React.createClass({
 									 setAmount={this.props.setAmount}
 									 payAccount={this.state.payAccount}
 									 limitsCheck={this.props.limitsCheck}
+									 feeCashValue={this.props.feeCashValue}
+									 feeCheck={this.props.feeCheck}
 					/>
 				</div>
 				<div className="col-sm-6">

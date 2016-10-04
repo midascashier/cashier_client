@@ -113,6 +113,7 @@ let _langTags = {
 	//Processors
 	NETELLER: "Neteller",
 	NETELLER_ACCOUNT: "Neteller Account",
+	SKRILL_ACCOUNT: "Skrill Account",
 	NETELLER_SECURE: "2FA or Secure ID",
 	NETELLER_NEW: "Enter your Neteller Email Account",
 	BITCOIN: "BitCoin",

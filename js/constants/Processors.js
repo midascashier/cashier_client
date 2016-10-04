@@ -21,7 +21,7 @@ settings[Cashier.PROCESSOR_ID_NETELLER][SETTING_ROUTE] = 'neteller_new/';
 
 settings[Cashier.PROCESSOR_ID_SKRILL] = [];
 settings[Cashier.PROCESSOR_ID_SKRILL][LIMITS_VALIDATION_VERSION] = "lite";
-settings[Cashier.PROCESSOR_ID_SKRILL][SETTING_ROUTE] = 'neteller_new/';
+settings[Cashier.PROCESSOR_ID_SKRILL][SETTING_ROUTE] = 'skrill_ew/';
 
 settings[Cashier.PROCESSOR_ID_BITCOIN] = [];
 settings[Cashier.PROCESSOR_ID_BITCOIN][LIMITS_VALIDATION_VERSION] = "lite";

@@ -518,8 +518,13 @@ class transactionService {
 	 * @param data
 	 */
 	processResponse(data){
-		this.getTransactionDetails();
-		UIService.processResponse(data);
+		let gotoURL =data.response.transaction.gotoURLAction;
+		if (gotoURL){
+			window.location = gotoURL;
+		}else{
+			this.getTransactionDetails();
+			UIService.processResponse(data);
+		}
 	};
 
 	/**

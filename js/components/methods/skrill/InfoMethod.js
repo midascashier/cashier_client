@@ -98,7 +98,6 @@ let InfoMethod = React.createClass({
 		else{
 			//process the deposit
 			let dynamicParams = {};
-			TransactionService.setAmount(this.props.amount);
 			TransactionService.process("", "ticket");
 		}
 	},

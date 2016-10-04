@@ -19,7 +19,7 @@ import { NetellerConfirmWithdraw } from './components/methods/neteller/ConfirmWi
  * Skrill set of components to create routes
  */
 import { Skrill } from './components/methods/skrill/Skrill'
-
+import { SkrillConfirmWithdraw } from './components/methods/skrill/ConfirmWithdraw'
 
 /**
  * Bitcoin set of components to create routes
@@ -174,13 +174,6 @@ let routes = (
 					<Route path="deferred/" component={DeferredTicket}/>
 				</Route>
 
-				<Route path="neteller_new/" component={Neteller}/>
-				<Route path="neteller_new/confirm/" component={NetellerConfirmWithdraw}/>
-				<Route path="neteller_new/ticket/" component={LoadingTicket}>
-					<Route path="deferred/" component={DeferredTicket}/>
-					<Route path="rejected/" component={RejectedTicket}/>
-				</Route>
-
 				<Route path="moneygram/" component={Person2Person}/>
 				<Route path="moneygram/confirm/" component={P2PConfirmWithdraw}/>
 				<Route path="moneygram/ticket/" component={LoadingTicket}>
@@ -202,6 +195,12 @@ let routes = (
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
+				<Route path="skrill_ew/" component={Skrill}/>
+				<Route path="skrill_ew/confirm/" component={SkrillConfirmWithdraw}/>
+				<Route path="skrill_ew/ticket/" component={LoadingTicket}>
+					<Route path="deferred/" component={DeferredTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
+				</Route>
 
 			</Route>
 

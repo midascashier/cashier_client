@@ -113,15 +113,17 @@ let Content = React.createClass({
 						feeInsufficientFunds = 1;
 					}
 				} else{
-					for(let i = 0; i < feeStructure.length; i++){
-						let feeItem = feeStructure[i];
-						if(parseFloat(feeItem.FromAmount) <= amount && amount < parseFloat(feeItem.ToAmount)){
-							feeCashValue = Math.ceil(parseFloat(feeItem.OnlineCash));
+					if(feeStructure){
+						for(let i = 0; i < feeStructure.length; i++){
+							let feeItem = feeStructure[i];
+							if(parseFloat(feeItem.FromAmount) <= amount && amount < parseFloat(feeItem.ToAmount)){
+								feeCashValue = Math.ceil(parseFloat(feeItem.OnlineCash));
 
-							if(transaction.feeType == "CASH" && (amount + feeCashValue) > parseFloat(currentBalance)){
-								feeInsufficientFunds = 1;
+								if(transaction.feeType == "CASH" && (amount + feeCashValue) > parseFloat(currentBalance)){
+									feeInsufficientFunds = 1;
+								}
+								break;
 							}
-							break;
 						}
 					}
 				}
