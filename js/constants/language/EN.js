@@ -68,6 +68,7 @@ let _langTags = {
 	TRANSACTION_STATUS_REJECTED: "Rejected",
 	TRANSACTION_STATUS_CANCELLED: "Cancelled",
 	TRANSACTION_STATUS_FAILED: "Failed",
+	TRANSACTION_STATUS_DEFERRED: "Deferred",
 	//ProcessingTransaction
 	PROCESSING: "Processing... please wait!",
 	PROCESSING_DEPOSIT_INFORMATION_TITLE: "Please Enter the Deposit Information",
@@ -201,7 +202,9 @@ let _langTags = {
 	GO_TO_POKER_LOBBY: "Go to Poker Lobby",
 	SKRILL_EMAIL: "Skrill's Email",
 	REGISTER_NEW_ACCOUNT: "Register new account",
-	LOADING: "Loading..."
+	LOADING: "Loading...",
+	M_BELOW_MIN: "Please increase the amount and try again",
+	M_ABOVE_MAX: "Please decrease the amount and try again"
 };
 
 export function EN(){

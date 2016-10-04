@@ -68,6 +68,7 @@ let _langTags = {
 	TRANSACTION_STATUS_REJECTED: "Rechazada",
 	TRANSACTION_STATUS_CANCELLED: "Cancelada",
 	TRANSACTION_STATUS_FAILED: "Fallida",
+	TRANSACTION_STATUS_DEFERRED: "Diferida",
 	//ProcessingTransaction
 	PROCESSING: "Procesando... por favor espere!",
 	PROCESSING_DEPOSIT_INFORMATION_TITLE: "Ingrese la Información para el Depósito",
@@ -202,7 +203,9 @@ let _langTags = {
 	GO_TO_POKER_LOBBY: "Ir al salón de Poker",
 	SKRILL_EMAIL: "Correo del Skrill",
 	REGISTER_NEW_ACCOUNT: "Registrar una cuenta",
-	LOADING: "Cargando..."
+	LOADING: "Cargando...",
+	M_BELOW_MIN: "Aumente el monto e intente de nuevo por favor",
+	M_ABOVE_MAX: "Disminuya el monto e intente de nuevo por favor"
 };
 
 export function ES(){
