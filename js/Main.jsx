@@ -13,7 +13,6 @@ import { LoadingTicket } from './components/methodTickets/LoadingTicket'
  * Neteller set of components to create routes
  */
 import { Neteller } from './components/methods/neteller/Neteller'
-import { NetellerConfirmWithdraw } from './components/methods/neteller/ConfirmWithdraw'
 
 /**
  * Skrill set of components to create routes
@@ -38,6 +37,12 @@ import { VisaRejectedTicket } from './components/methods/visa/tickets/RejectedTi
 import { VisaRejectBankTicket } from './components/methods/visa/tickets/RejectBankTicket'
 import { VisaRejectAmountTicket } from './components/methods/visa/tickets/RejectAmountTicket'
 import { VisaRejectCardTicket } from './components/methods/visa/tickets/RejectCardTicket'
+
+/**
+ * Astropay set of components to create routes
+ */
+import { Astropay } from './components/methods/astropay/Astropay'
+
 
 /**
  * MC set of components to create routes
@@ -94,6 +99,11 @@ let routes = (
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
+				<Route path="crd3co/" component={Ecopayz}/>
+				<Route path="crd3co/ticket/" component={LoadingTicket}>
+					<Route path="approved/" component={ApprovedTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
+				</Route>
 
 				<Route path="btcscreen/" component={BitCoin}/>
 				<Route path="btcscreen/ticket/" component={LoadingTicket}>
@@ -114,6 +124,16 @@ let routes = (
 				<Route path="etew_visa/" component={Visa}/>
 				<Route path="etew_visa/confirm/" component={VisaConfirm}/>
 				<Route path="etew_visa/ticket/" component={LoadingTicket}>
+					<Route path="approved/" component={VisaApprovedTicket}/>
+					<Route path="rejected/" component={VisaRejectedTicket}/>
+					<Route path="rejected/blockByBank/" component={VisaRejectBankTicket}/>
+					<Route path="rejected/invalidAmount/" component={VisaRejectAmountTicket}/>
+					<Route path="rejected/invalidCard/" component={VisaRejectCardTicket}/>
+				</Route>
+
+				<Route path="pp_apcc/" component={Astropay}/>
+				<Route path="pp_apcc/confirm/" component={VisaConfirm}/>
+				<Route path="pp_apcc/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={VisaApprovedTicket}/>
 					<Route path="rejected/" component={VisaRejectedTicket}/>
 					<Route path="rejected/blockByBank/" component={VisaRejectBankTicket}/>

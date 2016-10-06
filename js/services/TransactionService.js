@@ -67,7 +67,7 @@ class transactionService {
 	 * Function to get pay account previous pay accounts
 	 */
 	getPreviousPayAccount(processorID){
-		if (processorID != cashier.PROCESSOR_ID_BITCOIN){
+		if (processorID != cashier.PROCESSOR_ID_BITCOIN && processorID != cashier.PROCESSOR_ID_ASTROPAY){
 			let data = {
 				f: "getPayAccountsByCustomer", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
 			};
