@@ -821,6 +821,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			CashierStore.emitChange();
 			break;
 
+		case actions.SETS_PAYACCOUNT:
+			_payAccount.load(data.payAccount);
+			break;
+
 		case actions.GET_CREDITCARD_TRANSACTION_RESPONSE:
 			_transactionResponse.details = data.response;
 			CashierStore.emitChange();

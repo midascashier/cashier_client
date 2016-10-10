@@ -1,36 +1,53 @@
 import React from 'react'
-import {translate} from '../../../constants/Translate'
-import {SelectPayAccount} from '../../SelectPayAccount'
-import {FeeController} from '../../FeeController'
-import {AmountController} from '../../AmountController'
-import {UIService} from '../../../services/UIService'
-import {Register} from './Register.js'
-import {CustomerService} from '../../../services/CustomerService'
+import { translate } from '../../../constants/Translate'
+import { FeeController } from '../../FeeController'
+import { AmountController } from '../../AmountController'
+import { UIService } from '../../../services/UIService'
+import { Input } from '../../Inputs'
 
 let AskInfo = React.createClass({
 
 	propTypes: {
 		transactionAmount: React.PropTypes.func,
+		changeValue: React.PropTypes.func,
 		limitsCheck: React.PropTypes.string,
 		amount: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
-		payAccount: React.PropTypes.object
+		account: React.PropTypes.node
 	},
 
-	disablePayAccount() {
-		CustomerService.getDisablePayAccount();
+	/**
+	 * React function to set component inital state
+	 *
+	 * @returns {*|{step, processorSteps}}
+	 */
+	getInitialState() {
+		return this.refreshLocalState();
 	},
 
+	/**
+	 * this function sets and return object with local states
+	 *
+	 */
+	refreshLocalState() {
+		return {
+			payAccount: {
+				account: ""
+			}
+		}
+	},
 
 	render() {
 		let limitsCheck = this.props.limitsCheck;
 		let setAmount = this.props.setAmount;
+		let changeValue = this.props.changeValue;
 		let amount = this.props.amount;
-		let payAccountId = this.props.payAccount.payAccountId;
 		let isWithDraw = UIService.getIsWithDraw();
 		let feeCashValue = this.props.feeCashValue;
 		let feeCheck = this.props.feeCheck;
+		let account = this.props.account;
+
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
 		if(isWithDraw){
 			proccesingTitle = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information');
@@ -46,51 +63,22 @@ let AskInfo = React.createClass({
 								<div className="col-sm-12">
 									<div className="form-horizontal">
 										<div className="form-group" id="payAccount">
-											<label className="col-sm-4 control-label">{translate('SKRILL_ACCOUNT', 'skrill Account')}:</label>
-											{(() =>{
-												if(payAccountId != 0){
-													return (
-														<div className="col-sm-8" id="selectPayAccount">
-															<SelectPayAccount setAmount={setAmount} amount={amount}/>
-															<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
-																{translate('PROCESSING_BUTTON_DELETE_ACCOUNT', 'Delete Account')}
-															</button>
-														</div>
-													)
-												} else{
-													return (
-														<div className="col-sm-8" id="payAccounts">
-															<SelectPayAccount setAmount={setAmount} amount={amount}/>
-														</div>
-													)
-												}
-											})()}
-										</div>
-										
-										<div id="register">
-											{(() =>{
-												if(payAccountId == 0){
-													return <Register />
-												}
-											})()}
+											<label className="col-sm-4 control-label">{translate('ECOPAYZ_ACCOUNT', 'ECOPAYZ Account')}:</label>
+											<div className="col-sm-8" id="selectPayAccount">
+												<Input className="form-control" type="text" id="ecoAccount" name="ecoAccount" validate="isString" onChange={changeValue.bind(null, 'account', 0)} value={account} require/>
+											</div>
 										</div>
 
-										{(() =>{
-											if(payAccountId != 0){
-												return (
-													<div className="form-group">
-														<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-													</div>
-												)
-											}
-										})()}
+										<div className="form-group">
+											<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+										</div>
 
 										{(() =>{
 											if(!isWithDraw){
 												return (
 													<p>{translate('BONUS_NEWS')}</p>
 												)
-											}else{
+											} else{
 												return <div className="form-group">
 													<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
 												</div>

@@ -106,6 +106,13 @@ let CashierActions = {
 		});
 	},
 
+	setsPayAccount: (data) => {
+		CashierDispatcher.dispatch({
+			action: actions.SETS_PAYACCOUNT,
+			data: { payAccount: data}
+		});
+	},
+
 	setTransactionRandomTuid: (tuid) =>{
 		CashierDispatcher.dispatch({
 			action: actions.SET_TUID,

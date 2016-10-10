@@ -202,6 +202,7 @@ let _langTags = {
 	ILL_DEPOSIT_DIFFERENT_WAY: "No gracias, voy a depositar de otra forma",
 	GO_TO_POKER_LOBBY: "Ir al salón de Poker",
 	SKRILL_EMAIL: "Correo del Skrill",
+	ECOPAYZ_ACCOUNT: "Número de cuenta",
 	REGISTER_NEW_ACCOUNT: "Registrar una cuenta",
 	LOADING: "Cargando...",
 	M_BELOW_MIN: "Aumente el monto e intente de nuevo por favor",

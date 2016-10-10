@@ -39,7 +39,7 @@ let AskInfo = React.createClass({
 	},
 
 	/**
-	 * Set visa New Account Info
+	 * Set astropay New Account Info
 	 *
 	 * @param event
 	 */

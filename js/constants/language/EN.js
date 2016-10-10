@@ -201,6 +201,7 @@ let _langTags = {
 	ILL_DEPOSIT_DIFFERENT_WAY: "No thanks. I'll deposit a different way",
 	GO_TO_POKER_LOBBY: "Go to Poker Lobby",
 	SKRILL_EMAIL: "Skrill's Email",
+	ECOPAYZ_ACCOUNT: "ECO Account Number",
 	REGISTER_NEW_ACCOUNT: "Register new account",
 	LOADING: "Loading...",
 	M_BELOW_MIN: "Please increase the amount and try again",

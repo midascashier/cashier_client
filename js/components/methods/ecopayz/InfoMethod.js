@@ -8,7 +8,8 @@ import { UIService } from '../../../services/UIService'
 let InfoMethod = React.createClass({
 	propTypes: {
 		limitsCheck: React.PropTypes.string,
-		amount: React.PropTypes.string
+		amount: React.PropTypes.string,
+		account: React.PropTypes.node
 	},
 
 	/**
@@ -42,8 +43,7 @@ let InfoMethod = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			processor: CashierStore.getProcessor(),
-			currentPayAccount: CashierStore.getCurrentPayAccount()
+			processor: CashierStore.getProcessor()
 		}
 	},
 
@@ -97,30 +97,35 @@ let InfoMethod = React.createClass({
 		}
 		else{
 			//process the deposit
-			let dynamicParams = {};
-			TransactionService.process("", "ticket");
+			let payAccount = {};
+			payAccount.account = this.props.account;
+			this.refs.processingButton.setAttribute("disabled", "disabled");
+			TransactionService.registerPayAccount(payAccount);
+
 		}
 	},
 
 	render() {
 		let limitsCheck = this.allowProcess();
-		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
 
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
-			processorName: "Skrill",
+			processorName: "Ecopayz",
 			transactionType: transactionType
 		});
 
 		let isNextDisabled = "disabled";
-		if(payAccountInfo.payAccountId && limitsCheck){
+		if(this.props.account && limitsCheck){
 			isNextDisabled = "";
 		}
 
+		let processor = this.state.processor;
+		let remainingLimit = processor.limits.currencyMax - this.props.amount;
+
 		return (
-			<div id="skrillInfoMethod">
+			<div id="ecopayzMethod">
 					<div className="row">
 						<div className="title">{title}</div>
 						<div className="table-responsive">
@@ -128,15 +133,15 @@ let InfoMethod = React.createClass({
 								<tbody>
 									<tr>
 										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-										<td><span>{payAccountInfo.minPayAccount}</span></td>
+										<td><span>{processor.limits.currencyMin}</span></td>
 									</tr>
 									<tr>
 										<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-										<td><span>{payAccountInfo.maxPayAccount}</span></td>
+										<td><span>{processor.limits.currencyMax}</span></td>
 									</tr>
 									<tr>
 										<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
-										<td><span>{payAccountInfo.remaining}</span></td>
+										<td><span>{remainingLimit}</span></td>
 									</tr>
 								</tbody>
 							</table>
@@ -144,7 +149,7 @@ let InfoMethod = React.createClass({
 						<div className="col-sm-12">
 							<div className="row">
 								<div className="col-sm-6">
-									<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
+									<button type='button' onClick={this.continueTransaction} ref='processingButton' disabled={isNextDisabled} className='btn btn-green'>
 										{translate('PROCESSING_BUTTON_NEXT', 'Next')}
 									</button>
 									<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>

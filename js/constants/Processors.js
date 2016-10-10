@@ -23,9 +23,9 @@ settings[Cashier.PROCESSOR_ID_SKRILL] = [];
 settings[Cashier.PROCESSOR_ID_SKRILL][LIMITS_VALIDATION_VERSION] = "lite";
 settings[Cashier.PROCESSOR_ID_SKRILL][SETTING_ROUTE] = 'skrill_ew/';
 
-settings[Cashier.PROCESSOR_ID_ECOPAY] = [];
-settings[Cashier.PROCESSOR_ID_ECOPAY][LIMITS_VALIDATION_VERSION] = "lite";
-settings[Cashier.PROCESSOR_ID_ECOPAY][SETTING_ROUTE] = 'crd3co/';
+settings[Cashier.PROCESSOR_ID_ECOPAYZ] = [];
+settings[Cashier.PROCESSOR_ID_ECOPAYZ][LIMITS_VALIDATION_VERSION] = "lite";
+settings[Cashier.PROCESSOR_ID_ECOPAYZ][SETTING_ROUTE] = 'crd3co/';
 
 settings[Cashier.PROCESSOR_ID_BITCOIN] = [];
 settings[Cashier.PROCESSOR_ID_BITCOIN][LIMITS_VALIDATION_VERSION] = "lite";

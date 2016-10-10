@@ -21,6 +21,12 @@ import { Skrill } from './components/methods/skrill/Skrill'
 import { SkrillConfirmWithdraw } from './components/methods/skrill/ConfirmWithdraw'
 
 /**
+ * EcoPayz set of components to create routes
+ */
+import { Ecopayz } from './components/methods/ecopayz/Ecopayz'
+import { EcopayzConfirmWithdraw } from './components/methods/ecopayz/ConfirmWithdraw'
+
+/**
  * Bitcoin set of components to create routes
  */
 import { BitCoin } from './components/methods/bitcoin/Bitcoin'

@@ -67,7 +67,7 @@ class transactionService {
 	 * Function to get pay account previous pay accounts
 	 */
 	getPreviousPayAccount(processorID){
-		if (processorID != cashier.PROCESSOR_ID_BITCOIN && processorID != cashier.PROCESSOR_ID_ASTROPAY){
+		if (processorID != cashier.PROCESSOR_ID_BITCOIN && processorID != cashier.PROCESSOR_ID_ASTROPAY && processorID != cashier.PROCESSOR_ID_ECOPAY){
 			let data = {
 				f: "getPayAccountsByCustomer", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
 			};
@@ -276,6 +276,7 @@ class transactionService {
 		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
 
 		UIService.processTransaction(nextStep);
+		console.log(rabbitRequest);
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 
@@ -518,6 +519,7 @@ class transactionService {
 	 * @param data
 	 */
 	processResponse(data){
+		console.log(data);
 		let gotoURL =data.response.transaction.gotoURLAction;
 		if (gotoURL){
 			window.location = gotoURL;

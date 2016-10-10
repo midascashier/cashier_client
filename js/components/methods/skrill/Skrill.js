@@ -56,16 +56,6 @@ let Skrill = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
-	/**
-	 * set local state with neteller password
-	 *
-	 * @param value
-	 * @constructor
-	 */
-	netellerPassword(value) {
-		this.setState({ password: value });
-	},
-
 	render() {
 		return (
 			<div id="skrill">
@@ -83,7 +73,7 @@ let Skrill = React.createClass({
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
 						} else{
-							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck} password={this.state.password}/>;
+							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck} />;
 						}
 					})()}
 				</div>

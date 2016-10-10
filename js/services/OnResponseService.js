@@ -34,7 +34,13 @@ class OnResponseService {
 
 			case actions.VALIDATE_PAYACCOUNT:
 				let processorID = data.response.payAccount.processorIdRoot;
-				TransactionService.getPreviousPayAccount(processorID);
+				if (processorID == 354){
+					let payAccount = {};
+					CashierActions.setsPayAccount(data.response.payAccount);
+					TransactionService.process({ account: data.response.payAccount.displayName, askAmount: true }, "ticket");
+				}else{
+					TransactionService.getPreviousPayAccount(processorID);
+				}
 				break;
 
 			case actions.PAYACCOUNTS_DISABLE_RESPONSE:
