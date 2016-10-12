@@ -27,6 +27,10 @@ settings[Cashier.PROCESSOR_ID_ECOPAYZ] = [];
 settings[Cashier.PROCESSOR_ID_ECOPAYZ][LIMITS_VALIDATION_VERSION] = "lite";
 settings[Cashier.PROCESSOR_ID_ECOPAYZ][SETTING_ROUTE] = 'crd3co/';
 
+settings[Cashier.PROCESSOR_ID_1TAP] = [];
+settings[Cashier.PROCESSOR_ID_1TAP][LIMITS_VALIDATION_VERSION] = "lite";
+settings[Cashier.PROCESSOR_ID_1TAP][SETTING_ROUTE] = 'skrill_1tap/';
+
 settings[Cashier.PROCESSOR_ID_BITCOIN] = [];
 settings[Cashier.PROCESSOR_ID_BITCOIN][LIMITS_VALIDATION_VERSION] = "lite";
 settings[Cashier.PROCESSOR_ID_BITCOIN][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "instructions"];
@@ -76,6 +80,11 @@ settings[Cashier.PROCESSOR_ID_RIA][LIMITS_VALIDATION_VERSION] = "lite";
 settings[Cashier.PROCESSOR_ID_RIA][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "instructions"];
 settings[Cashier.PROCESSOR_ID_RIA][WITHDRAW_STEPS] = ["selectMethod", "askInfo", "confirm"];
 settings[Cashier.PROCESSOR_ID_RIA][SETTING_ROUTE] = 'ria/';
+
+settings[Cashier.PROCESSOR_ID_GENCK] = [];
+settings[Cashier.PROCESSOR_ID_GENCK][LIMITS_VALIDATION_VERSION] = "lite";
+settings[Cashier.PROCESSOR_ID_GENCK][WITHDRAW_STEPS] = ["selectMethod", "askInfo", "confirm"];
+settings[Cashier.PROCESSOR_ID_GENCK][SETTING_ROUTE] = 'genck/';
 
 export default {
 	settings: settings,

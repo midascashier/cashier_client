@@ -206,7 +206,8 @@ let _langTags = {
 	REGISTER_NEW_ACCOUNT: "Registrar una cuenta",
 	LOADING: "Cargando...",
 	M_BELOW_MIN: "Aumente el monto e intente de nuevo por favor",
-	M_ABOVE_MAX: "Disminuya el monto e intente de nuevo por favor"
+	M_ABOVE_MAX: "Disminuya el monto e intente de nuevo por favor",
+	ONETAP_ACCOUNT: "Cuenta de 1TAP"
 };
 
 export function ES(){

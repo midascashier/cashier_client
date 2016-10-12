@@ -1,10 +1,11 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
-import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
-import { AskInfo } from './AskInfo'
-import { InfoMethod } from './InfoMethod'
+import {CashierStore} from '../../../stores/CashierStore'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
+import {AskInfo} from './AskInfo'
+import {InfoMethod} from './InfoMethod'
+import { TransactionService } from '../../../services/TransactionService'
 
-let Ecopayz = React.createClass({
+let Genck = React.createClass({
 
 	propTypes: {
 		setAmount: React.PropTypes.func,
@@ -40,16 +41,9 @@ let Ecopayz = React.createClass({
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState() {
-		let account = "" ;
-		if (this.state && this.state.info){
-			account = this.state.info.account;
-		}
 		return {
-			info: {
-				selectedProcessor: CashierStore.getProcessor(),
-				account: account,
-				validAccount: false
-			}
+			selectedProcessor: CashierStore.getProcessor(),
+			payAccount: TransactionService.getCurrentPayAccount()
 		}
 	},
 
@@ -62,49 +56,28 @@ let Ecopayz = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
-	/**
-	 * Set ecopayz New Account Info
-	 *
-	 * @param event
-	 */
-	changeValue(propertyName, isSelectComponent = 0, event, validAccount){
-		let actualState = this.state;
-
-		let value = event;
-
-		if(isSelectComponent){
-			value = value.target.value;
-		}
-
-		actualState.info[propertyName] = value;
-		actualState.info["validAccount"] = validAccount;
-
-		this.setState(
-			actualState
-		);
-
-	},
-
-
 	render() {
 		return (
-			<div id="ecopayz">
+			<div id="genck">
 				<div className="col-sm-6">
 					<AskInfo amount={this.props.amount}
 									 setAmount={this.props.setAmount}
 									 limitsCheck={this.props.limitsCheck}
+									 payAccount={this.state.payAccount}
 									 feeCashValue={this.props.feeCashValue}
 									 feeCheck={this.props.feeCheck}
-									 changeValue = {this.changeValue}
-									 account = {this.state.info.account}
 					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
-						if(!this.state.info.selectedProcessor.processorId){
+						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
 						} else{
-							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck} account = {this.state.info.account} validAccount = {this.state.info.validAccount} />;
+							return <InfoMethod amount={this.props.amount}
+																 limitsCheck={this.props.limitsCheck}
+																 feeCheck={this.props.feeCheck}
+																 feeCashValue={this.props.feeCashValue}
+							/>;
 						}
 					})()}
 				</div>
@@ -113,4 +86,4 @@ let Ecopayz = React.createClass({
 	}
 });
 
-module.exports.Ecopayz = Ecopayz;
+module.exports.Genck = Genck;

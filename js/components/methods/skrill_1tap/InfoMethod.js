@@ -113,7 +113,7 @@ let InfoMethod = React.createClass({
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
-			processorName: "Ecopayz",
+			processorName: "1Tap",
 			transactionType: transactionType
 		});
 
@@ -126,7 +126,7 @@ let InfoMethod = React.createClass({
 		let remainingLimit = processor.limits.currencyMax - this.props.amount;
 
 		return (
-			<div id="ecopayzMethod">
+			<div id="1tapMethod">
 					<div className="row">
 						<div className="title">{title}</div>
 						<div className="table-responsive">

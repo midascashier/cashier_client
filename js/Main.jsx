@@ -24,7 +24,16 @@ import { SkrillConfirmWithdraw } from './components/methods/skrill/ConfirmWithdr
  * EcoPayz set of components to create routes
  */
 import { Ecopayz } from './components/methods/ecopayz/Ecopayz'
-import { EcopayzConfirmWithdraw } from './components/methods/ecopayz/ConfirmWithdraw'
+
+/**
+ * skrill_1tap set of components to create routes
+ */
+import { Skrill_1tap } from './components/methods/skrill_1tap/Skrill_1tap'
+
+/**
+ * genck set of components to create routes
+ */
+import { Genck } from './components/methods/genck/Genck'
 
 /**
  * Bitcoin set of components to create routes
@@ -48,7 +57,6 @@ import { VisaRejectCardTicket } from './components/methods/visa/tickets/RejectCa
  * Astropay set of components to create routes
  */
 import { Astropay } from './components/methods/astropay/Astropay'
-
 
 /**
  * MC set of components to create routes
@@ -107,6 +115,12 @@ let routes = (
 
 				<Route path="crd3co/" component={Ecopayz}/>
 				<Route path="crd3co/ticket/" component={LoadingTicket}>
+					<Route path="approved/" component={ApprovedTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
+				</Route>
+
+				<Route path="skrill_1tap/" component={Skrill_1tap}/>
+				<Route path="skrill_1tap/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
@@ -213,7 +227,14 @@ let routes = (
 					<Route path="deferred/" component={DeferredTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
-				
+
+				<Route path="genck/" component={Genck}/>
+				<Route path="genck/confirm/" component={P2PConfirmWithdraw}/>
+				<Route path="genck/ticket/" component={LoadingTicket}>
+					<Route path="deferred/" component={DeferredTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
+				</Route>
+
 				<Route path="ria/" component={Person2Person}/>
 				<Route path="ria/confirm/" component={P2PConfirmWithdraw}/>
 				<Route path="ria/ticket/" component={LoadingTicket}>

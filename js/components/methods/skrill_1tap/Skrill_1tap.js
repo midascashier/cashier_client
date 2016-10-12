@@ -4,7 +4,7 @@ import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 import { AskInfo } from './AskInfo'
 import { InfoMethod } from './InfoMethod'
 
-let Ecopayz = React.createClass({
+let Skrill_1tap = React.createClass({
 
 	propTypes: {
 		setAmount: React.PropTypes.func,
@@ -88,7 +88,7 @@ let Ecopayz = React.createClass({
 
 	render() {
 		return (
-			<div id="ecopayz">
+			<div id="1tap">
 				<div className="col-sm-6">
 					<AskInfo amount={this.props.amount}
 									 setAmount={this.props.setAmount}
@@ -113,4 +113,4 @@ let Ecopayz = React.createClass({
 	}
 });
 
-module.exports.Ecopayz = Ecopayz;
+module.exports.Skrill_1tap = Skrill_1tap;

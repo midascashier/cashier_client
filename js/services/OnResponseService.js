@@ -3,6 +3,7 @@ import { CustomerService } from '../services/CustomerService'
 import { ApplicationService } from './ApplicationService'
 import { TransactionService } from './TransactionService'
 import actions from '../constants/Actions'
+import Cashier from '../constants/Cashier'
 
 /**
  * this class received all responses from cashier and trigger and action depends of the response
@@ -34,7 +35,7 @@ class OnResponseService {
 
 			case actions.VALIDATE_PAYACCOUNT:
 				let processorID = data.response.payAccount.processorIdRoot;
-				if (processorID == 354){
+				if (processorID == Cashier.PROCESSOR_ID_ECOPAYZ || processorID == Cashier.PROCESSOR_ID_1TAP){
 					let payAccount = {};
 					CashierActions.setsPayAccount(data.response.payAccount);
 					TransactionService.process({ account: data.response.payAccount.displayName, askAmount: true }, "ticket");
