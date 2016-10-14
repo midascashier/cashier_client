@@ -238,11 +238,10 @@ let routes = (
 				</Route>
 
 				<Route path="neteller_new/" component={Neteller}/>
-				<Route path="neteller_new/confirm/" component={NetellerConfirmWithdraw}>
-					<Route path="neteller_new/ticket/" component={LoadingTicket}>
-						<Route path="deferred/" component={DeferredTicket}/>
-						<Route path="rejected/" component={RejectedTicket}/>
-					</Route>
+				<Route path="neteller_new/confirm/" component={NetellerConfirmWithdraw}/>
+				<Route path="neteller_new/ticket/" component={LoadingTicket}>
+					<Route path="deferred/" component={DeferredTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
 				<Route path="ria/" component={Person2Person}/>

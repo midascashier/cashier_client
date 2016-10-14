@@ -78,8 +78,6 @@ let CKConfirmWithdraw = React.createClass({
 		let originPath = UIService.getOriginPath();
 		let customer = this.state.customer;
 		let transaction = this.state.transaction;
-		let personalData = this.state.payAccount.personal;
-		let addressData = this.state.payAccount.address;
 
 		return (
 			<div id="confirmCkWithdraw" className="internal-content">

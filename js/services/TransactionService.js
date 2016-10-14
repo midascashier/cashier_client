@@ -276,7 +276,6 @@ class transactionService {
 		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
 
 		UIService.processTransaction(nextStep);
-		console.log(rabbitRequest);
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 
@@ -519,7 +518,6 @@ class transactionService {
 	 * @param data
 	 */
 	processResponse(data){
-		console.log(data);
 		let gotoURL =data.response.transaction.gotoURLAction;
 		if (gotoURL){
 			window.location = gotoURL;

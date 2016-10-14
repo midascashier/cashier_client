@@ -4,7 +4,7 @@ import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 
-let CKConfirmWithdraw = React.createClass({
+let NetellerConfirmWithdraw = React.createClass({
 
 	/**
 	 * React function to set component initial state
@@ -78,11 +78,9 @@ let CKConfirmWithdraw = React.createClass({
 		let originPath = UIService.getOriginPath();
 		let customer = this.state.customer;
 		let transaction = this.state.transaction;
-		let personalData = this.state.payAccount.personal;
-		let addressData = this.state.payAccount.address;
 
 		return (
-			<div id="confirmCkWithdraw" className="internal-content">
+			<div id="confirmNetWithdraw" className="internal-content">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="modules">
@@ -156,4 +154,4 @@ let CKConfirmWithdraw = React.createClass({
 	}
 });
 
-module.exports.CKConfirmWithdraw = CKConfirmWithdraw;
+module.exports.NetellerConfirmWithdraw = NetellerConfirmWithdraw;
