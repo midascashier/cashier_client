@@ -46,11 +46,6 @@ settings[Cashier.PROCESSOR_ID_ENTROPAY][LIMITS_VALIDATION_VERSION] = "full";
 settings[Cashier.PROCESSOR_ID_ENTROPAY][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "confirm"];
 settings[Cashier.PROCESSOR_ID_ENTROPAY][SETTING_ROUTE] = 'etew_visa/';
 
-settings[Cashier.PROCESSOR_ID_ASTROPAY] = [];
-settings[Cashier.PROCESSOR_ID_ASTROPAY][LIMITS_VALIDATION_VERSION] = "lite";
-settings[Cashier.PROCESSOR_ID_ASTROPAY][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "confirm"];
-settings[Cashier.PROCESSOR_ID_ASTROPAY][SETTING_ROUTE] = 'pp_apcc/';
-
 settings[Cashier.PROCESSOR_ID_MC] = [];
 settings[Cashier.PROCESSOR_ID_MC][LIMITS_VALIDATION_VERSION] = "full";
 settings[Cashier.PROCESSOR_ID_MC][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "confirm"];

@@ -3,6 +3,7 @@ import { translate } from '../../constants/Translate'
 import { LoadingSpinner } from '../loading/LoadingSpinner'
 import { Processor } from './Processor'
 import { UIService } from '../../services/UIService'
+import Processors from '../../constants/Processors';
 
 let ProcessorsList = React.createClass({
 	propTypes: {
@@ -35,8 +36,10 @@ let ProcessorsList = React.createClass({
 										} else{
 											isSelected = false;
 										}
-										return <Processor key={processor.caProcessor_Id} selected={isSelected}
-																			processorId={processor.caProcessor_Id} displayName={processor.DisplayName}/>;
+										if (Processors.settings[processor.caProcessor_Id]){
+											return <Processor key={processor.caProcessor_Id} selected={isSelected}
+																				processorId={processor.caProcessor_Id} displayName={processor.DisplayName}/>;
+										}
 									})}
 								</div>
 							</div>
