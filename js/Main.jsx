@@ -13,6 +13,7 @@ import { LoadingTicket } from './components/methodTickets/LoadingTicket'
  * Neteller set of components to create routes
  */
 import { Neteller } from './components/methods/neteller/Neteller'
+import { NetellerConfirmWithdraw } from './components/methods/neteller/ConfirmWithdraw'
 
 /**
  * Skrill set of components to create routes
@@ -34,6 +35,7 @@ import { Skrill_1tap } from './components/methods/skrill_1tap/Skrill_1tap'
  * genck set of components to create routes
  */
 import { Genck } from './components/methods/genck/Genck'
+import { CKConfirmWithdraw } from './components/methods/genck/ConfirmWithdraw'
 
 /**
  * Bitcoin set of components to create routes
@@ -229,10 +231,18 @@ let routes = (
 				</Route>
 
 				<Route path="genck/" component={Genck}/>
-				<Route path="genck/confirm/" component={P2PConfirmWithdraw}/>
+				<Route path="genck/confirm/" component={CKConfirmWithdraw}/>
 				<Route path="genck/ticket/" component={LoadingTicket}>
 					<Route path="deferred/" component={DeferredTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
+				</Route>
+
+				<Route path="neteller_new/" component={Neteller}/>
+				<Route path="neteller_new/confirm/" component={NetellerConfirmWithdraw}>
+					<Route path="neteller_new/ticket/" component={LoadingTicket}>
+						<Route path="deferred/" component={DeferredTicket}/>
+						<Route path="rejected/" component={RejectedTicket}/>
+					</Route>
 				</Route>
 
 				<Route path="ria/" component={Person2Person}/>

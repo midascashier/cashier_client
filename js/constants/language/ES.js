@@ -143,7 +143,7 @@ let _langTags = {
 	CREDIT_CARD_PHONE: "Teléfono",
 	CREDIT_CARD_EMAIL: "Email",
 	CREDIT_CARD_ADDRESS: "Dirección",
-	CREDIT_CARD_ZIP: "ZIP / Código Posta",
+	CREDIT_CARD_ZIP: "ZIP / Código Postal",
 	CREDIT_CARD_CHECK_TERMENS: "Acepto términos y condiciones.",
 	CREDIT_CARD_INFO: "Algunos bancos pueden interpretar el aumento de los volúmenes de transacciones en internet como un riesgo de fraude y pueden rechazar las solicitudes de depósitos posteriores. Recomendamos altamente depositar dinero suficiente para cubrir sus apuestas previstas para el día.",
 	CREDIT_CARD_QUICK_FIX: "Arreglo rapido...",
@@ -207,7 +207,19 @@ let _langTags = {
 	LOADING: "Cargando...",
 	M_BELOW_MIN: "Aumente el monto e intente de nuevo por favor",
 	M_ABOVE_MAX: "Disminuya el monto e intente de nuevo por favor",
-	ONETAP_ACCOUNT: "Cuenta de 1TAP"
+	ONETAP_ACCOUNT: "Cuenta de 1TAP",
+	CK_FIRST_NAME: "Primer Nombre",
+	CK_MIDDLE_NAME: "Segundo Nombre",
+	CK_LAST_NAME: "Apellidos",
+	CK_ADDRESS1: "Dirección 1",
+	CK_ADDRESS2: "Dirección 2",
+	CK_CITY:"Ciudad",
+	CK_COUNTRY:"Pais",
+	CK_STATE:"Estado",
+	CK_ZIP:"ZIP / Código Postal",
+	CK_CONTACT_PHONE:"Número de Teléfono de Contacto",
+	CK_EMAIL:"Correo Electrónico",
+	IMPORTANT_REMINDERS: "Notas Importantes"
 };
 
 export function ES(){

@@ -206,7 +206,19 @@ let _langTags = {
 	LOADING: "Loading...",
 	M_BELOW_MIN: "Please increase the amount and try again",
 	M_ABOVE_MAX: "Please decrease the amount and try again",
-	ONETAP_ACCOUNT: "1TAP Account"
+	ONETAP_ACCOUNT: "1TAP Account",
+	CK_FIRST_NAME: "First Name",
+	CK_MIDDLE_NAME: "Middle Name",
+	CK_LAST_NAME: "Last Name",
+	CK_ADDRESS1: "Address 1",
+	CK_ADDRESS2: "Address 2",
+	CK_CITY:"City",
+	CK_COUNTRY:"Country",
+	CK_STATE:"State",
+	CK_ZIP:"ZIP / Postal Code",
+	CK_CONTACT_PHONE:"Contact Phone",
+	CK_EMAIL:"Email Address",
+	IMPORTANT_REMINDERS: "Important Reminders"
 };
 
 export function EN(){

@@ -4,7 +4,7 @@ import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 
-let P2PConfirmWithdraw = React.createClass({
+let CKConfirmWithdraw = React.createClass({
 
 	/**
 	 * React function to set component initial state
@@ -82,7 +82,7 @@ let P2PConfirmWithdraw = React.createClass({
 		let addressData = this.state.payAccount.address;
 
 		return (
-			<div id="confirmP2PWithdraw" className="internal-content">
+			<div id="confirmCkWithdraw" className="internal-content">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="modules">
@@ -93,28 +93,11 @@ let P2PConfirmWithdraw = React.createClass({
 
 										<div className="row">
 											<div className="col-sm-12">
-												<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
+												<div className="title">{translate('IMPORTANT_REMINDERS', 'reminder')}</div>
 												<div className="infoCol text-justify">
 													<p>
-														Ensure your address is correct.
-														If you need to change your address, you can change it in the client.
-														Then you may request your Money Transfer withdraw to the new address.
+														Withdraws will be process inside 24 hours, but are typically processed within an hour.
 													</p>
-													<p><strong>Address on File:</strong></p>
-													<div className="text-center">
-														<p>
-															{customer.personalInformation.firstName +' '+ customer.personalInformation.lastName}
-														</p>
-														<p>
-															{customer.personalInformation.addressOne +' '+ customer.personalInformation.addressTwo}
-														</p>
-														<p>
-															{customer.personalInformation.stateName +', '+ customer.personalInformation.countryName}
-														</p>
-														<p>
-															{customer.personalInformation.phone}
-														</p>
-													</div>
 												</div>
 											</div>
 										</div>
@@ -138,22 +121,6 @@ let P2PConfirmWithdraw = React.createClass({
 															<tr>
 																<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
 																<td><span>{transaction.fee + ' ' + customer.currency}</span></td>
-															</tr>
-															<tr>
-																<td>{translate('P2P_RECEIVER', 'Receiver')}</td>
-																<td><span>{personalData.firstName + ' ' + personalData.lastName}</span></td>
-															</tr>
-															<tr>
-																<td>{translate('P2P_CITY', 'City')}</td>
-																<td><span>{addressData.city}</span></td>
-															</tr>
-															<tr>
-																<td>{translate('P2P_DESTINATION', 'Destination')}</td>
-																<td><span>{addressData.stateName + ', ' + addressData.countryName}</span></td>
-															</tr>
-															<tr>
-																<td>{translate('P2P_PHONE', 'Fee')}</td>
-																<td><span>{personalData.phone}</span></td>
 															</tr>
 														</tbody>
 													</table>
@@ -189,4 +156,4 @@ let P2PConfirmWithdraw = React.createClass({
 	}
 });
 
-module.exports.P2PConfirmWithdraw = P2PConfirmWithdraw;
+module.exports.CKConfirmWithdraw = CKConfirmWithdraw;

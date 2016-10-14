@@ -10,8 +10,6 @@ let InfoMethod = React.createClass({
 	propTypes: {
 		amount: React.PropTypes.string,
 		limitsCheck: React.PropTypes.string,
-		timeFrameDay: React.PropTypes.string,
-		timeFrameTime: React.PropTypes.node,
 		feeCashValue: React.PropTypes.number
 	},
 
@@ -77,14 +75,6 @@ let InfoMethod = React.createClass({
 		TransactionService.setFeeAmount(this.props.feeCashValue);
 		if(isWithDraw){
 			UIService.confirmTransaction();
-		}
-		else{
-			//process to get new name
-			TransactionService.setTimeFrame({
-				timeFrameDay: this.props.timeFrameDay,
-				timeFrameTime: this.props.timeFrameTime
-			});
-			TransactionService.processGetName('instructions');
 		}
 	},
 

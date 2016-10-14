@@ -4,13 +4,28 @@ import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 
-let NetellerConfirmWithdraw = React.createClass({
+let CKConfirmWithdraw = React.createClass({
 
 	/**
 	 * React function to set component initial state
+	 *
+	 * @returns {*|{customer, transaction, payAccount}|{customer: (*|{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: {}, load: (function(*))}), transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, cleanTransaction: (function())}), payAccount: (*|{payAccountId: null, displayName: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limitsData: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))})}}
 	 */
 	getInitialState(){
 		return this.refreshLocalState();
+	},
+
+	/**
+	 * this function sets and return object with local states
+	 *
+	 * @returns {{customer: (*|{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: {}, load: (function(*))}), transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, cleanTransaction: (function())}), payAccount: (*|{payAccountId: null, displayName: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limitsData: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))})}}
+	 */
+	refreshLocalState() {
+		return {
+			customer: CashierStore.getCustomer(),
+			transaction: CashierStore.getTransaction(),
+			payAccount: CashierStore.getCurrentPayAccount()
+		}
 	},
 
 	/**
@@ -26,16 +41,6 @@ let NetellerConfirmWithdraw = React.createClass({
 	 */
 	componentWillUnmount() {
 		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
-	 * this function sets and return object with local states
-	 */
-	refreshLocalState() {
-		return {
-			transaction: CashierStore.getTransaction(),
-			payAccount: CashierStore.getCurrentPayAccount()
-		}
 	},
 
 	/**
@@ -71,10 +76,13 @@ let NetellerConfirmWithdraw = React.createClass({
 
 	render(){
 		let originPath = UIService.getOriginPath();
+		let customer = this.state.customer;
 		let transaction = this.state.transaction;
-		let secureData = this.state.payAccount.secure;
+		let personalData = this.state.payAccount.personal;
+		let addressData = this.state.payAccount.address;
+
 		return (
-			<div id="confirmNetellerWithdraw" className="internal-content">
+			<div id="confirmCkWithdraw" className="internal-content">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="modules">
@@ -85,25 +93,15 @@ let NetellerConfirmWithdraw = React.createClass({
 
 										<div className="row">
 											<div className="col-sm-12">
-												<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
+												<div className="title">{translate('IMPORTANT_REMINDERS', 'reminder')}</div>
 												<div className="infoCol text-justify">
-													<p>In order to activate your debit card, the first payout sent to the card will have the $25
-														activation fee deducted from the payout
-														amount. Once loaded, these funds will be immediately available for your use, minus the $2
-														load fee. (i.e. $23)</p>
-													<p>The courier service is for free. Whenever you request a payout the funds will be
-														transferred to your card. You can withdraw funds,
-														purchase online or at a physical store. It is accepted internationally.</p>
-													<p>Please keep in mind that you should not accumulate more than $10,000 in your card account
-														balance at any time.</p>
-													<p>Please be aware your card must always have at least $10 at all times or else it will be
-														closed by the bank in a two month period.
-														In addition to that, if the card hits $0 balance at any moment the bank will charge a $1
-														fee.</p>
+													<p>
+														Withdraws will be process inside 24 hours, but are typically processed within an hour.
+													</p>
 												</div>
 											</div>
-
 										</div>
+
 									</div>
 								</div>
 
@@ -113,28 +111,25 @@ let NetellerConfirmWithdraw = React.createClass({
 										<div className="row">
 											<div className="col-sm-12">
 												<div className="title">{translate('METHOD_DETAILS_WITHDRAW', 'Withdraw Details')}</div>
-													<div className="table-responsive">
-														<table className="table table-striped">
-															<tbody>
-																<tr>
-																	<td>{translate('NETELLER_ACCOUNT', 'Account')}</td>
-																	<td><span>{secureData.account}</span></td>
-																</tr>
-																<tr>
-																	<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
-																	<td><span>{transaction.amount}</span></td>
-																</tr>
-																<tr>
-																	<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
-																	<td><span>{transaction.fee}</span></td>
-																</tr>
-															</tbody>
-														</table>
-													</div>
-													<p>
-														<i className="fa fa-pencil green"></i>
-														<a onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>
-													</p>
+												<div className="table-responsive">
+													<table className="table table-striped">
+														<tbody>
+															<tr>
+																<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
+																<td><span>{transaction.amount + ' ' + customer.currency}</span></td>
+															</tr>
+															<tr>
+																<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
+																<td><span>{transaction.fee + ' ' + customer.currency}</span></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+												<p>
+													<i className="fa fa-pencil green"></i>
+													<a onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>
+												</p>
+
 												<div className="row">
 													<div className="col-sm-6">
 														<button type="button" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}</button>
@@ -161,4 +156,4 @@ let NetellerConfirmWithdraw = React.createClass({
 	}
 });
 
-module.exports.NetellerConfirmWithdraw = NetellerConfirmWithdraw;
+module.exports.CKConfirmWithdraw = CKConfirmWithdraw;

@@ -47,7 +47,7 @@ let Register = React.createClass({
 		},
 
 		/**
-		 * Sets netellerNewAccount
+		 * Sets p2pNewAccount
 		 *
 		 * @param event
 		 */
@@ -81,10 +81,6 @@ let Register = React.createClass({
 		addNewPayAccount(e){
 			e.preventDefault();
 
-			this.setState({
-				displaySaveButton: false
-			});
-
 			for(let i = 0; i < e.target.length; i++){
 				if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
 					e.target[i].style['border-color']='red';
@@ -97,6 +93,10 @@ let Register = React.createClass({
 					return false;
 				}
 			}
+
+			this.setState({
+				displaySaveButton: false
+			});
 
 			TransactionService.registerPayAccount(this.state.payAccount);
 		},
