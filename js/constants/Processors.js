@@ -41,11 +41,6 @@ settings[Cashier.PROCESSOR_ID_VISA][LIMITS_VALIDATION_VERSION] = "full";
 settings[Cashier.PROCESSOR_ID_VISA][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "confirm"];
 settings[Cashier.PROCESSOR_ID_VISA][SETTING_ROUTE] = 'visa/';
 
-settings[Cashier.PROCESSOR_ID_ENTROPAY] = [];
-settings[Cashier.PROCESSOR_ID_ENTROPAY][LIMITS_VALIDATION_VERSION] = "full";
-settings[Cashier.PROCESSOR_ID_ENTROPAY][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "confirm"];
-settings[Cashier.PROCESSOR_ID_ENTROPAY][SETTING_ROUTE] = 'etew_visa/';
-
 settings[Cashier.PROCESSOR_ID_MC] = [];
 settings[Cashier.PROCESSOR_ID_MC][LIMITS_VALIDATION_VERSION] = "full";
 settings[Cashier.PROCESSOR_ID_MC][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "confirm"];
