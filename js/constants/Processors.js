@@ -25,6 +25,7 @@ settings[Cashier.PROCESSOR_ID_SKRILL][SETTING_ROUTE] = 'skrill_ew/';
 
 settings[Cashier.PROCESSOR_ID_ECOPAYZ] = [];
 settings[Cashier.PROCESSOR_ID_ECOPAYZ][LIMITS_VALIDATION_VERSION] = "lite";
+settings[Cashier.PROCESSOR_ID_ECOPAYZ][DEPOSIT_STEPS] = ["selectMethod", "askInfo"];
 settings[Cashier.PROCESSOR_ID_ECOPAYZ][SETTING_ROUTE] = 'crd3co/';
 
 settings[Cashier.PROCESSOR_ID_1TAP] = [];

@@ -17,18 +17,25 @@ class UiService {
 	/**
 	 * Do some other actions after login response
 	 */
-	loginResponse(){
+	loginResponse(data){
 		if(CashierStore.getIsWithdraw()){
 			this.customerAction = "withdraw";
 		}
-		this.loginSuccess(this.customerAction);
+		this.loginSuccess(data);
 	};
 
 	/**
 	 * Redirect to first screen after login success
 	 */
-	loginSuccess(){
-		let nextPath = "/" + this.getCurrentView() + "/";
+	loginSuccess(data){
+		let nextPath = "/" + this.customerAction + "/";
+		if (data.restart){
+			this.selectProcessor(data.processorId);
+			let route = ProcessorSettings.settings[data.processorId].route;
+			let processorSteps = CashierStore.getCurrentProcessorSteps();
+			CashierActions.setCurrentStep(processorSteps[processorSteps.length - 1]);
+			nextPath += route + "ticket/";
+		}
 		this.changeUIState(nextPath);
 	}
 
@@ -324,6 +331,7 @@ class UiService {
 	 * Function to change current processor
 	 */
 	selectProcessor(processorID){
+		let selectedProcessor = CashierStore.getProcessor();
 		let stepOption = ProcessorSettings.DEPOSIT_STEPS;
 		if(stepOption){
 			if(this.getIsWithDraw()){
@@ -343,8 +351,8 @@ class UiService {
 	 * Do some actions after processors response
 	 */
 	customerProcessorsResponse(processor){
-		let processorID = processor.response.processors[this.customerAction][0].caProcessor_Id;
-		this.selectProcessor(processorID);
+		let selectedProcessor = CashierStore.getProcessor();
+		this.selectProcessor(selectedProcessor.processorId);
 	};
 
 	/**

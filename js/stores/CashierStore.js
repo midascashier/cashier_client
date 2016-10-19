@@ -648,10 +648,19 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			_customer.withdrawProcessors = data.response.processors.withdraw;
 
 			let processor = [];
-			if(!CashierStore.getIsWithdraw() && _customer.depositProcessors.length > 0){
+
+			let selectedProcessor = CashierStore.getUI();
+
+			if(!CashierStore.getIsWithdraw() && _customer.depositProcessors.length > 0 && !selectedProcessor.processorId){
 				processor = _customer.depositProcessors[0];
-			} else if(_customer.withdrawProcessors.length > 0){
+			} else if(_customer.withdrawProcessors.length > 0 && !selectedProcessor.processorId){
 				processor = _customer.withdrawProcessors[0];
+			} else if (selectedProcessor.processorId){
+				_customer.depositProcessors.map((item) =>{
+					if (item.caProcessor_Id == selectedProcessor.processorId){
+						processor = item;
+					}
+				});
 			}
 
 			// set default processor
@@ -833,7 +842,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.SELECT_PROCESSOR:
 			_UI.processorId = data.processorId;
 			_UI.currentProcessorSteps = data.processorSteps;
-			_UI.currentStep = data.currentStep;
+			if (!_UI.currentStep){
+				_UI.currentStep = data.currentStep;
+			}
 			_processor.load(data.processorId);
 			CashierStore.emitChange();
 			break;

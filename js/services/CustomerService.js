@@ -13,18 +13,19 @@ class customerService {
 	 * Create RabbitMQ connection and login to client
 	 */
 	startConnection(){
-		this.setLoginInfo();
-		this.stompConnection();
+		let data = loginInfo;
+		this.setLoginInfo(data);
+		this.stompConnection(data);
 	};
 
 	/**
 	 * Starts connection with RabbitMQ and then do the login
 	 *
 	 */
-	stompConnection(){
+	stompConnection(data){
 		stompConnector.initConnection()
 			.then(()=>{
-				this.connectionDone();
+				this.connectionDone(data);
 			});
 
 	};
@@ -33,19 +34,18 @@ class customerService {
 	 * Sends login information to RabbitMQ to be process
 	 *
 	 */
-	setLoginInfo(){
+	setLoginInfo(data){
 		let action = actions.LOGIN_RESPONSE;
-		let data = loginInfo;
 		CashierActions.responses(action, data);
 	};
 
 	/**
 	 * Do some other actions after login response
 	 */
-	connectionDone(){
+	connectionDone(data){
 		this.getCustomerInfo();
 		TransactionService.loginResponse();
-		UIService.loginResponse();
+		UIService.loginResponse(data);
 		ApplicationService.loginResponse();
 	};
 
