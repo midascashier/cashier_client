@@ -18,7 +18,7 @@ let RejectedTicket = React.createClass({
 		let company = UIService.getCompanyInformation();
 		let customer = UIService.getCustomerInformation();
 		let transaction = UIService.getTransactionInformation();
-		let processorName = UIService.getProcessorDisplayName().toUpperCase();
+		let processorName = UIService.getProcessorDisplayName();
 		return {
 			currency: customer.currency,
 			currencyAmount: transaction.amount,

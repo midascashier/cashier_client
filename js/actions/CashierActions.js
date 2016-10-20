@@ -14,6 +14,12 @@ let CashierActions = {
 		});
 	},
 
+	setTransactionResponse:(tStatus) => {
+		CashierDispatcher.dispatch({
+			action: actions.RESTART_TRANSACTION_RESPONSE, data: { tStatus: tStatus }
+		});
+	},
+
 	setFeeAmount: (amount) =>{
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_FEE_AMOUNT, data: { amount: amount }

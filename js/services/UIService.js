@@ -34,7 +34,11 @@ class UiService {
 			let route = ProcessorSettings.settings[data.processorId].route;
 			let processorSteps = CashierStore.getCurrentProcessorSteps();
 			CashierActions.setCurrentStep(processorSteps[processorSteps.length - 1]);
-			nextPath += route + "ticket/";
+			if (data.Tstatus == 2){
+				nextPath += route + "ticket/approved/";
+			}else{
+				nextPath += route + "ticket/rejected/";
+			}
 		}
 		this.changeUIState(nextPath);
 	}
@@ -201,7 +205,7 @@ class UiService {
 	 */
 	getProcessorDisplayName(){
 		let processor = CashierStore.getProcessor();
-		return processor.displayName.toLowerCase();
+		return processor.displayName;
 	}
 
 	/**

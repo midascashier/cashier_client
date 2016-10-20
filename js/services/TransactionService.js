@@ -25,7 +25,10 @@ class transactionService {
 	/**
 	 * Do some other actions after login response
 	 */
-	loginResponse(){
+	loginResponse(data){
+		if (data.restart){
+			CashierActions.setTransactionResponse(data.Tstatus);
+		}
 		this.getProcessors();
 	}
 

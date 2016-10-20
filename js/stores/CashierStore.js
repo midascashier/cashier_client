@@ -334,6 +334,7 @@ let _transactionResponse = {
 	fee: 0,
 	userMessage: "",
 	state: "",
+	status:"",
 	details: [], //specific details for different type of transactions (BTC, CC, P2P, etc)
 	cleanTransaction(){
 		this.transactionId = 0;
@@ -641,6 +642,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				_processor.rate = currencyInfo[0].Rate;
 			}
 			CashierStore.emitChange();
+			break;
+
+		case actions.RESTART_TRANSACTION_RESPONSE:
+			_transactionResponse.status = data.tStatus;
+			_transactionResponse.userMessage = "Restart";
 			break;
 
 		case actions.PROCESSORS_RESPONSE:

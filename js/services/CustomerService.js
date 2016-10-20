@@ -44,7 +44,7 @@ class customerService {
 	 */
 	connectionDone(data){
 		this.getCustomerInfo();
-		TransactionService.loginResponse();
+		TransactionService.loginResponse(data);
 		UIService.loginResponse(data);
 		ApplicationService.loginResponse();
 	};

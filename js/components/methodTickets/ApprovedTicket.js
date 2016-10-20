@@ -10,6 +10,7 @@ let ApprovedTicket = React.createClass({
 	 * @returns {*|{address}}
 	 */
 	getInitialState(){
+		console.log("TESTAPPROVED");
 		return this.refreshLocalState();
 	},
 
@@ -52,11 +53,11 @@ let ApprovedTicket = React.createClass({
 		let email = this.state.email;
 		let balance = this.state.balance;
 		let action;
-		if (isWithDraw){
+		/*if (isWithDraw){
 			action = "withdraw";
 		}else{
 			action = "deposit";
-		}
+		}*/
 
 		return (
 			<div className="internal-content" id="approvedTicket">
