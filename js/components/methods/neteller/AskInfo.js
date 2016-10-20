@@ -83,7 +83,7 @@ let AskInfo = React.createClass({
 													<div className="form-group">
 														<label className="col-sm-4 control-label">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
 														<div className="col-sm-8">
-															<Input type="password" value={password} onChange={netellerPassword}/>
+															<Input type="password" value={password} onChange={netellerPassword} validate="password" require/>
 														</div>
 													</div>
 												)

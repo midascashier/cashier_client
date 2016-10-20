@@ -102,6 +102,7 @@ class applicationService {
 		regExp['isBitCoinAddress'] = { bitcoinAddress: /^[13][a-km-zA-HJ-NP-Z0-9]{26,33}$/i };
 		regExp['isEmail'] = { email: /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/ };
 		regExp['isString'] = { string: /^[a-zA-Z0-9\s]{1,}$/ };
+		regExp['password'] = { string: /^.{5,}$/ };
 		regExp['isControlNumber'] = { MG: /^[0-9]{8}$/, WU: /^[0-9]{10}$/, RIA: /^[0-9]{11}$/ };
 
 		let isValid;
