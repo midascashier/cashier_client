@@ -21,6 +21,12 @@ import { NetellerConfirmWithdraw } from './components/methods/neteller/ConfirmWi
 import { Skrill } from './components/methods/skrill/Skrill'
 import { SkrillConfirmWithdraw } from './components/methods/skrill/ConfirmWithdraw'
 
+
+/**
+ * DebitCards set of components to create routes
+ */
+import { DebitCards } from './components/methods/debitcards/DebitCards'
+
 /**
  * EcoPayz set of components to create routes
  */
@@ -257,6 +263,8 @@ let routes = (
 					<Route path="deferred/" component={DeferredTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
+
+				<Route path="debitcards/" component={DebitCards}/>
 
 			</Route>
 

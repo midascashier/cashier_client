@@ -77,6 +77,10 @@ settings[Cashier.PROCESSOR_ID_GENCK][LIMITS_VALIDATION_VERSION] = "lite";
 settings[Cashier.PROCESSOR_ID_GENCK][WITHDRAW_STEPS] = ["selectMethod", "askInfo", "confirm"];
 settings[Cashier.PROCESSOR_ID_GENCK][SETTING_ROUTE] = 'genck/';
 
+settings[Cashier.PROCESSOR_ID_DEBITCARD] = [];
+settings[Cashier.PROCESSOR_ID_DEBITCARD][WITHDRAW_STEPS] = ["selectMethod", "askInfo"];
+settings[Cashier.PROCESSOR_ID_DEBITCARD][SETTING_ROUTE] = 'debitcards/';
+
 export default {
 	settings: settings,
 	SETTING_ROUTE: SETTING_ROUTE,

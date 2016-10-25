@@ -75,7 +75,7 @@ let TransactionHistoryContent = React.createClass({
 								<div className="historyContent">
 									<div className="title">{translate('TRANSACTION_HISTORY_TITLE')}</div>
 									{(() =>{
-										if(transactionHistory.length == 0){
+										if(transactionHistory && transactionHistory.length == 0){
 											return <LoadingSpinner/>
 										} else{
 											return <TransactionHistory transactions={transactionHistory}/>
