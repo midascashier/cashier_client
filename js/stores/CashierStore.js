@@ -251,6 +251,7 @@ let _payAccount = {
 	cleanPayAccount(){
 		this.payAccountId = null;
 		this.displayName = null;
+		this.limitsData = {};
 
 	},
 	load(data){
