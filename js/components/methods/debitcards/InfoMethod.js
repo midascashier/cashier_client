@@ -115,7 +115,7 @@ let InfoMethod = React.createClass({
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
-			processorName: "Neteller",
+			processorName: "Deposit Card",
 			transactionType: transactionType
 		});
 

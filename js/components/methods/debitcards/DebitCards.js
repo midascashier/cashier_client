@@ -54,23 +54,13 @@ let DebitCards = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
-	/**
-	 * set local state with neteller password
-	 *
-	 * @param value
-	 * @constructor
-	 */
-	netellerPassword(value) {
-		this.setState({ password: value });
-	},
-
 	render() {
-		if(1 != 1){
+
+		if(this.state.payAccount.payAccountId){
 			return (
 				<div id="debitCards">
 					<div className="col-sm-6">
-						<AskInfo netellerPassword={this.netellerPassword}
-										 password={this.state.password}
+						<AskInfo
 										 amount={this.props.amount}
 										 setAmount={this.props.setAmount}
 										 payAccount={this.state.payAccount}
@@ -82,8 +72,7 @@ let DebitCards = React.createClass({
 							if(!this.state.selectedProcessor.processorId){
 								return <LoadingSpinner />;
 							} else{
-								return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}
-																	 password={this.state.password}/>;
+								return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}/>;
 							}
 						})()}
 					</div>

@@ -117,6 +117,7 @@ let _langTags = {
 	SKRILL_ACCOUNT: "Skrill Account",
 	NETELLER_SECURE: "2FA or Secure ID",
 	NETELLER_NEW: "Enter your Neteller Email Account",
+	DEBITCARD_INFO: 'Debit Card Information',
 	BITCOIN: "BitCoin",
 	BITCOIN_INSTRUCTIONS: "Now send your BitCoin to us.",
 	BITCOIN_INSTRUCTIONS_INFO: "Your funds should be available within 30 minutes of making the transfer from your wallet.",

@@ -4,6 +4,7 @@ let CashierDispatcher = require('../dispatcher/CashierDispatcher');
 import assign from 'object-assign'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
+import processors from '../constants/Processors'
 import { translate } from '../constants/Translate'
 /**
  * UI
@@ -335,7 +336,7 @@ let _transactionResponse = {
 	fee: 0,
 	userMessage: "",
 	state: "",
-	status:"",
+	status: "",
 	details: [], //specific details for different type of transactions (BTC, CC, P2P, etc)
 	cleanTransaction(){
 		this.transactionId = 0;
@@ -662,9 +663,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				processor = _customer.depositProcessors[0];
 			} else if(_customer.withdrawProcessors.length > 0 && !selectedProcessor.processorId){
 				processor = _customer.withdrawProcessors[0];
-			} else if (selectedProcessor.processorId){
+			} else if(selectedProcessor.processorId){
 				_customer.depositProcessors.map((item) =>{
-					if (item.caProcessor_Id == selectedProcessor.processorId){
+					if(item.caProcessor_Id == selectedProcessor.processorId){
 						processor = item;
 					}
 				});
@@ -729,8 +730,12 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				}
 			}
 			let addPayAccountOption = Object.assign({}, _payAccount);
-			addPayAccountOption.payAccountId = 0;
-			addPayAccountOption.displayName = translate('REGISTER_NEW_ACCOUNT', 'register');
+
+			if(processors.settings[_processor.processorId][processors.REGISTER_ACCOUNTS_ALLOW]){
+				addPayAccountOption.payAccountId = 0;
+				addPayAccountOption.displayName = translate('REGISTER_NEW_ACCOUNT', 'register');
+			}
+
 			payAccounts_processor[addPayAccountOption.payAccountId] = addPayAccountOption;
 			if(_payAccount.payAccountId === null){
 				_payAccount = payAccounts_processor[firstPayAccount];
@@ -849,7 +854,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.SELECT_PROCESSOR:
 			_UI.processorId = data.processorId;
 			_UI.currentProcessorSteps = data.processorSteps;
-			if (!_UI.currentStep){
+			if(!_UI.currentStep){
 				_UI.currentStep = data.currentStep;
 			}
 			_processor.load(data.processorId);
