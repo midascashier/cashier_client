@@ -125,7 +125,7 @@ let InfoMethod = React.createClass({
 		}
 
 		return (
-			<div id="netellerInfoMethod">
+			<div id="debitCardInfoMethod">
 					<div className="row">
 						<div className="title">{title}</div>
 						<div className="table-responsive">
