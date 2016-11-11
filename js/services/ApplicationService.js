@@ -13,6 +13,24 @@ class applicationService {
 	};
 
 	/**
+	 * checks if property exists
+	 *
+	 * @param obj
+	 * @returns {boolean}
+	 */
+	checkNested(obj){
+		let args = Array.prototype.slice.call(arguments, 1);
+
+		for(let i = 0; i < args.length; i++){
+			if(!obj || !obj.hasOwnProperty(args[i])){
+				return false;
+			}
+			obj = obj[args[i]];
+		}
+		return true;
+	};
+
+	/**
 	 * function to get Company Info
 	 */
 	getCompanyInfo(){
@@ -127,10 +145,10 @@ class applicationService {
 	 * @returns {boolean}
 	 * @constructor
 	 */
-	IsJsonString(str) {
-		try {
+	IsJsonString(str){
+		try{
 			JSON.parse(str);
-		} catch (e) {
+		} catch(e){
 			return false;
 		}
 		return true;

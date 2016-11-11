@@ -211,7 +211,7 @@ let P2PTicketPending = React.createClass({
 													<label
 														className="col-sm-4 control-label">{translate('P2P_CONTROL_NUMBER', 'Control #')}:</label>
 													<div className="col-sm-8">
-														<Input type="text" className="form-control" id="controlNumber" value={controlNumber}
+														<Input type="text" className="form-control" id="controlNumber" value={controlNumber} validate="isNumber"
 																	 onChange={this.changeValue.bind(this, 'controlNumber')}/>
 													</div>
 												</div>
@@ -219,14 +219,14 @@ let P2PTicketPending = React.createClass({
 													<label
 														className="col-sm-4 control-label">{translate('P2P_AMOUNT_SEND', 'Funds Sent')}:</label>
 													<div className="col-sm-8">
-														<Input type="number" className="form-control" id="amount" value={currencyAmount}
+														<Input type="number" className="form-control" id="amount" value={currencyAmount} validate="isNumber"
 																	 onChange={this.changeValue.bind(this, 'amount')}/>
 													</div>
 												</div>
 												<div className="form-group">
 													<label className="col-sm-4 control-label">{translate('P2P_FEE_SEND', 'Fee')}:</label>
 													<div className="col-sm-8">
-														<Input type="number" className="form-control" id="fee" value={fee}
+														<Input type="number" className="form-control" id="fee" value={fee} validate="isNumber"
 																	 onChange={this.changeValue.bind(this, 'fee')}/>
 													</div>
 												</div>

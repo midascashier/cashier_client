@@ -4,6 +4,7 @@ import { CashierActions } from '../actions/CashierActions'
 import { stompConnector } from './StompConnector'
 import { UIService } from './UIService'
 import { CustomerService } from './CustomerService'
+import { ApplicationService } from './ApplicationService'
 import cashier from '../constants/Cashier'
 
 class transactionService {
@@ -26,7 +27,7 @@ class transactionService {
 	 * Do some other actions after login response
 	 */
 	loginResponse(data){
-		if (data.restart){
+		if(data.restart){
 			CashierActions.setTransactionResponse(data.Tstatus);
 		}
 		this.getProcessors();
@@ -70,7 +71,7 @@ class transactionService {
 	 * Function to get pay account previous pay accounts
 	 */
 	getPreviousPayAccount(processorID){
-		if (processorID != cashier.PROCESSOR_ID_BITCOIN && processorID != cashier.PROCESSOR_ID_ASTROPAY && processorID != cashier.PROCESSOR_ID_ECOPAYZ && processorID != cashier.PROCESSOR_ID_1TAP){
+		if(processorID != cashier.PROCESSOR_ID_BITCOIN && processorID != cashier.PROCESSOR_ID_ASTROPAY && processorID != cashier.PROCESSOR_ID_ECOPAYZ && processorID != cashier.PROCESSOR_ID_1TAP){
 			let data = {
 				f: "getPayAccountsByCustomer", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
 			};
@@ -102,7 +103,7 @@ class transactionService {
 	sendTransactionToken(phone){
 		let randomTuid = Math.floor(Math.random() * 1000000000);
 		CashierActions.setTransactionRandomTuid(randomTuid);
-		
+
 		let data = {
 			f: "sendTransactionToken", phone: phone
 		};
@@ -424,7 +425,7 @@ class transactionService {
 				email: payAccountSelected.personal.email
 			};
 
-		}else{
+		} else{
 
 			this.setAmount(p2pTransaction.CurrencyAmount);
 			this.setFeeAmount(p2pTransaction.CurrencyFee);
@@ -521,10 +522,9 @@ class transactionService {
 	 * @param data
 	 */
 	processResponse(data){
-		let gotoURL =data.response.transaction.gotoURLAction;
-		if (gotoURL){
-			window.location = gotoURL;
-		}else{
+		if(ApplicationService.checkNested(data, "response", "transaction","gotoURLAction") && data.state != "error"){
+			window.location = data.response.transaction.gotoURLAction;
+		} else{
 			this.getTransactionDetails();
 			UIService.processResponse(data);
 		}

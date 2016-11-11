@@ -62,16 +62,11 @@ let TransactionPendingMTCN = React.createClass({
 	 * @param value
 	 * @returns {boolean}
 	 */
-	changeValue(transactionId, attribute, value){
+	changeValue(transactionId, attribute, value, isSelect){
 		const transactions = this.state.transactions;
 		const transaction = transactions[transactionId];
 
-		if(ApplicationService.validateInfo(value, 'isNumber') || ApplicationService.validateInfo(value, 'isControlNumber')){
-			transaction[attribute] = value;
-		}else{
-			return false;
-		}
-
+		transaction[attribute] = value;
 		transactions[transactionId] = transaction;
 		this.setState({transactions: transactions});
 		return true;
@@ -150,13 +145,13 @@ let TransactionPendingMTCN = React.createClass({
 											</tr>
 											<tr id={"transaction" + transactionId}>
 												<td>
-													<Input type="text" id="controlNumber" className="form-control" value={controlNumber} minLength={digits} maxLength={digits} placeholder={digits + ' ' + digitsLabel} onChange={this.changeValue.bind(this, transactionId, 'ControlNumber')} required/>
+													<Input type="text" id="controlNumber" className="form-control" value={controlNumber} minLength={digits} maxLength={digits} placeholder={digits + ' ' + digitsLabel} onChange={this.changeValue.bind(this, transactionId, 'ControlNumber')} validate="isNumber" required/>
 												</td>
 												<td>
-													<Input type="number" min="0.0001" step="0.1" required id="amount" className="form-control" value={currencyAmount} onChange={this.changeValue.bind(this, transactionId, 'CurrencyAmount')}/>
+													<Input type="number" min="0.0001" step="0.1" required id="amount" className="form-control" value={currencyAmount} onChange={this.changeValue.bind(this, transactionId, 'CurrencyAmount')} validate="isNumber"/>
 												</td>
 												<td>
-													<Input type="number" min="0.0001" step="0.1" required id="fee" className="form-control" value={currencyFee} onChange={this.changeValue.bind(this, transactionId, 'CurrencyFee')}/>
+													<Input type="number" min="0.0001" step="0.1" required id="fee" className="form-control" value={currencyFee} onChange={this.changeValue.bind(this, transactionId, 'CurrencyFee')} validate="isNumber"/>
 												</td>
 												<td>
 													<button type="button" className="btn btn-green" onClick={this.submitTransaction.bind(this, transaction)}>
