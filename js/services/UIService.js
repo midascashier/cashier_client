@@ -58,7 +58,7 @@ class UiService {
 	 */
 	processTransaction(nextStep, processor = null){
 		let processorSelected = "";
-		if(processor != ""){
+		if(processor){
 			processorSelected = processor;
 		} else{
 			processorSelected = UIService.getProcessorName();
