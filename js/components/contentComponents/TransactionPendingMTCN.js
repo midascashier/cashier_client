@@ -122,6 +122,11 @@ let TransactionPendingMTCN = React.createClass({
 								digits = 11;
 							}
 
+							let isConfirmEnabled = true;
+							if (digits == controlNumber.length){
+								isConfirmEnabled = false;
+							}
+
 							tables.push(
 								<div key={i} id={"transactionPendingMTCN" + transactionId} className="table-responsive">
 									<table className="table table-striped mtcn-table">
@@ -154,7 +159,7 @@ let TransactionPendingMTCN = React.createClass({
 													<Input type="number" min="0.0001" step="0.1" required id="fee" className="form-control" value={currencyFee} onChange={this.changeValue.bind(this, transactionId, 'CurrencyFee')} validate="isNumber"/>
 												</td>
 												<td>
-													<button type="button" className="btn btn-green" onClick={this.submitTransaction.bind(this, transaction)}>
+													<button type="button" className="btn btn-green" disabled={isConfirmEnabled} onClick={this.submitTransaction.bind(this, transaction)}>
 														{btnConfirmLabel}
 													</button>
 												</td>

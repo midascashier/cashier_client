@@ -25,6 +25,7 @@ let P2PTicketPending = React.createClass({
 	refreshLocalState() {
 		let transactionResponse = UIService.getLastTransactionResponse();
 		let transaction = UIService.getTransactionInformation();
+		let processor = CashierStore.getProcessor();
 		let controlNumber = transaction.controlNumber;
 		let currencyAmount = Number(transaction.amount);
 		let fee = Number(transaction.fee);
@@ -34,7 +35,8 @@ let P2PTicketPending = React.createClass({
 			controlNumber: controlNumber,
 			currencyAmount: currencyAmount,
 			fee: fee,
-			enableSubmit: false
+			enableSubmit: false,
+			processor: processor
 		}
 	},
 
@@ -85,6 +87,20 @@ let P2PTicketPending = React.createClass({
 
 		if(attribute == 'controlNumber'){
 			let enableSubmit = ApplicationService.validateInfo(value, "isControlNumber");
+			let processorId = this.state.processor.processorId;
+			let digits = 11;
+			if(processorId == 6){
+				digits = 10;
+			} else if(processorId == 16 || processorIdRoot == 36){
+				digits = 8;
+			} else if(processorId == 26){
+				digits = 11;
+			}
+
+			if(enableSubmit && value.length != digits){
+				enableSubmit = false;
+			}
+
 			this.setState({ enableReprocess: enableSubmit, controlNumber: value });
 			TransactionService.setControlNumber(value);
 		}
@@ -211,7 +227,8 @@ let P2PTicketPending = React.createClass({
 													<label
 														className="col-sm-4 control-label">{translate('P2P_CONTROL_NUMBER', 'Control #')}:</label>
 													<div className="col-sm-8">
-														<Input type="text" className="form-control" id="controlNumber" value={controlNumber} validate="isNumber"
+														<Input type="text" className="form-control" id="controlNumber" value={controlNumber}
+																	 validate="isNumber"
 																	 onChange={this.changeValue.bind(this, 'controlNumber')}/>
 													</div>
 												</div>
@@ -219,7 +236,8 @@ let P2PTicketPending = React.createClass({
 													<label
 														className="col-sm-4 control-label">{translate('P2P_AMOUNT_SEND', 'Funds Sent')}:</label>
 													<div className="col-sm-8">
-														<Input type="number" className="form-control" id="amount" value={currencyAmount} validate="isNumber"
+														<Input type="number" className="form-control" id="amount" value={currencyAmount}
+																	 validate="isNumber"
 																	 onChange={this.changeValue.bind(this, 'amount')}/>
 													</div>
 												</div>
