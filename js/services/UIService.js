@@ -29,14 +29,14 @@ class UiService {
 	 */
 	loginSuccess(data){
 		let nextPath = "/" + this.customerAction + "/";
-		if (data.restart){
+		if(data.restart){
 			this.selectProcessor(data.processorId);
 			let route = ProcessorSettings.settings[data.processorId].route;
 			let processorSteps = CashierStore.getCurrentProcessorSteps();
 			CashierActions.setCurrentStep(processorSteps[processorSteps.length - 1]);
-			if (data.Tstatus == 2){
+			if(data.Tstatus == 2){
 				nextPath += route + "ticket/approved/";
-			}else{
+			} else{
 				nextPath += route + "ticket/rejected/";
 			}
 		}
@@ -56,9 +56,15 @@ class UiService {
 	/**
 	 * here is where we redirect to process transaction
 	 */
-	processTransaction(nextStep){
+	processTransaction(nextStep, processor = null){
+		let processorSelected = "";
+		if(processor != ""){
+			processorSelected = processor;
+		} else{
+			processorSelected = UIService.getProcessorName();
+		}
 		CashierActions.setCurrentStep(nextStep);
-		let route = '/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + '/ticket/';
+		let route = '/' + UIService.getCurrentView() + '/' + processorSelected.toLowerCase() + '/ticket/';
 		this.changeUIState(route);
 	}
 
@@ -279,7 +285,7 @@ class UiService {
 		let currencyCode = processorLimits.currencyCode;
 
 		let remaining = processorLimits.maxAmount - totalAmount;
-		if ( remaining < 0 ){
+		if(remaining < 0){
 			remaining = 0;
 		}
 
@@ -298,10 +304,10 @@ class UiService {
 			minPayAccount = payAccountLimits.minAmount + " " + currencyCode;
 			maxPayAccount = payAccountLimits.maxAmount + " " + currencyCode;
 			remaining = availablePayAccount - totalAmount;
-			if ( remaining < 0 ){
+			if(remaining < 0){
 				remaining = 0;
 			}
-			remaining = remaining	+ " " + currencyCode;
+			remaining = remaining + " " + currencyCode;
 		}
 
 		return {

@@ -401,6 +401,7 @@ class transactionService {
 	processSubmit(p2pTransaction = null){
 
 		let p2pRequest = {};
+		let processorName;
 		if(!p2pTransaction){
 			let processorSelected = CashierStore.getProcessor();
 			let payAccountSelected = CashierStore.getCurrentPayAccount();
@@ -426,7 +427,12 @@ class transactionService {
 			};
 
 		} else{
-
+			let Customer = CashierStore.getCustomer();
+			Customer.depositProcessors.map((processor)=>{
+				if(processor.caProcessor_Id == p2pTransaction.caProcessor_Id_Root){
+					processorName = processor.Name;
+				}
+			});
 			this.setAmount(p2pTransaction.CurrencyAmount);
 			this.setFeeAmount(p2pTransaction.CurrencyFee);
 			this.setControlNumber(p2pTransaction.ControlNumber);
@@ -452,8 +458,8 @@ class transactionService {
 
 		let rabbitRequest = assign(this.getProxyRequest(), p2pRequest);
 
-		UIService.processTransaction('instructions');
-		stompConnector.makeProcessRequest("", rabbitRequest);
+		UIService.processTransaction('instructions', processorName);
+		//stompConnector.makeProcessRequest("", rabbitRequest);
 
 		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
@@ -522,7 +528,7 @@ class transactionService {
 	 * @param data
 	 */
 	processResponse(data){
-		if(ApplicationService.checkNested(data, "response", "transaction","gotoURLAction") && data.state != "error"){
+		if(ApplicationService.checkNested(data, "response", "transaction", "gotoURLAction") && data.state != "error"){
 			window.location = data.response.transaction.gotoURLAction;
 		} else{
 			this.getTransactionDetails();
