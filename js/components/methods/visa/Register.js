@@ -125,16 +125,15 @@ let Register = React.createClass({
 		actualState.payAccount.dobDay = ('0' + actualState.payAccount.dobDay).slice(-2);
 		actualState.payAccount.dobMonth = ('0' + actualState.payAccount.dobMonth).slice(-2);
 
-		actualState.payAccount.dob = this.state.payAccount.dobMonth + "-" + this.state.payAccount.dobDay + "-" + this.state.payAccount.dobYear;
+		actualState.payAccount.dob = actualState.payAccount.dobMonth + "-" + actualState.payAccount.dobDay + "-" + this.state.payAccount.dobYear;
 
 		actualState.payAccount.extra1 = ('0' + actualState.payAccount.extra1).slice(-2);
 
-console.log(actualState);
-		//TransactionService.registerPayAccount(this.state.payAccount);
 		actualState.displaySaveButton = false;
 		this.setState({
 			actualState
 		});
+		TransactionService.registerPayAccount(this.state.payAccount);
 	},
 
 	/**

@@ -53,7 +53,7 @@ let Register = React.createClass({
 		 * @param event
 		 */
 		changeValue(propertyName, isSelectComponent = 0, event){
-			const payAccount = this.state.payAccount;
+			let payAccount = this.state.payAccount;
 
 			let value = event;
 
@@ -80,8 +80,9 @@ let Register = React.createClass({
 		 * @returns {boolean}
 		 */
 		addNewPayAccount(e){
+			let actualState = this.state;
 			e.preventDefault();
-			
+
 			for(let i = 0; i < e.target.length; i++){
 				if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
 					e.target[i].style['border-color']='red';
@@ -98,8 +99,13 @@ let Register = React.createClass({
 			/*this.setState({
 				displaySaveButton: false
 			});*/
+			actualState.payAccount.dobDay = ('0' + actualState.payAccount.dobDay).slice(-2);
+			actualState.payAccount.dobMonth = ('0' + actualState.payAccount.dobMonth).slice(-2);
 
-			this.state.payAccount.dob = this.state.payAccount.dobYear + "-" + this.state.payAccount.dobMonth + "-" + this.state.payAccount.dobDay;
+			actualState.payAccount.dob = this.state.payAccount.dobYear + "-" + actualState.payAccount.dobMonth + "-" + actualState.payAccount.dobDay;
+			this.setState({
+				actualState
+			});
 
 			TransactionService.registerPayAccount(this.state.payAccount);
 		},
