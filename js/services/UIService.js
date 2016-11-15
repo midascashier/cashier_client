@@ -113,6 +113,7 @@ class UiService {
 
 		let layout = 'rejected';
 		let transactionDetails = data.response;
+		let transactionResponse = CashierStore.getLastTransactionResponse();
 		if(transactionDetails && transactionDetails.creditCardTransaction){
 			let creditCardTransaction = transactionDetails.creditCardTransaction;
 			if(creditCardTransaction && creditCardTransaction.PendingReprocess == 1){
@@ -120,16 +121,18 @@ class UiService {
 			}
 		}
 
-		let ticketResult = 'rejected';
-		if(layout == 'card'){
-			ticketResult += '/blockByBank';
-		} else if(layout == 'amount'){
-			ticketResult += '/invalidAmount';
-		} else if(layout == 'invalid-card'){
-			ticketResult += '/invalidCard';
-		}
+		if(transactionResponse.status != cashier.TRANSACTION_STATUS_APPROVED){
+			let ticketResult = 'rejected';
+			if(layout == 'card'){
+				ticketResult += '/blockByBank';
+			} else if(layout == 'amount'){
+				ticketResult += '/invalidAmount';
+			} else if(layout == 'invalid-card'){
+				ticketResult += '/invalidCard';
+			}
 
-		this.changeUIState('/' + this.getCurrentView() + '/' + this.getProcessorName().toLowerCase() + '/ticket/' + ticketResult + '/');
+			this.changeUIState('/' + this.getCurrentView() + '/' + this.getProcessorName().toLowerCase() + '/ticket/' + ticketResult + '/');
+		}
 	}
 
 	/**
