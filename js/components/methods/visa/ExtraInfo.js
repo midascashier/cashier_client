@@ -29,8 +29,8 @@ let ExtraInfo = React.createClass({
 		for(let i = 1; i < 13; i++){
 			selectMonths.push(UIService.renderOption({ label: i }, i));
 		}
-
-		for(let i = 1970; i < 2016; i++){
+		let allowYear = new Date().getFullYear()-17;
+		for(let i = 1940; i < allowYear; i++){
 			selectYears.push(UIService.renderOption({ label: i }, i));
 		}
 

@@ -11,7 +11,9 @@ import Cashier from '../constants/Cashier'
 class OnResponseService {
 	processResponse(action, data){
 		CashierActions.responses(action, data);
-
+		if (data.userMessage){
+			console.log(data.userMessage);
+		}
 		switch(action){
 			case actions.CUSTOMER_INFO_RESPONSE:
 				CashierActions.setSelectedCountry();

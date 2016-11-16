@@ -459,7 +459,7 @@ class transactionService {
 		let rabbitRequest = assign(this.getProxyRequest(), p2pRequest);
 
 		UIService.processTransaction('instructions', processorName);
-		//stompConnector.makeProcessRequest("", rabbitRequest);
+		stompConnector.makeProcessRequest("", rabbitRequest);
 
 		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
