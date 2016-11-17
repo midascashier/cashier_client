@@ -4,6 +4,8 @@ import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 import { AskInfo } from './AskInfo'
 import { InfoMethod } from './InfoMethod'
 import { TransactionService } from '../../../services/TransactionService'
+import cashier from '../../../constants/Cashier'
+
 
 let DebitCards = React.createClass({
 
@@ -78,7 +80,7 @@ let DebitCards = React.createClass({
 				</div>
 			)
 		} else{
-			if(typeof (this.state.payAccount) === "undefined"){
+			if(this.state.payAccount.displayName === cashier.NO_PAYACCOUNTS){
 				return (
 					<div id="debitCards">
 						<h2>DebitCards</h2>

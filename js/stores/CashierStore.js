@@ -738,7 +738,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 			payAccounts_processor[addPayAccountOption.payAccountId] = addPayAccountOption;
 			if(_payAccount.payAccountId === null){
-				_payAccount = payAccounts_processor[firstPayAccount];
+				if (payAccounts_processor[firstPayAccount]){
+					_payAccount = payAccounts_processor[firstPayAccount];
+				}else{
+					_payAccount.displayName = cashier.NO_PAYACCOUNTS;
+				}
 			}
 			_payAccounts[_processor.processorId] = payAccounts_processor;
 			CashierStore.emitChange();

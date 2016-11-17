@@ -50,7 +50,7 @@ let Content = React.createClass({
 				available = limitsInfo.available;
 			}
 
-			if (!min && !max){
+			if(!min && !max){
 				let limits = UIService.getProcessorLimitMinMax();
 				min = limits.minAmount;
 				max = limits.maxAmount;
@@ -142,7 +142,9 @@ let Content = React.createClass({
 			let actualState = this.state.info;
 			let currentProcessor = TransactionService.getCurrentProcessor();
 			let limitsValidationVersion = ProcessorSettings.settings[currentProcessor.processorId][ProcessorSettings.LIMITS_VALIDATION_VERSION];
-			actualState.limitsCheck = this.limitCheckStatus(limitsValidationVersion);
+			if(limitsValidationVersion){
+				actualState.limitsCheck = this.limitCheckStatus(limitsValidationVersion);
+			}
 			this.setState({ info: actualState });
 
 		},
@@ -186,7 +188,7 @@ let Content = React.createClass({
 
 		render()
 		{
-			
+
 			const childrenWithProps = React.Children.map(this.props.children,
 				(child) => React.cloneElement(child, {
 					setAmount: this.setAmount,
