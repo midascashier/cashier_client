@@ -32,7 +32,7 @@ import { DebitCardConfirmWithdraw } from './components/methods/debitcards/Confir
  * EcoPayz set of components to create routes
  */
 import { Ecopayz } from './components/methods/ecopayz/Ecopayz'
-
+import { EcoConfirmWithdraw } from './components/methods/ecopayz/ConfirmWithdraw'
 /**
  * skrill_1tap set of components to create routes
  */
@@ -240,6 +240,13 @@ let routes = (
 				<Route path="genck/" component={Genck}/>
 				<Route path="genck/confirm/" component={CKConfirmWithdraw}/>
 				<Route path="genck/ticket/" component={LoadingTicket}>
+					<Route path="deferred/" component={DeferredTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
+				</Route>
+
+				<Route path="crd3co/" component={Ecopayz}/>
+				<Route path="crd3co/confirm/" component={EcoConfirmWithdraw}/>
+				<Route path="crd3co/ticket/" component={LoadingTicket}>
 					<Route path="deferred/" component={DeferredTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>

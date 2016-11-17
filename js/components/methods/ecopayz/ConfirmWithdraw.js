@@ -4,7 +4,7 @@ import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 
-let SkrillConfirmWithdraw = React.createClass({
+let EcoConfirmWithdraw = React.createClass({
 
 	/**
 	 * React function to set component initial state
@@ -161,4 +161,4 @@ let SkrillConfirmWithdraw = React.createClass({
 	}
 });
 
-module.exports.SkrillConfirmWithdraw = SkrillConfirmWithdraw;
+module.exports.EcoConfirmWithdraw = EcoConfirmWithdraw;
