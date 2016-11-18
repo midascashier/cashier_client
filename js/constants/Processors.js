@@ -31,7 +31,7 @@ settings[Cashier.PROCESSOR_ID_ECOPAYZ][LIMITS_VALIDATION_VERSION] = "lite";
 settings[Cashier.PROCESSOR_ID_ECOPAYZ][DEPOSIT_STEPS] = ["selectMethod", "askInfo"];
 settings[Cashier.PROCESSOR_ID_ECOPAYZ][WITHDRAW_STEPS] = ["selectMethod", "askInfo", "confirm"];
 settings[Cashier.PROCESSOR_ID_ECOPAYZ][SETTING_ROUTE] = 'crd3co/';
-settings[Cashier.PROCESSOR_ID_ECOPAYZ][REGISTER_ACCOUNTS_ALLOW] = 1;
+settings[Cashier.PROCESSOR_ID_ECOPAYZ][REGISTER_ACCOUNTS_ALLOW] = 0;
 
 settings[Cashier.PROCESSOR_ID_1TAP] = [];
 settings[Cashier.PROCESSOR_ID_1TAP][LIMITS_VALIDATION_VERSION] = "lite";

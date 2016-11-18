@@ -4,6 +4,7 @@ import { FeeController } from '../../FeeController'
 import { AmountController } from '../../AmountController'
 import { UIService } from '../../../services/UIService'
 import { Input } from '../../Inputs'
+import { SelectPayAccount } from '../../SelectPayAccount'
 
 let AskInfo = React.createClass({
 
@@ -63,13 +64,24 @@ let AskInfo = React.createClass({
 								<div className="col-sm-12">
 									<div className="form-horizontal">
 										<div className="form-group" id="payAccount">
-											<label className="col-sm-4 control-label">{translate('ECOPAYZ_ACCOUNT', 'ECOPAYZ Account')}:</label>
+											<label
+												className="col-sm-4 control-label">{translate('ECOPAYZ_ACCOUNT', 'ECOPAYZ Account')}:</label>
 											<div className="col-sm-8" id="selectPayAccount">
-												<Input className="form-control" type="text" id="ecoAccount" name="ecoAccount" validate="isString" onChange={changeValue.bind(null, 'account', 0)} value={account} require/>
+												{(() =>{
+													if(!isWithDraw){
+														return <Input className="form-control" type="text" id="ecoAccount" name="ecoAccount"
+																					validate="isString" onChange={changeValue.bind(null, 'account', 0)}
+																					value={account} require/>
+													} else{
+														return <SelectPayAccount setAmount={setAmount} amount={amount}/>
+													}
+												})()}
 											</div>
 										</div>
 
 										<div className="form-group">
+
+
 											<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 										</div>
 

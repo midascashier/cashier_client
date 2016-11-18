@@ -109,7 +109,7 @@ let InfoMethod = React.createClass({
 	render() {
 		let limitsCheck = this.allowProcess();
 		let originPath = UIService.getOriginPath();
-
+		let isWithDraw = UIService.getIsWithDraw();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
@@ -118,8 +118,12 @@ let InfoMethod = React.createClass({
 		});
 
 		let isNextDisabled = "disabled";
-		if(this.props.account && limitsCheck && this.props.validAccount){
+		if(limitsCheck && isWithDraw){
 			isNextDisabled = "";
+		} else{
+			if(this.props.account && this.props.validAccount && limitsCheck){
+				isNextDisabled = "";
+			}
 		}
 
 		let processor = this.state.processor;
@@ -127,39 +131,40 @@ let InfoMethod = React.createClass({
 
 		return (
 			<div id="ecopayzMethod">
-					<div className="row">
-						<div className="title">{title}</div>
-						<div className="table-responsive">
-							<table className="table table-striped">
-								<tbody>
-									<tr>
-										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-										<td><span>{processor.limits.currencyMin}</span></td>
-									</tr>
-									<tr>
-										<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-										<td><span>{processor.limits.currencyMax}</span></td>
-									</tr>
-									<tr>
-										<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
-										<td><span>{remainingLimit}</span></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div className="col-sm-12">
-							<div className="row">
-								<div className="col-sm-6">
-									<button type='button' onClick={this.continueTransaction} ref='processingButton' disabled={isNextDisabled} className='btn btn-green'>
-										{translate('PROCESSING_BUTTON_NEXT', 'Next')}
-									</button>
-									<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
-								</div>
-								<div className="col-sm-6">
-									<img src={originPath + '/images/ssl.png'} alt="ssl"/>
-								</div>
+				<div className="row">
+					<div className="title">{title}</div>
+					<div className="table-responsive">
+						<table className="table table-striped">
+							<tbody>
+							<tr>
+								<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+								<td><span>{processor.limits.currencyMin}</span></td>
+							</tr>
+							<tr>
+								<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
+								<td><span>{processor.limits.currencyMax}</span></td>
+							</tr>
+							<tr>
+								<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
+								<td><span>{remainingLimit}</span></td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+					<div className="col-sm-12">
+						<div className="row">
+							<div className="col-sm-6">
+								<button type='button' onClick={this.continueTransaction} ref='processingButton'
+												disabled={isNextDisabled} className='btn btn-green'>
+									{translate('PROCESSING_BUTTON_NEXT', 'Next')}
+								</button>
+								<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
+							</div>
+							<div className="col-sm-6">
+								<img src={originPath + '/images/ssl.png'} alt="ssl"/>
 							</div>
 						</div>
+					</div>
 				</div>
 			</div>
 		)
