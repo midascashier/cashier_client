@@ -199,7 +199,7 @@ div[class^="alert"] i {font-size:12px;}
 	background:#FFF;  margin-bottom:15px; text-align:center; }
 .modules .card-details img{padding:15px 10px;}
 .modules .box .method img {width: 100px; height:36px;}
-.modules .box .method i {font-size:16px; position:absolute; right:18px;/* bottom:53px;bottom:60px;*/}
+.modules .box .method i {font-size:25px; position:absolute; right:18px;/* bottom:53px;*/bottom:60px;}
 .modules .box .method.active {border:1px solid #01b300;}
 .modules .box .method.active i {color:#01b300;}
 /*.modules .deposit-limits {text-align:center;}*/
