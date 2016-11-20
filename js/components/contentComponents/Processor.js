@@ -23,7 +23,7 @@ let Processor = React.createClass({
 		return (
 			<div className="col-sm-6">
 				<div className={"method "+ isActive} onClick={this.selectProcessor}>
-					<img src={originPath + '/images/processors/'+this.props.processorId+'.png'} alt={this.props.displayName}/>
+					<a href="javascript:;" className={this.props.name.toLowerCase()}></a>
 					{(() =>{
 						if(this.props.selected){
 							return <i className='fa fa-check-circle'></i>;

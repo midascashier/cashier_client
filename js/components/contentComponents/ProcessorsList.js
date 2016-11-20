@@ -38,7 +38,7 @@ let ProcessorsList = React.createClass({
 										}
 										if (Processors.settings[processor.caProcessor_Id]){
 											return <Processor key={processor.caProcessor_Id} selected={isSelected}
-																				processorId={processor.caProcessor_Id} displayName={processor.DisplayName}/>;
+																				processorId={processor.caProcessor_Id} name={processor.Name}/>;
 										}
 									})}
 								</div>
