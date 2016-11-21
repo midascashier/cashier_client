@@ -50,6 +50,13 @@ settings[Cashier.PROCESSOR_ID_VISA][DEPOSIT_STEPS] = ["selectMethod", "askInfo",
 settings[Cashier.PROCESSOR_ID_VISA][SETTING_ROUTE] = 'visa/';
 settings[Cashier.PROCESSOR_ID_VISA][REGISTER_ACCOUNTS_ALLOW] = 1;
 
+settings[Cashier.PROCESSOR_ID_ASTROPAY] = [];
+settings[Cashier.PROCESSOR_ID_ASTROPAY][LIMITS_VALIDATION_VERSION] = "full";
+settings[Cashier.PROCESSOR_ID_ASTROPAY][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "confirm"];
+settings[Cashier.PROCESSOR_ID_ASTROPAY][SETTING_ROUTE] = 'pp_apcc/';
+settings[Cashier.PROCESSOR_ID_ASTROPAY][REGISTER_ACCOUNTS_ALLOW] = 1;
+
+
 settings[Cashier.PROCESSOR_ID_MC] = [];
 settings[Cashier.PROCESSOR_ID_MC][LIMITS_VALIDATION_VERSION] = "full";
 settings[Cashier.PROCESSOR_ID_MC][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "confirm"];

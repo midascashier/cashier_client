@@ -35,7 +35,6 @@ let AskInfo = React.createClass({
 		let selectType = (!isWithDraw) ? translate('P2P_SELECT_DEPOSIT') : translate('P2P_SELECT_WITHDRAW');
 		let deleteButton = (!isWithDraw) ? translate('PROCESSING_BUTTON_DELETE_SENDER') : translate('PROCESSING_BUTTON_DELETE_RECEIVER');
 
-
 		return (
 			<div id="p2pAskInfo" className="box">
 				<div className="row">
@@ -51,11 +50,15 @@ let AskInfo = React.createClass({
 											{(() =>{
 												if(payAccountId != 0){
 													return (
-														<div className="col-sm-8" id="selectPayAccount">
-															<SelectPayAccount setAmount={setAmount} amount={amount}/>
-															<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
-																{deleteButton}
-															</button>
+														<div>
+															<div className="col-sm-5" id="selectPayAccount">
+																<SelectPayAccount setAmount={setAmount} amount={amount}/>
+															</div>
+															<div className="col-sm-3">
+																<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+																	{deleteButton}
+																</button>
+															</div>
 														</div>
 													)
 												} else{
@@ -79,7 +82,8 @@ let AskInfo = React.createClass({
 												if(payAccountId != 0 && !isWithDraw){
 													return (
 														<div id="timeFrame">
-															<label className="col-sm-4 control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
+															<label
+																className="col-sm-4 control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
 															<div className="col-sm-4">
 																<select className="form-control"
 																				value={this.props.timeFrameDay}
@@ -89,7 +93,8 @@ let AskInfo = React.createClass({
 																</select>
 															</div>
 															<div className="col-sm-4">
-																<select className="form-control" value={this.props.timeFrameTime} onChange={this.props.timeFrameTimeChange}>
+																<select className="form-control" value={this.props.timeFrameTime}
+																				onChange={this.props.timeFrameTimeChange}>
 																	{selectHours}
 																</select>
 															</div>
@@ -122,7 +127,9 @@ let AskInfo = React.createClass({
 										{(() =>{
 											if(!isWithDraw){
 												return (
-													<p><em>{translate('BONUS_NEWS1')}<span>{translate('BONUS_NEWS2')}</span>{translate('BONUS_NEWS3')}<span>{translate('BONUS_NEWS4')}</span></em></p>
+													<p>
+														<em>{translate('BONUS_NEWS1')}<span>{translate('BONUS_NEWS2')}</span>{translate('BONUS_NEWS3')}<span>{translate('BONUS_NEWS4')}</span></em>
+													</p>
 												)
 											}
 										})()}

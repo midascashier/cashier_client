@@ -1,11 +1,11 @@
 import React from 'react'
-import {translate} from '../../../constants/Translate'
-import {SelectPayAccount} from '../../SelectPayAccount'
-import {Input} from '../../Inputs'
-import {AmountController} from '../../AmountController'
-import {UIService} from '../../../services/UIService'
-import {Register} from './Register.js'
-import {CustomerService} from '../../../services/CustomerService'
+import { translate } from '../../../constants/Translate'
+import { SelectPayAccount } from '../../SelectPayAccount'
+import { Input } from '../../Inputs'
+import { AmountController } from '../../AmountController'
+import { UIService } from '../../../services/UIService'
+import { Register } from './Register.js'
+import { CustomerService } from '../../../services/CustomerService'
 
 let AskInfo = React.createClass({
 
@@ -21,7 +21,6 @@ let AskInfo = React.createClass({
 	disablePayAccount() {
 		CustomerService.getDisablePayAccount();
 	},
-
 
 	render() {
 		let netellerPassword = this.props.netellerPassword;
@@ -43,19 +42,23 @@ let AskInfo = React.createClass({
 						<div className="title">{proccesingTitle}</div>
 						<div className="infoCol scroll">
 							<div className="row">
-
 								<div className="col-sm-12">
 									<div className="form-horizontal">
 										<div className="form-group" id="payAccount">
-											<label className="col-sm-4 control-label">{translate('NETELLER_ACCOUNT', 'Neteller Account')}:</label>
+											<label
+												className="col-sm-4 control-label">{translate('NETELLER_ACCOUNT', 'Neteller Account')}:</label>
 											{(() =>{
 												if(payAccountId != 0){
 													return (
-														<div className="col-sm-8" id="selectPayAccount">
-															<SelectPayAccount setAmount={setAmount} amount={amount}/>
-															<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
-																{translate('PROCESSING_BUTTON_DELETE_ACCOUNT', 'Delete Account')}
-															</button>
+														<div>
+															<div className="col-sm-5" id="selectPayAccount">
+																<SelectPayAccount setAmount={setAmount} amount={amount}/>
+															</div>
+															<div className="col-sm-3">
+																<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+																	{translate('PROCESSING_BUTTON_DELETE_ACCOUNT', 'Delete Account')}
+																</button>
+															</div>
 														</div>
 													)
 												} else{
@@ -67,7 +70,7 @@ let AskInfo = React.createClass({
 												}
 											})()}
 										</div>
-										
+
 										<div id="register">
 											{(() =>{
 												if(payAccountId == 0){
@@ -81,9 +84,11 @@ let AskInfo = React.createClass({
 											if(!isWithDraw && payAccountId != 0){
 												return (
 													<div className="form-group">
-														<label className="col-sm-4 control-label">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
+														<label
+															className="col-sm-4 control-label">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
 														<div className="col-sm-8">
-															<Input type="password" value={password} onChange={netellerPassword} validate="password" require/>
+															<Input type="password" value={password} onChange={netellerPassword} validate="password"
+																		 require/>
 														</div>
 													</div>
 												)
@@ -104,7 +109,9 @@ let AskInfo = React.createClass({
 										{(() =>{
 											if(!isWithDraw){
 												return (
-													<p><em>{translate('BONUS_NEWS1')}<span>{translate('BONUS_NEWS2')}</span>{translate('BONUS_NEWS3')}<span>{translate('BONUS_NEWS4')}</span></em></p>
+													<p>
+														<em>{translate('BONUS_NEWS1')}<span>{translate('BONUS_NEWS2')}</span>{translate('BONUS_NEWS3')}<span>{translate('BONUS_NEWS4')}</span></em>
+													</p>
 												)
 											}
 										})()}

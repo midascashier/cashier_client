@@ -52,12 +52,12 @@ let AskInfo = React.createClass({
 									<div className="form-horizontal">
 										<div className="form-group" id="payAccount">
 											<label
-												className="col-sm-3 control-label">{translate('CREDIT_CARD_SELECT', 'Credit Card')}:</label>
+												className="col-sm-4 control-label">{translate('CREDIT_CARD_SELECT', 'Credit Card')}:</label>
 											{(() =>{
 												if(payAccountId != 0){
 													return (
-														<div >
-															<div className="col-sm-6" id="selectPayAccount">
+														<div>
+															<div className="col-sm-5" id="selectPayAccount">
 																<SelectPayAccount setAmount={setAmount} amount={amount}/>
 															</div>
 															<div className="col-sm-3">

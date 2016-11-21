@@ -74,7 +74,7 @@ let Astropay = React.createClass({
 
 	render() {
 		return (
-			<div id="visa">
+			<div id="astropay">
 				<div className="col-sm-6">
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>

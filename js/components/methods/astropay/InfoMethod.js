@@ -45,7 +45,6 @@ let InfoMethod = React.createClass({
 	refreshLocalState() {
 		return {
 			transaction: CashierStore.getTransaction(),
-			currentPayAccount: CashierStore.getCurrentPayAccount(),
 			customer: CashierStore.getCustomer()
 		}
 	},
@@ -99,7 +98,6 @@ let InfoMethod = React.createClass({
 
 	render() {
 		let limitsCheck = this.allowProcess();
-		let formValidator = this.props.formValidator();
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
 
@@ -111,7 +109,7 @@ let InfoMethod = React.createClass({
 		});
 
 		let isNextDisabled = "disabled";
-		if(payAccountInfo.payAccountId && limitsCheck && formValidator){
+		if(limitsCheck){
 			isNextDisabled = "";
 		}
 
