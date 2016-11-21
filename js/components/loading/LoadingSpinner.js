@@ -12,7 +12,7 @@ let LoadingSpinner = React.createClass({
 							<div className="col-sm-12">
 								<div className="loader-sm"></div>
 								<h3>
-									{processing}
+									&nbsp;
 								</h3>
 							</div>
 						</div>
