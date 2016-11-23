@@ -116,7 +116,7 @@ let AskInfo = React.createClass({
 										})()}
 
 										<div className="col-sm-12">
-											<p>{information}</p>
+											<p className="text-justify">{information}</p>
 										</div>
 									</div>
 								</div>
