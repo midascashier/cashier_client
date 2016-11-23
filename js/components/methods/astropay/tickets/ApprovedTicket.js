@@ -2,7 +2,7 @@ import React from 'react'
 import { UIService } from '../../../../services/UIService'
 import { CashierStore } from '../../../../stores/CashierStore'
 
-let VisaApprovedTicket = React.createClass({
+let AstroPayApprovedTicket = React.createClass({
 
 	/**
 	 * initialize the state
@@ -60,7 +60,7 @@ let VisaApprovedTicket = React.createClass({
 		let descriptor = this.state.descriptor;
 
 		return (
-			<div className="internal-content" id="visaApprovedTicket">
+			<div className="internal-content" id="astroPayApprovedTicket">
 				<div className="row">
 					<div className="col-sm-6">
 						<div className="box">
@@ -73,7 +73,6 @@ let VisaApprovedTicket = React.createClass({
 						<div className="success-message">
 							<i className="fa fa-check-circle-o green"></i>
 							<div className="title">Your {currencyAmount + ' ' + currency} deposit was successful.</div>
-							<p>This charge will show up on your statement as <strong>{descriptor}</strong>.</p>
 							<p>Your balance is now {balance + ' ' + currency}</p>
 							<p>An email has been sent to {email} with the transaction details.</p>
 						</div>
@@ -84,5 +83,5 @@ let VisaApprovedTicket = React.createClass({
 	}
 });
 
-module.exports.VisaApprovedTicket = VisaApprovedTicket;
+module.exports.AstroPayApprovedTicket = AstroPayApprovedTicket;
 

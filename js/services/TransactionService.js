@@ -298,7 +298,7 @@ class transactionService {
 			dynamicParams: dynamicParams
 		};
 		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
-		//UIService.processTransaction(nextStep);
+		UIService.processTransaction(nextStep);
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 

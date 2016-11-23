@@ -66,6 +66,8 @@ import { VisaRejectCardTicket } from './components/methods/visa/tickets/RejectCa
  * Astropay set of components to create routes
  */
 import { Astropay } from './components/methods/astropay/Astropay'
+import { AstroPayRejectedTicket } from './components/methods/astropay/tickets/RejectedTicket'
+import { AstroPayApprovedTicket } from './components/methods/astropay/tickets/ApprovedTicket'
 
 /**
  * MC set of components to create routes
@@ -162,6 +164,8 @@ let routes = (
 
 				<Route path="pp_apcc/" component={Astropay}/>
 				<Route path="pp_apcc/ticket/" component={LoadingTicket}>
+					<Route path="rejected/" component={AstroPayRejectedTicket}/>
+					<Route path="approved/" component={AstroPayApprovedTicket}/>
 				</Route>
 
 				<Route path="mastercard/" component={MasterCard}/>

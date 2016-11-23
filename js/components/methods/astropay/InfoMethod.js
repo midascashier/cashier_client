@@ -97,6 +97,7 @@ let InfoMethod = React.createClass({
 		if (confirmTerms){
 			ccConfirmTerms = 1;
 		}
+		TransactionService.setAmount(this.props.amount);
 		let customer = CashierStore.getCustomer();
 		let currency = customer.currency;
 		let UI = CashierStore.getUI();

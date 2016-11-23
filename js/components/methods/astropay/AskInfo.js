@@ -23,6 +23,7 @@ let AskInfo = React.createClass({
 		let selectMonths = [];
 		let selectYears = [];
 		let now = new Date();
+		let actualMonth  = now.getMonth() + 2;
 
 		for(let i = 1; i < 13; i++){
 			selectMonths.push(UIService.renderOption({ label: i }, i));
@@ -45,7 +46,7 @@ let AskInfo = React.createClass({
 										<div className="form-group">
 											<label className="col-sm-4 control-label">{translate('CREDIT_CARD_NUMBER', 'Card Number')}:</label>
 											<div className="col-sm-8">
-												<Input type="text" id="creditCardNumber" ref="creditCardNumber" onChange={this.props.changeValue.bind(null, 'ccNumber', 0)} require/>
+												<Input type="text" id="creditCardNumber" ref="creditCardNumber" validate="isCreditNumber" onChange={this.props.changeValue.bind(null, 'ccNumber', 0)} require/>
 											</div>
 										</div>
 
@@ -53,7 +54,7 @@ let AskInfo = React.createClass({
 										<div className="form-group">
 											<label className="col-sm-4 control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
 											<div className="col-sm-4">
-												<select className="form-control" id="ccExpMonth" onChange={this.props.changeValue.bind(null, 'ccExpMonth',1)}>
+												<select className="form-control" id="ccExpMonth" onChange={this.props.changeValue.bind(null, 'ccExpMonth',1)} value = {actualMonth}>
 													{selectMonths}
 												</select>
 											</div>
@@ -67,7 +68,7 @@ let AskInfo = React.createClass({
 										<div className="form-group">
 											<label className="col-sm-4 control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
 											<div className="col-sm-8">
-												<Input type="text" id="cvv" ref="cvv" onChange={this.props.changeValue.bind(null, 'ccCVV', 0)} require/>
+												<Input type="text" id="cvv" ref="cvv" validate="isCVV4" onChange={this.props.changeValue.bind(null, 'ccCVV', 0)} require/>
 											</div>
 										</div>
 
