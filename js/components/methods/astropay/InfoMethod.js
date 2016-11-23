@@ -2,15 +2,16 @@ import React from 'react'
 import { translate } from '../../../constants/Translate'
 import Cashier from '../../../constants/Cashier'
 import { CashierStore } from '../../../stores/CashierStore'
-import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
+import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
 
 	propTypes: {
 		amount: React.PropTypes.string,
 		limitsCheck: React.PropTypes.string,
-		formValidator: React.PropTypes.func
+		formValidator: React.PropTypes.func,
+		payAccount: React.PropTypes.array
 	},
 
 	/**
@@ -91,13 +92,23 @@ let InfoMethod = React.createClass({
 	 * this function sends deposit info to cashier
 	 *
 	 */
-	continueTransaction(){
-		TransactionService.setAmount(this.props.amount);
-		UIService.confirmTransaction();
+	continueTransaction(confirmTerms){
+		let ccConfirmTerms = 0;
+		if (confirmTerms){
+			ccConfirmTerms = 1;
+		}
+		let customer = CashierStore.getCustomer();
+		let currency = customer.currency;
+		let UI = CashierStore.getUI();
+		if (UI['currencies'][currency]){
+			let currencyId = UI['currencies'][currency].caCurrency_Id;
+			TransactionService.processAstroPay({ ccConfirmTerms: ccConfirmTerms, ccNumber: this.props.payAccount.ccNumber, ccExpMonth: this.props.payAccount.ccExpMonth, ccExpYear: this.props.payAccount.ccExpYear, ccCVV: this.props.payAccount.ccCVV, currency: currencyId }, this.props.amount, 'ticket');
+		}
 	},
 
 	render() {
 		let limitsCheck = this.allowProcess();
+		let confirmTerms = CashierStore.getTransaction().checkTermsAndConditions;
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
 
@@ -136,7 +147,7 @@ let InfoMethod = React.createClass({
 						</table>
 					</div>
 					<div className="col-sm-6">
-						<button type='button' className='btn btn-green' disabled={isNextDisabled} onClick={this.continueTransaction}>
+						<button type='button' className='btn btn-green' disabled={isNextDisabled} onClick={this.continueTransaction.bind(null,confirmTerms)}>
 							{translate('PROCESSING_BUTTON_NEXT', 'Next')}
 						</button>
 						<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>

@@ -283,6 +283,26 @@ class transactionService {
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 
+
+	processAstroPay(dynamicParams, amount, nextStep){
+
+		//clean current transaction response
+		CashierStore.getLastTransactionResponse().cleanTransaction();
+		let customer = CashierStore.getCustomer();
+
+		let rabbitRequest = {
+			f: "process",
+			processorId: cashier.PROCESSOR_ID_ASTROPAY,
+			payAccountId: 0,
+			amount: amount,
+			dynamicParams: dynamicParams
+		};
+		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
+		//UIService.processTransaction(nextStep);
+		stompConnector.makeProcessRequest("", rabbitRequest);
+	};
+
+
 	/**
 	 * this function sends to process a transaction
 	 */

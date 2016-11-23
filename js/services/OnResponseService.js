@@ -18,6 +18,7 @@ class OnResponseService {
 			case actions.CUSTOMER_INFO_RESPONSE:
 				CashierActions.setSelectedCountry();
 				ApplicationService.getCountryStates();
+				ApplicationService.getCurrency(data.response.customerInfo.currency);
 				break;
 
 			case actions.PROCESSORS_RESPONSE:

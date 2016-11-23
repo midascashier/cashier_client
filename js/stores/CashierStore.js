@@ -24,7 +24,7 @@ let _UI = {
 	countries: {},
 	selectedCountry: '',
 	countryStates: [],
-	currencies: {},
+	currencies: [],
 	connectionError: 0
 };
 
@@ -505,7 +505,11 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Return actual BTC rate
 	 */
 	getBTCRate: () =>{
-		return _processor.rate;
+		let rate = 0;
+		if (_UI['currencies']['BTC']){
+			rate = _UI['currencies']['BTC'].Rate;
+		}
+		return rate;
 	},
 
 	/**
@@ -638,10 +642,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.GET_CURRENCY_RESPONSE:
 			let currencyInfo = data.response.currencyInfo;
 			if(currencyInfo && currencyInfo.Rate){
-				_processor.rate = currencyInfo.Rate;
-			} else if(currencyInfo){
-				_UI.currencies = currencyInfo;
-				_processor.rate = currencyInfo[0].Rate;
+				_UI.currencies[currencyInfo.Iso] = currencyInfo;
 			}
 			CashierStore.emitChange();
 			break;

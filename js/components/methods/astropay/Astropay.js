@@ -24,37 +24,20 @@ let Astropay = React.createClass({
 	},
 
 	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState() {
+		let now = new Date();
+		let actualYear = now.getFullYear();
 		return {
 			selectedProcessor: CashierStore.getProcessor(),
-			transaction: UIService.getTransactionInformation()
+			payAccount: {
+				ccNumber: "",
+				ccCVV: "",
+				ccExpMonth: "01",
+				ccExpYear: actualYear
+			}
 		}
-	},
-
-	/**
-	 * this is the callback function the store calls when a state change
-	 *
-	 * @private
-	 */
-	_onChange() {
-		this.setState(this.refreshLocalState());
 	},
 
 	/**
@@ -65,11 +48,29 @@ let Astropay = React.createClass({
 	},
 
 	/**
-	 * Checks if ssn is valid
+	 * Set astropay New Account Info
 	 *
-	 * @returns {*}
+	 * @param event
 	 */
-	formValidator(){
+	changeValue(propertyName, isSelectComponent = 0, event){
+		let actualState = this.state;
+
+		let value = event;
+
+		if(isSelectComponent){
+			value = value.target.value;
+		}
+
+		if(propertyName == 'country'){
+			UIService.getCountryStates(value);
+		}
+
+		actualState.payAccount[propertyName] = value;
+
+		this.setState(
+			actualState
+		);
+
 	},
 
 	render() {
@@ -91,6 +92,9 @@ let Astropay = React.createClass({
 							return <LoadingSpinner />;
 						} else{
 							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}
+																 payAccount={this.state.payAccount}
+																 check={this.state.check}
+																 currencyId= {this.state.currencyId}
 																 formValidator={this.formValidator}/>;
 						}
 					})()}
