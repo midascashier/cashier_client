@@ -79,7 +79,12 @@ let PendingControlNumber = React.createClass({
 								{(() =>{
 									if(pendingP2PTransactions && pendingP2PTransactions.length > 0){
 										if (this.state.transactions == cashier.NO_RESPONSE){
-											return <p>No records!</p>;
+											return <div>
+											<p>No records!</p>
+											<Link to={"/"+customerOpt.toLowerCase()+"/"}>
+												<button type="button" className="btn btn-green">{translate(customerOpt)}</button>
+											</Link>
+											</div>
 										}else{
 											return <TransactionPendingMTCN/>
 										}
