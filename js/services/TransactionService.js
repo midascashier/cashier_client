@@ -342,7 +342,7 @@ class transactionService {
 		let payAccountSelected = CashierStore.getCurrentPayAccount();
 		let transactionType = UIService.getIsWithDraw();
 
-		if(!payAccountSelected.extra.dob && !payAccountSelected.extra.dobDay && !payAccountSelected.extra.dobMonth && !payAccountSelected.extra.dobYear && !payAccountSelected.extra.ssn){
+		if(!payAccountSelected.extra.dob || !payAccountSelected.extra.dobDay || !payAccountSelected.extra.dobMonth || !payAccountSelected.extra.dobYear || !payAccountSelected.extra.ssn){
 			payAccountSelected.extra.dob = transaction.dobMonth + "-" + transaction.dobDay + "-" + transaction.dobYear;
 			payAccountSelected.extra.dobDay = transaction.dobDay;
 			payAccountSelected.extra.dobMonth = transaction.dobMonth;
