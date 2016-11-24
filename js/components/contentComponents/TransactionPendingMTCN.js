@@ -3,8 +3,8 @@ import { Link } from 'react-router'
 import { translate } from '../../constants/Translate'
 import { Input } from '../../components/Inputs'
 import { CashierStore } from '../../stores/CashierStore'
+import { cashier } from '../../constants/Cashier'
 import { UIService } from '../../services/UIService'
-import { ApplicationService } from '../../services/ApplicationService'
 import { TransactionService } from '../../services/TransactionService'
 
 let TransactionPendingMTCN = React.createClass({
@@ -92,8 +92,6 @@ let TransactionPendingMTCN = React.createClass({
 		return (
 			<div id="controlNumberList" className="mtcn scroll">
 				{(() =>{
-					if(transactions){
-
 						let senderLabel = translate('PENDING_MTCN_SENDER', 'Sender');
 						let receiverLabel = translate('PENDING_MTCN_RECEIVER', 'Receiver');
 						let destinationLabel = translate('PENDING_MTCN_DESTINATION', 'Destination');
@@ -175,9 +173,6 @@ let TransactionPendingMTCN = React.createClass({
 							);
 						});
 						return tables;
-					} else{
-						return (<p>No records!</p>)
-					}
 				})()}
 
 				<Link to={"/"+customerOpt.toLowerCase()+"/"}>

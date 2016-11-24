@@ -606,6 +606,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				p2pNames.forEach((transaction)=>{
 					p2pTransactions[transaction.caTransaction_Id] = transaction;
 				});
+			}else{
+				p2pTransactions = cashier.NO_RESPONSE;
 			}
 			_customer.pendingP2PTransactions = p2pTransactions;
 			CashierStore.emitChange();

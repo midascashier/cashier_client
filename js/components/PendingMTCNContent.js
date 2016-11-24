@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { Info } from './headerComponents/Info'
 import { translate } from '../constants/Translate'
+import cashier from '../constants/Cashier'
 import { CashierStore } from '../stores/CashierStore'
 import { LoadingSpinner } from './loading/LoadingSpinner'
 import { TransactionPendingMTCN } from '../components/contentComponents/TransactionPendingMTCN'
@@ -77,9 +78,13 @@ let PendingControlNumber = React.createClass({
 
 								{(() =>{
 									if(pendingP2PTransactions && pendingP2PTransactions.length > 0){
-										return <TransactionPendingMTCN/>
+										if (this.state.transactions == cashier.NO_RESPONSE){
+											return <p>No records!</p>;
+										}else{
+											return <TransactionPendingMTCN/>
+										}
 									}else{
-										return <LoadingSpinner/>
+											return <LoadingSpinner/>
 									}
 								})()}
 

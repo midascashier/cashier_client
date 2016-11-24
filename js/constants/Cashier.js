@@ -42,6 +42,7 @@ export default {
 	LOADING: "LOADING",
 	LIMIT_NO_ERRORS: "LIMIT_NO_ERRORS",
 	NO_PAYACCOUNTS: "Processor hasnt payaccounts",
+	NO_RESPONSE: "No Response",
 
 	SECOND_FACTOR_MAX_ATTEMPTS_REACHED: "MAX_ATTEMPTS_REACHED"
 }
