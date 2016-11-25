@@ -8,6 +8,12 @@ let CompanyInfo = React.createClass({
 		company: React.PropTypes.object
 	},
 
+	/**
+	 * function to open chat window
+	 */
+	openChat(event) {
+		chat();
+	},
 	render() {
 		return (
 			<div id="companyInfo" className="col-xs-8">
@@ -28,7 +34,7 @@ let CompanyInfo = React.createClass({
 							</div>
 							<div className="col-sm-6">
 								{translate('CUSTOMER_INFO_NEED_HELP')}
-								<a>{translate('CUSTOMER_INFO_LIVE_CHAT')}</a>
+								<a href='#' onClick={this.openChat}>{translate('CUSTOMER_INFO_LIVE_CHAT')}</a>
 								{(() =>{
 									if(!this.props.company.companyId){
 										return <Loading />;
