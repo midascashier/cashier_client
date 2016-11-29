@@ -72,7 +72,8 @@ let TransactionHistoryContent = React.createClass({
 					<div className="row">
 						<div className="col-sm-12">
 							<div className="modules">
-									<div className="title text-center">{translate('TRANSACTION_HISTORY_TITLE')}</div>
+								<div className="title text-center">{translate('TRANSACTION_HISTORY_TITLE')}</div>
+								<div className="history scroll">
 									{(() =>{
 										if(transactionHistory && transactionHistory.length == 0){
 											return <LoadingSpinner/>
@@ -81,46 +82,44 @@ let TransactionHistoryContent = React.createClass({
 										}
 									})()}
 
-									<div className="row">
-											<ul className="col-md-4 col-md-offset-4 list-group">
-												<li>
-													<span>{translate('TRANSACTION_STATUS_PENDING')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PENDING')}
-												</li>
-												<li>
-													<span>{translate('TRANSACTION_STATUS_PROCESSING')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PROCESSING')}
-												</li>
-												<li>
-													<span>{translate('TRANSACTION_STATUS_PRE_APPROVE')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PRE_APPROVE')}
-												</li>
-												<li>
-													<span>{translate('TRANSACTION_STATUS_APPROVED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_APPROVED')}
-												</li>
-												<li>
-													<span>{translate('TRANSACTION_STATUS_REJECTED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_REJECTED')}
-												</li>
-												<li>
-													<span>{translate('TRANSACTION_STATUS_CANCELLED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_CANCELLED')}
-												</li>
-												<li>
-													<span>{translate('TRANSACTION_STATUS_FAILED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_FAILED')}
-												</li>
-											</ul>
+									<ul className="col-md-4 col-md-offset-4 list-group">
+										<li>
+											<span>{translate('TRANSACTION_STATUS_PENDING')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PENDING')}
+										</li>
+										<li>
+											<span>{translate('TRANSACTION_STATUS_PROCESSING')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PROCESSING')}
+										</li>
+										<li>
+											<span>{translate('TRANSACTION_STATUS_PRE_APPROVE')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PRE_APPROVE')}
+										</li>
+										<li>
+											<span>{translate('TRANSACTION_STATUS_APPROVED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_APPROVED')}
+										</li>
+										<li>
+											<span>{translate('TRANSACTION_STATUS_REJECTED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_REJECTED')}
+										</li>
+										<li>
+											<span>{translate('TRANSACTION_STATUS_CANCELLED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_CANCELLED')}
+										</li>
+										<li>
+											<span>{translate('TRANSACTION_STATUS_FAILED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_FAILED')}
+										</li>
+									</ul>
+									<div className="col-md-4 col-md-offset-4">
+										<div className="row">
+											<div className="col-sm-6">
+												<button type="submit" className="btn btn-green">{translate(customerOpt)}</button>
+											</div>
+											<div className="col-sm-6">
+												<button type="button" className="btn btn-green">{translate("GO_TO_POKER_LOBBY")}</button>
+											</div>
+										</div>
 									</div>
-							</div>
-						</div>
-						<div className="col-md-4 col-md-offset-4">
-							<div className="row">
-								<div className="col-sm-6">
-									<button type="submit" className="btn btn-green">{translate(customerOpt)}</button>
-								</div>
-								<div className="col-sm-6">
-									<button type="button" className="btn btn-green">{translate("GO_TO_POKER_LOBBY")}</button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
 			</div>
 		)
 	}

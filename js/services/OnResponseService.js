@@ -12,13 +12,12 @@ class OnResponseService {
 	processResponse(action, data){
 		CashierActions.responses(action, data);
 		if (data.userMessage){
-			action = actions.USER_MESSAGE;
+			CashierActions.showUserMessage(data.userMessage);
+		}else{
+			CashierActions.showUserMessage(data.userMessage);
 		}
 		
 		switch(action){
-			case actions.USER_MESSAGE:
-				CashierActions.showUserMessage(data.userMessage);
-				break;
 			case actions.CUSTOMER_INFO_RESPONSE:
 				CashierActions.setSelectedCountry();
 				ApplicationService.getCountryStates();
