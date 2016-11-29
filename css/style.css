@@ -26,7 +26,7 @@ i.i-top{margin-top: 8px;}
 .red {color:#e03430;}
 
 /*btns*/
-button + button {margin-left:20px;}
+button + button {margin-left:70px;}
 button.btn-welcome {border:1px solid #6b89ac; font-size:53px; margin-top:14px; padding:5px 36px 5px; border-radius:6px; text-shadow:1px 1px 2px #6172a1;
 	font-weight:normal;}
 button.btn-welcome:hover {box-shadow:0 0 7px 1px #6172a1; font-weight:normal;}
@@ -69,15 +69,19 @@ table.mtcn-table tr th span{ color:#FFF;}
 table.mtcn-table tr td strong{ color:#1976D2;}
 
 /*list*/
-ul li, ol li {text-align:left;}
+ol, ul{padding:0!important;}
+ul.list-group{padding:10px 5px 10px!important; line-height: 1.8; padding-top: 10px; padding-bottom: 10px; margin-bottom: 25px!important; margin-top: 10px;}
+ul.list-group li:before{/*color:#da161d; content: "-"; font-size: .75em; padding-right:6px;*/}
+ul li, ol li {text-align:left; list-style: none; text-indent: 16px;}
 ul li span, ol li span {font-weight:bold; color:#555;}
+ul li:before, ol li:before{content: "\25CF"; color:#1976D2; padding-right:4px; text-align: left; font-size: 10px;}
 
 /*paragraph*/
-.internal-content p{ /*margin:0 0 10px;*/margin: 2px 0 8px;}
+
+.internal-content p{ /*margin: 2px 0 8px;*/}
 
 /*global*/
 body {background:#EEE; font-family:'Segoe UI', Arial, sans-serif; color:#777; font-size:13px; }
-.global .container {}
 
 /*container*/
 .container/*, .box*//*, table*/{padding: 0;border-right:1px solid #CCC; border-left:1px solid #CCC; border-bottom:1px solid #CCC; width:1000px; height: 538px; -webkit-box-shadow: 0 0 2px 2px #000; -webkit-box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1); -ms-box-shadow: 0 0 2px 2px #000; box-shadow:0 0 2px 2px #000; box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1);  background:#F9F9F9;}
@@ -100,7 +104,7 @@ body {background:#EEE; font-family:'Segoe UI', Arial, sans-serif; color:#777; fo
 .mtcn.scroll{height:425px;}
 .infoCol .scroll{height: 300px;}
 
-.historyContent {overflow-x:scroll!important;height: 425px;}
+/*.historyContent {overflow-x:scroll!important;height: 425px;}*/
 
 /*-----steps*/
 .steps, .two-steps {text-align: center;}
@@ -133,27 +137,31 @@ body {background:#EEE; font-family:'Segoe UI', Arial, sans-serif; color:#777; fo
 
 /*box*/
 .box, .method {border-radius:4px;}
-.box {overflow:hidden; /*margin-bottom:20px;*//* margin-bottom:15px;*/ margin-bottom:8px; min-height:250px; box-shadow: 0 1px 2px #CCC; background:#FFF}
-.box, table {/*margin-top:15px;*//*margin-top:10px;*/ margin-top:4px; margin-bottom:8px!important; }
-.box .title {background:#1d1d1d; /*background:#152d5e;*/ color:#FFF;/* font-size:20px;*/ font-size:18px; margin-bottom:0;}
+.box, .list-group {overflow:hidden; margin-bottom:8px; box-shadow: 0 1px 2px #CCC; background:#FFF;}
+.box{min-height:250px;}
+.box, table { margin-top:4px; margin-bottom:8px!important; }
+.box .title {background:#1d1d1d; color:#FFF; font-size:18px; margin-bottom:0;}
+.box .infoCol p{ text-align: justify;}
+.box .infoCol .editLink{border:1px solid red; margin-bottom:10px;}
 
 
 /*infoCol*/
-.infoCol {/*padding:10px;*/ padding:6px 10px; overflow:hidden;}
+.infoCol {padding:6px 10px; overflow:hidden;}
 
 /*.rejected-page*/
 .infoCol ul, .infoCol {line-height:1.6;}
 
 /*Alerts-Messages--------------------------*/
-.alert{/*padding: 5px 10px;*/ padding:2px 8px; margin-bottom:5px;}
-div[class^="alert"] i {font-size:12px;}
+.alert{padding:2px 8px; margin-bottom:5px; font-size:12px;}
+.alert[class^="alert"]{ margin-top:5px;}
+div[class^="alert"] i {font-size:12px; }
 .alert p a:hover{ color:#333;}
 
 /*loaders*/
 .loader-lg {margin-top:20px; margin-bottom:25px;}
-.loader{ height:40px; /*background-position:center center;*/}
+.loader{ height:40px; margin: 15px 0;}
 .loader, .loader-sm{background-image:url(../images/loader-sm_40x40.gif); background-repeat:no-repeat; background-position: center;}
-.loader-sm {background-color:rgba(255, 255, 255, 0.75);  display:block; position:absolute; top:0; bottom:0; right:0; left:0; z-index:3;}
+.loader-sm {background-color:rgba(249, 249, 249, 0.75);  display:block; position:absolute; top:0; bottom:0; right:0; left:0; z-index:3; margin: 0 10px;}
 .loader-xs {height:34px; padding-top:4px;}
 
 /*Pages*/
@@ -195,19 +203,17 @@ div[class^="alert"] i {font-size:12px;}
 .modules .box .method .billpay{ background-image:url(../images/processors/36.png);}
 
 /*---------*/
-.modules .box .method, .modules .card-details img {border:1px solid #DDD;
-	background:#FFF;  margin-bottom:15px; text-align:center; }
+.modules .box .method, .modules .card-details img {border:1px solid #DDD; background:#FFF;  margin-bottom:15px; text-align:center; }
 .modules .card-details img{padding:15px 10px;}
 .modules .box .method img {width: 100px; height:36px;}
-.modules .box .method i {font-size:25px; position:absolute; right:18px;/* bottom:53px;*/bottom:60px;}
+.modules .box .method i {font-size:25px; position:absolute; right:18px; bottom:60px;}
 .modules .box .method.active {border:1px solid #01b300;}
 .modules .box .method.active i {color:#01b300;}
 /*.modules .deposit-limits {text-align:center;}*/
 
-/*-----Success*/
 /*.success-page*/
 .banner {background-size:cover; width:100%;}
-.fa-4 {font-size:6em!important;}
+.fa-4 {font-size:6em!important;} 
 /*.success-message {text-align:center;}
 .success-message i[class^="fa fa-check"] {font-size:7em;}
 .success-message i {margin-top:8px; margin-bottom:10px}
@@ -224,7 +230,7 @@ div[class^="alert"] i {font-size:12px;}
 .card-details table th {text-align:center; padding:5px 0;}
 
 /*QRCode*/
-#QRCode{ margin:10px 0 10px;}
+#QRCode img{ margin:10px 0;}
 
 
 /*--------------------------------------*/

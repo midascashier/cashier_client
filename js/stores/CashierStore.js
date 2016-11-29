@@ -25,7 +25,8 @@ let _UI = {
 	selectedCountry: '',
 	countryStates: [],
 	currencies: [],
-	connectionError: 0
+	connectionError: 0,
+	userMessage: ''
 };
 
 /**
@@ -580,6 +581,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			_application.sid = data.sid;
 			CashierStore.storeData("application", _application);
 			CashierStore.storeData("ui", _UI);
+			CashierStore.emitChange();
+			break;
+
+		case actions.USER_MESSAGE:
+			_UI.userMessage = data.message;
 			CashierStore.emitChange();
 			break;
 

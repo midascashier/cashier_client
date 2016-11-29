@@ -12,7 +12,7 @@ let BitCoinTicketPending = React.createClass({
 	 * @returns {*|{address, amount, minutes}|{address: string, amount: string, minutes: number}}
 	 */
 	getInitialState(){
-		let state = Object.assign(this.refreshLocalState(), {timer: '15:00'});
+		let state = Object.assign(this.refreshLocalState(), { timer: '15:00' });
 		return state;
 	},
 
@@ -27,7 +27,7 @@ let BitCoinTicketPending = React.createClass({
 		let rateExpiration = 15;
 
 		let transaction = UIService.getLastTransactionResponse();
-		if (transaction && transaction.details && transaction.details.bitCoinTransaction){
+		if(transaction && transaction.details && transaction.details.bitCoinTransaction){
 			address = transaction.details.bitCoinTransaction.Address;
 			btcAmount = transaction.details.bitCoinTransaction.BitcoinAmount;
 			rateExpiration = parseInt(transaction.details.bitCoinTransaction.RateExpiration);
@@ -87,7 +87,7 @@ let BitCoinTicketPending = React.createClass({
 		if(this.isMounted()){
 
 			let now = new Date();
-			let timeDifference = (this.state.expirationTime.getTime() - now.getTime())/1000;
+			let timeDifference = (this.state.expirationTime.getTime() - now.getTime()) / 1000;
 			let minutes = Math.floor(timeDifference / 60);
 			let seconds = Math.round(timeDifference - minutes * 60);
 
@@ -95,10 +95,10 @@ let BitCoinTicketPending = React.createClass({
 				clearInterval(this.interval);
 			}
 
-			minutes = (minutes >= 10) ? minutes : '0'+ minutes;
-			seconds = (seconds >= 10) ? seconds : '0'+ seconds;
+			minutes = (minutes >= 10) ? minutes : '0' + minutes;
+			seconds = (seconds >= 10) ? seconds : '0' + seconds;
 			let score = minutes + ":" + seconds;
-			this.setState({timer: score});
+			this.setState({ timer: score });
 		}
 	},
 
@@ -108,8 +108,8 @@ let BitCoinTicketPending = React.createClass({
 		let amount = this.state.amount;
 		let timer = this.state.timer;
 
-		let btcAmount = translate('BITCOIN_INSTRUCTIONS_AMOUNT', '', {btcAmount: amount});
-		let btcTimer = translate('BITCOIN_INSTRUCTIONS_TIME_INFO', '', {btcMinutes: timer});
+		let btcAmount = translate('BITCOIN_INSTRUCTIONS_AMOUNT', '', { btcAmount: amount });
+		let btcTimer = translate('BITCOIN_INSTRUCTIONS_TIME_INFO', '', { btcMinutes: timer });
 
 		return (
 			<div id="BitCoinTicketInstructions">
@@ -123,7 +123,6 @@ let BitCoinTicketPending = React.createClass({
 				<div className="col-sm-12">
 					<div className="modules">
 						<div className="row">
-
 							<div className="col-sm-4">
 								<div className="box">
 									<div className="row">
@@ -146,18 +145,25 @@ let BitCoinTicketPending = React.createClass({
 												<div className="col-sm-12">
 													<div className="title">#2</div>
 													<div className="infoCol">
-														<div className="subtitle">{translate('BITCOIN_INSTRUCTIONS_ADDRESS', 'Send the BitCoin to the following address')}</div>
+														<div
+															className="subtitle">{translate('BITCOIN_INSTRUCTIONS_ADDRESS', 'Send the BitCoin to the following address')}</div>
 														<p>{translate('BITCOIN_INSTRUCTIONS_ADDRESS_INFO', 'Please include any Miners Fee your BitCoin wallet charges.')}</p>
 														<div id="btcAddress">
-															<input type="text" className="form-control" id="bitCoinAddress" value={address} readOnly/>
-															<button type='button' onClick={this.copyToClipboard} disabled={!address} className='btn btn-green'>
-																{translate('PROCESSING_BUTTON_COPY', 'Copy')}
-															</button>
+															<div className="col-sm-8">
+																<input type="text" className="form-control" id="bitCoinAddress" value={address}
+																			 readOnly/>
+															</div>
+															<div className="col-sm-4">
+																<button type='button' onClick={this.copyToClipboard} disabled={!address}
+																				className='btn btn-green'>
+																	{translate('PROCESSING_BUTTON_COPY', 'Copy')}
+																</button>
+															</div>
 														</div>
 														<div id="QRCode">
 															{(() =>{
 																if(address){
-																	return(
+																	return (
 																		<div className="img-responsive center-block">
 																			<QRCode value={address}/>
 																		</div>
@@ -179,19 +185,16 @@ let BitCoinTicketPending = React.createClass({
 										<div className="col-sm-12">
 											<div className="title">#3</div>
 											<div className="infoCol">
-												<div className="subtitle">{translate('BITCOIN_INSTRUCTIONS_TIME', 'Prompty complete your transaction.')}</div>
+												<div
+													className="subtitle">{translate('BITCOIN_INSTRUCTIONS_TIME', 'Prompty complete your transaction.')}</div>
 												<p>{btcTimer}</p>
 											</div>
 										</div>
 									</div>
 								</div>
+								<p><strong>{translate('BITCOIN_INSTRUCTIONS_INFO', '')}</strong></p>
 								<button type="button" className="btn btn-green">{translate("GO_TO_POKER_LOBBY")}</button>
 							</div>
-
-							<div className="col-sm-12">
-								<p><strong>{translate('BITCOIN_INSTRUCTIONS_INFO', '')}</strong></p>
-							</div>
-
 						</div>
 					</div>
 				</div>

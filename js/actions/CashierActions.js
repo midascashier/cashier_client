@@ -78,6 +78,14 @@ let CashierActions = {
 		});
 	},
 
+	showUserMessage: (data) =>{
+		CashierDispatcher.dispatch({
+			action: actions.USER_MESSAGE,
+			data: { message: data }
+		});
+	},
+
+
 	connectionError: (data) => {
 		CashierDispatcher.dispatch({
 			action: actions.CONNECTION_ERRROR,

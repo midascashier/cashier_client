@@ -72,8 +72,7 @@ let TransactionHistoryContent = React.createClass({
 					<div className="row">
 						<div className="col-sm-12">
 							<div className="modules">
-								<div className="historyContent">
-									<div className="title">{translate('TRANSACTION_HISTORY_TITLE')}</div>
+									<div className="title text-center">{translate('TRANSACTION_HISTORY_TITLE')}</div>
 									{(() =>{
 										if(transactionHistory && transactionHistory.length == 0){
 											return <LoadingSpinner/>
@@ -83,8 +82,7 @@ let TransactionHistoryContent = React.createClass({
 									})()}
 
 									<div className="row">
-										<div className="col-sm-6">
-											<ul>
+											<ul className="col-md-4 col-md-offset-4 list-group">
 												<li>
 													<span>{translate('TRANSACTION_STATUS_PENDING')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PENDING')}
 												</li>
@@ -107,17 +105,15 @@ let TransactionHistoryContent = React.createClass({
 													<span>{translate('TRANSACTION_STATUS_FAILED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_FAILED')}
 												</li>
 											</ul>
-										</div>
 									</div>
-								</div>
 							</div>
+						</div>
+						<div className="col-md-4 col-md-offset-4">
 							<div className="row">
-								<div className="col-sm-8"></div>
-								<div className="col-sm-4">
-									<Link to={"/"+customerOpt.toLowerCase()+"/"}>
-										<button type="submit" className="btn btn-green">{translate(customerOpt)}</button>
-									</Link>
-									&nbsp;&nbsp;&nbsp;
+								<div className="col-sm-6">
+									<button type="submit" className="btn btn-green">{translate(customerOpt)}</button>
+								</div>
+								<div className="col-sm-6">
 									<button type="button" className="btn btn-green">{translate("GO_TO_POKER_LOBBY")}</button>
 								</div>
 							</div>

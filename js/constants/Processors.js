@@ -99,6 +99,7 @@ settings[Cashier.PROCESSOR_ID_GENCK][SETTING_ROUTE] = 'genck/';
 settings[Cashier.PROCESSOR_ID_GENCK][REGISTER_ACCOUNTS_ALLOW] = 1;
 
 settings[Cashier.PROCESSOR_ID_DEBITCARD] = [];
+settings[Cashier.PROCESSOR_ID_DEBITCARD][LIMITS_VALIDATION_VERSION] = "lite";
 settings[Cashier.PROCESSOR_ID_DEBITCARD][WITHDRAW_STEPS] = ["selectMethod", "askInfo"];
 settings[Cashier.PROCESSOR_ID_DEBITCARD][SETTING_ROUTE] = 'debitcards/';
 settings[Cashier.PROCESSOR_ID_DEBITCARD][REGISTER_ACCOUNTS_ALLOW] = 0;

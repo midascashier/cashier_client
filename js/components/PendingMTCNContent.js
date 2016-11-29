@@ -74,7 +74,7 @@ let PendingControlNumber = React.createClass({
 					<div className="row">
 						<div className="col-sm-12">
 							<div className="modules">
-								<div className="title">{translate('PENDING_MTCN', 'Pending Control Numbers')}</div>
+								<div className="title text-center">{translate('PENDING_MTCN', 'Pending Control Numbers')}</div>
 
 								{(() =>{
 									if(pendingP2PTransactions && pendingP2PTransactions.length > 0){
@@ -82,7 +82,7 @@ let PendingControlNumber = React.createClass({
 											return <div>
 											<p>No records!</p>
 											<Link to={"/"+customerOpt.toLowerCase()+"/"}>
-												<button type="button" className="btn btn-green">{translate(customerOpt)}</button>
+												<button type="button" className="btn btn-green center-block">{translate(customerOpt)}</button>
 											</Link>
 											</div>
 										}else{
@@ -97,7 +97,7 @@ let PendingControlNumber = React.createClass({
 									if(!pendingP2PTransactions || pendingP2PTransactions.length == 0){
 										return (
 											<Link to={"/"+customerOpt.toLowerCase()+"/"}>
-												<button type="button" className="btn btn-green">{translate(customerOpt)}</button>
+												<button type="button" className="btn btn-green center-block">{translate(customerOpt)}</button>
 											</Link>
 										)
 									}

@@ -36,7 +36,8 @@ let Info = React.createClass({
 	refreshLocalState() {
 		return {
 			customer: CashierStore.getCustomer(),
-			company: CashierStore.getCompany()
+			company: CashierStore.getCompany(),
+			UI: CashierStore.getUI()
 		}
 	},
 
@@ -53,9 +54,18 @@ let Info = React.createClass({
 		let customer = CashierStore.getCustomer();
 		let company = CashierStore.getCompany();
 		return (
-			<div id="headerInfo" className="header-top">
-				<CustomerInfo customer={customer}/>
-				<CompanyInfo customer={customer} company={company}/>
+			<div>
+				<div id="headerInfo" className="header-top">
+					<CustomerInfo customer={customer}/>
+					<CompanyInfo customer={customer} company={company}/>
+				</div>
+
+				{(() =>{
+					if(this.state.UI.userMessage){
+						return <div className="alert alert-danger modules">{this.state.UI.userMessage}</div>;
+					}
+				})()}
+
 			</div>
 		)
 	}
