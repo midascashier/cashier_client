@@ -843,6 +843,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			//do some work before start the transaction
 			_transaction.cleanTransaction();
 			_payAccount.cleanPayAccount();
+			_payAccounts = [];
 			break;
 
 		case actions.SET_STEP:
