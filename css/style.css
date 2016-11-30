@@ -99,10 +99,11 @@ body {background:#EEE; font-family:'Segoe UI', Arial, sans-serif; color:#777; fo
 .internal-content {/*padding:15px 15px 20px;*/padding:10px 10px 15px; /*padding:10px 0 15px;*/}
 
 /*scroll*/
-.scroll, .mtcn.scroll/*, .processors*/ { overflow-y:scroll!important;}
+.scroll, .mtcn.scroll, .history.scroll/*, .processors*/ { overflow-y:scroll!important;}
 .scroll/*, .processors*/{ height:300px;}
-.mtcn.scroll{height:425px;}
-.infoCol .scroll{height: 300px;}
+.mtcn.scroll, .history.scroll{height:440px;}
+.history.scroll table{ font-size:13px!important;}
+/*.infoCol .scroll{height: 300px;}*/
 
 /*.historyContent {overflow-x:scroll!important;height: 425px;}*/
 

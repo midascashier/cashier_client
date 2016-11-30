@@ -108,7 +108,9 @@ let TransactionHistoryContent = React.createClass({
 									<div className="col-md-4 col-md-offset-4">
 										<div className="row">
 											<div className="col-sm-6">
-												<button type="submit" className="btn btn-green">{translate(customerOpt)}</button>
+												<Link to={"/"+customerOpt.toLowerCase()+"/"}>
+													<button type="submit" className="btn btn-green">{translate(customerOpt)}</button>
+												</Link>
 											</div>
 											<div className="col-sm-6">
 												<button type="button" className="btn btn-green">{translate("GO_TO_POKER_LOBBY")}</button>
