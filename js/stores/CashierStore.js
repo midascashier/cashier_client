@@ -925,7 +925,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			CashierStore.emitChange();
 			break;
 
-		case actions.DISABLECUSTOMERPAYACCOUNTRESPONSE:
+		case actions.PAYACCOUNTS_DISABLE_RESPONSE:
 			_payAccount.cleanPayAccount();
 			CashierStore.emitChange();
 			break;
