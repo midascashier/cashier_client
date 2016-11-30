@@ -40,13 +40,15 @@ class OnResponseService {
 				break;
 
 			case actions.VALIDATE_PAYACCOUNT:
-				let processorID = data.response.payAccount.processorIdRoot;
-				if (processorID == Cashier.PROCESSOR_ID_ECOPAYZ || processorID == Cashier.PROCESSOR_ID_1TAP){
-					let payAccount = {};
-					CashierActions.setsPayAccount(data.response.payAccount);
-					TransactionService.process({ account: data.response.payAccount.displayName, askAmount: true }, "ticket");
-				}else{
-					TransactionService.getPreviousPayAccount(processorID);
+				if (data.response && data.response.payAccount){
+					let processorID = data.response.payAccount.processorIdRoot;
+					if(processorID == Cashier.PROCESSOR_ID_ECOPAYZ || processorID == Cashier.PROCESSOR_ID_1TAP){
+						let payAccount = {};
+						CashierActions.setsPayAccount(data.response.payAccount);
+						TransactionService.process({ account: data.response.payAccount.displayName, askAmount: true }, "ticket");
+					} else{
+						TransactionService.getPreviousPayAccount(processorID);
+					}
 				}
 				break;
 
