@@ -925,6 +925,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			CashierStore.emitChange();
 			break;
 
+		case actions.DISABLECUSTOMERPAYACCOUNTRESPONSE:
+			_payAccount.cleanPayAccount();
+			CashierStore.emitChange();
+			break;
+
 		default:
 			console.log("Store No Action: " + action);
 			break;
