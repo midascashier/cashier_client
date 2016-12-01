@@ -31,6 +31,7 @@ let AskInfo = React.createClass({
 		let payAccountDisplayName = payAccount.displayName;
 		let isWithDraw = UIService.getIsWithDraw();
 		let netellerForm = "";
+		let withdrawFee = "";
 		let deleteButton = translate('PROCESSING_BUTTON_DELETE_ACCOUNT', 'Delete Account');
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
 		if(isWithDraw){
@@ -59,6 +60,12 @@ let AskInfo = React.createClass({
 				}
 			}
 		);
+
+		if (isWithDraw){
+			withdrawFee = <div className="form-group">
+				<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
+			</div>;
+		}
 
 		return (
 			<div id="netellerAskInfo" className="box">
@@ -100,6 +107,7 @@ let AskInfo = React.createClass({
 													<div className="form-group">
 														<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 													</div>
+													{withdrawFee}
 												</div>;
 											}
 

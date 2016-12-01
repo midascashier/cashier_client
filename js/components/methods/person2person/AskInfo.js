@@ -37,6 +37,7 @@ let AskInfo = React.createClass({
 		let feeCashValue = this.props.feeCashValue;
 		let serverTime = this.props.timeFrameTime;
 		let isWithDraw = UIService.getIsWithDraw();
+		let withdrawFee = "";
 		let processingTitle = (!isWithDraw) ? translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P') : translate('PROCESSING_WITHDRAW_INFORMATION_TITLE_P2P');
 		let selectType = (!isWithDraw) ? translate('P2P_SELECT_DEPOSIT') : translate('P2P_SELECT_WITHDRAW');
 		let deleteButton = (!isWithDraw) ? translate('PROCESSING_BUTTON_DELETE_SENDER') : translate('PROCESSING_BUTTON_DELETE_RECEIVER');
@@ -79,6 +80,13 @@ let AskInfo = React.createClass({
 				}
 			}
 		}
+
+		if (isWithDraw){
+			withdrawFee = <div className="form-group">
+				<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
+			</div>;
+		}
+
 
 		return (
 			<div id="p2pAskInfo" className="box">
@@ -125,19 +133,10 @@ let AskInfo = React.createClass({
 													<div className="form-group">
 														<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 													</div>
+													{withdrawFee}
 												</div>
 											)
 										}
-									}
-								})()}
-
-								{(() =>{
-									if(isWithDraw){
-										return (
-											<div className="form-group">
-												<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
-											</div>
-										)
 									}
 								})()}
 
