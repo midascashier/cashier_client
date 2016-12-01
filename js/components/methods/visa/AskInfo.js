@@ -18,7 +18,8 @@ let AskInfo = React.createClass({
 		dobMonth: React.PropTypes.node,
 		dobDay: React.PropTypes.node,
 		dobYear: React.PropTypes.node,
-		changeValue: React.PropTypes.func
+		changeValue: React.PropTypes.func,
+		payAccount: React.PropTypes.object
 	},
 
 	disablePayAccount(){

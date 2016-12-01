@@ -85,7 +85,9 @@ let SelectPayAccount = React.createClass({
 		if(payAccounts){
 			defaultValue = this.state.currentPayAccount.payAccountId;
 			for(let index in payAccounts){
-				optionNodes.push(renderOption({ label: payAccounts[index].displayName }, index));
+				if (payAccounts[index].displayName){
+					optionNodes.push(renderOption({ label: payAccounts[index].displayName }, index));
+				}
 			}
 		} else{
 			defaultValue = "";

@@ -507,7 +507,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getBTCRate: () =>{
 		let rate = 0;
-		if (_UI['currencies']['BTC']){
+		if(_UI['currencies']['BTC']){
 			rate = _UI['currencies']['BTC'].Rate;
 		}
 		return rate;
@@ -612,7 +612,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				p2pNames.forEach((transaction)=>{
 					p2pTransactions[transaction.caTransaction_Id] = transaction;
 				});
-			}else{
+			} else{
 				p2pTransactions = cashier.NO_RESPONSE;
 			}
 			_customer.pendingP2PTransactions = p2pTransactions;
@@ -738,19 +738,19 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					}
 				}
 			}
-			let addPayAccountOption = Object.assign({}, _payAccount);
 
-			if(processors.settings[_processor.processorId][processors.REGISTER_ACCOUNTS_ALLOW]){
-				addPayAccountOption.payAccountId = 0;
-				addPayAccountOption.displayName = translate('REGISTER_NEW_ACCOUNT', 'register');
-			}
-
-			payAccounts_processor[addPayAccountOption.payAccountId] = addPayAccountOption;
 			if(_payAccount.payAccountId === null){
-				if (payAccounts_processor[firstPayAccount]){
+				if(payAccounts_processor[firstPayAccount]){
 					_payAccount = payAccounts_processor[firstPayAccount];
-				}else{
-					_payAccount.displayName = cashier.NO_PAYACCOUNTS;
+				} else{
+					_payAccount.displayName = cashier.NO_RESPONSE;
+				}
+			} else{
+				if(processors.settings[_processor.processorId][processors.REGISTER_ACCOUNTS_ALLOW]){
+					let addPayAccountOption = Object.assign({}, _payAccount);
+					addPayAccountOption.payAccountId = 0;
+					addPayAccountOption.displayName = translate('REGISTER_NEW_ACCOUNT', 'register');
+					payAccounts_processor[addPayAccountOption.payAccountId] = addPayAccountOption;
 				}
 			}
 			_payAccounts[_processor.processorId] = payAccounts_processor;
