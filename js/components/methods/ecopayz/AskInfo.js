@@ -15,7 +15,7 @@ let AskInfo = React.createClass({
 		amount: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
-		account: React.PropTypes.node
+		payAccount: React.PropTypes.node
 	},
 
 	/**
@@ -70,7 +70,7 @@ let AskInfo = React.createClass({
 												{(() =>{
 													if(!isWithDraw){
 														return <Input className="form-control" type="text" id="ecoAccount" name="ecoAccount"
-																					validate="isString" onChange={changeValue.bind(null, 'account', 0)}
+																					validate="isNumber" onChange={changeValue.bind(null, 'account', 0)}
 																					value={account} require/>
 													} else{
 														return <SelectPayAccount setAmount={setAmount} amount={amount}/>

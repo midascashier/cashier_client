@@ -95,14 +95,12 @@ let InfoMethod = React.createClass({
 		TransactionService.setAmount(this.props.amount);
 		if(isWithDraw){
 			UIService.confirmTransaction();
-		}
-		else{
+		}else{
 			//process the deposit
 			let payAccount = {};
 			payAccount.account = this.props.account;
 			this.refs.processingButton.setAttribute("disabled", "disabled");
 			TransactionService.registerPayAccount(payAccount);
-
 		}
 	},
 
