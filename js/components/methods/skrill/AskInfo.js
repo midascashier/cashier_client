@@ -31,8 +31,6 @@ let AskInfo = React.createClass({
 		let payAccountId = payAccount.payAccountId;
 		let payAccountDisplayName = payAccount.displayName;
 		let isWithDraw = UIService.getIsWithDraw();
-		let feeCashValue = this.props.feeCashValue;
-		let feeCheck = this.props.feeCheck;
 		let deleteButton = translate('PROCESSING_BUTTON_DELETE_ACCOUNT', 'Delete Account');
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
 		if(isWithDraw){
@@ -107,12 +105,9 @@ let AskInfo = React.createClass({
 										)
 									}
 								})()}
-
 							</div>
 						</div>
-
 					</div>
-
 				</div>
 			</div>
 		)

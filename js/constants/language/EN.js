@@ -115,6 +115,7 @@ let _langTags = {
 	NETELLER: "Neteller",
 	NETELLER_ACCOUNT: "Neteller Account",
 	SKRILL_ACCOUNT: "Skrill Account",
+	SELECT_ACCOUNT: "Select your account",
 	NETELLER_SECURE: "2FA or Secure ID",
 	NETELLER_NEW: "Enter your Neteller Email Account",
 	DEBITCARD_INFO: 'Debit Card Information',

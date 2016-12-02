@@ -70,17 +70,6 @@ import { AstroPayRejectedTicket } from './components/methods/astropay/tickets/Re
 import { AstroPayApprovedTicket } from './components/methods/astropay/tickets/ApprovedTicket'
 
 /**
- * MC set of components to create routes
- */
-import { MasterCard } from './components/methods/mastercard/MasterCard'
-import { MasterCardConfirm } from './components/methods/mastercard/Confirm'
-import { MasterCardApprovedTicket } from './components/methods/mastercard/tickets/ApprovedTicket'
-import { MasterCardRejectedTicket } from './components/methods/mastercard/tickets/RejectedTicket'
-import { MasterCardRejectBankTicket } from './components/methods/mastercard/tickets/RejectBankTicket'
-import { MasterCardRejectAmountTicket } from './components/methods/mastercard/tickets/RejectAmountTicket'
-import { MasterCardRejectCardTicket } from './components/methods/mastercard/tickets/RejectCardTicket'
-
-/**
  * Person2Person set of components to create routes
  */
 import { Person2Person } from './components/methods/person2person/Person2Person'
@@ -168,14 +157,14 @@ let routes = (
 					<Route path="approved/" component={AstroPayApprovedTicket}/>
 				</Route>
 
-				<Route path="mastercard/" component={MasterCard}/>
-				<Route path="mastercard/confirm/" component={MasterCardConfirm}/>
+				<Route path="mastercard/" component={Visa}/>
+				<Route path="mastercard/confirm/" component={VisaConfirm}/>
 				<Route path="mastercard/ticket/" component={LoadingTicket}>
-					<Route path="approved/" component={MasterCardApprovedTicket}/>
-					<Route path="rejected/" component={MasterCardRejectedTicket}/>
-					<Route path="rejected/blockByBank/" component={MasterCardRejectBankTicket}/>
-					<Route path="rejected/invalidAmount/" component={MasterCardRejectAmountTicket}/>
-					<Route path="rejected/invalidCard/" component={MasterCardRejectCardTicket}/>
+					<Route path="approved/" component={VisaApprovedTicket}/>
+					<Route path="rejected/" component={VisaRejectedTicket}/>
+					<Route path="rejected/blockByBank/" component={VisaRejectBankTicket}/>
+					<Route path="rejected/invalidAmount/" component={VisaRejectAmountTicket}/>
+					<Route path="rejected/invalidCard/" component={VisaRejectCardTicket}/>
 				</Route>
 
 
