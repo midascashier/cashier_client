@@ -42,23 +42,28 @@ let AskInfo = React.createClass({
 		let selectType = (!isWithDraw) ? translate('P2P_SELECT_DEPOSIT') : translate('P2P_SELECT_WITHDRAW');
 		let deleteButton = (!isWithDraw) ? translate('PROCESSING_BUTTON_DELETE_SENDER') : translate('PROCESSING_BUTTON_DELETE_RECEIVER');
 
-		let PayAccount = React.createClass({
+		let PayAccountDropDown = React.createClass({
 
 				disablePayAccount() {
 					CustomerService.getDisablePayAccount();
 				},
 
 				render(){
+					let deleteButtonDisplay = "";
+
+					if(payAccountId != 0){
+						deleteButtonDisplay = <button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+							{deleteButton}
+						</button>;
+					}
+
 					return <div className="form-group" id="payAccount">
 						<label className="col-sm-4 control-label">{selectType}:</label>
 						<div className="col-sm-5" id="selectPayAccount">
 							<SelectPayAccount setAmount={setAmount} amount={amount}/>
 						</div>
 						<div className="col-sm-3">
-							<button type='button' onClick={this.disablePayAccount}
-											className='btn btn-xs btn-green'>
-								{deleteButton}
-							</button>
+							{deleteButtonDisplay}
 						</div>
 					</div>
 				}
@@ -81,12 +86,11 @@ let AskInfo = React.createClass({
 			}
 		}
 
-		if (isWithDraw){
+		if(isWithDraw){
 			withdrawFee = <div className="form-group">
 				<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
 			</div>;
 		}
-
 
 		return (
 			<div id="p2pAskInfo" className="box">
@@ -104,11 +108,11 @@ let AskInfo = React.createClass({
 											return <Register />
 										}
 										if(payAccountId == 0){
-											return <div className="scroll"><PayAccount /><Register /></div>
+											return <div className="scroll"><PayAccountDropDown /><Register /></div>
 										} else{
 											return (
 												<div>
-													<PayAccount />
+													<PayAccountDropDown />
 													<div className="form-group">
 														<div id="timeFrame">
 															<label

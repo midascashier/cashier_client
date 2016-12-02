@@ -2,7 +2,6 @@ import React from 'react'
 import { translate } from '../../../constants/Translate'
 import  cashier  from '../../../constants/Cashier'
 import { SelectPayAccount } from '../../SelectPayAccount'
-import { FeeController } from '../../FeeController'
 import { AmountController } from '../../AmountController'
 import { UIService } from '../../../services/UIService'
 import { Register } from './Register.js'
@@ -40,23 +39,28 @@ let AskInfo = React.createClass({
 			proccesingTitle = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information');
 		}
 
-		let PayAccount = React.createClass({
+		let PayAccountDropDown = React.createClass({
 
 				disablePayAccount() {
 					CustomerService.getDisablePayAccount();
 				},
 
 				render(){
+					let deleteButtonDisplay = "";
+
+					if(payAccountId != 0){
+						deleteButtonDisplay = <button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+							{deleteButton}
+						</button>;
+					}
+
 					return <div className="form-group" id="payAccount">
 						<label className="col-sm-4 control-label">{translate('SKRILL_ACCOUNT', 'skrill Account')}:</label>
 						<div className="col-sm-5" id="selectPayAccount">
 							<SelectPayAccount setAmount={setAmount} amount={amount}/>
 						</div>
 						<div className="col-sm-3">
-							<button type='button' onClick={this.disablePayAccount}
-											className='btn btn-xs btn-green'>
-								{deleteButton}
-							</button>
+							{deleteButtonDisplay}
 						</div>
 					</div>
 				}
@@ -79,11 +83,11 @@ let AskInfo = React.createClass({
 											return <Register />
 										}
 										if(payAccountId == 0){
-											return <div><PayAccount /><Register /></div>
+											return <div><PayAccountDropDown /><Register /></div>
 										} else{
 											return (
 												<div>
-													<PayAccount />
+													<PayAccountDropDown />
 													<div className="form-group">
 														<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 													</div>

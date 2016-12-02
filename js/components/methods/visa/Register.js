@@ -133,6 +133,7 @@ let Register = React.createClass({
 		this.setState({
 			actualState
 		});
+
 		TransactionService.registerPayAccount(this.state.payAccount);
 	},
 
@@ -159,10 +160,15 @@ let Register = React.createClass({
 	_onChange() {
 		let payAccount = this.state.payAccount;
 		let  UI =  CashierStore.getUI();
-		let displaySave =false;
+		let displaySave = false;
 		if (UI.userMessage){
 			displaySave = true;
 		}
+
+		if (!displaySave && this.state.displaySaveButton){
+			displaySave = true;
+		}
+
 		payAccount.state = "";
 		this.setState({
 			displaySaveButton: displaySave,

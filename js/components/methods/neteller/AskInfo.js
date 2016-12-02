@@ -38,30 +38,35 @@ let AskInfo = React.createClass({
 			proccesingTitle = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information');
 		}
 
-		let PayAccount = React.createClass({
+		let PayAccountDropDown = React.createClass({
 
 				disablePayAccount() {
 					CustomerService.getDisablePayAccount();
 				},
 
 				render(){
+					let deleteButtonDisplay = "";
+
+					if(payAccountId != 0){
+						deleteButtonDisplay = <button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+							{deleteButton}
+						</button>;
+					}
+
 					return <div className="form-group" id="payAccount">
 						<label className="col-sm-4 control-label">{translate('NETELLER_ACCOUNT', 'Neteller Account')}:</label>
 						<div className="col-sm-5" id="selectPayAccount">
 							<SelectPayAccount setAmount={setAmount} amount={amount}/>
 						</div>
 						<div className="col-sm-3">
-							<button type='button' onClick={this.disablePayAccount}
-											className='btn btn-xs btn-green'>
-								{deleteButton}
-							</button>
+							{deleteButtonDisplay}
 						</div>
 					</div>
 				}
 			}
 		);
 
-		if (isWithDraw){
+		if(isWithDraw){
 			withdrawFee = <div className="form-group">
 				<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
 			</div>;
@@ -83,17 +88,17 @@ let AskInfo = React.createClass({
 											return <Register />
 										}
 										if(payAccountId == 0){
-											return <div><PayAccount /><Register /></div>
+											return <div><PayAccountDropDown /><Register /></div>
 										} else{
 
 											if(isWithDraw){
 												netellerForm = <div>
-													<PayAccount />
+													<PayAccountDropDown />
 													<div className="form-group">
 														<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 													</div>
 												</div>;
-											}else{
+											} else{
 												netellerForm = <div>
 													<PayAccount />
 													<div className="form-group">

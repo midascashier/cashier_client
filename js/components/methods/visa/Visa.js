@@ -88,7 +88,7 @@ let Visa = React.createClass({
 	formValidator(){
 		let payAccount = this.state.payAccount;
 		if (payAccount.extra.dob == null && payAccount.extra.ssn == null && payAccount.payAccountId != 0){
-			return ApplicationService.validateInfo(this.state.ssn, "isNumber");
+			return ApplicationService.validateInfo(this.state.transaction.ssn, "isNumber");
 		}else{
 			return true;
 		}
