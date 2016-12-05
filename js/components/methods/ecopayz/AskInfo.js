@@ -8,6 +8,7 @@ import { CustomerService } from '../../../services/CustomerService'
 import { Input } from '../../Inputs'
 import { FeeController } from '../../FeeController'
 import { LoadingSpinner } from '../../loading/LoadingSpinner'
+import { Register } from './Register.js'
 
 let AskInfo = React.createClass({
 
@@ -101,13 +102,14 @@ let AskInfo = React.createClass({
 											</div>
 										</div>;
 									} else{
-										if(!payAccountId){
+										if(!payAccountDisplayName){
 											return <LoadingSpinner />;
 										} else{
 											if(payAccountDisplayName == cashier.NO_RESPONSE){
-												return <div className="scroll"><Register /></div>
+												return <Register />
 											}
 											if(payAccountId == 0){
+												console.log("TEST");
 												return <div className="scroll"><PayAccountDropDown /><Register /></div>
 											} else{
 												return <div><PayAccountDropDown />

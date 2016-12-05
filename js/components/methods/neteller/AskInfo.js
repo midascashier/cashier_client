@@ -8,6 +8,7 @@ import { UIService } from '../../../services/UIService'
 import { Register } from './Register.js'
 import { CustomerService } from '../../../services/CustomerService'
 import { LoadingSpinner } from '../../loading/LoadingSpinner'
+import { FeeController } from '../../FeeController'
 
 let AskInfo = React.createClass({
 
@@ -15,6 +16,8 @@ let AskInfo = React.createClass({
 		netellerPassword: React.PropTypes.func,
 		transactionAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.string,
+		feeCashValue: React.PropTypes.number,
+		feeCheck: React.PropTypes.number,
 		password: React.PropTypes.string,
 		amount: React.PropTypes.string,
 		payAccount: React.PropTypes.object
@@ -25,6 +28,8 @@ let AskInfo = React.createClass({
 		let limitsCheck = this.props.limitsCheck;
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
+		let feeCheck = this.props.feeCheck;
+		let feeCashValue = this.props.feeCashValue;
 		let password = this.props.password;
 		let payAccount = this.props.payAccount;
 		let payAccountId = payAccount.payAccountId;
@@ -67,8 +72,32 @@ let AskInfo = React.createClass({
 		);
 
 		if(isWithDraw){
+			netellerForm = <div>
+				<PayAccountDropDown />
+				<div className="form-group">
+					<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+				</div>
+			</div>;
+
 			withdrawFee = <div className="form-group">
 				<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
+			</div>;
+
+		} else{
+			netellerForm = <div>
+				<PayAccountDropDown />
+				<div className="form-group">
+					<label
+						className="col-sm-4 control-label">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
+					<div className="col-sm-8">
+						<Input type="password" value={password} onChange={netellerPassword} validate="password"
+									 require/>
+					</div>
+				</div>
+				<div className="form-group">
+					<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+				</div>
+				{withdrawFee}
 			</div>;
 		}
 
@@ -90,32 +119,6 @@ let AskInfo = React.createClass({
 										if(payAccountId == 0){
 											return <div><PayAccountDropDown /><Register /></div>
 										} else{
-
-											if(isWithDraw){
-												netellerForm = <div>
-													<PayAccountDropDown />
-													<div className="form-group">
-														<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-													</div>
-												</div>;
-											} else{
-												netellerForm = <div>
-													<PayAccount />
-													<div className="form-group">
-														<label
-															className="col-sm-4 control-label">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
-														<div className="col-sm-8">
-															<Input type="password" value={password} onChange={netellerPassword} validate="password"
-																		 require/>
-														</div>
-													</div>
-													<div className="form-group">
-														<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-													</div>
-													{withdrawFee}
-												</div>;
-											}
-
 											return (
 												netellerForm
 											)
