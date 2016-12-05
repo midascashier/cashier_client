@@ -71,7 +71,18 @@ class transactionService {
 	 * Function to get pay account previous pay accounts
 	 */
 	getPreviousPayAccount(processorID){
-		if(processorID != cashier.PROCESSOR_ID_BITCOIN && processorID != cashier.PROCESSOR_ID_ASTROPAY && processorID != cashier.PROCESSOR_ID_1TAP){
+
+		let getPayAccounts = false;
+
+		if(processorID == cashier.PROCESSOR_ID_ECOPAYZ && CashierStore.getIsWithdraw()){
+			getPayAccounts = true;
+		} else{
+			if(processorID != cashier.PROCESSOR_ID_BITCOIN && processorID != cashier.PROCESSOR_ID_ASTROPAY && processorID != cashier.PROCESSOR_ID_1TAP && processorID != cashier.PROCESSOR_ID_ECOPAYZ){
+				getPayAccounts = true;
+			}
+		}
+
+		if(getPayAccounts){
 			let data = {
 				f: "getPayAccountsByCustomer", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
 			};
@@ -283,7 +294,6 @@ class transactionService {
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 
-
 	processAstroPay(dynamicParams, amount, nextStep){
 
 		//clean current transaction response
@@ -301,7 +311,6 @@ class transactionService {
 		UIService.processTransaction(nextStep);
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
-
 
 	/**
 	 * this function sends to process a transaction

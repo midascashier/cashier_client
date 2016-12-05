@@ -1,16 +1,16 @@
 import React from 'react'
+import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
 import Cashier from '../../../constants/Cashier'
-import { CashierStore } from '../../../stores/CashierStore'
 import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
+
 	propTypes: {
-		limitsCheck: React.PropTypes.string,
 		amount: React.PropTypes.string,
-		account: React.PropTypes.node,
-		validAccount: React.PropTypes.bool
+		limitsCheck: React.PropTypes.string,
+		feeCashValue: React.PropTypes.number
 	},
 
 	/**
@@ -44,8 +44,16 @@ let InfoMethod = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			processor: CashierStore.getProcessor()
+			processor: CashierStore.getProcessor(),
+			currentPayAccount: CashierStore.getCurrentPayAccount()
 		}
+	},
+
+	/**
+	 * send the customer to select the processor again
+	 */
+	setFirstStep() {
+		UIService.setFirstStep();
 	},
 
 	/**
@@ -58,108 +66,85 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 * this function checks if password and amount are valid
-	 */
-	allowProcess(){
-		let isWithDraw = UIService.getIsWithDraw();
-		let checkAmount = false;
-
-		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
-			checkAmount = true;
-		}
-
-		if(checkAmount){
-			return true;
-		}
-
-		else if(checkAmount && isWithDraw){
-			return true
-		}
-
-		return false;
-	},
-
-	/**
-	 * send the customer to select the processor again
-	 */
-	setFirstStep() {
-		UIService.setFirstStep();
-	},
-
-	/**
 	 * this function sends deposit info to cashier
 	 *
 	 */
 	continueTransaction(){
 		let isWithDraw = UIService.getIsWithDraw();
 		TransactionService.setAmount(this.props.amount);
+		TransactionService.setFeeAmount(this.props.feeCashValue);
 		if(isWithDraw){
 			UIService.confirmTransaction();
 		}else{
 			//process the deposit
 			let payAccount = {};
-			payAccount.account = this.props.account;
-			this.refs.processingButton.setAttribute("disabled", "disabled");
+			payAccount.account = this.props.payAccount;
 			TransactionService.registerPayAccount(payAccount);
 		}
 	},
 
 	render() {
-		let limitsCheck = this.allowProcess();
+		let limitsCheck = false;
+
+		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS && this.props.amount){
+			limitsCheck = true;
+		}
+
+		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
-		let isWithDraw = UIService.getIsWithDraw();
+
+		let processorDisplayName = UIService.getProcessorDisplayName().toUpperCase();
 		let currentView = UIService.getCurrentView().toUpperCase();
+		let isWithDraw = UIService.getIsWithDraw();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
-			processorName: "Ecopayz",
+			processorName: processorDisplayName,
 			transactionType: transactionType
 		});
 
 		let isNextDisabled = "disabled";
-		if(limitsCheck && isWithDraw){
+		if(payAccountInfo.payAccountId && limitsCheck){
 			isNextDisabled = "";
-		} else{
-			if(this.props.account && this.props.validAccount && limitsCheck){
+		}else{
+			if (!isWithDraw && limitsCheck){
 				isNextDisabled = "";
 			}
 		}
 
-		let processor = this.state.processor;
-		let remainingLimit = processor.limits.currencyMax - this.props.amount;
-
 		return (
-			<div id="ecopayzMethod">
-				<div className="row">
+			<div id="InfoMethod">
+				<div className="col-sm-12">
 					<div className="title">{title}</div>
 					<div className="table-responsive">
 						<table className="table table-striped">
 							<tbody>
 							<tr>
 								<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-								<td><span>{processor.limits.currencyMin}</span></td>
+								<td><span>{payAccountInfo.minPayAccount}</span></td>
 							</tr>
 							<tr>
 								<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-								<td><span>{processor.limits.currencyMax}</span></td>
+								<td><span>{payAccountInfo.maxPayAccount}</span></td>
 							</tr>
 							<tr>
 								<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
-								<td><span>{remainingLimit}</span></td>
+								<td><span>{payAccountInfo.remaining}</span></td>
 							</tr>
 							</tbody>
 						</table>
 					</div>
-					<div className="col-sm-12">
-						<div className="row">
-							<div className="col-sm-6">
-								<button type='button' onClick={this.continueTransaction} ref='processingButton'
-												disabled={isNextDisabled} className='btn btn-green'>
-									{translate('PROCESSING_BUTTON_NEXT', 'Next')}
-								</button>
-								<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
-							</div>
-							<div className="col-sm-6">
-								<img src={originPath + '/images/ssl.png'} alt="ssl"/>
+					<div className="row">
+						<div className="col-sm-12">
+							<div className="row">
+								<div className="col-sm-6">
+									<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
+										{translate('PROCESSING_BUTTON_NEXT', 'Next')}
+									</button>
+									<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
+								</div>
+								<div className="col-sm-6">
+									<img src={originPath + '/images/ssl.png'} alt="ssl"/>
+								</div>
 							</div>
 						</div>
 					</div>
