@@ -21,7 +21,8 @@ let Input = React.createClass({
 	refreshLocalState() {
 		return {
 			isValid: true,
-			errorMessage: ""
+			errorMessage: "",
+			inputError: false
 		}
 	},
 
@@ -37,13 +38,13 @@ let Input = React.createClass({
 			let errorMessage = "Invalid Data";
 			switch(this.props.id){
 				case "ccName":
-					errorMessage =  "Invalid Card Holder's Name";
+					errorMessage = "Invalid Card Holder's Name";
 					break;
 				case "creditCardNumber":
-					errorMessage =  "Invalid Card Number";
+					errorMessage = "Invalid Card Number";
 					break;
 				case "cvv":
-					errorMessage =  "CVV";
+					errorMessage = "CVV";
 					break
 			}
 			isValid = false;
@@ -58,11 +59,34 @@ let Input = React.createClass({
 			this.setState(
 				{
 					isValid: true,
-					errorMessage: ""
+					errorMessage: "",
+					inputError: false
 				}
 			);
 		}
 		return isValid;
+	},
+
+	/**
+	 * flag to show error message
+	 */
+	handleBlur(){
+		let actualState = this.state;
+		actualState.inputError = true;
+		this.setState(
+			actualState
+		);
+	},
+
+	/**
+	 * flag to show error message
+	 */
+	handleFocus(){
+		let actualState = this.state;
+		actualState.inputError = false;
+		this.setState(
+			actualState
+		);
 	},
 
 	/**
@@ -105,6 +129,8 @@ let Input = React.createClass({
 							className="form-control"
 							type={this.props.type || 'text'}
 							name={this.props.name}
+							onBlur={this.handleBlur}
+							onFocus={this.handleFocus}
 							id={this.props.id}
 							placeholder={this.props.placeholder || ''}
 							onChange={this.changeHandler}
@@ -112,7 +138,7 @@ let Input = React.createClass({
 							data-isValid={this.state.isValid}
 							data-isRequired={require}
 						/>
-					}else{
+					} else{
 						return <input
 							className="form-control"
 							type={this.props.type || 'text'}
@@ -129,7 +155,7 @@ let Input = React.createClass({
 				})()}
 
 				{(() =>{
-					if(this.props.validate && !this.state.isValid && this.props.value){
+					if(this.props.validate && !this.state.isValid && this.props.value && this.state.inputError){
 						return (
 							<div className="alert alert-danger" role="alert">
 								<i class="fa fa-thumbs-o-down red"></i>

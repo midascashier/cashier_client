@@ -31,6 +31,7 @@ let Register = React.createClass({
 			let	city = customer.personalInformation.city ? customer.personalInformation.city : "";
 			let	email = customer.personalInformation.email ? customer.personalInformation.email : "";
 			let	phone = customer.personalInformation.phone ? customer.personalInformation.phone : "";
+			let	customerState = customer.personalInformation.state ? customer.personalInformation.state : states[0]['Small'];
 
 			return {
 				displaySaveButton: true,
@@ -38,7 +39,7 @@ let Register = React.createClass({
 					firstName: firstName,
 					lastName: lastName,
 					country: country,
-					state: states[0]['Small'],
+					state: customerState,
 					city: city,
 					phone: phone,
 					email: email
@@ -173,7 +174,7 @@ let Register = React.createClass({
 						<div className="form-group">
 							<label className="col-sm-4 control-label">{translate('P2P_STATE', 'State')}:</label>
 							<div className="col-sm-8">
-								<select className="form-control" id="countryState" onChange={this.changeValue.bind(null, 'state',1)} disabled={!states.length}>
+								<select className="form-control" id="countryState" value={this.state.payAccount.state} onChange={this.changeValue.bind(null, 'state',1)} disabled={!states.length}>
 									{stateOptionNodes}
 								</select>
 							</div>

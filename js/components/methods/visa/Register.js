@@ -35,7 +35,7 @@ let Register = React.createClass({
 		let	email = customer.personalInformation.email ? customer.personalInformation.email : "";
 		let	phone = customer.personalInformation.phone ? customer.personalInformation.phone : "";
 		let	ssn = customer.personalInformation.ssn ? customer.personalInformation.ssn : "";
-
+		let	customerState = customer.personalInformation.state ? customer.personalInformation.state : states[0]['Small'];
 
 		return {
 			displaySaveButton: true,
@@ -46,7 +46,7 @@ let Register = React.createClass({
 				extra1: currentTime.getMonth() + 1,
 				extra2: currentTime.getFullYear(),
 				country: country,
-				state: states[0]['Small'],
+				state: customerState,
 				firstName: firstName,
 				lastName: lastName,
 				city: city,
