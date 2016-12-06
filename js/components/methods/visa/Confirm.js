@@ -179,7 +179,6 @@ let VisaConfirm = React.createClass({
 		if(secureData.account){
 			CCMask = secureData.account.replace(/\d(?=\d{4})/g, "*");
 		}
-console.log(this.state);
 		let states = UIService.getCountryStates();
 
 		if(isEditMode){
