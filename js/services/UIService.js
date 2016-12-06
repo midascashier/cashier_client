@@ -457,7 +457,7 @@ class UiService {
 		if(states && states.length > 0){
 			for(let i = 0; i < states.length; i++){
 				let _countryState = states[i];
-				if(_countryState.Small = countryState){
+				if(_countryState.Small == countryState){
 					return { Small: _countryState.Small, Name: _countryState.Name };
 				}
 			}

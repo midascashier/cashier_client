@@ -35,8 +35,10 @@ let TermsController = React.createClass({
 	 * @returns {{transactions: {}}}
 	 */
 	refreshLocalState() {
+		let transaction = CashierStore.getTransaction();
+		let termsCheck = transaction.checkTermsAndConditions;
 		return {
-			check: CashierStore.getTransaction().checkTermsAndConditions
+			check: termsCheck
 		}
 	},
 
@@ -109,13 +111,21 @@ let FirstModal = React.createClass({
 				<ul>
 					<li>For Transaction security we use SSL encryption.</li>
 					<li>All customer data will be treated confidential and will not be sold to others</li>
-					<li>If you are totally dissatisfied with the service you have received, we will consider your case and refund your purchase so long as your reason is valid. To apply for a refund e-mail us</li>
-					<li>It is recommended you may only participate in any gambling events if it is legal for you to do so according to the laws that apply in the jurisdiction from where you are connecting or calling.<br /> You must understand and accept that we are unable to provide you any legal advice or assurances</li>
-					<li>After purchase you will receive an e-mail notification. We recommend the cardholder to print out all transactions data, the rules of the game, <br />the cancellation regulations, and the payment methods in order to avoid misconceptions and discussions at a later time and keep them at an easily accesible place.</li>
+					<li>If you are totally dissatisfied with the service you have received, we will consider your case and refund
+						your purchase so long as your reason is valid. To apply for a refund e-mail us
+					</li>
+					<li>It is recommended you may only participate in any gambling events if it is legal for you to do so
+						according to the laws that apply in the jurisdiction from where you are connecting or calling.<br /> You
+						must understand and accept that we are unable to provide you any legal advice or assurances
+					</li>
+					<li>After purchase you will receive an e-mail notification. We recommend the cardholder to print out all
+						transactions data, the rules of the game, <br />the cancellation regulations, and the payment methods in
+						order to avoid misconceptions and discussions at a later time and keep them at an easily accesible place.
+					</li>
 					<li>All customer queries will be answered within two working days.</li>
 					<li>All orders will be effected immediately.</li>
 					<li>After purchase the customer is able to play immediately.</li>
-					</ul>
+				</ul>
 			</ModalDialog>
 		</ModalContainer>;
 	}

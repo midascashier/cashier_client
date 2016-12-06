@@ -293,7 +293,7 @@ let _transaction = {
 	bonusId: 0,
 	secondFactorAuth: 0,
 	bitcoinAddress: '',
-	checkTermsAndConditions: 0,
+	checkTermsAndConditions: 1,
 	controlNumber: '',
 	timeFrameDay: null,
 	timeFrameTime: null,
@@ -315,7 +315,7 @@ let _transaction = {
 		this.feeType = "";
 		this.bonusId = 0;
 		this.secondFactorAuth = 0;
-		this.checkTermsAndConditions = 0;
+		this.checkTermsAndConditions = 1;
 		this.timeFrameDay = null;
 		this.isCodeValid = 0;
 		this.secondFactorMessage = "";

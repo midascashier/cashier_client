@@ -109,7 +109,6 @@ let AskInfo = React.createClass({
 												return <Register />
 											}
 											if(payAccountId == 0){
-												console.log("TEST");
 												return <div className="scroll"><PayAccountDropDown /><Register /></div>
 											} else{
 												return <div><PayAccountDropDown />
