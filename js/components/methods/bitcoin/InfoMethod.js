@@ -101,13 +101,13 @@ let InfoMethod = React.createClass({
 			allowContinueToConfirm = this.props.allowContinueToConfirm;
 		}
 		let secondFactor = this.state.transaction.isCodeValid;
-
+		let processorDisplayName = UIService.getProcessorDisplayName().toUpperCase();
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
-			processorName: "BitCoin",
+			processorName: processorDisplayName,
 			transactionType: transactionType
 		});
 

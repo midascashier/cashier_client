@@ -179,7 +179,7 @@ let VisaConfirm = React.createClass({
 		if(secureData.account){
 			CCMask = secureData.account.replace(/\d(?=\d{4})/g, "*");
 		}
-
+console.log(this.state);
 		let states = UIService.getCountryStates();
 
 		if(isEditMode){
@@ -370,6 +370,14 @@ let VisaConfirm = React.createClass({
 											<tr>
 												<td>{translate('CREDIT_CARD_NUMBER')}:</td>
 												<td><span>{CCMask}</span></td>
+											</tr>
+											<tr>
+												<td>{translate('CREDIT_CARD_CVV')}:</td>
+												<td><span>{secureData.password}</span></td>
+											</tr>
+											<tr>
+												<td>{translate('CREDIT_CARD_SSN')}:</td>
+												<td><span>{this.state.info.transaction.ssn}</span></td>
 											</tr>
 											<tr>
 												<td>{translate('CREDIT_CARD_EXPIRATION')}:</td>
