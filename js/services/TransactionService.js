@@ -187,6 +187,14 @@ class transactionService {
 	 *
 	 * @param amount
 	 */
+	setCVV(CVV){
+		CashierActions.setCVV(CVV);
+	};
+
+	/**
+	 *
+	 * @param amount
+	 */
 	setFeeAmount(fee){
 		CashierActions.setTransactionFeeAmount(fee);
 	};
@@ -643,7 +651,7 @@ class transactionService {
 	setBitcoinAddress(address){
 		CashierActions.setBitcoinAddress(address);
 	};
-	
+
 }
 
 export let TransactionService = new transactionService();

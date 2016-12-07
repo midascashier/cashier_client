@@ -201,7 +201,6 @@ let VisaConfirm = React.createClass({
 				}
 			}
 		}
-
 		return (
 			<div id="visaConfirm" className="internal-content">
 				<div className="row">

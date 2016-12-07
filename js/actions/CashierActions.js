@@ -4,43 +4,57 @@ let CashierDispatcher = require('../dispatcher/CashierDispatcher');
 let CashierActions = {
 	changePayAccount: (payAccountID, processorID) =>{
 		CashierDispatcher.dispatch({
-			action: actions.CHANGE_PAYACCOUNT, data: { payAccountID: payAccountID, processorID: processorID }
+			action: actions.CHANGE_PAYACCOUNT,
+			data: { payAccountID: payAccountID, processorID: processorID }
 		});
 	},
 
 	setTransactionAmount: (amount) =>{
 		CashierDispatcher.dispatch({
-			action: actions.CHANGE_TRANSACTION_AMOUNT, data: { amount: amount }
+			action: actions.CHANGE_TRANSACTION_AMOUNT,
+			data: { amount: amount }
+		});
+	},
+
+	setCVV: (CVV) =>{
+		CashierDispatcher.dispatch({
+			action: actions.CHANGE_TRANSACTION_CVV,
+			data: { cvv: CVV }
 		});
 	},
 
 	setTransactionResponse:(tStatus) => {
 		CashierDispatcher.dispatch({
-			action: actions.RESTART_TRANSACTION_RESPONSE, data: { tStatus: tStatus }
+			action: actions.RESTART_TRANSACTION_RESPONSE,
+			data: { tStatus: tStatus }
 		});
 	},
 
 	setFeeAmount: (amount) =>{
 		CashierDispatcher.dispatch({
-			action: actions.CHANGE_TRANSACTION_FEE_AMOUNT, data: { amount: amount }
+			action: actions.CHANGE_TRANSACTION_FEE_AMOUNT,
+			data: { amount: amount }
 		});
 	},
 
 	setTransactionTerms: (checked) =>{
 		CashierDispatcher.dispatch({
-			action: actions.CHANGE_TRANSACTION_TERMS, data: { checked: checked }
+			action: actions.CHANGE_TRANSACTION_TERMS,
+			data: { checked: checked }
 		});
 	},
 
 	setTransactionControlNumber: (controlNumber) =>{
 		CashierDispatcher.dispatch({
-			action: actions.CHANGE_TRANSACTION_CONTROL_NUMBER, data: { controlNumber: controlNumber }
+			action: actions.CHANGE_TRANSACTION_CONTROL_NUMBER,
+			data: { controlNumber: controlNumber }
 		});
 	},
 
 	setTransactionTimeFrame: (timeFrame) =>{
 		CashierDispatcher.dispatch({
-			action: actions.CHANGE_TRANSACTION_TIMEFRAME, data: { timeFrame: timeFrame }
+			action: actions.CHANGE_TRANSACTION_TIMEFRAME,
+			data: { timeFrame: timeFrame }
 		});
 	},
 

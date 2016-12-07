@@ -94,7 +94,10 @@ let InfoMethod = React.createClass({
 	 */
 	continueTransaction(){
 		TransactionService.setAmount(this.props.amount);
-		
+		if(this.state.currentPayAccount.password){
+			TransactionService.setCVV(this.state.currentPayAccount.password);
+			TransactionService.updateCreditCardSecure();
+		}
 		UIService.confirmTransaction();
 	},
 

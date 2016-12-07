@@ -789,6 +789,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			CashierStore.emitChange();
 			break;
 
+		case actions.CHANGE_TRANSACTION_CVV:
+			_payAccount.secure.password = data.cvv;
+			break;
+
 		case actions.PROCESSOR_FEES_RESPONSE:
 			_processor.fees.structure = data.response.processorFees;
 			break;
