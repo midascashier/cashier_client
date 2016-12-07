@@ -9,6 +9,7 @@ import { CustomerService } from '../../../services/CustomerService'
 import { Register } from './Register.js'
 import { ExtraInfo } from './ExtraInfo'
 import { LoadingSpinner } from '../../loading/LoadingSpinner'
+import { Input } from '../../Inputs'
 
 let AskInfo = React.createClass({
 
@@ -37,8 +38,19 @@ let AskInfo = React.createClass({
 		let amount = this.props.amount;
 		let limitsCheck = this.props.limitsCheck;
 		let isWithDraw = UIService.getIsWithDraw();
+		let isEditingCCInfo = UIService.getCCEditMode();
 		let information = translate('CREDIT_CARD_INFO', '');
 		let ssn = this.props.ssn;
+		let cvv;
+		if (typeof payAccount.password == 'undefined' || payAccount.secure.password == payAccount.password){
+			cvv = payAccount.secure.password;
+		}else{
+			if(payAccount.secure.password != payAccount.password){
+				cvv = payAccount.password;
+			} else{
+				cvv = '';
+			}
+		}
 		let dobMonth = this.props.dobMonth;
 		let dobDay = this.props.dobDay;
 		let dobYear = this.props.dobYear;
@@ -99,16 +111,36 @@ let AskInfo = React.createClass({
 										if(payAccountId == 0){
 											return <div className="scroll"><PayAccountDropDown /><Register /></div>
 										} else{
-											return (
-												<div>
-													<PayAccountDropDown />
-													<div className="form-group">
-														<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+											if(isEditingCCInfo == 0){
+												return (
+													<div>
+														<PayAccountDropDown />
+														<div className="form-group">
+															<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+														</div>
+														{extraInfo}
+														<TermsController />
 													</div>
-													{extraInfo}
-													<TermsController />
-												</div>
-											)
+												)
+											} else{
+												return (
+													<div>
+														<PayAccountDropDown />
+														<div className="form-group">
+															<label className="col-sm-4 control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
+															<div className="col-sm-8">
+																<Input type="text" id="cvv" ref="cvv" validate="isCVV" value={cvv} onChange={this.props.changeValue.bind(null, 'password', 'payAccount', 0)}/>
+															</div>
+														</div>
+
+														<div className="form-group">
+															<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+														</div>
+														{extraInfo}
+														<TermsController />
+													</div>
+												)
+											}
 										}
 
 									}

@@ -85,7 +85,6 @@ let CashierActions = {
 		});
 	},
 
-
 	connectionError: (data) => {
 		CashierDispatcher.dispatch({
 			action: actions.CONNECTION_ERRROR,
@@ -107,13 +106,6 @@ let CashierActions = {
 		});
 	},
 
-	setDOBSSN: (param, value) =>{
-		CashierDispatcher.dispatch({
-			action: actions.SET_DOB_SSN,
-			data: { param: param, value: value }
-		});
-	},
-
 	startSecondFactorProcess: () =>{
 		CashierDispatcher.dispatch({
 			action: actions.START_SECOND_FACTOR
@@ -131,6 +123,13 @@ let CashierActions = {
 		CashierDispatcher.dispatch({
 			action: actions.SET_TUID,
 			data: { tuid: tuid }
+		});
+	},
+
+	setCCEditMode: (editMode) =>{
+		CashierDispatcher.dispatch({
+			action: actions.SET_EDITCC,
+			data: { editMode: editMode }
 		});
 	}
 };

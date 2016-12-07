@@ -89,6 +89,7 @@ let VisaConfirm = React.createClass({
 	 */
 	startTransaction() {
 		UIService.startTransaction();
+		UIService.setCCEditMode(1);
 	},
 
 	/**
@@ -172,6 +173,12 @@ let VisaConfirm = React.createClass({
 		let personalData = this.state.info.payAccount.personal;
 		let secureData = this.state.info.payAccount.secure;
 		let CCMask;
+		let ssn;
+		if (this.state.info.transaction.ssn){
+			ssn = this.state.info.transaction.ssn;
+		}else{
+			ssn = this.state.info.payAccount.extra.ssn;
+		}
 		let addressData = this.state.info.payAccount.address;
 		let isEditMode = this.state.info.editMode;
 		let countries = UIService.getCountries();
@@ -376,7 +383,7 @@ let VisaConfirm = React.createClass({
 											</tr>
 											<tr>
 												<td>{translate('CREDIT_CARD_SSN')}:</td>
-												<td><span>{this.state.info.transaction.ssn}</span></td>
+												<td><span>{ssn}</span></td>
 											</tr>
 											<tr>
 												<td>{translate('CREDIT_CARD_EXPIRATION')}:</td>

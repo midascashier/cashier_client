@@ -94,6 +94,7 @@ let InfoMethod = React.createClass({
 	 */
 	continueTransaction(){
 		TransactionService.setAmount(this.props.amount);
+		
 		UIService.confirmTransaction();
 	},
 

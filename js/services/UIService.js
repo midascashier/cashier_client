@@ -77,6 +77,13 @@ class UiService {
 	}
 
 	/**
+	 * change cc edit mode
+	 */
+	setCCEditMode(editMode){
+		CashierActions.setCCEditMode(editMode);
+	}
+
+	/**
 	 * redirect to a specific route
 	 */
 	changeUIState(route){
@@ -425,6 +432,13 @@ class UiService {
 		}
 
 		return states;
+	}
+
+	/**
+	 * return edit cc mode
+	 */
+	getCCEditMode(){
+		return CashierStore.getUI().ccEdit;
 	}
 
 	/**

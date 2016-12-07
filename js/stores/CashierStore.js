@@ -26,7 +26,8 @@ let _UI = {
 	countryStates: [],
 	currencies: [],
 	connectionError: 0,
-	userMessage: ''
+	userMessage: '',
+	ccEdit: 0
 };
 
 /**
@@ -605,6 +606,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			CashierStore.emitChange();
 			break;
 
+		case actions.SET_EDITCC:
+			_UI.ccEdit = data.editMode;
+			CashierStore.emitChange();
+			break;
+
 		case actions.CUSTOMER_TRANSACTIONS_PENDING_MTCN_RESPONSE:
 			let p2pTransactions = [];
 			if(data.response && data.response.P2PNames){
@@ -843,6 +849,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			//do some work before start the transaction
 			_transaction.cleanTransaction();
 			_payAccount.cleanPayAccount();
+			_UI.ccEdit = 0;
 			_payAccounts = [];
 			break;
 
@@ -888,11 +895,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 		case actions.SET_TUID:
 			_transaction.randomTuid = data.tuid;
-			break;
-
-		case actions.SET_DOB_SSN:
-			_transaction[data.param] = data.value;
-			CashierStore.emitChange();
 			break;
 
 		case actions.GET_PACIFIC_TIME_HOUR_RESPONSE:

@@ -64,7 +64,7 @@ let Visa = React.createClass({
 	 * set local state with transaction amount
 	 */
 	transactionAmount(amount){
-		this.setState({amount: Number(amount)});
+		this.setState({ amount: Number(amount) });
 	},
 
 	/**
@@ -72,12 +72,24 @@ let Visa = React.createClass({
 	 *
 	 * @param event
 	 */
-	changeValue(propertyName, isSelectComponent = 0, event){
+	changeValue(propertyName, property = null, isSelectComponent = 0, event){
+		let actualState = this.state;
+
 		let value = event;
+
 		if(isSelectComponent){
 			value = value.target.value;
 		}
-		TransactionService.setDOBSSN(propertyName, value);
+
+		if(property){
+			actualState[property][propertyName] = value;
+		} else{
+			actualState[propertyName] = value;
+		}
+
+		this.setState(
+			actualState
+		);
 	},
 
 	/**
@@ -87,9 +99,9 @@ let Visa = React.createClass({
 	 */
 	formValidator(){
 		let payAccount = this.state.payAccount;
-		if (payAccount.extra.dob == null && payAccount.extra.ssn == null && payAccount.payAccountId != 0){
+		if(payAccount.extra.dob == null && payAccount.extra.ssn == null && payAccount.payAccountId != 0){
 			return ApplicationService.validateInfo(this.state.transaction.ssn, "isNumber");
-		}else{
+		} else{
 			return true;
 		}
 	},
@@ -104,11 +116,11 @@ let Visa = React.createClass({
 					<AskInfo amount={this.props.amount}
 									 setAmount={this.props.setAmount}
 									 payAccount={this.state.payAccount}
+									 cvv={this.state.password}
 									 limitsCheck={this.props.limitsCheck}
 									 dobMonth={this.state.transaction.dobMonth}
 									 dobDay={this.state.transaction.dobDay}
 									 dobYear={this.state.transaction.dobYear}
-									 ssn={this.state.transaction.ssn}
 									 changeValue={this.changeValue}
 					/>
 				</div>
@@ -118,7 +130,7 @@ let Visa = React.createClass({
 							return <LoadingSpinner />;
 						} else{
 							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}
-																 formValidator={this.formValidator}/>;
+																 payAccount={this.state.payAccount} formValidator={this.formValidator}/>;
 						}
 					})()}
 				</div>

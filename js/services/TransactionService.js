@@ -643,17 +643,7 @@ class transactionService {
 	setBitcoinAddress(address){
 		CashierActions.setBitcoinAddress(address);
 	};
-
-	/**
-	 * Sets DOB and SSN
-	 *
-	 * @param ParamName
-	 * @param value
-	 */
-	setDOBSSN(param, value){
-		CashierActions.setDOBSSN(param, value);
-	};
-
+	
 }
 
 export let TransactionService = new transactionService();
