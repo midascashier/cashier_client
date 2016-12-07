@@ -109,7 +109,6 @@ let BitCoinTicketPending = React.createClass({
 		let timer = this.state.timer;
 
 		let btcAmount = translate('BITCOIN_INSTRUCTIONS_AMOUNT', '', { btcAmount: amount });
-		let btcTimer = translate('BITCOIN_INSTRUCTIONS_TIME_INFO', '', { btcMinutes: timer });
 
 		return (
 			<div id="BitCoinTicketInstructions">
@@ -187,7 +186,7 @@ let BitCoinTicketPending = React.createClass({
 											<div className="infoCol">
 												<div
 													className="subtitle">{translate('BITCOIN_INSTRUCTIONS_TIME', 'Prompty complete your transaction.')}</div>
-												<p>{btcTimer}</p>
+												<p>{translate('BITCOIN_INSTRUCTIONS_TIME_INFO1', 'instruction')} <b><font color="red">{timer}</font></b> {translate('BITCOIN_INSTRUCTIONS_TIME_INFO2', 'instruction')}</p>
 											</div>
 										</div>
 									</div>

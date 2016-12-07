@@ -27,7 +27,7 @@ let CompanyInfo = React.createClass({
 										if(!this.props.customer.customerId){
 											return <Loading />;
 										} else{
-											return this.props.customer.currencySymbol + " " + Math.round(this.props.customer.balance*100)/100;
+											return Math.round(this.props.customer.balance*100)/100 + " " + this.props.customer.currency;
 										}
 									})()}
 								</span>

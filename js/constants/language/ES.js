@@ -134,7 +134,7 @@ let _langTags = {
 	CREDIT_CARD_NUMBER: "Número de tarjeta",
 	CREDIT_CARD_CVV: "CVV",
 	CREDIT_CARD_EXPIRATION: "Fecha de Expiración",
-	CREDIT_CARD_SSN: "# Seguro Social",
+	CREDIT_CARD_SSN: "Ultimos 4 dígitos de # Seguro Social",
 	CREDIT_CARD_DOB: "Fecha Nacimiento",
 	CREDIT_CARD_FIRST_NAME: "Nombre",
 	CREDIT_CARD_LAST_NAME: "Apellidos",
