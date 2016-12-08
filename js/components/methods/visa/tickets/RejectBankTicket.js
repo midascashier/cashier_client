@@ -76,7 +76,7 @@ let VisaRejectBankTicket = React.createClass({
 						<div className="rejected-message">
 							<div className="title">Quick fix...</div>
 							<p>Your credit card account is not setup to accept international transactions. You can call them and ask them to allow international transactions.</p>
-							<p>After that, we can get you to the poker tables with your stack of chips.  We'll give you a few minutes to take care of it: <strong>{this.state.timer}</strong></p>
+							<p>After that, we can get you to the poker tables with your stack of chips.  We'll give you a few minutes to take care of it: <b><font color="red">{this.state.timer}</font></b></p>
 							<button type="button" className="btn btn-green" disabled={!this.state.enableReprocess} onClick={this.reProcessTransaction}>I took care of it. Try again</button>
 							<p><a onClick={this.setFirstStep}>No thanks.  I'll deposit a different way.</a></p>
 						</div>

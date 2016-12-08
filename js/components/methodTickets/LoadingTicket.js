@@ -1,6 +1,7 @@
 import React from 'react'
 import { translate } from '../../constants/Translate'
 import { CashierStore } from '../../stores/CashierStore'
+import  cashier  from '../../constants/Cashier'
 
 let LoadingTicket = React.createClass({
 
@@ -49,12 +50,26 @@ let LoadingTicket = React.createClass({
 
 	render() {
 		let transactionResponse = this.state.transactionResponse;
+		let processor = CashierStore.getProcessor();
+		let processorClassId = processor.processorClass;
+
 		return (
 			<div id="loadingTicket">
 				{(() =>{
 					if((!transactionResponse.status) && (!transactionResponse.userMessage)){
-						return (
-							<div className="col-sm-12">
+						return <div className="col-sm-12">
+							<div className="modules">
+								<div className="row">
+									<div className="col-sm-12">
+										<h2>{translate('PROCESSING', 'Processing... please wait!')}</h2>
+										<div className="loader"></div>
+									</div>
+								</div>
+							</div>
+						</div>;
+					} else{
+						if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && !transactionResponse.details.creditCardTransaction && transactionResponse.status != cashier.TRANSACTION_STATUS_APPROVED){
+							return <div className="col-sm-12">
 								<div className="modules">
 									<div className="row">
 										<div className="col-sm-12">
@@ -63,10 +78,10 @@ let LoadingTicket = React.createClass({
 										</div>
 									</div>
 								</div>
-							</div>
-						);
-					} else{
-						return this.props.children
+							</div>;
+						} else{
+							return this.props.children
+						}
 					}
 				})()}
 			</div>

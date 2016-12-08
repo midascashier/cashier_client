@@ -565,12 +565,28 @@ class transactionService {
 	 * @param data
 	 */
 	processResponse(data){
+		let processor = CashierStore.getProcessor();
+		let processorClassId = processor.processorClass;
 		if(ApplicationService.checkNested(data, "response", "transaction", "gotoURLAction") && data.state != "error"){
 			window.location = data.response.transaction.gotoURLAction;
 		} else{
-			this.getTransactionDetails();
-			UIService.processResponse(data);
+			if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && data.response.transaction.caTransactionStatus_Id != cashier.TRANSACTION_STATUS_APPROVED){
+				this.processResponseCC();
+			} else{
+				if(data.response.transaction.caTransactionStatus_Id != cashier.TRANSACTION_STATUS_APPROVED){
+					this.getTransactionDetails();
+				}
+				UIService.processResponse(data);
+			}
 		}
+	};
+
+	/**
+	 * process the transaction response
+	 *
+	 */
+	processResponseCC(){
+		this.getTransactionDetails();
 	};
 
 	/**
