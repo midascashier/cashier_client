@@ -17,7 +17,6 @@ let AskInfo = React.createClass({
 		transactionAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.string,
 		amount: React.PropTypes.string,
-		payAccount: React.PropTypes.object,
 		dobMonth: React.PropTypes.node,
 		dobDay: React.PropTypes.node,
 		dobYear: React.PropTypes.node,

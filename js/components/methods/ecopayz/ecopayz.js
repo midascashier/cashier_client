@@ -61,7 +61,7 @@ let Ecopayz = React.createClass({
 	 *
 	 * @param event
 	 */
-	changeValue(propertyName, isSelectComponent = 0, event, validAccount){
+	changeValue(propertyName, isSelectComponent = 0, event){
 		let actualState = this.state;
 
 		let value = event;
@@ -71,7 +71,6 @@ let Ecopayz = React.createClass({
 		}
 
 		actualState[propertyName] = value;
-		//actualState.info["validAccount"] = validAccount;
 
 		this.setState(
 			actualState

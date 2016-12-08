@@ -174,11 +174,13 @@ let VisaConfirm = React.createClass({
 		let secureData = this.state.info.payAccount.secure;
 		let CCMask;
 		let ssn;
+		let DOB = this.state.info.payAccount.extra.dobMonth + "-" + this.state.info.payAccount.extra.dobDay + "-" + this.state.info.payAccount.extra.dobYear;
 		if (this.state.info.transaction.ssn){
 			ssn = this.state.info.transaction.ssn;
 		}else{
 			ssn = this.state.info.payAccount.extra.ssn;
 		}
+		console.log(this.state.info.payAccount);
 		let addressData = this.state.info.payAccount.address;
 		let isEditMode = this.state.info.editMode;
 		let countries = UIService.getCountries();
@@ -379,6 +381,10 @@ let VisaConfirm = React.createClass({
 											<tr>
 												<td>{translate('CREDIT_CARD_CVV')}:</td>
 												<td><span>{secureData.password}</span></td>
+											</tr>
+											<tr>
+												<td>{translate('CREDIT_CARD_DOB')}:</td>
+												<td><span>{DOB}</span></td>
 											</tr>
 											<tr>
 												<td>{translate('CREDIT_CARD_SSN')}:</td>

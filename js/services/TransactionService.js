@@ -573,9 +573,7 @@ class transactionService {
 			if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && data.response.transaction.caTransactionStatus_Id != cashier.TRANSACTION_STATUS_APPROVED){
 				this.processResponseCC();
 			} else{
-				if(data.response.transaction.caTransactionStatus_Id != cashier.TRANSACTION_STATUS_APPROVED){
-					this.getTransactionDetails();
-				}
+				this.getTransactionDetails();
 				UIService.processResponse(data);
 			}
 		}

@@ -20,9 +20,10 @@ let Input = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			isValid: true,
+			isValid: false,
 			errorMessage: "",
-			inputError: false
+			inputError: false,
+			value: ''
 		}
 	},
 
@@ -45,13 +46,17 @@ let Input = React.createClass({
 					break;
 				case "cvv":
 					errorMessage = "CVV";
+					break;
+				case "ssn":
+					errorMessage = "SSN";
 					break
 			}
 			isValid = false;
 			this.setState(
 				{
 					isValid: false,
-					errorMessage: errorMessage
+					errorMessage: errorMessage,
+					value: e
 				}
 			);
 		} else{
@@ -60,7 +65,7 @@ let Input = React.createClass({
 				{
 					isValid: true,
 					errorMessage: "",
-					inputError: false
+					value: e
 				}
 			);
 		}
@@ -155,7 +160,7 @@ let Input = React.createClass({
 				})()}
 
 				{(() =>{
-					if(this.props.validate && !this.state.isValid && this.props.value && this.state.inputError){
+					if(this.props.validate && !this.state.isValid && this.state.value && this.state.inputError){
 						return (
 							<div className="alert alert-danger" role="alert">
 								<i class="fa fa-thumbs-o-down red"></i>
