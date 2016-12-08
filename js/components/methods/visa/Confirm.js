@@ -174,13 +174,17 @@ let VisaConfirm = React.createClass({
 		let secureData = this.state.info.payAccount.secure;
 		let CCMask;
 		let ssn;
-		let DOB = this.state.info.payAccount.extra.dobMonth + "-" + this.state.info.payAccount.extra.dobDay + "-" + this.state.info.payAccount.extra.dobYear;
-		if (this.state.info.transaction.ssn){
+		let DOB;
+		if(this.state.info.payAccount.extra.dobMonth && this.state.info.payAccount.extra.dobDay && this.state.info.payAccount.extra.dobYear){
+			DOB = this.state.info.payAccount.extra.dob;
+		} else{
+			DOB = this.state.info.transaction.dobMonth + "-" + this.state.info.transaction.dobDay + "-" + this.state.info.transaction.dobYear;
+		}
+		if(this.state.info.transaction.ssn){
 			ssn = this.state.info.transaction.ssn;
-		}else{
+		} else{
 			ssn = this.state.info.payAccount.extra.ssn;
 		}
-		console.log(this.state.info.payAccount);
 		let addressData = this.state.info.payAccount.address;
 		let isEditMode = this.state.info.editMode;
 		let countries = UIService.getCountries();
@@ -228,7 +232,7 @@ let VisaConfirm = React.createClass({
 																			className="col-sm-4 control-label">{translate('CREDIT_CARD_FIRST_NAME', 'First Name')}:</label>
 																		<div className="col-sm-8">
 																			<Input type="text" id="firstName" ref="firstName" validate="isString" require
-																						 onChange={this.changeValue.bind(null, 'personal','firstName', 0)}
+																						 onChange={this.changeValue.bind(null, 'personal', 'firstName', 0)}
 																						 value={personalData.firstName}/>
 																		</div>
 																	</div>
@@ -238,7 +242,7 @@ let VisaConfirm = React.createClass({
 																			className="col-sm-4 control-label">{translate('CREDIT_CARD_FIRST_NAME', 'Last Name')}:</label>
 																		<div className="col-sm-8">
 																			<Input type="text" id="lastName" ref="lastName" validate="isString"
-																						 onChange={this.changeValue.bind(null, 'personal','lastName', 0)}
+																						 onChange={this.changeValue.bind(null, 'personal', 'lastName', 0)}
 																						 value={personalData.lastName}/>
 																		</div>
 																	</div>
@@ -249,7 +253,7 @@ let VisaConfirm = React.createClass({
 																		<div className="col-sm-8">
 																			<select className="form-control" id="country" ref="country"
 																							value={addressData.country}
-																							onChange={this.changeValue.bind(null, 'address','country',1)}>
+																							onChange={this.changeValue.bind(null, 'address', 'country', 1)}>
 																				{countryOptionNodes}
 																			</select>
 																		</div>
@@ -261,7 +265,7 @@ let VisaConfirm = React.createClass({
 																		<div className="col-sm-8">
 																			<select className="form-control" id="countryState" ref="state"
 																							value={addressData.state} disabled={!states.length}
-																							onChange={this.changeValue.bind(null, 'address','state',1)}>
+																							onChange={this.changeValue.bind(null, 'address', 'state', 1)}>
 																				{stateOptionNodes}
 																			</select>
 																		</div>
@@ -272,7 +276,7 @@ let VisaConfirm = React.createClass({
 																			className="col-sm-4 control-label">{translate('CREDIT_CARD_CITY', 'City')}:</label>
 																		<div className="col-sm-8">
 																			<Input type="text" id="city" ref="city" validate="isString"
-																						 onChange={this.changeValue.bind(null, 'address','city', 0)}
+																						 onChange={this.changeValue.bind(null, 'address', 'city', 0)}
 																						 value={addressData.city}/>
 																		</div>
 																	</div>
@@ -282,7 +286,7 @@ let VisaConfirm = React.createClass({
 																			className="col-sm-4 control-label">{translate('CREDIT_CARD_ADDRESS', 'Address')}:</label>
 																		<div className="col-sm-8">
 																			<Input type="text" id="address" ref="address1" validate="isString"
-																						 onChange={this.changeValue.bind(null, 'address','address1', 0)}
+																						 onChange={this.changeValue.bind(null, 'address', 'address1', 0)}
 																						 value={addressData.address1}/>
 																		</div>
 																	</div>
@@ -292,7 +296,7 @@ let VisaConfirm = React.createClass({
 																			className="col-sm-4 control-label">{translate('CREDIT_CARD_ZIP', 'Postal Code')}:</label>
 																		<div className="col-sm-8">
 																			<Input type="text" id="zip" ref="zip" validate="isNumber"
-																						 onChange={this.changeValue.bind(null, 'address','zip', 0)}
+																						 onChange={this.changeValue.bind(null, 'address', 'zip', 0)}
 																						 value={addressData.zip}/>
 																		</div>
 																	</div>
@@ -302,7 +306,7 @@ let VisaConfirm = React.createClass({
 																			className="col-sm-4 control-label">{translate('CREDIT_CARD_EMAIL', 'Email')}:</label>
 																		<div className="col-sm-8">
 																			<Input type="text" id="email" ref="email" validate="isEmail" require
-																						 onChange={this.changeValue.bind(null, 'personal','email', 0)}
+																						 onChange={this.changeValue.bind(null, 'personal', 'email', 0)}
 																						 value={personalData.email}/>
 																		</div>
 																	</div>
@@ -312,7 +316,7 @@ let VisaConfirm = React.createClass({
 																			className="col-sm-4 control-label">{translate('CREDIT_CARD_PHONE', 'Phone')}:</label>
 																		<div className="col-sm-8">
 																			<Input type="text" id="phone" ref="phone" validate="isNumber" require
-																						 onChange={this.changeValue.bind(null, 'personal','phone', 0)}
+																						 onChange={this.changeValue.bind(null, 'personal', 'phone', 0)}
 																						 value={personalData.phone}/>
 																		</div>
 																	</div>

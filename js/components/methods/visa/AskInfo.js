@@ -60,7 +60,7 @@ let AskInfo = React.createClass({
 			proccesingTitle = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE_CREDIT_CARD', 'Please Enter Your Card Details');
 		}
 
-		if(payAccount.extra.dob == null || payAccount.extra.ssn == null || payAccount.extra.dob == "" || payAccount.extra.ssn == ""){
+		if((payAccount.extra.dob == null || payAccount.extra.ssn == null || payAccount.extra.dob == "" || payAccount.extra.ssn == "") && payAccount.address.country == cashier.USA_COUNTRY_CODE){
 			extraInfo = <ExtraInfo changeValue={changeValue} ssn={ssn} dobMonth={dobMonth} dobDay={dobDay}
 														 dobYear={dobYear}/>;
 		}
