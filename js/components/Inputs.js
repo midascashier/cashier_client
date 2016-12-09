@@ -142,6 +142,7 @@ let Input = React.createClass({
 							value={this.props.value}
 							data-isValid={this.state.isValid}
 							data-isRequired={require}
+							data-validation={this.props.validate}
 						/>
 					} else{
 						return <input
@@ -155,6 +156,7 @@ let Input = React.createClass({
 							value={this.props.value}
 							data-isValid={this.state.isValid}
 							data-isRequired={require}
+							data-validation={this.props.validate}
 						/>
 					}
 				})()}

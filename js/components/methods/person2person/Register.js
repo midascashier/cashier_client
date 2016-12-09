@@ -3,6 +3,7 @@ import { Input } from '../../Inputs'
 import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
+import { ApplicationService } from '../../../services/ApplicationService'
 import { CashierStore } from '../../../stores/CashierStore'
 
 let Register = React.createClass({
@@ -83,15 +84,18 @@ let Register = React.createClass({
 			e.preventDefault();
 
 			for(let i = 0; i < e.target.length; i++){
-				if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
-					e.target[i].style['border-color']='red';
-					e.target[i].focus();
-					return false;
-				}
+				if(e.target[i].type != 'submit'){
+					if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
+						e.target[i].style['border-color'] = 'red';
+						e.target[i].focus();
+						return false;
+					}
 
-				if(e.target[i].getAttribute('data-isValid') == "false"){
-					e.target[i].focus();
-					return false;
+					if(!ApplicationService.validateInfo(e.target[i].value, e.target[i].getAttribute('data-validation'))){
+						e.target[i].style['border-color'] = 'red';
+						e.target[i].focus();
+						return false;
+					}
 				}
 			}
 
@@ -165,7 +169,7 @@ let Register = React.createClass({
 						<div className="form-group">
 							<label className="col-sm-4 control-label">{translate('P2P_COUNTRY', 'Country')}:</label>
 							<div className="col-sm-8">
-								<select className="form-control" id="country" value={this.state.payAccount.country} onChange={this.changeValue.bind(null, 'country',1)}>
+								<select className="form-control" data-validation='isString' id="country" value={this.state.payAccount.country} onChange={this.changeValue.bind(null, 'country',1)}>
 									{countryOptionNodes}
 								</select>
 							</div>
@@ -174,7 +178,7 @@ let Register = React.createClass({
 						<div className="form-group">
 							<label className="col-sm-4 control-label">{translate('P2P_STATE', 'State')}:</label>
 							<div className="col-sm-8">
-								<select className="form-control" id="countryState" value={this.state.payAccount.state} onChange={this.changeValue.bind(null, 'state',1)} disabled={!states.length}>
+								<select className="form-control" data-validation='isString' id="countryState" value={this.state.payAccount.state} onChange={this.changeValue.bind(null, 'state',1)} disabled={!states.length}>
 									{stateOptionNodes}
 								</select>
 							</div>

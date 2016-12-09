@@ -47,17 +47,17 @@ let ExtraInfo = React.createClass({
 				<div className="form-group">
 					<label className="col-sm-4 control-label">{translate('CREDIT_CARD_DOB')}:</label>
 					<div className="col-sm-2">
-						<select className="form-control" id="dobMonth" ref="dobMonth" name="dobMonth" onChange={this.props.changeValue.bind(null,'dobMonth', 'transaction', 1)} value={dobMonth}>
+						<select className="form-control" id="dobMonth" ref="dobMonth" data-validation='isNumber' name="dobMonth" onChange={this.props.changeValue.bind(null,'dobMonth', 'transaction', 1)} value={dobMonth}>
 							{selectMonths}
 						</select>
 					</div>
 					<div className="col-sm-2">
-						<select className="form-control" id="dobDay" ref="dobDay" name="dobDay" onChange={this.props.changeValue.bind(null,'dobDay', 'transaction', 1)} value={dobDay}>
+						<select className="form-control" id="dobDay" ref="dobDay" data-validation='isNumber' name="dobDay" onChange={this.props.changeValue.bind(null,'dobDay', 'transaction', 1)} value={dobDay}>
 							{selectDays}
 						</select>
 					</div>
 					<div className="col-sm-4">
-						<select className="form-control" id="dobYear" ref="dobYear" name="dobYear" onChange={this.props.changeValue.bind(null,'dobYear', 'transaction', 1)} value={dobYear}>
+						<select className="form-control" id="dobYear" ref="dobYear" data-validation='isNumber' name="dobYear" onChange={this.props.changeValue.bind(null,'dobYear', 'transaction', 1)} value={dobYear}>
 							{selectYears}
 						</select>
 					</div>

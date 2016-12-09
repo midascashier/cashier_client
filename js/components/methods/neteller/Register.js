@@ -2,6 +2,7 @@ import React from 'react'
 import { Input } from '../../Inputs'
 import { translate } from '../../../constants/Translate'
 import { TransactionService } from '../../../services/TransactionService'
+import { ApplicationService } from '../../../services/ApplicationService'
 
 let Register = React.createClass({
 	/**
@@ -47,14 +48,23 @@ let Register = React.createClass({
 	 */
 	addNewPayAccount(e){
 		e.preventDefault();
-		for(let input in this.refs){
-			if(this.refs[input].props.require && this.refs[input].props.value.length <= 0){
-				return false;
-			}
-			if(!this.refs[input].state.isValid){
-				return false;
+
+		for(let i = 0; i < e.target.length; i++){
+			if(e.target[i].type != 'submit'){
+				if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
+					e.target[i].style['border-color'] = 'red';
+					e.target[i].focus();
+					return false;
+				}
+
+				if(!ApplicationService.validateInfo(e.target[i].value, e.target[i].getAttribute('data-validation'))){
+					e.target[i].style['border-color'] = 'red';
+					e.target[i].focus();
+					return false;
+				}
 			}
 		}
+
 		TransactionService.registerPayAccount(this.state.payAccount);
 		this.setState({
 			displaySaveButton: false
