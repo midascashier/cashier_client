@@ -1,7 +1,7 @@
 import React from 'react'
 import { UIService } from '../../../../services/UIService'
 import { CashierStore } from '../../../../stores/CashierStore'
-import { TransactionService } from '../../../../services/TransactionService'
+import { ApplicationService } from '../../../../services/ApplicationService'
 
 let VisaRejectedTicket = React.createClass({
 
