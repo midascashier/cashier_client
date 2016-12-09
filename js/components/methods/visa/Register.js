@@ -173,7 +173,6 @@ let Register = React.createClass({
 			displaySave = true;
 		}
 
-		payAccount.state = "";
 		this.setState({
 			displaySaveButton: displaySave,
 			payAccount

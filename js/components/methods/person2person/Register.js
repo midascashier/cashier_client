@@ -54,7 +54,7 @@ let Register = React.createClass({
 		 * @param event
 		 */
 		changeValue(propertyName, isSelectComponent = 0, event){
-			const payAccount = this.state.payAccount;
+			let payAccount = this.state.payAccount;
 
 			let value = event;
 
@@ -102,7 +102,6 @@ let Register = React.createClass({
 			this.setState({
 				displaySaveButton: false
 			});
-
 			TransactionService.registerPayAccount(this.state.payAccount);
 		},
 
@@ -127,8 +126,7 @@ let Register = React.createClass({
 		 * @private
 		 */
 		_onChange() {
-			const payAccount = this.state.payAccount;
-			payAccount.state = "";
+			let payAccount = this.state.payAccount;
 			this.setState(
 				payAccount
 			);

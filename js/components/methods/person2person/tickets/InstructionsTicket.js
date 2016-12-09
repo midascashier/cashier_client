@@ -91,7 +91,7 @@ let P2PTicketPending = React.createClass({
 			let digits = 11;
 			if(processorId == 6){
 				digits = 10;
-			} else if(processorId == 16 || processorIdRoot == 36){
+			} else if(processorId == 16 || processorId == 36){
 				digits = 8;
 			} else if(processorId == 26){
 				digits = 11;
