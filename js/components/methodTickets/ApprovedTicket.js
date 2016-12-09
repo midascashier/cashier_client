@@ -1,6 +1,7 @@
 import React from 'react'
 import { UIService } from '../../services/UIService'
 import { CashierStore } from '../../stores/CashierStore'
+import { ApplicationService } from '../../services/ApplicationService'
 
 let ApprovedTicket = React.createClass({
 
@@ -10,7 +11,6 @@ let ApprovedTicket = React.createClass({
 	 * @returns {*|{address}}
 	 */
 	getInitialState(){
-		console.log("TESTAPPROVED");
 		return this.refreshLocalState();
 	},
 
@@ -53,11 +53,6 @@ let ApprovedTicket = React.createClass({
 		let email = this.state.email;
 		let balance = this.state.balance;
 		let action;
-		/*if (isWithDraw){
-			action = "withdraw";
-		}else{
-			action = "deposit";
-		}*/
 
 		return (
 			<div className="internal-content" id="approvedTicket">
@@ -72,8 +67,8 @@ let ApprovedTicket = React.createClass({
 					<div className="col-sm-6">
 						<div className="success-message">
 							<i className="fa fa-check-circle-o green"></i>
-							<div className="title">Your {currencyAmount + ' ' + currency} {action} was successful.</div>
-							<p>Your balance is now {balance + '' + currency}</p>
+							<div className="title">Your {ApplicationService.currency_format(currencyAmount) + ' ' + currency} {action} was successful.</div>
+							<p>Your balance is now {ApplicationService.currency_format(balance) + '' + currency}</p>
 							<p>An email has been sent to {email} with the transaction details.</p>
 						</div>
 					</div>

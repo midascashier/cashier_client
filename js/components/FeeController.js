@@ -3,6 +3,7 @@ import { CashierStore } from './../stores/CashierStore'
 import { translate } from '../constants/Translate'
 import { UIService } from '../services/UIService'
 import { TransactionService } from '../services/TransactionService'
+import { ApplicationService } from '../services/ApplicationService'
 
 let FeeController = React.createClass({
 
@@ -83,7 +84,7 @@ let FeeController = React.createClass({
 									<select className="form-control" onChange={this.transactionFee}>
 										{options}
 									</select>
-									{translate('PROCESSING_FEE', 'Fee')}: {this.props.feeCashValue} - {translate('PROCESSING_BALANCE', 'Balance')}: {Math.round(customer.balance * 100) / 100}
+									{translate('PROCESSING_FEE', 'Fee')}: {ApplicationService.currency_format(this.props.feeCashValue)} {customer.currency}- {translate('PROCESSING_BALANCE', 'Balance')}: {ApplicationService.currency_format(customer.balance)} {customer.currency}
 								</div>
 							</div>
 						)

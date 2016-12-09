@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { translate } from '../../constants/Translate'
 import { UIService } from '../../services/UIService'
 import { TransactionService } from '../../services/TransactionService'
+import { ApplicationService } from '../../services/ApplicationService'
 
 let ProcessorInfo = React.createClass({
 	propTypes: {
@@ -47,8 +48,8 @@ let ProcessorInfo = React.createClass({
 		let isWithDraw = UIService.getIsWithDraw();
 		let processorDisplayName = this.props.selectedProcessor.displayName;
 
-		let minProcessorLimit = this.getMinProcessorLimit();
-		let maxProcessorLimit = this.getMaxProcessorLimit();
+		let minProcessorLimit = ApplicationService.currency_format(this.getMinProcessorLimit());
+		let maxProcessorLimit = ApplicationService.currency_format(this.getMaxProcessorLimit());
 		let currencyCode = this.props.selectedProcessor.limits.currencyCode;
 		let buttonNext = translate('PROCESSING_BUTTON_NEXT_DEPOSIT', 'Next');
 		if(isWithDraw){

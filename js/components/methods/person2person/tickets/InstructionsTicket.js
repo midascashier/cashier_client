@@ -206,7 +206,7 @@ let P2PTicketPending = React.createClass({
 											</p>
 											<ul>
 												<li>This receiver's information is only valid for the next 48 hours.</li>
-												<li>The minimum deposit is $50, and the maximum is $400</li>
+												<li>The minimum deposit is $50.00, and the maximum is $400.00</li>
 												<li>Your transaction must be sent in USD and received in USD.</li>
 											</ul>
 

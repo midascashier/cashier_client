@@ -300,7 +300,7 @@ let _transaction = {
 	timeFrameTime: null,
 	dobMonth: 1,
 	dobDay: 1,
-	dobYear: 1970,
+	dobYear: 1940,
 	ssn: '',
 	randomTuid: '',
 	hash: '',

@@ -3,6 +3,7 @@ import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
+import { ApplicationService } from '../../../services/ApplicationService'
 
 let BitCoinConfirmWithdraw = React.createClass({
 
@@ -112,11 +113,11 @@ let BitCoinConfirmWithdraw = React.createClass({
 														</tr>
 														<tr>
 															<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
-															<td><span>{transaction.amount}</span></td>
+															<td><span>{ApplicationService.currency_format(transaction.amount)}</span></td>
 														</tr>
 														<tr>
 															<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
-															<td><span>{transaction.fee}</span></td>
+															<td><span>{ApplicationService.currency_format(transaction.fee)}</span></td>
 														</tr>
 														</tbody>
 													</table>

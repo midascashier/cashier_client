@@ -1,6 +1,7 @@
 import React from 'react'
 import { UIService } from '../../../../services/UIService'
 import { CashierStore } from '../../../../stores/CashierStore'
+import { ApplicationService } from '../../../../services/ApplicationService'
 
 let VisaApprovedTicket = React.createClass({
 
@@ -72,9 +73,9 @@ let VisaApprovedTicket = React.createClass({
 					<div className="col-sm-6">
 						<div className="success-message">
 							<i className="fa fa-check-circle-o green"></i>
-							<div className="title">Your {currencyAmount + ' ' + currency} deposit was successful.</div>
+							<div className="title">Your {ApplicationService.currency_format(currencyAmount) + ' ' + currency} deposit was successful.</div>
 							<p>This charge will show up on your statement as <strong>{descriptor}</strong>.</p>
-							<p>Your balance is now {balance + ' ' + currency}</p>
+							<p>Your balance is now {ApplicationService.currency_format(balance) + ' ' + currency}</p>
 							<p>An email has been sent to {email} with the transaction details.</p>
 						</div>
 					</div>

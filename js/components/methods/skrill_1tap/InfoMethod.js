@@ -123,7 +123,7 @@ let InfoMethod = React.createClass({
 		}
 
 		let processor = this.state.processor;
-		let remainingLimit = processor.limits.currencyMax - this.props.amount;
+		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 
 		return (
 			<div id="1tapMethod">
@@ -132,18 +132,18 @@ let InfoMethod = React.createClass({
 						<div className="table-responsive">
 							<table className="table table-striped">
 								<tbody>
-									<tr>
-										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-										<td><span>{processor.limits.currencyMin}</span></td>
-									</tr>
-									<tr>
-										<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-										<td><span>{processor.limits.currencyMax}</span></td>
-									</tr>
-									<tr>
-										<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
-										<td><span>{remainingLimit}</span></td>
-									</tr>
+								<tr>
+									<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+									<td><span>{payAccountInfo.minPayAccount}</span></td>
+								</tr>
+								<tr>
+									<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
+									<td><span>{payAccountInfo.maxPayAccount}</span></td>
+								</tr>
+								<tr>
+									<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
+									<td><span>{payAccountInfo.remaining}</span></td>
+								</tr>
 								</tbody>
 							</table>
 						</div>

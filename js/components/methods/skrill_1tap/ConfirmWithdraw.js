@@ -3,6 +3,7 @@ import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
+import { ApplicationService } from '../../../services/ApplicationService'
 
 let SkrillConfirmWithdraw = React.createClass({
 
@@ -87,19 +88,9 @@ let SkrillConfirmWithdraw = React.createClass({
 											<div className="col-sm-12">
 												<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 												<div className="infoCol text-justify">
-													<p>In order to activate your debit card, the first payout sent to the card will have the $25
-														activation fee deducted from the payout
-														amount. Once loaded, these funds will be immediately available for your use, minus the $2
-														load fee. (i.e. $23)</p>
-													<p>The courier service is for free. Whenever you request a payout the funds will be
-														transferred to your card. You can withdraw funds,
-														purchase online or at a physical store. It is accepted internationally.</p>
-													<p>Please keep in mind that you should not accumulate more than $10,000 in your card account
-														balance at any time.</p>
-													<p>Please be aware your card must always have at least $10 at all times or else it will be
-														closed by the bank in a two month period.
-														In addition to that, if the card hits $0 balance at any moment the bank will charge a $1
-														fee.</p>
+													<p>
+														Withdraws will be process inside 24 hours, but are typically processed within an hour.
+													</p>
 												</div>
 											</div>
 
@@ -122,11 +113,11 @@ let SkrillConfirmWithdraw = React.createClass({
 																</tr>
 																<tr>
 																	<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
-																	<td><span>{transaction.amount}</span></td>
+																	<td><span>{ApplicationService.currency_format(transaction.amount)}</span></td>
 																</tr>
 																<tr>
 																	<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
-																	<td><span>{transaction.fee}</span></td>
+																	<td><span>{ApplicationService.currency_format(transaction.fee)}</span></td>
 																</tr>
 															</tbody>
 														</table>

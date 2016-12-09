@@ -1,6 +1,7 @@
 import React from 'react'
 import { UIService } from '../../../../services/UIService'
 import { CashierStore } from '../../../../stores/CashierStore'
+import { ApplicationService } from '../../../../services/ApplicationService'
 
 let AstroPayRejectedTicket = React.createClass({
 
@@ -71,7 +72,7 @@ let AstroPayRejectedTicket = React.createClass({
 												<i className="fa fa-ban red"></i>
 												<strong>Transaction Rejected</strong>
 												<p>
-													<strong>Unfortunately</strong>, we were unable to process your Astropay deposit for ${transaction.amount} at this time.
+													<strong>Unfortunately</strong>, we were unable to process your Astropay deposit for ${ApplicationService.currency_format(transaction.amount)} at this time.
 													Perhaps our Customer Support team can help. Call us at 877-314-4195 or Live Chat. Or, you could try a <a onClick={this.setFirstStep}>different deposit method</a>.
 												</p>
 											</div>

@@ -301,8 +301,8 @@ class UiService {
 
 		remaining = remaining + " " + currencyCode;
 
-		let minPayAccount = processorLimits.minAmount + " " + currencyCode;
-		let maxPayAccount = processorLimits.maxAmount + " " + currencyCode;
+		let minPayAccount = processorLimits.minAmount;
+		let maxPayAccount = processorLimits.maxAmount;
 
 		if(payAccountLimits.payAccountId > 0){
 
@@ -311,8 +311,8 @@ class UiService {
 				availablePayAccount = payAccountLimits.availableWithdraw;
 			}
 
-			minPayAccount = payAccountLimits.minAmount + " " + currencyCode;
-			maxPayAccount = payAccountLimits.maxAmount + " " + currencyCode;
+			minPayAccount = payAccountLimits.minAmount;
+			maxPayAccount = payAccountLimits.maxAmount;
 			remaining = availablePayAccount - totalAmount;
 			if(remaining < 0){
 				remaining = 0;
@@ -321,10 +321,10 @@ class UiService {
 		}
 
 		return {
-			minPayAccount: minPayAccount,
-			maxPayAccount: maxPayAccount,
+			minPayAccount: ApplicationService.currency_format(minPayAccount)+ " " + currencyCode,
+			maxPayAccount: ApplicationService.currency_format(maxPayAccount)+ " " + currencyCode,
 			payAccountId: payAccountLimits.payAccountId,
-			remaining: remaining,
+			remaining: ApplicationService.currency_format(remaining)+ " " + currencyCode,
 			currencyCode: currencyCode
 		}
 	}

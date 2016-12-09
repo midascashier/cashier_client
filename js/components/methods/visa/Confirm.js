@@ -168,10 +168,12 @@ let VisaConfirm = React.createClass({
 	},
 
 	render(){
+		console.log(this.state.info);
 		let stateOptionNodes = [];
 		let countryOptionNodes = [];
 		let personalData = this.state.info.payAccount.personal;
 		let secureData = this.state.info.payAccount.secure;
+		let customer = CashierStore.getCustomer();
 		let CCMask;
 		let ssn;
 		let DOB;
@@ -400,7 +402,7 @@ let VisaConfirm = React.createClass({
 											</tr>
 											<tr>
 												<td>{translate('PROCESSING_AMOUNT')}:</td>
-												<td><span>{this.state.info.transaction.amount}</span></td>
+												<td><span>{ApplicationService.currency_format(this.state.info.transaction.amount)} {customer.currency}</span></td>
 											</tr>
 											</tbody>
 										</table>

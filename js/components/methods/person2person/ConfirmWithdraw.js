@@ -3,6 +3,7 @@ import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
+import { ApplicationService } from '../../../services/ApplicationService'
 
 let P2PConfirmWithdraw = React.createClass({
 
@@ -133,11 +134,11 @@ let P2PConfirmWithdraw = React.createClass({
 														<tbody>
 															<tr>
 																<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
-																<td><span>{transaction.amount + ' ' + customer.currency}</span></td>
+																<td><span>{ApplicationService.currency_format(transaction.amount) + ' ' + customer.currency}</span></td>
 															</tr>
 															<tr>
 																<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
-																<td><span>{transaction.fee + ' ' + customer.currency}</span></td>
+																<td><span>{ApplicationService.currency_format(transaction.fee) + ' ' + customer.currency}</span></td>
 															</tr>
 															<tr>
 																<td>{translate('P2P_RECEIVER', 'Receiver')}</td>

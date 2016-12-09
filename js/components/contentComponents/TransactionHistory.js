@@ -1,5 +1,6 @@
 import React from 'react'
 import { translate } from '../../constants/Translate'
+import { ApplicationService } from '../../services/ApplicationService'
 
 let TransactionHistory = React.createClass({
 
@@ -57,7 +58,7 @@ let TransactionHistory = React.createClass({
 									<td>{transaction.DateTrans}</td>
 									<td>{translate('TRANSACTION_TYPE_ID_' + transaction.caTransactionType_Id, transaction.TransactionType)}</td>
 									<td>{transaction.Method}</td>
-									<td>{transaction.CurrencyAmount + ' ' + transaction.CurrencyCode}</td>
+									<td>{ApplicationService.currency_format(transaction.CurrencyAmount) + ' ' + transaction.CurrencyCode}</td>
 									<td className={status}><font color={fontColor}>{translate('TRANSACTION_STATUS_' + transaction.TransactionStatus.toUpperCase(), transaction.TransactionStatus)}</font></td>
 									<td>{transaction.Notes}</td>
 								</tr>);

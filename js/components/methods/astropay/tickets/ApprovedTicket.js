@@ -57,7 +57,6 @@ let AstroPayApprovedTicket = React.createClass({
 		let currency = this.state.currency;
 		let email = this.state.email;
 		let balance = this.state.balance;
-		let descriptor = this.state.descriptor;
 
 		return (
 			<div className="internal-content" id="astroPayApprovedTicket">

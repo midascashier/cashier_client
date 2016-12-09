@@ -1,6 +1,7 @@
 import React from 'react'
 import { translate } from '../../constants/Translate'
 import { Loading } from '../loading/Loading'
+import { ApplicationService } from '../../services/ApplicationService'
 
 let CompanyInfo = React.createClass({
 	propTypes: {
@@ -15,6 +16,7 @@ let CompanyInfo = React.createClass({
 		chat();
 	},
 	render() {
+		let customerBalance = ApplicationService.currency_format(this.props.customer.balance);
 		return (
 			<div id="companyInfo" className="col-xs-8">
 				<div className="row">
@@ -27,7 +29,7 @@ let CompanyInfo = React.createClass({
 										if(!this.props.customer.customerId){
 											return <Loading />;
 										} else{
-											return Math.round(this.props.customer.balance*100)/100 + " " + this.props.customer.currency;
+											return customerBalance + " " + this.props.customer.currency;
 										}
 									})()}
 								</span>

@@ -3,6 +3,7 @@ import { translate } from '../../../../constants/Translate'
 import { UIService } from '../../../../services/UIService'
 import { TransactionService } from '../../../../services/TransactionService'
 import { CashierStore } from '../../../../stores/CashierStore'
+import { ApplicationService } from '../../../../services/ApplicationService'
 
 let VisaRejectAmountTicket = React.createClass({
 
@@ -103,13 +104,13 @@ let VisaRejectAmountTicket = React.createClass({
 					<div className="col-sm-12">
 						<div className="rejected-message">
 							<div className="title">Quick fix...</div>
-							<p>Your credit card told us <strong>{transactionAmount + ' ' + currency}</strong> puts you over the credit limit.</p>
+							<p>Your credit card told us <strong>{ApplicationService.currency_format(transactionAmount) + ' ' + currency}</strong> puts you over the credit limit.</p>
 							<p>What smaller amount would you like to deposit?</p>
 
 							<div className="form-group">
 								<label for="">Enter a Smaller Deposit Amount:</label>
 								<input type="number" id="amount" className="form-control center-block" value={currencyAmount} onChange={this.changeValue}/>
-								<small>{translate('PROCESSING_MIN', 'Min')}: {limits.minAmount +' '+ currency} - Max: Check your credit card limit.</small>
+								<small>{translate('PROCESSING_MIN', 'Min')}: {ApplicationService.currency_format(limits.minAmount) +' '+ currency} - Max: Check your credit card limit.</small>
 								<button type="button" className="btn btn-green" disabled={!this.state.enableReprocess} onClick={this.reProcessTransaction}>Complete this deposit</button>
 								<p><a onClick={this.setFirstStep}>No thanks.  I'll deposit a different way.</a></p>
 							</div>

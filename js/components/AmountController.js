@@ -3,6 +3,7 @@ import { translate } from '../constants/Translate'
 import  errorMsgs  from '../constants/ErrorMsgs'
 import Cashier from '../constants/Cashier'
 import { UIService } from '../services/UIService'
+import { ApplicationService } from '../services/ApplicationService'
 import { CashierStore } from '../stores/CashierStore'
 
 let AmountController = React.createClass({
@@ -52,8 +53,8 @@ let AmountController = React.createClass({
 				<div className="col-sm-8">
 					<input className="form-control" type="number" autoComplete="off" disabled={amountFieldDisable} id="amount"
 								 name="amount" onChange={this.changeValue} value={this.props.amount} min="0" required/>
-					<span>{translate('PROCESSING_MIN', 'Min')}: {limits.minAmount} {customer.currency}
-						- {translate('PROCESSING_MAX', 'Max')}: {limits.maxAmount} {customer.currency}</span><br/>
+					<span>{translate('PROCESSING_MIN', 'Min')}: {ApplicationService.currency_format(limits.minAmount)} {customer.currency}
+						- {translate('PROCESSING_MAX', 'Max')}: {ApplicationService.currency_format(limits.maxAmount)} {customer.currency}</span><br/>
 					{(() =>{
 						if(!limitsOK && this.props.amount != ""){
 							return (

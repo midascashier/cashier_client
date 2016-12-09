@@ -41,7 +41,7 @@ let Register = React.createClass({
 					email: "",
 					dobDay: 1,
 					dobMonth: 1,
-					dobYear: 1970,
+					dobYear: 1940,
 					dob: "",
 					transactionType: 2
 				}
@@ -168,7 +168,7 @@ let Register = React.createClass({
 				selectMonths.push(UIService.renderOption({ label: i }, i));
 			}
 
-			for(let i = 1970; i < 2016; i++){
+			for(let i = 1940; i < 2016; i++){
 				selectYears.push(UIService.renderOption({ label: i }, i));
 			}
 

@@ -2,6 +2,7 @@ import React from 'react'
 import { UIService } from '../../services/UIService'
 import { CashierStore } from '../../stores/CashierStore'
 import { translate } from '../../constants/Translate'
+import { ApplicationService } from '../../services/ApplicationService'
 
 let DeferredTicket = React.createClass({
 
@@ -64,7 +65,7 @@ let DeferredTicket = React.createClass({
 						<div className="success-message">
 							<img src={originPath + '/images/u16.png'} />
 							<div className="title">Your withdraw was successfully submitted.</div>
-							<p>Your balance is now {balance + ' ' + currency}</p>
+							<p>Your balance is now {ApplicationService.currency_format(balance) + ' ' + currency}</p>
 							<p>An email has been sent to {email} with the transaction details.</p>
 							<button type="button" className="btn btn-green">{translate("GO_TO_POKER_LOBBY")}</button>
 						</div>

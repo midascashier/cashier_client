@@ -1,6 +1,7 @@
 import React from 'react'
 import { CashierStore } from '../../stores/CashierStore'
 import { UIService } from '../../services/UIService'
+import { ApplicationService } from '../../services/ApplicationService'
 
 let RejectedTicket = React.createClass({
 
@@ -80,7 +81,7 @@ let RejectedTicket = React.createClass({
 								<i className="fa fa-ban red"></i>
 								<strong>Transaction Rejected</strong>
 								<p>
-									<strong>Unfortunately</strong>, we were unable to process your <strong>{processorName}</strong> {action} for {currencyAmount + ' ' + currency} at this time.
+									<strong>Unfortunately</strong>, we were unable to process your <strong>{processorName}</strong> {action} for {ApplicationService.currency_format(currencyAmount) + ' ' + currency} at this time.
 									Perhaps our Customer Support team can help. Call us at {companyPhone} or Live Chat. Or, you could try a <a onClick={this.setFirstStep}>different deposit method</a>.
 								</p>
 							</div>
