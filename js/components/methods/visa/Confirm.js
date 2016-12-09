@@ -168,7 +168,6 @@ let VisaConfirm = React.createClass({
 	},
 
 	render(){
-		console.log(this.state.info);
 		let stateOptionNodes = [];
 		let countryOptionNodes = [];
 		let personalData = this.state.info.payAccount.personal;
