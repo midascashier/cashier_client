@@ -611,6 +611,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			CashierStore.emitChange();
 			break;
 
+		case actions.SWITCH_ACTION:
+			_UI.currentView = cashier.VIEW_DEPOSIT;
+			CashierStore.storeData("ui", _UI);
+			break;
+
 		case actions.CUSTOMER_TRANSACTIONS_PENDING_MTCN_RESPONSE:
 			let p2pTransactions = [];
 			if(data.response && data.response.P2PNames){

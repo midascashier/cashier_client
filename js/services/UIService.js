@@ -493,6 +493,14 @@ class UiService {
 	}
 
 	/**
+	 * switch to deposit
+	 */
+	switchAction(){
+		CashierActions.switchAction();
+		location.reload();
+	}
+
+	/**
 	 * return left hours of the day
 	 */
 	getP2pHours(){

@@ -71,6 +71,12 @@ let CashierActions = {
 		});
 	},
 
+	switchAction: () =>{
+		CashierDispatcher.dispatch({
+			action: actions.SWITCH_ACTION
+		});
+	},
+
 	setCurrentStep: (step) =>{
 		CashierDispatcher.dispatch({
 			action: actions.SET_STEP,
