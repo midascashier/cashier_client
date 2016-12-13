@@ -80,7 +80,7 @@ let VisaRejectCardTicket = React.createClass({
 
 		const payAccount = this.state.payAccount;
 		payAccount.updateSuccess = 0;
-		this.setState({displaySaveButton: false, payAccount: payAccount});
+		this.setState({ displaySaveButton: false, payAccount: payAccount });
 		TransactionService.updateCreditCardSecure();
 	},
 
@@ -103,7 +103,7 @@ let VisaRejectCardTicket = React.createClass({
 			value = value.target.value;
 		}
 		payAccount.secure[propertyName] = value;
-		this.setState({payAccount: payAccount});
+		this.setState({ payAccount: payAccount });
 	},
 
 	render() {
@@ -123,102 +123,100 @@ let VisaRejectCardTicket = React.createClass({
 		let now = new Date();
 
 		for(let i = 1; i < 13; i++){
-			selectMonths.push(UIService.renderOption({label: i}, i));
+			selectMonths.push(UIService.renderOption({ label: i }, i));
 		}
 
 		for(let i = now.getFullYear(); i < now.getFullYear() + 15; i++){
-			selectYears.push(UIService.renderOption({label: i}, i));
+			selectYears.push(UIService.renderOption({ label: i }, i));
 		}
 
 		return (
-			<div id="visaRejectCardTicket">
-				<div className="row">
+			<div>
+				<div id="visaRejectCardTicket">
+					<div className="title">{translate('CREDIT_CARD_QUICK_FIX', 'Quick fix...')}</div>
+
 					<div className="col-sm-12">
-						<div className="rejected-message">
-							<div className="title">{translate('CREDIT_CARD_QUICK_FIX', 'Quick fix...')}</div>
-							<p>
-								{translate('CREDIT_CARD_QUICK_FIX_INFO')}
-							</p>
-						</div>
+						<p>
+							{translate('CREDIT_CARD_QUICK_FIX_INFO')}
+						</p>
 					</div>
-					<div className="col-sm-12">
-						<div className="modules">
-							<div className="row">
-
-								<div className="col-sm-12">
-									<div className="row">
-
-										<div className="col-md-6 col-md-offset-3">
-											<div className="box">
-												<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
-												<div className="infoCol">
-
-													{(() =>{
-														if(updateSuccess != 1){
-															return <div className="loader"></div>;
-														}
-													})()}
-
-													<div id="formEditCC">
-														<div className="form-group">
-															<label className="control-label">{translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}:</label>
-															<Input type="text" id="ccName" ref="ccName" validate="isString" require
-																		 onChange={this.changeValue.bind(null, 'extra3', 0)}
-																		 value={extra3}/>
-														</div>
-
-														<div className="form-group">
-															<label className="control-label">{translate('CREDIT_CARD_NUMBER', 'Card Number')}:</label>
-															<Input type="text" id="creditCardNumber" ref="creditCardNumber" validate="isCreditNumber" minlength="16" maxlength="16" require
-																		 onChange={this.changeValue.bind(null, 'account', 0)}
-																		 value={account}/>
-														</div>
-
-														<div className="form-group">
-															<label className="control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
-															<div className="form-inline">
-
-																<div className="form-group">
-																	<select className="form-control" id="ccExpMonth" onChange={this.changeValue.bind(null, 'extra1',1)} value={extra1}>
-																		{selectMonths}
-																	</select>
-																</div>
-
-																<div className="form-group">
-																	<select className="form-control" id="ccExpYear" onChange={this.changeValue.bind(null, 'extra2',1)} value={extra2}>
-																		{selectYears}
-																	</select>
-																</div>
-
-															</div>
-														</div>
-
-														<div className="form-group">
-															<label className="control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
-															<Input type="text" id="cvv" ref="cvv" validate="isCVV" minlength="3" maxlength="4" require
-																		 onChange={this.changeValue.bind(null, 'password', 0)}
-																		 value={password}/>
-														</div>
-
-														{(() =>{
-															if(updateSuccess == 1){
-																return <button type='button' className='btn btn-green' onClick={this.updateCreditCardSecure}>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button>;
-															}
-														})()}
-													</div>
-
-												</div>
+				</div>
+				<div className="col-md-6 col-md-offset-3">
+					<div className="box">
+						<div
+							className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
+						<div className="infoCol">
+							<div class="col-sm-12">
+								{(() =>{
+									if(updateSuccess != 1){
+										return <div className="loader"></div>;
+									}
+								})()}
+								<form className="form-horizontal">
+									<div id="formEditCC">
+										<div className="form-group">
+											<label
+												className="col-sm-4 control-label">{translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}:</label>
+											<div className="col-sm-8">
+												<Input type="text" id="ccName" ref="ccName" validate="isString" require
+															 onChange={this.changeValue.bind(null, 'extra3', 0)}
+															 value={extra3}/>
 											</div>
 										</div>
+
+										<div className="form-group">
+											<label
+												className="col-sm-4 control-label">{translate('CREDIT_CARD_NUMBER', 'Card Number')}:</label>
+											<div className="col-sm-8">
+												<Input type="text" id="creditCardNumber" ref="creditCardNumber" validate="isCreditNumber"
+															 minlength="16" maxlength="16" require
+															 onChange={this.changeValue.bind(null, 'account', 0)}
+															 value={account}/>
+											</div>
+										</div>
+
+										<div className="form-group">
+											<label className="col-sm-4 control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
+
+											<div className="col-sm-4">
+												<select className="form-control" id="ccExpMonth"
+																onChange={this.changeValue.bind(null, 'extra1', 1)} value={extra1}>
+													{selectMonths}
+												</select>
+											</div>
+
+											<div className="col-sm-4">
+												<select className="form-control" id="ccExpYear"
+																onChange={this.changeValue.bind(null, 'extra2', 1)} value={extra2}>
+													{selectYears}
+												</select>
+											</div>
+
+										</div>
+
+										<div className="form-group">
+											<label className="col-sm-4 control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
+											<div className="col-sm-3">
+												<Input type="text" id="cvv" ref="cvv" validate="isCVV" minlength="3" maxlength="4" require
+															 onChange={this.changeValue.bind(null, 'password', 0)}
+															 value={password}/>
+											</div>
+										</div>
+										{(() =>{
+											if(updateSuccess == 1){
+												return <button type='button' className='btn btn-green'
+																			 onClick={this.updateCreditCardSecure}>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button>;
+											}
+										})()}
+
 									</div>
-								</div>
-
-								<button type="button" className="btn btn-green" onClick={this.reProcessTransaction}>{translate('PROCESSING_BUTTON_REPROCESS_FIX', 'Try again')}</button>
-								<p><a onClick={this.setFirstStep}>No thanks.  I'll deposit a different way.</a></p>
-
+								</form>
 							</div>
 						</div>
 					</div>
+					<button type="button" className="btn btn-green"
+									onClick={this.reProcessTransaction}>{translate('PROCESSING_BUTTON_REPROCESS_FIX', 'Try again')}</button>
+					<p><a onClick={this.setFirstStep}>No thanks. I'll deposit a different way.</a></p>
 				</div>
 			</div>
 		)

@@ -6,9 +6,9 @@
 
 /*titles*/
 h2, h3 {font-weight:normal; line-height:normal; letter-spacing:1px;}
-h2, h3, .steps, .two-steps, .btn-welcome {font-family: "BebasNeueRegular", Arial, Helvetica, sans-serif; font-size:33px;}
-.title {color: #1976D2;/* font-size: 25px;*/ font-size:22px; font-weight: bold; margin-bottom: 5px; padding: 5px 0;}
-h4, h5, .title, .header-top {font-family: "Oswald-Light", Arial, Helvetica, sans-serif; letter-spacing:.5px;}
+h2, h3, .btn-welcome {font-family: "BebasNeueRegular", Arial, Helvetica, sans-serif; font-size:33px;}
+.title {color: #1976D2;/* font-size: 25px;*/ font-size:22px; font-weight: bold; margin-bottom: 5px;/* padding: 5px 0;*/ padding:8px 0;}
+h4, h5, .title, .header-top, .steps, .two-steps {font-family: "Oswald-Light", Arial, Helvetica, sans-serif; letter-spacing:.5px;}
 .subtitle {font-weight:bold; margin-bottom:10px;}
 
 /*links*/
@@ -24,8 +24,10 @@ i.i-top{margin-top: 8px;}
 .orange {color:orange;}
 .blue {color:#1a8dea;}
 .red {color:#e03430;}
+.grey { color:#555;}
 
 /*btns*/
+.btn{padding: 5px 10px;}
 button + button {margin-left:70px;}
 button.btn-welcome {border:1px solid #6b89ac; font-size:53px; margin-top:14px; padding:5px 36px 5px; border-radius:6px; text-shadow:1px 1px 2px #6172a1;
 	font-weight:normal;}
@@ -45,7 +47,7 @@ select + select {margin-top:15px;}
 .form-group label + input[type*="number"] {/*width: 300px!important;*/ margin: 0 auto;}
 .form-group{/*overflow: hidden;*/}
 .form-group{ margin-bottom:10px;}
-.form-control { height:28px; padding:3px 6px;}
+.form-control { height:28px; /*padding:3px 6px;*/ padding:3px;}
 label{ font-size:13px;}
 
 /*tables*/
@@ -72,7 +74,7 @@ table.mtcn-table tr td strong{ color:#1976D2;}
 ol, ul{padding:0!important;}
 ul.list-group{padding:10px 5px 10px!important; line-height: 1.8; padding-top: 10px; padding-bottom: 10px; margin-bottom: 25px!important; margin-top: 10px;}
 ul.list-group li:before{/*color:#da161d; content: "-"; font-size: .75em; padding-right:6px;*/}
-ul li, ol li {text-align:left; list-style: none; text-indent: 16px;}
+ul li, ol li {text-align:left; list-style: none; text-indent: 15px;}
 ul li span, ol li span {font-weight:bold; color:#555;}
 ul li:before, ol li:before{content: "\25CF"; color:#1976D2; padding-right:4px; text-align: left; font-size: 10px;}
 
@@ -108,11 +110,11 @@ body {background:#EEE; font-family:'Segoe UI', Arial, sans-serif; color:#777; fo
 /*.historyContent {overflow-x:scroll!important;height: 425px;}*/
 
 /*-----steps*/
-.steps, .two-steps {text-align: center;}
+.steps, .two-steps {text-align: center; font-size: 27px; font-weight: bold;}
 .steps div[class^="step"]{width: 33.333%;}
 .two-steps div[class^="step"]{ width: 50%;}
 .steps div[class^="step"], .two-steps div[class^="step"] { height:inherit; display:inline-block;}
-.steps div[class^="step"] p, .two-steps div[class^="step"] p {margin:0;}
+.steps div[class^="step"] p, .two-steps div[class^="step"] p {margin:0; padding: 10px 0;}
 
 /*three - steps*/
 .steps {color: #6d6d6d;}
@@ -126,7 +128,7 @@ body {background:#EEE; font-family:'Segoe UI', Arial, sans-serif; color:#777; fo
 .steps .step3.active {background-image: url(../images/step3_active.jpg);}
 .steps .step2.inactive {background-image: url(../images/step2_inactive.jpg)}
 .steps .step3.inactive {background-image: url(../images/step3_inactive.jpg);}
-.steps div[class^="step"] p span, .two-steps div[class^="step"] p span {font-size:56px; vertical-align:sub; margin-right:10px;}
+.steps div[class^="step"] p span, .two-steps div[class^="step"] p span {/*font-size:56px;*/font-size: 42px; vertical-align:sub; margin-right:10px;}
 
 /*two - steps*/
 .two-steps .step1.normal {background-image: url(../images/2steps_step1_normal.jpg);}
@@ -138,7 +140,7 @@ body {background:#EEE; font-family:'Segoe UI', Arial, sans-serif; color:#777; fo
 
 /*box*/
 .box, .method {border-radius:4px;}
-.box, .list-group {overflow:hidden; margin-bottom:8px; box-shadow: 0 1px 2px #CCC; background:#FFF;}
+.box/*, .list-group*/ {overflow:hidden; margin-bottom:8px; box-shadow: 0 1px 2px #CCC; background:#FFF;}
 .box{min-height:250px;}
 .box, table { margin-top:4px; margin-bottom:8px!important; }
 .box .title {background:#1d1d1d; color:#FFF; font-size:18px; margin-bottom:0;}

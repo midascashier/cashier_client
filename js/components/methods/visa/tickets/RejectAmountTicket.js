@@ -100,33 +100,28 @@ let VisaRejectAmountTicket = React.createClass({
 
 		return (
 			<div id="visaRejectAmountTicket">
+				<div className="title">Quick fix...</div>
+				<div className="col-sm-12">
+				<p>Your credit card told us	<strong>{ApplicationService.currency_format(transactionAmount) + ' ' + currency}</strong> puts you over
+					the credit limit.</p>
+				<p>What smaller amount would you like to deposit?</p>
+				<br />
 				<div className="row">
-					<div className="col-sm-12">
-						<div className="rejected-message">
-							<div className="title">Quick fix...</div>
-							<p>Your credit card told us
-								<strong>{ApplicationService.currency_format(transactionAmount) + ' ' + currency}</strong> puts you over
-								the credit limit.</p>
-							<p>What smaller amount would you like to deposit?</p>
-							<br />
-							<div className="row">
-								<div className="form-group col-md-6 col-md-offset-3">
-									<label for="">Enter a Smaller Deposit Amount:</label>
-									<input type="number" id="amount" className="form-control center-block" value={currencyAmount}
-												 onChange={this.changeValue}/>
-									<small>{translate('PROCESSING_MIN', 'Min')}: {ApplicationService.currency_format(limits.minAmount) + ' ' + currency}
-										- Max: Check your credit card limit.
-									</small>
-								</div>
-							</div>
-							<br />
-							<button type="button" className="btn btn-green" disabled={!this.state.enableReprocess}
-											onClick={this.reProcessTransaction}>Complete this deposit
-							</button>
-							<p><a onClick={this.setFirstStep}>No thanks. I'll deposit a different way.</a></p>
-						</div>
+					<div className="form-group col-md-6 col-md-offset-3">
+						<label for="">Enter a Smaller Deposit Amount:</label>
+						<input type="number" id="amount" className="form-control center-block" value={currencyAmount}
+									 onChange={this.changeValue}/>
+						<small>{translate('PROCESSING_MIN', 'Min')}: {ApplicationService.currency_format(limits.minAmount) + ' ' + currency}
+							- Max: Check your credit card limit.
+						</small>
 					</div>
 				</div>
+				<br />
+				<button type="button" className="btn btn-green" disabled={!this.state.enableReprocess}
+								onClick={this.reProcessTransaction}>Complete this deposit
+				</button>
+				<p><a onClick={this.setFirstStep}>No thanks. I'll deposit a different way.</a></p>
+			</div>
 			</div>
 		)
 	}

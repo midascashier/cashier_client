@@ -39,7 +39,7 @@ let ExtraInfo = React.createClass({
 				
 				<div className="form-group">
 					<label className="col-sm-4 control-label">{translate('CREDIT_CARD_SSN')}:</label>
-					<div className="col-sm-8">
+					<div className="col-sm-4">
 						<Input type="text" name="ssn" id="ssn" ref="ssn" validate="isSSN" maxlength="4" autoComplete="off" onChange={this.props.changeValue.bind(null,'ssn', 'transaction', 0)} value={ssn} require/>
 					</div>
 				</div>
