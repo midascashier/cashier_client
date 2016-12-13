@@ -22,7 +22,6 @@ let TransactionHistory = React.createClass({
 						<th>{translate('TRANSACTION_HISTORY_TABLE_COL_METHOD')}</th>
 						<th>{translate('TRANSACTION_HISTORY_TABLE_COL_AMOUNT')}</th>
 						<th>{translate('TRANSACTION_HISTORY_TABLE_COL_STATUS')}</th>
-						<th>{translate('TRANSACTION_HISTORY_TABLE_COL_NOTES')}</th>
 					</tr>
 					{(() =>{
 						if(transactions){
@@ -60,7 +59,6 @@ let TransactionHistory = React.createClass({
 									<td>{transaction.Method}</td>
 									<td>{ApplicationService.currency_format(transaction.CurrencyAmount) + ' ' + transaction.CurrencyCode}</td>
 									<td className={status}><font color={fontColor}>{translate('TRANSACTION_STATUS_' + transaction.TransactionStatus.toUpperCase(), transaction.TransactionStatus)}</font></td>
-									<td>{transaction.Notes}</td>
 								</tr>);
 							});
 							return rows;
