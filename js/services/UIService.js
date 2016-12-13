@@ -130,7 +130,6 @@ class UiService {
 
 		if(transactionResponse.status != cashier.TRANSACTION_STATUS_APPROVED){
 			let ticketResult = 'rejected';
-			layout = 'card';
 			if(layout == 'card'){
 				ticketResult += '/blockByBank';
 			} else if(layout == 'amount'){
