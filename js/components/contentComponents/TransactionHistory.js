@@ -13,7 +13,7 @@ let TransactionHistory = React.createClass({
 		let transactions = this.props.transactions;
 
 		return (
-			<div className=" table-responsive" id="transactionHistoryTable">
+			<div className="table-responsive" id="transactionHistoryTable">
 				<table className="table table-striped">
 					<tbody>
 					<tr>
@@ -58,7 +58,7 @@ let TransactionHistory = React.createClass({
 									<td>{translate('TRANSACTION_TYPE_ID_' + transaction.caTransactionType_Id, transaction.TransactionType)}</td>
 									<td>{transaction.Method}</td>
 									<td>{ApplicationService.currency_format(transaction.CurrencyAmount) + ' ' + transaction.CurrencyCode}</td>
-									<td className={status}><font color={fontColor}>{translate('TRANSACTION_STATUS_' + transaction.TransactionStatus.toUpperCase(), transaction.TransactionStatus)}</font></td>
+									<td className={status}><span className={fontColor}>{translate('TRANSACTION_STATUS_' + transaction.TransactionStatus.toUpperCase(), transaction.TransactionStatus)}</span></td>
 								</tr>);
 							});
 							return rows;
