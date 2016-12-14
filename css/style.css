@@ -51,8 +51,8 @@ select + select {margin-top:15px;}
 label{ font-size:13px;}
 
 /*tables*/
-table {margin:0 auto; border:0; border-radius:3px; overflow:hidden; font-size:14px; box-shadow: 0 1px 2px #AAA; width: 96%; text-align:left;/* margin-top:10px;*/ }
-table.table {width:95%;}
+table {margin:0 auto; border:0; border-radius:3px; overflow:hidden; font-size:14px; box-shadow: 0 1px 2px #AAA; width: 85%; text-align:left;/* margin-top:10px;*/ }
+table.table {width:97%;}
 .table-responsive {border: none;}
 .table-striped>tbody>tr:nth-of-type(odd){background-color:#d0ddf7/* #c7d6f3*/;}
 .table-striped>tbody>tr:nth-of-type(even){background-color: #e5ebf9;}
