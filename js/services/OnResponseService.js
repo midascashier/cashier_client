@@ -23,6 +23,7 @@ class OnResponseService {
 			case actions.CUSTOMER_INFO_RESPONSE:
 				CashierActions.setSelectedCountry();
 				ApplicationService.getCountryStates();
+				CustomerService.getPendingMTCNTransactions();
 				ApplicationService.getCurrency(data.response.customerInfo.currency);
 				break;
 

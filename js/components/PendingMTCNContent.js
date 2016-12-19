@@ -17,7 +17,6 @@ let PendingControlNumber = React.createClass({
 	 * @returns {*|{transactions}}
 	 */
 	getInitialState(){
-		CustomerService.getPendingMTCNTransactions();
 		return this.refreshLocalState();
 	},
 

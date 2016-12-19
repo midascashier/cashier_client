@@ -4,6 +4,8 @@ import { translate } from '../../constants/Translate'
 import { UIService } from '../../services/UIService'
 import { TransactionService } from '../../services/TransactionService'
 import { ApplicationService } from '../../services/ApplicationService'
+import { CashierStore } from '../../stores/CashierStore'
+import cashier from '../../constants/Cashier'
 
 let ProcessorInfo = React.createClass({
 	propTypes: {
@@ -63,6 +65,9 @@ let ProcessorInfo = React.createClass({
 			transactionType: transactionType
 		});
 
+		let customer = CashierStore.getCustomer();
+		let pendingP2P = customer.pendingP2PTransactions;
+
 		return (
 			<div id="processorInfo">
 				<p><em>{translate('BONUS_NEWS1')}<span>{translate('BONUS_NEWS2')}</span>{translate('BONUS_NEWS3')}<span>{translate('BONUS_NEWS4')}</span></em></p>
@@ -94,7 +99,7 @@ let ProcessorInfo = React.createClass({
 							<div className="col-sm-6"></div>
 							<div className="col-sm-6">
 								{(() =>{
-									if(!isWithDraw){
+									if(!isWithDraw && pendingP2P.length > 0 && pendingP2P != cashier.NO_RESPONSE){
 										return (
 											<Link to={`/pendingControlNumber/`}>
 												<p>{translate('PENDING_MTCN', 'Enter Pending Control Numbers')}</p>
