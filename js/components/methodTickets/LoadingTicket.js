@@ -68,7 +68,7 @@ let LoadingTicket = React.createClass({
 							</div>
 						</div>;
 					} else{
-						if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && !transactionResponse.details.creditCardTransaction && transactionResponse.status != cashier.TRANSACTION_STATUS_APPROVED){
+						if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && !transactionResponse.details.creditCardTransaction && transactionResponse.status != cashier.TRANSACTION_STATUS_APPROVED && transactionResponse.transactionId != ""){
 							return <div className="col-sm-12">
 								<div className="modules">
 									<div className="row">

@@ -114,6 +114,8 @@ class applicationService {
 	validateInfo(value, type){
 		let regExp = [];
 		regExp['isCreditNumber'] = { Visa: /^4[0-9]{12}(?:[0-9]{3})?$/, MC: /^5[1-5][0-9]{14}$/, OTHERS: /^[0-9]{15,16}$/ };
+		regExp['isVisa'] = { Visa: /^4[0-9]{12}(?:[0-9]{3})?$/ };
+		regExp['isMC'] = { MC: /^5[1-5][0-9]{14}$/ };
 		regExp['isCVV'] = { cvv: /^[0-9]{3}$/ };
 		regExp['isSSN'] = { ssn: /^[0-9]{4}$/ };
 		regExp['isCVV4'] = { cvv: /^[0-9]{4}$/ };

@@ -208,7 +208,7 @@ let _langTags = {
 	GO_TO_POKER_LOBBY: "Go to Poker Lobby",
 	SKRILL_EMAIL: "Skrill's Email",
 	ECOPAYZ_ACCOUNT: "ECO Account Number",
-	REGISTER_NEW_ACCOUNT: "Register new account",
+	REGISTER_NEW_ACCOUNT: "Add a new credit card",
 	LOADING: "Loading...",
 	M_BELOW_MIN: "Please increase the amount and try again",
 	M_ABOVE_MAX: "Please decrease the amount and try again",

@@ -570,7 +570,7 @@ class transactionService {
 		if(ApplicationService.checkNested(data, "response", "transaction", "gotoURLAction") && data.state != "error"){
 			window.location = data.response.transaction.gotoURLAction;
 		} else{
-			if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && data.response.transaction.caTransactionStatus_Id != cashier.TRANSACTION_STATUS_APPROVED){
+			if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && data.response.transaction.caTransactionStatus_Id != cashier.TRANSACTION_STATUS_APPROVED && data.response.transaction.caTransaction_Id != ""){
 				this.processResponseCC();
 			} else{
 				this.getTransactionDetails();

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Input } from '../../Inputs'
 import { translate } from '../../../constants/Translate'
+import cashier from '../../../constants/Cashier'
 import { CashierStore } from '../../../stores/CashierStore'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
@@ -186,6 +187,15 @@ let Register = React.createClass({
 		let selectYears = [];
 		let countryOptionNodes = [];
 		let now = new Date();
+		let processor = CashierStore.getProcessor();
+		let ccValidation = "isCreditNumber";
+		if(processor.processorId == cashier.PROCESSOR_ID_VISA){
+			ccValidation = "isVisa";
+		} else{
+			if(processor.processorId == cashier.PROCESSOR_ID_MC){
+				ccValidation = "isMC";
+			}
+		}
 
 		for(let i = 1; i < 13; i++){
 			selectMonths.push(UIService.renderOption({ label: i }, i));
@@ -220,7 +230,7 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_NUMBER', 'Card Number')}:</label>
 						<div className="col-sm-8">
-							<Input type="text" id="creditCardNumber" ref="creditCardNumber" validate="isCreditNumber"
+							<Input type="text" id="creditCardNumber" ref="creditCardNumber" validate={ccValidation}
 										 onChange={this.changeValue.bind(null, 'account', '', 0)} value={this.state.payAccount.account}
 										 require/>
 						</div>
