@@ -21,7 +21,7 @@
   	</script>
 	<script src="/js/libs/jquery.min.js"></script>
     <script src="/js/libs/stomp.js"></script>
-    <script src="/js/libs/chat.js"></script>
+    <script src="/js/libs/general.js"></script>
 	<script src="/build/bundle.js"></script>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<!-- Include all compiled plugins (below), or include individual files as needed -->

@@ -6,7 +6,6 @@ import cashier from '../constants/Cashier'
 import { CashierStore } from '../stores/CashierStore'
 import { LoadingSpinner } from './loading/LoadingSpinner'
 import { TransactionPendingMTCN } from '../components/contentComponents/TransactionPendingMTCN'
-import { CustomerService } from './../services/CustomerService'
 import { UIService } from './../services/UIService'
 
 let PendingControlNumber = React.createClass({

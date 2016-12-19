@@ -2,6 +2,7 @@ import React from 'react'
 import { translate } from '../../constants/Translate'
 import { Loading } from '../loading/Loading'
 import { ApplicationService } from '../../services/ApplicationService'
+import { UIService } from '../../services/UIService'
 
 let CompanyInfo = React.createClass({
 	propTypes: {
@@ -15,8 +16,17 @@ let CompanyInfo = React.createClass({
 	openChat(event) {
 		chat();
 	},
+
+	/**
+	 * function to open chat window
+	 */
+	openFAQ(event) {
+		FAQ();
+	},
+
 	render() {
 		let customerBalance = ApplicationService.currency_format(this.props.customer.balance);
+		let isWithdraw = UIService.getIsWithDraw();
 		return (
 			<div id="companyInfo" className="col-xs-8">
 				<div className="row">
@@ -36,7 +46,12 @@ let CompanyInfo = React.createClass({
 							</div>
 							<div className="col-sm-6">
 								{translate('CUSTOMER_INFO_NEED_HELP')}
-								<a href='#' onClick={this.openChat}>{translate('CUSTOMER_INFO_LIVE_CHAT')}</a>
+								{(() =>{
+									if(isWithdraw){
+										return <a href='#' onClick={this.openFAQ}>FAQ, </a>;
+									}
+								})()}
+								<a href='#' onClick={this.openChat}>{translate('CUSTOMER_INFO_LIVE_CHAT')},</a>
 								{(() =>{
 									if(!this.props.company.companyId){
 										return <Loading />;
