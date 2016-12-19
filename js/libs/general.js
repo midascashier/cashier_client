@@ -4,7 +4,6 @@ function chat(){
 }
 
 
-// English Version, also applied for every other language than spanish
 function FAQ(){
-	window.open('FAQ.html', 'FAQ', 'toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=0,resizable=0,width=800,height=680');
+	window.open('../FAQ.html', 'FAQ', 'toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=0,resizable=0,width=800,height=680');
 }
