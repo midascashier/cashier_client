@@ -5,6 +5,7 @@ import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 import { CashierStore } from '../../../stores/CashierStore'
 import { ApplicationService } from '../../../services/ApplicationService'
+import { CashierActions } from '../../../actions/CashierActions'
 
 let Register = React.createClass({
 
@@ -142,7 +143,23 @@ let Register = React.createClass({
 			);
 		},
 
-		render(){
+	/**
+	 * Cancel button
+	 */
+	cancel() {
+		let payAccounts = CashierStore.getProcessorPayAccount();
+		let processorID = CashierStore.getProcessor();
+		let previousPayAccount = 0;
+		for (let payAccount in payAccounts){
+			if (previousPayAccount == 0){
+				previousPayAccount = payAccount;
+			}
+		}
+		CashierActions.changePayAccount(previousPayAccount, processorID.processorId);
+	},
+
+
+	render(){
 			let countries = UIService.getCountries();
 			let states = UIService.getCountryStates();
 			let selectMonths = [];
@@ -279,7 +296,17 @@ let Register = React.createClass({
 
 
 						<div className="form-group">
-							{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>Save</button> : null }
+							<div className="form-group">
+								<div className="col-sm-4"></div>
+								<div className="col-sm-2">
+									{this.state.displaySaveButton ? <button type='submit'
+																													className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
+								</div>
+								<div className="col-sm-2">
+									{this.state.displaySaveButton ? <button type='button' onClick={this.cancel}
+																													className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Save')}</button> : null }
+								</div>
+							</div>
 						</div>
 
 					</div>

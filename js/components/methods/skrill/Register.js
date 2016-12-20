@@ -3,6 +3,8 @@ import { Input } from '../../Inputs'
 import { translate } from '../../../constants/Translate'
 import { TransactionService } from '../../../services/TransactionService'
 import { ApplicationService } from '../../../services/ApplicationService'
+import { CashierActions } from '../../../actions/CashierActions'
+import { CashierStore } from '../../../stores/CashierStore'
 
 let Register = React.createClass({
 	/**
@@ -71,6 +73,21 @@ let Register = React.createClass({
 		});
 	},
 
+	/**
+	 * Cancel button
+	 */
+	cancel() {
+		let payAccounts = CashierStore.getProcessorPayAccount();
+		let processorID = CashierStore.getProcessor();
+		let previousPayAccount = 0;
+		for (let payAccount in payAccounts){
+			if (previousPayAccount == 0){
+				previousPayAccount = payAccount;
+			}
+		}
+		CashierActions.changePayAccount(previousPayAccount, processorID.processorId);
+	},
+
 	render() {
 		return (
 			<div id="netellerRegister">
@@ -81,8 +98,18 @@ let Register = React.createClass({
 							<Input className="form-control" type="text" id="SkrillAccount" name="SkrillAccount" ref="email" validate="isEmail" onChange={this.changeValue} value={this.state.payAccount.account} require/>
 						</div>
 					</div>
-					{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
 				</form>
+				<div className="form-group">
+					<div className="col-sm-4"></div>
+					<div className="col-sm-2">
+						{this.state.displaySaveButton ? <button type='submit'
+																										className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
+					</div>
+					<div className="col-sm-2">
+						{this.state.displaySaveButton ? <button type='button' onClick={this.cancel}
+																										className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Save')}</button> : null }
+					</div>
+				</div>
 			</div>
 		)
 	}
