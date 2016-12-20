@@ -3,6 +3,7 @@ import { Input } from '../../Inputs'
 import { translate } from '../../../constants/Translate'
 import cashier from '../../../constants/Cashier'
 import { CashierStore } from '../../../stores/CashierStore'
+import { CashierActions } from '../../../actions/CashierActions'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 import { ApplicationService } from '../../../services/ApplicationService'
@@ -155,6 +156,21 @@ let Register = React.createClass({
 	 */
 	componentWillUnmount() {
 		CashierStore.removeChangeListener(this._onChange);
+	},
+
+	/**
+	 * Cancel button
+	 */
+	cancel() {
+		let payAccounts = CashierStore.getProcessorPayAccount();
+		let processorID = CashierStore.getProcessor();
+			let previousPayAccount = 0;
+		for (let payAccount in payAccounts){
+			if (previousPayAccount == 0){
+				previousPayAccount = payAccount;
+			}
+		}
+		CashierActions.changePayAccount(previousPayAccount, processorID.processorId);
 	},
 
 	/**
@@ -348,8 +364,15 @@ let Register = React.createClass({
 										 dobYear={this.state.payAccount.dobYear} require/>
 
 					<div className="form-group">
-						{this.state.displaySaveButton ? <button type='submit'
-																										className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
+						<div className="col-sm-4"></div>
+						<div className="col-sm-2">
+							{this.state.displaySaveButton ? <button type='submit'
+																											className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
+						</div>
+						<div className="col-sm-2">
+							{this.state.displaySaveButton ? <button type='button' onClick={this.cancel}
+																											className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Save')}</button> : null }
+						</div>
 					</div>
 
 				</form>
