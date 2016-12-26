@@ -82,7 +82,13 @@ let Visa = React.createClass({
 		}
 
 		if(property){
-			actualState[property][propertyName] = value;
+			if (property.indexOf(".") != -1)
+			{
+				let properties = property.split(".");
+				actualState[properties[0]][properties[1]][propertyName] = value;
+			}else{
+				actualState[property][propertyName] = value;
+			}
 		} else{
 			actualState[propertyName] = value;
 		}
@@ -116,11 +122,7 @@ let Visa = React.createClass({
 					<AskInfo amount={this.props.amount}
 									 setAmount={this.props.setAmount}
 									 payAccount={this.state.payAccount}
-									 cvv={this.state.password}
 									 limitsCheck={this.props.limitsCheck}
-									 dobMonth={this.state.transaction.dobMonth}
-									 dobDay={this.state.transaction.dobDay}
-									 dobYear={this.state.transaction.dobYear}
 									 changeValue={this.changeValue}
 					/>
 				</div>

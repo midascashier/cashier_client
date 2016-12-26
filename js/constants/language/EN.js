@@ -104,6 +104,7 @@ let _langTags = {
 	PROCESSING_FEE: "Fee",
 	PROCESSING_FEE_TYPE_OPTIONS: "Pay the fees with",
 	PROCESSING_FEE_ENOUGH_BALANCE: "You don't have enough balance to cover the required fees",
+	PROCESSING_BUTTON_EDIT_CARD: "Edit Card",
 	//Transaction
 	TRANSACTION_AMOUNT: "Amount",
 	TRANSACTION_FEE_TYPE_CASH: "Cash",

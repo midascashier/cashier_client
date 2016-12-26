@@ -347,6 +347,40 @@ class transactionService {
 	};
 
 	/**
+	 * update payAccount with transaction info
+	 */
+	updatePayAccount(){
+		let transaction = CashierStore.getTransaction();
+		let payAccountSelected = CashierStore.getCurrentPayAccount();
+		let transactionType = UIService.getIsWithDraw();
+
+		payAccountSelected.extra.dob = transaction.dobYear + "-" + transaction.dobMonth + "-" + transaction.dobDay;
+		payAccountSelected.extra.dobDay = transaction.dobDay;
+		payAccountSelected.extra.dobMonth = transaction.dobMonth;
+		payAccountSelected.extra.dobYear = transaction.dobYear;
+		payAccountSelected.extra.ssn = transaction.ssn;
+		if (transaction.ccName){
+			payAccountSelected.secure.extra3 = transaction.ccName;
+		}
+
+		let payAccount = {
+			processorIdRoot: this.getCurrentProcessor().processorId,
+			customerId: CashierStore.getCustomer().customerId,
+			transactionType: transactionType
+		};
+
+		let validateRabbitRequest = {
+			f: "validatePayAccount",
+			module: 'payAccount'
+		};
+
+		validateRabbitRequest = Object.assign(validateRabbitRequest, payAccount, payAccountSelected.extra, payAccountSelected.address, payAccountSelected.personal, payAccountSelected.secure);
+
+		stompConnector.makeBackendRequest("", validateRabbitRequest);
+	}
+
+
+	/**
 	 * this function sends to process a cc transaction
 	 */
 	processCC(){
@@ -357,29 +391,10 @@ class transactionService {
 		let transaction = CashierStore.getTransaction();
 		let processorSelected = CashierStore.getProcessor();
 		let payAccountSelected = CashierStore.getCurrentPayAccount();
-		let transactionType = UIService.getIsWithDraw();
+
 
 		if(!payAccountSelected.extra.dob || !payAccountSelected.extra.dobDay || !payAccountSelected.extra.dobMonth || !payAccountSelected.extra.dobYear || !payAccountSelected.extra.ssn){
-			payAccountSelected.extra.dob = transaction.dobYear + "-" + transaction.dobMonth + "-" + transaction.dobDay;
-			payAccountSelected.extra.dobDay = transaction.dobDay;
-			payAccountSelected.extra.dobMonth = transaction.dobMonth;
-			payAccountSelected.extra.dobYear = transaction.dobYear;
-			payAccountSelected.extra.ssn = transaction.ssn;
-
-			let payAccount = {
-				processorIdRoot: this.getCurrentProcessor().processorId,
-				customerId: CashierStore.getCustomer().customerId,
-				transactionType: transactionType
-			};
-
-			let validateRabbitRequest = {
-				f: "validatePayAccount",
-				module: 'payAccount'
-			};
-
-			validateRabbitRequest = Object.assign(validateRabbitRequest, payAccount, payAccountSelected.extra, payAccountSelected.address, payAccountSelected.personal, payAccountSelected.secure);
-
-			stompConnector.makeBackendRequest("", validateRabbitRequest);
+			this.updatePayAccount();
 		}
 
 		let CCRequest = {

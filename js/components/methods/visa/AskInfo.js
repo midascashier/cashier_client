@@ -6,10 +6,14 @@ import { AmountController } from '../../AmountController'
 import { TermsController } from '../../TermsController'
 import { UIService } from '../../../services/UIService'
 import { CustomerService } from '../../../services/CustomerService'
+import { ApplicationService } from '../../../services/ApplicationService'
+import { TransactionService } from '../../../services/TransactionService'
 import { Register } from './Register.js'
 import { ExtraInfo } from './ExtraInfo'
 import { LoadingSpinner } from '../../loading/LoadingSpinner'
 import { Input } from '../../Inputs'
+
+import { CashierStore } from '../../../stores/CashierStore'
 
 let AskInfo = React.createClass({
 
@@ -24,9 +28,44 @@ let AskInfo = React.createClass({
 		payAccount: React.PropTypes.object
 	},
 
-	disablePayAccount(){
-		CustomerService.getDisablePayAccount();
+	/**
+	 * edit payAccount
+	 */
+	editPayAccount(value = 1){
+		UIService.setCCEditMode(value);
 	},
+
+	/**
+	 * Save CC info
+	 */
+	saveEditCC(){
+		TransactionService.updatePayAccount();
+		this.editPayAccount(0);
+	},
+
+
+	formEditPayAccount(e){
+		e.preventDefault();
+
+		for(let i = 0; i < e.target.length; i++){
+			if(e.target[i].type != 'submit' && e.target[i].type != 'button' && e.target[i].type != 'checkbox'){
+				if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
+					e.target[i].style['border-color'] = 'red';
+					e.target[i].focus();
+					return false;
+				}
+
+				if(!ApplicationService.validateInfo(e.target[i].value, e.target[i].getAttribute('data-validation'))){
+					e.target[i].style['border-color'] = 'red';
+					e.target[i].focus();
+					return false;
+				}
+			}
+		}
+
+		this.saveEditCC();
+	},
+
 
 	render(){
 		let setAmount = this.props.setAmount;
@@ -39,45 +78,53 @@ let AskInfo = React.createClass({
 		let isWithDraw = UIService.getIsWithDraw();
 		let isEditingCCInfo = UIService.getCCEditMode();
 		let information = translate('CREDIT_CARD_INFO', '');
-		let ssn = this.props.ssn;
-		let cvv;
-		if (typeof payAccount.password == 'undefined' || payAccount.secure.password == payAccount.password){
-			cvv = payAccount.secure.password;
-		}else{
-			if(payAccount.secure.password != payAccount.password){
-				cvv = payAccount.password;
-			} else{
-				cvv = '';
-			}
-		}
-		let dobMonth = this.props.dobMonth;
-		let dobDay = this.props.dobDay;
-		let dobYear = this.props.dobYear;
+		let transaction = CashierStore.getTransaction();
+		let ssn = transaction.ssn;
+		let dobMonth = transaction.dobMonth;
+		let dobDay = transaction.dobDay;
+		let dobYear = transaction.dobYear;
 		let extraInfo = "";
 		let deleteButton = translate('PROCESSING_BUTTON_DELETE_CARD', 'Delete Card');
+		let editButton = translate('PROCESSING_BUTTON_EDIT_CARD', 'Edit Card');
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_CREDIT_CARD', 'Please Enter Your Card Details');
 		if(isWithDraw){
 			proccesingTitle = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE_CREDIT_CARD', 'Please Enter Your Card Details');
 		}
-
-		if((payAccount.extra.dob == null || payAccount.extra.ssn == null || payAccount.extra.dob == "" || payAccount.extra.ssn == "") && payAccount.address.country == cashier.USA_COUNTRY_CODE){
+		if((payAccount.extra.dob == null || payAccount.extra.ssn == null || payAccount.extra.dob == "" || payAccount.extra.ssn == "" || isEditingCCInfo) && payAccount.address.country == cashier.USA_COUNTRY_CODE){
 			extraInfo = <ExtraInfo changeValue={changeValue} ssn={ssn} dobMonth={dobMonth} dobDay={dobDay}
 														 dobYear={dobYear}/>;
 		}
 
 		let PayAccountDropDown = React.createClass({
-
-				disablePayAccount() {
+				propTypes: {
+					editPayAccount: React.PropTypes.func,
+					isEditingCCInfo: React.PropTypes.number
+				},
+				/**
+				 * delete payAccount
+				 */
+				disablePayAccount(){
 					CustomerService.getDisablePayAccount();
 				},
 
 				render(){
-					let deleteButtonDisplay = "";
-
+					let deleteButtonDisplay;
+					let editButtonDisplay;
+					let isEditingCCInfo = this.props.isEditingCCInfo;
+					if(!transaction.ccName){
+						transaction.ccName = payAccount.secure.extra3;
+					}
 					if(payAccountId != 0){
 						deleteButtonDisplay = <button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
 							{deleteButton}
 						</button>;
+
+						if(isEditingCCInfo == 0){
+							editButtonDisplay =
+								<button type='button' onClick={this.props.editPayAccount} className='btn btn-xs btn-green'>
+									{editButton}
+								</button>;
+						}
 					}
 
 					return <div className="form-group" id="payAccount">
@@ -87,6 +134,9 @@ let AskInfo = React.createClass({
 						</div>
 						<div className="col-sm-3">
 							{deleteButtonDisplay}
+						</div>
+						<div className="col-sm-3">
+							{editButtonDisplay}
 						</div>
 					</div>
 				}
@@ -113,7 +163,7 @@ let AskInfo = React.createClass({
 											if(isEditingCCInfo == 0){
 												return (
 													<div>
-														<PayAccountDropDown />
+														<PayAccountDropDown editPayAccount={this.editPayAccount} isEditingCCInfo={isEditingCCInfo}/>
 														<div className="form-group">
 															<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 														</div>
@@ -125,18 +175,45 @@ let AskInfo = React.createClass({
 												return (
 													<div>
 														<PayAccountDropDown />
-														<div className="form-group">
-															<label className="col-sm-4 control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
-															<div className="col-sm-8">
-																<Input type="text" id="cvv" ref="cvv" validate="isCVV" value={cvv} onChange={this.props.changeValue.bind(null, 'password', 'payAccount', 0)}/>
+														<form onSubmit={this.formEditPayAccount}>
+															<div className="form-group">
+																<label
+																	className="col-sm-4 control-label">{translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}:</label>
+																<div className="col-sm-8">
+																	<Input type="text" id="ccName" ref="ccName" validate="isString"
+																				 onChange={this.props.changeValue.bind(null, 'ccName', 'transaction', 0)}
+																				 value={transaction.ccName}/>
+																</div>
 															</div>
-														</div>
 
-														<div className="form-group">
-															<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-														</div>
-														{extraInfo}
-														<TermsController />
+
+															<div className="form-group">
+																<label className="col-sm-4 control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
+																<div className="col-sm-8">
+																	<Input type="text" id="cvv" ref="cvv" validate="isCVV"
+																				 value={transaction.password}
+																				 onChange={this.props.changeValue.bind(null, 'password', 'transaction', 0)}/>
+																</div>
+															</div>
+
+															{extraInfo}
+															<div className="form-group">
+																<div className="col-sm-4">
+																</div>
+																<div className="col-sm-2">
+																	<button type='submit' className='btn btn-green'>
+																		{translate('PROCESSING_BUTTON_SAVE', 'Save')}
+																	</button>
+																</div>
+																<div className="col-sm-2">
+																	<button type='button' className='btn btn-green'
+																					onClick={this.editPayAccount.bind(null, 0)}>
+																		{translate('PROCESSING_BUTTON_CANCEL', 'Cancel')}
+																	</button>
+																</div>
+															</div>
+															<TermsController />
+														</form>
 													</div>
 												)
 											}

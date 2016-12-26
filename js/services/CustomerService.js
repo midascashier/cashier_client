@@ -92,14 +92,14 @@ class customerService {
 	/**
 	 * Function to get pay account previous pay accounts
 	 */
-	getCustomerPreviousPayAccount(processorID){
+	/*getCustomerPreviousPayAccount(processorID){
 		let data = {
 			f: "getPayAccountsByCustomer", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
-	};
+	};*/
 
 	/**
 	 * Function to disable pay account

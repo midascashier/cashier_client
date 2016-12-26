@@ -164,7 +164,7 @@ let Register = React.createClass({
 	cancel() {
 		let payAccounts = CashierStore.getProcessorPayAccount();
 		let processorID = CashierStore.getProcessor();
-			let previousPayAccount = 0;
+		let previousPayAccount = 0;
 		for (let payAccount in payAccounts){
 			if (previousPayAccount == 0){
 				previousPayAccount = payAccount;
@@ -370,8 +370,8 @@ let Register = React.createClass({
 																											className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
 						</div>
 						<div className="col-sm-2">
-							{this.state.displaySaveButton ? <button type='button' onClick={this.cancel}
-																											className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Save')}</button> : null }
+							<button type='button' onClick={this.cancel}
+																											className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Save')}</button>
 						</div>
 					</div>
 

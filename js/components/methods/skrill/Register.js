@@ -52,7 +52,7 @@ let Register = React.createClass({
 		e.preventDefault();
 
 		for(let i = 0; i < e.target.length; i++){
-			if(e.target[i].type != 'submit'){
+			if(e.target[i].type != 'submit' && e.target[i].type != 'button'){
 				if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
 					e.target[i].style['border-color'] = 'red';
 					e.target[i].focus();

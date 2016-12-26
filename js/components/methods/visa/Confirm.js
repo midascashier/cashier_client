@@ -173,7 +173,6 @@ let VisaConfirm = React.createClass({
 		let personalData = this.state.info.payAccount.personal;
 		let secureData = this.state.info.payAccount.secure;
 		let customer = CashierStore.getCustomer();
-		let CCMask;
 		let ssn;
 		let DOB;
 		if(this.state.info.payAccount.extra.dobMonth && this.state.info.payAccount.extra.dobDay && this.state.info.payAccount.extra.dobYear){
@@ -190,9 +189,6 @@ let VisaConfirm = React.createClass({
 		let isEditMode = this.state.info.editMode;
 		let countries = UIService.getCountries();
 		let stateInfo = UIService.getState(addressData.country, addressData.state);
-		if(secureData.account){
-			CCMask = secureData.account.replace(/\d(?=\d{4})/g, "*");
-		}
 		let states = UIService.getCountryStates();
 
 		if(isEditMode){
@@ -381,7 +377,7 @@ let VisaConfirm = React.createClass({
 											</tr>
 											<tr>
 												<td>{translate('CREDIT_CARD_NUMBER')}:</td>
-												<td><span>{CCMask}</span></td>
+												<td><span>{secureData.account}</span></td>
 											</tr>
 											<tr>
 												<td>{translate('CREDIT_CARD_CVV')}:</td>

@@ -106,7 +106,7 @@ let InfoMethod = React.createClass({
 		let formValidator = this.props.formValidator();
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
-
+		let isEditingCCInfo = UIService.getCCEditMode();
 		let processorDisplayName = UIService.getProcessorName().toUpperCase();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
@@ -115,7 +115,7 @@ let InfoMethod = React.createClass({
 		});
 
 		let isNextDisabled = "disabled";
-		if(payAccountInfo.payAccountId && limitsCheck && formValidator){
+		if(payAccountInfo.payAccountId && limitsCheck && formValidator && !isEditingCCInfo){
 			isNextDisabled = "";
 		}
 
