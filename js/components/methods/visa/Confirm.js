@@ -144,7 +144,7 @@ let VisaConfirm = React.createClass({
 		}
 		payAccountEdit['payAccountId'] = this.state.info.payAccount['payAccountId'];
 
-		TransactionService.registerPayAccount(payAccountEdit);
+		TransactionService.updatePayAccount(payAccountEdit);
 		this.setState({ info: actualState });
 	},
 
@@ -204,6 +204,7 @@ let VisaConfirm = React.createClass({
 				}
 			}
 		}
+
 		return (
 			<div id="visaConfirm" className="internal-content">
 				<div className="row">
@@ -381,7 +382,7 @@ let VisaConfirm = React.createClass({
 											</tr>
 											<tr>
 												<td>{translate('CREDIT_CARD_CVV')}:</td>
-												<td><span>{secureData.password}</span></td>
+												<td><span>XXX</span></td>
 											</tr>
 											<tr>
 												<td>{translate('CREDIT_CARD_DOB')}:</td>

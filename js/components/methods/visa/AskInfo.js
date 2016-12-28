@@ -43,7 +43,6 @@ let AskInfo = React.createClass({
 		this.editPayAccount(0);
 	},
 
-
 	formEditPayAccount(e){
 		e.preventDefault();
 
@@ -66,7 +65,6 @@ let AskInfo = React.createClass({
 		this.saveEditCC();
 	},
 
-
 	render(){
 		let setAmount = this.props.setAmount;
 		let changeValue = this.props.changeValue;
@@ -84,6 +82,9 @@ let AskInfo = React.createClass({
 		let dobDay = transaction.dobDay;
 		let dobYear = transaction.dobYear;
 		let extraInfo = "";
+		let selectMonths = [];
+		let selectYears = [];
+		let now = new Date();
 		let deleteButton = translate('PROCESSING_BUTTON_DELETE_CARD', 'Delete Card');
 		let editButton = translate('PROCESSING_BUTTON_EDIT_CARD', 'Edit Card');
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_CREDIT_CARD', 'Please Enter Your Card Details');
@@ -143,6 +144,14 @@ let AskInfo = React.createClass({
 			}
 		);
 
+		for(let i = 1; i < 13; i++){
+			selectMonths.push(UIService.renderOption({ label: i }, i));
+		}
+
+		for(let i = now.getFullYear(); i < now.getFullYear() + 15; i++){
+			selectYears.push(UIService.renderOption({ label: i }, i));
+		}
+
 		return (
 			<div id="visaAskInfo" className="box">
 				<div className="row">
@@ -195,7 +204,24 @@ let AskInfo = React.createClass({
 																				 onChange={this.props.changeValue.bind(null, 'password', 'transaction', 0)}/>
 																</div>
 															</div>
-
+															<div className="form-group">
+																<label
+																	className="col-sm-4 control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
+																<div className="col-sm-4">
+																	<select className="form-control" id="ccExpMonth" data-validation='isNumber'
+																					onChange={this.props.changeValue.bind(null, 'expirationMonth', 'transaction', 1)}
+																					value={transaction.expirationMonth}>
+																		{selectMonths}
+																	</select>
+																</div>
+																<div className="col-sm-4">
+																	<select className="form-control" id="ccExpYear" data-validation='isNumber'
+																					onChange={this.props.changeValue.bind(null, 'expirationYear', 'transaction', 1)}
+																					value={transaction.expirationYear}>
+																		{selectYears}
+																	</select>
+																</div>
+															</div>
 															{extraInfo}
 															<div className="form-group">
 																<div className="col-sm-4">

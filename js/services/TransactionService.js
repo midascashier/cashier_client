@@ -349,36 +349,65 @@ class transactionService {
 	/**
 	 * update payAccount with transaction info
 	 */
-	updatePayAccount(){
+	updatePayAccount(payAccountEdit = null){
 		let transaction = CashierStore.getTransaction();
 		let payAccountSelected = CashierStore.getCurrentPayAccount();
-		let transactionType = UIService.getIsWithDraw();
+		let payAccount = {};
 
-		payAccountSelected.extra.dob = transaction.dobYear + "-" + transaction.dobMonth + "-" + transaction.dobDay;
-		payAccountSelected.extra.dobDay = transaction.dobDay;
-		payAccountSelected.extra.dobMonth = transaction.dobMonth;
-		payAccountSelected.extra.dobYear = transaction.dobYear;
-		payAccountSelected.extra.ssn = transaction.ssn;
-		if (transaction.ccName){
-			payAccountSelected.secure.extra3 = transaction.ccName;
+		if(!payAccountEdit){
+			payAccount = {
+				payAccountId: payAccountSelected.payAccountId,
+				ccName: payAccountSelected.secure.extra3,
+				ccExpMonth: transaction.expirationMonth,
+				ccExpYear: transaction.expirationYear,
+				ccFirstName: payAccountSelected.personal.firstName,
+				ccLastName: payAccountSelected.personal.lastName,
+				ccCountry: payAccountSelected.address.country,
+				ccState: payAccountSelected.address.state,
+				ccCity: payAccountSelected.address.city,
+				ccAddress1: payAccountSelected.address.address1,
+				ccAddress2: payAccountSelected.address.address2,
+				ccPostalCode: payAccountSelected.address.zip,
+				ccEmail: payAccountSelected.personal.email,
+				ccPhone: payAccountSelected.personal.phone,
+				ccSSN: transaction.ssn,
+				ccDateOfBirth: transaction.dobYear + "-" + transaction.dobMonth + "-" + transaction.dobDay,
+				ccCVVNew: transaction.password
+			};
+
+			if(transaction.ccName){
+				payAccount.ccName = transaction.ccName;
+			}
+
+		} else{
+			payAccount = {
+				ccName: payAccountSelected.secure.extra3,
+				ccExpMonth: payAccountSelected.secure.extra1,
+				ccExpYear: payAccountSelected.secure.extra2,
+				ccSSN: payAccountSelected.extra.ssn,
+				ccDateOfBirth: payAccountSelected.extra.dobYear + "-" + payAccountSelected.extra.dobMonth + "-" + payAccountSelected.extra.dobDay,
+				payAccountId: payAccountEdit.payAccountId,
+				ccFirstName: payAccountEdit.firstName,
+				ccLastName: payAccountEdit.lastName,
+				ccCountry: payAccountEdit.country,
+				ccState: payAccountEdit.state,
+				ccCity: payAccountEdit.city,
+				ccAddress1: payAccountEdit.address1,
+				ccPostalCode: payAccountEdit.zip,
+				ccEmail: payAccountEdit.email,
+				ccPhone: payAccountEdit.phone
+			}
 		}
 
-		let payAccount = {
-			processorIdRoot: this.getCurrentProcessor().processorId,
-			customerId: CashierStore.getCustomer().customerId,
-			transactionType: transactionType
-		};
-
 		let validateRabbitRequest = {
-			f: "validatePayAccount",
+			f: "updatePayAccountInfo",
 			module: 'payAccount'
 		};
 
-		validateRabbitRequest = Object.assign(validateRabbitRequest, payAccount, payAccountSelected.extra, payAccountSelected.address, payAccountSelected.personal, payAccountSelected.secure);
+		validateRabbitRequest = Object.assign(this.getProxyRequest(), validateRabbitRequest, payAccount);
 
-		stompConnector.makeBackendRequest("", validateRabbitRequest);
+		stompConnector.makeCustomerRequest("", validateRabbitRequest);
 	}
-
 
 	/**
 	 * this function sends to process a cc transaction
@@ -391,7 +420,6 @@ class transactionService {
 		let transaction = CashierStore.getTransaction();
 		let processorSelected = CashierStore.getProcessor();
 		let payAccountSelected = CashierStore.getCurrentPayAccount();
-
 
 		if(!payAccountSelected.extra.dob || !payAccountSelected.extra.dobDay || !payAccountSelected.extra.dobMonth || !payAccountSelected.extra.dobYear || !payAccountSelected.extra.ssn){
 			this.updatePayAccount();
@@ -480,7 +508,7 @@ class transactionService {
 
 		} else{
 			let Customer = CashierStore.getCustomer();
-			Customer.depositProcessors.map((processor)=>{
+			Customer.depositProcessors.map((processor) =>{
 				if(processor.caProcessor_Id == p2pTransaction.caProcessor_Id_Root){
 					processorName = processor.Name;
 				}

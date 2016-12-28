@@ -20,7 +20,7 @@ let Input = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			isValid: false,
+			isValid: true,
 			errorMessage: "",
 			inputError: false,
 			value: ''

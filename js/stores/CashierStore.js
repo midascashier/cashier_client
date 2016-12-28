@@ -302,6 +302,8 @@ let _transaction = {
 	dobDay: 1,
 	dobYear: 1940,
 	ssn: '',
+	expirationMonth: 1,
+	expirationYear: 2020,
 	randomTuid: '',
 	hash: '',
 	isCodeValid: 0,
@@ -545,7 +547,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, cleanTransaction: (function())}}
 	 */
-	getTransaction: ()=>{
+	getTransaction: () =>{
 		return _transaction;
 	},
 
@@ -620,7 +622,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			let p2pTransactions = [];
 			if(data.response && data.response.P2PNames){
 				let p2pNames = data.response.P2PNames;
-				p2pNames.forEach((transaction)=>{
+				p2pNames.forEach((transaction) =>{
 					p2pTransactions[transaction.caTransaction_Id] = transaction;
 				});
 			} else{
@@ -727,7 +729,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			let payAccountTemp = Object.assign({}, _payAccount);
 			if(data.response && data.response.payAccounts){
 				if(data.response.payAccounts[0].processorIdRoot == _processor.processorId){
-					data.response.payAccounts.forEach((payAccount)=>{
+					data.response.payAccounts.forEach((payAccount) =>{
 						payAccount.limitsData.available = Math.floor(payAccount.limitsData.available);
 						payAccount.limitsData.availableWithdraw = Math.floor(payAccount.limitsData.availableWithdraw);
 						payAccount.limitsData.maxAmount = Math.floor(payAccount.limitsData.maxAmount);
@@ -939,6 +941,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.PAYACCOUNTS_DISABLE_RESPONSE:
 			_payAccount.cleanPayAccount();
 			CashierStore.emitChange();
+			break;
+
+		case actions.UPDATE_PAYACCOUNT_INFO_RESPONSE:
 			break;
 
 		default:
