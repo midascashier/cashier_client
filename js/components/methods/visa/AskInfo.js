@@ -130,13 +130,13 @@ let AskInfo = React.createClass({
 
 					return <div className="form-group" id="payAccount">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_SELECT', 'Credit Card')}:</label>
-						<div className="col-sm-5" id="selectPayAccount">
+						<div className="col-sm-4" id="selectPayAccount">
 							<SelectPayAccount setAmount={setAmount} amount={amount}/>
 						</div>
-						<div className="col-sm-3">
+						<div className="col-sm-2">
 							{deleteButtonDisplay}
 						</div>
-						<div className="col-sm-3">
+						<div className="col-sm-2">
 							{editButtonDisplay}
 						</div>
 					</div>
@@ -156,7 +156,8 @@ let AskInfo = React.createClass({
 			<div id="visaAskInfo" className="box">
 				<div className="row">
 					<div className="title">{proccesingTitle}</div>
-					<div className="infoCol">
+					<div className="infoCol scroll">
+						<div className="row">
 						<div className="col-sm-12">
 							<div className="form-horizontal">
 								{(() =>{
@@ -260,6 +261,7 @@ let AskInfo = React.createClass({
 
 							</div>
 						</div>
+					</div>
 					</div>
 				</div>
 			</div>

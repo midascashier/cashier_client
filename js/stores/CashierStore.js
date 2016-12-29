@@ -614,7 +614,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.SWITCH_ACTION:
-			_UI.currentView = cashier.VIEW_DEPOSIT;
+			if (_UI.currentView == cashier.VIEW_DEPOSIT){
+				_UI.currentView = cashier.VIEW_WITHDRAW;
+			}else{
+				_UI.currentView = cashier.VIEW_DEPOSIT;
+			}
 			CashierStore.storeData("ui", _UI);
 			break;
 

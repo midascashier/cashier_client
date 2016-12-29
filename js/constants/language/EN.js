@@ -35,6 +35,8 @@ let _langTags = {
 	METHOD_EDIT_DETAILS_DEPOSIT: "Edit the deposit details",
 	METHOD_EDIT_DETAILS_WITHDRAW: "Edit the withdraw details",
 	METHOD_USE_DIFFERENT: "Use a different method.",
+	SWICTH_WITHDRAW: "Withdraw Instead",
+	SWITCH_DEPOSIT: "Deposit Instead",
 	//TransactionHistory
 	TRANSACTION_HISTORY: "Transaction History",
 	TRANSACTION_HISTORY_TITLE: "Here are your last 10 transactions.",

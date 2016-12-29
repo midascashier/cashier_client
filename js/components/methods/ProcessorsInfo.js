@@ -67,13 +67,6 @@ let ProcessorsInfo = React.createClass({
 		}
 	},
 
-	/**
-	 * redirect to deposit
-	 */
-	switchAction(){
-		UIService.switchAction();
-	},
-
 	render() {
 		let processors = this.getProcessors();
 		return (
@@ -82,11 +75,6 @@ let ProcessorsInfo = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					{(() =>{
-						if(UIService.getIsWithDraw()){
-							return '';//<a href="javascript:;" onClick={this.switchAction}>GO TO DEPOSIT</a>
-						}
-					})()}
 					<ProcessorsList
 						selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
 						processors={processors}/>

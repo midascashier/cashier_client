@@ -493,7 +493,7 @@ class UiService {
 	}
 
 	/**
-	 * switch to deposit
+	 * switch action
 	 */
 	switchAction(){
 		CashierActions.switchAction();

@@ -45,6 +45,13 @@ let ProcessorInfo = React.createClass({
 		TransactionService.startTransaction();
 	},
 
+	/**
+	 * redirect to deposit/withdraw
+	 */
+	switchAction(){
+		UIService.switchAction();
+	},
+
 	render() {
 		let originPath = UIService.getOriginPath();
 		let isWithDraw = UIService.getIsWithDraw();
@@ -54,8 +61,10 @@ let ProcessorInfo = React.createClass({
 		let maxProcessorLimit = ApplicationService.currency_format(this.getMaxProcessorLimit());
 		let currencyCode = this.props.selectedProcessor.limits.currencyCode;
 		let buttonNext = translate('PROCESSING_BUTTON_NEXT_DEPOSIT', 'Next');
+		let switch_button = translate('SWICTH_WITHDRAW', 'Next');
 		if(isWithDraw){
-			buttonNext = translate('PROCESSING_BUTTON_NEXT_WITHDRAW', 'Next')
+			buttonNext = translate('PROCESSING_BUTTON_NEXT_WITHDRAW', 'Next');
+			switch_button = translate('SWITCH_DEPOSIT', 'Next');
 		}
 
 		let currentView = UIService.getCurrentView().toUpperCase();
@@ -70,7 +79,9 @@ let ProcessorInfo = React.createClass({
 
 		return (
 			<div id="processorInfo">
-				<p><em>{translate('BONUS_NEWS1')}<span>{translate('BONUS_NEWS2')}</span>{translate('BONUS_NEWS3')}<span>{translate('BONUS_NEWS4')}</span></em></p>
+				<p>
+					<em>{translate('BONUS_NEWS1')}<span>{translate('BONUS_NEWS2')}</span>{translate('BONUS_NEWS3')}<span>{translate('BONUS_NEWS4')}</span></em>
+				</p>
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="deposit-limits">
@@ -95,8 +106,11 @@ let ProcessorInfo = React.createClass({
 							</div>
 						</div>
 
-						<div className="row">
-							<div className="col-sm-6"></div>
+						<div className="row mod-btns">
+							<div className="col-sm-6">
+								<button onClick={this.startTransaction} type="button"
+												className="btn btn-green">{buttonNext} {processorDisplayName}</button>
+							</div>
 							<div className="col-sm-6">
 								{(() =>{
 									if(!isWithDraw && pendingP2P.length > 0 && pendingP2P != cashier.NO_RESPONSE){
@@ -107,12 +121,10 @@ let ProcessorInfo = React.createClass({
 										)
 									}
 								})()}
-							</div>
-							<div className="col-sm-6">
-								<button onClick={this.startTransaction} type="button" className="btn btn-green">{buttonNext} {processorDisplayName}</button>
-							</div>
-							<div className="col-sm-6">
 								<img src={originPath + '/images/ssl.png'} alt="ssl"/>
+							</div>
+							<div className="col-sm-6">
+								<button type="button" className="btn btn-grey" onClick={this.switchAction}>{switch_button}</button>
 							</div>
 						</div>
 

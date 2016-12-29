@@ -80,9 +80,8 @@ let TermsController = React.createClass({
 		let content = translate('CREDIT_CARD_CHECK_TERMENS');
 		let contentLink = translate('CREDIT_CARD_TERMS_COND');
 		return (
-			<div className="form-group">
 				<div className="checkbox">
-					<label title={content}>
+					<label className="control-label" title={content}>
 						<input type="checkbox" id="checkTermsAndConditions" name="checkTermsAndConditions"
 									 onChange={this.changeValue}
 									 checked={this.state.check}/>
@@ -95,7 +94,6 @@ let TermsController = React.createClass({
 						<FirstModal onClose={this.closeTermsConditions}/>
 						: null}
 				</div>
-			</div>
 		)
 	}
 });
