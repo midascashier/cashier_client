@@ -64,7 +64,7 @@ let InfoMethod = React.createClass({
 	 */
 	allowProcess(){
 
-		if (this.props.amount == ""){
+		if(this.props.amount == ""){
 			return false;
 		}
 
@@ -94,16 +94,23 @@ let InfoMethod = React.createClass({
 	 */
 	continueTransaction(confirmTerms){
 		let ccConfirmTerms = 0;
-		if (confirmTerms){
+		if(confirmTerms){
 			ccConfirmTerms = 1;
 		}
 		TransactionService.setAmount(this.props.amount);
 		let customer = CashierStore.getCustomer();
 		let currency = customer.currency;
 		let UI = CashierStore.getUI();
-		if (UI['currencies'][currency]){
+		if(UI['currencies'][currency]){
 			let currencyId = UI['currencies'][currency].caCurrency_Id;
-			TransactionService.processAstroPay({ ccConfirmTerms: ccConfirmTerms, ccNumber: this.props.payAccount.ccNumber, ccExpMonth: this.props.payAccount.ccExpMonth, ccExpYear: this.props.payAccount.ccExpYear, ccCVV: this.props.payAccount.ccCVV, currency: currencyId }, this.props.amount, 'ticket');
+			TransactionService.processAstroPay({
+				ccConfirmTerms: ccConfirmTerms,
+				ccNumber: this.props.payAccount.ccNumber,
+				ccExpMonth: this.props.payAccount.ccExpMonth,
+				ccExpYear: this.props.payAccount.ccExpYear,
+				ccCVV: this.props.payAccount.ccCVV,
+				currency: currencyId
+			}, this.props.amount, 'ticket');
 		}
 	},
 
@@ -128,10 +135,11 @@ let InfoMethod = React.createClass({
 		return (
 			<div id="InfoMethodVisa">
 				<div className="row">
-					<div className="title">{title}</div>
-					<div className="table-responsive">
-						<table className="table table-striped">
-							<tbody>
+					<div className="col-sm-12">
+						<div className="title">{title}</div>
+						<div className="table-responsive">
+							<table className="table table-striped">
+								<tbody>
 								<tr>
 									<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
 									<td><span>{payAccountInfo.minPayAccount}</span></td>
@@ -144,17 +152,21 @@ let InfoMethod = React.createClass({
 									<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
 									<td><span>{payAccountInfo.remaining}</span></td>
 								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div className="col-sm-6">
-						<button type='button' className='btn btn-green' disabled={isNextDisabled} onClick={this.continueTransaction.bind(null,confirmTerms)}>
-							{translate('PROCESSING_BUTTON_NEXT', 'Next')}
-						</button>
-						<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
-					</div>
-					<div className="col-sm-6">
-						<img src={originPath + '/images/ssl.png'} alt="ssl"/>
+								</tbody>
+							</table>
+						</div>
+						<div className="row mod-btns">
+							<div className="col-sm-6">
+								<button type='button' className='btn btn-green' disabled={isNextDisabled}
+												onClick={this.continueTransaction.bind(null, confirmTerms)}>
+									{translate('PROCESSING_BUTTON_NEXT', 'Next')}
+								</button>
+								<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
+							</div>
+							<div className="col-sm-6">
+								<img src={originPath + '/images/ssl.png'} alt="ssl"/>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

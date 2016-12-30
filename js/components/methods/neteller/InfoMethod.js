@@ -127,6 +127,7 @@ let InfoMethod = React.createClass({
 		return (
 			<div id="netellerInfoMethod">
 					<div className="row">
+						<div className="col-sm-12">
 						<div className="title">{title}</div>
 						<div className="table-responsive">
 							<table className="table table-striped">
@@ -146,8 +147,7 @@ let InfoMethod = React.createClass({
 								</tbody>
 							</table>
 						</div>
-						<div className="col-sm-12">
-							<div className="row">
+							<div className="row mod-btns">
 								<div className="col-sm-6">
 									<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
 										{translate('PROCESSING_BUTTON_NEXT', 'Next')}
@@ -158,7 +158,7 @@ let InfoMethod = React.createClass({
 									<img src={originPath + '/images/ssl.png'} alt="ssl"/>
 								</div>
 							</div>
-						</div>
+					</div>
 				</div>
 			</div>
 		)

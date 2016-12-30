@@ -155,113 +155,115 @@ let AskInfo = React.createClass({
 		return (
 			<div id="visaAskInfo" className="box">
 				<div className="row">
-					<div className="title">{proccesingTitle}</div>
-					<div className="infoCol scroll">
-						<div className="row">
-						<div className="col-sm-12">
-							<div className="form-horizontal">
-								{(() =>{
-									if(!payAccountDisplayName){
-										return <LoadingSpinner />;
-									} else{
-										if(payAccountDisplayName == cashier.NO_RESPONSE){
-											return <div className="scroll"><Register /></div>
-										}
-										if(payAccountId == 0){
-											return <div className="scroll"><PayAccountDropDown /><Register /></div>
-										} else{
-											if(isEditingCCInfo == 0){
-												return (
-													<div>
-														<PayAccountDropDown editPayAccount={this.editPayAccount} isEditingCCInfo={isEditingCCInfo}/>
-														<div className="form-group">
-															<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-														</div>
-														{extraInfo}
-														<TermsController />
-													</div>
-												)
+					<div className="col-sm-12">
+						<div className="title">{proccesingTitle}</div>
+						<div className="infoCol scroll">
+							<div className="row">
+								<div className="col-sm-12">
+									<div className="form-horizontal">
+										{(() =>{
+											if(!payAccountDisplayName){
+												return <LoadingSpinner />;
 											} else{
-												return (
-													<div>
-														<PayAccountDropDown />
-														<form onSubmit={this.formEditPayAccount}>
-															<div className="form-group">
-																<label
-																	className="col-sm-4 control-label">{translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}:</label>
-																<div className="col-sm-8">
-																	<Input type="text" id="ccName" ref="ccName" validate="isString"
-																				 onChange={this.props.changeValue.bind(null, 'ccName', 'transaction', 0)}
-																				 value={transaction.ccName}/>
+												if(payAccountDisplayName == cashier.NO_RESPONSE){
+													return <div className="scroll"><Register /></div>
+												}
+												if(payAccountId == 0){
+													return <div className="scroll"><PayAccountDropDown /><Register /></div>
+												} else{
+													if(isEditingCCInfo == 0){
+														return (
+															<div>
+																<PayAccountDropDown editPayAccount={this.editPayAccount}
+																										isEditingCCInfo={isEditingCCInfo}/>
+																<div className="form-group">
+																	<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 																</div>
+																{extraInfo}
+																<TermsController />
 															</div>
+														)
+													} else{
+														return (
+															<div>
+																<PayAccountDropDown />
+																<form onSubmit={this.formEditPayAccount}>
+																	<div className="form-group">
+																		<label
+																			className="col-sm-4 control-label">{translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}:</label>
+																		<div className="col-sm-8">
+																			<Input type="text" id="ccName" ref="ccName" validate="isString"
+																						 onChange={this.props.changeValue.bind(null, 'ccName', 'transaction', 0)}
+																						 value={transaction.ccName}/>
+																		</div>
+																	</div>
 
 
-															<div className="form-group">
-																<label className="col-sm-4 control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
-																<div className="col-sm-8">
-																	<Input type="text" id="cvv" ref="cvv" validate="isCVV"
-																				 value={transaction.password}
-																				 onChange={this.props.changeValue.bind(null, 'password', 'transaction', 0)}/>
-																</div>
+																	<div className="form-group">
+																		<label
+																			className="col-sm-4 control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
+																		<div className="col-sm-8">
+																			<Input type="text" id="cvv" ref="cvv" validate="isCVV"
+																						 value={transaction.password}
+																						 onChange={this.props.changeValue.bind(null, 'password', 'transaction', 0)}/>
+																		</div>
+																	</div>
+																	<div className="form-group">
+																		<label
+																			className="col-sm-4 control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
+																		<div className="col-sm-4">
+																			<select className="form-control" id="ccExpMonth" data-validation='isNumber'
+																							onChange={this.props.changeValue.bind(null, 'expirationMonth', 'transaction', 1)}
+																							value={transaction.expirationMonth}>
+																				{selectMonths}
+																			</select>
+																		</div>
+																		<div className="col-sm-4">
+																			<select className="form-control" id="ccExpYear" data-validation='isNumber'
+																							onChange={this.props.changeValue.bind(null, 'expirationYear', 'transaction', 1)}
+																							value={transaction.expirationYear}>
+																				{selectYears}
+																			</select>
+																		</div>
+																	</div>
+																	{extraInfo}
+																	<div className="form-group">
+																		<div className="col-sm-4">
+																		</div>
+																		<div className="col-sm-2">
+																			<button type='submit' className='btn btn-green'>
+																				{translate('PROCESSING_BUTTON_SAVE', 'Save')}
+																			</button>
+																		</div>
+																		<div className="col-sm-2">
+																			<button type='button' className='btn btn-green'
+																							onClick={this.editPayAccount.bind(null, 0)}>
+																				{translate('PROCESSING_BUTTON_CANCEL', 'Cancel')}
+																			</button>
+																		</div>
+																	</div>
+																	<TermsController />
+																</form>
 															</div>
-															<div className="form-group">
-																<label
-																	className="col-sm-4 control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
-																<div className="col-sm-4">
-																	<select className="form-control" id="ccExpMonth" data-validation='isNumber'
-																					onChange={this.props.changeValue.bind(null, 'expirationMonth', 'transaction', 1)}
-																					value={transaction.expirationMonth}>
-																		{selectMonths}
-																	</select>
-																</div>
-																<div className="col-sm-4">
-																	<select className="form-control" id="ccExpYear" data-validation='isNumber'
-																					onChange={this.props.changeValue.bind(null, 'expirationYear', 'transaction', 1)}
-																					value={transaction.expirationYear}>
-																		{selectYears}
-																	</select>
-																</div>
-															</div>
-															{extraInfo}
-															<div className="form-group">
-																<div className="col-sm-4">
-																</div>
-																<div className="col-sm-2">
-																	<button type='submit' className='btn btn-green'>
-																		{translate('PROCESSING_BUTTON_SAVE', 'Save')}
-																	</button>
-																</div>
-																<div className="col-sm-2">
-																	<button type='button' className='btn btn-green'
-																					onClick={this.editPayAccount.bind(null, 0)}>
-																		{translate('PROCESSING_BUTTON_CANCEL', 'Cancel')}
-																	</button>
-																</div>
-															</div>
-															<TermsController />
-														</form>
-													</div>
-												)
+														)
+													}
+												}
 											}
+										})()}
+									</div>
+									{(() =>{
+										if(payAccountId != 0 && payAccountDisplayName != cashier.NO_RESPONSE){
+											return <div>
+												<p>
+													<em>{translate('BONUS_NEWS1')}<span>{translate('BONUS_NEWS2')}</span>{translate('BONUS_NEWS3')}<span>{translate('BONUS_NEWS4')}</span></em>
+												</p>
+												<p className="text-justify">{information}</p>
+											</div>
 										}
-
-									}
-								})()}
-
-								{(() =>{
-									if(payAccountId != 0 && payAccountDisplayName != cashier.NO_RESPONSE){
-										return <div className="col-sm-12">
-											<p><em>{translate('BONUS_NEWS1')}<span>{translate('BONUS_NEWS2')}</span>{translate('BONUS_NEWS3')}<span>{translate('BONUS_NEWS4')}</span></em>
-											</p>
-											<p className="text-justify">{information}</p>
-										</div>
-									}
-								})()}
-
+									})()}
+								</div>
 							</div>
 						</div>
-					</div>
 					</div>
 				</div>
 			</div>

@@ -127,7 +127,8 @@ let InfoMethod = React.createClass({
 
 		return (
 			<div id="1tapMethod">
-					<div className="row">
+				<div className="row">
+					<div className="col-sm-12">
 						<div className="title">{title}</div>
 						<div className="table-responsive">
 							<table className="table table-striped">
@@ -147,19 +148,19 @@ let InfoMethod = React.createClass({
 								</tbody>
 							</table>
 						</div>
-						<div className="col-sm-12">
-							<div className="row">
-								<div className="col-sm-6">
-									<button type='button' onClick={this.continueTransaction} ref='processingButton' disabled={isNextDisabled} className='btn btn-green'>
-										{translate('PROCESSING_BUTTON_NEXT', 'Next')}
-									</button>
-									<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
-								</div>
-								<div className="col-sm-6">
-									<img src={originPath + '/images/ssl.png'} alt="ssl"/>
-								</div>
+						<div className="row mod-btns">
+							<div className="col-sm-6">
+								<button type='button' onClick={this.continueTransaction} ref='processingButton'
+												disabled={isNextDisabled} className='btn btn-green'>
+									{translate('PROCESSING_BUTTON_NEXT', 'Next')}
+								</button>
+								<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
+							</div>
+							<div className="col-sm-6">
+								<img src={originPath + '/images/ssl.png'} alt="ssl"/>
 							</div>
 						</div>
+					</div>
 				</div>
 			</div>
 		)

@@ -115,9 +115,11 @@ let ProcessorInfo = React.createClass({
 								{(() =>{
 									if(!isWithDraw && pendingP2P.length > 0 && pendingP2P != cashier.NO_RESPONSE){
 										return (
-											<Link to={`/pendingControlNumber/`}>
-												<p>{translate('PENDING_MTCN', 'Enter Pending Control Numbers')}</p>
-											</Link>
+											<p>
+												<Link to={`/pendingControlNumber/`}>
+													{translate('PENDING_MTCN', 'Enter Pending Control Numbers')}
+												</Link>
+											</p>
 										)
 									}
 								})()}

@@ -133,9 +133,8 @@ let InfoMethod = React.createClass({
 							</tbody>
 						</table>
 					</div>
-					<div className="row">
-						<div className="col-sm-12">
-							<div className="row">
+
+							<div className="row mod-btns">
 								<div className="col-sm-6">
 									<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
 										{translate('PROCESSING_BUTTON_NEXT', 'Next')}
@@ -148,8 +147,6 @@ let InfoMethod = React.createClass({
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
 		)
 	}
 });
