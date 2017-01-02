@@ -144,6 +144,9 @@ let AskInfo = React.createClass({
 			}
 		);
 
+		selectMonths.push(UIService.renderOption({ label: '' }, 0));
+		selectYears.push(UIService.renderOption({ label: '' }, 0));
+
 		for(let i = 1; i < 13; i++){
 			selectMonths.push(UIService.renderOption({ label: i }, i));
 		}
@@ -166,10 +169,10 @@ let AskInfo = React.createClass({
 												return <LoadingSpinner />;
 											} else{
 												if(payAccountDisplayName == cashier.NO_RESPONSE){
-													return <div className="scroll"><Register /></div>
+													return <Register />
 												}
 												if(payAccountId == 0){
-													return <div className="scroll"><PayAccountDropDown /><Register /></div>
+													return <div><PayAccountDropDown /><Register /></div>
 												} else{
 													if(isEditingCCInfo == 0){
 														return (

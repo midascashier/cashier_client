@@ -213,6 +213,9 @@ let Register = React.createClass({
 			}
 		}
 
+		selectMonths.push(UIService.renderOption({ label: '' }, 0));
+		selectYears.push(UIService.renderOption({ label: '' }, 0));
+
 		for(let i = 1; i < 13; i++){
 			selectMonths.push(UIService.renderOption({ label: i }, i));
 		}

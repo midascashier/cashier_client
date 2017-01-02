@@ -288,7 +288,7 @@ let _payAccounts = [];
  * @private
  */
 let _transaction = {
-	amount: "",
+	amount: '',
 	fee: 0,
 	feeType: '',
 	bonusId: 0,
@@ -298,30 +298,30 @@ let _transaction = {
 	controlNumber: '',
 	timeFrameDay: null,
 	timeFrameTime: null,
-	dobMonth: 1,
-	dobDay: 1,
-	dobYear: 1940,
+	dobMonth: '',
+	dobDay: '',
+	dobYear: '',
 	ssn: '',
-	expirationMonth: 1,
-	expirationYear: 2020,
+	expirationMonth: '',
+	expirationYear: '',
 	randomTuid: '',
 	hash: '',
 	isCodeValid: 0,
 	secondFactorMessage: '',
 	secondFactorMaxAttempts: false,
 	cleanTransaction(){
-		this.amount = "";
+		this.amount = '';
 		this.fee = 0;
-		this.hash = "";
-		this.randomTuid = "";
-		this.bitcoinAddress = "";
-		this.feeType = "";
+		this.hash = '';
+		this.randomTuid = '';
+		this.bitcoinAddress = '';
+		this.feeType = '';
 		this.bonusId = 0;
 		this.secondFactorAuth = 0;
 		this.checkTermsAndConditions = 1;
 		this.timeFrameDay = null;
 		this.isCodeValid = 0;
-		this.secondFactorMessage = "";
+		this.secondFactorMessage = '';
 		this.timeFrameTime = null;
 	}
 };

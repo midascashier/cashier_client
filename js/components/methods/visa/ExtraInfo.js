@@ -22,6 +22,10 @@ let ExtraInfo = React.createClass({
 		let dobYear = this.props.dobYear;
 		let ssn = this.props.ssn;
 
+		selectDays.push(UIService.renderOption({ label: '' }, 0));
+		selectMonths.push(UIService.renderOption({ label: '' }, 0));
+		selectYears.push(UIService.renderOption({ label: '' }, 0));
+
 		for(let i = 1; i < 32; i++){
 			selectDays.push(UIService.renderOption({ label: i }, i));
 		}
