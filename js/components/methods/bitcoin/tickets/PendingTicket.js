@@ -147,16 +147,18 @@ let BitCoinTicketPending = React.createClass({
 														<div
 															className="subtitle">{translate('BITCOIN_INSTRUCTIONS_ADDRESS', 'Send the BitCoin to the following address')}</div>
 														<p>{translate('BITCOIN_INSTRUCTIONS_ADDRESS_INFO', 'Please include any Miners Fee your BitCoin wallet charges.')}</p>
-														<div id="btcAddress">
-															<div className="col-sm-8">
-																<input type="text" className="form-control" id="bitCoinAddress" value={address}
-																			 readOnly/>
-															</div>
-															<div className="col-sm-4">
-																<button type='button' onClick={this.copyToClipboard} disabled={!address}
-																				className='btn btn-green'>
-																	{translate('PROCESSING_BUTTON_COPY', 'Copy')}
-																</button>
+														<div className="row">
+															<div id="btcAddress" className="form-group">
+																<div className="col-sm-12">
+																	<input type="text" className="form-control" id="bitCoinAddress" value={address}
+																				 readOnly/>
+																</div>
+																<div className="col-sm-12 mod-center">
+																	<button type='button' onClick={this.copyToClipboard} disabled={!address}
+																					className='btn btn-green'>
+																		{translate('PROCESSING_BUTTON_COPY', 'Copy')}
+																	</button>
+																</div>
 															</div>
 														</div>
 														<div id="QRCode">
@@ -186,7 +188,9 @@ let BitCoinTicketPending = React.createClass({
 											<div className="infoCol">
 												<div
 													className="subtitle">{translate('BITCOIN_INSTRUCTIONS_TIME', 'Prompty complete your transaction.')}</div>
-												<p>{translate('BITCOIN_INSTRUCTIONS_TIME_INFO1', 'instruction')} <b><font color="red">{timer}</font></b> {translate('BITCOIN_INSTRUCTIONS_TIME_INFO2', 'instruction')}</p>
+												<p>{translate('BITCOIN_INSTRUCTIONS_TIME_INFO1', 'instruction')} <b><font
+													color="red">{timer}</font></b> {translate('BITCOIN_INSTRUCTIONS_TIME_INFO2', 'instruction')}
+												</p>
 											</div>
 										</div>
 									</div>

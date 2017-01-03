@@ -48,6 +48,7 @@ let AskInfo = React.createClass({
 
 		for(let i = 0; i < e.target.length; i++){
 			if(e.target[i].type != 'submit' && e.target[i].type != 'button' && e.target[i].type != 'checkbox'){
+				e.target[i].style['border-color'] = '';
 				if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
 					e.target[i].style['border-color'] = 'red';
 					e.target[i].focus();
@@ -144,8 +145,8 @@ let AskInfo = React.createClass({
 			}
 		);
 
-		selectMonths.push(UIService.renderOption({ label: '' }, 0));
-		selectYears.push(UIService.renderOption({ label: '' }, 0));
+		selectMonths.push(UIService.renderOption({ label: '' }, ''));
+		selectYears.push(UIService.renderOption({ label: '' }, ''));
 
 		for(let i = 1; i < 13; i++){
 			selectMonths.push(UIService.renderOption({ label: i }, i));

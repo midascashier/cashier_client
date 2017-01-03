@@ -78,6 +78,7 @@ let Visa = React.createClass({
 		let value = event;
 
 		if(isSelectComponent){
+			value.target.style['border-color'] = '';
 			value = value.target.value;
 		}
 
