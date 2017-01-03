@@ -46,8 +46,8 @@ let Register = React.createClass({
 				extra3: "",
 				account: "",
 				password: "",
-				extra1: currentTime.getMonth() + 1,
-				extra2: currentTime.getFullYear(),
+				extra1: '',
+				extra2: '',
 				country: country,
 				state: customerState,
 				firstName: firstName,
@@ -77,11 +77,16 @@ let Register = React.createClass({
 		let value = event;
 
 		if(isSelectComponent){
+			value.target.style['border-color'] = '';
 			value = value.target.value;
 		}
 
 		if(propertyName == 'country'){
 			UIService.getCountryStates(value);
+		}
+
+		if(propertyName == 'extra3'){
+			CashierActions.showUserMessage('');
 		}
 
 		actualState.payAccount[propertyName] = value;
@@ -90,6 +95,20 @@ let Register = React.createClass({
 			actualState
 		);
 
+	},
+
+	/**
+	 * checks if first and last name are part of cardHolder
+	 */
+	checkCardHolderName(){
+		let firstName = this.state.payAccount.firstName.toUpperCase();
+		let lastName = this.state.payAccount.lastName.toUpperCase();
+		let cardHolder = this.state.payAccount.extra3.toUpperCase();
+		if(cardHolder.indexOf(firstName) >= 0 && cardHolder.indexOf(lastName) >= 0){
+			return true
+		}
+		CashierActions.showUserMessage(translate('CARDHOLDER_NAME', 'ERROR'));
+		return false;
 	},
 
 	/**
@@ -103,7 +122,8 @@ let Register = React.createClass({
 		e.preventDefault();
 
 		for(let i = 0; i < e.target.length; i++){
-			if(e.target[i].type != 'submit'){
+			if(e.target[i].type != 'submit' && e.target[i].type != 'button' && e.target[i].type != 'checkbox'){
+				e.target[i].style['border-color'] = '';
 				if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
 					e.target[i].style['border-color'] = 'red';
 					e.target[i].focus();
@@ -116,6 +136,10 @@ let Register = React.createClass({
 					return false;
 				}
 			}
+		}
+
+		if(!this.checkCardHolderName()){
+			return false;
 		}
 
 		if(!this.state.dobDay){
@@ -165,8 +189,8 @@ let Register = React.createClass({
 		let payAccounts = CashierStore.getProcessorPayAccount();
 		let processorID = CashierStore.getProcessor();
 		let previousPayAccount = 0;
-		for (let payAccount in payAccounts){
-			if (previousPayAccount == 0){
+		for(let payAccount in payAccounts){
+			if(previousPayAccount == 0){
 				previousPayAccount = payAccount;
 			}
 		}
@@ -213,8 +237,8 @@ let Register = React.createClass({
 			}
 		}
 
-		selectMonths.push(UIService.renderOption({ label: '' }, 0));
-		selectYears.push(UIService.renderOption({ label: '' }, 0));
+		selectMonths.push(UIService.renderOption({ label: '' }, ''));
+		selectYears.push(UIService.renderOption({ label: '' }, ''));
 
 		for(let i = 1; i < 13; i++){
 			selectMonths.push(UIService.renderOption({ label: i }, i));
@@ -258,14 +282,16 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
 						<div className="col-sm-4">
-							<select className="form-control" id="ccExpMonth" data-validation='isNumber'
-											onChange={this.changeValue.bind(null, 'extra1', '', 1)} value={this.state.payAccount.extra1}>
+							<select className="form-control" id="ccExpMonth" validate='isNumber'
+											onChange={this.changeValue.bind(null, 'extra1', '', 1)} value={this.state.payAccount.extra1}
+											data-validation="isNumber" data-isRequired>
 								{selectMonths}
 							</select>
 						</div>
 						<div className="col-sm-4">
-							<select className="form-control" id="ccExpYear" data-validation='isNumber'
-											onChange={this.changeValue.bind(null, 'extra2', '', 1)} value={this.state.payAccount.extra2}>
+							<select className="form-control" id="ccExpYear" validate='isNumber'
+											onChange={this.changeValue.bind(null, 'extra2', '', 1)} value={this.state.payAccount.extra2}
+											data-validation="isNumber" data-isRequired>
 								{selectYears}
 							</select>
 						</div>
@@ -374,7 +400,7 @@ let Register = React.createClass({
 						</div>
 						<div className="col-sm-2">
 							<button type='button' onClick={this.cancel}
-																											className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Save')}</button>
+											className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Save')}</button>
 						</div>
 					</div>
 

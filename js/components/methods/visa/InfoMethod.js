@@ -115,10 +115,9 @@ let InfoMethod = React.createClass({
 		});
 
 		let isNextDisabled = "disabled";
-		if(payAccountInfo.payAccountId && limitsCheck && formValidator && !isEditingCCInfo){
+		if(payAccountInfo.payAccountId && limitsCheck && formValidator && !isEditingCCInfo && ((this.state.transaction.dobDay && this.state.transaction.dobMonth && this.state.transaction.dobYear)||(this.state.currentPayAccount.extra.ssn && this.state.currentPayAccount.extra.dobDay && this.state.currentPayAccount.extra.dobMonth && this.state.currentPayAccount.extra.dobYear))){
 			isNextDisabled = "";
 		}
-
 		return (
 			<div id="InfoMethodVisa">
 				<div className="row">

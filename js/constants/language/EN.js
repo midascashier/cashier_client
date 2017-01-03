@@ -227,7 +227,8 @@ let _langTags = {
 	CK_ZIP:"ZIP / Postal Code",
 	CK_CONTACT_PHONE:"Contact Phone",
 	CK_EMAIL:"Email Address",
-	IMPORTANT_REMINDERS: "Important Reminders"
+	IMPORTANT_REMINDERS: "Important Reminders",
+	CARDHOLDER_NAME: "CardHolder name must include first and last Name"
 };
 
 export function EN(){
