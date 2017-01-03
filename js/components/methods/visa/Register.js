@@ -187,14 +187,16 @@ let Register = React.createClass({
 	 */
 	cancel() {
 		let payAccounts = CashierStore.getProcessorPayAccount();
-		let processorID = CashierStore.getProcessor();
-		let previousPayAccount = 0;
-		for(let payAccount in payAccounts){
-			if(previousPayAccount == 0){
-				previousPayAccount = payAccount;
+		if(Object.keys(payAccounts).length > 0){
+			let processorID = CashierStore.getProcessor();
+			let previousPayAccount = 0;
+			for(let payAccount in payAccounts){
+				if(previousPayAccount == 0){
+					previousPayAccount = payAccount;
+				}
 			}
+			CashierActions.changePayAccount(previousPayAccount, processorID.processorId);
 		}
-		CashierActions.changePayAccount(previousPayAccount, processorID.processorId);
 	},
 
 	/**

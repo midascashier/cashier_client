@@ -146,7 +146,7 @@ let P2PTicketPending = React.createClass({
 				<div className="col-sm-4">
 					<div className="box">
 						<div className="title">{translate('P2P_INSTRUCTIONS_RECEIVER', "Receiver's Information")}</div>
-						<div className="infoCol scroll">
+						<div className="infoCol">
 							<p><a
 								onClick={this.setFirstStep}>{translate('P2P_INSTRUCTIONS_GET_RECEIVER', "Get New Receiver")}</a>
 							</p>

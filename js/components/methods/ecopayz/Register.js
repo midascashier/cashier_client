@@ -3,6 +3,8 @@ import { Input } from '../../Inputs'
 import { translate } from '../../../constants/Translate'
 import { TransactionService } from '../../../services/TransactionService'
 import { ApplicationService } from '../../../services/ApplicationService'
+import { CashierActions } from '../../../actions/CashierActions'
+import { CashierStore } from '../../../stores/CashierStore'
 
 let Register = React.createClass({
 	/**
@@ -71,6 +73,23 @@ let Register = React.createClass({
 		});
 	},
 
+	/**
+	 * Cancel button
+	 */
+	cancel() {
+		let payAccounts = CashierStore.getProcessorPayAccount();
+		if(Object.keys(payAccounts).length > 0){
+			let processorID = CashierStore.getProcessor();
+			let previousPayAccount = 0;
+			for(let payAccount in payAccounts){
+				if(previousPayAccount == 0){
+					previousPayAccount = payAccount;
+				}
+			}
+			CashierActions.changePayAccount(previousPayAccount, processorID.processorId);
+		}
+	},
+
 	render() {
 		return (
 			<div id="ecoPayzRegister">
@@ -78,10 +97,22 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('ECOPAYZ_ACCOUNT', 'Enter New Account')}:</label>
 						<div className="col-sm-8">
-							<Input className="form-control" type="text" id="openPayzNewAccount" name="openPayzNewAccount" ref="account" validate="isNumber" onChange={this.changeValue} value={this.state.payAccount.account} require/>
+							<Input className="form-control" type="text" id="openPayzNewAccount" name="openPayzNewAccount"
+										 ref="account" validate="isNumber" onChange={this.changeValue} value={this.state.payAccount.account}
+										 require/>
 						</div>
 					</div>
-					{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
+					<div className="form-group">
+						<div className="col-sm-4"></div>
+						<div className="col-sm-2">
+							{this.state.displaySaveButton ? <button type='submit'
+																											className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
+						</div>
+						<div className="col-sm-2">
+							{this.state.displaySaveButton ? <button type='button' onClick={this.cancel}
+																											className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Save')}</button> : null }
+						</div>
+					</div>
 				</form>
 			</div>
 		)
