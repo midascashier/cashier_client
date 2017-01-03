@@ -12,7 +12,6 @@ import { Register } from './Register.js'
 import { ExtraInfo } from './ExtraInfo'
 import { LoadingSpinner } from '../../loading/LoadingSpinner'
 import { Input } from '../../Inputs'
-
 import { CashierStore } from '../../../stores/CashierStore'
 
 let AskInfo = React.createClass({
