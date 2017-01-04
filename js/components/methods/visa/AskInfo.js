@@ -115,7 +115,7 @@ let AskInfo = React.createClass({
 					if(!transaction.ccName){
 						transaction.ccName = payAccount.secure.extra3;
 					}
-					if(payAccountId != 0){
+					if(payAccountId != 0 && isEditingCCInfo == 0){
 						deleteButtonDisplay = <button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
 							{deleteButton}
 						</button>;
@@ -189,15 +189,14 @@ let AskInfo = React.createClass({
 													} else{
 														return (
 															<div>
-																<PayAccountDropDown />
 																<form onSubmit={this.formEditPayAccount}>
 																	<div className="form-group">
 																		<label
 																			className="col-sm-4 control-label">{translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}:</label>
 																		<div className="col-sm-8">
 																			<Input type="text" id="ccName" ref="ccName" validate="isString"
-																						 onChange={this.props.changeValue.bind(null, 'ccName', 'transaction', 0)}
-																						 value={transaction.ccName}/>
+																						 onChange={this.props.changeValue.bind(null, 'extra3', 'payAccount.secure', 0)}
+																						 value={payAccount.secure.extra3}/>
 																		</div>
 																	</div>
 

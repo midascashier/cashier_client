@@ -94,7 +94,7 @@ ul li:before, ol li:before{content: "\25CF"; color:#1976D2; padding-right:4px; t
 .internal-content p{ /*margin: 2px 0 8px;*/}
 
 /*global*/
-body {background:#EEE; font-family:'Segoe UI', Arial, sans-serif; color:#777; font-size:13px; }
+body {background:#EEE; font-family:'Segoe UI', Arial, sans-serif; color:#777; font-size:13px; overflow:hidden; }
 
 /*container*/
 .container/*, .box*//*, table*/{padding: 0;border-right:1px solid #CCC; border-left:1px solid #CCC; border-bottom:1px solid #CCC; width:1000px; height: 538px; -webkit-box-shadow: 0 0 2px 2px #000; -webkit-box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1); -ms-box-shadow: 0 0 2px 2px #000; box-shadow:0 0 2px 2px #000; box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1);  background:#F9F9F9;}

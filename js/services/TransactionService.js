@@ -376,11 +376,6 @@ class transactionService {
 				ccDateOfBirth: transaction.dobYear + "-" + transaction.dobMonth + "-" + transaction.dobDay,
 				ccCVVNew: transaction.password
 			};
-
-			if(transaction.ccName){
-				payAccount.ccName = transaction.ccName;
-			}
-
 		} else{
 			payAccount = {
 				ccName: payAccountSelected.secure.extra3,
