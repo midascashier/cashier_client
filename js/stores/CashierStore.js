@@ -766,7 +766,12 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				if(processors.settings[_processor.processorId][processors.REGISTER_ACCOUNTS_ALLOW]){
 					let addPayAccountOption = Object.assign({}, _payAccount);
 					addPayAccountOption.payAccountId = 0;
-					addPayAccountOption.displayName = translate('REGISTER_NEW_ACCOUNT', 'register');
+					if(_processor.processorClass == 1)
+					{
+						addPayAccountOption.displayName = translate('REGISTER_NEW_ACCOUNT_CC', 'register');
+					}else{
+						addPayAccountOption.displayName = translate('REGISTER_NEW_ACCOUNT', 'register');
+					}
 					payAccounts_processor[addPayAccountOption.payAccountId] = addPayAccountOption;
 				}
 			}
