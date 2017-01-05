@@ -7,3 +7,12 @@ function chat(){
 function FAQ(){
 	window.open('../FAQ.html', 'FAQ', 'toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=0,resizable=0,width=800,height=680');
 }
+
+function capitalize(string,a) {
+	var tempstr = string.toLowerCase();
+	if (a == false || a == undefined)
+		return tempstr.replace(tempstr[0], tempstr[0].toUpperCase());
+	else {
+		return tempstr.split(" ").map(function (i) { return i[0].toUpperCase() + i.substring(1) }).join(" ");
+	}
+}

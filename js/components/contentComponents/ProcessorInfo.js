@@ -55,7 +55,7 @@ let ProcessorInfo = React.createClass({
 	render() {
 		let originPath = UIService.getOriginPath();
 		let isWithDraw = UIService.getIsWithDraw();
-		let processorDisplayName = this.props.selectedProcessor.displayName;
+		let processorDisplayName = capitalize(this.props.selectedProcessor.displayName.toLowerCase(),true);
 
 		let minProcessorLimit = ApplicationService.currency_format(this.getMinProcessorLimit());
 		let maxProcessorLimit = ApplicationService.currency_format(this.getMaxProcessorLimit());

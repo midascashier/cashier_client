@@ -382,7 +382,7 @@ let VisaConfirm = React.createClass({
 											</tr>
 											<tr>
 												<td>{translate('CREDIT_CARD_CVV')}:</td>
-												<td><span>XXX</span></td>
+												<td><span>***</span></td>
 											</tr>
 											<tr>
 												<td>{translate('CREDIT_CARD_DOB')}:</td>

@@ -370,8 +370,6 @@ class transactionService {
 				ccPostalCode: payAccountSelected.address.zip,
 				ccEmail: payAccountSelected.personal.email,
 				ccPhone: payAccountSelected.personal.phone,
-				ccExpMonth: payAccountSelected.secure.extra1,
-				ccExpYear: payAccountSelected.secure.extra2,
 				ccSSN: transaction.ssn,
 				ccDateOfBirth: transaction.dobYear + "-" + transaction.dobMonth + "-" + transaction.dobDay,
 				ccCVVNew: transaction.password
