@@ -1,5 +1,6 @@
 import React from 'react'
 import { translate } from '../../../../constants/Translate'
+import Cashier from '../../../../constants/Cashier'
 import { ApplicationService } from '../../../../services/ApplicationService'
 import { Input } from '../../../Inputs'
 import { UIService } from '../../../../services/UIService'
@@ -146,13 +147,13 @@ let P2PTicketPending = React.createClass({
 				<div className="col-sm-4">
 					<div className="box">
 						<div className="title">{translate('P2P_INSTRUCTIONS_RECEIVER', "Receiver's Information")}</div>
-						<div className="infoCol">
+						<div className="infoCol scroll">
 							<p><a
 								onClick={this.setFirstStep}>{translate('P2P_INSTRUCTIONS_GET_RECEIVER', "Get New Receiver")}</a>
 							</p>
 
 							{(() =>{
-								if(transactionDetails.caProcessor_Id == 500){
+								if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
 									return <ul>
 										<li>{translate('P2P_AGENCY_NAME', 'Agency_Name')}: Easypay - Phillgus</li>
 										<li>{translate('P2P_ADDRESS', 'ADDRESS')}: 150 mts Norte de la farmacia La Bomba, frente
@@ -172,7 +173,7 @@ let P2PTicketPending = React.createClass({
 								}
 							})()}
 							{(() =>{
-								if(transactionDetails.caProcessor_Id == 500){
+								if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
 									return <p>
 										<strong>Make your payment in one of the following establishments</strong><br />
 										<img src="/images/ria.jpg"/>
