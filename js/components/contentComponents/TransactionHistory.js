@@ -34,13 +34,13 @@ let TransactionHistory = React.createClass({
 										fontColor="tomato";
 										break;
 									case "deferred":
-										fontColor="red";
+										fontColor="purple";
 										break;
 									case "processing":
-										fontColor="coral";
+										fontColor="blue";
 										break;
 									case "rejected":
-										fontColor="grey";
+										fontColor="red";
 										break;
 									case "pre-approved":
 										fontColor="aqua";
@@ -50,6 +50,9 @@ let TransactionHistory = React.createClass({
 										break;
 									case "approved":
 										fontColor="green";
+										break;
+									case "pending":
+										fontColor="orange";
 										break;
 								}
 

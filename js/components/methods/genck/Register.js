@@ -297,20 +297,18 @@ let Register = React.createClass({
 						</div>
 
 
-						<div className="form-group">
-							<div className="form-group">
-								<div className="col-sm-4"></div>
-								<div className="col-sm-2">
+						<div className="col-md-4 col-md-offset-4">
+							<div className="row">
+								<div className="col-sm-6">
 									{this.state.displaySaveButton ? <button type='submit'
 																													className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
 								</div>
-								<div className="col-sm-2">
+								<div className="col-sm-6">
 									{this.state.displaySaveButton ? <button type='button' onClick={this.cancel}
 																													className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Save')}</button> : null }
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</form>
 			)

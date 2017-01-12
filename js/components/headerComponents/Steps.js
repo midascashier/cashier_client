@@ -90,7 +90,7 @@ let Steps = React.createClass({
 							switch(i){
 								case 1:
 									if(stepsNumber == 2){
-										className += " normal";
+										className += " inactive";
 									}else{
 										className += " inactive";
 									}

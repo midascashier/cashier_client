@@ -117,7 +117,7 @@ let AskInfo = React.createClass({
 											return <Register />
 										}
 										if(payAccountId == 0){
-											return <div><PayAccountDropDown /><Register /></div>
+											return <div className="scroll"><PayAccountDropDown /><Register /></div>
 										} else{
 											return (
 												netellerForm

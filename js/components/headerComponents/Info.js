@@ -62,7 +62,7 @@ let Info = React.createClass({
 
 				{(() =>{
 					if(this.state.UI.userMessage){
-						return <div className="alert alert-success modules">{this.state.UI.userMessage}</div>;
+						return <div className="alert alert-warning text-center"><i className="fa fa-warning orange">{this.state.UI.userMessage}</i></div>;
 					}
 				})()}
 
