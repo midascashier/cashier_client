@@ -206,7 +206,7 @@ let Content = React.createClass({
 					<Header />
 					<div id="internal-content" className="internal-content">
 						{(() =>{
-							if(this.state.UI.userMessage){
+							if(UIService.getUserMessage()){
 								return <div className="alert alert-warning text-center"><i className="fa fa-warning orange">{this.state.UI.userMessage}</i></div>;
 							}
 						})()}

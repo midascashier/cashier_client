@@ -36,8 +36,7 @@ let Info = React.createClass({
 	refreshLocalState() {
 		return {
 			customer: CashierStore.getCustomer(),
-			company: CashierStore.getCompany(),
-			UI: CashierStore.getUI()
+			company: CashierStore.getCompany()
 		}
 	},
 

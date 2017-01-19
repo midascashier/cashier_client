@@ -413,6 +413,16 @@ class UiService {
 	}
 
 	/**
+	 * get user message
+	 *
+	 * @returns {{}}
+	 */
+	getUserMessage(){
+		return CashierStore.getUI().userMessage;
+	}
+
+
+	/**
 	 * get country states
 	 *
 	 * @param country
