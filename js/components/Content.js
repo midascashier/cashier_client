@@ -205,6 +205,11 @@ let Content = React.createClass({
 				<div id="depositContent">
 					<Header />
 					<div id="internal-content" className="internal-content">
+						{(() =>{
+							if(this.state.UI.userMessage){
+								return <div className="alert alert-warning text-center"><i className="fa fa-warning orange">{this.state.UI.userMessage}</i></div>;
+							}
+						})()}
 						<div className="row">
 							<div className="col-sm-12">
 								<div className="modules">

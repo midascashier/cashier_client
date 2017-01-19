@@ -59,13 +59,6 @@ let Info = React.createClass({
 					<CustomerInfo customer={customer}/>
 					<CompanyInfo customer={customer} company={company}/>
 				</div>
-
-				{(() =>{
-					if(this.state.UI.userMessage){
-						return <div className="alert alert-warning text-center"><i className="fa fa-warning orange">{this.state.UI.userMessage}</i></div>;
-					}
-				})()}
-
 			</div>
 		)
 	}

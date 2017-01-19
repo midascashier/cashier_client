@@ -89,7 +89,6 @@ let Ecopayz = React.createClass({
 									 feeCashValue={this.props.feeCashValue}
 									 feeCheck={this.props.feeCheck}
 									 changeValue = {this.changeValue}
-									 payAccount = {this.state.payAccount}
 					/>
 				</div>
 				<div className="col-sm-6">
