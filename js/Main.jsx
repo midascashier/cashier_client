@@ -167,6 +167,15 @@ let routes = (
 					<Route path="rejected/invalidCard/" component={VisaRejectCardTicket}/>
 				</Route>
 
+				<Route path="amex/" component={Visa}/>
+				<Route path="amex/confirm/" component={VisaConfirm}/>
+				<Route path="amex/ticket/" component={LoadingTicket}>
+					<Route path="approved/" component={VisaApprovedTicket}/>
+					<Route path="rejected/" component={VisaRejectedTicket}/>
+					<Route path="rejected/blockByBank/" component={VisaRejectBankTicket}/>
+					<Route path="rejected/invalidAmount/" component={VisaRejectAmountTicket}/>
+					<Route path="rejected/invalidCard/" component={VisaRejectCardTicket}/>
+				</Route>
 
 				<Route path="moneygram/" component={Person2Person}/>
 				<Route path="moneygram/ticket/" component={LoadingTicket}>

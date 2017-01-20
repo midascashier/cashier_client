@@ -36,7 +36,8 @@ let Info = React.createClass({
 	refreshLocalState() {
 		return {
 			customer: CashierStore.getCustomer(),
-			company: CashierStore.getCompany()
+			company: CashierStore.getCompany(),
+			UI: CashierStore.getUI()
 		}
 	},
 
@@ -58,6 +59,13 @@ let Info = React.createClass({
 					<CustomerInfo customer={customer}/>
 					<CompanyInfo customer={customer} company={company}/>
 				</div>
+
+				{(() =>{
+					if(this.state.UI.userMessage){
+						return <div className="alert alert-warning text-center"><i className="fa fa-warning orange">{this.state.UI.userMessage}</i></div>;
+					}
+				})()}
+
 			</div>
 		)
 	}
