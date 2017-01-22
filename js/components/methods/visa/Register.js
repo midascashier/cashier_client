@@ -231,11 +231,16 @@ let Register = React.createClass({
 		let now = new Date();
 		let processor = CashierStore.getProcessor();
 		let ccValidation = "isCreditNumber";
+		let cvvValidation = "isCVV";
 		if(processor.processorId == cashier.PROCESSOR_ID_VISA){
 			ccValidation = "isVisa";
 		} else{
 			if(processor.processorId == cashier.PROCESSOR_ID_MC){
 				ccValidation = "isMC";
+			} else{
+				if (processor.processorId == cashier.PROCESSOR_ID_AMEX){
+					cvvValidation = "isCVV4";
+				}
 			}
 		}
 
@@ -302,7 +307,7 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
 						<div className="col-sm-4">
-							<Input type="text" id="cvv" ref="cvv" validate="isCVV"
+							<Input type="text" id="cvv" ref="cvv" validate={cvvValidation}
 										 onChange={this.changeValue.bind(null, 'password', '', 0)} value={this.state.payAccount.password}
 										 require/>
 						</div>
