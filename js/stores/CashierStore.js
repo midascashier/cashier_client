@@ -176,7 +176,7 @@ let _processor = {
 		structure: []
 	},
 	load(processorId){
-		var processor = [];
+		let processor = [];
 		if(_UI.currentView == cashier.VIEW_DEPOSIT && _customer.depositProcessors.length > 0){
 			_customer.depositProcessors.map((item) =>{
 				if(processorId == item.caProcessor_Id){
