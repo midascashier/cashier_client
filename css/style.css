@@ -57,7 +57,6 @@ select + select {margin-top:15px;}
 .checkbox label span { margin-left:4px;}
 .col-sm-3 + .col-sm-3 + .col-sm-6 {margin-top:8px;}
 .form-group label + input[type*="number"] {/*width: 300px!important;*/ margin: 0 auto;}
-.form-group{/*overflow: hidden;*/}
 .form-group{ margin-bottom:10px;}
 .form-control { height:28px; padding:3px; font-size:13px;}
 label{ font-size:13px;}
@@ -171,7 +170,8 @@ body {background:#EEE; font-family:'Segoe UI', Arial, sans-serif; color:#777; fo
 /*Alerts-Messages--------------------------*/
 .alert{padding:2px 8px; margin-bottom:6px; font-size:12px; margin-top:5px;}
 div[class^="alert"] i {font-size:12px; }
-.alert p a:hover{ color:#333;}
+div.alert p a:hover{ color:#333;}
+div#header .alert {margin: 10px 10px 5px;}
 .internal-content>.alert{ margin-top: -5px;}
 
 /*loaders*/
@@ -218,6 +218,7 @@ div[class^="alert"] i {font-size:12px; }
 .modules .box .method .transferencia-local{ background-image:url(../images/processors/transferencia-bancaria-local.png);}
 .modules .box .method .boleto{ background-image:url(../images/processors/boleto.png);}
 .modules .box .method .billpay{ background-image:url(../images/processors/36.png);}
+.modules .box .method .amex{background-image:url(../images/processors/11005.png);}
 
 /*---------*/
 .modules .box .method, .modules .card-details img {border:1px solid #DDD; background:#FFF;  margin-bottom:15px; text-align:center; }
@@ -233,7 +234,7 @@ div[class^="alert"] i {font-size:12px; }
 
 /*.success-page*/
 .banner {background-size:cover; width:100%;}
-.fa-4 {font-size:6em!important;}
+.fa-4 {font-size:6em!important;} 
 /*.success-message {text-align:center;}
 .success-message i[class^="fa fa-check"] {font-size:7em;}
 .success-message i {margin-top:8px; margin-bottom:10px}
