@@ -6,7 +6,6 @@ let Header = React.createClass({
 	render() {
 		return (
 			<div id="header">
-				test
 				<Steps />
 				<Info />
 			</div>
