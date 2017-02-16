@@ -381,10 +381,6 @@ let VisaConfirm = React.createClass({
 												<td><span>{secureData.account}</span></td>
 											</tr>
 											<tr>
-												<td>{translate('CREDIT_CARD_CVV')}:</td>
-												<td><span>***</span></td>
-											</tr>
-											<tr>
 												<td>{translate('CREDIT_CARD_DOB')}:</td>
 												<td><span>{DOB}</span></td>
 											</tr>

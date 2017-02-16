@@ -199,17 +199,6 @@ let AskInfo = React.createClass({
 																						 value={payAccount.secure.extra3}/>
 																		</div>
 																	</div>
-
-
-																	<div className="form-group">
-																		<label
-																			className="col-sm-4 control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
-																		<div className="col-sm-8">
-																			<Input type="text" id="cvv" ref="cvv" validate="isCVV"
-																						 value={transaction.password}
-																						 onChange={this.props.changeValue.bind(null, 'password', 'transaction', 0)}/>
-																		</div>
-																	</div>
 																	<div className="form-group">
 																		<label
 																			className="col-sm-4 control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
