@@ -1,5 +1,8 @@
 /*Poker-Cashier*/
 
+
+html {	overflow: hidden;}
+
 /*Font-face_Bebas*/
 @font-face{font-family:'BebasNeueRegular'; src: url('../fonts/bebas-neue-webfont.woff'),url('../fonts/bebas-neue-webfont.eot'); font-weight:normal; font-style:normal;}
 @font-face {font-family: 'Oswald-Light'; src: url('../fonts/Oswald-Light.woff'),url('../fonts/Oswald-Light.eot'); font-weight:normal; font-style:normal;}
