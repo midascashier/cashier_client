@@ -425,6 +425,7 @@ class transactionService {
 			processorId: processorSelected.processorId,
 			payAccountId: payAccountSelected.payAccountId,
 			amount: transaction.amount,
+			ccCVV: transaction.password,
 			journalIdSelected: 0
 		};
 
