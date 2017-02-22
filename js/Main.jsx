@@ -1,5 +1,6 @@
 import React from 'react'
 import { render }  from 'react-dom'
+import ReactGA  from 'react-ga'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { Client } from './components/Client'
 import { Welcome } from './components/Welcome'
@@ -86,12 +87,23 @@ import { PendingControlNumber } from './components/PendingMTCNContent'
 import RouterContainer from './services/RouterContainer'
 
 /**
+ * initialize GA account and basic page view
+ */
+
+ReactGA.initialize('UA-88898718-12');
+
+let fireTracking = () => {
+	ReactGA.pageview(window.location.pathname);
+};
+
+
+/**
  * routing application
  *
  * @type {XML}
  */
 let routes = (
-	<Router history={browserHistory}>
+	<Router onUpdate={fireTracking} history={browserHistory}>
 		<Route path="/" component={Client}>
 			<IndexRoute component={Welcome}/>
 			<Route path="/welcome/" component={Welcome}/>

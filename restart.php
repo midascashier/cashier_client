@@ -63,7 +63,7 @@ class restart
         <input type="hidden" id="companyID" name="companyID" value={$result->response->companyId}>
         <input type="hidden" id="option" name="option" value="deposit">
         <input type="hidden" id="restart" name="restart" value="1">
-        <input type="hidden" id="processorId" name="processorId" value={$result->response->processorId}>
+        <input type="hidden" id="processorId" name="processorId" value={$result->response->processorIdSelected}>
         <input type="hidden" id="Tstatus" name="Tstatus" value={$result->response->tStatusId}>
     </form>
     <script>

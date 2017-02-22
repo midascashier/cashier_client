@@ -7,11 +7,13 @@
     "events": "^1.1.0",
     "flux": "^2.1.1",
     "form-data-to-object": "^0.2.0",
+    "grunt": "^0.4.5",
     "history": "^2.1.1",
     "object-assign": "^4.1.0",
     "qrcode.react": "^0.6.1",
     "react": "^15.1.0",
     "react-dom": "^15.0.1",
+    "react-ga": "^2.1.2",
     "react-router": "^2.4.0"
   },
   "devDependencies": {
