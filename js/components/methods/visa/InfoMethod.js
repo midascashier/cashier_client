@@ -60,7 +60,7 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 * this function checks if password and amount are valid
+	 * this function checks if amount is valid
 	 */
 	allowProcess(){
 
@@ -95,7 +95,6 @@ let InfoMethod = React.createClass({
 	continueTransaction(){
 		TransactionService.setAmount(this.props.amount);
 		if(this.state.currentPayAccount.password){
-			TransactionService.setCVV(this.state.currentPayAccount.password);
 			TransactionService.updateCreditCardSecure();
 		}
 		UIService.confirmTransaction();

@@ -45,7 +45,6 @@ let Register = React.createClass({
 			payAccount: {
 				extra3: "",
 				account: "",
-				password: "",
 				extra1: '',
 				extra2: '',
 				country: country,
@@ -301,15 +300,6 @@ let Register = React.createClass({
 											data-validation="isNumber" data-isRequired>
 								{selectYears}
 							</select>
-						</div>
-					</div>
-
-					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
-						<div className="col-sm-4">
-							<Input type="text" id="cvv" ref="cvv" validate={cvvValidation}
-										 onChange={this.changeValue.bind(null, 'password', '', 0)} value={this.state.payAccount.password}
-										 require/>
 						</div>
 					</div>
 

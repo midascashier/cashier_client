@@ -425,6 +425,7 @@ class transactionService {
 			processorId: processorSelected.processorId,
 			payAccountId: payAccountSelected.payAccountId,
 			amount: transaction.amount,
+			ccCVV: transaction.password,
 			journalIdSelected: 0
 		};
 
@@ -671,7 +672,6 @@ class transactionService {
 			payAccountId: payAccountId,
 			customerId: customerId,
 			ccNumber: secureData.account,
-			ccCVV: secureData.password,
 			ccName: secureData.extra3,
 			ccExpMonth: secureData.extra1,
 			ccExpYear: secureData.extra2
