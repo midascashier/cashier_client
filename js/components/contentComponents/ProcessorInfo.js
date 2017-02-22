@@ -80,7 +80,7 @@ let ProcessorInfo = React.createClass({
 		return (
 			<div id="processorInfo">
 				<p>
-					<em>{translate('BONUS_NEWS1')}<span>{translate('BONUS_NEWS2')}</span>{translate('BONUS_NEWS3')}<span>{translate('BONUS_NEWS4')}</span></em>
+
 				</p>
 				<div className="row">
 					<div className="col-sm-12">

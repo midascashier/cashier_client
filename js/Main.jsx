@@ -137,8 +137,8 @@ let routes = (
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
-				<Route path="btcscreen/" component={BitCoin}/>
-				<Route path="btcscreen/ticket/" component={LoadingTicket}>
+				<Route path="bitcoin/" component={BitCoin}/>
+				<Route path="bitcoin/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={BitCoinTicketPending}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
@@ -223,9 +223,9 @@ let routes = (
 			<Route path="/withdraw/" component={Content}>
 				<IndexRoute component={ProcessorsInfo}/>
 
-				<Route path="btcscreen/" component={BitCoin}/>
-				<Route path="btcscreen/confirm/" component={BitCoinConfirmWithdraw}/>
-				<Route path="btcscreen/ticket/" component={LoadingTicket}>
+				<Route path="bitcoin/" component={BitCoin}/>
+				<Route path="bitcoin/confirm/" component={BitCoinConfirmWithdraw}/>
+				<Route path="bitcoin/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 					<Route path="deferred/" component={DeferredTicket}/>
