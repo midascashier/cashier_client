@@ -1,5 +1,6 @@
 import React from 'react'
 import { render }  from 'react-dom'
+import ReactGA  from 'react-ga'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { Client } from './components/Client'
 import { Welcome } from './components/Welcome'
@@ -86,12 +87,25 @@ import { PendingControlNumber } from './components/PendingMTCNContent'
 import RouterContainer from './services/RouterContainer'
 
 /**
+ * initialize GA account and basic page view
+ */
+
+ReactGA.initialize('UA-88898718-12');
+
+let fireTracking = () => {
+	if (window.location.pathname != "/"){
+		ReactGA.pageview(window.location.pathname);
+	}
+};
+
+
+/**
  * routing application
  *
  * @type {XML}
  */
 let routes = (
-	<Router history={browserHistory}>
+	<Router onUpdate={fireTracking} history={browserHistory}>
 		<Route path="/" component={Client}>
 			<IndexRoute component={Welcome}/>
 			<Route path="/welcome/" component={Welcome}/>
@@ -125,8 +139,8 @@ let routes = (
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
-				<Route path="btcscreen/" component={BitCoin}/>
-				<Route path="btcscreen/ticket/" component={LoadingTicket}>
+				<Route path="bitcoin/" component={BitCoin}/>
+				<Route path="bitcoin/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={BitCoinTicketPending}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
@@ -211,9 +225,9 @@ let routes = (
 			<Route path="/withdraw/" component={Content}>
 				<IndexRoute component={ProcessorsInfo}/>
 
-				<Route path="btcscreen/" component={BitCoin}/>
-				<Route path="btcscreen/confirm/" component={BitCoinConfirmWithdraw}/>
-				<Route path="btcscreen/ticket/" component={LoadingTicket}>
+				<Route path="bitcoin/" component={BitCoin}/>
+				<Route path="bitcoin/confirm/" component={BitCoinConfirmWithdraw}/>
+				<Route path="bitcoin/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 					<Route path="deferred/" component={DeferredTicket}/>

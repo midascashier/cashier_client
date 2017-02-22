@@ -49,7 +49,7 @@ class UiService {
 	startTransaction(){
 		let processorSteps = CashierStore.getCurrentProcessorSteps();
 		CashierActions.setCurrentStep(processorSteps[1]);
-		let route = "/" + this.customerAction + "/" + this.getProcessorName().toLowerCase() + '/';
+		let route = "/" + this.customerAction + "/" + this.getProcessorName() + '/';
 		this.changeUIState(route);
 	}
 
@@ -231,6 +231,9 @@ class UiService {
 	 */
 	getProcessorName(){
 		let processor = CashierStore.getProcessor();
+		if (processor.Name.toLowerCase() == "btcscreen"){
+			return "bitcoin";
+		}
 		return processor.Name.toLowerCase();
 	}
 

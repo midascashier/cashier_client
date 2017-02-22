@@ -41,7 +41,7 @@ settings[Cashier.PROCESSOR_ID_1TAP][REGISTER_ACCOUNTS_ALLOW] = 1;
 settings[Cashier.PROCESSOR_ID_BITCOIN] = [];
 settings[Cashier.PROCESSOR_ID_BITCOIN][LIMITS_VALIDATION_VERSION] = "lite";
 settings[Cashier.PROCESSOR_ID_BITCOIN][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "instructions"];
-settings[Cashier.PROCESSOR_ID_BITCOIN][SETTING_ROUTE] = 'btcscreen/';
+settings[Cashier.PROCESSOR_ID_BITCOIN][SETTING_ROUTE] = 'bitcoin/';
 settings[Cashier.PROCESSOR_ID_BITCOIN][REGISTER_ACCOUNTS_ALLOW] = 1;
 
 settings[Cashier.PROCESSOR_ID_VISA] = [];
