@@ -56,8 +56,8 @@ let DeferredTicket = React.createClass({
 				<div className="row">
 					<div className="col-sm-6">
 						<div className="box">
-							<a href="https://www.americascardroom.eu/online-poker-promotions/mo-mo-mo-plo/" target="_blank">
-								<img className="img-responsive banner" src={originPath + '/images/momomo.jpg'} alt="Mo Mo Mo"/>
+							<a href="" target="_blank">
+								<img className="img-responsive banner" src={originPath + '/images/ad.jpg'} alt=""/>
 							</a>
 						</div>
 					</div>

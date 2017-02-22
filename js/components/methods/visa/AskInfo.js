@@ -179,17 +179,6 @@ let AskInfo = React.createClass({
 															<div>
 																<PayAccountDropDown editPayAccount={this.editPayAccount}
 																										isEditingCCInfo={isEditingCCInfo}/>
-
-																<div className="form-group">
-																	<label
-																		className="col-sm-4 control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
-																	<div className="col-sm-8">
-																		<Input type="text" id="cvv" ref="cvv" validate="isCVV"
-																					 value={transaction.password}
-																					 onChange={this.props.changeValue.bind(null, 'password', 'transaction', 0)}/>
-																	</div>
-																</div>
-
 																<div className="form-group">
 																	<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 																</div>
@@ -208,6 +197,17 @@ let AskInfo = React.createClass({
 																			<Input type="text" id="ccName" ref="ccName" validate="isString"
 																						 onChange={this.props.changeValue.bind(null, 'extra3', 'payAccount.secure', 0)}
 																						 value={payAccount.secure.extra3}/>
+																		</div>
+																	</div>
+
+
+																	<div className="form-group">
+																		<label
+																			className="col-sm-4 control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
+																		<div className="col-sm-8">
+																			<Input type="text" id="cvv" ref="cvv" validate="isCVV"
+																						 value={transaction.password}
+																						 onChange={this.props.changeValue.bind(null, 'password', 'transaction', 0)}/>
 																		</div>
 																	</div>
 																	<div className="form-group">
