@@ -38,6 +38,7 @@ let AskInfo = React.createClass({
 		let serverTime = this.props.timeFrameTime;
 		let isWithDraw = UIService.getIsWithDraw();
 		let withdrawFee = "";
+		let depositTimeToSend = "";
 		let processingTitle = (!isWithDraw) ? translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P') : translate('PROCESSING_WITHDRAW_INFORMATION_TITLE_P2P');
 		let selectType = (!isWithDraw) ? translate('P2P_SELECT_DEPOSIT') : translate('P2P_SELECT_WITHDRAW');
 		let deleteButton = (!isWithDraw) ? translate('PROCESSING_BUTTON_DELETE_SENDER') : translate('PROCESSING_BUTTON_DELETE_RECEIVER');
@@ -92,77 +93,81 @@ let AskInfo = React.createClass({
 			</div>;
 		}
 
-		return (
-			<div id="p2pAskInfo" className="box">
-				<div className="row">
-					<div className="title">{processingTitle}</div>
-					<div className="infoCol">
-						<div className="col-sm-12">
-							<div className="form-horizontal">
+		if(!isWithDraw){
+			depositTimeToSend = <div className="form-group">
+				<div id="timeFrame">
+					<label
+						className="col-sm-4 control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
+					<div className="col-sm-4">
+						<select className="form-control"
+										value={this.props.timeFrameDay}
+										onChange={this.props.timeFrameDayChange}>
+							<option value="TODAY">{translate('P2P_TIME_FRAME_TODAY', 'Today')}</option>
+							<option
+								value="TOMORROW">{translate('P2P_TIME_FRAME_TOMORROW', 'Tomorrow')}</option>
+						</select>
+					</div>
+					<div className="col-sm-4">
+						<select className="form-control" value={this.props.timeFrameTime}
+										onChange={this.props.timeFrameTimeChange}>
+							{selectHours}
+						</select>
+					</div>
+				</div>
+			</div>;
+		}
 
-								{(() =>{
-									if(!payAccountDisplayName){
-										return <LoadingSpinner />;
-									} else{
-										if(payAccountDisplayName == cashier.NO_RESPONSE){
-											return <Register />
-										}
-										if(payAccountId == 0){
-											return <div className="scroll"><PayAccountDropDown /><Register /></div>
+			return (
+				<div id="p2pAskInfo" className="box">
+					<div className="row">
+						<div className="title">{processingTitle}</div>
+						<div className="infoCol">
+							<div className="col-sm-12">
+								<div className="form-horizontal">
+
+									{(() =>{
+										if(!payAccountDisplayName){
+											return <LoadingSpinner />;
 										} else{
-											return (
-												<div>
-													<PayAccountDropDown />
-													<div className="form-group">
-														<div id="timeFrame">
-															<label
-																className="col-sm-4 control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
-															<div className="col-sm-4">
-																<select className="form-control"
-																				value={this.props.timeFrameDay}
-																				onChange={this.props.timeFrameDayChange}>
-																	<option value="TODAY">{translate('P2P_TIME_FRAME_TODAY', 'Today')}</option>
-																	<option
-																		value="TOMORROW">{translate('P2P_TIME_FRAME_TOMORROW', 'Tomorrow')}</option>
-																</select>
-															</div>
-															<div className="col-sm-4">
-																<select className="form-control" value={this.props.timeFrameTime}
-																				onChange={this.props.timeFrameTimeChange}>
-																	{selectHours}
-																</select>
-															</div>
+											if(payAccountDisplayName == cashier.NO_RESPONSE){
+												return <Register />
+											}
+											if(payAccountId == 0){
+												return <div className="scroll"><PayAccountDropDown /><Register /></div>
+											} else{
+												return (
+													<div>
+														<PayAccountDropDown />
+														{depositTimeToSend}
+														<div className="form-group">
+															<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 														</div>
+														{withdrawFee}
 													</div>
-													<div className="form-group">
-														<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-													</div>
-													{withdrawFee}
-												</div>
+												)
+											}
+										}
+									})()}
+
+									{(() =>{
+										if(!isWithDraw){
+											return (
+												<p>
+
+												</p>
 											)
 										}
-									}
-								})()}
+									})()}
 
-								{(() =>{
-									if(!isWithDraw){
-										return (
-											<p>
-
-											</p>
-										)
-									}
-								})()}
-
+								</div>
 							</div>
+
 						</div>
 
 					</div>
-
 				</div>
-			</div>
-		)
-	}
-});
+			)
+		}
+	});
 
 module.exports.AskInfo = AskInfo;
