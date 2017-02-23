@@ -358,8 +358,6 @@ let VisaConfirm = React.createClass({
 											);
 										}
 									})()}
-
-
 								</div>
 							</div>
 						</div>
