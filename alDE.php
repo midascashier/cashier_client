@@ -46,6 +46,12 @@
     </script>
     </head>
     <body>
+	 <center>
+          <h3>Loading Cashier</h3>
+          <h3>Processing request over a secure connection...</h3><br>
+	   <img src="images/loader-70x70.gif" />
+        </center>
+
         <form id="alForm" action="/clientRedirect.php" method="POST">
           <input type="hidden" id="username" name="username" value=<?php echo $_REQUEST["username"]?> >
           <input type="hidden" id="password" name="password" value=<?php echo $_REQUEST["password"]?>>

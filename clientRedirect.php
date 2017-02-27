@@ -127,8 +127,7 @@ class login
     curl_close($curl);
 
     $result = json_decode($resp);
-
-    if ($result->response->sid)
+    if ($result && $result->response && $result->response->sid)
     {
       $_SESSION["sid"] = $result->response->sid;
     }
@@ -143,6 +142,13 @@ class login
   }
 }
 
+?>
+
+<center>
+<h3>Loading Cashier</h3>
+<h3>Processing request over a secure connection...</h3><br>
+
+<?php
 if ($_POST["doLogin"] == "1")
 {
   $login = new login($cashierParams);
@@ -150,6 +156,7 @@ if ($_POST["doLogin"] == "1")
   if ($_SESSION["sid"])
   {
     $html = <<<HTML
+    <img src="images/loader-70x70.gif" />
     <form id="alForm" action="/" method="POST">
         <input type="hidden" id="sid" name="sid" value={$_SESSION["sid"]}>
         <input type="hidden" id="companyID" name="companyID" value={$cashierParams["companyId"]}>
@@ -165,9 +172,13 @@ HTML;
 
     echo $html;
   }
-}
-
-
-
-
+  else
+  {
 ?>
+    <img src="images/loader-40x40.gif" />
+<?php
+  }
+}
+?>
+
+</center>
