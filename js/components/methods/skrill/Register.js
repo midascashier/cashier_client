@@ -59,7 +59,7 @@ let Register = React.createClass({
 					return false;
 				}
 
-				if(!ApplicationService.validateInfo(e.target[i].value, e.target[i].getAttribute('data-validation'))){
+				if(!ApplicationService.validateInfo(e.target[i].value, e.target[i].getAttribute('data-validation')) && e.target[i].value.length > 0 ){
 					e.target[i].style['border-color'] = 'red';
 					e.target[i].focus();
 					return false;

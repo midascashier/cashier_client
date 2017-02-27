@@ -24,22 +24,33 @@ let Register = React.createClass({
 		 */
 		refreshLocalState() {
 			let country = CashierStore.getSelectedCountry();
-			let states = UIService.getCountryStates();
+			let customer = CashierStore.getCustomer();
+
+			let firstName = customer.personalInformation.firstName ? customer.personalInformation.firstName : "";
+			let middleName = customer.personalInformation.middleName ? customer.personalInformation.middleName : "";
+			let lastName = customer.personalInformation.lastName ? customer.personalInformation.lastName : "";
+			let city = customer.personalInformation.city ? customer.personalInformation.city : "";
+			let address1 = customer.personalInformation.addressOne ? customer.personalInformation.addressOne : "";
+			let zip = customer.personalInformation.postalCode ? customer.personalInformation.postalCode : "";
+			let email = customer.personalInformation.email ? customer.personalInformation.email : "";
+			let phone = customer.personalInformation.phone ? customer.personalInformation.phone : "";
+			let customerState = customer.personalInformation.state ? customer.personalInformation.state : states[0]['Small'];
+
 
 			return {
 				displaySaveButton: true,
 				payAccount: {
-					firstName: "",
-					middleName: "",
-					lastName: "",
-					address1: "",
+					firstName: firstName,
+					middleName: middleName,
+					lastName: lastName,
+					address1: address1,
 					address2: "",
-					city: "",
+					city: city,
 					country: country,
-					state: states[0]['Small'],
-					zip: "",
-					phone: "",
-					email: "",
+					state: customerState,
+					zip: zip,
+					phone: phone,
+					email: email,
 					dobDay: 1,
 					dobMonth: 1,
 					dobYear: 1940,
@@ -87,20 +98,20 @@ let Register = React.createClass({
 
 			for(let i = 0; i < e.target.length; i++){
 				if(e.target[i].type != 'submit' && e.target[i].type != 'button' && e.target[i].type != 'checkbox'){
+					e.target[i].style['border-color'] = '';
 					if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
 						e.target[i].style['border-color'] = 'red';
 						e.target[i].focus();
 						return false;
 					}
 
-					if(!ApplicationService.validateInfo(e.target[i].value, e.target[i].getAttribute('data-validation'))){
+					if(!ApplicationService.validateInfo(e.target[i].value, e.target[i].getAttribute('data-validation')) && e.target[i].value.length > 0 ){
 						e.target[i].style['border-color'] = 'red';
 						e.target[i].focus();
 						return false;
 					}
 				}
 			}
-
 			/*this.setState({
 				displaySaveButton: false
 			});*/
@@ -199,14 +210,14 @@ let Register = React.createClass({
 						<div className="form-group">
 							<label className="col-sm-4 control-label">{translate('CK_FIRST_NAME', 'First Name')}:</label>
 							<div className="col-sm-8">
-								<Input type="text" id="firstName" ref="firstName" validate="isString" onChange={this.changeValue.bind(null, 'firstName', 0)} value={this.state.payAccount.firstName} require/>
+								<Input type="text" id="firstName" ref="firstName" validate="isString" onChange={this.changeValue.bind(null, 'firstName', 0)} value={this.state.payAccount.firstName} require />
 							</div>
 						</div>
 
 						<div className="form-group">
 							<label className="col-sm-4 control-label">{translate('CK_MIDDLE_NAME', 'Middle Name')}:</label>
 							<div className="col-sm-8">
-								<Input type="text" id="lastName" ref="lastName" validate="isString" onChange={this.changeValue.bind(null, 'middleName', 0)} value={this.state.payAccount.middleName} require/>
+								<Input type="text" id="lastName" ref="lastName" validate="isString" onChange={this.changeValue.bind(null, 'middleName', 0)} value={this.state.payAccount.middleName} />
 							</div>
 						</div>
 
@@ -227,7 +238,7 @@ let Register = React.createClass({
 						<div className="form-group">
 							<label className="col-sm-4 control-label">{translate('CK_ADDRESS2', 'Address2')}:</label>
 							<div className="col-sm-8">
-								<Input type="text" id="lastName" ref="lastName" validate="isString" onChange={this.changeValue.bind(null, 'address2', 0)} value={this.state.payAccount.address2} require/>
+								<Input type="text" id="lastName" ref="lastName" validate="isString" onChange={this.changeValue.bind(null, 'address2', 0)} value={this.state.payAccount.address2} />
 							</div>
 						</div>
 
@@ -241,7 +252,7 @@ let Register = React.createClass({
 						<div className="form-group">
 							<label className="col-sm-4 control-label">{translate('CK_COUNTRY', 'Country')}:</label>
 							<div className="col-sm-8">
-								<select className="form-control" id="country" value={this.state.payAccount.country} onChange={this.changeValue.bind(null, 'country',1)}>
+								<select className="form-control" id="country" data-validation='isString'  value={this.state.payAccount.country} onChange={this.changeValue.bind(null, 'country',1)}>
 									{countryOptionNodes}
 								</select>
 							</div>
@@ -250,7 +261,7 @@ let Register = React.createClass({
 						<div className="form-group">
 							<label className="col-sm-4 control-label">{translate('CK_STATE', 'State')}:</label>
 							<div className="col-sm-8">
-								<select className="form-control" id="countryState" onChange={this.changeValue.bind(null, 'state',1)} disabled={!states.length}>
+								<select className="form-control" data-validation='isString' id="countryState" onChange={this.changeValue.bind(null, 'state',1)} disabled={!states.length}>
 									{stateOptionNodes}
 								</select>
 							</div>
@@ -280,17 +291,17 @@ let Register = React.createClass({
 						<div className="form-group">
 							<label className="col-sm-4 control-label">{translate('CREDIT_CARD_DOB')}:</label>
 							<div className="col-sm-2">
-								<select className="form-control" id="dobMonth" ref="dobMonth" name="dobMonth" onChange={this.changeValue.bind(null,'dobMonth', 1)}>
+								<select className="form-control" data-validation='isNumber' id="dobMonth" ref="dobMonth" name="dobMonth" onChange={this.changeValue.bind(null,'dobMonth', 1)}>
 									{selectMonths}
 								</select>
 							</div>
 							<div className="col-sm-2">
-								<select className="form-control" id="dobDay" ref="dobDay" name="dobDay" onChange={this.changeValue.bind(null,'dobDay', 1)}>
+								<select className="form-control" data-validation='isNumber' id="dobDay" ref="dobDay" name="dobDay" onChange={this.changeValue.bind(null,'dobDay', 1)}>
 									{selectDays}
 								</select>
 							</div>
 							<div className="col-sm-4">
-								<select className="form-control" id="dobYear" ref="dobYear" name="dobYear" onChange={this.changeValue.bind(null,'dobYear', 1)}>
+								<select className="form-control" id="dobYear" data-validation='isNumber' ref="dobYear" name="dobYear" onChange={this.changeValue.bind(null,'dobYear', 1)}>
 									{selectYears}
 								</select>
 							</div>
