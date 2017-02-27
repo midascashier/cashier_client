@@ -2,6 +2,63 @@
 require_once('config/phpConfig.php');
 session_start();
 
+ /**
+   * Get the remote IP of the customer
+   *
+   * @return string
+   */
+function getCustomerIP()
+{
+    $clientIP = $_SERVER['HTTP_CLIENT_IP'];
+
+    if (!$clientIP)
+    {
+      if ($_SERVER['HTTP_X_FORWARDED_FOR'] && (strlen($_SERVER['HTTP_X_FORWARDED_FOR']) > 0))
+      {
+        $proxy = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        if (strpos($proxy, ",") !== false)
+        {
+          $proxyA = explode(',', $proxy);
+          if (is_array($proxyA))
+          {
+            array_pop($proxyA);
+            $clientIP = trim(array_pop($proxyA));
+          }
+        }
+        else
+        {
+          $clientIP = trim($proxy);
+        }
+      }
+    }
+    // $_SERVER['HTTP_X_FORWARDED']
+    if (!$clientIP)
+    {
+      $clientIP = $_SERVER['HTTP_X_FORWARDED'];
+    }
+    // $_SERVER['HTTP_FORWARDED_FOR']
+    if (!$clientIP)
+    {
+      $clientIP = $_SERVER['HTTP_FORWARDED_FOR'];
+    }
+    // $_SERVER['HTTP_FORWARDED']
+    if (!$clientIP)
+    {
+      $clientIP = $_SERVER['HTTP_FORWARDED'];
+    }
+    // $_SERVER['REMOTE_ADDR']
+    if (!$clientIP)
+    {
+      $clientIP = $_SERVER['REMOTE_ADDR'];
+    }
+    // DEFAULT
+    if (!$clientIP)
+    {
+      $clientIP = '127.0.0.1';
+    }
+    return $clientIP;
+}
+
 $cashierParams = array();
 $cashierParams["f"] = "authCustomer";
 $cashierParams["username"] = $_POST["username"];
@@ -12,7 +69,7 @@ $cashierParams["sid"] = "";
 $cashierParams["tuid"] = "";
 $cashierParams["lang"] = "";
 $cashierParams["platform"] = "desktop";
-$cashierParams["remoteAddr"] = $_SERVER["REMOTE_ADDR"];
+$cashierParams["remoteAddr"] = getCustomerIP();
 $cashierParams["remoteHost"] = gethostbyaddr($_SERVER['REMOTE_ADDR']);
 $cashierParams["userAgent"] = $_SERVER["HTTP_USER_AGENT"];
 $cashierParams["xForwardedFor"] = $_SERVER["HTTP_X_FORWARDED_FOR"];
