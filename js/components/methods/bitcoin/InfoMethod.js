@@ -113,7 +113,8 @@ let InfoMethod = React.createClass({
 
 		let isNextDisabled = "disabled";
 		if(isWithDraw){
-			if(limitsCheck && !feeCheck && allowContinueToConfirm && secondFactor == 1){
+			//if(limitsCheck && !feeCheck && allowContinueToConfirm && secondFactor == 1){
+			if(limitsCheck && !feeCheck && allowContinueToConfirm){
 				isNextDisabled = "";
 			}
 		} else{

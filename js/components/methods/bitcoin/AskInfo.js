@@ -88,19 +88,11 @@ let AskInfo = React.createClass({
 									</div>
 
 									{(() =>{
-										if(isWithDraw){
+										/*if(isWithDraw){
 											return (
 												<SecondFactor transaction={this.props.transaction} limitsCheck={limitsCheck} allowContinueToConfirm={this.props.allowContinueToConfirm}/>
 											)
-										}
-									})()}
-
-									{(() =>{
-										if(!isWithDraw){
-											return (
-												<p></p>
-											)
-										}
+										}*/
 									})()}
 
 								</div>

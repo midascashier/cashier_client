@@ -56,7 +56,7 @@ let LoadingTicket = React.createClass({
 		return (
 			<div id="loadingTicket">
 				{(() =>{
-					if((!transactionResponse.status) && (!transactionResponse.userMessage)){
+					if((transactionResponse.status === "") && (!transactionResponse.userMessage)){
 						return <div className="col-sm-12">
 							<div className="modules">
 								<div className="row">
