@@ -163,7 +163,7 @@ let _langTags = {
 	P2P_INSTRUCTIONS_GET_RECEIVER: "Get New Receiver",
 	P2P_INSTRUCTIONS_PENDING_MTCN: "Pending Control Number",
 	P2P_INSTRUCTIONS_INFO: "You must submit your control number here to be able to claim your bonus. Call center submissions are not eligible for bonuses.",
-	P2P_INSTRUCTIONS_INFO_PROCESSING: "Your control number has been submitted and your funds are now available. Thank you for your deposit.",
+	P2P_INSTRUCTIONS_INFO_PROCESSING: "Your control number has been submitted. Your funds will be available as soon as we have confirmed the transaction. Note: this process can take between 8-12 hours.",
 	P2P_SELECT_DEPOSIT: "Select your Sender",
 	P2P_SELECT_WITHDRAW: "Select your Receiver",
 	P2P_FIRST_NAME: "First Name",

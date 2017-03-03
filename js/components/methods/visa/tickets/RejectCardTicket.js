@@ -123,6 +123,7 @@ let VisaRejectCardTicket = React.createClass({
 		let now = new Date();
 
 		for(let i = 1; i < 13; i++){
+			i = ('0' + i).slice(-2);
 			selectMonths.push(UIService.renderOption({ label: i }, i));
 		}
 
