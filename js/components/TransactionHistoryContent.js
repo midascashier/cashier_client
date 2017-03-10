@@ -73,7 +73,7 @@ let TransactionHistoryContent = React.createClass({
 						<div className="col-sm-12">
 								<div className="title text-center">{translate('TRANSACTION_HISTORY_TITLE')}</div>
 								<div className="history">
-									<div className="col-sm-7">
+									<div className="col-sm-8">
 									{(() =>{
 										if(transactionHistory && transactionHistory.length == 0){
 											return <LoadingSpinner/>
@@ -82,7 +82,7 @@ let TransactionHistoryContent = React.createClass({
 										}
 									})()}
 									</div>
-									<div className="col-sm-5">
+									<div className="col-sm-4">
 									<ul className="list-group">
 										<li>
 											<span>{translate('TRANSACTION_STATUS_PENDING')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PENDING')}
