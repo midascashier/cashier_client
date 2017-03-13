@@ -266,25 +266,25 @@ div#header .alert {margin: 10px 10px 5px;}
 /*MISSING-ROW*/
 
 div[class*="col-"] > div[class*="col-"] {
-	border: 2px dotted red;
-	font-size: 15px;
+    border: 2px dotted red;
+    font-size: 15px;
 }
 div[class*="col-"] > div[class*="col-"]:before {
-	content: "Attention: .row MISSING!";
-	background-color: red;
-	display: block;
-	color: #fff;
+    content: "Attention: .row MISSING!";
+    background-color: red;
+    display: block;
+    color: #fff;
 }
 
 .row > .row {
-	border: 2px dotted orange;
-	font-size: 15px;
+    border: 2px dotted orange;
+    font-size: 15px;
 }
 .row > .row:before {
-	content: "Attention: .col MISSING!";
-	background-color: orange;
-	display: block;
-	color: #fff;
+    content: "Attention: .col MISSING!";
+    background-color: orange;
+    display: block;
+    color: #fff;
 }
 
 [hidden] {display: none !important;}
