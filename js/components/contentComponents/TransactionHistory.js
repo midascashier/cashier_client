@@ -1,6 +1,8 @@
 import React from 'react'
 import { translate } from '../../constants/Translate'
+import cashier from '../../constants/Cashier'
 import { ApplicationService } from '../../services/ApplicationService'
+import { TransactionService } from '../../services/TransactionService'
 
 let TransactionHistory = React.createClass({
 
@@ -8,9 +10,42 @@ let TransactionHistory = React.createClass({
 		transactions: React.PropTypes.array
 	},
 
+
+	/**
+	 * React function to set component inital state
+	 *
+	 * @returns {*|{transactions}}
+	 */
+	getInitialState(){
+		return this.refreshLocalState();
+	},
+
+	/**
+	 * this function sets and return object with local states
+	 *
+	 * @returns {{transactions: Array}}
+	 */
+	refreshLocalState() {
+		return {
+			cancelPayoutButton: true
+		}
+	},
+
+
+	/**
+	 * cancel a pending payout
+	 *
+	 */
+	cancelPendingPayout(journalId) {
+		this.setState({ cancelPayoutButton: false });
+		TransactionService.cancelPendingPayout(journalId);
+	},
+
 	render() {
 
 		let transactions = this.props.transactions;
+		let pendingPayouts = this.props.pendingPayouts;
+		let cancelPayoutButton = this.state.cancelPayoutButton;
 
 		return (
 			<div className="transactions">
@@ -58,6 +93,14 @@ let TransactionHistory = React.createClass({
 											break;
 									}
 
+									let cancelButton = "";
+									if(transaction.caTransactionType_Id == cashier.TRANSACTION_TYPE_PAYOUT && (transaction.caTransactionStatus_Id == cashier.TRANSACTION_STATUS_DEFERRED || transaction.caTransactionStatus_Id == cashier.TRANSACTION_STATUS_PRE_APPROVE)){
+										pendingPayouts.map((payout) =>{
+											if (transaction.caJournal_Id == payout['caJournal_Id'] && cancelPayoutButton){
+												cancelButton =	<button type="button" onClick={this.cancelPendingPayout.bind(this, transaction.caJournal_Id)} class="btn btn-grey">Cancel</button>;
+											}
+										});
+									}
 									rows.push(<tr key={i} className={transaction.TransactionStatus.toLowerCase()}>
 										<td>{transaction.DateTrans}</td>
 										<td>{translate('TRANSACTION_TYPE_ID_' + transaction.caTransactionType_Id, transaction.TransactionType)}</td>
@@ -66,7 +109,9 @@ let TransactionHistory = React.createClass({
 										<td className={status}><span
 											className={fontColor}>{translate('TRANSACTION_STATUS_' + transaction.TransactionStatus.toUpperCase(), transaction.TransactionStatus)}</span>
 										</td>
-										<button type="button" class="btn btn-grey">Cancel</button>
+										<td>
+											{cancelButton}
+										</td>
 									</tr>);
 								});
 								return rows;
@@ -80,12 +125,12 @@ let TransactionHistory = React.createClass({
 								)
 							}
 						})()}
-						</tbody>
-					</table>
-				</div>
-			</div>
-		)
-	}
-});
+							</tbody>
+							</table>
+							</div>
+							</div>
+							)
+							}
+						});
 
-module.exports.TransactionHistory = TransactionHistory;
+						module.exports.TransactionHistory = TransactionHistory;

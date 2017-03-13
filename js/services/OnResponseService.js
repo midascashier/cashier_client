@@ -59,6 +59,14 @@ class OnResponseService {
 				let currentProcessor = TransactionService.getCurrentProcessor();
 				TransactionService.getPreviousPayAccount(currentProcessor.processorId);
 				break;
+
+			case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
+				TransactionService.getPendingPayout();
+				break;
+
+			case actions.CHANGE_STATUS_RESPONSE:
+				CustomerService.getCustomerTransactions();
+				break;
 		}
 	};
 }

@@ -95,6 +95,7 @@ let _customer = {
 	withdrawProcessors: [],
 	pendingP2PTransactions: [],
 	lastTransactions: [],
+	pendingPayouts: [],
 	load(data){
 		this.companyId = data.companyId;
 		this.customerId = data.customerId;
@@ -603,9 +604,13 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			CashierStore.emitChange();
 			break;
 
+		case actions.GET_PENDING_PAYOUT_RESPONSE:
+			_customer.pendingPayouts = data.response.pendingPayout;
+			CashierStore.emitChange();
+			break;
+
 		case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
 			_customer.lastTransactions = data.response.transactions;
-			CashierStore.emitChange();
 			break;
 
 		case actions.SET_EDITCC:
@@ -633,6 +638,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				p2pTransactions = cashier.NO_RESPONSE;
 			}
 			_customer.pendingP2PTransactions = p2pTransactions;
+			CashierStore.emitChange();
+			break;
+
+		case actions.CHANGE_STATUS_RESPONSE:
 			CashierStore.emitChange();
 			break;
 

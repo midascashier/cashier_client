@@ -28,8 +28,10 @@ let TransactionHistoryContent = React.createClass({
 	refreshLocalState() {
 		let customer = CashierStore.getCustomer();
 		let lastTransactions = customer.lastTransactions;
+		let pendingPayouts = customer.pendingPayouts;
 		return {
-			transactions: lastTransactions
+			transactions: lastTransactions,
+			pendingPayouts: pendingPayouts
 		}
 	},
 
@@ -60,6 +62,7 @@ let TransactionHistoryContent = React.createClass({
 	render() {
 
 		let transactionHistory = this.state.transactions;
+		let pendingPayouts = this.state.pendingPayouts;
 		let isWithdraw = UIService.getIsWithDraw();
 		let customerOpt = "DEPOSIT";
 		if(isWithdraw == 1){
@@ -78,7 +81,7 @@ let TransactionHistoryContent = React.createClass({
 										if(transactionHistory && transactionHistory.length == 0){
 											return <LoadingSpinner/>
 										} else{
-											return <TransactionHistory transactions={transactionHistory}/>
+											return <TransactionHistory transactions = {transactionHistory} pendingPayouts = {pendingPayouts} />
 										}
 									})()}
 									</div>

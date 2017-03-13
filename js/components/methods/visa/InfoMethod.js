@@ -83,6 +83,7 @@ let InfoMethod = React.createClass({
 
 	/**
 	 * send the customer to select the processor again
+	 *
 	 */
 	setFirstStep() {
 		UIService.setFirstStep();

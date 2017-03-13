@@ -31,7 +31,8 @@ class transactionService {
 			CashierActions.setTransactionResponse(data.Tstatus);
 		}
 		this.getProcessors();
-	}
+	};
+
 
 	/**
 	 * Function to get Customer Processors
@@ -41,6 +42,33 @@ class transactionService {
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeCustomerRequest("", rabbitRequest);
+	};
+
+	/**
+	 * cancel pending payout
+	 */
+	cancelPendingPayout(journalId){
+
+		let customer = CashierStore.getCustomer();
+		let pendingPayouts = customer.pendingPayouts;
+		let tuid, sid;
+
+		pendingPayouts.map((payout) =>{
+			if (journalId == payout['caJournal_Id']){
+				sid = payout.SessionId;
+				tuid = payout.TransUniqueId;
+			}
+		});
+
+		let data = {
+			f: "changeStatus", beUserId: cashier.ONLINE_BE_USER_ID, statusId: cashier.TRANSACTION_STATUS_CANCELLED, isFlowBack: cashier.IS_FLOWBACK, tuid: tuid, sid: sid
+		};
+
+		let rabbitRequest = Object.assign(data, "");
+
+		if (sid && tuid){
+			stompConnector.makeTransactionRequest("", rabbitRequest);
+		}
 	};
 
 	/**
@@ -654,6 +682,19 @@ class transactionService {
 		let rabbitRequest = Object.assign(data, application, payAccount, payAccountInfo);
 		stompConnector.makeBackendRequest("", rabbitRequest);
 	};
+
+	/**
+	 * gets customers pending transactions
+	 */
+	getPendingPayout(){
+		let data = {
+			f: "getPendingPayout"
+		};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeCustomerRequest("", rabbitRequest);
+
+	}
 
 	/**
 	 * Updates the secure information of a credit card.
