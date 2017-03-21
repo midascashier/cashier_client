@@ -40,12 +40,12 @@ let _application = {
 	tuid: null,
 	lang: "en",
 	platform: '',
-	remoteAddr: "127.0.0.1",
-	remoteHost: "localhost",
+	remoteAddr: remoteAddr,
+	remoteHost: remoteHost,
 	userAgent: navigator.userAgent,
-	remoteAddress: '127.0.0.1',
+	remoteAddress: remoteAddr,
 	referrer: document.referrer || location.referrer,
-	xForwardedFor: '127.0.0.1'
+	xForwardedFor: xForwardedFor
 };
 
 /**

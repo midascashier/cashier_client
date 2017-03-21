@@ -12,6 +12,9 @@
 	<div id="app"></div>
 	<script>
   	  let loginInfo = <?php echo((count($_REQUEST)) > 0 ? json_encode($_REQUEST) : "null") ?>;
+  	  let remoteAddr = "<?php echo $_REQUEST['remoteAddr'] ?>";
+  	  let xForwardedFor = "<?php echo $_REQUEST['xForwardedFor'] ?>";
+  	  let remoteHost = "<?php echo $_REQUEST['remoteHost'] ?>";
   	  if (!loginInfo){
   	    let application = JSON.parse(localStorage.application);
   	    let ui = JSON.parse(localStorage.ui);

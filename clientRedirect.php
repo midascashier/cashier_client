@@ -76,7 +76,9 @@ $cashierParams["xForwardedFor"] = $_SERVER["HTTP_X_FORWARDED_FOR"];
 $cashierParams["sys_access_pass"] = "1";
 $cashierParams["format"] = "json";
 $cashierParams["companyId"] = COMPANY_ID_POKER;
-$cashierParams["XDEBUG_SESSION_START"] = "ECLIPSE_DBGP";
+if (DEBUG_ENABLED){
+    $cashierParams["XDEBUG_SESSION_START"] = "ECLIPSE_DBGP";
+}
 
 if ($_SESSION['referrer']){
     $_SESSION['referrer'] = $_SERVER["HTTP_REFERER"];
@@ -160,6 +162,9 @@ if ($_POST["doLogin"] == "1")
     <form id="alForm" action="/" method="POST">
         <input type="hidden" id="sid" name="sid" value={$_SESSION["sid"]}>
         <input type="hidden" id="companyID" name="companyID" value={$cashierParams["companyId"]}>
+        <input type="hidden" id="remoteAddr" name="remoteAddr" value={$cashierParams["remoteAddr"]}>
+        <input type="hidden" id="remoteHost" name="remoteHost" value={$cashierParams["remoteHost"]}>
+        <input type="hidden" id="xForwardedFor" name="xForwardedFor" value={$cashierParams["xForwardedFor"]}>
         <input type="hidden" id="option" name="option" value={$_POST["option"]}>
     </form>
     <script>
