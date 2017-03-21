@@ -97,7 +97,7 @@ let TransactionHistory = React.createClass({
 									if(transaction.caTransactionType_Id == cashier.TRANSACTION_TYPE_PAYOUT && (transaction.caTransactionStatus_Id == cashier.TRANSACTION_STATUS_DEFERRED || transaction.caTransactionStatus_Id == cashier.TRANSACTION_STATUS_PRE_APPROVE)){
 										pendingPayouts.map((payout) =>{
 											if (transaction.caJournal_Id == payout['caJournal_Id'] && cancelPayoutButton){
-												cancelButton =	<button type="button" onClick={this.cancelPendingPayout.bind(this, transaction.caJournal_Id)} class="btn btn-grey">Cancel</button>;
+												cancelButton =	<button type="button" className = "btn btn-grey" onClick={this.cancelPendingPayout.bind(this, transaction.caJournal_Id)} class="btn btn-grey">Cancel</button>;
 											}
 										});
 									}
