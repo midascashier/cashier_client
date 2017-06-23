@@ -3,5 +3,5 @@
 At the terminal:
 
 - npm install to install the dependencies
-- npm start to generate
+- npm run build to generate
 - webpack to create the bundle

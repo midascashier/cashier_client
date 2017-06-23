@@ -10,7 +10,7 @@ import { CashierActions } from '../../../actions/CashierActions'
 let Register = React.createClass({
 
 		/**
-		 * React function to set component inital state
+		 * React function to set component initial state
 		 *
 		 * @returns {*|{step, processorSteps}}
 		 */
@@ -55,7 +55,8 @@ let Register = React.createClass({
 					dobMonth: 1,
 					dobYear: 1940,
 					dob: "",
-					transactionType: 2
+					transactionType: 2,
+					extra1: ""
 				}
 			}
 		},
@@ -112,9 +113,7 @@ let Register = React.createClass({
 					}
 				}
 			}
-			/*this.setState({
-				displaySaveButton: false
-			});*/
+
 			actualState.payAccount.dobDay = ('0' + actualState.payAccount.dobDay).slice(-2);
 			actualState.payAccount.dobMonth = ('0' + actualState.payAccount.dobMonth).slice(-2);
 
@@ -188,6 +187,10 @@ let Register = React.createClass({
 			for(let i = 0; i < states.length; i++){
 				stateOptionNodes.push(UIService.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
 			}
+
+			let sendByOptionNodes = [];
+			sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_FEDEX', 'FedEx') }, 'FedEx'));
+			sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_REGULAR', 'Regular Email') }, 'Mail'));
 
 
 			for(let i = 1; i < 32; i++){
@@ -308,16 +311,23 @@ let Register = React.createClass({
 							</div>
 						</div>
 
+						<div className="form-group">
+							<label className="col-sm-4 control-label">{translate('CK_SEND_BY', 'Send by')}:</label>
+							<div className="col-sm-8">
+								<select className="form-control" data-validation='isString' id="sendBy" value={this.state.payAccount.extra1} onChange={this.changeValue.bind(null, 'extra1',1)}>
+									{sendByOptionNodes}
+								</select>
+							</div>
+						</div>
+
 
 						<div className="col-md-4 col-md-offset-4">
 							<div className="row">
 								<div className="col-sm-6">
-									{this.state.displaySaveButton ? <button type='submit'
-																													className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
+									{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
 								</div>
 								<div className="col-sm-6">
-									{this.state.displaySaveButton ? <button type='button' onClick={this.cancel}
-																													className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Save')}</button> : null }
+									{this.state.displaySaveButton ? <button type='button' onClick={this.cancel} className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Save')}</button> : null }
 								</div>
 							</div>
 						</div>
