@@ -6,6 +6,7 @@ import { TransactionService } from '../../../services/TransactionService'
 import { CashierStore } from '../../../stores/CashierStore'
 import { ApplicationService } from '../../../services/ApplicationService'
 import { CashierActions } from '../../../actions/CashierActions'
+import { LoadingSpinnerSmall } from '../../../components/loading/LoadingSpinnerSmall'
 
 let Register = React.createClass({
 
@@ -38,7 +39,7 @@ let Register = React.createClass({
 
 
 			return {
-				displaySaveButton: true,
+				displaySaveButton: false,
 				payAccount: {
 					firstName: firstName,
 					middleName: middleName,
@@ -47,7 +48,7 @@ let Register = React.createClass({
 					address2: "",
 					city: city,
 					country: country,
-					state: customerState,
+					state: "",
 					zip: zip,
 					phone: phone,
 					email: email,
@@ -62,7 +63,7 @@ let Register = React.createClass({
 		},
 
 		/**
-		 * Sets netellerNewAccount
+		 * Sets GenCk New Account
 		 *
 		 * @param event
 		 */
@@ -81,14 +82,23 @@ let Register = React.createClass({
 
 			payAccount[propertyName] = value;
 
-			this.setState(
-				payAccount
-			);
+			//validate payAccount
+			let displaySaveButton = true;
+			Object.keys(payAccount).map(function(property){
+				if(property != 'dob' && property != 'address2' && property != 'middleName'){
+					displaySaveButton = displaySaveButton && !!(payAccount[property]);
+				}
+			});
+
+			this.setState({
+				payAccount,
+				displaySaveButton
+			});
 
 		},
 
 		/**
-		 * Sends request to register new payaccount
+		 * Sends request to register new payAccount
 		 *
 		 * @param e
 		 * @returns {boolean}
@@ -184,11 +194,13 @@ let Register = React.createClass({
 			}
 
 			let stateOptionNodes = [];
+			stateOptionNodes.push(UIService.renderOption({ label: translate('PROCESSING_OPTION_SELECT', 'Select option') }, ''));
 			for(let i = 0; i < states.length; i++){
 				stateOptionNodes.push(UIService.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
 			}
 
 			let sendByOptionNodes = [];
+			sendByOptionNodes.push(UIService.renderOption({ label: translate('PROCESSING_OPTION_SELECT', 'Select option') }, ''));
 			sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_FEDEX', 'FedEx') }, 'FedEx'));
 			sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_REGULAR', 'Regular Email') }, 'Mail'));
 
@@ -265,9 +277,17 @@ let Register = React.createClass({
 						<div className="form-group">
 							<label className="col-sm-4 control-label">{translate('CK_STATE', 'State')}:</label>
 							<div className="col-sm-8">
-								<select className="form-control" data-validation='isString' id="countryState" onChange={this.changeValue.bind(null, 'state',1)} disabled={!states.length}>
-									{stateOptionNodes}
-								</select>
+								{(() =>{
+									if(!states.length){
+										return <LoadingSpinnerSmall />;
+									} else{
+										return (
+											<select className="form-control" data-validation='isString' id="countryState" value={this.state.payAccount.state} onChange={this.changeValue.bind(null, 'state',1)} disabled={!states.length}>
+												{stateOptionNodes}
+											</select>
+										)
+									}
+								})()}
 							</div>
 						</div>
 
@@ -324,10 +344,10 @@ let Register = React.createClass({
 						<div className="col-md-4 col-md-offset-4">
 							<div className="row">
 								<div className="col-sm-6">
-									{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
+									<button type='submit' className='btn btn-green' disabled={!this.state.displaySaveButton}>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button>
 								</div>
 								<div className="col-sm-6">
-									{this.state.displaySaveButton ? <button type='button' onClick={this.cancel} className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Save')}</button> : null }
+									<button type='button' onClick={this.cancel} className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Save')}</button>
 								</div>
 							</div>
 						</div>

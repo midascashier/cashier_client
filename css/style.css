@@ -183,7 +183,7 @@ div#header .alert {margin: 10px 10px 5px;}
 .loader{ height:40px; margin: 15px 0;}
 .loader, .loader-sm{background-image:url(../images/loader-sm_40x40.gif); background-repeat:no-repeat; background-position: center;}
 .loader-sm {background-color:rgba(249, 249, 249, 0.75);  display:block; position:absolute; top:0; bottom:0; right:0; left:0; z-index:3; margin: 0 10px;}
-.loader-xs {height:34px; padding-top:4px;}
+.loader-xs {height:28px; padding:3px;background-image:url(../images/loader-xs_17x17.gif); background-repeat:no-repeat; background-position: center;}
 
 /*Pages*/
 /*-----welcome*/

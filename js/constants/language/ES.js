@@ -97,6 +97,7 @@ let _langTags = {
 	PROCESSING_BUTTON_DELETE_CARD: "Borrar Tarjeta",
 	PROCESSING_BUTTON_DELETE_RECEIVER: "Borrar destinatario",
 	PROCESSING_BUTTON_DELETE_SENDER: "Borrar beneficiario",
+	PROCESSING_OPTION_SELECT: "-- Seleccionar --",
 	PROCESSING_AMOUNT: "Monto",
 	PROCESSING_MIN: "Mín.",
 	PROCESSING_MAX: "Máx.",

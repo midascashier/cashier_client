@@ -490,9 +490,16 @@ class UiService {
 	 * @returns {XML}
 	 */
 	renderOption(item, key){
-		return (
-			<option id={key} key={key} value={key}>{item.label}</option>
-		)
+		if(!key || key == null || key == undefined || key == ''){
+			let optId = 'opt'+(new Date().getTime());
+			return (
+				<option id={optId} key={optId} value={key}>{item.label}</option>
+			)
+		}else{
+			return (
+				<option id={key} key={key} value={key}>{item.label}</option>
+			)
+		}
 	}
 
 	/**
