@@ -10,7 +10,7 @@ module.exports = {
 	output: {
 		// If in production mode we put the files into the dist folder instead
 		path: process.env.NODE_ENV === 'production' ? './dist/' : './build/',
-		filename: 'bundle.js'
+		filename: process.env.NODE_ENV === 'production' ? 'cashier_client-2473452404861.min.js' : 'bundle.js'
 	},
 
 	devtool: "source-map",

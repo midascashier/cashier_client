@@ -13,8 +13,10 @@ class StompConnector {
 		 * Stomp connection handler
 		 * @type {}
 		 */
-		let ws = new WebSocket(`${rabbitConfig.get('protocol')}://${rabbitConfig.get('host')}:${rabbitConfig.get('port')}/${rabbitConfig.get('type')}`);
-		this.stompClient = Stomp.over(ws);
+		let wsPort = (rabbitConfig.get('port') ? ':' + rabbitConfig.get('port') : '');
+		let ws = rabbitConfig.get('protocol') + '://' + rabbitConfig.get('host') + wsPort + '/' + rabbitConfig.get('type');
+		let webSocket = new WebSocket(ws);
+		this.stompClient = Stomp.over(webSocket);
 
 		/**
 		 * Reply queue identifier
