@@ -32,7 +32,7 @@ let _UI = {
 
 /**
  *
- * @type {{sid: null, tuid: null, lang: string, platform: string, remoteAddr: null, remoteHost: null, userAgent: string, remoteAddress: null, referrer: string, xForwardedFor: null}}
+ * @type {{sid: null, tuid: null, lang: string, platform: string, remoteAddr: string, remoteHost: string, userAgent: string, remoteAddress: string, referrer: (string|*), xForwardedFor: string}}
  * @private
  */
 let _application = {
@@ -40,12 +40,12 @@ let _application = {
 	tuid: null,
 	lang: "en",
 	platform: '',
-	remoteAddr: null,
-	remoteHost: null,
+	remoteAddr: remoteAddr,
+	remoteHost: remoteHost,
 	userAgent: navigator.userAgent,
-	remoteAddress: null,
+	remoteAddress: remoteAddr,
 	referrer: document.referrer || location.referrer,
-	xForwardedFor: null
+	xForwardedFor: xForwardedFor
 };
 
 /**
@@ -584,15 +584,17 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			_UI.currentView = data.option;
 			_application.sid = data.sid;
 
-			let application = JSON.parse(localStorage.application);
-			if(application.remoteAddr && (!_application.remoteAddr || _application.remoteAddr == '')){
-				_application.remoteAddr = application.remoteAddr;
-			}
-			if(application.remoteHost && (!_application.remoteHost || _application.remoteHost == '')){
-				_application.remoteHost = application.remoteHost;
-			}
-			if(application.xForwardedFor && (!_application.xForwardedFor || _application.xForwardedFor == '')){
-				_application.xForwardedFor = application.xForwardedFor;
+			if(typeof Storage !== "undefined"){
+				let application = JSON.parse(localStorage.application);
+				if(application.remoteAddr && (!_application.remoteAddr || _application.remoteAddr == '')){
+					_application.remoteAddr = application.remoteAddr;
+				}
+				if(application.remoteHost && (!_application.remoteHost || _application.remoteHost == '')){
+					_application.remoteHost = application.remoteHost;
+				}
+				if(application.xForwardedFor && (!_application.xForwardedFor || _application.xForwardedFor == '')){
+					_application.xForwardedFor = application.xForwardedFor;
+				}
 			}
 
 			CashierStore.storeData("application", _application);
