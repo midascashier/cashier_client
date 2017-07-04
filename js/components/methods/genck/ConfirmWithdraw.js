@@ -58,7 +58,7 @@ let CKConfirmWithdraw = React.createClass({
 	 *
 	 */
 	processTransaction(){
-		TransactionService.process(null,'ticket');
+		TransactionService.processGenCK();
 	},
 
 	/**

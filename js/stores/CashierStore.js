@@ -285,7 +285,7 @@ let _payAccounts = [];
 /**
  * Stores information of the transaction
  *
- * @type {{amount: string, fee: number, feeType: string, bonusId: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, timeFrameDay: null, timeFrameTime: null, dobMonth: number, dobDay: number, dobYear: number, ssn: string, cleanTransaction: (function())}}
+ * @type {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, cleanTransaction: (())}}
  * @private
  */
 let _transaction = {
@@ -297,6 +297,7 @@ let _transaction = {
 	bitcoinAddress: '',
 	checkTermsAndConditions: 1,
 	controlNumber: '',
+	sendBy: '',
 	timeFrameDay: null,
 	timeFrameTime: null,
 	dobMonth: '',
@@ -856,6 +857,12 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.CHANGE_TRANSACTION_CONTROL_NUMBER:
 			let controlNumber = data.controlNumber;
 			_transaction.controlNumber = controlNumber;
+			CashierStore.emitChange();
+			break;
+
+		case actions.CHANGE_TRANSACTION_SEND_BY:
+			let sendBy = data.sendBy;
+			_transaction.sendBy = sendBy;
 			CashierStore.emitChange();
 			break;
 

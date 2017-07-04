@@ -51,6 +51,13 @@ let CashierActions = {
 		});
 	},
 
+	setTransactionSendBy: (sendBy) =>{
+		CashierDispatcher.dispatch({
+			action: actions.CHANGE_TRANSACTION_SEND_BY,
+			data: { sendBy: sendBy }
+		});
+	},
+
 	setTransactionTimeFrame: (timeFrame) =>{
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_TIMEFRAME,

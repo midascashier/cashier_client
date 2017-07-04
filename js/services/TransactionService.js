@@ -252,6 +252,14 @@ class transactionService {
 	}
 
 	/**
+	 *
+	 * @param sendBy
+	 */
+	setSendBy(sendBy){
+		CashierActions.setTransactionSendBy(sendBy);
+	}
+
+	/**
 	 * return PayAccount
 	 */
 	getCurrentPayAccount(){
@@ -566,6 +574,22 @@ class transactionService {
 
 		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
+	};
+
+	/**
+	 * this function sends to process a transaction
+	 */
+	processGenCK(){
+
+		//clean current transaction response
+		CashierStore.getLastTransactionResponse().cleanTransaction();
+
+		let transaction = CashierStore.getTransaction();
+		let dynamicParams = {
+			sendBy: transaction.sendBy
+		};
+
+		this.process(dynamicParams, 'ticket')
 	};
 
 	/**

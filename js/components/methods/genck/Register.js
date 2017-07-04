@@ -57,7 +57,7 @@ let Register = React.createClass({
 					dobYear: 1940,
 					dob: "",
 					transactionType: 2,
-					extra1: ""
+					extra1: "Fedex"
 				}
 			}
 		},
@@ -199,12 +199,6 @@ let Register = React.createClass({
 				stateOptionNodes.push(UIService.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
 			}
 
-			let sendByOptionNodes = [];
-			sendByOptionNodes.push(UIService.renderOption({ label: translate('PROCESSING_OPTION_SELECT', 'Select option') }, ''));
-			sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_FEDEX', 'FedEx') }, 'FedEx'));
-			sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_REGULAR', 'Regular Email') }, 'Mail'));
-
-
 			for(let i = 1; i < 32; i++){
 				selectDays.push(UIService.renderOption({ label: i }, i));
 			}
@@ -330,16 +324,6 @@ let Register = React.createClass({
 								</select>
 							</div>
 						</div>
-
-						<div className="form-group">
-							<label className="col-sm-4 control-label">{translate('CK_SEND_BY', 'Send by')}:</label>
-							<div className="col-sm-8">
-								<select className="form-control" data-validation='isString' id="sendBy" value={this.state.payAccount.extra1} onChange={this.changeValue.bind(null, 'extra1',1)}>
-									{sendByOptionNodes}
-								</select>
-							</div>
-						</div>
-
 
 						<div className="col-md-4 col-md-offset-4">
 							<div className="row">

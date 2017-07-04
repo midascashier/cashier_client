@@ -9,6 +9,7 @@ let InfoMethod = React.createClass({
 
 	propTypes: {
 		amount: React.PropTypes.string,
+		sendBy: React.PropTypes.string,
 		limitsCheck: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number
 	},
@@ -73,6 +74,7 @@ let InfoMethod = React.createClass({
 		let isWithDraw = UIService.getIsWithDraw();
 		TransactionService.setAmount(this.props.amount);
 		TransactionService.setFeeAmount(this.props.feeCashValue);
+		TransactionService.setSendBy(this.props.sendBy);
 		if(isWithDraw){
 			UIService.confirmTransaction();
 		}
@@ -97,12 +99,12 @@ let InfoMethod = React.createClass({
 		});
 
 		let isNextDisabled = "disabled";
-		if(payAccountInfo.payAccountId && limitsCheck){
+		if(payAccountInfo.payAccountId && limitsCheck && this.props.sendBy){
 			isNextDisabled = "";
 		}
 
 		return (
-			<div id="InfoMethodP2P">
+			<div id="InfoMethodGenCK">
 				<div className="col-sm-12">
 					<div className="title">{title}</div>
 					<div className="table-responsive">

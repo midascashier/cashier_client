@@ -16,7 +16,9 @@ let AskInfo = React.createClass({
 		limitsCheck: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
-		amount: React.PropTypes.string
+		amount: React.PropTypes.string,
+		setSendBy: React.PropTypes.func,
+		sendBy: React.PropTypes.string,
 	},
 
 	disablePayAccount() {
@@ -24,6 +26,8 @@ let AskInfo = React.createClass({
 	},
 
 	render() {
+		let setSendBy = this.props.setSendBy;
+		let sendBy = this.props.sendBy;
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
 		let limitsCheck = this.props.limitsCheck;
@@ -40,6 +44,11 @@ let AskInfo = React.createClass({
 			proccesingTitle = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information');
 		}
 
+		let sendByOptionNodes = [];
+		sendByOptionNodes.push(UIService.renderOption({ label: translate('PROCESSING_OPTION_SELECT', 'Select option') }, ''));
+		sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_FEDEX', 'FedEx') }, 'FedEx'));
+		sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_REGULAR', 'Regular Email') }, 'Mail'));
+
 		let PayAccountDropDown = React.createClass({
 
 				disablePayAccount() {
@@ -55,15 +64,17 @@ let AskInfo = React.createClass({
 						</button>;
 					}
 
-					return <div className="form-group" id="payAccount">
-						<label className="col-sm-4 control-label">{translate('SELECT_ACCOUNT', 'Account')}:</label>
-						<div className="col-sm-5" id="selectPayAccount">
-							<SelectPayAccount setAmount={setAmount} amount={amount}/>
+					return (
+						<div className="form-group" id="payAccount">
+							<label className="col-sm-4 control-label">{translate('SELECT_ACCOUNT', 'Account')}:</label>
+							<div className="col-sm-5" id="selectPayAccount">
+								<SelectPayAccount setAmount={setAmount} amount={amount}/>
+							</div>
+							<div className="col-sm-3">
+								{deleteButtonDisplay}
+							</div>
 						</div>
-						<div className="col-sm-3">
-							{deleteButtonDisplay}
-						</div>
-					</div>
+					)
 				}
 			}
 		);
@@ -95,6 +106,16 @@ let AskInfo = React.createClass({
 											return (
 												<div>
 													<PayAccountDropDown />
+
+													<div className="form-group">
+														<label className="col-sm-4 control-label">{translate('CK_SEND_BY', 'Send by')}:</label>
+														<div className="col-sm-8">
+															<select className="form-control" data-validation='isString' id="sendBy" value={sendBy} onChange={setSendBy} required="required">
+																{sendByOptionNodes}
+															</select>
+														</div>
+													</div>
+
 													<div className="form-group">
 														<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 													</div>
@@ -109,9 +130,7 @@ let AskInfo = React.createClass({
 								{(() =>{
 									if(!isWithDraw){
 										return (
-											<p>
-
-											</p>
+											<p></p>
 										)
 									}
 								})()}

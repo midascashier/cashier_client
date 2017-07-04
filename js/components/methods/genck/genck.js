@@ -56,6 +56,16 @@ let Genck = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
+	/**
+	 * set local state
+	 *
+	 * @param value
+	 * @constructor
+	 */
+	setSendBy(element) {
+		this.setState({ sendBy: element.target.value });
+	},
+
 	render() {
 		return (
 			<div id="genck">
@@ -66,6 +76,8 @@ let Genck = React.createClass({
 									 payAccount={this.state.payAccount}
 									 feeCashValue={this.props.feeCashValue}
 									 feeCheck={this.props.feeCheck}
+									 setSendBy={this.setSendBy}
+									 sendBy={this.state.sendBy}
 					/>
 				</div>
 				<div className="col-sm-6">
@@ -77,6 +89,8 @@ let Genck = React.createClass({
 																 limitsCheck={this.props.limitsCheck}
 																 feeCheck={this.props.feeCheck}
 																 feeCashValue={this.props.feeCashValue}
+																 setSendBy={this.setSendBy}
+																 sendBy={this.state.sendBy}
 							/>;
 						}
 					})()}
