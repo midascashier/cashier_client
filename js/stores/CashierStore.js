@@ -730,6 +730,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			_transaction.fee = data.amount;
 			break;
 
+		case actions.CHANGE_TRANSACTION_FEETYPE:
+			_transaction.feeType = data.feeType;
+			break;
+
 		case actions.PROCESSOR_FEES_CONFIGURATION_RESPONSE:
 			_processor.fees.enableBP = data.response.processorFeesConfig.enableBPOption;
 			if(_processor.fees.enableBP == 1){

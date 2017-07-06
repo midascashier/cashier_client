@@ -1,13 +1,16 @@
 import React from 'react'
-import { translate } from '../../../constants/Translate'
 import  cashier  from '../../../constants/Cashier'
+import { translate } from '../../../constants/Translate'
 import { SelectPayAccount } from '../../SelectPayAccount'
 import { AmountController } from '../../AmountController'
 import { UIService } from '../../../services/UIService'
 import { Register } from './Register.js'
 import { CustomerService } from '../../../services/CustomerService'
-import { FeeController } from '../../FeeController'
 import { LoadingSpinner } from '../../loading/LoadingSpinner'
+import { CashierStore } from './../../../stores/CashierStore'
+
+import { TransactionService } from '../../../services/TransactionService'
+import { ApplicationService } from '../../../services/ApplicationService'
 
 let AskInfo = React.createClass({
 
@@ -17,6 +20,8 @@ let AskInfo = React.createClass({
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
 		amount: React.PropTypes.string,
+		setFeeType: React.PropTypes.func,
+		feeType: React.PropTypes.string,
 		setSendBy: React.PropTypes.func,
 		sendBy: React.PropTypes.string,
 	},
@@ -26,16 +31,19 @@ let AskInfo = React.createClass({
 	},
 
 	render() {
+		let customer = CashierStore.getCustomer();
+		let processor = CashierStore.getProcessor();
+		let processorFees = processor.fees;
 		let setSendBy = this.props.setSendBy;
 		let sendBy = this.props.sendBy;
+		let setFeeType = this.props.setFeeType;
+		let feeType = this.props.feeType;
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
 		let limitsCheck = this.props.limitsCheck;
 		let payAccount = this.props.payAccount;
 		let payAccountId = payAccount.payAccountId;
 		let payAccountDisplayName = payAccount.displayName;
-		let feeCheck = this.props.feeCheck;
-		let feeCashValue = this.props.feeCashValue;
 		let isWithDraw = UIService.getIsWithDraw();
 		let withdrawFee = "";
 		let deleteButton = (!isWithDraw) ? translate('PROCESSING_BUTTON_DELETE_SENDER') : translate('PROCESSING_BUTTON_DELETE_RECEIVER');
@@ -45,9 +53,29 @@ let AskInfo = React.createClass({
 		}
 
 		let sendByOptionNodes = [];
-		sendByOptionNodes.push(UIService.renderOption({ label: translate('PROCESSING_OPTION_SELECT', 'Select option') }, ''));
 		sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_FEDEX', 'FedEx') }, 'FedEx'));
-		sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_REGULAR', 'Regular Email') }, 'Mail'));
+		if(processorFees.enableFree == 1){
+			sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_REGULAR', 'Regular Email') }, 'Mail'));
+		}
+
+		let feeOptions = [];
+		if(processorFees){
+			if(sendBy == 'Mail'){
+				if(processorFees.enableFree == 1){
+					feeOptions.push(UIService.renderOption({ label: "Free" }, "Free"));
+					if(feeType != "Free"){
+						setFeeType("Free");
+					}
+				}
+			}else{
+				if(processorFees.enableCash == 1){
+					feeOptions.push(UIService.renderOption({ label: "Cash" }, "Cash"));
+					if(feeType != "Cash"){
+						setFeeType("Cash");
+					}
+				}
+			}
+		}
 
 		let PayAccountDropDown = React.createClass({
 
@@ -81,7 +109,35 @@ let AskInfo = React.createClass({
 
 		if(isWithDraw){
 			withdrawFee = <div className="form-group">
-				<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
+				<div id="feeControllerGenCK">
+					{(() =>{
+						if(feeOptions && (processorFees.enableFree == 1 || processorFees.enableCash == 1)){
+							return (
+								<div id="feeSelection">
+									<label className="col-sm-4 control-label">{translate('PROCESSING_FEE', 'Fee')}:</label>
+									<div className="col-sm-8">
+										<select className="form-control" onChange={this.transactionFee}>
+											{feeOptions}
+										</select>
+										{translate('PROCESSING_FEE', 'Fee')}: {ApplicationService.currency_format(this.props.feeCashValue)} {customer.currency}- {translate('PROCESSING_BALANCE', 'Balance')}: {ApplicationService.currency_format(customer.balance)} {customer.currency}
+									</div>
+								</div>
+							)
+						}
+					})()}
+					{(() =>{
+						if(this.props.feeCheck && this.props.amount != ""){
+							return (
+								<div className="col-sm-8">
+									<div className="alert alert-danger" role="alert">
+										<i className="fa fa-thumbs-o-down red"></i>
+										<strong>{translate('PROCESSING_FEE_ENOUGH_BALANCE')}</strong>
+									</div>
+								</div>
+							)
+						}
+					})()}
+				</div>
 			</div>;
 		}
 

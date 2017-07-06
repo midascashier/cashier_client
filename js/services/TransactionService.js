@@ -747,6 +747,13 @@ class transactionService {
 	}
 
 	/**
+	 * Set transaction Fee Type
+	 */
+	setTransactionFeeType(fee){
+		CashierActions.setTransactionFeeType(fee);
+	};
+
+	/**
 	 * Set transaction Fee
 	 */
 	setTransactionFee(fee){

@@ -10,6 +10,7 @@ let InfoMethod = React.createClass({
 	propTypes: {
 		amount: React.PropTypes.string,
 		sendBy: React.PropTypes.string,
+		feeType: React.PropTypes.string,
 		limitsCheck: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number
 	},
@@ -73,8 +74,17 @@ let InfoMethod = React.createClass({
 	continueTransaction(){
 		let isWithDraw = UIService.getIsWithDraw();
 		TransactionService.setAmount(this.props.amount);
-		TransactionService.setFeeAmount(this.props.feeCashValue);
 		TransactionService.setSendBy(this.props.sendBy);
+
+		if(this.props.feeType == 'Free'){
+			TransactionService.setTransactionFeeType(this.props.feeType);
+			TransactionService.setTransactionFee(0);
+			TransactionService.setFeeAmount(0);
+		}else{
+			TransactionService.setTransactionFee(this.props.feeCashValue);
+			TransactionService.setFeeAmount(this.props.feeCashValue);
+		}
+
 		if(isWithDraw){
 			UIService.confirmTransaction();
 		}

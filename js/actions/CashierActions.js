@@ -126,6 +126,13 @@ let CashierActions = {
 		});
 	},
 
+	setTransactionFeeType: (data) =>{
+		CashierDispatcher.dispatch({
+			action: actions.CHANGE_TRANSACTION_FEETYPE,
+			data: { feeType: data }
+		});
+	},
+
 	setBitcoinAddress: (data) =>{
 		CashierDispatcher.dispatch({
 			action: actions.SET_BITCOIN_ADDRESS,

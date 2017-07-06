@@ -66,6 +66,10 @@ let Genck = React.createClass({
 		this.setState({ sendBy: element.target.value });
 	},
 
+	setFeeType(value) {
+		this.setState({ feeType: value });
+	},
+
 	render() {
 		return (
 			<div id="genck">
@@ -78,6 +82,8 @@ let Genck = React.createClass({
 									 feeCheck={this.props.feeCheck}
 									 setSendBy={this.setSendBy}
 									 sendBy={this.state.sendBy}
+									 setFeeType={this.setFeeType}
+									 feeType={this.state.feeType}
 					/>
 				</div>
 				<div className="col-sm-6">
@@ -91,6 +97,8 @@ let Genck = React.createClass({
 																 feeCashValue={this.props.feeCashValue}
 																 setSendBy={this.setSendBy}
 																 sendBy={this.state.sendBy}
+																 setFeeType={this.setFeeType}
+																 feeType={this.state.feeType}
 							/>;
 						}
 					})()}
