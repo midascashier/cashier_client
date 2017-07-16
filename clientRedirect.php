@@ -116,6 +116,21 @@ class LoginManager
     {
       $this->sid = $result->response->sid;
     }
+    else{
+      $this->sid = null;
+
+      //log in order to trace the issues on login
+      $logFile = "login_error_" . strtoupper($params["username"]) . ".txt";
+      $content = date('Y-m-d H:i:s') . ":\n";
+      $content .= "request: \n";
+      $strParams = json_encode($params);
+      $content .= $strParams ." \n";
+      $content .= "response: \n";
+      $content .= $resp ." \n";
+      $content .= "\n";
+      @file_put_contents($logFile, $content, FILE_APPEND);
+      //end of login trace
+    }
   }
 }
 
