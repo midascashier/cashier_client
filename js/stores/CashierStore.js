@@ -32,20 +32,14 @@ let _UI = {
 
 /**
  *
- * @type {{sid: null, tuid: null, lang: string, platform: string, remoteAddr: string, remoteHost: string, userAgent: string, remoteAddress: string, referrer: (string|*), xForwardedFor: string}}
+ * @type {{sid: null, tuid: null, lang: string, platform: string}}
  * @private
  */
 let _application = {
 	sid: null,
 	tuid: null,
 	lang: "en",
-	platform: '',
-	remoteAddr: remoteAddr,
-	remoteHost: remoteHost,
-	userAgent: navigator.userAgent,
-	remoteAddress: remoteAddr,
-	referrer: document.referrer || location.referrer,
-	xForwardedFor: xForwardedFor
+	platform: 'desktop'
 };
 
 /**
@@ -454,7 +448,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * get application object
 	 *
-	 * @returns {{sid: null, tuid: null, lang: string, platform: string, remoteAddr: string, remoteHost: string, userAgent: string, remoteAddress: string, referrer: string, xForwardedFor: string}}
+	 * @returns {{sid: null, tuid: null, lang: string, platform: string}}
 	 */
 	getApplication: () =>{
 		if(!_application.platform){
@@ -587,15 +581,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 			if(typeof Storage !== "undefined"){
 				let application = JSON.parse(localStorage.application);
-				if(application.remoteAddr && (!_application.remoteAddr || _application.remoteAddr == '')){
-					_application.remoteAddr = application.remoteAddr;
-				}
-				if(application.remoteHost && (!_application.remoteHost || _application.remoteHost == '')){
-					_application.remoteHost = application.remoteHost;
-				}
-				if(application.xForwardedFor && (!_application.xForwardedFor || _application.xForwardedFor == '')){
-					_application.xForwardedFor = application.xForwardedFor;
-				}
 			}
 
 			CashierStore.storeData("application", _application);

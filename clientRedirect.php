@@ -61,68 +61,51 @@ function getCustomerIP()
 
 $cashierParams = array();
 $cashierParams["f"] = "authCustomer";
-$cashierParams["username"] = $_POST["username"];
-$cashierParams["password"] = $_POST["password"];
-$cashierParams["ioBB"] = $_POST["ioBB"];
-$cashierParams["atDeviceId"] = $_POST["atDeviceId"];
+$cashierParams["username"] = $_REQUEST["username"];
+$cashierParams["password"] = $_REQUEST["password"];
+$cashierParams["ioBB"] = $_REQUEST["ioBB"];
+$cashierParams["atDeviceId"] = $_REQUEST["atDeviceId"];
 $cashierParams["sid"] = "";
-$cashierParams["tuid"] = "";
 $cashierParams["lang"] = "";
 $cashierParams["platform"] = "desktop";
 $cashierParams["remoteAddr"] = getCustomerIP();
 $cashierParams["remoteHost"] = gethostbyaddr($_SERVER['REMOTE_ADDR']);
 $cashierParams["userAgent"] = $_SERVER["HTTP_USER_AGENT"];
 $cashierParams["xForwardedFor"] = $_SERVER["HTTP_X_FORWARDED_FOR"];
-$cashierParams["sys_access_pass"] = "1";
+$cashierParams["sys_access_pass"] = ACCESS_PASSWORD;
 $cashierParams["format"] = "json";
 $cashierParams["companyId"] = COMPANY_ID_POKER;
+
 if (DEBUG_ENABLED){
     $cashierParams["XDEBUG_SESSION_START"] = "ECLIPSE_DBGP";
 }
 
-if ($_SESSION['referrer']){
-    $_SESSION['referrer'] = $_SERVER["HTTP_REFERER"];
-}
-
-class login
+class LoginManager
 {
 
-  private $cashierParams = array();
-  private $cashierURL = "";
-  private $cashierClientURL = "";
+  /**
+   * session id after invoke login action
+   */
+  public $sid = null;
 
   /**
-   * Constructor
+   * start login process
    */
-  public function __construct($cashierParams)
+  public function login($params)
   {
-    $HTTPDomainName = $_SERVER['HTTP_HOST'];
-    if(preg_match("~.*".SKIN_POKER_HTTP_DOMAIN_NAME.".*~i", $HTTPDomainName)){
-      $companyId = COMPANY_ID_POKER;
-    }else{
-      $companyId = 9;
-    }
+    //add company
+    $params['companyId'] = COMPANY_ID_POKER;
 
-  	$cashierParams['companyId'] = $companyId;
-    $this->clientParams = $cashierParams;
-    $this->cashierURL = CASHIER_CONTROLLER_WS;
-  }
-
-  /**
-   * curl class
-   */
-  private function curl($parameters, $URL)
-  {
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
       CURLOPT_RETURNTRANSFER => 1,
       CURLOPT_SSL_VERIFYHOST => 0,
       CURLOPT_SSL_VERIFYPEER => 0,
-      CURLOPT_URL => $URL,
+      CURLOPT_URL => CASHIER_CONTROLLER_WS,
       CURLOPT_POST => 1,
       CURLOPT_USERAGENT => "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)",
-      CURLOPT_POSTFIELDS => $parameters
+      CURLOPT_POSTFIELDS => $params
     ));
 
     $resp = curl_exec($curl);
@@ -131,16 +114,8 @@ class login
     $result = json_decode($resp);
     if ($result && $result->response && $result->response->sid)
     {
-      $_SESSION["sid"] = $result->response->sid;
+      $this->sid = $result->response->sid;
     }
-  }
-
-  /**
-   * start login process
-   */
-  public function login()
-  {
-    $this->curl($this->clientParams, $this->cashierURL);
   }
 }
 
@@ -151,27 +126,28 @@ class login
 <h3>Processing request over a secure connection...</h3><br>
 
 <?php
-if ($_POST["doLogin"] == "1")
+if ($_REQUEST["doLogin"] == "1")
 {
-  $login = new login($cashierParams);
-  $login->login();
-  if ($_SESSION["sid"])
+  $login = new LoginManager();
+  $login->login($cashierParams);
+  if ($login->sid)
   {
     $html = <<<HTML
     <img src="images/loader-70x70.gif" />
     <form id="alForm" action="/" method="POST">
-        <input type="hidden" id="sid" name="sid" value={$_SESSION["sid"]}>
+        <input type="hidden" id="sid" name="sid" value={$login->sid}>
         <input type="hidden" id="companyID" name="companyID" value={$cashierParams["companyId"]}>
         <input type="hidden" id="remoteAddr" name="remoteAddr" value={$cashierParams["remoteAddr"]}>
         <input type="hidden" id="remoteHost" name="remoteHost" value={$cashierParams["remoteHost"]}>
         <input type="hidden" id="xForwardedFor" name="xForwardedFor" value={$cashierParams["xForwardedFor"]}>
-        <input type="hidden" id="option" name="option" value={$_POST["option"]}>
+        <input type="hidden" id="option" name="option" value={$_REQUEST["option"]}>
     </form>
     <script>
-                    var login_form = document.getElementById("alForm");
-                    if(login_form){
-                        login_form.submit();
-                    }
+        var login_form = document.getElementById("alForm");
+        if(login_form)
+        {
+            login_form.submit();
+        }
     </script>
 HTML;
 
@@ -179,9 +155,7 @@ HTML;
   }
   else
   {
-?>
-    <img src="images/loader-40x40.gif" />
-<?php
+    echo '<img src="images/loader-40x40.gif" />';
   }
 }
 ?>

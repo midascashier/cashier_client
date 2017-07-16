@@ -1,10 +1,10 @@
 <?php
 
-/**
- * cashier controller url
- *
- * @var string
- */
+  /**
+   * cashier controller url
+   *
+   * @var string
+   */
   const CASHIER_CONTROLLER_WS = 'http://cashier.localhost:8080/wscashier/wsController.php';
 
   /**
@@ -19,16 +19,26 @@
    *
    * @var bool
    */
-	const SECURITY_ACUITYTEC_ENABLE = false;
+  const SECURITY_ACUITYTEC_ENABLE = false;
 
- /**
-  * skin name
-  */
-	const SKIN_POKER_HTTP_DOMAIN_NAME = "poker.new";
+  /**
+   * skin name
+   */
+  const SKIN_POKER_HTTP_DOMAIN_NAME = "poker.new";
 
-	/**
-	 * CompanyId
-	 */
-	const COMPANY_ID_POKER = '100';
+  /**
+   * CompanyId
+   */
+  const COMPANY_ID_POKER = '100';
+
+  /**
+   * debug active
+   */
+  const DEBUG_ENABLED = false;
+
+  /**
+   * access password
+   */
+  const ACCESS_PASSWORD = 1;
 
 ?>

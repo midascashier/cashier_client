@@ -40,8 +40,6 @@
                 if(hidden_field){
                     hidden_field.value = data;
                 }
-
-                redirect();
             }
     </script>
     </head>
@@ -61,15 +59,24 @@
           <input type="hidden" id="f" name="doLogin" value="1">
         </form>
         <script>
-            function redirect(){
-                if (isIovationReady == 1 && isAcuitytecReady == 1){
+
+            //clear local store since this is a new session
+            localStorage.clear();
+
+            var id = 0;
+            function redirect()
+            {
+                if (isIovationReady == 1 && isAcuitytecReady == 1)
+                {
+                    clearInterval(id);
                     var login_form = document.getElementById("alForm");
-                    if(login_form){
+                    if(login_form)
+                    {
                         login_form.submit();
                     }
                 }
             }
-            redirect();
+            id = setInterval(redirect, 300);
         </script>
     </body>
 </html>

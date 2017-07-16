@@ -16,17 +16,35 @@
         <div id="msjs" style="width:100%; background-color:red; text-align: center;font-weight: bold;display:none;">Connection Error</div>
         <div id="app"></div>
         <script>
+
           let loginInfo = <?php echo((count($_REQUEST)) > 0 ? json_encode($_REQUEST) : "null") ?>;
           let remoteAddr = "<?php echo $_REQUEST['remoteAddr'] ?>";
-          let xForwardedFor = "<?php echo $_REQUEST['xForwardedFor'] ?>";
           let remoteHost = "<?php echo $_REQUEST['remoteHost'] ?>";
+          let xForwardedFor = "<?php echo $_REQUEST['xForwardedFor'] ?>";
+
+          let application = {
+          	sid: null,
+          	tuid: null,
+          	lang: "en",
+          	platform: 'desktop',
+          	remoteAddr: remoteAddr,
+          	remoteHost: remoteHost,
+          	userAgent: navigator.userAgent,
+          	remoteAddress: remoteAddr,
+          	referrer: document.referrer || location.referrer,
+          	xForwardedFor: xForwardedFor
+          };
+
           if (!loginInfo){
             let application = JSON.parse(localStorage.application);
             let ui = JSON.parse(localStorage.ui);
             let company = JSON.parse(localStorage.company);
             loginInfo = {companyID: company.companyId, option: ui.currentView, sid: application.sid};
           }else{
-            let application = JSON.parse(localStorage.application);
+            let localApp = localStorage.application;
+            if (localApp) {
+              application = JSON.parse(localApp);
+            }
             if(remoteAddr){
                 application.remoteAddr = (application.remoteAddr) ? application.remoteAddr : remoteAddr;
             }
@@ -38,6 +56,7 @@
             }
 
             localStorage.setItem('application', JSON.stringify(application));
+
           }
         </script>
         <script src="/js/libs/jquery.min.js"></script>

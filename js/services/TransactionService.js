@@ -276,27 +276,17 @@ class transactionService {
 	/**
 	 * Adds all the default parameters for the proxy request
 	 *
-	 * @returns {{companyId: number, username: string, password: string, remoteAddr: string, remoteHost: string, referrer: string, xForwardedFor: string, lang: string, platform: string, userAgent: string, createdBy: number, sid: null, type: string, isDefer: number}}
+	 * @returns {{companyId: number, username: string, password: string, lang: string, platform: string, createdBy: number, sid: null, type: string, isDefer: number}}
 	 */
 	getProxyRequest(){
 
 		let application = CashierStore.getApplication();
-		let customerInfo = CashierStore.getCustomer();
 		let transaction = CashierStore.getTransaction();
 
 		var req = {
-			companyId: customerInfo.companyId,
-			username: customerInfo.username,
-			password: customerInfo.password,
-			remoteAddr: application.remoteAddr,
-			remoteHost: application.remoteHost,
-			referrer: application.referrer,
-			xForwardedFor: application.xForwardedFor,
 			lang: application.lang,
-			platform: application.platform,
-			userAgent: application.userAgent,
 			createdBy: 10093, //TODO: temporary
-			sid: application.sid,
+			alsid: application.sid,
 			type: "d",
 			isDefer: 0
 		};
