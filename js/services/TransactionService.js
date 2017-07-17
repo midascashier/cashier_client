@@ -276,7 +276,7 @@ class transactionService {
 	/**
 	 * Adds all the default parameters for the proxy request
 	 *
-	 * @returns {{companyId: number, username: string, password: string, lang: string, platform: string, createdBy: number, sid: null, type: string, isDefer: number}}
+	 * @returns {{companyId: number, username: string, password: string, lang: string, platform: string, createdBy: number, alsid: null, type: string, isDefer: number}}
 	 */
 	getProxyRequest(){
 
@@ -376,6 +376,7 @@ class transactionService {
 	 * update payAccount with transaction info
 	 */
 	updatePayAccount(payAccountEdit = null){
+		let application = CashierStore.getApplication();
 		let transaction = CashierStore.getTransaction();
 		let payAccountSelected = CashierStore.getCurrentPayAccount();
 		let payAccount = {};
@@ -422,10 +423,11 @@ class transactionService {
 
 		let validateRabbitRequest = {
 			f: "updatePayAccountInfo",
-			module: 'payAccount'
+			module: 'payAccount',
+			sid: application.sid
 		};
 
-		validateRabbitRequest = Object.assign(this.getProxyRequest(), validateRabbitRequest, payAccount);
+		validateRabbitRequest = Object.assign(validateRabbitRequest, payAccount);
 
 		stompConnector.makeCustomerRequest("", validateRabbitRequest);
 	}
@@ -714,6 +716,7 @@ class transactionService {
 	 * Updates the secure information of a credit card.
 	 */
 	updateCreditCardSecure(){
+		let application = CashierStore.getApplication();
 		let customer = CashierStore.getCustomer();
 		let payAccount = CashierStore.getCurrentPayAccount();
 
@@ -723,6 +726,7 @@ class transactionService {
 
 		let payAccountRequest = {
 			f: "updateCreditCardSecureInfo",
+			sid: application.sid,
 			payAccountId: payAccountId,
 			customerId: customerId,
 			ccNumber: secureData.account,
@@ -732,7 +736,7 @@ class transactionService {
 			ccExpYear: secureData.extra2
 		};
 
-		let rabbitRequest = assign(this.getProxyRequest(), payAccountRequest);
+		let rabbitRequest = assign(payAccountRequest);
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	}
 
