@@ -151,7 +151,7 @@ if ($_REQUEST["doLogin"] == "1")
     <img src="images/loader-70x70.gif" />
     <form id="alForm" action="/" method="POST">
         <input type="hidden" id="sid" name="sid" value={$login->sid}>
-        <input type="hidden" id="companyID" name="companyID" value={$cashierParams["companyId"]}>
+        <input type="hidden" id="companyId" name="companyId" value={$cashierParams["companyId"]}>
         <input type="hidden" id="remoteAddr" name="remoteAddr" value={$cashierParams["remoteAddr"]}>
         <input type="hidden" id="remoteHost" name="remoteHost" value={$cashierParams["remoteHost"]}>
         <input type="hidden" id="xForwardedFor" name="xForwardedFor" value={$cashierParams["xForwardedFor"]}>

@@ -578,6 +578,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.LOGIN_RESPONSE:
 			_UI.currentView = data.option;
 			_application.sid = data.sid;
+			_company.companyId = data.companyId;
 
 			if(typeof Storage !== "undefined"){
 				let application = JSON.parse(localStorage.application);
@@ -585,6 +586,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 			CashierStore.storeData("application", _application);
 			CashierStore.storeData("ui", _UI);
+			CashierStore.storeData("company", _company);
 			CashierStore.emitChange();
 			break;
 

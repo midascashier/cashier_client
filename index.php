@@ -39,7 +39,7 @@
             let application = JSON.parse(localStorage.application);
             let ui = JSON.parse(localStorage.ui);
             let company = JSON.parse(localStorage.company);
-            loginInfo = {companyID: company.companyId, option: ui.currentView, sid: application.sid};
+            loginInfo = {companyId: company.companyId, option: ui.currentView, sid: application.sid};
           }else{
             let localApp = localStorage.application;
             if (localApp) {

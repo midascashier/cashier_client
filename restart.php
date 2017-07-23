@@ -60,7 +60,7 @@ class restart
       $html = <<<HTML
     <form id="alForm" action="/" method="POST">
         <input type="hidden" id="sid" name="sid" value={$_SESSION["sid"]}>
-        <input type="hidden" id="companyID" name="companyID" value={$result->response->companyId}>
+        <input type="hidden" id="companyId" name="companyId" value={$result->response->companyId}>
         <input type="hidden" id="option" name="option" value="deposit">
         <input type="hidden" id="restart" name="restart" value="1">
         <input type="hidden" id="processorId" name="processorId" value={$result->response->processorIdSelected}>
