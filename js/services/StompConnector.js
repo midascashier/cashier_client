@@ -14,7 +14,12 @@ class StompConnector {
 		 * @type {}
 		 */
 		let wsPort = (rabbitConfig.get('port') ? ':' + rabbitConfig.get('port') : '');
-		let ws = rabbitConfig.get('protocol') + '://' + rabbitConfig.get('host') + wsPort + '/' + rabbitConfig.get('type');
+		let wsType = rabbitConfig.get('type');
+		let ws = rabbitConfig.get('protocol') + '://' + rabbitConfig.get('host') + wsPort + '/' + wsType;
+		if (wsType == "c.php") {
+			//temporary live configuration, @todo FIXME
+			ws = 'wss://den.secureprivate.com/c.php';
+		}
 		let webSocket = new WebSocket(ws);
 		this.stompClient = Stomp.over(webSocket);
 
