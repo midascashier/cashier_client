@@ -1,8 +1,8 @@
 import React from 'react'
-import { Header } from './Header'
-import { TransactionService } from '../services/TransactionService'
-import { UIService } from '../services/UIService'
-import { CashierStore } from './../stores/CashierStore'
+import {Header} from './Header'
+import {TransactionService} from '../services/TransactionService'
+import {UIService} from '../services/UIService'
+import {CashierStore} from './../stores/CashierStore'
 import  ProcessorSettings from '../constants/Processors'
 import Cashier from '../constants/Cashier'
 
@@ -11,7 +11,7 @@ let Content = React.createClass({
 		/**
 		 * React function to set component initial state
 		 *
-		 * @returns {{amount: string, limitsCheck: number}}
+		 * @returns {{info: {amount: string, btcAmount: string, limitsCheck: string, feeCheck: number, feeCashValue: number, promoCode: string}}}
 		 */
 		getInitialState(){
 			return {
@@ -20,7 +20,8 @@ let Content = React.createClass({
 					btcAmount: "",
 					limitsCheck: "",
 					feeCheck: 0,
-					feeCashValue: 0
+					feeCashValue: 0,
+					promoCode: ""
 				}
 			};
 		},
@@ -44,7 +45,7 @@ let Content = React.createClass({
 				min = parseFloat(limitsInfo.minAmountWithdraw);
 				max = parseFloat(limitsInfo.maxAmountWithdraw);
 				available = limitsInfo.availableWithdraw;
-			} else{
+			}else{
 				min = parseFloat(limitsInfo.minAmount);
 				max = parseFloat(limitsInfo.maxAmount);
 				available = limitsInfo.available;
@@ -74,7 +75,7 @@ let Content = React.createClass({
 					for(let limit of limitsInfo.limits){
 						if(limit.Type.toLowerCase() == "count" && limit.Minutes <= 59){
 							return Cashier.COUNT_ERROR;
-						} else if(limit.Type.toLowerCase() == "count"){
+						}else if(limit.Type.toLowerCase() == "count"){
 							return Cashier.COUNT_ERROR;
 						}
 					}
@@ -83,7 +84,7 @@ let Content = React.createClass({
 
 			if(amount == "" || isNaN(max) || isNaN(min)){
 				return Cashier.LOADING;
-			} else{
+			}else{
 				return Cashier.LIMIT_NO_ERRORS;
 			}
 
@@ -107,12 +108,12 @@ let Content = React.createClass({
 					if(amount > currentBalance){
 						feeInsufficientFunds = 1;
 					}
-				} else if(transaction.feeType == "Cash" && processor.fees.cashType == "1percent"){
+				}else if(transaction.feeType == "Cash" && processor.fees.cashType == "1percent"){
 					feeCashValue = parseFloat(amount * 0.01);
 					if((amount + feeCashValue) > parseFloat(currentBalance)){
 						feeInsufficientFunds = 1;
 					}
-				} else{
+				}else{
 					if(feeStructure){
 						for(let i = 0; i < feeStructure.length; i++){
 							let feeItem = feeStructure[i];
@@ -131,7 +132,7 @@ let Content = React.createClass({
 			let actualState = this.state.info;
 			actualState.feeCashValue = feeCashValue;
 			actualState.feeCheck = feeInsufficientFunds;
-			this.setState({ info: actualState });
+			this.setState({info: actualState});
 		},
 
 		/**
@@ -145,7 +146,7 @@ let Content = React.createClass({
 			if(limitsValidationVersion){
 				actualState.limitsCheck = this.limitCheckStatus(limitsValidationVersion);
 			}
-			this.setState({ info: actualState });
+			this.setState({info: actualState});
 
 		},
 
@@ -164,7 +165,7 @@ let Content = React.createClass({
 				actualState.btcAmount = btcAmount;
 			}
 			actualState.amount = amount;
-			this.setState({ info: actualState }, function afterAmountChange(){
+			this.setState({info: actualState}, function afterAmountChange(){
 				this.checkLimits();
 				this.checkFees()
 			});
@@ -180,15 +181,25 @@ let Content = React.createClass({
 			let amount = btcAmount / CashierStore.getBTCRate();
 			actualState.amount = amount;
 			actualState.btcAmount = btcAmount;
-			this.setState({ info: actualState }, function afterAmountChange(){
+			this.setState({info: actualState}, function afterAmountChange(){
 				this.checkLimits();
 				this.checkFees()
 			});
 		},
 
+		/**
+		 * set promo code
+		 *
+		 * @param promoCode
+		 */
+		setPromoCode(promoCode){
+			let actualState = this.state.info;
+			actualState.promoCode = promoCode;
+			this.setState({info: actualState})
+		},
+
 		render()
 		{
-
 			const childrenWithProps = React.Children.map(this.props.children,
 				(child) => React.cloneElement(child, {
 					setAmount: this.setAmount,
@@ -197,7 +208,9 @@ let Content = React.createClass({
 					amount: this.state.info.amount,
 					btcAmount: this.state.info.btcAmount,
 					feeCashValue: this.state.info.feeCashValue,
-					feeCheck: this.state.info.feeCheck
+					feeCheck: this.state.info.feeCheck,
+					setPromoCode: this.setPromoCode,
+					promoCode: this.state.info.promoCode
 				})
 			);
 

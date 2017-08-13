@@ -58,6 +58,13 @@ let CashierActions = {
 		});
 	},
 
+	setTransactionPromoCode: (promoCode) =>{
+		CashierDispatcher.dispatch({
+			action: actions.CHANGE_TRANSACTION_PROMO_CODE,
+			data: { promoCode: promoCode }
+		});
+	},
+
 	setTransactionTimeFrame: (timeFrame) =>{
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_TIMEFRAME,

@@ -112,6 +112,7 @@ let _langTags = {
 	TRANSACTION_FEE_TYPE_FREE: "Retiro Gratis Mensual",
 	TRANSACTION_FEE_AMOUNT: "Monto de Comisión",
 	TRANSACTION_FEE_CURRENT_BALANCE: "Balance Actual",
+	TRANSACTION_PROMO_CODE: "Código Promocional",
 	//Processors
 	NETELLER: "Neteller",
 	NETELLER_ACCOUNT: "Cuenta de Neteller",

@@ -2,6 +2,7 @@ import React from 'react'
 import {translate} from '../../../constants/Translate'
 import {Input} from '../../Inputs'
 import {AmountController} from '../../AmountController'
+import {PromoCode} from '../../PromoCode'
 import {UIService} from '../../../services/UIService'
 import {FeeController} from '../../FeeController'
 import {SecondFactor} from '../../SecondFactor'
@@ -19,10 +20,13 @@ let AskInfo = React.createClass({
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
 		bitcoinAddress: React.PropTypes.string,
-		transaction: React.PropTypes.object
+		transaction: React.PropTypes.object,
+		setPromoCode: React.PropTypes.func,
+		promoCode: React.PropTypes.string
 	},
 
 	render() {
+
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
 		let btcAmount = this.props.btcAmount;
@@ -30,6 +34,9 @@ let AskInfo = React.createClass({
 		let feeCashValue = this.props.feeCashValue;
 		let feeCheck = this.props.feeCheck;
 		let bitcoinAddress = this.props.bitcoinAddress;
+		let setPromoCode = this.props.setPromoCode;
+		let promoCode = this.props.promoCode;
+
 		let isWithDraw = UIService.getIsWithDraw();
 		let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
 		if(isWithDraw){
@@ -71,6 +78,16 @@ let AskInfo = React.createClass({
 														<div className="col-sm-8">
 															<Input className="form-control" type="number" id="btcAmount" name="btcAmount" ref="btcAmount" validate="isNumber" onChange={this.props.setBTCAmount} value={btcAmount}/>
 														</div>
+													</div>
+												);
+											}
+										})()}
+
+										{(() =>{
+											if(!isWithDraw){
+												return (
+													<div className="form-group">
+														<PromoCode setPromoCode={setPromoCode} promoCode={promoCode}/>
 													</div>
 												);
 											}
