@@ -13,7 +13,7 @@ let InfoMethod = React.createClass({
 		feeCheck: React.PropTypes.number,
 		feeCashValue: React.PropTypes.number,
 		allowContinueToConfirm: React.PropTypes.bool,
-		bitcoinAddress: React.PropTypes.string
+		bitcoinAddress: React.PropTypes.string,
 	},
 
 	/**

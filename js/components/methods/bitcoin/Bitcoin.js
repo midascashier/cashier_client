@@ -1,9 +1,9 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
-import { ApplicationService } from '../../../services/ApplicationService'
-import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
-import { AskInfo } from './AskInfo'
-import { InfoMethod } from './InfoMethod'
+import {CashierStore} from '../../../stores/CashierStore'
+import {ApplicationService} from '../../../services/ApplicationService'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
+import {AskInfo} from './AskInfo'
+import {InfoMethod} from './InfoMethod'
 
 let BitCoin = React.createClass({
 
@@ -14,7 +14,9 @@ let BitCoin = React.createClass({
 		amount: React.PropTypes.node,
 		btcAmount: React.PropTypes.node,
 		feeCashValue: React.PropTypes.number,
-		feeCheck: React.PropTypes.number
+		feeCheck: React.PropTypes.number,
+		setPromoCode: React.PropTypes.func,
+		promoCode: React.PropTypes.string,
 	},
 
 	/**
@@ -109,13 +111,15 @@ let BitCoin = React.createClass({
 									 bitcoinAddress={this.state.info.bitcoinAddress}
 									 allowContinueToConfirm={this.state.info.allowContinueToConfirm}
 									 transaction={this.state.info.transaction}
+									 setPromoCode={this.props.setPromoCode}
+									 promoCode={this.props.promoCode}
 					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
 						if(!this.state.info.selectedProcessor.processorId){
 							return <LoadingSpinner />;
-						} else{
+						}else{
 							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}
 																 feeCashValue={this.props.feeCashValue}
 																 feeCheck={this.props.feeCheck} bitcoinAddress={this.state.info.bitcoinAddress}

@@ -5,7 +5,7 @@ import assign from 'object-assign'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
 import processors from '../constants/Processors'
-import { translate } from '../constants/Translate'
+import {translate} from '../constants/Translate'
 /**
  * UI
  *
@@ -178,7 +178,7 @@ let _processor = {
 					processor = item;
 				}
 			});
-		} else if(_customer.withdrawProcessors.length > 0){
+		}else if(_customer.withdrawProcessors.length > 0){
 			_customer.withdrawProcessors.map((item) =>{
 				if(processorId == item.caProcessor_Id){
 					processor = item;
@@ -223,8 +223,8 @@ let _payAccount = {
 		address2: null,
 		zip: null
 	},
-	secure: { account: null, password: null, extra1: null, extra2: null, extra3: null },
-	extra: { ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null },
+	secure: {account: null, password: null, extra1: null, extra2: null, extra3: null},
+	extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null},
 	limitsData: {
 		available: null,
 		type: null,
@@ -279,7 +279,7 @@ let _payAccounts = [];
 /**
  * Stores information of the transaction
  *
- * @type {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, cleanTransaction: (())}}
+ * @type {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cleanTransaction: (())}}
  * @private
  */
 let _transaction = {
@@ -305,6 +305,7 @@ let _transaction = {
 	isCodeValid: 0,
 	secondFactorMessage: '',
 	secondFactorMaxAttempts: false,
+	promoCode: '',
 	cleanTransaction(){
 		this.amount = '';
 		this.fee = 0;
@@ -319,6 +320,8 @@ let _transaction = {
 		this.isCodeValid = 0;
 		this.secondFactorMessage = '';
 		this.timeFrameTime = null;
+		this.controlNumber = '';
+		this.promoCode = '';
 	}
 };
 
@@ -552,7 +555,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * get transaction
 	 *
-	 * @returns {{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, cleanTransaction: (function())}}
+	 * @returns {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cleanTransaction}}
 	 */
 	getTransaction: () =>{
 		return _transaction;
@@ -632,7 +635,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.SWITCH_ACTION:
-			if (_UI.currentView == cashier.VIEW_DEPOSIT){
+			if(_UI.currentView == cashier.VIEW_DEPOSIT){
 				_UI.currentView = cashier.VIEW_WITHDRAW;
 			}else{
 				_UI.currentView = cashier.VIEW_DEPOSIT;
@@ -647,7 +650,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				p2pNames.forEach((transaction) =>{
 					p2pTransactions[transaction.caTransaction_Id] = transaction;
 				});
-			} else{
+			}else{
 				p2pTransactions = cashier.NO_RESPONSE;
 			}
 			_customer.pendingP2PTransactions = p2pTransactions;
@@ -665,7 +668,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.CHANGE_APPLICATION_SELECTED_COUNTRY:
 			if(!data.country){
 				_UI.selectedCountry = _customer.personalInformation.country;
-			} else{
+			}else{
 				_UI.selectedCountry = data.country;
 			}
 			break;
@@ -675,7 +678,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			let states = data.response.states;
 			if(states){
 				_UI.countryStates[countryInfo.Small] = states;
-			} else{
+			}else{
 				_UI.countryStates[countryInfo.Small] = {};
 			}
 			_UI.countryInfo[countryInfo.Small] = countryInfo;
@@ -709,9 +712,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 			if(!CashierStore.getIsWithdraw() && _customer.depositProcessors.length > 0 && !selectedProcessor.processorId){
 				processor = _customer.depositProcessors[0];
-			} else if(_customer.withdrawProcessors.length > 0 && !selectedProcessor.processorId){
+			}else if(_customer.withdrawProcessors.length > 0 && !selectedProcessor.processorId){
 				processor = _customer.withdrawProcessors[0];
-			} else if(selectedProcessor.processorId){
+			}else if(selectedProcessor.processorId){
 				_customer.depositProcessors.map((item) =>{
 					if(item.caProcessor_Id == selectedProcessor.processorId){
 						processor = item;
@@ -770,7 +773,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					let payAccounts = data.response.payAccounts;
 					if(payAccounts){
 						payAccounts.map((item, key) =>{
-							let payAccount = Object.assign({ key: key }, payAccountTemp);
+							let payAccount = Object.assign({key: key}, payAccountTemp);
 							payAccount.load(item);
 							payAccounts_processor[payAccount.payAccountId] = payAccount;
 							if(!firstPayAccount){
@@ -785,15 +788,14 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			if(_payAccount.payAccountId === null){
 				if(payAccounts_processor[firstPayAccount]){
 					_payAccount = payAccounts_processor[firstPayAccount];
-				} else{
+				}else{
 					_payAccount.displayName = cashier.NO_RESPONSE;
 				}
-			} else{
+			}else{
 				if(processors.settings[_processor.processorId][processors.REGISTER_ACCOUNTS_ALLOW]){
 					let addPayAccountOption = Object.assign({}, _payAccount);
 					addPayAccountOption.payAccountId = 0;
-					if(_processor.processorClass == 1)
-					{
+					if(_processor.processorClass == 1){
 						addPayAccountOption.displayName = translate('REGISTER_NEW_ACCOUNT_CC', 'register');
 					}else{
 						addPayAccountOption.displayName = translate('REGISTER_NEW_ACCOUNT', 'register');
@@ -810,8 +812,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				data.response.processorMinMaxLimits.currencyMax = Math.ceil(data.response.processorMinMaxLimits.currencyMax);
 				data.response.processorMinMaxLimits.currencyMin = Math.ceil(data.response.processorMinMaxLimits.currencyMin);
 				_processor.limits = data.response.processorMinMaxLimits;
-			} else{
-				_processor.limits = { currencyMin: 0, currencyMax: 0, currencyCode: _customer.currency };
+			}else{
+				_processor.limits = {currencyMin: 0, currencyMax: 0, currencyCode: _customer.currency};
 			}
 			CashierStore.emitChange();
 			break;
@@ -868,6 +870,12 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			CashierStore.emitChange();
 			break;
 
+		case actions.CHANGE_TRANSACTION_PROMO_CODE:
+			let promoCode = data.promoCode;
+			_transaction.promoCode = promoCode;
+			CashierStore.emitChange();
+			break;
+
 		case actions.PROCESS_RESPONSE:
 		case actions.PROCESS_P2P_GET_NAME_RESPONSE:
 		case actions.PROCESS_P2P_SUBMIT_RESPONSE:
@@ -887,7 +895,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_transactionResponse.details = data.response.transaction;
 				}
 
-			} else if(data.state){
+			}else if(data.state){
 				_transactionResponse.state = data.state;
 				_transactionResponse.status = 0;
 				_transactionResponse.userMessage = data.userMessage;
@@ -958,7 +966,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.SEND_TRANSACTION_TOKEN_RESPONSE:
 			if(data.response && data.response.hash){
 				_transaction.hash = data.response.hash;
-			} else{
+			}else{
 				_transaction.secondFactorMessage = data.userMessage;
 			}
 			CashierStore.emitChange();

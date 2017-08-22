@@ -115,6 +115,7 @@ let _langTags = {
 	TRANSACTION_FEE_TYPE_FREE: "Monthly Free Payment",
 	TRANSACTION_FEE_AMOUNT: "Fee Amount",
 	TRANSACTION_FEE_CURRENT_BALANCE: "Current Balance",
+	TRANSACTION_PROMO_CODE: "Promo Code",
 	//Processors
 	NETELLER: "Neteller",
 	NETELLER_ACCOUNT: "Neteller Account",

@@ -8,7 +8,7 @@ import { UIService } from '../../../services/UIService'
 let InfoMethod = React.createClass({
 	propTypes: {
 		limitsCheck: React.PropTypes.string,
-		amount: React.PropTypes.string
+		amount: React.PropTypes.string,
 	},
 
 	/**

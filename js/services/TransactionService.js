@@ -244,7 +244,6 @@ class transactionService {
 	}
 
 	/**
-	 *
 	 * @param controlNumber
 	 */
 	setControlNumber(controlNumber){
@@ -257,6 +256,13 @@ class transactionService {
 	 */
 	setSendBy(sendBy){
 		CashierActions.setTransactionSendBy(sendBy);
+	}
+
+	/**
+	 * @param promoCode
+	 */
+	setPromoCode(promoCode){
+		CashierActions.setTransactionPromoCode(promoCode);
 	}
 
 	/**
@@ -320,6 +326,7 @@ class transactionService {
 			processorId: processorSelected.processorId,
 			payAccountId: payAccountSelected.payAccountId,
 			amount: transaction.amount,
+			promoCode: transaction.promoCode,
 			dynamicParams: dynamicParams
 		};
 		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
@@ -332,13 +339,14 @@ class transactionService {
 
 		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
-		let customer = CashierStore.getCustomer();
+		let transaction = CashierStore.getTransaction();
 
 		let rabbitRequest = {
 			f: "process",
 			processorId: cashier.PROCESSOR_ID_ASTROPAY,
 			payAccountId: 0,
 			amount: amount,
+			promoCode: transaction.promoCode,
 			dynamicParams: dynamicParams
 		};
 		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
@@ -362,6 +370,7 @@ class transactionService {
 			processorId: processorSelected.processorId,
 			payAccountId: 0, //Bitcoin doesn't need payaccountID
 			amount: transaction.amount,
+			promoCode: transaction.promoCode,
 			authHash: transaction.hash,
 			authUniqueId: transaction.randomTuid,
 			dynamicParams: dynamicParams
@@ -453,6 +462,7 @@ class transactionService {
 			processorId: processorSelected.processorId,
 			payAccountId: payAccountSelected.payAccountId,
 			amount: transaction.amount,
+			promoCode: transaction.promoCode,
 			journalIdSelected: 0
 		};
 
@@ -518,6 +528,7 @@ class transactionService {
 				fee: transaction.fee,
 				controlNumber: transaction.controlNumber,
 				bonusId: 0,
+				promoCode: transaction.promoCode,
 				processorId: processorSelected.processorId,
 				payAccountId: payAccountSelected.payAccountId,
 				firstName: payAccountSelected.personal.firstName,
@@ -547,6 +558,7 @@ class transactionService {
 				fee: p2pTransaction.CurrencyFee,
 				controlNumber: p2pTransaction.ControlNumber,
 				bonusId: 0,
+				promoCode: p2pTransaction.promoCode,
 				processorId: p2pTransaction.caProcessor_Id_Root,
 				payAccountId: p2pTransaction.caPayAccount_Id,
 				firstName: p2pTransaction.PAFirstName,

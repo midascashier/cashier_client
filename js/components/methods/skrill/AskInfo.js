@@ -1,12 +1,13 @@
 import React from 'react'
-import { translate } from '../../../constants/Translate'
+import {translate} from '../../../constants/Translate'
 import  cashier  from '../../../constants/Cashier'
-import { SelectPayAccount } from '../../SelectPayAccount'
-import { AmountController } from '../../AmountController'
-import { UIService } from '../../../services/UIService'
-import { Register } from './Register.js'
-import { CustomerService } from '../../../services/CustomerService'
-import { LoadingSpinner } from '../../loading/LoadingSpinner'
+import {SelectPayAccount} from '../../SelectPayAccount'
+import {AmountController} from '../../AmountController'
+import {PromoCode} from '../../PromoCode'
+import {UIService} from '../../../services/UIService'
+import {Register} from './Register.js'
+import {CustomerService} from '../../../services/CustomerService'
+import {LoadingSpinner} from '../../loading/LoadingSpinner'
 
 let AskInfo = React.createClass({
 
@@ -16,7 +17,9 @@ let AskInfo = React.createClass({
 		amount: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
-		payAccount: React.PropTypes.object
+		payAccount: React.PropTypes.object,
+		setPromoCode: React.PropTypes.func,
+		promoCode: React.PropTypes.string,
 	},
 
 	disablePayAccount() {
@@ -30,6 +33,9 @@ let AskInfo = React.createClass({
 		let payAccount = this.props.payAccount;
 		let payAccountId = payAccount.payAccountId;
 		let payAccountDisplayName = payAccount.displayName;
+		let setPromoCode = this.props.setPromoCode;
+		let promoCode = this.props.promoCode;
+
 		let isWithDraw = UIService.getIsWithDraw();
 		let deleteButton = translate('PROCESSING_BUTTON_DELETE_ACCOUNT', 'Delete Account');
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
@@ -76,35 +82,47 @@ let AskInfo = React.createClass({
 								{(() =>{
 									if(!payAccountDisplayName){
 										return <LoadingSpinner />;
-									} else{
+									}else{
 										if(payAccountDisplayName == cashier.NO_RESPONSE){
 											return <Register />
 										}
 										if(payAccountId == 0){
 											return <div className="scroll"><PayAccountDropDown /><Register /></div>
-										} else{
+										}else{
 											return (
-												<div>
-													<PayAccountDropDown />
-													<div className="form-group">
-														<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-													</div>
-												</div>
+												(() =>{
+													if(!isWithDraw){
+														return (
+															<div>
+																<PayAccountDropDown />
+
+																<div className="form-group">
+																	<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+																</div>
+
+																<div className="form-group">
+																	<PromoCode setPromoCode={setPromoCode} promoCode={promoCode}/>
+																</div>
+															</div>
+														);
+													}else{
+														return (
+															<div>
+																<PayAccountDropDown />
+
+																<div className="form-group">
+																	<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+																</div>
+
+															</div>
+														);
+													}
+												})()
 											)
 										}
-
 									}
 								})()}
 
-								{(() =>{
-									if(!isWithDraw){
-										return (
-											<p>
-
-											</p>
-										)
-									}
-								})()}
 							</div>
 						</div>
 					</div>

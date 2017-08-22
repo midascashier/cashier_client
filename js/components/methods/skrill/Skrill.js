@@ -1,9 +1,9 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
-import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
-import { AskInfo } from './AskInfo'
-import { InfoMethod } from './InfoMethod'
-import { TransactionService } from '../../../services/TransactionService'
+import {CashierStore} from '../../../stores/CashierStore'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
+import {AskInfo} from './AskInfo'
+import {InfoMethod} from './InfoMethod'
+import {TransactionService} from '../../../services/TransactionService'
 
 let Skrill = React.createClass({
 
@@ -12,7 +12,9 @@ let Skrill = React.createClass({
 		limitsCheck: React.PropTypes.string,
 		amount: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number,
-		feeCheck: React.PropTypes.number
+		feeCheck: React.PropTypes.number,
+		setPromoCode: React.PropTypes.func,
+		promoCode: React.PropTypes.string,
 	},
 
 	/**
@@ -66,14 +68,16 @@ let Skrill = React.createClass({
 									 limitsCheck={this.props.limitsCheck}
 									 feeCashValue={this.props.feeCashValue}
 									 feeCheck={this.props.feeCheck}
+									 setPromoCode={this.props.setPromoCode}
+									 promoCode={this.props.promoCode}
 					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
-						} else{
-							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck} />;
+						}else{
+							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}/>;
 						}
 					})()}
 				</div>
