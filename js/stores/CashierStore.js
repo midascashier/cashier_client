@@ -338,6 +338,7 @@ let _transactionResponse = {
 	state: "",
 	status: "",
 	details: [], //specific details for different type of transactions (BTC, CC, P2P, etc)
+    data: null,
 	cleanTransaction(){
 		this.transactionId = 0;
 		this.journalId = 0;
@@ -348,6 +349,7 @@ let _transactionResponse = {
 		this.userMessage = "";
 		this.state = "";
 		this.details = [];
+        this.data = null;
 	}
 };
 
@@ -383,6 +385,15 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	getLastTransactionResponse: () =>{
 		return _transactionResponse;
 	},
+
+    /**
+     * Return last data transaction cashier response
+     *
+     * @returns object
+     */
+    getLastDataTransactionResponse: () =>{
+        return _transactionResponse.data;
+    },
 
 	/**
 	 * Get selected country
@@ -865,6 +876,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			_transactionResponse.fee = _transaction.fee;
 			_transactionResponse.feeType = _transaction.feeType;
 			if(data.response && data.response.transaction){
+                _transactionResponse.data = data.response.transaction;
 				_transactionResponse.journalId = data.response.transaction.caJournal_Id;
 				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
 				_transactionResponse.status = Number(data.response.transaction.caTransactionStatus_Id);

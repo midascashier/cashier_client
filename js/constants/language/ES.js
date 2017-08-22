@@ -226,7 +226,9 @@ let _langTags = {
 	CK_SEND_BY: "Enviar por",
 	CK_SEND_BY_FEDEX: "FedEx",
 	CK_SEND_BY_REGULAR: "Correo Regular",
-	IMPORTANT_REMINDERS: "Notas Importantes"
+	IMPORTANT_REMINDERS: "Notas Importantes",
+
+	REDIRECT: "Usted está siendo redirigido"
 };
 
 export function ES(){

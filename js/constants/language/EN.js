@@ -233,7 +233,9 @@ let _langTags = {
 	CK_SEND_BY_FEDEX: "FedEx",
 	CK_SEND_BY_REGULAR: "Regular Email",
 	IMPORTANT_REMINDERS: "Important Reminders",
-	CARDHOLDER_NAME: "CardHolder name must include first and last Name"
+	CARDHOLDER_NAME: "CardHolder name must include first and last Name",
+
+	REDIRECT: "You are being redirected"
 };
 
 export function EN(){

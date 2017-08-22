@@ -21,6 +21,7 @@ import { NetellerConfirmWithdraw } from './components/methods/neteller/ConfirmWi
  */
 import { Skrill } from './components/methods/skrill/Skrill'
 import { SkrillConfirmWithdraw } from './components/methods/skrill/ConfirmWithdraw'
+import { SkrillTicketPending } from './components/methods/skrill/tickets/PendingTicket'
 
 
 /**
@@ -34,6 +35,8 @@ import { DebitCardConfirmWithdraw } from './components/methods/debitcards/Confir
  */
 import { Ecopayz } from './components/methods/ecopayz/Ecopayz'
 import { EcoConfirmWithdraw } from './components/methods/ecopayz/ConfirmWithdraw'
+import { EcopayzTicketPending } from './components/methods/ecopayz/tickets/PendingTicket'
+
 /**
  * skrill_1tap set of components to create routes
  */
@@ -125,12 +128,14 @@ let routes = (
 				<Route path="skrill_ew/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
+					<Route path="pending/" component={SkrillTicketPending}/>
 				</Route>
 
 				<Route path="crd3co/" component={Ecopayz}/>
 				<Route path="crd3co/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
+					<Route path="pending/" component={EcopayzTicketPending}/>
 				</Route>
 
 				<Route path="skrill_1tap/" component={Skrill_1tap}/>
