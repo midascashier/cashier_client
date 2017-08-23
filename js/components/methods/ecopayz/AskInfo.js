@@ -22,6 +22,12 @@ let AskInfo = React.createClass({
 		payAccount: React.PropTypes.node
 	},
 
+	componentWillMount() {
+		this.state = {
+			errorMessage: null
+		}
+	},
+
 	disablePayAccount() {
 		CustomerService.getDisablePayAccount();
 	},
@@ -92,9 +98,8 @@ let AskInfo = React.createClass({
 												<label
 													className="col-sm-4 control-label">{translate('ECOPAYZ_ACCOUNT', 'ECOPAYZ Account')}:</label>
 												<div className="col-sm-8" id="selectPayAccount">
-													<Input className="form-control" type="text" id="ecoAccount" name="ecoAccount"
-																 validate="isString" onChange={this.props.changeValue.bind(null, 'payAccountId', 0)}
-																 value={payAccountId} require/>
+													<Input className="form-control" type="text" id="ecoAccount" name="ecoAccount" validate="isNumber"
+													   onChange={this.props.changeValue.bind(null, 'payAccountId', 0)} value={payAccountId} require/>
 												</div>
 											</div>
 											<div className="form-group">

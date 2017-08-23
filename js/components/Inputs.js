@@ -1,5 +1,6 @@
 import React from 'react'
 import { ApplicationService } from '../services/ApplicationService'
+import { inputsErrorMsgs } from '../constants/inputsErrorMsgs'
 
 let Input = React.createClass({
 	propTypes: {
@@ -162,10 +163,15 @@ let Input = React.createClass({
 				})()}
 
 				{(() =>{
-					if(this.props.validate && !this.state.isValid && this.state.value && this.state.inputError){
+
+					let validate = this.props.validate;
+					let isValid = this.state.isValid;
+					let value = this.state.value;
+
+					if(validate && !isValid && value){
 						return (
 							<div className="alert alert-danger" role="alert">
-								<i class="fa fa-thumbs-o-down red"></i>
+								<i className="fa fa-thumbs-o-down red"></i>
 								<span>{this.state.errorMessage}</span>
 							</div>
 						)

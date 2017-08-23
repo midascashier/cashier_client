@@ -388,6 +388,8 @@ class transactionService {
 		let application = CashierStore.getApplication();
 		let transaction = CashierStore.getTransaction();
 		let payAccountSelected = CashierStore.getCurrentPayAccount();
+		let customer = CashierStore.getCustomer();
+		let processor = CashierStore.getProcessor();
 		let payAccount = {};
 
 		if(!payAccountEdit){
@@ -408,7 +410,9 @@ class transactionService {
 				ccPhone: payAccountSelected.personal.phone,
 				ccSSN: transaction.ssn,
 				ccDateOfBirth: transaction.dobYear + "-" + transaction.dobMonth + "-" + transaction.dobDay,
-				ccCVVNew: transaction.password
+				ccCVVNew: transaction.password,
+				customerId: customer.customerId,
+				processorIdRoot: processor.processorClass
 			};
 		} else{
 			payAccount = {

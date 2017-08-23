@@ -1,6 +1,6 @@
 import React from 'react'
 import { translate } from '../constants/Translate'
-import  errorMsgs  from '../constants/ErrorMsgs'
+import  errorMsgs  from '../constants/limitsErrorMsgs'
 import Cashier from '../constants/Cashier'
 import { UIService } from '../services/UIService'
 import { ApplicationService } from '../services/ApplicationService'
@@ -34,7 +34,7 @@ let AmountController = React.createClass({
 		}
 		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS || this.props.limitsCheck == Cashier.LOADING){
 			limitsOK = true;
-		} else{
+		} else {
 			limitsErrorMsg = errorMsgs.limitsMsgs[this.props.limitsCheck];
 		}
 

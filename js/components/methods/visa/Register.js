@@ -271,7 +271,7 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}:</label>
 						<div className="col-sm-8">
-							<Input type="text" id="ccName" ref="ccName" validate="isString"
+							<Input type="text" id="ccName" ref="ccName" validate="isText"
 										 onChange={this.changeValue.bind(null, 'extra3', '', 0)} value={this.state.payAccount.extra3}
 										 require/>
 						</div>
@@ -316,7 +316,7 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_FIRST_NAME', 'First Name')}:</label>
 						<div className="col-sm-8">
-							<Input type="text" name="firstName" id="firstName" ref="firstName" validate="isString"
+							<Input type="text" name="firstName" id="firstName" ref="firstName" validate="isText"
 										 onChange={this.changeValue.bind(null, 'firstName', '', 0)} value={this.state.payAccount.firstName}
 										 require/>
 						</div>
@@ -325,7 +325,7 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_LAST_NAME', 'Last Name')}:</label>
 						<div className="col-sm-8">
-							<Input type="text" id="lastName" ref="lastName" validate="isString"
+							<Input type="text" id="lastName" ref="lastName" validate="isText"
 										 onChange={this.changeValue.bind(null, 'lastName', '', 0)} value={this.state.payAccount.lastName}
 										 require/>
 						</div>
@@ -402,12 +402,14 @@ let Register = React.createClass({
 					<div className="col-md-4 col-md-offset-4">
 						<div className="row">
 							<div className="col-sm-6">
-								{this.state.displaySaveButton ? <button type='submit'
-																												className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
+								{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>
+									{translate('PROCESSING_BUTTON_SAVE', 'Save')}
+								</button> : null }
 							</div>
 							<div className="col-sm-6">
-								<button type='button' onClick={this.cancel}
-												className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Save')}</button>
+								<button type='button' onClick={this.cancel} className='btn btn-green'>
+									{translate('PROCESSING_BUTTON_CANCEL', 'Save')}
+								</button>
 							</div>
 						</div>
 					</div>

@@ -201,7 +201,7 @@ class StompConnector {
 		}
 		if(this.stompClient.connected){
 			this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));
-		} else{
+		} else {
 			this.sleep(2000);
 			if(this.stompClient.connected){
 				this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));
