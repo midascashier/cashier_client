@@ -435,7 +435,7 @@ class transactionService {
 		}
 
 		let validateRabbitRequest = {
-			f: "updatePayAccountInfo",
+			f: "updateCreditCardSecureInfo",
 			module: 'payAccount',
 			sid: application.sid
 		};
