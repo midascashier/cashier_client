@@ -354,16 +354,24 @@ class UiService {
 	 * Function to change current processor
 	 */
 	selectProcessor(processorID){
-		let selectedProcessor = CashierStore.getProcessor();
 		let stepOption = ProcessorSettings.DEPOSIT_STEPS;
+		let stepsSetting = undefined;
+
 		if(stepOption){
 			if(this.getIsWithDraw()){
 				stepOption = ProcessorSettings.WITHDRAW_STEPS;
 			}
-			let stepsSetting = ProcessorSettings.settings[processorID][stepOption];
+
+			if (processorID in ProcessorSettings.settings) {
+				if (stepOption in ProcessorSettings.settings[processorID]) {
+					stepsSetting = ProcessorSettings.settings[processorID][stepOption];
+				}
+			}
+
 			if(!stepsSetting){
 				stepsSetting = ProcessorSettings.settings[0][stepOption];
 			}
+
 			let processorSteps = stepsSetting;
 			CashierActions.selectProcessor(processorID, processorSteps, processorSteps[0]);
 			TransactionService.selectProcessor(processorID);
