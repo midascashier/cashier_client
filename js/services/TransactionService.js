@@ -410,7 +410,7 @@ class transactionService {
 				ccPhone: payAccountSelected.personal.phone,
 				ccSSN: transaction.ssn,
 				ccDateOfBirth: transaction.dobYear + "-" + transaction.dobMonth + "-" + transaction.dobDay,
-				ccCVVNew: transaction.password,
+				ccCVV: transaction.password,
 				customerId: customer.customerId,
 				processorIdRoot: processor.processorClass
 			};
@@ -431,7 +431,7 @@ class transactionService {
 				ccPostalCode: payAccountEdit.zip,
 				ccEmail: payAccountEdit.email,
 				ccPhone: payAccountEdit.phone,
-				ccCVVNew: transaction.password,
+				ccCVV: transaction.password,
 				customerId: customer.customerId,
 				processorIdRoot: processor.processorClass
 			}
