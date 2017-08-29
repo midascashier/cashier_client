@@ -25,21 +25,6 @@ let LoadingTicket = React.createClass({
 	},
 
 	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 * this is the callback function the store calls when a state change
 	 *
 	 * @private
@@ -67,25 +52,43 @@ let LoadingTicket = React.createClass({
 								</div>
 							</div>
 						</div>;
-					} else{
-						if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && !transactionResponse.details.creditCardTransaction && transactionResponse.status != cashier.TRANSACTION_STATUS_APPROVED && transactionResponse.transactionId != ""){
-							return <div className="col-sm-12">
-								<div className="modules">
-									<div className="row">
-										<div className="col-sm-12">
-											<h2>{translate('PROCESSING', 'Processing... please wait!')}</h2>
-											<div className="loader"></div>
+					}else{
+						if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && !transactionResponse.details.creditCardTransaction && 
+							transactionResponse.status != cashier.TRANSACTION_STATUS_APPROVED && transactionResponse.transactionId != ""){
+							return (
+								<div className="col-sm-12">
+									<div className="modules">
+										<div className="row">
+											<div className="col-sm-12">
+												<h2>{translate('PROCESSING', 'Processing... please wait!')}</h2>
+												<div className="loader"></div>
+											</div>
 										</div>
 									</div>
-								</div>
-							</div>;
-						} else{
+								</div>		
+							)
+						}else{
 							return this.props.children
 						}
 					}
 				})()}
 			</div>
 		)
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

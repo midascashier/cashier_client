@@ -12,8 +12,7 @@ let BitCoinTicketPending = React.createClass({
 	 * @returns {*|{address, amount, minutes}|{address: string, amount: string, minutes: number}}
 	 */
 	getInitialState(){
-		let state = Object.assign(this.refreshLocalState(), { timer: '15:00' });
-		return state;
+		return Object.assign(this.refreshLocalState(), { timer: '15:00' });
 	},
 
 	/**
@@ -41,21 +40,6 @@ let BitCoinTicketPending = React.createClass({
 			minutes: rateExpiration,
 			expirationTime: expirationTime
 		}
-	},
-
-	/**
-	 * component is ready
-	 */
-	componentDidMount() {
-		this.interval = setInterval(this.timerTick, 500);
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
 	},
 
 	/**
@@ -122,6 +106,7 @@ let BitCoinTicketPending = React.createClass({
 				<div className="col-sm-12">
 					<div className="modules">
 						<div className="row">
+							
 							<div className="col-sm-4">
 								<div className="box">
 									<div className="row">
@@ -143,10 +128,11 @@ let BitCoinTicketPending = React.createClass({
 											<div className="row">
 												<div className="col-sm-12">
 													<div className="title">#2</div>
+													
 													<div className="infoCol">
-														<div
-															className="subtitle">{translate('BITCOIN_INSTRUCTIONS_ADDRESS', 'Send the BitCoin to the following address')}</div>
+														<div className="subtitle">{translate('BITCOIN_INSTRUCTIONS_ADDRESS', 'Send the BitCoin to the following address')}</div>
 														<p>{translate('BITCOIN_INSTRUCTIONS_ADDRESS_INFO', 'Please include any Miners Fee your BitCoin wallet charges.')}</p>
+														
 														<div className="row">
 															<div id="btcAddress" className="form-group">
 																<div className="col-sm-12">
@@ -161,6 +147,7 @@ let BitCoinTicketPending = React.createClass({
 																</div>
 															</div>
 														</div>
+														
 														<div id="QRCode">
 															{(() =>{
 																if(address){
@@ -202,6 +189,21 @@ let BitCoinTicketPending = React.createClass({
 				</div>
 			</div>
 		)
+	},
+
+	/**
+	 * component is ready
+	 */
+	componentDidMount() {
+		this.interval = setInterval(this.timerTick, 500);
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

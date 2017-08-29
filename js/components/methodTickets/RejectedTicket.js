@@ -29,20 +29,6 @@ let RejectedTicket = React.createClass({
 	},
 
 	/**
-	 * component is ready
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 * refresh the state when changes occur
 	 *
 	 * @private
@@ -90,6 +76,20 @@ let RejectedTicket = React.createClass({
 				</div>
 			</div>
 		)
+	},
+
+	/**
+	 * component is ready
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

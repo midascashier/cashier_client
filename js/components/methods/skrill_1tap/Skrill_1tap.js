@@ -22,21 +22,6 @@ let Skrill_1tap = React.createClass({
 	},
 
 	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState() {
@@ -65,8 +50,11 @@ let Skrill_1tap = React.createClass({
 	/**
 	 * Set ecopayz New Account Info
 	 *
+	 * @param propertyName
+	 * @param isSelectComponent
 	 * @param event
-	 */
+	 * @param validAccount
+     */
 	changeValue(propertyName, isSelectComponent = 0, event, validAccount){
 		let actualState = this.state;
 
@@ -90,26 +78,49 @@ let Skrill_1tap = React.createClass({
 		return (
 			<div id="1tap">
 				<div className="col-sm-6">
-					<AskInfo amount={this.props.amount}
-									 setAmount={this.props.setAmount}
-									 limitsCheck={this.props.limitsCheck}
-									 feeCashValue={this.props.feeCashValue}
-									 feeCheck={this.props.feeCheck}
-									 changeValue = {this.changeValue}
-									 account = {this.state.info.account}
+					<AskInfo
+						amount={this.props.amount}
+						setAmount={this.props.setAmount}
+						limitsCheck={this.props.limitsCheck}
+						feeCashValue={this.props.feeCashValue}
+						feeCheck={this.props.feeCheck}
+						changeValue = {this.changeValue}
+						account = {this.state.info.account}
 					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
 						if(!this.state.info.selectedProcessor.processorId){
 							return <LoadingSpinner />;
-						} else{
-							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck} account = {this.state.info.account} validAccount = {this.state.info.validAccount} />;
+						}else{
+							return(
+								<InfoMethod
+									amount={this.props.amount}
+									limitsCheck={this.props.limitsCheck}
+									account = {this.state.info.account}
+									validAccount = {this.state.info.validAccount}
+								/>
+							)
 						}
 					})()}
 				</div>
 			</div>
 		)
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

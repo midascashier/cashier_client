@@ -129,6 +129,7 @@ let Content = React.createClass({
 					}
 				}
 			}
+
 			let actualState = this.state.info;
 			actualState.feeCashValue = feeCashValue;
 			actualState.feeCheck = feeInsufficientFunds;
@@ -161,8 +162,7 @@ let Content = React.createClass({
 			let processorID = UIService.getProcessorId();
 			// Calculate BTC just for bitcoin ProcessorID
 			if(processorID == Cashier.PROCESSOR_ID_BITCOIN && CashierStore.getBTCRate()){
-				let btcAmount = amount * CashierStore.getBTCRate();
-				actualState.btcAmount = btcAmount;
+				actualState.btcAmount = amount * CashierStore.getBTCRate();
 			}
 			actualState.amount = amount;
 			this.setState({info: actualState}, function afterAmountChange(){
@@ -174,12 +174,11 @@ let Content = React.createClass({
 		/**
 		 * Set btc amount
 		 *
-		 * @param amount
-		 */
+		 * @param btcAmount
+         */
 		setBTCAmount(btcAmount){
 			let actualState = this.state.info;
-			let amount = btcAmount / CashierStore.getBTCRate();
-			actualState.amount = amount;
+			actualState.amount = btcAmount / CashierStore.getBTCRate();
 			actualState.btcAmount = btcAmount;
 			this.setState({info: actualState}, function afterAmountChange(){
 				this.checkLimits();
