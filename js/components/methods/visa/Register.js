@@ -25,7 +25,6 @@ let Register = React.createClass({
 	 *
 	 */
 	refreshLocalState() {
-		let currentTime = new Date();
 		let country = CashierStore.getSelectedCountry();
 		let states = UIService.getCountryStates();
 		let customer = CashierStore.getCustomer();
@@ -112,59 +111,44 @@ let Register = React.createClass({
 	},
 
 	/**
-	 * Sends request to register new payaccount
+	 * Sends request to register new pay account
 	 *
 	 * @param e
 	 * @returns {boolean}
 	 */
 	addNewPayAccount(e){
-		let actualState = this.state;
-		e.preventDefault();
 
-		for(let i = 0; i < e.target.length; i++){
-			if(e.target[i].type != 'submit' && e.target[i].type != 'button' && e.target[i].type != 'checkbox'){
-				e.target[i].style['border-color'] = '';
-				if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
-					e.target[i].style['border-color'] = 'red';
-					e.target[i].focus();
-					return false;
-				}
+		if (!ApplicationService.emptyInput(e)) {
 
-				if(!ApplicationService.validateInfo(e.target[i].value, e.target[i].getAttribute('data-validation')) && e.target[i].value.length > 0 ){
-					e.target[i].style['border-color'] = 'red';
-					e.target[i].focus();
-					return false;
-				}
+			if(!this.checkCardHolderName()){
+				return false;
 			}
+
+			let actualState = this.state;
+
+			if(!this.state.dobDay){
+				actualState.payAccount.dobDay = e.target.querySelector('[name="dobDay"]').value;
+			}
+			if(!this.dobMonth){
+				actualState.payAccount.dobMonth = e.target.querySelector('[name="dobMonth"]').value;
+			}
+			if(!this.dobYear){
+				actualState.payAccount.dobYear = e.target.querySelector('[name="dobYear"]').value;
+			}
+
+			actualState.payAccount.dobDay = ('0' + actualState.payAccount.dobDay).slice(-2);
+			actualState.payAccount.dobMonth = ('0' + actualState.payAccount.dobMonth).slice(-2);
+			actualState.payAccount.dob = actualState.payAccount.dobYear + "-" + actualState.payAccount.dobMonth + "-" + this.state.payAccount.dobDay;
+			actualState.payAccount.extra1 = ('0' + actualState.payAccount.extra1).slice(-2);
+
+			actualState.displaySaveButton = false;
+
+			this.setState({
+				actualState
+			});
+
+			TransactionService.registerPayAccount(this.state.payAccount);
 		}
-
-		if(!this.checkCardHolderName()){
-			return false;
-		}
-
-		if(!this.state.dobDay){
-			actualState.payAccount.dobDay = e.target.querySelector('[name="dobDay"]').value;
-		}
-		if(!this.dobMonth){
-			actualState.payAccount.dobMonth = e.target.querySelector('[name="dobMonth"]').value;
-		}
-		if(!this.dobYear){
-			actualState.payAccount.dobYear = e.target.querySelector('[name="dobYear"]').value;
-		}
-
-		actualState.payAccount.dobDay = ('0' + actualState.payAccount.dobDay).slice(-2);
-		actualState.payAccount.dobMonth = ('0' + actualState.payAccount.dobMonth).slice(-2);
-
-		actualState.payAccount.dob = actualState.payAccount.dobYear + "-" + actualState.payAccount.dobMonth + "-" + this.state.payAccount.dobDay;
-
-		actualState.payAccount.extra1 = ('0' + actualState.payAccount.extra1).slice(-2);
-
-		actualState.displaySaveButton = false;
-		this.setState({
-			actualState
-		});
-
-		TransactionService.registerPayAccount(this.state.payAccount);
 	},
 
 	/**

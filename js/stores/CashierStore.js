@@ -6,6 +6,7 @@ import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
 import processors from '../constants/Processors'
 import {translate} from '../constants/Translate'
+
 /**
  * UI
  *

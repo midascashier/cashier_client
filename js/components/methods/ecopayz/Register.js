@@ -49,28 +49,15 @@ let Register = React.createClass({
 	 * @returns {boolean}
 	 */
 	addNewPayAccount(e){
-		e.preventDefault();
 
-		for(let i = 0; i < e.target.length; i++){
-			if(e.target[i].type != 'submit' && e.target[i].type != 'button' && e.target[i].type != 'checkbox'){
-				if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
-					e.target[i].style['border-color'] = 'red';
-					e.target[i].focus();
-					return false;
-				}
+		if (!ApplicationService.emptyInput(e)) {
 
-				if(!ApplicationService.validateInfo(e.target[i].value, e.target[i].getAttribute('data-validation')) && e.target[i].value.length > 0 ){
-					e.target[i].style['border-color'] = 'red';
-					e.target[i].focus();
-					return false;
-				}
-			}
+			this.setState({
+				displaySaveButton: false
+			});
+
+			TransactionService.registerPayAccount(this.state.payAccount);
 		}
-
-		TransactionService.registerPayAccount(this.state.payAccount);
-		this.setState({
-			displaySaveButton: false
-		});
 	},
 
 	/**
