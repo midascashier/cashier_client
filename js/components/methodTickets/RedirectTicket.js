@@ -47,6 +47,8 @@ let RedirectTicket = React.createClass({
 
     componentDidMount() {
 
+        CashierStore.addChangeListener(this._onChange);
+
         if (this.props.simpleRedirect) {
             window.location = this.props.url;
         }
@@ -54,6 +56,13 @@ let RedirectTicket = React.createClass({
         setTimeout(function() {
             document.getElementById("message").submit();
         }, 1000);
+    },
+
+    /**
+     * React function to remove listener to this component once is unmounted
+     */
+    componentWillUnmount() {
+        CashierStore.removeChangeListener(this._onChange);
     }
 });
 
