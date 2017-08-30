@@ -13,7 +13,10 @@ let RedirectTicket = React.createClass({
 
     componentWillMount() {
         this.props.simpleRedirect = 1;
-        this.props.transaction = CashierStore.getLastDataTransactionResponse();
+
+        if (!this.props.transaction) {
+            this.props.transaction = CashierStore.getLastDataTransactionResponse();
+        }
 
         if ("gotoURLAction" in this.props.transaction && "gotoURL" in this.props.transaction) {
             this.props.url = this.props.transaction.gotoURLAction;
