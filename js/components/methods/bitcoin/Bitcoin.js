@@ -28,21 +28,6 @@ let BitCoin = React.createClass({
 	},
 
 	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState() {
@@ -100,35 +85,56 @@ let BitCoin = React.createClass({
 		return (
 			<div id="bitCoin">
 				<div className="col-sm-6">
-					<AskInfo amount={this.props.amount}
-									 btcAmount={this.props.btcAmount}
-									 setBTCAmount={this.props.setBTCAmount}
-									 setAmount={this.props.setAmount}
-									 limitsCheck={this.props.limitsCheck}
-									 feeCashValue={this.props.feeCashValue}
-									 feeCheck={this.props.feeCheck}
-									 changeValue={this.changeValue}
-									 bitcoinAddress={this.state.info.bitcoinAddress}
-									 allowContinueToConfirm={this.state.info.allowContinueToConfirm}
-									 transaction={this.state.info.transaction}
-									 setPromoCode={this.props.setPromoCode}
-									 promoCode={this.props.promoCode}
+					<AskInfo
+						amount={this.props.amount}
+						btcAmount={this.props.btcAmount}
+						setBTCAmount={this.props.setBTCAmount}
+						setAmount={this.props.setAmount}
+						limitsCheck={this.props.limitsCheck}
+						feeCashValue={this.props.feeCashValue}
+						feeCheck={this.props.feeCheck}
+						changeValue={this.changeValue}
+						bitcoinAddress={this.state.info.bitcoinAddress}
+						allowContinueToConfirm={this.state.info.allowContinueToConfirm}
+						transaction={this.state.info.transaction}
+						setPromoCode={this.props.setPromoCode}
+						promoCode={this.props.promoCode}
 					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
 						if(!this.state.info.selectedProcessor.processorId){
-							return <LoadingSpinner />;
+							return <LoadingSpinner/>;
 						}else{
-							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}
-																 feeCashValue={this.props.feeCashValue}
-																 feeCheck={this.props.feeCheck} bitcoinAddress={this.state.info.bitcoinAddress}
-																 allowContinueToConfirm={this.state.info.allowContinueToConfirm}/>;
+							return(
+								<InfoMethod
+									amount={this.props.amount}
+									limitsCheck={this.props.limitsCheck}
+									feeCashValue={this.props.feeCashValue}
+									feeCheck={this.props.feeCheck} bitcoinAddress={this.state.info.bitcoinAddress}
+									allowContinueToConfirm={this.state.info.allowContinueToConfirm}
+								/>
+							)
 						}
 					})()}
 				</div>
 			</div>
 		)
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

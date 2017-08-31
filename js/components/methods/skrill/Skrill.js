@@ -25,21 +25,6 @@ let Skrill = React.createClass({
 	},
 
 	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState() {
@@ -62,14 +47,15 @@ let Skrill = React.createClass({
 		return (
 			<div id="skrill">
 				<div className="col-sm-6">
-					<AskInfo amount={this.props.amount}
-									 setAmount={this.props.setAmount}
-									 payAccount={this.state.payAccount}
-									 limitsCheck={this.props.limitsCheck}
-									 feeCashValue={this.props.feeCashValue}
-									 feeCheck={this.props.feeCheck}
-									 setPromoCode={this.props.setPromoCode}
-									 promoCode={this.props.promoCode}
+					<AskInfo 
+						amount={this.props.amount}
+						setAmount={this.props.setAmount}
+						payAccount={this.state.payAccount}
+						limitsCheck={this.props.limitsCheck}
+						feeCashValue={this.props.feeCashValue}
+						feeCheck={this.props.feeCheck}
+						setPromoCode={this.props.setPromoCode}
+						promoCode={this.props.promoCode}
 					/>
 				</div>
 				<div className="col-sm-6">
@@ -83,6 +69,21 @@ let Skrill = React.createClass({
 				</div>
 			</div>
 		)
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

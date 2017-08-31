@@ -66,6 +66,29 @@ let Register = React.createClass({
 	},
 
 	/**
+	 * this is the callback function the store calls when a state change
+	 *
+	 * @private
+	 */
+	_onChange() {
+		let payAccount = this.state.payAccount;
+		let UI = CashierStore.getUI();
+		let displaySave = false;
+		if(UI.userMessage){
+			displaySave = true;
+		}
+
+		if(!displaySave && this.state.displaySaveButton){
+			displaySave = true;
+		}
+
+		this.setState({
+			displaySaveButton: displaySave,
+			payAccount
+		});
+	},
+
+	/**
 	 * Set visa New Account Info
 	 *
 	 * @param event
@@ -152,21 +175,6 @@ let Register = React.createClass({
 	},
 
 	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 * Cancel button
 	 */
 	cancel() {
@@ -183,29 +191,6 @@ let Register = React.createClass({
 		}
 	},
 
-	/**
-	 * this is the callback function the store calls when a state change
-	 *
-	 * @private
-	 */
-	_onChange() {
-		let payAccount = this.state.payAccount;
-		let UI = CashierStore.getUI();
-		let displaySave = false;
-		if(UI.userMessage){
-			displaySave = true;
-		}
-
-		if(!displaySave && this.state.displaySaveButton){
-			displaySave = true;
-		}
-
-		this.setState({
-			displaySaveButton: displaySave,
-			payAccount
-		});
-	},
-
 	render(){
 		let selectMonths = [];
 		let countries = UIService.getCountries();
@@ -218,10 +203,10 @@ let Register = React.createClass({
 		let cvvValidation = "isCVV";
 		if(processor.processorId == cashier.PROCESSOR_ID_VISA){
 			ccValidation = "isVisa";
-		} else{
+		}else{
 			if(processor.processorId == cashier.PROCESSOR_ID_MC){
 				ccValidation = "isMC";
-			} else{
+			}else{
 				if (processor.processorId == cashier.PROCESSOR_ID_AMEX){
 					cvvValidation = "isCVV4";
 				}
@@ -400,6 +385,21 @@ let Register = React.createClass({
 				</form>
 			</div>
 		)
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

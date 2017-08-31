@@ -26,21 +26,6 @@ let Visa = React.createClass({
 	},
 
 	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState() {
@@ -70,11 +55,13 @@ let Visa = React.createClass({
 	/**
 	 * Set visa New Account Info
 	 *
-	 * @param event
-	 */
+	 * @param propertyName
+	 * @param property
+	 * @param isSelectComponent
+     * @param event
+     */
 	changeValue(propertyName, property = null, isSelectComponent = 0, event){
 		let actualState = this.state;
-
 		let value = event;
 
 		if(isSelectComponent){
@@ -90,7 +77,7 @@ let Visa = React.createClass({
 			}else{
 				actualState[property][propertyName] = value;
 			}
-		} else{
+		}else{
 			actualState[propertyName] = value;
 		}
 
@@ -108,7 +95,7 @@ let Visa = React.createClass({
 		let payAccount = this.state.payAccount;
 		if(payAccount.extra.dob == null && payAccount.extra.ssn == null && payAccount.payAccountId != 0){
 			return ApplicationService.validateInfo(this.state.transaction.ssn, "isSSN");
-		} else{
+		}else{
 			return true;
 		}
 	},
@@ -120,25 +107,46 @@ let Visa = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<AskInfo amount={this.props.amount}
-									 setAmount={this.props.setAmount}
-									 payAccount={this.state.payAccount}
-									 limitsCheck={this.props.limitsCheck}
-									 changeValue={this.changeValue}
+					<AskInfo
+						amount={this.props.amount}
+						setAmount={this.props.setAmount}
+						payAccount={this.state.payAccount}
+						limitsCheck={this.props.limitsCheck}
+						changeValue={this.changeValue}
 					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
-						} else{
-							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}
-																 payAccount={this.state.payAccount} formValidator={this.formValidator}/>;
+						}else{
+							return(
+								<InfoMethod
+									amount={this.props.amount}
+									limitsCheck={this.props.limitsCheck}
+									payAccount={this.state.payAccount} formValidator={this.formValidator}
+								/>
+							)
 						}
 					})()}
 				</div>
 			</div>
 		)
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 
