@@ -1,15 +1,13 @@
 import React from 'react'
 import  cashier  from '../../../constants/Cashier'
 import { translate } from '../../../constants/Translate'
-import { SelectPayAccount } from '../../SelectPayAccount'
 import { AmountController } from '../../AmountController'
 import { UIService } from '../../../services/UIService'
 import { Register } from './Register.js'
 import { CustomerService } from '../../../services/CustomerService'
 import { LoadingSpinner } from '../../loading/LoadingSpinner'
 import { CashierStore } from './../../../stores/CashierStore'
-
-import { TransactionService } from '../../../services/TransactionService'
+import { PayAccountDropDown } from '../../commonComponents/payaccount/payAccountDropDown'
 import { ApplicationService } from '../../../services/ApplicationService'
 
 let AskInfo = React.createClass({
@@ -23,11 +21,20 @@ let AskInfo = React.createClass({
 		setFeeType: React.PropTypes.func,
 		feeType: React.PropTypes.string,
 		setSendBy: React.PropTypes.func,
-		sendBy: React.PropTypes.string,
+		sendBy: React.PropTypes.string
 	},
 
 	disablePayAccount() {
 		CustomerService.getDisablePayAccount();
+	},
+
+	/**
+	 * Pass props on to son
+	 *
+	 * @returns {*}
+	 */
+	getProps() {
+		return this.props
 	},
 
 	render() {
@@ -48,6 +55,7 @@ let AskInfo = React.createClass({
 		let withdrawFee = "";
 		let deleteButton = (!isWithDraw) ? translate('PROCESSING_BUTTON_DELETE_SENDER') : translate('PROCESSING_BUTTON_DELETE_RECEIVER');
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
+
 		if(isWithDraw){
 			proccesingTitle = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information');
 		}
@@ -77,68 +85,40 @@ let AskInfo = React.createClass({
 			}
 		}
 
-		let PayAccountDropDown = React.createClass({
-
-				disablePayAccount() {
-					CustomerService.getDisablePayAccount();
-				},
-
-				render(){
-					let deleteButtonDisplay = "";
-
-					if(payAccountId != 0){
-						deleteButtonDisplay = <button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
-							{deleteButton}
-						</button>;
-					}
-
-					return (
-						<div className="form-group" id="payAccount">
-							<label className="col-sm-4 control-label">{translate('SELECT_ACCOUNT', 'Account')}:</label>
-							<div className="col-sm-5" id="selectPayAccount">
-								<SelectPayAccount setAmount={setAmount} amount={amount}/>
-							</div>
-							<div className="col-sm-3">
-								{deleteButtonDisplay}
-							</div>
-						</div>
-					)
-				}
-			}
-		);
-
 		if(isWithDraw){
-			withdrawFee = <div className="form-group">
-				<div id="feeControllerGenCK">
-					{(() =>{
-						if(feeOptions && (processorFees.enableFree == 1 || processorFees.enableCash == 1)){
-							return (
-								<div id="feeSelection">
-									<label className="col-sm-4 control-label">{translate('PROCESSING_FEE', 'Fee')}:</label>
+			withdrawFee = (
+				<div className="form-group">
+					<div id="feeControllerGenCK">
+						{(() =>{
+
+							if(feeOptions && (processorFees.enableFree == 1 || processorFees.enableCash == 1)){
+								return (
+									<div id="feeSelection">
+										<label className="col-sm-4 control-label">{translate('PROCESSING_FEE', 'Fee')}:</label>
+										<div className="col-sm-8">
+											<select className="form-control" onChange={this.transactionFee}>
+												{feeOptions}
+											</select>
+											{translate('PROCESSING_FEE', 'Fee')}: {ApplicationService.currency_format(this.props.feeCashValue)} {customer.currency}- {translate('PROCESSING_BALANCE', 'Balance')}: {ApplicationService.currency_format(customer.balance)} {customer.currency}
+										</div>
+									</div>
+								)
+							}
+
+							if(this.props.feeCheck && this.props.amount != ""){
+								return (
 									<div className="col-sm-8">
-										<select className="form-control" onChange={this.transactionFee}>
-											{feeOptions}
-										</select>
-										{translate('PROCESSING_FEE', 'Fee')}: {ApplicationService.currency_format(this.props.feeCashValue)} {customer.currency}- {translate('PROCESSING_BALANCE', 'Balance')}: {ApplicationService.currency_format(customer.balance)} {customer.currency}
+										<div className="alert alert-danger" role="alert">
+											<i className="fa fa-thumbs-o-down red"></i>
+											<strong>{translate('PROCESSING_FEE_ENOUGH_BALANCE')}</strong>
+										</div>
 									</div>
-								</div>
-							)
-						}
-					})()}
-					{(() =>{
-						if(this.props.feeCheck && this.props.amount != ""){
-							return (
-								<div className="col-sm-8">
-									<div className="alert alert-danger" role="alert">
-										<i className="fa fa-thumbs-o-down red"></i>
-										<strong>{translate('PROCESSING_FEE_ENOUGH_BALANCE')}</strong>
-									</div>
-								</div>
-							)
-						}
-					})()}
+								)
+							}
+						})()}
+					</div>
 				</div>
-			</div>;
+			);
 		}
 
 		return (
@@ -152,41 +132,30 @@ let AskInfo = React.createClass({
 								{(() =>{
 									if(!payAccountDisplayName){
 										return <LoadingSpinner />;
-									} else{
-										if(payAccountDisplayName == cashier.NO_RESPONSE){
-											return <div className="scroll"><Register /></div>
-										}
-										if(payAccountId == 0){
-											return <div className="scroll"><PayAccountDropDown /><Register /></div>
-										} else{
-											return (
-												<div>
-													<PayAccountDropDown />
+									}else{
 
-													<div className="form-group">
-														<label className="col-sm-4 control-label">{translate('CK_SEND_BY', 'Send by')}:</label>
-														<div className="col-sm-8">
-															<select className="form-control" data-validation='isString' id="sendBy" value={sendBy} onChange={setSendBy} required="required">
-																{sendByOptionNodes}
-															</select>
-														</div>
-													</div>
-
-													<div className="form-group">
-														<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-													</div>
-													{withdrawFee}
-												</div>
-											)
+										if(payAccountDisplayName == cashier.NO_RESPONSE || payAccountId == 0){
+											return <div className="scroll"><Register/></div>
 										}
 
-									}
-								})()}
-								
-								{(() =>{
-									if(!isWithDraw){
 										return (
-											<p></p>
+											<div>
+												<PayAccountDropDown info={this.getProps()} msgDeleteBtn={deleteButton}/>
+
+												<div className="form-group">
+													<label className="col-sm-4 control-label">{translate('CK_SEND_BY', 'Send by')}:</label>
+													<div className="col-sm-8">
+														<select className="form-control" data-validation='isString' id="sendBy" value={sendBy} onChange={setSendBy} required="required">
+															{sendByOptionNodes}
+														</select>
+													</div>
+												</div>
+
+												<div className="form-group">
+													<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+												</div>
+												{withdrawFee}
+											</div>
 										)
 									}
 								})()}
