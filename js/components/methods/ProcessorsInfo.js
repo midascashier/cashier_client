@@ -8,9 +8,11 @@ import { LoadingSpinner } from '../../components/loading/LoadingSpinner'
 import { UIService } from '../../services/UIService'
 
 let ProcessorsInfo = React.createClass({
+
 	propTypes: {
 		setAmount: React.PropTypes.func
 	},
+
 	/**
 	 * React function to set component inital state
 	 *
@@ -20,28 +22,13 @@ let ProcessorsInfo = React.createClass({
 	},
 
 	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		this.props.setAmount("");
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 * this function sets and return object with local states
 	 *
 	 */
 	refreshLocalState() {
 		return {
-			customer: CashierStore.getCustomer(), selectedProcessor: CashierStore.getProcessor()
+			customer: CashierStore.getCustomer(),
+			selectedProcessor: CashierStore.getProcessor()
 		}
 	},
 
@@ -75,9 +62,7 @@ let ProcessorsInfo = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<ProcessorsList
-						selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
-						processors={processors}/>
+					<ProcessorsList selectedProcessor={parseInt(this.state.selectedProcessor.processorId)} processors={processors}/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
@@ -90,6 +75,22 @@ let ProcessorsInfo = React.createClass({
 				</div>
 			</div>
 		)
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		this.props.setAmount("");
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

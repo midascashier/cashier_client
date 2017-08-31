@@ -81,6 +81,7 @@ let Register = React.createClass({
 		return (
 			<div id="netellerRegister">
 				<form onSubmit={this.addNewPayAccount}>
+
 					<div className="form-group">
 						<label
 							className="col-sm-4 control-label">{translate('NETELLER_NEW', 'Enter your Neteller Email Account')}:</label>
@@ -104,6 +105,7 @@ let Register = React.createClass({
 							</div>
 						</div>
 					</div>
+					
 				</form>
 			</div>
 		)

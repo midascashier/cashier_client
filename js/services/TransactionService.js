@@ -105,7 +105,7 @@ class transactionService {
 		if(processorID == cashier.PROCESSOR_ID_ECOPAYZ && CashierStore.getIsWithdraw()){
 			getPayAccounts = true;
 		} else{
-			if(processorID != cashier.PROCESSOR_ID_BITCOIN && processorID != cashier.PROCESSOR_ID_ASTROPAY && processorID != cashier.PROCESSOR_ID_1TAP && processorID != cashier.PROCESSOR_ID_ECOPAYZ){
+			if(processorID != cashier.PROCESSOR_ID_BITCOIN && processorID != cashier.PROCESSOR_ID_ASTROPAY && processorID != cashier.PROCESSOR_ID_1TAP){
 				getPayAccounts = true;
 			}
 		}
