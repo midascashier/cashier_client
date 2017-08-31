@@ -58,15 +58,17 @@ let AskInfo = React.createClass({
 						</button>;
 					}
 
-					return <div className="form-group" id="payAccount">
-						<label className="col-sm-4 control-label">{translate('NETELLER_ACCOUNT', 'Neteller Account')}:</label>
-						<div className="col-sm-5" id="selectPayAccount">
-							<SelectPayAccount setAmount={setAmount} amount={amount}/>
+					return(
+						<div className="form-group" id="payAccount">
+							<label className="col-sm-4 control-label">{translate('NETELLER_ACCOUNT', 'Neteller Account')}:</label>
+							<div className="col-sm-5" id="selectPayAccount">
+								<SelectPayAccount setAmount={setAmount} amount={amount}/>
+							</div>
+							<div className="col-sm-3">
+								{deleteButtonDisplay}
+							</div>
 						</div>
-						<div className="col-sm-3">
-							{deleteButtonDisplay}
-						</div>
-					</div>
+					);
 				}
 			}
 		);

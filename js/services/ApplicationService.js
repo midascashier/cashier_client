@@ -105,6 +105,36 @@ class applicationService {
 	}
 
 	/**
+	 * Checking if any input data in form is empty and mark this input
+	 *
+	 * @param input
+	 * @returns {boolean}
+     */
+	emptyInput(input) {
+
+		input.preventDefault();
+
+		for(let i = 0; i < input.target.length; i++){
+			if(input.target[i].type != 'submit' && input.target[i].type != 'button' && input.target[i].type != 'checkbox'){
+				input.target[i].style['border-color'] = '';
+				if(parseInt(input.target[i].getAttribute('data-isRequired')) == 1 && input.target[i].value.length <= 0){
+					input.target[i].style['border-color'] = 'red';
+					input.target[i].focus();
+					return true;
+				}
+
+				if(!this.validateInfo(input.target[i].value, input.target[i].getAttribute('data-validation')) && input.target[i].value.length > 0 ){
+					input.target[i].style['border-color'] = 'red';
+					input.target[i].focus();
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Validate form entry data
 	 *
 	 * @param value

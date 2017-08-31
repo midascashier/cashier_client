@@ -2,7 +2,6 @@ import { CashierActions } from '../actions/CashierActions'
 import { CustomerService } from '../services/CustomerService'
 import { ApplicationService } from './ApplicationService'
 import { TransactionService } from './TransactionService'
-import { CashierStore } from '../stores/CashierStore'
 import actions from '../constants/Actions'
 import Cashier from '../constants/Cashier'
 
@@ -18,7 +17,7 @@ class OnResponseService {
 		}else{
 			CashierActions.showUserMessage(data.userMessage);
 		}
-		
+
 		switch(action){
 			case actions.CUSTOMER_INFO_RESPONSE:
 				CashierActions.setSelectedCountry();
@@ -45,11 +44,10 @@ class OnResponseService {
 			case actions.VALIDATE_PAYACCOUNT:
 				if (data.response && data.response.payAccount){
 					let processorID = data.response.payAccount.processorIdRoot;
-					if((processorID == Cashier.PROCESSOR_ID_ECOPAYZ && !CashierStore.getIsWithdraw()) || processorID == Cashier.PROCESSOR_ID_1TAP){
-						let payAccount = {};
+					if(processorID == Cashier.PROCESSOR_ID_1TAP){
 						CashierActions.setsPayAccount(data.response.payAccount);
 						TransactionService.process({ account: data.response.payAccount.displayName, askAmount: true }, "ticket");
-					} else{
+					}else{
 						TransactionService.getPreviousPayAccount(processorID);
 					}
 				}

@@ -49,28 +49,15 @@ let Register = React.createClass({
 	 * @returns {boolean}
 	 */
 	addNewPayAccount(e){
-		e.preventDefault();
 
-		for(let i = 0; i < e.target.length; i++){
-			if(e.target[i].type != 'submit' && e.target[i].type != 'button' && e.target[i].type != 'checkbox'){
-				if(parseInt(e.target[i].getAttribute('data-isRequired')) == 1 && e.target[i].value.length <= 0){
-					e.target[i].style['border-color'] = 'red';
-					e.target[i].focus();
-					return false;
-				}
+		if (!ApplicationService.emptyInput(e)) {
 
-				if(!ApplicationService.validateInfo(e.target[i].value, e.target[i].getAttribute('data-validation')) && e.target[i].value.length > 0 ){
-					e.target[i].style['border-color'] = 'red';
-					e.target[i].focus();
-					return false;
-				}
-			}
+			this.setState({
+				displaySaveButton: false
+			});
+
+			TransactionService.registerPayAccount(this.state.payAccount);
 		}
-
-		TransactionService.registerPayAccount(this.state.payAccount);
-		this.setState({
-			displaySaveButton: false
-		});
 	},
 
 	/**
@@ -94,6 +81,7 @@ let Register = React.createClass({
 		return (
 			<div id="netellerRegister">
 				<form onSubmit={this.addNewPayAccount}>
+
 					<div className="form-group">
 						<label
 							className="col-sm-4 control-label">{translate('NETELLER_NEW', 'Enter your Neteller Email Account')}:</label>
@@ -102,19 +90,23 @@ let Register = React.createClass({
 										 validate="isEmail" onChange={this.changeValue} value={this.state.payAccount.account} require/>
 						</div>
 					</div>
-				</form>
-				<div className="col-md-4 col-md-offset-4">
-					<div className="row">
-						<div className="col-sm-6">
-							{this.state.displaySaveButton ? <button type='submit'
-																											className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
-						</div>
-						<div className="col-sm-6">
-							{this.state.displaySaveButton ? <button type='button' onClick={this.cancel}
-																											className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Save')}</button> : null }
+
+					<div className="col-md-4 col-md-offset-4">
+						<div className="row">
+							<div className="col-sm-6">
+								{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>
+									{translate('PROCESSING_BUTTON_SAVE', 'Save')}
+								</button> : null }
+							</div>
+							<div className="col-sm-6">
+								{this.state.displaySaveButton ? <button type='button' onClick={this.cancel} className='btn btn-green'>
+									{translate('PROCESSING_BUTTON_CANCEL', 'Save')}
+								</button> : null }
+							</div>
 						</div>
 					</div>
-				</div>
+					
+				</form>
 			</div>
 		)
 	}
