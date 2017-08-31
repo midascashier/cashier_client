@@ -48,33 +48,33 @@ let AskInfo = React.createClass({
 
 		let PayAccountDropDown = React.createClass({
 
-				disablePayAccount() {
-					CustomerService.getDisablePayAccount();
-				},
+			disablePayAccount() {
+				CustomerService.getDisablePayAccount();
+			},
 
-				render(){
-					let deleteButtonDisplay = "";
+			render(){
+				let deleteButtonDisplay = "";
 
-					if(payAccountId != 0){
-						deleteButtonDisplay = (
-							<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
-								{deleteButton}
-							</button>
-						);
-					}
-
-					return(
-						<div className="form-group" id="payAccount">
-							<label className="col-sm-4 control-label">{translate('SELECT_ACCOUNT', 'Account')}:</label>
-							<div className="col-sm-5" id="selectPayAccount">
-								<SelectPayAccount setAmount={setAmount} amount={amount}/>
-							</div>
-							<div className="col-sm-3">
-								{deleteButtonDisplay}
-							</div>
-						</div>
-					)
+				if(payAccountId != 0){
+					deleteButtonDisplay = (
+						<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+							{deleteButton}
+						</button>
+					);
 				}
+
+				return(
+					<div className="form-group" id="payAccount">
+						<label className="col-sm-4 control-label">{translate('SELECT_ACCOUNT', 'Account')}:</label>
+						<div className="col-sm-5" id="selectPayAccount">
+							<SelectPayAccount setAmount={setAmount} amount={amount}/>
+						</div>
+						<div className="col-sm-3">
+							{deleteButtonDisplay}
+						</div>
+					</div>
+				)
+			}
 			}
 		);
 
