@@ -1,11 +1,11 @@
 import React from 'react'
 import  cashier  from '../../../constants/Cashier'
 import { translate } from '../../../constants/Translate'
-import { SelectPayAccount } from '../../SelectPayAccount'
 import { AmountController } from '../../AmountController'
 import { UIService } from '../../../services/UIService'
 import { CustomerService } from '../../../services/CustomerService'
 import { FeeController } from '../../FeeController'
+import { PayAccountDropDown } from '../../commonComponents/payaccount/payAccountDropDown'
 import { Register } from './Register'
 
 let AskInfo = React.createClass({
@@ -25,6 +25,18 @@ let AskInfo = React.createClass({
 		}
 	},
 
+	/**
+	 * Pass props on to son
+	 *
+	 * @returns {*}
+     */
+	getProps() {
+		return this.props
+	},
+
+	/**
+	 * Disable selected payAccount
+	 */
 	disablePayAccount() {
 		CustomerService.getDisablePayAccount();
 	},
@@ -38,45 +50,14 @@ let AskInfo = React.createClass({
 		let payAccountDisplayName = payAccount.displayName;
 		let feeCheck = this.props.feeCheck;
 		let feeCashValue = this.props.feeCashValue;
-		let isWithDraw = UIService.getIsWithDraw();
-		let withdrawFee = "";
-		let deleteButton = translate('PROCESSING_BUTTON_DELETE_ACCOUNT');
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
+
+		let withdrawFee = "";
+		let isWithDraw = UIService.getIsWithDraw();
+
 		if(isWithDraw){
 			proccesingTitle = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information');
 		}
-
-		let PayAccountDropDown = React.createClass({
-
-			disablePayAccount() {
-				CustomerService.getDisablePayAccount();
-			},
-
-			render(){
-				let deleteButtonDisplay = "";
-
-				if(payAccountId != 0){
-					deleteButtonDisplay = (
-						<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
-							{deleteButton}
-						</button>
-					);
-				}
-
-				return(
-					<div className="form-group" id="payAccount">
-						<label className="col-sm-4 control-label">{translate('SELECT_ACCOUNT', 'Account')}:</label>
-						<div className="col-sm-5" id="selectPayAccount">
-							<SelectPayAccount setAmount={setAmount} amount={amount}/>
-						</div>
-						<div className="col-sm-3">
-							{deleteButtonDisplay}
-						</div>
-					</div>
-				)
-			}
-			}
-		);
 
 		if(isWithDraw){
 			withdrawFee = (
@@ -95,13 +76,14 @@ let AskInfo = React.createClass({
 							<div className="form-horizontal">
 								<div>
 									{((()=>{
+
 										if(payAccountDisplayName == cashier.NO_RESPONSE || payAccountId == 0){
 											return <Register/>
 										}
 
 										return(
 											<div>
-												<PayAccountDropDown/>
+												<PayAccountDropDown info={this.getProps}/>
 												<div className="form-group">
 													<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 												</div>

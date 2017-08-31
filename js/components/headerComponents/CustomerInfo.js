@@ -25,6 +25,7 @@ let CustomerInfo = React.createClass({
 									})()}
 								</span>
 							</div>
+
 							<div className="col-sm-7">{translate('CUSTOMER_INFO_EMAIL')}:
 								<span>
 									{(() =>{
