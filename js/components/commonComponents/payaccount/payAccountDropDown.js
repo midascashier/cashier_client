@@ -19,6 +19,7 @@ let PayAccountDropDown = React.createClass({
         let deleteButton = '';
         let deleteButtonDisplay = '';
         let info = this.props.info;
+        let payAccount = info.payAccount;
 
         if (!this.props.msgDeleteBtn) {
             deleteButton  = translate('PROCESSING_BUTTON_DELETE_ACCOUNT');
@@ -26,7 +27,7 @@ let PayAccountDropDown = React.createClass({
             deleteButton = this.props.msgDeleteBtn;
         }
 
-        if(info.payAccountId != 0){
+        if(payAccount != 0){
             deleteButtonDisplay = (
                 <button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
                     {deleteButton}
