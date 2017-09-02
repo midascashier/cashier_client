@@ -76,7 +76,9 @@ let InfoMethod = React.createClass({
 		if(isWithDraw){
 			UIService.confirmTransaction();
 		}else{
-			UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + "/pending/");
+
+			let displayName = CashierStore.getLastTransactionResponse();
+			TransactionService.process({ account: displayName, askAmount: true }, "ticket");
 		}
 	},
 
