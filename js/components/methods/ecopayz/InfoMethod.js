@@ -76,9 +76,8 @@ let InfoMethod = React.createClass({
 		if(isWithDraw){
 			UIService.confirmTransaction();
 		}else{
-
-			let displayName = CashierStore.getLastTransactionResponse();
-			TransactionService.process({ account: displayName, askAmount: true }, "ticket");
+			let payAccount = CashierStore.getCurrentPayAccount();
+			TransactionService.process({ account: payAccount.displayName, askAmount: true }, "ticket");
 		}
 	},
 
