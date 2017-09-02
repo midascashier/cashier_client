@@ -76,10 +76,7 @@ let InfoMethod = React.createClass({
 		if(isWithDraw){
 			UIService.confirmTransaction();
 		}else{
-			//process the deposit
-			let payAccount = {};
-			payAccount.account = this.props.payAccount;
-			TransactionService.registerPayAccount(payAccount);
+			UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + "/pending/");
 		}
 	},
 
