@@ -75,25 +75,12 @@ class transactionService {
 	 * Function to get pay account previous pay accounts
 	 */
 	getProcessorsMinMax(processorID){
-
-		let company = CashierStore.getCompany();
-		let processor = CashierStore.getProcessor();
-		let customer = CashierStore.getCustomer();
-
-		if (processorID || processor.processorId){
-			let data = {
-				f: "getProcessorMinMaxLimits",
-				module: "limits",
-				companyId: company.companyId,
-				processorId: (processorID) ? processorID : processor.processorId,
-				level: customer.personalInformation.level,
-				isWithdraw: CashierStore.getIsWithdraw(),
-				currencyCode: customer.currency
-			};
-			let application = CashierStore.getApplication();
-			let rabbitRequest = Object.assign(data, application);
-			stompConnector.makeBackendRequest("", rabbitRequest);
-		}
+		let data = {
+			f: "getProcessorMinMaxLimits", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
+		};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeTransactionRequest("", rabbitRequest);
 	};
 
 	/**
