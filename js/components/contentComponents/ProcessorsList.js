@@ -31,11 +31,7 @@ let ProcessorsList = React.createClass({
 
 								<div id="processors" className="row">
 									{this.props.processors.map((processor, i)=>{
-										if(this.props.selectedProcessor == processor.caProcessor_Id){
-											isSelected = true;
-										} else{
-											isSelected = false;
-										}
+										isSelected = (this.props.selectedProcessor == processor.caProcessor_Id);
 										if (Processors.settings[processor.caProcessor_Id]){
 											return <Processor key={processor.caProcessor_Id} selected={isSelected}
 																				processorId={processor.caProcessor_Id} name={processor.Name}/>;

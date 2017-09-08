@@ -16,21 +16,6 @@ let Steps = React.createClass({
 	},
 
 	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 * this function sets and return object with local states
 	 *
 	 * @returns {{step: (*|string), processorSteps: *}}
@@ -94,14 +79,16 @@ let Steps = React.createClass({
 									}else{
 										className += " inactive";
 									}
-									break;
+								break;
+
 								case 2:
 									if(currentPosition == 1){
 										className += " inactive";
 									}else{
 										className += " normal";
 									}
-									break;
+								break;
+
 								default:
 									className += " inactive";
 							}
@@ -119,7 +106,7 @@ let Steps = React.createClass({
 									</div>
 								</Link>
 							);
-						} else{
+						}else{
 							step = (
 								<div key={i+1} className={className}>
 									<p>
@@ -135,6 +122,21 @@ let Steps = React.createClass({
 				})()}
 			</div>
 		)
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

@@ -110,8 +110,7 @@ let ProcessorInfo = React.createClass({
 
 						<div className="row mod-btns">
 							<div className="col-sm-6">
-								<button onClick={this.startTransaction} type="button"
-												className="btn btn-green">{buttonNext} {processorDisplayName}</button>
+								<button onClick={this.startTransaction} type="button" className="btn btn-green">{buttonNext} {processorDisplayName}</button>
 							</div>
 							<div className="col-sm-6">
 								{(() =>{

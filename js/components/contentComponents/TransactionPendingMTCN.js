@@ -32,21 +32,6 @@ let TransactionPendingMTCN = React.createClass({
 	},
 
 	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 * this is the callback function the store calls when a state change
 	 *
 	 * @private
@@ -92,87 +77,102 @@ let TransactionPendingMTCN = React.createClass({
 		return (
 			<div id="controlNumberList" className="mtcn scroll">
 				{(() =>{
-						let senderLabel = translate('PENDING_MTCN_SENDER', 'Sender');
-						let receiverLabel = translate('PENDING_MTCN_RECEIVER', 'Receiver');
-						let destinationLabel = translate('PENDING_MTCN_DESTINATION', 'Destination');
-						let controlNumberLabel = translate('PENDING_MTCN_MTCN', 'Control Number');
-						let amountLabel = translate('PENDING_MTCN_AMOUNT', 'Amount');
-						let feeLabel = translate('PENDING_MTCN_FEE', 'Fee');
-						let digitsLabel = translate('PENDING_MTCN_DIGITS');
-						let btnConfirmLabel = translate('PROCESSING_BUTTON_CONFIRM', 'Confirm');
-						let btnEditLabel = translate('PROCESSING_BUTTON_EDIT', 'Edit');
+					let senderLabel = translate('PENDING_MTCN_SENDER', 'Sender');
+					let receiverLabel = translate('PENDING_MTCN_RECEIVER', 'Receiver');
+					let destinationLabel = translate('PENDING_MTCN_DESTINATION', 'Destination');
+					let controlNumberLabel = translate('PENDING_MTCN_MTCN', 'Control Number');
+					let amountLabel = translate('PENDING_MTCN_AMOUNT', 'Amount');
+					let feeLabel = translate('PENDING_MTCN_FEE', 'Fee');
+					let digitsLabel = translate('PENDING_MTCN_DIGITS');
+					let btnConfirmLabel = translate('PROCESSING_BUTTON_CONFIRM', 'Confirm');
+					let btnEditLabel = translate('PROCESSING_BUTTON_EDIT', 'Edit');
 
-						let tables = [];
-						transactions.map((transaction, i)=>{
+					let tables = [];
+					transactions.map((transaction, i)=>{
 
-							let transactionId = transaction.caTransaction_Id;
-							let controlNumber = transaction.ControlNumber;
-							let currencyAmount = transaction.CurrencyAmount;
-							let currencyFee = transaction.CurrencyFee;
-							let processorIdRoot = transaction.caProcessor_Id_Root;
+						let transactionId = transaction.caTransaction_Id;
+						let controlNumber = transaction.ControlNumber;
+						let currencyAmount = transaction.CurrencyAmount;
+						let currencyFee = transaction.CurrencyFee;
+						let processorIdRoot = transaction.caProcessor_Id_Root;
 
-							let digits = 11;
-							if(processorIdRoot == 6){
-								digits = 10;
-							}else if (processorIdRoot == 16 || processorIdRoot == 36){
-								digits = 8;
-							}else if (processorIdRoot == 26){
-								digits = 11;
-							}
+						let digits = 11;
+						if(processorIdRoot == 6){
+							digits = 10;
+						}else if (processorIdRoot == 16 || processorIdRoot == 36){
+							digits = 8;
+						}else if (processorIdRoot == 26){
+							digits = 11;
+						}
 
-							let isConfirmEnabled = true;
-							if (digits == controlNumber.length){
-								isConfirmEnabled = false;
-							}
+						let isConfirmEnabled = true;
+						if (digits == controlNumber.length){
+							isConfirmEnabled = false;
+						}
 
-							tables.push(
-								<div key={i} id={"transactionPendingMTCN" + transactionId} className="table-responsive">
-									<table className="table table-striped mtcn-table">
-										<tbody>
-											<tr>
-												<th colSpan="4">{senderLabel}: <span>{transaction.PAFirstName + ' ' + transaction.PALastName}</span></th>
-												<th colSpan="1">{transaction.CardType}</th>
-											</tr>
-											<tr>
-												<th colSpan="5">{receiverLabel}: <span>{transaction.Name}</span></th>
-											</tr>
-											<tr>
-												<th colSpan="5">{destinationLabel}: <span>{transaction.Country + ', ' + transaction.State}</span></th>
-											</tr>
-											<tr>
-												<td><strong>{controlNumberLabel}</strong></td>
-												<td><strong>{amountLabel}</strong></td>
-												<td><strong>{feeLabel}</strong></td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr id={"transaction" + transactionId}>
-												<td>
-													<Input type="text" id="controlNumber" className="form-control" value={controlNumber} minLength={digits} maxLength={digits} placeholder={digits + ' ' + digitsLabel} onChange={this.changeValue.bind(this, transactionId, 'ControlNumber')} validate="isNumber" required/>
-												</td>
-												<td>
-													<Input type="number" min="0.0001" step="0.1" required id="amount" className="form-control" value={currencyAmount} onChange={this.changeValue.bind(this, transactionId, 'CurrencyAmount')} validate="isNumber"/>
-												</td>
-												<td>
-													<Input type="number" min="0.0001" step="0.1" required id="fee" className="form-control" value={currencyFee} onChange={this.changeValue.bind(this, transactionId, 'CurrencyFee')} validate="isNumber"/>
-												</td>
-												<td>
-													<button type="button" className="btn btn-green" disabled={isConfirmEnabled} onClick={this.submitTransaction.bind(this, transaction)}>
-														{btnConfirmLabel}
-													</button>
-												</td>
-												<td>
-													<button type="button" className="btn btn-green">
-														{btnEditLabel}
-													</button>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							);
-						});
-						return tables;
+						tables.push(
+							<div key={i} id={"transactionPendingMTCN" + transactionId} className="table-responsive">
+								<table className="table table-striped mtcn-table">
+									<tbody>
+										<tr>
+											<th colSpan="4">
+												{senderLabel}: <span>{transaction.PAFirstName + ' ' + transaction.PALastName}</span>
+											</th>
+											<th colSpan="1">{transaction.CardType}</th>
+										</tr>
+										<tr>
+											<th colSpan="5">{receiverLabel}: <span>{transaction.Name}</span></th>
+										</tr>
+										<tr>
+											<th colSpan="5">
+												{destinationLabel}: <span>{transaction.Country + ', ' + transaction.State}</span>
+											</th>
+										</tr>
+										<tr>
+											<td><strong>{controlNumberLabel}</strong></td>
+											<td><strong>{amountLabel}</strong></td>
+											<td><strong>{feeLabel}</strong></td>
+											<td></td>
+											<td></td>
+										</tr>
+										<tr id={"transaction" + transactionId}>
+											<td>
+												<Input type="text" id="controlNumber" className="form-control"
+													   value={controlNumber} minLength={digits} maxLength={digits}
+													   placeholder={digits + ' ' + digitsLabel}
+													   onChange={this.changeValue.bind(this, transactionId, 'ControlNumber')}
+													   validate="isNumber" required
+												/>
+											</td>
+											<td>
+												<Input type="number" min="0.0001" step="0.1" id="amount"
+													   className="form-control" value={currencyAmount}
+													   onChange={this.changeValue.bind(this, transactionId, 'CurrencyAmount')}
+													   validate="isNumber" required
+												/>
+											</td>
+											<td>
+												<Input type="number" min="0.0001" step="0.1" id="fee"
+													   className="form-control" value={currencyFee}
+													   onChange={this.changeValue.bind(this, transactionId, 'CurrencyFee')}
+													   validate="isNumber" required
+												/>
+											</td>
+											<td>
+												<button type="button" className="btn btn-green" disabled={isConfirmEnabled}
+													onClick={this.submitTransaction.bind(this, transaction)}>{btnConfirmLabel}
+												</button>
+											</td>
+											<td>
+												<button type="button" className="btn btn-green">{btnEditLabel}</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						);
+					});
+					return tables;
 				})()}
 
 				<Link to={"/"+customerOpt.toLowerCase()+"/"}>
@@ -180,6 +180,21 @@ let TransactionPendingMTCN = React.createClass({
 				</Link>
 			</div>
 		)
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

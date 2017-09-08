@@ -10,6 +10,9 @@ let PayAccountDropDown = React.createClass({
         msgDeleteBtn: React.PropTypes.string//This is a optional param
     },
 
+    /**
+     * Disable current selected pay account
+     */
     disablePayAccount() {
         CustomerService.getDisablePayAccount();
     },
