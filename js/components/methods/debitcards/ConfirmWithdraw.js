@@ -30,21 +30,6 @@ let DebitCardConfirmWithdraw = React.createClass({
 	},
 
 	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 * this is the callback function the store calls when a state change
 	 *
 	 * @private
@@ -89,7 +74,6 @@ let DebitCardConfirmWithdraw = React.createClass({
 
 								<div className="col-sm-6 ">
 									<div className="box">
-
 										<div className="row">
 											<div className="col-sm-12">
 												<div className="title">{translate('IMPORTANT_REMINDERS', 'reminder')}</div>
@@ -100,13 +84,11 @@ let DebitCardConfirmWithdraw = React.createClass({
 												</div>
 											</div>
 										</div>
-
 									</div>
 								</div>
 
 								<div className="col-sm-6">
 									<div className="box">
-
 										<div className="row">
 											<div className="col-sm-12">
 												<div className="title">{translate('METHOD_DETAILS_WITHDRAW', 'Withdraw Details')}</div>
@@ -124,34 +106,51 @@ let DebitCardConfirmWithdraw = React.createClass({
 														</tbody>
 													</table>
 												</div>
+												
 												<p>
 													<i className="fa fa-pencil green"></i>
 													<a onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>
 												</p>
-
+												
 												<div className="row">
 													<div className="col-sm-6">
-														<button type="button" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}</button>
+														<button type="button" onClick={this.processTransaction} className="btn btn-green">
+															{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}
+														</button>
 														<p>
 															<a onClick={this.setFirstStep}>{translate('METHOD_USE_DIFFERENT', 'Use a different method.')}</a>
 														</p>
 													</div>
+													
 													<div className="col-sm-6">
 														<img src={originPath + '/images/ssl.png'} alt="ssl"/>
 													</div>
 												</div>
 											</div>
 										</div>
-
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		)
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

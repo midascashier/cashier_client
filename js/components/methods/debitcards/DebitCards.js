@@ -22,21 +22,6 @@ let DebitCards = React.createClass({
 	},
 
 	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState() {
@@ -67,13 +52,14 @@ let DebitCards = React.createClass({
 							limitsCheck={this.props.limitsCheck}
 						/>
 					</div>
+
 					<div className="col-sm-6">
 						{(() =>{
 							if(!this.state.selectedProcessor.processorId){
 								return <LoadingSpinner />;
-							}else{
-								return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}/>;
 							}
+
+							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}/>;
 						})()}
 					</div>
 				</div>
@@ -86,11 +72,12 @@ let DebitCards = React.createClass({
 						<div className="box">
 							<div className="title">DebitCards</div>
 							<div className="infoCol">
-								<p><a target="_blank" href="/docs/common/PREPAID_CARD_APPLICATION_FORM.pdf">
-									<strong>NEW TO DEBIT CARDS PLEASE CLICK HERE TO PRINT OUT THE KYC FORM</strong>
-								</a></p>
-								<p>This form will be required by customer service to proceed with the FREE delivery of your Debit
-									Card.</p>
+								<p>
+									<a target="_blank" href="/docs/common/PREPAID_CARD_APPLICATION_FORM.pdf">
+										<strong>NEW TO DEBIT CARDS PLEASE CLICK HERE TO PRINT OUT THE KYC FORM</strong>
+									</a>
+								</p>
+								<p>This form will be required by customer service to proceed with the FREE delivery of your DebitCard.</p>
 								<p>In order to apply for a prepaid debit, follow these easy steps:</p>
 								<p><span>1.</span> Scan or photograph one of the following options:</p>
 								<ul>
@@ -107,9 +94,24 @@ let DebitCards = React.createClass({
 				</div>
 			)
 
-		}else{
-			return <div className="col-sm-12"><LoadingSpinner /></div>;
 		}
+
+		return <div className="col-sm-12"><LoadingSpinner /></div>;
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

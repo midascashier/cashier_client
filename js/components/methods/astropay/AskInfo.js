@@ -50,8 +50,7 @@ let AskInfo = React.createClass({
 												<Input type="text" id="creditCardNumber" ref="creditCardNumber" validate="isCreditNumber" onChange={this.props.changeValue.bind(null, 'ccNumber', 0)} require/>
 											</div>
 										</div>
-
-
+										
 										<div className="form-group">
 											<label className="col-sm-4 control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
 											<div className="col-sm-4">

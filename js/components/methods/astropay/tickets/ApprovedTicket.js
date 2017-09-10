@@ -36,13 +36,6 @@ let AstroPayApprovedTicket = React.createClass({
 	},
 
 	/**
-	 * component is ready
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
 	 * refresh the state when changes occur
 	 *
 	 * @private
@@ -79,6 +72,13 @@ let AstroPayApprovedTicket = React.createClass({
 				</div>
 			</div>
 		)
+	},
+	
+	/**
+	 * component is ready
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
 	}
 });
 

@@ -4,6 +4,7 @@ import { CompanyInfo } from './CompanyInfo'
 import { CashierStore } from '../../stores/CashierStore'
 
 let Info = React.createClass({
+	
 	/**
 	 * React function to set component inital state
 	 *

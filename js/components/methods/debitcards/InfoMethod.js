@@ -22,21 +22,6 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 *  this function sets and return object with local states
 	 *
 	 * @returns {{processor: (*|{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}), currentPayAccount: *, originPath: (*|string)}}
@@ -65,19 +50,17 @@ let InfoMethod = React.createClass({
 		let isWithDraw = UIService.getIsWithDraw();
 		let checkAmount = false;
 
-		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
+		if (this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS) {
 			checkAmount = true;
 		}
 
-		if(password && String(password).length >= 5 && checkAmount){
+		if (password && String(password).length >= 5 && checkAmount) {
 			return true;
 		}
-		else if(checkAmount && isWithDraw){
-			return true
-		}
 
-		return false;
-	},
+		return (checkAmount && isWithDraw);
+	}
+	,
 
 	/**
 	 * send the customer to select the processor again
@@ -93,10 +76,10 @@ let InfoMethod = React.createClass({
 	continueTransaction(){
 		let isWithDraw = UIService.getIsWithDraw();
 		TransactionService.setAmount(this.props.amount);
+
 		if(isWithDraw){
 			UIService.confirmTransaction();
-		}
-		else{
+		}else{
 			//process the deposit
 			let password = this.props.password;
 			let dynamicParams = {};
@@ -110,9 +93,9 @@ let InfoMethod = React.createClass({
 		let limitsCheck = this.allowProcess();
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
-
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
+		
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
 			processorName: "Deposit Card",
 			transactionType: transactionType
@@ -131,21 +114,22 @@ let InfoMethod = React.createClass({
 						<div className="table-responsive">
 							<table className="table table-striped">
 								<tbody>
-								<tr>
-									<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-									<td><span>{payAccountInfo.minPayAccount}</span></td>
-								</tr>
-								<tr>
-									<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-									<td><span>{payAccountInfo.maxPayAccount}</span></td>
-								</tr>
-								<tr>
-									<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
-									<td><span>{payAccountInfo.remaining}</span></td>
-								</tr>
+									<tr>
+										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+										<td><span>{payAccountInfo.minPayAccount}</span></td>
+									</tr>
+									<tr>
+										<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
+										<td><span>{payAccountInfo.maxPayAccount}</span></td>
+									</tr>
+									<tr>
+										<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
+										<td><span>{payAccountInfo.remaining}</span></td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
+						
 						<div className="row mod-btns">
 							<div className="col-sm-6">
 								<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled}
@@ -154,6 +138,7 @@ let InfoMethod = React.createClass({
 								</button>
 								<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
 							</div>
+							
 							<div className="col-sm-6">
 								<img src={originPath + '/images/ssl.png'} alt="ssl"/>
 							</div>
@@ -162,6 +147,21 @@ let InfoMethod = React.createClass({
 				</div>
 			</div>
 		)
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

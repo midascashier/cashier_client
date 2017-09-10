@@ -48,11 +48,11 @@ let AskInfo = React.createClass({
 		let deposit = '';
 
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
-		if(isWithDraw){
-			proccesingTitle = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information');
-		}
 
 		if(isWithDraw){
+
+			proccesingTitle = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information');
+
 			netellerForm = (
 				<div>
 					<div className="form-group">
@@ -68,19 +68,21 @@ let AskInfo = React.createClass({
 			);
 
 		}else{
+
 			netellerForm = (
 				<div>
 					<div className="form-group">
-						<label
-							className="col-sm-4 control-label">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
+						<label className="col-sm-4 control-label">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
 						<div className="col-sm-8">
 							<Input type="password" value={password} onChange={netellerPassword} validate="password"
 								   require/>
 						</div>
 					</div>
+
 					<div className="form-group">
 						<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 					</div>
+
 					{withdrawFee}
 				</div>
 			);
@@ -95,22 +97,22 @@ let AskInfo = React.createClass({
 							<div className="form-horizontal">
 
 								{(() =>{
+
 									if(!payAccountDisplayName){
 										return <LoadingSpinner/>;
-									}else{
-
-										if(payAccountDisplayName == cashier.NO_RESPONSE || payAccountId == 0){
-											return <Register/>
-										}
-
-										return (
-											<div className="scroll">
-												<PayAccountDropDown info={this.getProps}/>
-												{deposit}
-												{netellerForm}
-											</div>
-										);
 									}
+
+									if(payAccountDisplayName == cashier.NO_RESPONSE || payAccountId == 0){
+										return <Register/>
+									}
+
+									return (
+										<div className="scroll">
+											<PayAccountDropDown info={this.getProps}/>
+											{deposit}
+											{netellerForm}
+										</div>
+									);
 								})()}
 							</div>
 						</div>

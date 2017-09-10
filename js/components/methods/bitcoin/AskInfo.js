@@ -5,7 +5,6 @@ import {AmountController} from '../../AmountController'
 import {PromoCode} from '../../PromoCode'
 import {UIService} from '../../../services/UIService'
 import {FeeController} from '../../FeeController'
-import {SecondFactor} from '../../SecondFactor'
 
 let AskInfo = React.createClass({
 
@@ -103,15 +102,6 @@ let AskInfo = React.createClass({
 											}
 										})()}
 									</div>
-
-									{(() =>{
-										/*if(isWithDraw){
-											return (
-												<SecondFactor transaction={this.props.transaction} limitsCheck={limitsCheck} allowContinueToConfirm={this.props.allowContinueToConfirm}/>
-											)
-										}*/
-									})()}
-
 								</div>
 							</div>
 						</div>

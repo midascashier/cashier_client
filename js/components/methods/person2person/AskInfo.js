@@ -45,41 +45,45 @@ let AskInfo = React.createClass({
 
 		let PayAccountDropDown = React.createClass({
 
-				disablePayAccount() {
-					CustomerService.getDisablePayAccount();
-				},
+			disablePayAccount() {
+				CustomerService.getDisablePayAccount();
+			},
 
-				render(){
-					let deleteButtonDisplay = "";
+			render(){
+				let deleteButtonDisplay = "";
 
-					if(payAccountId != 0){
-						deleteButtonDisplay = <button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
+				if(payAccountId != 0){
+					deleteButtonDisplay = (
+						<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
 							{deleteButton}
-						</button>;
-					}
+						</button>
+					)
+				}
 
-					return <div className="form-group" id="payAccount">
+				return(
+					<div className="form-group" id="payAccount">
 						<label className="col-sm-4 control-label">{selectType}:</label>
 						<div className="col-sm-5" id="selectPayAccount">
 							<SelectPayAccount setAmount={setAmount} amount={amount}/>
 						</div>
+
 						<div className="col-sm-3">
 							{deleteButtonDisplay}
 						</div>
 					</div>
-				}
+				)
 			}
-		);
+		});
 
 		if(timeFrameDay == "TOMORROW"){
 			for(let i = 0; i < 24; i++){
 				let hour = i + ":00";
 				selectHours.push(UIService.renderOption({ label: hour }, i));
 			}
-		} else{
+		}else{
 			if(!serverTime){
 				selectHours.push(UIService.renderOption({ label: "Loading" }, "Loading"));
-			} else{
+			}else{
 				for(let i = serverTime; i < 24; i++){
 					let hour = i + ":00";
 					selectHours.push(UIService.renderOption({ label: hour }, i));
@@ -88,86 +92,74 @@ let AskInfo = React.createClass({
 		}
 
 		if(isWithDraw){
-			withdrawFee = <div className="form-group">
-				<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
-			</div>;
+			withdrawFee = (
+				<div className="form-group">
+					<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
+				</div>
+			)
 		}
 
 		if(!isWithDraw){
-			depositTimeToSend = <div className="form-group">
-				<div id="timeFrame">
-					<label
-						className="col-sm-4 control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
-					<div className="col-sm-4">
-						<select className="form-control"
-										value={this.props.timeFrameDay}
-										onChange={this.props.timeFrameDayChange}>
-							<option value="TODAY">{translate('P2P_TIME_FRAME_TODAY', 'Today')}</option>
-							<option
-								value="TOMORROW">{translate('P2P_TIME_FRAME_TOMORROW', 'Tomorrow')}</option>
-						</select>
-					</div>
-					<div className="col-sm-4">
-						<select className="form-control" value={this.props.timeFrameTime}
-										onChange={this.props.timeFrameTimeChange}>
-							{selectHours}
-						</select>
-					</div>
-				</div>
-			</div>;
-		}
-
-			return (
-				<div id="p2pAskInfo" className="box">
-					<div className="row">
-						<div className="title">{processingTitle}</div>
-						<div className="infoCol">
-							<div className="col-sm-12">
-								<div className="form-horizontal">
-
-									{(() =>{
-										if(!payAccountDisplayName){
-											return <LoadingSpinner />;
-										} else{
-											if(payAccountDisplayName == cashier.NO_RESPONSE){
-												return <Register />
-											}
-											if(payAccountId == 0){
-												return <div className="scroll"><PayAccountDropDown /><Register /></div>
-											} else{
-												return (
-													<div>
-														<PayAccountDropDown />
-														{depositTimeToSend}
-														<div className="form-group">
-															<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-														</div>
-														{withdrawFee}
-													</div>
-												)
-											}
-										}
-									})()}
-
-									{(() =>{
-										if(!isWithDraw){
-											return (
-												<p>
-
-												</p>
-											)
-										}
-									})()}
-
-								</div>
-							</div>
-
+			depositTimeToSend = (
+				<div className="form-group">
+					<div id="timeFrame">
+						<label className="col-sm-4 control-label">{translate('P2P_TIME_FRAME', 'What time will you send these funds?')}</label>
+						<div className="col-sm-4">
+							<select className="form-control" value={this.props.timeFrameDay} onChange={this.props.timeFrameDayChange}>
+								<option value="TODAY">{translate('P2P_TIME_FRAME_TODAY', 'Today')}</option>
+								<option value="TOMORROW">{translate('P2P_TIME_FRAME_TOMORROW', 'Tomorrow')}</option>
+							</select>
 						</div>
 
+						<div className="col-sm-4">
+							<select className="form-control" value={this.props.timeFrameTime} onChange={this.props.timeFrameTimeChange}>
+								{selectHours}
+							</select>
+						</div>
 					</div>
 				</div>
 			)
 		}
-	});
+
+		return (
+			<div id="p2pAskInfo" className="box">
+				<div className="row">
+					<div className="title">{processingTitle}</div>
+					<div className="infoCol">
+						<div className="col-sm-12">
+							<div className="form-horizontal">
+
+								{(() =>{
+									if(!payAccountDisplayName){
+										return <LoadingSpinner />;
+									}
+
+									if(payAccountDisplayName == cashier.NO_RESPONSE){
+										return <Register />
+									}
+
+									if(payAccountId == 0){
+										return <div className="scroll"><PayAccountDropDown /><Register /></div>
+									}
+
+									return (
+										<div>
+											<PayAccountDropDown/>
+											{depositTimeToSend}
+											<div className="form-group">
+												<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+											</div>
+											{withdrawFee}
+										</div>
+									)
+								})()}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	}
+});
 
 module.exports.AskInfo = AskInfo;

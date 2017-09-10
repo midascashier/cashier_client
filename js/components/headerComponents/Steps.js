@@ -6,6 +6,7 @@ import { TransactionService } from '../../services/TransactionService'
 import { CashierStore } from '../../stores/CashierStore'
 
 let Steps = React.createClass({
+	
 	/**
 	 * React function to set component initial state
 	 *

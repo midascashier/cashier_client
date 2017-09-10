@@ -1,5 +1,4 @@
 import React from 'react'
-import {translate} from '../../constants/Translate'
 
 let LoadingSpinnerSmall = React.createClass({
 	render() {

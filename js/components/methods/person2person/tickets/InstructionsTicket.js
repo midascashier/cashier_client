@@ -42,20 +42,6 @@ let P2PTicketPending = React.createClass({
 	},
 
 	/**
-	 * component is ready
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 * refresh the state when changes occur
 	 *
 	 * @private
@@ -73,14 +59,12 @@ let P2PTicketPending = React.createClass({
 
 	/**
 	 * this function sends submit transaction to cashier
-	 *
 	 */
 	submitTransaction(){
 		TransactionService.processSubmit();
 	},
 
 	/**
-	 *
 	 * @param attribute
 	 * @param value
 	 */
@@ -90,11 +74,12 @@ let P2PTicketPending = React.createClass({
 			let enableSubmit = ApplicationService.validateInfo(value, "isControlNumber");
 			let processorId = this.state.processor.processorId;
 			let digits = 11;
+
 			if(processorId == 6){
 				digits = 10;
-			} else if(processorId == 16 || processorId == 36){
+			}else if(processorId == 16 || processorId == 36){
 				digits = 8;
-			} else if(processorId == 26){
+			}else if(processorId == 26){
 				digits = 11;
 			}
 
@@ -124,10 +109,10 @@ let P2PTicketPending = React.createClass({
 		let controlNumber = this.state.controlNumber;
 		let currencyAmount = this.state.currencyAmount;
 		let fee = this.state.fee;
+
 		return (
 			<div id="P2PTicketPending">
 				<div className="title">{translate('P2P_INSTRUCTIONS', 'Now send your funds.')}</div>
-
 				<div className="col-sm-4">
 					<div className="box">
 						<div className="title">{translate('P2P_INSTRUCTIONS_SENDER', "Sender's Information")}</div>
@@ -148,30 +133,37 @@ let P2PTicketPending = React.createClass({
 					<div className="box">
 						<div className="title">{translate('P2P_INSTRUCTIONS_RECEIVER', "Receiver's Information")}</div>
 						<div className="infoCol scroll">
+
 							<p><a
 								onClick={this.setFirstStep}>{translate('P2P_INSTRUCTIONS_GET_RECEIVER', "Get New Receiver")}</a>
 							</p>
 
 							{(() =>{
+
 								if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
-									return <ul>
-										<li>{translate('P2P_AGENCY_NAME', 'Agency_Name')}: Easypay - Phillgus</li>
-										<li>{translate('P2P_ADDRESS', 'ADDRESS')}: 150 mts Norte de la farmacia La Bomba, frente
-											al
-											hostel Cataluña, San Pedro de Montes de Oca
-										</li>
-										<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
-										<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
-										<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
-									</ul>
-								} else{
-									return <ul>
-										<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
-										<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
-										<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
-									</ul>
+									return (
+										<ul>
+											<li>{translate('P2P_AGENCY_NAME', 'Agency_Name')}: Easypay - Phillgus</li>
+											<li>
+												{translate('P2P_ADDRESS', 'ADDRESS')}:
+												150 mts Norte de la farmacia La Bomba, frenteal hostel Cataluña, San Pedro de Montes de Oca
+											</li>
+											<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
+											<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
+											<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
+										</ul>
+									)
 								}
+
+								return (
+									<ul>
+										<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
+										<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
+										<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
+									</ul>
+								)
 							})()}
+
 							{(() =>{
 								if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
 									return <p>
@@ -182,8 +174,7 @@ let P2PTicketPending = React.createClass({
 							})()}
 
 							<p className="subtitle">
-								<em>Important Notice: Not following the instructions below will result in a rejected
-									transaction Details.</em>
+								<em>Important Notice: Not following the instructions below will result in a rejected transaction Details.</em>
 							</p>
 							<ul>
 								<li>This receiver's information is only valid for the next 48 hours.</li>
@@ -196,47 +187,73 @@ let P2PTicketPending = React.createClass({
 
 				<div className="col-sm-4">
 					<div className="box">
-						<div
-							className="title">{translate('P2P_INSTRUCTIONS_PENDING_MTCN', 'Pending Control Number')}</div>
-
+						<div className="title">{translate('P2P_INSTRUCTIONS_PENDING_MTCN', 'Pending Control Number')}</div>
 						<form className="form-horizontal infoCol">
 							<div className="form-group">
-								<label
-									className="col-sm-4 control-label">{translate('P2P_CONTROL_NUMBER', 'Control #')}:</label>
+								<label className="col-sm-4 control-label">{translate('P2P_CONTROL_NUMBER', 'Control #')}:</label>
 								<div className="col-sm-8">
-									<Input type="text" className="form-control" id="controlNumber" value={controlNumber}
-												 validate="isNumber"
-												 onChange={this.changeValue.bind(this, 'controlNumber')}/>
+									<Input
+										type="text"
+										className="form-control"
+										id="controlNumber"
+										value={controlNumber}
+										validate="isNumber"
+										onChange={this.changeValue.bind(this, 'controlNumber')}
+									/>
 								</div>
 							</div>
+
 							<div className="form-group">
-								<label
-									className="col-sm-4 control-label">{translate('P2P_AMOUNT_SEND', 'Funds Sent')}:</label>
+								<label className="col-sm-4 control-label">{translate('P2P_AMOUNT_SEND', 'Funds Sent')}:</label>
 								<div className="col-sm-8">
-									<Input type="number" className="form-control" id="amount" value={currencyAmount}
-												 validate="isNumber"
-												 onChange={this.changeValue.bind(this, 'amount')}/>
+									<Input
+										type="number"
+										className="form-control"
+										id="amount"
+										value={currencyAmount}
+										validate="isNumber"
+										onChange={this.changeValue.bind(this, 'amount')}
+									/>
 								</div>
 							</div>
+
 							<div className="form-group">
 								<label className="col-sm-4 control-label">{translate('P2P_FEE_SEND', 'Fee')}:</label>
 								<div className="col-sm-8">
-									<Input type="number" className="form-control" id="fee" value={fee} validate="isNumber"
-												 onChange={this.changeValue.bind(this, 'fee')}/>
+									<Input
+										type="number"
+										className="form-control"
+										id="fee" value={fee}
+										validate="isNumber"
+										onChange={this.changeValue.bind(this, 'fee')}
+									/>
 								</div>
 							</div>
-							<button type="button" className="btn btn-green" disabled={!this.state.enableReprocess}
-											onClick={this.submitTransaction}>
+
+							<button type="button" className="btn btn-green" disabled={!this.state.enableReprocess} onClick={this.submitTransaction}>
 								{translate('PROCESSING_BUTTON_SUBMIT', 'Submit')}
 							</button>
+
 							<p>{translate('P2P_INSTRUCTIONS_INFO', '')}</p>
 						</form>
-
 					</div>
 				</div>
-
 			</div>
 		)
+	},
+
+	/**
+	 * component is ready
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

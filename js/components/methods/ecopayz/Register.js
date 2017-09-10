@@ -68,13 +68,16 @@ let Register = React.createClass({
 	cancel() {
 		let payAccounts = CashierStore.getProcessorPayAccount();
 		if(Object.keys(payAccounts).length > 0){
+			
 			let processor = CashierStore.getProcessor();
 			let previousPayAccount = 0;
+			
 			for(let payAccount in payAccounts){
 				if(previousPayAccount == 0){
 					previousPayAccount = payAccount;
 				}
 			}
+			
 			CashierActions.changePayAccount(previousPayAccount, processor.processorId);
 		}
 	},
@@ -92,6 +95,7 @@ let Register = React.createClass({
 							/>
 						</div>
 					</div>
+					
 					<div className="col-md-4 col-md-offset-4">
 						<div className="row">
 							<div className="col-sm-6">
@@ -99,6 +103,7 @@ let Register = React.createClass({
 									{translate('PROCESSING_BUTTON_SAVE', 'Save')}
 								</button> : null }
 							</div>
+							
 							<div className="col-sm-6">
 								{this.state.displayCancelButton ? <button type='button' onClick={this.cancel} className='btn btn-green'>
 									{translate('PROCESSING_BUTTON_CANCEL', 'Save')}

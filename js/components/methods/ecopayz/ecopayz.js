@@ -81,17 +81,20 @@ let Ecopayz = React.createClass({
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
+						
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
-						}else{
-							return <InfoMethod
+						}
+
+						return(
+							<InfoMethod
 								amount={this.props.amount}
 								limitsCheck={this.props.limitsCheck}
 								feeCheck={this.props.feeCheck}
 								feeCashValue={this.props.feeCashValue}
 								payAccount = {this.state.payAccountId}
-							/>;
-						}
+							/>
+						)
 					})()}
 				</div>
 			</div>

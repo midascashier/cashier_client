@@ -57,9 +57,7 @@ let AskInfo = React.createClass({
 
 		if(isWithDraw){
 			proccesingTitle = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information');
-		}
 
-		if(isWithDraw){
 			withdrawFee = (
 				<div className="form-group">
 					<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>

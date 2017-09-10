@@ -6,6 +6,7 @@ import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
+
 	propTypes: {
 		password: React.PropTypes.string,
 		limitsCheck: React.PropTypes.string,
@@ -19,21 +20,6 @@ let InfoMethod = React.createClass({
 	 */
 	getInitialState(){
 		return this.refreshLocalState();
-	},
-
-	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
 	},
 
 	/**
@@ -72,11 +58,8 @@ let InfoMethod = React.createClass({
 		if(password && String(password).length >= 5 && checkAmount){
 			return true;
 		}
-		else if(checkAmount && isWithDraw){
-			return true
-		}
 
-		return false;
+		return (checkAmount && isWithDraw);
 	},
 
 	/**
@@ -86,7 +69,6 @@ let InfoMethod = React.createClass({
 		UIService.setFirstStep();
 	},
 
-
 	/**
 	 * this function sends deposit info to cashier
 	 *
@@ -94,10 +76,10 @@ let InfoMethod = React.createClass({
 	continueTransaction(){
 		let isWithDraw = UIService.getIsWithDraw();
 		TransactionService.setAmount(this.props.amount);
+
 		if(isWithDraw){
 			UIService.confirmTransaction();
-		}
-		else{
+		}else{
 			//process the deposit
 			let password = this.props.password;
 			let dynamicParams = {};
@@ -111,23 +93,24 @@ let InfoMethod = React.createClass({
 		let limitsCheck = this.allowProcess();
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
-
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
+
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
 			processorName: "Neteller",
 			transactionType: transactionType
 		});
 
 		let isNextDisabled = "disabled";
+
 		if(payAccountInfo.payAccountId && limitsCheck){
 			isNextDisabled = "";
 		}
 
 		return (
 			<div id="netellerInfoMethod">
-					<div className="row">
-						<div className="col-sm-12">
+				<div className="row">
+					<div className="col-sm-12">
 						<div className="title">{title}</div>
 						<div className="table-responsive">
 							<table className="table table-striped">
@@ -147,21 +130,38 @@ let InfoMethod = React.createClass({
 								</tbody>
 							</table>
 						</div>
-							<div className="row mod-btns">
-								<div className="col-sm-6">
-									<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
-										{translate('PROCESSING_BUTTON_NEXT', 'Next')}
-									</button>
-									<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
-								</div>
-								<div className="col-sm-6">
-									<img src={originPath + '/images/ssl.png'} alt="ssl"/>
-								</div>
+
+						<div className="row mod-btns">
+							<div className="col-sm-6">
+								<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
+									{translate('PROCESSING_BUTTON_NEXT', 'Next')}
+								</button>
+								<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
 							</div>
+
+							<div className="col-sm-6">
+								<img src={originPath + '/images/ssl.png'} alt="ssl"/>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		)
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

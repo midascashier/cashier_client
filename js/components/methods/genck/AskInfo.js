@@ -62,11 +62,13 @@ let AskInfo = React.createClass({
 
 		let sendByOptionNodes = [];
 		sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_FEDEX', 'FedEx') }, 'FedEx'));
+		
 		if(processorFees.enableFree == 1){
 			sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_REGULAR', 'Regular Email') }, 'Mail'));
 		}
 
 		let feeOptions = [];
+		
 		if(processorFees){
 			if(sendBy == 'Mail'){
 				if(processorFees.enableFree == 1){
@@ -132,32 +134,31 @@ let AskInfo = React.createClass({
 								{(() =>{
 									if(!payAccountDisplayName){
 										return <LoadingSpinner />;
-									}else{
-
-										if(payAccountDisplayName == cashier.NO_RESPONSE || payAccountId == 0){
-											return <div className="scroll"><Register/></div>
-										}
-
-										return (
-											<div>
-												<PayAccountDropDown info={this.getProps()} msgDeleteBtn={deleteButton}/>
-
-												<div className="form-group">
-													<label className="col-sm-4 control-label">{translate('CK_SEND_BY', 'Send by')}:</label>
-													<div className="col-sm-8">
-														<select className="form-control" data-validation='isString' id="sendBy" value={sendBy} onChange={setSendBy} required="required">
-															{sendByOptionNodes}
-														</select>
-													</div>
-												</div>
-
-												<div className="form-group">
-													<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-												</div>
-												{withdrawFee}
-											</div>
-										)
 									}
+
+									if(payAccountDisplayName == cashier.NO_RESPONSE || payAccountId == 0){
+										return <div className="scroll"><Register/></div>
+									}
+
+									return (
+										<div>
+											<PayAccountDropDown info={this.getProps()} msgDeleteBtn={deleteButton}/>
+
+											<div className="form-group">
+												<label className="col-sm-4 control-label">{translate('CK_SEND_BY', 'Send by')}:</label>
+												<div className="col-sm-8">
+													<select className="form-control" data-validation='isString' id="sendBy" value={sendBy} onChange={setSendBy} required="required">
+														{sendByOptionNodes}
+													</select>
+												</div>
+											</div>
+
+											<div className="form-group">
+												<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+											</div>
+											{withdrawFee}
+										</div>
+									)
 								})()}
 							</div>
 						</div>

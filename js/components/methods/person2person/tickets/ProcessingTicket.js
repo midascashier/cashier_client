@@ -37,20 +37,6 @@ let P2PTicketProcessing = React.createClass({
 	},
 
 	/**
-	 * component is ready
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 * refresh the state when changes occur
 	 *
 	 * @private
@@ -71,9 +57,9 @@ let P2PTicketProcessing = React.createClass({
 		let controlNumber = this.state.controlNumber;
 		let currencyAmount = this.state.currencyAmount;
 		let fee = this.state.fee;
+
 		return (
 			<div id="P2PTicketProcessing">
-
 				<div className="col-sm-12">
 					<div className="rejected-message">
 						<div className="title">{translate('P2P_INSTRUCTIONS', 'Now send your funds.')}</div>
@@ -83,7 +69,6 @@ let P2PTicketProcessing = React.createClass({
 				<div className="col-sm-12">
 					<div className="modules">
 						<div className="row">
-
 							<div className="col-sm-4">
 								<div className="box">
 									<div className="row">
@@ -115,29 +100,35 @@ let P2PTicketProcessing = React.createClass({
 														<div className="row">
 															<p><a onClick={this.setFirstStep}>{translate('P2P_INSTRUCTIONS_GET_RECEIVER', "Get New Receiver")}</a></p>
 														</div>
+
 														<div className="row">
 															{(() =>{
 																if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
-																	return <ul>
-																		<li>{translate('P2P_AGENCY_NAME', 'Agency_Name')}: Easypay - Phillgus</li>
-																		<li>{translate('P2P_ADDRESS', 'ADDRESS')}: 150 mts Norte de la farmacia La Bomba, frente
-																			al
-																			hostel Cataluña, San Pedro de Montes de Oca
-																		</li>
-																		<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
-																		<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
-																		<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
-																	</ul>
-																} else{
-																	return <ul>
-																		<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
-																		<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
-																		<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
-																	</ul>
+																	return (
+																		<ul>
+																			<li>{translate('P2P_AGENCY_NAME', 'Agency_Name')}: Easypay - Phillgus</li>
+																			<li>{translate('P2P_ADDRESS', 'ADDRESS')}: 150 mts Norte de la farmacia La Bomba, frente
+																				al
+																				hostel Cataluña, San Pedro de Montes de Oca
+																			</li>
+																			<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
+																			<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
+																			<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
+																		</ul>
+																	)
 																}
+
+																return(
+																	<ul>
+																		<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
+																		<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
+																		<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
+																	</ul>
+																)
 															})()}
 														</div>
 													</div>
+
 													{(() =>{
 														if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
 															return <p>
@@ -146,16 +137,17 @@ let P2PTicketProcessing = React.createClass({
 															</p>
 														}
 													})()}
+
 													<p>
 														<strong>Make your payment</strong>
 														<strong>Important Notice: Not following the instructions below will result in a rejected transaction details.</strong>
 													</p>
+
 													<ul>
 														<li>This receiver's information is only valid for the next 48 hours.</li>
 														<li>The minimum deposit is $50.00, and the maximum is $400.00</li>
 														<li>Your transaction must be sent in USD and received in USD.</li>
 													</ul>
-
 												</div>
 											</div>
 										</div>
@@ -182,13 +174,25 @@ let P2PTicketProcessing = React.createClass({
 									</div>
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
-
 			</div>
 		)
+	},
+
+	/**
+	 * component is ready
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

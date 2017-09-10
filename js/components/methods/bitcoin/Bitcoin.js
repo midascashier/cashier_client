@@ -103,19 +103,20 @@ let BitCoin = React.createClass({
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
+
 						if(!this.state.info.selectedProcessor.processorId){
 							return <LoadingSpinner/>;
-						}else{
-							return(
-								<InfoMethod
-									amount={this.props.amount}
-									limitsCheck={this.props.limitsCheck}
-									feeCashValue={this.props.feeCashValue}
-									feeCheck={this.props.feeCheck} bitcoinAddress={this.state.info.bitcoinAddress}
-									allowContinueToConfirm={this.state.info.allowContinueToConfirm}
-								/>
-							)
 						}
+
+						return(
+							<InfoMethod
+								amount={this.props.amount}
+								limitsCheck={this.props.limitsCheck}
+								feeCashValue={this.props.feeCashValue}
+								feeCheck={this.props.feeCheck} bitcoinAddress={this.state.info.bitcoinAddress}
+								allowContinueToConfirm={this.state.info.allowContinueToConfirm}
+							/>
+						)
 					})()}
 				</div>
 			</div>

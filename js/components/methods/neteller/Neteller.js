@@ -66,13 +66,14 @@ let Neteller = React.createClass({
 						limitsCheck={this.props.limitsCheck}
 					/>
 				</div>
+
 				<div className="col-sm-6">
 					{(() =>{
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
-						} else{
-							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck} password={this.state.password}/>;
 						}
+
+						return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck} password={this.state.password}/>;
 					})()}
 				</div>
 			</div>

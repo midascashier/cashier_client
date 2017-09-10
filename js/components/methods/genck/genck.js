@@ -58,33 +58,37 @@ let Genck = React.createClass({
 		return (
 			<div id="genck">
 				<div className="col-sm-6">
-					<AskInfo amount={this.props.amount}
-									 setAmount={this.props.setAmount}
-									 limitsCheck={this.props.limitsCheck}
-									 payAccount={this.state.payAccount}
-									 feeCashValue={this.props.feeCashValue}
-									 feeCheck={this.props.feeCheck}
-									 setSendBy={this.setSendBy}
-									 sendBy={this.state.sendBy}
-									 setFeeType={this.setFeeType}
-									 feeType={this.state.feeType}
+					<AskInfo 
+						amount={this.props.amount}
+						setAmount={this.props.setAmount}
+						limitsCheck={this.props.limitsCheck}
+						payAccount={this.state.payAccount}
+						feeCashValue={this.props.feeCashValue}
+						feeCheck={this.props.feeCheck}
+						setSendBy={this.setSendBy}
+						sendBy={this.state.sendBy}
+						setFeeType={this.setFeeType}
+						feeType={this.state.feeType}
 					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
-						} else{
-							return <InfoMethod amount={this.props.amount}
-																 limitsCheck={this.props.limitsCheck}
-																 feeCheck={this.props.feeCheck}
-																 feeCashValue={this.props.feeCashValue}
-																 setSendBy={this.setSendBy}
-																 sendBy={this.state.sendBy}
-																 setFeeType={this.setFeeType}
-																 feeType={this.state.feeType}
-							/>;
 						}
+
+						return(
+							<InfoMethod
+								amount={this.props.amount}
+								limitsCheck={this.props.limitsCheck}
+								feeCheck={this.props.feeCheck}
+								feeCashValue={this.props.feeCashValue}
+								setSendBy={this.setSendBy}
+								sendBy={this.state.sendBy}
+								setFeeType={this.setFeeType}
+								feeType={this.state.feeType}
+							/>
+						)
 					})()}
 				</div>
 			</div>
@@ -102,7 +106,7 @@ let Genck = React.createClass({
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount()  {
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

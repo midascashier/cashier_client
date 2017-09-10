@@ -22,6 +22,7 @@ let AskInfo = React.createClass({
 		let payAccountId = this.props.payAccount.payAccountId;
 		let isWithDraw = UIService.getIsWithDraw();
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
+		
 		if(isWithDraw){
 			proccesingTitle = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information');
 		}
@@ -45,17 +46,15 @@ let AskInfo = React.createClass({
 															<SelectPayAccount setAmount={setAmount} amount={amount}/>
 														</div>
 													)
-												} else{
-													return (
-														<div className="col-sm-8" id="payAccounts">
-															<SelectPayAccount setAmount={setAmount} amount={amount}/>
-														</div>
-													)
 												}
+												return (
+													<div className="col-sm-8" id="payAccounts">
+														<SelectPayAccount setAmount={setAmount} amount={amount}/>
+													</div>
+												)
 											})()}
 										</div>
-
-
+										
 										{(() =>{
 											if(payAccountId != 0){
 												return (

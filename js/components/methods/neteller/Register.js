@@ -65,14 +65,17 @@ let Register = React.createClass({
 	 */
 	cancel() {
 		let payAccounts = CashierStore.getProcessorPayAccount();
+		
 		if(Object.keys(payAccounts).length > 0){
 			let processorID = CashierStore.getProcessor();
 			let previousPayAccount = 0;
+
 			for(let payAccount in payAccounts){
 				if(previousPayAccount == 0){
 					previousPayAccount = payAccount;
 				}
 			}
+
 			CashierActions.changePayAccount(previousPayAccount, processorID.processorId);
 		}
 	},
@@ -81,13 +84,21 @@ let Register = React.createClass({
 		return (
 			<div id="netellerRegister">
 				<form onSubmit={this.addNewPayAccount}>
-
 					<div className="form-group">
 						<label
 							className="col-sm-4 control-label">{translate('NETELLER_NEW', 'Enter your Neteller Email Account')}:</label>
 						<div className="col-sm-8">
-							<Input className="form-control" type="text" id="netellerNewAccount" name="netellerNewAccount" ref="email"
-										 validate="isEmail" onChange={this.changeValue} value={this.state.payAccount.account} require/>
+							<Input
+								className="form-control"
+								type="text"
+								id="netellerNewAccount"
+								name="netellerNewAccount"
+								ref="email"
+								validate="isEmail"
+								onChange={this.changeValue}
+								value={this.state.payAccount.account}
+								require
+							/>
 						</div>
 					</div>
 
@@ -98,14 +109,18 @@ let Register = React.createClass({
 									{translate('PROCESSING_BUTTON_SAVE', 'Save')}
 								</button> : null }
 							</div>
+
 							<div className="col-sm-6">
-								{this.state.displaySaveButton ? <button type='button' onClick={this.cancel} className='btn btn-green'>
-									{translate('PROCESSING_BUTTON_CANCEL', 'Save')}
-								</button> : null }
+								{
+									this.state.displaySaveButton ? 
+										<button type='button' onClick={this.cancel} className='btn btn-green'>
+											{translate('PROCESSING_BUTTON_CANCEL', 'Save')}
+										</button>
+									: null 
+								}
 							</div>
 						</div>
 					</div>
-					
 				</form>
 			</div>
 		)

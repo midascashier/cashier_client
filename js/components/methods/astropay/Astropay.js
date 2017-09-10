@@ -18,7 +18,6 @@ let Astropay = React.createClass({
 	/**
 	 * React function to set component initial state
 	 */
-
 	getInitialState(){
 		return this.refreshLocalState();
 	},
@@ -50,8 +49,10 @@ let Astropay = React.createClass({
 	/**
 	 * Set astropay New Account Info
 	 *
+	 * @param propertyName
+	 * @param isSelectComponent
 	 * @param event
-	 */
+     */
 	changeValue(propertyName, isSelectComponent = 0, event){
 		let actualState = this.state;
 
@@ -80,22 +81,28 @@ let Astropay = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<AskInfo amount={this.props.amount}
-									 setAmount={this.props.setAmount}
-									 limitsCheck={this.props.limitsCheck}
-									 changeValue={this.changeValue}
+					<AskInfo 
+						amount={this.props.amount}
+						setAmount={this.props.setAmount}
+						limitsCheck={this.props.limitsCheck}
+						changeValue={this.changeValue}
 					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
-						} else{
-							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}
-																 payAccount={this.state.payAccount}
-																 check={this.state.check}
-																 currencyId= {this.state.currencyId}
-																 formValidator={this.formValidator}/>;
+						}else{
+							return(
+								<InfoMethod
+									amount={this.props.amount}
+									check={this.state.check}
+									payAccount={this.state.payAccount}
+									formValidator={this.formValidator}
+									limitsCheck={this.props.limitsCheck}
+									currencyId= {this.state.currencyId}
+								/>
+							)
 						}
 					})()}
 				</div>
