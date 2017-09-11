@@ -4,7 +4,7 @@ import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 import { ApplicationService } from '../../../services/ApplicationService'
-
+import { CashierActions } from '../../../actions/CashierActions'
 import { CashierStore } from '../../../stores/CashierStore'
 
 let Register = React.createClass({
@@ -75,6 +75,27 @@ let Register = React.createClass({
 			payAccount
 		);
 
+	},
+
+	/**
+	 * Cancel button
+	 */
+	cancel() {
+		let payAccounts = CashierStore.getProcessorPayAccount();
+		if(Object.keys(payAccounts).length > 0){
+			let processorID = CashierStore.getProcessor();
+			let previousPayAccount = 0;
+
+			for(let payAccount in payAccounts){
+				if(previousPayAccount == 0){
+					previousPayAccount = payAccount;
+				}
+			}
+
+			CashierActions.changePayAccount(previousPayAccount, processorID.processorId);
+		}else{
+			UIService.changeUIState('/' + UIService.getCurrentView() + '/');
+		}
 	},
 
 	/**

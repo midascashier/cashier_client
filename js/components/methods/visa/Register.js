@@ -188,6 +188,8 @@ let Register = React.createClass({
 				}
 			}
 			CashierActions.changePayAccount(previousPayAccount, processorID.processorId);
+		}else{
+			UIService.changeUIState('/' + UIService.getCurrentView() + '/');
 		}
 	},
 
