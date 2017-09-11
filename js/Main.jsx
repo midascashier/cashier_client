@@ -45,7 +45,7 @@ import { Skrill_1tap } from './components/methods/skrill_1tap/Skrill_1tap'
 /**
  * genck set of components to create routes
  */
-import { Genck } from './components/methods/genck/Genck'
+import { Genck } from './components/methods/genck/genck'
 import { CKConfirmWithdraw } from './components/methods/genck/ConfirmWithdraw'
 
 /**

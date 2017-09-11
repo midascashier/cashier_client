@@ -810,9 +810,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 		case actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE:
 			if(data.response){
-				data.response.processorMinMaxLimits.currencyMax = Math.ceil(data.response.processorMinMaxLimits.currencyMax);
-				data.response.processorMinMaxLimits.currencyMin = Math.ceil(data.response.processorMinMaxLimits.currencyMin);
-				_processor.limits = data.response.processorMinMaxLimits;
+				data.response.MinMaxLimits.currencyMax = Math.ceil(data.response.MinMaxLimits.currencyMax);
+				data.response.MinMaxLimits.currencyMin = Math.ceil(data.response.MinMaxLimits.currencyMin);
+				_processor.limits = data.response.MinMaxLimits;
 			}else{
 				_processor.limits = {currencyMin: 0, currencyMax: 0, currencyCode: _customer.currency};
 			}
