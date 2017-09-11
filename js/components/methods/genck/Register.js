@@ -35,7 +35,6 @@ let Register = React.createClass({
 		let zip = customer.personalInformation.postalCode ? customer.personalInformation.postalCode : "";
 		let email = customer.personalInformation.email ? customer.personalInformation.email : "";
 		let phone = customer.personalInformation.phone ? customer.personalInformation.phone : "";
-		let customerState = customer.personalInformation.state ? customer.personalInformation.state : states[0]['Small'];
 
 		return {
 			displaySaveButton: false,

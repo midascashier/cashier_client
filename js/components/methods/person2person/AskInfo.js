@@ -1,13 +1,12 @@
 import React from 'react'
 import { translate } from '../../../constants/Translate'
 import  cashier  from '../../../constants/Cashier'
-import { SelectPayAccount } from '../../SelectPayAccount'
 import { AmountController } from '../../AmountController'
 import { UIService } from '../../../services/UIService'
 import { Register } from './Register.js'
-import { CustomerService } from '../../../services/CustomerService'
 import { FeeController } from '../../FeeController'
 import { LoadingSpinner } from '../../loading/LoadingSpinner'
+import { PayAccountDropDown } from '../../commonComponents/payaccount/payAccountDropDown'
 
 let AskInfo = React.createClass({
 
@@ -22,6 +21,15 @@ let AskInfo = React.createClass({
 		timeFrameDay: React.PropTypes.string,
 		timeFrameTime: React.PropTypes.node,
 		payAccount: React.PropTypes.object
+	},
+
+	/**
+	 * Pass props on to son
+	 *
+	 * @returns {*}
+	 */
+	getProps() {
+		return this.props
 	},
 
 	render() {
@@ -40,40 +48,7 @@ let AskInfo = React.createClass({
 		let withdrawFee = "";
 		let depositTimeToSend = "";
 		let processingTitle = (!isWithDraw) ? translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P') : translate('PROCESSING_WITHDRAW_INFORMATION_TITLE_P2P');
-		let selectType = (!isWithDraw) ? translate('P2P_SELECT_DEPOSIT') : translate('P2P_SELECT_WITHDRAW');
 		let deleteButton = (!isWithDraw) ? translate('PROCESSING_BUTTON_DELETE_SENDER') : translate('PROCESSING_BUTTON_DELETE_RECEIVER');
-
-		let PayAccountDropDown = React.createClass({
-
-			disablePayAccount() {
-				CustomerService.getDisablePayAccount();
-			},
-
-			render(){
-				let deleteButtonDisplay = "";
-
-				if(payAccountId != 0){
-					deleteButtonDisplay = (
-						<button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
-							{deleteButton}
-						</button>
-					)
-				}
-
-				return(
-					<div className="form-group" id="payAccount">
-						<label className="col-sm-4 control-label">{selectType}:</label>
-						<div className="col-sm-5" id="selectPayAccount">
-							<SelectPayAccount setAmount={setAmount} amount={amount}/>
-						</div>
-
-						<div className="col-sm-3">
-							{deleteButtonDisplay}
-						</div>
-					</div>
-				)
-			}
-		});
 
 		if(timeFrameDay == "TOMORROW"){
 			for(let i = 0; i < 24; i++){
@@ -130,21 +105,14 @@ let AskInfo = React.createClass({
 							<div className="form-horizontal">
 
 								{(() =>{
-									if(!payAccountDisplayName){
-										return <LoadingSpinner />;
-									}
 
-									if(payAccountDisplayName == cashier.NO_RESPONSE){
-										return <Register />
-									}
-
-									if(payAccountId == 0){
-										return <div className="scroll"><PayAccountDropDown /><Register /></div>
+									if(payAccountDisplayName == cashier.NO_RESPONSE || payAccountId == 0){
+										return <Register/>
 									}
 
 									return (
 										<div>
-											<PayAccountDropDown/>
+											<PayAccountDropDown info={this.getProps()} msgDeleteBtn={deleteButton}/>
 											{depositTimeToSend}
 											<div className="form-group">
 												<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>

@@ -108,7 +108,7 @@ let AskInfo = React.createClass({
 
 									return (
 										<div className="scroll">
-											<PayAccountDropDown info={this.getProps}/>
+											<PayAccountDropDown info={this.getProps()}/>
 											{deposit}
 											{netellerForm}
 										</div>

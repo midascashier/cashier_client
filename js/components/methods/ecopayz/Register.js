@@ -5,6 +5,7 @@ import { TransactionService } from '../../../services/TransactionService'
 import { ApplicationService } from '../../../services/ApplicationService'
 import { CashierActions } from '../../../actions/CashierActions'
 import { CashierStore } from '../../../stores/CashierStore'
+import { UIService } from '../../../services/UIService'
 
 let Register = React.createClass({
 
@@ -79,6 +80,8 @@ let Register = React.createClass({
 			}
 			
 			CashierActions.changePayAccount(previousPayAccount, processor.processorId);
+		}else{
+			UIService.changeUIState('/' + UIService.getCurrentView() + '/');
 		}
 	},
 

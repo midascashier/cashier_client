@@ -49,6 +49,7 @@ let AskInfo = React.createClass({
 		let account = this.props.account;
 
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
+
 		if(isWithDraw){
 			proccesingTitle = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information');
 		}
@@ -74,14 +75,12 @@ let AskInfo = React.createClass({
 										</div>
 
 										{(() =>{
-											if(!isWithDraw){
-												return (
-													<p></p>
+											if(isWithDraw){
+												return(
+													<div className="form-group">
+														<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
+													</div>
 												)
-											} else{
-												return <div className="form-group">
-													<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
-												</div>
 											}
 										})()}
 									</div>

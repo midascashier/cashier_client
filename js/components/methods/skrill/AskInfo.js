@@ -1,13 +1,12 @@
 import React from 'react'
 import {translate} from '../../../constants/Translate'
-import  cashier  from '../../../constants/Cashier'
-import {SelectPayAccount} from '../../SelectPayAccount'
+import cashier  from '../../../constants/Cashier'
 import {AmountController} from '../../AmountController'
 import {PromoCode} from '../../PromoCode'
 import {UIService} from '../../../services/UIService'
 import {Register} from './Register.js'
 import {CustomerService} from '../../../services/CustomerService'
-import {LoadingSpinner} from '../../loading/LoadingSpinner'
+import { PayAccountDropDown } from '../../commonComponents/payaccount/payAccountDropDown'
 
 let AskInfo = React.createClass({
 
@@ -19,7 +18,16 @@ let AskInfo = React.createClass({
 		feeCheck: React.PropTypes.number,
 		payAccount: React.PropTypes.object,
 		setPromoCode: React.PropTypes.func,
-		promoCode: React.PropTypes.string,
+		promoCode: React.PropTypes.string
+	},
+
+	/**
+	 * Pass props on to son
+	 *
+	 * @returns {*}
+	 */
+	getProps() {
+		return this.props
 	},
 
 	disablePayAccount() {
@@ -37,39 +45,11 @@ let AskInfo = React.createClass({
 		let promoCode = this.props.promoCode;
 
 		let isWithDraw = UIService.getIsWithDraw();
-		let deleteButton = translate('PROCESSING_BUTTON_DELETE_ACCOUNT', 'Delete Account');
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
+
 		if(isWithDraw){
 			proccesingTitle = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information');
 		}
-
-		let PayAccountDropDown = React.createClass({
-
-				disablePayAccount() {
-					CustomerService.getDisablePayAccount();
-				},
-
-				render(){
-					let deleteButtonDisplay = "";
-
-					if(payAccountId != 0){
-						deleteButtonDisplay = <button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
-							{deleteButton}
-						</button>;
-					}
-
-					return <div className="form-group" id="payAccount">
-						<label className="col-sm-4 control-label">{translate('SKRILL_ACCOUNT', 'skrill Account')}:</label>
-						<div className="col-sm-5" id="selectPayAccount">
-							<SelectPayAccount setAmount={setAmount} amount={amount}/>
-						</div>
-						<div className="col-sm-3">
-							{deleteButtonDisplay}
-						</div>
-					</div>
-				}
-			}
-		);
 
 		return (
 			<div id="skrillAskInfo" className="box">
@@ -80,49 +60,31 @@ let AskInfo = React.createClass({
 							<div className="form-horizontal">
 
 								{(() =>{
-									if(!payAccountDisplayName){
-										return <LoadingSpinner />;
-									}else{
-										if(payAccountDisplayName == cashier.NO_RESPONSE){
-											return <Register />
-										}
-										if(payAccountId == 0){
-											return <div className="scroll"><PayAccountDropDown /><Register /></div>
-										}else{
-											return (
-												(() =>{
-													if(!isWithDraw){
-														return (
-															<div>
-																<PayAccountDropDown />
 
-																<div className="form-group">
-																	<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-																</div>
-
-																<div className="form-group">
-																	<PromoCode setPromoCode={setPromoCode} promoCode={promoCode}/>
-																</div>
-															</div>
-														);
-													}else{
-														return (
-															<div>
-																<PayAccountDropDown />
-
-																<div className="form-group">
-																	<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-																</div>
-
-															</div>
-														);
-													}
-												})()
-											)
-										}
+									if(!isWithDraw){
+										promoCode = (
+											<div className="form-group">
+												<PromoCode setPromoCode={setPromoCode} promoCode={promoCode}/>
+											</div>
+										);
 									}
-								})()}
 
+									if(payAccountDisplayName == cashier.NO_RESPONSE || payAccountId == 0){
+										return <Register/>
+									}
+
+									return (
+										<div>
+											<PayAccountDropDown info={this.getProps()}/>
+
+											<div className="form-group">
+												<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+											</div>
+
+											{promoCode}
+										</div>
+									)
+								})()}
 							</div>
 						</div>
 					</div>

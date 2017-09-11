@@ -1,7 +1,10 @@
 import React from 'react'
+import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
 import { SelectPayAccount } from '../../SelectPayAccount'
 import { CustomerService } from '../../../services/CustomerService'
+import { UIService } from '../../../services/UIService'
+import { CashierActions } from '../../../actions/CashierActions'
 
 let PayAccountDropDown = React.createClass({
 
@@ -15,6 +18,25 @@ let PayAccountDropDown = React.createClass({
      */
     disablePayAccount() {
         CustomerService.getDisablePayAccount();
+    },
+
+    /**
+     * Cancel button
+     */
+    cancel() {
+        let payAccounts = CashierStore.getProcessorPayAccount();
+        if(Object.keys(payAccounts).length > 0){
+            let processor = CashierStore.getProcessor();
+            let previousPayAccount = 0;
+            for(let payAccount in payAccounts){
+                if(previousPayAccount == 0){
+                    previousPayAccount = payAccount;
+                }
+            }
+            CashierActions.changePayAccount(previousPayAccount, processor.processorId);
+        } else {
+            UIService.changeUIState('/' + UIService.getCurrentView() + '/');
+        }
     },
 
     render(){
