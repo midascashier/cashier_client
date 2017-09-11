@@ -47,7 +47,16 @@ let Genck = React.createClass({
 	 * @param element
      */
 	setSendBy(element) {
-		this.setState({ sendBy: element.target.value });
+
+		let value = '';
+
+		if (typeof element != "object") {
+			value = element;
+		} else {
+			value = element.target.value;
+		}
+
+		this.setState({ sendBy: value});
 	},
 
 	setFeeType(value) {
