@@ -90,9 +90,12 @@ let Register = React.createClass({
 
 	/**
 	 * Set visa New Account Info
-	 *
-	 * @param event
-	 */
+	 * 
+	 * @param propertyName
+	 * @param property
+	 * @param isSelectComponent
+     * @param event
+     */
 	changeValue(propertyName, property = null, isSelectComponent = 0, event){
 		let actualState = this.state;
 
