@@ -90,7 +90,7 @@ let InfoMethod = React.createClass({
 	},
 
 	render() {
-		let limitsCheck = this.allowProcess();
+		let limitsCheck = false;
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
 		let currentView = UIService.getCurrentView().toUpperCase();
