@@ -6,6 +6,7 @@ import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
+
 	propTypes: {
 		password: React.PropTypes.string,
 		limitsCheck: React.PropTypes.string,
@@ -59,8 +60,7 @@ let InfoMethod = React.createClass({
 		}
 
 		return (checkAmount && isWithDraw);
-	}
-	,
+	},
 
 	/**
 	 * send the customer to select the processor again
@@ -90,14 +90,14 @@ let InfoMethod = React.createClass({
 	},
 
 	render() {
-		let limitsCheck = false;
+		let limitsCheck = this.allowProcess();
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
-		let processorDisplayName = UIService.getProcessorDisplayName();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
+
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
-			processorName: processorDisplayName,
+			processorName: "Deposit Card",
 			transactionType: transactionType
 		});
 
