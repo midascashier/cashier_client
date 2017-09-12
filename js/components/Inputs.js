@@ -3,6 +3,7 @@ import { ApplicationService } from '../services/ApplicationService'
 import { inputsErrorMsgs } from '../constants/inputsErrorMsgs'
 
 let Input = React.createClass({
+
 	propTypes: {
 		value: React.PropTypes.node,
 		onChange: React.PropTypes.func
@@ -11,7 +12,6 @@ let Input = React.createClass({
 	/**
 	 * React function to set component initial state
 	 */
-
 	getInitialState(){
 		return this.refreshLocalState();
 	},
@@ -41,18 +41,23 @@ let Input = React.createClass({
 			switch(this.props.id){
 				case "ccName":
 					errorMessage = "Invalid Card Holder's Name";
-					break;
+                break;
+
 				case "creditCardNumber":
 					errorMessage = "Invalid Card Number";
-					break;
+                break;
+
 				case "cvv":
 					errorMessage = "CVV";
-					break;
+                break;
+
 				case "ssn":
 					errorMessage = "SSN";
-					break
+                break
 			}
+
 			isValid = false;
+
 			this.setState(
 				{
 					isValid: false,
@@ -60,7 +65,8 @@ let Input = React.createClass({
 					value: e
 				}
 			);
-		} else{
+		}else{
+
 			isValid = true;
 			this.setState(
 				{
@@ -96,7 +102,7 @@ let Input = React.createClass({
 	},
 
 	/**
-	 * local function which send by parameter to the function recevied on the props the value of the input
+	 * local function which send by parameter to the function received on the props the value of the input
 	 *
 	 * @param e
 	 */
@@ -131,22 +137,26 @@ let Input = React.createClass({
 			<div id={this.props.id + "InputContent"}>
 				{(() =>{
 					if(!disabled){
-						return <input
-							className="form-control"
-							type={this.props.type || 'text'}
-							name={this.props.name}
-							onBlur={this.handleBlur}
-							onFocus={this.handleFocus}
-							id={this.props.id}
-							placeholder={this.props.placeholder || ''}
-							onChange={this.changeHandler}
-							value={this.props.value}
-							data-isValid={this.state.isValid}
-							data-isRequired={require}
-							data-validation={this.props.validate}
-						/>
-					} else{
-						return <input
+						return(
+							<input
+								className="form-control"
+								type={this.props.type || 'text'}
+								name={this.props.name}
+								onBlur={this.handleBlur}
+								onFocus={this.handleFocus}
+								id={this.props.id}
+								placeholder={this.props.placeholder || ''}
+								onChange={this.changeHandler}
+								value={this.props.value}
+								data-isValid={this.state.isValid}
+								data-isRequired={require}
+								data-validation={this.props.validate}
+							/>		
+						)
+					}
+
+					return(
+						<input
 							className="form-control"
 							type={this.props.type || 'text'}
 							name={this.props.name}
@@ -159,7 +169,7 @@ let Input = React.createClass({
 							data-isRequired={require}
 							data-validation={this.props.validate}
 						/>
-					}
+					)
 				})()}
 
 				{(() =>{

@@ -59,8 +59,9 @@ let SecondFactor = React.createClass({
 	/**
 	 * Set state for phone and code
 	 *
+	 * @param propertyName
 	 * @param event
-	 */
+     */
 	changeValue(propertyName, event){
 
 		let actualState = this.state.info;
@@ -74,7 +75,6 @@ let SecondFactor = React.createClass({
 		}
 
 		this.setState(actualState);
-
 	},
 
 	render()
@@ -137,13 +137,19 @@ let SecondFactor = React.createClass({
 										</div>
 									</div>
 								)
-							} else{
-								return (
-									<div id="customerPhone" className="col-sm-7">
-										<Input onChange={this.changeValue.bind(null, 'phone')} type="text" id="customerPhone" name="customerPhone" value={phone}/>
-									</div>
-								)
 							}
+
+							return (
+								<div id="customerPhone" className="col-sm-7">
+									<Input
+										onChange={this.changeValue.bind(null, 'phone')}
+										type="text"
+										id="customerPhone"
+										name="customerPhone"
+										value={phone}
+									/>
+								</div>
+							)
 						})()}
 
 						<div className="col-sm-1">
@@ -158,7 +164,9 @@ let SecondFactor = React.createClass({
 						</div>
 
 						<div className="col-sm-4">
-							<button disabled={isNextDisabled} className="btn btn-green" onClick={this.sendTransactionToken}>{translate('SECOND_FACTOR_REQUEST_CODE_BUTTON')}</button>
+							<button disabled={isNextDisabled} className="btn btn-green" onClick={this.sendTransactionToken}>
+								{translate('SECOND_FACTOR_REQUEST_CODE_BUTTON')}
+							</button>
 						</div>
 					</div>
 
@@ -171,13 +179,19 @@ let SecondFactor = React.createClass({
 										<Input type="text" id="verificationCode" name="verificationCode" disabled/>
 									</div>
 								)
-							} else{
-								return (
-									<div className="col-sm-7">
-										<Input type="text" validate="isNumber" id="verificationCode" onChange={this.changeValue.bind(null, 'code')} name="verificationCode"/>
-									</div>
-								)
 							}
+
+							return (
+								<div className="col-sm-7">
+									<Input
+										type="text"
+										validate="isNumber"
+										id="verificationCode"
+										onChange={this.changeValue.bind(null, 'code')}
+										name="verificationCode"
+									/>
+								</div>
+							)
 						})()}
 						<div className="col-sm-1">
 							{(() =>{
@@ -194,7 +208,9 @@ let SecondFactor = React.createClass({
 							})()}
 						</div>
 						<div className="col-sm-3">
-							<button className="btn btn-green" disabled={disableVerifyButton} onClick={this.verifyTransactionToken}>{translate('SECOND_FACTOR_VERIFY_CODE')}</button>
+							<button className="btn btn-green" disabled={disableVerifyButton} onClick={this.verifyTransactionToken}>
+								{translate('SECOND_FACTOR_VERIFY_CODE')}
+							</button>
 						</div>
 					</div>
 

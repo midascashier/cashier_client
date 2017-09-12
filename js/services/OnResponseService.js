@@ -24,22 +24,22 @@ class OnResponseService {
 				ApplicationService.getCountryStates();
 				CustomerService.getPendingMTCNTransactions();
 				ApplicationService.getCurrency(data.response.customerInfo.currency);
-				break;
+			break;
 
 			case actions.PROCESSORS_RESPONSE:
 				CustomerService.customerProcessorsResponse(data);
-				break;
+			break;
 
 			case actions.PROCESS_RESPONSE:
 			case actions.PROCESS_P2P_GET_NAME_RESPONSE:
 			case actions.PROCESS_P2P_SUBMIT_RESPONSE:
 			case actions.PROCESS_CC_RESPONSE:
 				TransactionService.processResponse(data);
-				break;
+			break;
 
 			case actions.GET_CREDITCARD_TRANSACTION_RESPONSE:
 				TransactionService.creditCardTransactionResponse(data);
-				break;
+			break;
 
 			case actions.VALIDATE_PAYACCOUNT:
 				if (data.response && data.response.payAccount){
@@ -51,20 +51,20 @@ class OnResponseService {
 						TransactionService.getPreviousPayAccount(processorID);
 					}
 				}
-				break;
+			break;
 
 			case actions.PAYACCOUNTS_DISABLE_RESPONSE:
 				let currentProcessor = TransactionService.getCurrentProcessor();
 				TransactionService.getPreviousPayAccount(currentProcessor.processorId);
-				break;
+			break;
 
 			case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
 				TransactionService.getPendingPayout();
-				break;
+			break;
 
 			case actions.CHANGE_STATUS_RESPONSE:
 				CustomerService.getCustomerTransactions();
-				break;
+			break;
 		}
 	};
 }

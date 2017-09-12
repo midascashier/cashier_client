@@ -6,7 +6,7 @@ let PromoCode = React.createClass({
 
 	propTypes: {
 		setPromoCode: React.PropTypes.func,
-		promoCode: React.PropTypes.string,
+		promoCode: React.PropTypes.string
 	},
 
 	/**

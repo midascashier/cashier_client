@@ -529,7 +529,6 @@ class UiService {
 		let rabbitRequest = Object.assign(data, application);
 		stompConnector.makeBackendRequest("", rabbitRequest);
 	}
-
 }
 
 export let UIService = new UiService();

@@ -11,6 +11,9 @@ let RedirectTicket = React.createClass({
         simpleRedirect: React.PropTypes.bool
     },
 
+    /**
+     * Validate initial function for redirect process
+     */
     componentWillMount() {
         this.props.simpleRedirect = 1;
 
@@ -24,6 +27,12 @@ let RedirectTicket = React.createClass({
         }
     },
 
+    /**
+     * Generate inputs to post params to redirect process
+     *
+     * @param element
+     * @returns {XML}
+     */
     genInputs(element) {
         let prop = this.props.elements[element];
         if (prop.type == 'hidden') {
@@ -48,6 +57,9 @@ let RedirectTicket = React.createClass({
         }
     },
 
+    /**
+     * Execute post action in form
+     */
     componentDidMount() {
         if (this.props.simpleRedirect) {
             window.location = this.props.url;

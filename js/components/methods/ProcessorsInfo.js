@@ -14,7 +14,7 @@ let ProcessorsInfo = React.createClass({
 	},
 
 	/**
-	 * React function to set component inital state
+	 * React function to set component initial state
 	 *
 	 */
 	getInitialState(){
@@ -49,7 +49,7 @@ let ProcessorsInfo = React.createClass({
 	getProcessors(){
 		if(UIService.getIsWithDraw()){
 			return this.state.customer.withdrawProcessors;
-		} else{
+		}else{
 			return this.state.customer.depositProcessors;
 		}
 	},
@@ -68,9 +68,9 @@ let ProcessorsInfo = React.createClass({
 					{(() =>{
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
-						} else{
-							return <ProcessorInfo selectedProcessor={this.state.selectedProcessor}/>
 						}
+
+						return <ProcessorInfo selectedProcessor={this.state.selectedProcessor}/>
 					})()}
 				</div>
 			</div>

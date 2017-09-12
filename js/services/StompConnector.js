@@ -177,9 +177,8 @@ class StompConnector {
 	/**
 	 * timeout function
 	 *
-	 * @param time
-	 * @returns {Promise}
-	 */
+	 * @param ms
+     */
 	sleep(ms){
 		$('#msjs').show();
 		let start = new Date().getTime();
@@ -191,9 +190,11 @@ class StompConnector {
 
 	/**
 	 * get the message and the queue y send them to Rabbit
-	 * @param message
+	 * 
 	 * @param queue
-	 */
+	 * @param headers
+	 * @param message
+     */
 	sendMessage(queue, headers, message){
 		let correlation_id = message.f + "Response";
 		if(!headers){

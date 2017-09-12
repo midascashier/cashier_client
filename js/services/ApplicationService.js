@@ -166,13 +166,13 @@ class applicationService {
 			let validationRegExp = new RegExp(regExp[type][regExpOpt]);
 			if(validationRegExp.test(value)){
 				isValid = true;
-			}
-			else{
+			}else{
 				if(!isValid){
 					isValid = false;
 				}
 			}
 		}
+		
 		return isValid;
 	}
 
@@ -189,7 +189,7 @@ class applicationService {
 	 * @param str
 	 * @returns {boolean}
 	 * @constructor
-	 */
+     */
 	IsJsonString(str){
 		try{
 			JSON.parse(str);
@@ -198,7 +198,6 @@ class applicationService {
 		}
 		return true;
 	}
-
 }
 
 export let ApplicationService = new applicationService();

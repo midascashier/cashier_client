@@ -23,11 +23,13 @@ let Welcome = React.createClass({
 										<h2><span>{translate('WELCOME_TITLE')}</span><span>{translate('WELCOME_TITLE_TO')}</span></h2>
 										<p className="title">{translate('WELCOME_LOADING')}</p>
 									</div>
+
 									<div className="col-sm-12">
 										<div class="loader-lg">
 											<img class="center-block" src="/images/loader-lg_70x70.gif" alt="loader"/>
 										</div>
 									</div>
+
 									<div className="col-sm-12">
 										<img src="/images/24-7_secure.png" alt="24/7 Secure"/>
 									</div>

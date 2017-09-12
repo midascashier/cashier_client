@@ -1,4 +1,3 @@
-import assign from 'object-assign'
 import { CashierStore } from '../stores/CashierStore'
 import { CashierActions } from '../actions/CashierActions'
 import { stompConnector } from './StompConnector'
@@ -27,7 +26,6 @@ class customerService {
 			.then(()=>{
 				this.connectionDone(data);
 			});
-
 	};
 
 	/**
@@ -41,7 +39,9 @@ class customerService {
 
 	/**
 	 * Do some other actions after login response
-	 */
+	 *
+	 * @param data
+     */
 	connectionDone(data){
 		this.getCustomerInfo();
 		TransactionService.loginResponse(data);
@@ -107,7 +107,9 @@ class customerService {
 
 	/**
 	 * Function to get pay account previous pay accounts
-	 */
+	 *
+	 * @param processorID
+     */
 	getCustomerProcessorsMinMax(processorID){
 		let data = {
 			f: "getProcessorMinMaxLimits", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()

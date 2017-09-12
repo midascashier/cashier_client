@@ -95,13 +95,18 @@ let InfoMethod = React.createClass({
 		let originPath = UIService.getOriginPath();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
-		
+
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
 			processorName: "Deposit Card",
 			transactionType: transactionType
 		});
 
 		let isNextDisabled = "disabled";
+
+		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS && this.props.amount){
+			limitsCheck = true;
+		}
+
 		if(payAccountInfo.payAccountId && limitsCheck){
 			isNextDisabled = "";
 		}
@@ -129,7 +134,7 @@ let InfoMethod = React.createClass({
 								</tbody>
 							</table>
 						</div>
-						
+
 						<div className="row mod-btns">
 							<div className="col-sm-6">
 								<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled}
@@ -138,7 +143,7 @@ let InfoMethod = React.createClass({
 								</button>
 								<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
 							</div>
-							
+
 							<div className="col-sm-6">
 								<img src={originPath + '/images/ssl.png'} alt="ssl"/>
 							</div>

@@ -4,6 +4,7 @@ import { CashierStore } from './../stores/CashierStore'
 import { translate } from '../constants/Translate'
 
 let SelectPayAccount = React.createClass({
+
 	propTypes: {
 		setAmount: React.PropTypes.func,
 		amount: React.PropTypes.node

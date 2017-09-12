@@ -25,21 +25,6 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount() {
-		CashierStore.removeChangeListener(this._onChange);
-	},
-
-	/**
 	 *  this function sets and return object with local states
 	 *
 	 * @returns {{processor: (*|{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}), currentPayAccount: *, originPath: (*|string)}}
@@ -77,8 +62,7 @@ let InfoMethod = React.createClass({
 		TransactionService.setFeeAmount(this.props.feeCashValue);
 		if(isWithDraw){
 			UIService.confirmTransaction();
-		}
-		else{
+		}else{
 			//process to get new name
 			TransactionService.setTimeFrame({
 				timeFrameDay: this.props.timeFrameDay,
@@ -108,8 +92,6 @@ let InfoMethod = React.createClass({
 			isNextDisabled = "";
 		}
 
-
-
 		return (
 			<div id="InfoMethodP2P">
 				<div className="col-sm-12">
@@ -133,21 +115,35 @@ let InfoMethod = React.createClass({
 						</table>
 					</div>
 
-							<div className="row mod-btns">
-								<div className="col-sm-6">
-									<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
-										{translate('PROCESSING_BUTTON_NEXT', 'Next')}
-									</button>
-									<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
-								</div>
-								<div className="col-sm-6">
-									<img src={originPath + '/images/ssl.png'} alt="ssl"/>
-								</div>
-							</div>
-
+					<div className="row mod-btns">
+						<div className="col-sm-6">
+							<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
+								{translate('PROCESSING_BUTTON_NEXT', 'Next')}
+							</button>
+							<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
+						</div>
+						<div className="col-sm-6">
+							<img src={originPath + '/images/ssl.png'} alt="ssl"/>
+						</div>
+					</div>
 				</div>
 			</div>
 		)
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

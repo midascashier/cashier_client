@@ -34,7 +34,7 @@ let AmountController = React.createClass({
 		}
 		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS || this.props.limitsCheck == Cashier.LOADING){
 			limitsOK = true;
-		} else {
+		}else{
 			limitsErrorMsg = errorMsgs.limitsMsgs[this.props.limitsCheck];
 		}
 
@@ -42,8 +42,7 @@ let AmountController = React.createClass({
 		let isWithDraw = UIService.getIsWithDraw();
 		if (isWithDraw){
 			action = translate('WITHDRAW');
-		}
-		else{
+		}else{
 			action = translate('DEPOSIT');
 		}
 
@@ -51,8 +50,18 @@ let AmountController = React.createClass({
 			<div id="amountController">
 				<label className="col-sm-4 control-label">{action} {translate('PROCESSING_AMOUNT', 'Amount')}:</label>
 				<div className="col-sm-8">
-					<input className="form-control" type="number" autoComplete="off" disabled={amountFieldDisable} id="amount"
-								 name="amount" onChange={this.changeValue} value={this.props.amount} min="0" required/>
+					<input
+						className="form-control"
+						type="number"
+						autoComplete="off"
+						disabled={amountFieldDisable}
+						id="amount"
+						name="amount"
+						onChange={this.changeValue}
+						value={this.props.amount}
+						min="0"
+						required
+					/>
 					<span>{translate('PROCESSING_MIN', 'Min')}: {ApplicationService.currency_format(limits.minAmount)} {customer.currency}
 						- {translate('PROCESSING_MAX', 'Max')}: {ApplicationService.currency_format(limits.maxAmount)} {customer.currency}</span><br/>
 					{(() =>{

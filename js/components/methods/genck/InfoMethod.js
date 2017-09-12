@@ -77,24 +77,21 @@ let InfoMethod = React.createClass({
 
 	render() {
 		let limitsCheck = false;
-
-		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS && this.props.amount){
-			limitsCheck = true;
-		}
-
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
-
 		let processorDisplayName = UIService.getProcessorDisplayName().toUpperCase();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
-
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
 			processorName: processorDisplayName,
 			transactionType: transactionType
 		});
 
 		let isNextDisabled = "disabled";
+
+		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS && this.props.amount){
+			limitsCheck = true;
+		}
 
 		if(payAccountInfo.payAccountId && limitsCheck && this.props.sendBy){
 			isNextDisabled = "";

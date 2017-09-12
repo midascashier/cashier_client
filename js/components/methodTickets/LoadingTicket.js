@@ -42,35 +42,37 @@ let LoadingTicket = React.createClass({
 			<div id="loadingTicket">
 				{(() =>{
 					if((transactionResponse.status === "") && (!transactionResponse.userMessage)){
-						return <div className="col-sm-12">
-							<div className="modules">
-								<div className="row">
-									<div className="col-sm-12">
-										<h2>{translate('PROCESSING', 'Processing... please wait!')}</h2>
-										<div className="loader"></div>
-									</div>
-								</div>
-							</div>
-						</div>;
-					}else{
-						if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && !transactionResponse.details.creditCardTransaction && 
-							transactionResponse.status != cashier.TRANSACTION_STATUS_APPROVED && transactionResponse.transactionId != ""){
-							return (
-								<div className="col-sm-12">
-									<div className="modules">
-										<div className="row">
-											<div className="col-sm-12">
-												<h2>{translate('PROCESSING', 'Processing... please wait!')}</h2>
-												<div className="loader"></div>
-											</div>
+						return(
+							<div className="col-sm-12">
+								<div className="modules">
+									<div className="row">
+										<div className="col-sm-12">
+											<h2>{translate('PROCESSING', 'Processing... please wait!')}</h2>
+											<div className="loader"></div>
 										</div>
 									</div>
-								</div>		
-							)
-						}else{
-							return this.props.children
-						}
+								</div>
+							</div>		
+						)
 					}
+
+					if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && !transactionResponse.details.creditCardTransaction && 
+						transactionResponse.status != cashier.TRANSACTION_STATUS_APPROVED && transactionResponse.transactionId != ""){
+						return (
+							<div className="col-sm-12">
+								<div className="modules">
+									<div className="row">
+										<div className="col-sm-12">
+											<h2>{translate('PROCESSING', 'Processing... please wait!')}</h2>
+											<div className="loader"></div>
+										</div>
+									</div>
+								</div>
+							</div>		
+						)
+					}
+
+					return this.props.children
 				})()}
 			</div>
 		)

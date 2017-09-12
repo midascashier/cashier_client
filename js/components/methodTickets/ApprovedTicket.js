@@ -57,6 +57,7 @@ let ApprovedTicket = React.createClass({
 							</a>
 						</div>
 					</div>
+
 					<div className="col-sm-6">
 						<div className="success-message">
 							<i className="fa fa-check-circle-o green"></i>

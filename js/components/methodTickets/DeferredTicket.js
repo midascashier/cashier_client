@@ -1,7 +1,6 @@
 import React from 'react'
 import { UIService } from '../../services/UIService'
 import { CashierStore } from '../../stores/CashierStore'
-import { translate } from '../../constants/Translate'
 import { ApplicationService } from '../../services/ApplicationService'
 
 let DeferredTicket = React.createClass({
@@ -30,13 +29,6 @@ let DeferredTicket = React.createClass({
 	},
 
 	/**
-	 * component is ready
-	 */
-	componentDidMount() {
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
 	 * refresh the state when changes occur
 	 *
 	 * @private
@@ -61,6 +53,7 @@ let DeferredTicket = React.createClass({
 							</a>
 						</div>
 					</div>
+					
 					<div className="col-sm-6">
 						<div className="success-message">
 							<img src={originPath + '/images/u16.png'} />
@@ -72,6 +65,13 @@ let DeferredTicket = React.createClass({
 				</div>
 			</div>
 		)
+	},
+
+	/**
+	 * component is ready
+	 */
+	componentDidMount() {
+		CashierStore.addChangeListener(this._onChange);
 	}
 });
 

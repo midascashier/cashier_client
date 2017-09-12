@@ -11,7 +11,7 @@ import { LoadingSpinner } from './loading/LoadingSpinner'
 let TransactionHistoryContent = React.createClass({
 
 	/**
-	 * React function to set component inital state
+	 * React function to set component initial state
 	 *
 	 * @returns {*|{transactions}}
 	 */
@@ -50,27 +50,30 @@ let TransactionHistoryContent = React.createClass({
 		let pendingPayouts = this.state.pendingPayouts;
 		let isWithdraw = UIService.getIsWithDraw();
 		let customerOpt = "DEPOSIT";
+
 		if(isWithdraw == 1){
 			customerOpt = "WITHDRAW";
 		}
+
 		return (
 			<div id="transactionHistoryContent">
 				<Info />
 				<div id="transactionHistory" className="internal-content">
 					<div className="row">
 						<div className="col-sm-12">
-								<div className="title text-center">{translate('TRANSACTION_HISTORY_TITLE')}</div>
-								<div className="history">
-									<div className="col-sm-8">
-									{(() =>{
-										if(transactionHistory && transactionHistory.length == 0){
-											return <LoadingSpinner/>
-										} else{
-											return <TransactionHistory transactions = {transactionHistory} pendingPayouts = {pendingPayouts} />
-										}
-									})()}
-									</div>
-									<div className="col-sm-4">
+							<div className="title text-center">{translate('TRANSACTION_HISTORY_TITLE')}</div>
+							<div className="history">
+								<div className="col-sm-8">
+								{(() =>{
+									if(transactionHistory && transactionHistory.length == 0){
+										return <LoadingSpinner/>
+									}
+
+									return <TransactionHistory transactions = {transactionHistory} pendingPayouts = {pendingPayouts} />
+								})()}
+								</div>
+
+								<div className="col-sm-4">
 									<ul className="list-group">
 										<li>
 											<span>{translate('TRANSACTION_STATUS_PENDING')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PENDING')}
@@ -94,15 +97,16 @@ let TransactionHistoryContent = React.createClass({
 											<span>{translate('TRANSACTION_STATUS_FAILED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_FAILED')}
 										</li>
 									</ul>
-										<div className="row">
-											<div className="col-sm-6">
-												<Link to={"/"+customerOpt.toLowerCase()+"/"}>
-													<button type="submit" className="btn btn-green">{translate(customerOpt)}</button>
-												</Link>
-											</div>
+
+									<div className="row">
+										<div className="col-sm-6">
+											<Link to={"/"+customerOpt.toLowerCase()+"/"}>
+												<button type="submit" className="btn btn-green">{translate(customerOpt)}</button>
+											</Link>
 										</div>
+									</div>
 								</div>
-								</div>
+							</div>
 						</div>
 					</div>
 				</div>
