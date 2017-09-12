@@ -90,14 +90,14 @@ let InfoMethod = React.createClass({
 	},
 
 	render() {
-		let limitsCheck = this.allowProcess();
+		let limitsCheck = false;
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
+		let processorDisplayName = UIService.getProcessorDisplayName();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
-
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
-			processorName: "Deposit Card",
+			processorName: processorDisplayName,
 			transactionType: transactionType
 		});
 
