@@ -41,12 +41,14 @@ let TransactionPendingMTCN = React.createClass({
 	},
 
 	/**
+	 * Change current value
 	 *
 	 * @param transactionId
 	 * @param attribute
 	 * @param value
-	 * @returns {boolean}
-	 */
+	 * @param isSelect
+     * @returns {boolean}
+     */
 	changeValue(transactionId, attribute, value, isSelect){
 		const transactions = this.state.transactions;
 		const transaction = transactions[transactionId];
@@ -137,34 +139,48 @@ let TransactionPendingMTCN = React.createClass({
 										</tr>
 										<tr id={"transaction" + transactionId}>
 											<td>
-												<Input type="text" id="controlNumber" className="form-control"
-													   value={controlNumber} minLength={digits} maxLength={digits}
-													   placeholder={digits + ' ' + digitsLabel}
-													   onChange={this.changeValue.bind(this, transactionId, 'ControlNumber')}
-													   validate="isNumber" required
+												<Input
+													type="text"
+													id="controlNumber"
+													className="form-control"
+													value={controlNumber}
+													minLength={digits}
+													maxLength={digits}
+													placeholder={digits + ' ' + digitsLabel}
+													onChange={this.changeValue.bind(this, transactionId, 'ControlNumber')}
+													validate="isNumber" required
 												/>
 											</td>
 											<td>
-												<Input type="number" min="0.0001" step="0.1" id="amount"
-													   className="form-control" value={currencyAmount}
-													   onChange={this.changeValue.bind(this, transactionId, 'CurrencyAmount')}
-													   validate="isNumber" required
+												<Input
+													type="number"
+													min="0.0001"
+													step="0.1" id="amount"
+													className="form-control"
+													value={currencyAmount}
+													onChange={this.changeValue.bind(this, transactionId, 'CurrencyAmount')}
+													validate="isNumber" required
 												/>
 											</td>
 											<td>
-												<Input type="number" min="0.0001" step="0.1" id="fee"
-													   className="form-control" value={currencyFee}
-													   onChange={this.changeValue.bind(this, transactionId, 'CurrencyFee')}
-													   validate="isNumber" required
+												<Input
+													type="number"
+													min="0.0001"
+													step="0.1"
+													id="fee"
+													className="form-control"
+													value={currencyFee}
+													onChange={this.changeValue.bind(this, transactionId, 'CurrencyFee')}
+													validate="isNumber" required
 												/>
 											</td>
 											<td>
-												<button type="button" className="btn btn-green" disabled={isConfirmEnabled}
-													onClick={this.submitTransaction.bind(this, transaction)}>{btnConfirmLabel}
+												<button type="button" className="btn btn-green" disabled={isConfirmEnabled} onClick={this.submitTransaction.bind(this, transaction)}>
+													{btnConfirmLabel}
 												</button>
 											</td>
 											<td>
-												<button type="button" className="btn btn-green">{btnEditLabel}</button>
+												<button type="button" className="btn btn-green" disabled="disabled">{btnEditLabel}"</button>
 											</td>
 										</tr>
 									</tbody>
