@@ -179,9 +179,6 @@ let TransactionPendingMTCN = React.createClass({
 													{btnConfirmLabel}
 												</button>
 											</td>
-											<td>
-												<button type="button" className="btn btn-green" disabled="disabled">{btnEditLabel}"</button>
-											</td>
 										</tr>
 									</tbody>
 								</table>

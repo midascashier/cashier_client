@@ -38,7 +38,7 @@ let InfoMethod = React.createClass({
 	 * this is the callback function the store calls when a state change
 	 *
 	 * @private
-	 */
+     */
 	_onChange() {
 		this.setState(this.refreshLocalState());
 	},
