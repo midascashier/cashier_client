@@ -1,10 +1,9 @@
 import React from 'react'
-import {translate} from '../../../constants/Translate'
-import {Input} from '../../Inputs'
-import {AmountController} from '../../AmountController'
-import {PromoCode} from '../../PromoCode'
-import {UIService} from '../../../services/UIService'
-import {FeeController} from '../../FeeController'
+import { translate } from '../../../constants/Translate'
+import { Input } from '../../Inputs'
+import { Amount } from './amount'
+import { UIService } from '../../../services/UIService'
+import API from '../../../constants/Cashier'
 
 let AskInfo = React.createClass({
 
@@ -21,7 +20,23 @@ let AskInfo = React.createClass({
 		bitcoinAddress: React.PropTypes.string,
 		transaction: React.PropTypes.object,
 		setPromoCode: React.PropTypes.func,
-		promoCode: React.PropTypes.string
+		promoCode: React.PropTypes.string,
+		currencies: React.PropTypes.object
+	},
+
+	componentWillMount(){
+		this.getCurrencies();
+	},
+
+	getCurrencies(){
+		let url = API.CRYPTO_API_URL + API.CRYPTO_API_GET_COINS;
+		fetch(url).then((response) => {
+			return response.json()
+		}).then((currencies) => {
+			this.props.currencies = currencies;
+		}).catch(function(err) {
+			console.error(err);
+		});
 	},
 
 	render() {
@@ -30,11 +45,6 @@ let AskInfo = React.createClass({
 		let amount = this.props.amount;
 		let btcAmount = this.props.btcAmount;
 		let limitsCheck = this.props.limitsCheck;
-		let feeCashValue = this.props.feeCashValue;
-		let feeCheck = this.props.feeCheck;
-		let bitcoinAddress = this.props.bitcoinAddress;
-		let setPromoCode = this.props.setPromoCode;
-		let promoCode = this.props.promoCode;
 
 		let isWithDraw = UIService.getIsWithDraw();
 		let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
@@ -49,63 +59,16 @@ let AskInfo = React.createClass({
 						<div className="title">{title}</div>
 						<div className="infoCol scroll">
 							<div className="row">
-
 								<div className="col-sm-12">
-									<div className="form-horizontal">
-										{(() =>{
-											if(isWithDraw){
-												return (
-													<div className="form-group">
-														<label className="col-sm-4 control-label">{translate('BITCOIN_ADDRESS', 'BitCoin Address')}:</label>
-														<div className="col-sm-8">
-															<Input type="text" id="bitcoinAddress" name="bitcoinAddress" ref="bitcoinAddress" validate="isBitCoinAddress" onChange={this.props.changeValue} value={bitcoinAddress}/>
-														</div>
-													</div>
-												)
-											}
-										})()}
-
-										<div className="form-group">
-											<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-										</div>
-
-										{(() =>{
-											if(!isWithDraw){
-												return (
-													<div className="form-group">
-														<label className="col-sm-4 control-label">BTC ~</label>
-														<div className="col-sm-8">
-															<Input className="form-control" type="number" id="btcAmount" name="btcAmount" ref="btcAmount" validate="isNumber" onChange={this.props.setBTCAmount} value={btcAmount}/>
-														</div>
-													</div>
-												);
-											}
-										})()}
-
-										{(() =>{
-											if(!isWithDraw){
-												return (
-													<div className="form-group">
-														<PromoCode setPromoCode={setPromoCode} promoCode={promoCode}/>
-													</div>
-												);
-											}
-										})()}
-
-										{(() =>{
-											if(isWithDraw){
-												return (
-													<div className="form-group">
-														<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
-													</div>
-												)
-											}
-										})()}
+									<div id="cryptoTransfer-Btn" onClick={this.showCurrencies}>{translate('SELECT_CURRENCY')}</div>
+									<div id="cryptoAskInform">
+										<Amount setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+										<Input className="form-control" placeholder={translate('CRYPTO_AMOUNT_TXT')} type="number" id="btcAmount" name="btcAmount" ref="btcAmount" validate="isNumber" onChange={this.props.setBTCAmount} value={btcAmount}/>
+										<Input className="form-control" placeholder={translate('CRYPTO_REFUND_ADDRESS')} type="text" id="btcAmount" name="btcAmount" ref="btcAmount" onChange={this.props.setBTCAmount} value={btcAmount}/>
 									</div>
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
