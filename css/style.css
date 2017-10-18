@@ -223,6 +223,7 @@ div#header .alert {margin: 10px 10px 5px;}
 .modules .box .method .boleto{ background-image:url(../images/processors/boleto.png);}
 .modules .box .method .billpay{ background-image:url(../images/processors/36.png);}
 .modules .box .method .amex{background-image:url(../images/processors/11005.png);}
+.modules .box .method .btc_crypto_transfer{background-image:url(../images/processors/828.png);}
 
 /*---------*/
 .modules .box .method, .modules .card-details img {border:1px solid #DDD; background:#FFF;  margin-bottom:15px; text-align:center; }

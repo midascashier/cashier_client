@@ -3,7 +3,9 @@ import { UIService } from '../../services/UIService'
 
 let Processor = React.createClass({
 	propTypes: {
-		selected: React.PropTypes.bool, processorId: React.PropTypes.string, displayName: React.PropTypes.string,
+		selected: React.PropTypes.bool,
+		processorId: React.PropTypes.string,
+		displayName: React.PropTypes.string
 	},
 
 	/**

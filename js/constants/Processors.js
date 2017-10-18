@@ -110,6 +110,13 @@ settings[Cashier.PROCESSOR_ID_DEBITCARD][WITHDRAW_STEPS] = ["selectMethod", "ask
 settings[Cashier.PROCESSOR_ID_DEBITCARD][SETTING_ROUTE] = 'debitcards/';
 settings[Cashier.PROCESSOR_ID_DEBITCARD][REGISTER_ACCOUNTS_ALLOW] = 0;
 
+settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER] = [];
+settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER][LIMITS_VALIDATION_VERSION] = "lite";
+settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER][DEPOSIT_STEPS] = ["selectMethod", "askInfo"];
+settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER][WITHDRAW_STEPS] = ["selectMethod", "askInfo"];
+settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER][SETTING_ROUTE] = 'cryptotransfer/';
+settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER][REGISTER_ACCOUNTS_ALLOW] = 0;
+
 export default {
 	settings: settings,
 	SETTING_ROUTE: SETTING_ROUTE,
