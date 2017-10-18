@@ -23,7 +23,6 @@ import { Skrill } from './components/methods/skrill/Skrill'
 import { SkrillConfirmWithdraw } from './components/methods/skrill/ConfirmWithdraw'
 import { SkrillTicketPending } from './components/methods/skrill/tickets/PendingTicket'
 
-
 /**
  * DebitCards set of components to create routes
  */
@@ -99,7 +98,6 @@ import RouterContainer from './services/RouterContainer'
 /**
  * initialize GA account and basic page view
  */
-
 ReactGA.initialize('UA-88898718-12');
 
 let fireTracking = () => {
@@ -107,7 +105,6 @@ let fireTracking = () => {
 		ReactGA.pageview(window.location.pathname);
 	}
 };
-
 
 /**
  * routing application
@@ -304,7 +301,6 @@ let routes = (
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 			</Route>
-
 		</Route>
 	</Router>
 );

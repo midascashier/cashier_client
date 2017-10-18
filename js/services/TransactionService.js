@@ -4,7 +4,6 @@ import { CashierActions } from '../actions/CashierActions'
 import { stompConnector } from './StompConnector'
 import { UIService } from './UIService'
 import { CustomerService } from './CustomerService'
-import { ApplicationService } from './ApplicationService'
 import cashier from '../constants/Cashier'
 
 class transactionService {
@@ -32,7 +31,6 @@ class transactionService {
 		}
 		this.getProcessors();
 	};
-
 
 	/**
 	 * Function to get Customer Processors
@@ -117,7 +115,7 @@ class transactionService {
 
 		if(processorID == cashier.PROCESSOR_ID_ECOPAYZ && CashierStore.getIsWithdraw()){
 			getPayAccounts = true;
-		} else{
+		}else{
 			if(processorID != cashier.PROCESSOR_ID_BITCOIN && processorID != cashier.PROCESSOR_ID_ASTROPAY && processorID != cashier.PROCESSOR_ID_1TAP){
 				getPayAccounts = true;
 			}
@@ -226,16 +224,16 @@ class transactionService {
 
 	/**
 	 *
-	 * @param amount
-	 */
+	 * @param CVV
+     */
 	setCVV(CVV){
 		CashierActions.setCVV(CVV);
 	};
 
 	/**
 	 *
-	 * @param amount
-	 */
+	 * @param fee
+     */
 	setFeeAmount(fee){
 		CashierActions.setTransactionFeeAmount(fee);
 	};
@@ -427,7 +425,7 @@ class transactionService {
 				customerId: customer.customerId,
 				processorIdRoot: processor.processorClass
 			};
-		} else{
+		}else{
 			payAccount = {
 				ccName: payAccountSelected.secure.extra3,
 				ccExpMonth: payAccountSelected.secure.extra1,

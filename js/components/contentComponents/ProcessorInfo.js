@@ -130,7 +130,6 @@ let ProcessorInfo = React.createClass({
 								<button type="button" className="btn btn-grey" onClick={this.switchAction}>{switch_button}</button>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>

@@ -236,7 +236,12 @@ let _langTags = {
 	IMPORTANT_REMINDERS: "Important Reminders",
 	CARDHOLDER_NAME: "CardHolder name must include first and last Name",
 
-	REDIRECT: "You are being redirected"
+	REDIRECT: "You are being redirected",
+
+	//Crypto Transfer
+	CRYPTO_AMOUNT_TXT: 'Crypto amount',
+	CRYPTO_REFUND_ADDRESS: 'Refund address',
+	SELECT_CURRENCY: 'Select your crypto currency'
 };
 
 export function EN(){

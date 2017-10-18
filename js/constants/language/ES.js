@@ -229,7 +229,12 @@ let _langTags = {
 	CK_SEND_BY_REGULAR: "Correo Regular",
 	IMPORTANT_REMINDERS: "Notas Importantes",
 
-	REDIRECT: "Usted está siendo redirigido"
+	REDIRECT: "Usted está siendo redirigido",
+
+	//Crypto Transfer
+	CRYPTO_AMOUNT_TXT: 'Cripto Monto',
+	CRYPTO_REFUND_ADDRESS: 'Direccion de rembolso',
+	SELECT_CURRENCY: 'Seleccione su cripto moneda'
 };
 
 export function ES(){
