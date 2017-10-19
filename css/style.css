@@ -326,3 +326,63 @@ div[class*="col-"] > div[class*="col-"]:before {
     margin: 0 auto;
     text-align: center;
 }
+
+#shapeShiftModal{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display : none;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+#shapeShiftModal-content{
+    width: 675px;
+    margin: auto;
+    height: 415px;
+    overflow: hidden;
+    padding-top: 60px;
+    background-color: rgb(254, 254, 254);
+}
+
+#shapeShiftModal-header{
+    z-index: 1;
+    height: 60px;
+    padding: 10px;
+    display: block;
+    width: inherit;
+    position: fixed;
+    margin-top: -60px;
+    box-sizing: border-box;
+    background-color: rgb(254, 254, 254);
+}
+
+#shapeShiftModal-currencySearch{
+    height: 35px;
+    margin-left: 20px;
+}
+
+#shapeShiftModal-close{
+    top: 0;
+    float: right;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#shapeShift-currencies{
+    float: left;
+    display: block;
+    width: inherit;
+}
+
+.shapeShiftCurrency{
+    width: 30%;
+    cursor: pointer;
+    margin-left: 3px;
+    margin-bottom: 3px;
+    display: inline-block;
+    box-sizing: border-box;
+    border: 1px solid rgb(230, 230, 230);
+}

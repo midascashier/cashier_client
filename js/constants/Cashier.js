@@ -54,5 +54,5 @@ export default {
 	SECOND_FACTOR_MAX_ATTEMPTS_REACHED: "MAX_ATTEMPTS_REACHED",
 
 	CRYPTO_API_URL: 'https://shapeshift.io/',
-	CRYPTO_API_GET_COINS: 'getcoins'
+	CRYPTO_API_GET_COINS: 'getcoins/'
 }
