@@ -55,7 +55,7 @@ let AskInfo = React.createClass({
 		let id = currency.name.toLowerCase().replace(' ', '');
 
 		return (
-			<div class='shapeShiftCurrency' id={id}>
+			<div className='shapeShiftCurrency' id={id}>
 				<img src={currency.image} alt={currency.name}/>
 				<span id={id + 'Name'} className="currentName">{currency.name}</span>
 				<input type='hidden' id={id + 'Symbol'} value={currency.symbol}/>
