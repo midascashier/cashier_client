@@ -234,7 +234,8 @@ let _langTags = {
 	//Crypto Transfer
 	CRYPTO_AMOUNT_TXT: 'Cripto Monto',
 	CRYPTO_REFUND_ADDRESS: 'Direccion de rembolso',
-	SELECT_CURRENCY: 'Seleccione su cripto moneda'
+	CRYPTO_SELECT_CURRENCY: 'Seleccione su cripto moneda',
+	CRYPTO_SEARCH_TXT: 'Buscar moneda'
 };
 
 export function ES(){
