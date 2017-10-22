@@ -403,3 +403,7 @@ div[class*="col-"] > div[class*="col-"]:before {
     display: block;
     text-align: center;
  }
+
+.unavailableCurrency{
+
+}

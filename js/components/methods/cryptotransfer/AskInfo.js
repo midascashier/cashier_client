@@ -50,30 +50,36 @@ let AskInfo = React.createClass({
 	},
 
 	currencyContent(currency) {
-
 		currency = this.state.currencies[currency];
 		let id = currency.name.toLowerCase().replace(' ', '');
+		let unavailable = (currency.status != 'available') ? ' unavailableCurrency' : '';
 
 		return (
-			<div className='cryptoTransferCurrency' id={id}>
+			<div id={id} className={'cryptoTransferCurrency' + unavailable}>
 				<img src={currency.image} alt={currency.name}/>
 				<span id={id + 'Name'} className="currentName">{currency.name}</span>
 				<input type='hidden' id={id + 'Symbol'} value={currency.symbol}/>
 				<input type='hidden' id={id + 'Status'} value={currency.status}/>
 				<input type='hidden' id={id + 'ImgSmall'} value={currency.imageSmall}/>
 			</div>
-		)
+		);
 	},
 
 	buildCurrenciesContainer() {
 
 		let currency = [];
+		let availableCurrencies = [];
+		let unavailableCurrencies = [];
 		let currencies = this.state.currencies;
 
 		if(currencies){
 			currency = Object.keys(currencies);
-			currency = currency.filter(function (current) {
-				return current != 'BTC'
+			availableCurrencies = currency.filter(function (current) {
+				return (current != 'BTC' && currencies[current].status == 'available');
+			});
+
+			unavailableCurrencies = currency.filter(function (current) {
+				return (current != 'BTC' && currencies[current].status != 'available');
 			});
 		}
 
@@ -86,7 +92,8 @@ let AskInfo = React.createClass({
 					</div>
 
 					<div id='cryptoTransfer-currencies'>
-						{currency.map(this.currencyContent)}
+						{availableCurrencies.map(this.currencyContent)}
+						{unavailableCurrencies.map(this.currencyContent)}
 					</div>
 				</div>
 			</div>
