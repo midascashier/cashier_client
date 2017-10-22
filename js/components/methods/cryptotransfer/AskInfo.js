@@ -31,11 +31,11 @@ let AskInfo = React.createClass({
 	},
 
 	showCurrencies(){
-		document.getElementById('shapeShiftModal').style.display = 'flex';
+		document.getElementById('cryptoTransferModal').style.display = 'flex';
 	},
 
 	hideCurrencies(){
-		document.getElementById('shapeShiftModal').style.display = 'none';
+		document.getElementById('cryptoTransferModal').style.display = 'none';
 	},
 
 	getCurrencies() {
@@ -55,7 +55,7 @@ let AskInfo = React.createClass({
 		let id = currency.name.toLowerCase().replace(' ', '');
 
 		return (
-			<div className='shapeShiftCurrency' id={id}>
+			<div className='cryptoTransferCurrency' id={id}>
 				<img src={currency.image} alt={currency.name}/>
 				<span id={id + 'Name'} className="currentName">{currency.name}</span>
 				<input type='hidden' id={id + 'Symbol'} value={currency.symbol}/>
@@ -78,14 +78,14 @@ let AskInfo = React.createClass({
 		}
 
 		return(
-			<div id='shapeShiftModal'>
-				<div id='shapeShiftModal-content'>
-					<div id='shapeShiftModal-header'>
-						<input id='shapeShiftModal-currencySearch' type='text' placeholder={translate('CRYPTO_SEARCH_TXT')}/>
-						<span id='shapeShiftModal-close' onclick={this.hideCurrencies}>&times;</span>
+			<div id='cryptoTransferModal'>
+				<div id='cryptoTransferModal-content'>
+					<div id='cryptoTransferModal-header'>
+						<input id='cryptoTransferModal-currencySearch' type='text' placeholder={translate('CRYPTO_SEARCH_TXT')}/>
+						<span id='cryptoTransferModal-close' onclick={this.hideCurrencies}>&times;</span>
 					</div>
 
-					<div id='shapeShift-currencies'>
+					<div id='cryptoTransfer-currencies'>
 						{currency.map(this.currencyContent)}
 					</div>
 				</div>

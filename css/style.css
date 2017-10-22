@@ -327,7 +327,7 @@ div[class*="col-"] > div[class*="col-"]:before {
     text-align: center;
 }
 
-#shapeShiftModal{
+#cryptoTransferModal{
     top: 0;
     left: 0;
     width: 100%;
@@ -338,19 +338,19 @@ div[class*="col-"] > div[class*="col-"]:before {
     background-color: rgba(0, 0, 0, 0.9);
 }
 
-#shapeShiftModal-content{
+#cryptoTransferModal-content{
     width: 675px;
     margin: auto;
     height: 415px;
-    overflow: hidden;
     padding-top: 60px;
+    overflow-x : hidden;
+    overflow-y : scroll;
     background-color: rgb(254, 254, 254);
 }
 
-#shapeShiftModal-header{
+#cryptoTransferModal-header{
     z-index: 1;
     height: 60px;
-    padding: 10px;
     display: block;
     width: inherit;
     position: fixed;
@@ -359,50 +359,47 @@ div[class*="col-"] > div[class*="col-"]:before {
     background-color: rgb(254, 254, 254);
 }
 
-#shapeShiftModal-currencySearch{
+#cryptoTransferModal-currencySearch{
     height: 35px;
-    margin-left: 20px;
+    width: 27.2%;
+    margin-top: 2%;
+    margin-left: 7.8%;
 }
 
-#shapeShiftModal-close{
+#cryptoTransferModal-close{
     top: 0;
+    margin: 1%;
     float: right;
     font-size: 30px;
     cursor: pointer;
 }
 
-#shapeShift-currencies{
-    float: left;
-    display: block;
-    width: inherit;
+#cryptoTransfer-currencies{
+    margin-left: 7%;
 }
 
-.shapeShiftCurrency{
+.cryptoTransferCurrency{
     width: 30%;
     cursor: pointer;
-    margin-left: 3px;
-    margin-bottom: 3px;
+    margin-left: 1%;
+    margin-bottom: 1%;
     display: inline-block;
     box-sizing: border-box;
     border: 1px solid rgb(230, 230, 230);
 }
 
-.shapeShiftCurrency{
-    width: 30%;
-    cursor: pointer;
-    margin-left: 3px;
-    margin-bottom: 3px;
-    display: inline-block;
-    box-sizing: border-box;
-    border: 1px solid rgb(230, 230, 230);
+.cryptoTransferCurrency:hover{
+    border: 1px solid rgb(0, 153, 0);
 }
 
-.shapeShiftCurrency img{
-    height: 100px;
+.cryptoTransferCurrency img{
+    width: 60%;
+    margin-left: 20%;
 }
 
-.shapeShiftCurrency span{
+.cryptoTransferCurrency span{
     width: 100%;
     margin: 1px;
     display: block;
+    text-align: center;
  }
