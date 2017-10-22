@@ -405,5 +405,9 @@ div[class*="col-"] > div[class*="col-"]:before {
  }
 
 .unavailableCurrency{
-
+    filter : gray;
+    cursor : not-allowed;
+    box-Sizing : border-box;
+    border : 1px solid #e6e6e6;
+    -webkit-filter : grayscale(100%);
 }

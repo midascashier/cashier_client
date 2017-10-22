@@ -68,9 +68,15 @@ let AskInfo = React.createClass({
 	buildCurrenciesContainer() {
 
 		let currency = [];
+		let orderCurrencies = [];
 		let availableCurrencies = [];
 		let unavailableCurrencies = [];
 		let currencies = this.state.currencies;
+
+		orderCurrencies[0] = 'BCH';
+		orderCurrencies[1] = 'ETH';
+		orderCurrencies[2] = 'LTC';
+		orderCurrencies[3] = 'XMR';
 
 		if(currencies){
 			currency = Object.keys(currencies);
@@ -79,8 +85,23 @@ let AskInfo = React.createClass({
 			});
 
 			unavailableCurrencies = currency.filter(function (current) {
-				return (current != 'BTC' && currencies[current].status != 'available');
+
+				if(current != 'BTC' && currencies[current].status != 'available'){
+					if(orderCurrencies.includes(current)){
+						$.each(orderCurrencies, function(k, v) {
+							if(v == current){
+								orderCurrencies.splice(k, 1);
+							}
+						});
+					}
+
+					return true;
+				}
+
+				return false;
 			});
+
+			availableCurrencies = orderCurrencies.concat(availableCurrencies);
 		}
 
 		return(
