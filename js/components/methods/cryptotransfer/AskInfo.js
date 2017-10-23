@@ -31,41 +31,6 @@ let AskInfo = React.createClass({
 		this.getCurrencies();
 	},
 
-	initialMethods() {
-		this.showCurrencies();
-		this.hideCurrencies();
-		this.searchCurrency();
-	},
-
-	showCurrencies(){
-		$('#cryptoTransfer-Btn').click(function () {
-			$('#cryptoTransferModal').css('display', 'flex');
-		});
-	},
-
-	hideCurrencies(){
-		$('#cryptoTransferModal-close').click(function () {
-			$('#cryptoTransferModal').css('display', 'none');
-		});
-
-		window.onclick = function (event) {
-			if (event.target == document.getElementById('cryptoTransferModal')) {
-				$('#cryptoTransferModal').css('display', 'none');
-			}
-		}
-	},
-
-	searchCurrency() {
-		$('#cryptoTransferModal-currencySearch').on('input', function () {
-			let txtSearch = $(this).val().toLowerCase();
-			if(txtSearch == '') {
-				$('.cryptoTransferCurrency').show();
-			} else {
-				$('.cryptoTransferCurrency').show().not('[id ^= "' + txtSearch + '"]').hide().filter('[id = "' + txtSearch + '"]').show();
-			}
-		});
-	},
-
 	getCurrencies() {
 		let url = API.CRYPTO_API_URL + API.CRYPTO_API_GET_COINS;
 		fetch(url).then((response) => {
@@ -75,6 +40,13 @@ let AskInfo = React.createClass({
 		}).catch(function(err) {
 			console.error(err);
 		});
+	},
+
+	initialMethods() {
+		this.showCurrencies();
+		this.hideCurrencies();
+		this.searchCurrency();
+		this.selectedCurrency();
 	},
 
 	currencyContent(currency) {
@@ -114,10 +86,9 @@ let AskInfo = React.createClass({
 			});
 
 			unavailableCurrencies = currency.filter(function (current) {
-
 				if(current != 'BTC' && currencies[current].status != 'available'){
 					if(orderCurrencies.includes(current)){
-						$.each(orderCurrencies, function(k, v) {
+						$.forEach(orderCurrencies, function(k, v) {
 							if(v == current){
 								orderCurrencies.splice(k, 1);
 							}
@@ -128,6 +99,14 @@ let AskInfo = React.createClass({
 				}
 
 				return false;
+			});
+
+			availableCurrencies.forEach(function (current, k) {
+				orderCurrencies.forEach(function (v) {
+					if(current == v){
+						availableCurrencies.splice(k, 1);
+					}
+				});
 			});
 
 			availableCurrencies = orderCurrencies.concat(availableCurrencies);
@@ -173,7 +152,14 @@ let AskInfo = React.createClass({
 						<div className="infoCol scroll">
 							<div className="row">
 								<div className="col-sm-12">
-									<div id="cryptoTransfer-Btn">{translate('CRYPTO_SELECT_CURRENCY')}</div>
+									<div id="cryptoTransfer-Btn">
+										<span>{translate('CRYPTO_SELECT_CURRENCY')}</span>
+										<div id="cryptoTransfer-Btn-content">
+											<img id="imgSmall" src=""/>
+											<span id="symbolName"></span>
+										</div>
+									</div>
+
 									<div id="cryptoAskInform">
 										<Amount setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 										<Input className="form-control" placeholder={translate('CRYPTO_AMOUNT_TXT')} type="number" id="btcAmount" name="btcAmount" ref="btcAmount" validate="isNumber" onChange={this.props.setBTCAmount} value={btcAmount}/>
@@ -187,6 +173,47 @@ let AskInfo = React.createClass({
 				{this.buildCurrenciesContainer()}
 			</div>
 		)
+	},
+
+	showCurrencies(){
+		$('#cryptoTransfer-Btn').click(function () {
+			$('#cryptoTransferModal').css('display', 'flex');
+		});
+	},
+
+	hideCurrencies(){
+		$('#cryptoTransferModal-close').click(function () {
+			$('#cryptoTransferModal').css('display', 'none');
+		});
+
+		window.onclick = function (event) {
+			if (event.target == document.getElementById('cryptoTransferModal')) {
+				$('#cryptoTransferModal').css('display', 'none');
+			}
+		}
+	},
+
+	searchCurrency() {
+		$('#cryptoTransferModal-currencySearch').on('input', function () {
+			let txtSearch = $(this).val().toLowerCase();
+			if(txtSearch == '') {
+				$('.cryptoTransferCurrency').show();
+			}else{
+				$('.cryptoTransferCurrency').show().not('[id ^= "' + txtSearch + '"]').hide().filter('[id = "' + txtSearch + '"]').show();
+			}
+		});
+	},
+
+	selectedCurrency() {
+		var self = this;
+		$('.cryptoTransferCurrency').click(function () {
+			let symbol = $(this).attr('id');
+			self.currencyActions(symbol);
+		});
+	},
+
+	currencyActions(symbolSelect) {
+		var img = $('#' + symbolSelect + ' img').attr('src');
 	}
 });
 
