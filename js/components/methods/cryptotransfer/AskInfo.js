@@ -8,7 +8,8 @@ import API from '../../../constants/Cashier'
 let AskInfo = React.createClass({
 
 	propTypes: {
-		rate: React.PropTypes.number
+		rate: React.PropTypes.number,
+		limitsCheck: React.PropTypes.string
 	},
 
 	componentWillMount() {
@@ -230,6 +231,11 @@ let AskInfo = React.createClass({
 		}).catch((error) => {
 
 		});
+	},
+
+	calculateLimits() {
+		var spinCoin = "<div class='lds-circle'><div></div></div>";
+		$('#trans_limits p').html(spinCoin);
 	}
 });
 
