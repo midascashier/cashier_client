@@ -24,18 +24,46 @@ let AskInfo = React.createClass({
 	},
 
 	componentWillMount() {
-		this.getCurrencies();
 		this.setState({
 			currencies : false
 		});
+
+		this.getCurrencies();
+	},
+
+	initialMethods() {
+		this.showCurrencies();
+		this.hideCurrencies();
+		this.searchCurrency();
 	},
 
 	showCurrencies(){
-		document.getElementById('cryptoTransferModal').style.display = 'flex';
+		$('#cryptoTransfer-Btn').click(function () {
+			$('#cryptoTransferModal').css('display', 'flex');
+		});
 	},
 
 	hideCurrencies(){
-		document.getElementById('cryptoTransferModal').style.display = 'none';
+		$('#cryptoTransferModal-close').click(function () {
+			$('#cryptoTransferModal').css('display', 'none');
+		});
+
+		window.onclick = function (event) {
+			if (event.target == document.getElementById('cryptoTransferModal')) {
+				$('#cryptoTransferModal').css('display', 'none');
+			}
+		}
+	},
+
+	searchCurrency() {
+		$('#cryptoTransferModal-currencySearch').on('input', function () {
+			let txtSearch = $(this).val().toLowerCase();
+			if(txtSearch == '') {
+				$('.cryptoTransferCurrency').show();
+			} else {
+				$('.cryptoTransferCurrency').show().not('[id ^= "' + txtSearch + '"]').hide().filter('[id = "' + txtSearch + '"]').show();
+			}
+		});
 	},
 
 	getCurrencies() {
@@ -77,6 +105,7 @@ let AskInfo = React.createClass({
 		orderCurrencies[1] = 'ETH';
 		orderCurrencies[2] = 'LTC';
 		orderCurrencies[3] = 'XMR';
+		orderCurrencies[4] = 'DASH';
 
 		if(currencies){
 			currency = Object.keys(currencies);
@@ -109,7 +138,7 @@ let AskInfo = React.createClass({
 				<div id='cryptoTransferModal-content'>
 					<div id='cryptoTransferModal-header'>
 						<input id='cryptoTransferModal-currencySearch' type='text' placeholder={translate('CRYPTO_SEARCH_TXT')}/>
-						<span id='cryptoTransferModal-close' onclick={this.hideCurrencies}>&times;</span>
+						<span id='cryptoTransferModal-close'>&times;</span>
 					</div>
 
 					<div id='cryptoTransfer-currencies'>
@@ -134,6 +163,8 @@ let AskInfo = React.createClass({
 			title = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information')
 		}
 
+		this.initialMethods();
+
 		return (
 			<div id="btcAskInfo" className="box">
 				<div className="row">
@@ -142,7 +173,7 @@ let AskInfo = React.createClass({
 						<div className="infoCol scroll">
 							<div className="row">
 								<div className="col-sm-12">
-									<div id="cryptoTransfer-Btn" onClick={this.showCurrencies}>{translate('CRYPTO_SELECT_CURRENCY')}</div>
+									<div id="cryptoTransfer-Btn">{translate('CRYPTO_SELECT_CURRENCY')}</div>
 									<div id="cryptoAskInform">
 										<Amount setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 										<Input className="form-control" placeholder={translate('CRYPTO_AMOUNT_TXT')} type="number" id="btcAmount" name="btcAmount" ref="btcAmount" validate="isNumber" onChange={this.props.setBTCAmount} value={btcAmount}/>
