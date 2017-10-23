@@ -306,13 +306,28 @@ div[class*="col-"] > div[class*="col-"]:before {
 }
 
 #cryptoTransfer-Btn:hover{
-    color : #fff;
-    background-color : #8c8c8c;
-    transition : background-color 0.7s;
+    color : #fff !important;
+    background-color : #0c6b9a !important;
+    transition : background-color 0.7s !important;
+}
+
+#cryptoTransfer-Btn:hover #symbolName{
+    color : #fff !important;
+}
+
+#cryptoTransfer-Btn-content{
+    display: none;
+}
+
+#symbolName{
+    width: 100%;
+    display: block;
+    color: #777;;
 }
 
 #cryptoAskInform{
     width: 300px;
+    display: none;
     margin: 0 auto;
 }
 

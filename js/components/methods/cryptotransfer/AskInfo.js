@@ -8,19 +8,7 @@ import API from '../../../constants/Cashier'
 let AskInfo = React.createClass({
 
 	propTypes: {
-		transactionAmount: React.PropTypes.func,
-		setAmount: React.PropTypes.func,
-		changeValue: React.PropTypes.func,
-		setBTCAmount: React.PropTypes.func,
-		limitsCheck: React.PropTypes.string,
-		amount: React.PropTypes.node,
-		btcAmount: React.PropTypes.node,
-		feeCashValue: React.PropTypes.number,
-		feeCheck: React.PropTypes.number,
-		bitcoinAddress: React.PropTypes.string,
-		transaction: React.PropTypes.object,
-		setPromoCode: React.PropTypes.func,
-		promoCode: React.PropTypes.string
+		rate: React.PropTypes.number
 	},
 
 	componentWillMount() {
@@ -43,10 +31,9 @@ let AskInfo = React.createClass({
 	},
 
 	initialMethods() {
-		this.showCurrencies();
 		this.hideCurrencies();
 		this.searchCurrency();
-		this.selectedCurrency();
+		this.selectedCurrency(this);
 	},
 
 	currencyContent(currency) {
@@ -117,7 +104,7 @@ let AskInfo = React.createClass({
 				<div id='cryptoTransferModal-content'>
 					<div id='cryptoTransferModal-header'>
 						<input id='cryptoTransferModal-currencySearch' type='text' placeholder={translate('CRYPTO_SEARCH_TXT')}/>
-						<span id='cryptoTransferModal-close'>&times;</span>
+						<span id='cryptoTransferModal-close' onClick={this.hideCurrencies.bind(this)}>&times;</span>
 					</div>
 
 					<div id='cryptoTransfer-currencies'>
@@ -152,7 +139,7 @@ let AskInfo = React.createClass({
 						<div className="infoCol scroll">
 							<div className="row">
 								<div className="col-sm-12">
-									<div id="cryptoTransfer-Btn">
+									<div id="cryptoTransfer-Btn" onClick={this.showCurrencies.bind(this)}>
 										<span>{translate('CRYPTO_SELECT_CURRENCY')}</span>
 										<div id="cryptoTransfer-Btn-content">
 											<img id="imgSmall" src=""/>
@@ -176,15 +163,11 @@ let AskInfo = React.createClass({
 	},
 
 	showCurrencies(){
-		$('#cryptoTransfer-Btn').click(function () {
-			$('#cryptoTransferModal').css('display', 'flex');
-		});
+		$('#cryptoTransferModal').css('display', 'flex');
 	},
 
 	hideCurrencies(){
-		$('#cryptoTransferModal-close').click(function () {
-			$('#cryptoTransferModal').css('display', 'none');
-		});
+		$('#cryptoTransferModal').css('display', 'none');
 
 		window.onclick = function (event) {
 			if (event.target == document.getElementById('cryptoTransferModal')) {
@@ -204,16 +187,49 @@ let AskInfo = React.createClass({
 		});
 	},
 
-	selectedCurrency() {
-		var self = this;
+	selectedCurrency(self) {
 		$('.cryptoTransferCurrency').click(function () {
-			let symbol = $(this).attr('id');
-			self.currencyActions(symbol);
+			let symbolSelect = $(this).attr('id');
+			self.currencyActions(symbolSelect);
 		});
 	},
 
 	currencyActions(symbolSelect) {
-		var img = $('#' + symbolSelect + ' img').attr('src');
+		let img = $('#' + symbolSelect + ' img').attr('src');
+		let symbolName = $('#' + symbolSelect + 'Name').text();
+		let symbolValue = $('#' + symbolSelect + 'Symbol').val();
+		this.getCurrencyRate(symbolValue);
+
+		//DOM update
+		$('#FAQs').removeAttr('style');
+		$('#imgSmall').attr('src', img);
+		$('#symbolName').text(symbolName);
+		$('#currencyName').val(symbolName);
+		$('#AskInform').removeAttr('style');
+		$('#Important').removeAttr('style');
+		$('#currencySymbol').val(symbolValue);
+		$('#AuthComponent').removeAttr('style');
+		$('#cryptoAskInform').css('display', 'block');
+		$('#cryptoTransfer-Btn-content').css('display', 'block');
+
+		$('#cryptoTransfer-Btn').css({
+			'color' : '#fff',
+			'border' : 'none',
+			'background-color' : '#fff'
+		});
+
+		this.hideCurrencies();
+	},
+
+	getCurrencyRate(symbolValue) {
+		let url = API.CRYPTO_API_URL + API.CRYPTO_API_GET_RATE + symbolValue + '_BTC';
+		fetch(url, { method: 'GET'}).then((response) => {
+			return response.json();
+		}).then((rate) => {
+			this.props.rate = rate.rate;
+		}).catch((error) => {
+
+		});
 	}
 });
 
