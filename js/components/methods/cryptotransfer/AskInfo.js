@@ -8,8 +8,16 @@ import API from '../../../constants/Cashier'
 let AskInfo = React.createClass({
 
 	propTypes: {
+		setAmount: React.PropTypes.func,
+		btcAmount: React.PropTypes.node,
+		changeValue: React.PropTypes.func,
+		setBTCAmount: React.PropTypes.func,
+		transactionAmount: React.PropTypes.func,
+
 		rate: React.PropTypes.number,
-		limitsCheck: React.PropTypes.string
+		limitsCheck: React.PropTypes.string,
+		cryptoAmount: React.PropTypes.node,
+		setCryptoAmount: React.PropTypes.func
 	},
 
 	componentWillMount() {
@@ -150,8 +158,10 @@ let AskInfo = React.createClass({
 
 									<div id="cryptoAskInform">
 										<Amount setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-										<Input className="form-control" placeholder={translate('CRYPTO_AMOUNT_TXT')} type="number" id="btcAmount" name="btcAmount" ref="btcAmount" validate="isNumber" onChange={this.props.setBTCAmount} value={btcAmount}/>
-										<Input className="form-control" placeholder={translate('CRYPTO_REFUND_ADDRESS')} type="text" id="btcAmount" name="btcAmount" ref="btcAmount" onChange={this.props.setBTCAmount} value={btcAmount}/>
+										<Input className="form-control" type="hidden" id="btcAmount" onChange={this.props.setBTCAmount} value={btcAmount}/>
+
+										<Input className="form-control" placeholder={translate('CRYPTO_AMOUNT_TXT')} type="number" id="cryptoAmount" validate="isNumber"/>
+										<Input className="form-control" placeholder={translate('CRYPTO_REFUND_ADDRESS')} type="text" id="cryptoAdress" name="cryptoAdress" min="0" required/>
 									</div>
 								</div>
 							</div>
@@ -220,22 +230,86 @@ let AskInfo = React.createClass({
 		});
 
 		this.hideCurrencies();
+		this.calculateLimits(symbolValue);
 	},
 
 	getCurrencyRate(symbolValue) {
 		let url = API.CRYPTO_API_URL + API.CRYPTO_API_GET_RATE + symbolValue + '_BTC';
-		fetch(url, { method: 'GET'}).then((response) => {
+		fetch(url, {method: 'GET'}).then((response) => {
 			return response.json();
 		}).then((rate) => {
 			this.props.rate = rate.rate;
-		}).catch((error) => {
-
+		}).catch((err) => {
+			console.error(err);
 		});
 	},
 
-	calculateLimits() {
-		var spinCoin = "<div class='lds-circle'><div></div></div>";
-		$('#trans_limits p').html(spinCoin);
+	calculateLimits(symbolValue) {
+		let round = 5;
+		let finalMin = null;
+		let finalMax = null;
+		let isCusMin = false;
+		let isCusMax = false;
+
+		let url = API.CRYPTO_API_URL + API.CRYPTO_API_GET_MARKET + symbolValue + '_BTC';
+		let spinCoin = "<div class='lds-circle'></div>";
+		$('#cryptoLimits span').html(spinCoin);
+
+		let limitMin = null;
+		let limitMax = null;
+		let limits = UIService.getProcessorLimitMinMax();
+		let caLimitMin = limits.minAmount;
+		let caLimitMax = limits.maxAmount;
+
+		fetch(url, {method: 'GET'}).then((response) => {
+			return response.json();
+		}).then((market) => {
+
+			limitMin = this.props.rate * market.minimum;
+			limitMax = this.props.rate * market.maxLimit;
+
+			this.props.setAmount(caLimitMin);
+			let caLimitMinBTC = $('#btcAmount').val();
+
+			let min =  null;
+			if(caLimitMinBTC > limitMin){
+				min = caLimitMinBTC;
+				isCusMin = true;
+			}else{
+				min = limitMin;
+				isCusMin = false;
+			}
+
+			min = parseFloat(min).toPrecision(3);
+			this.props.setBTCAmount(min);
+			let minAmount = parseFloat($('#amount').val());
+			let final = Math.round(minAmount + round);
+			finalMin = (isCusMin) ? caLimitMin : final;
+
+			//Max Limits
+			this.props.setAmount(caLimitMax);
+			let caLimitMaxBTC = $('#btcAmount').val();
+
+			let max =  null;
+			if(caLimitMaxBTC > limitMax){
+				max = caLimitMaxBTC;
+				isCusMax = true;
+			}else{
+				max = limitMax;
+				isCusMax = false;
+			}
+
+			max = parseFloat(max).toPrecision(3);
+			this.props.setBTCAmount(max);
+			let maxAmount = parseFloat($('#amount').val());
+			final = Math.round(maxAmount + round);
+			finalMax = (isCusMax) ? caLimitMax : final;
+
+			alert(finalMin + ' ' + finalMax);
+
+		}).catch((err) => {
+			console.error(err);
+		});
 	}
 });
 

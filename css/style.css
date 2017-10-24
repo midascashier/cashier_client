@@ -338,8 +338,53 @@ div[class*="col-"] > div[class*="col-"]:before {
 
 #cryptoLimits{
     width: 100%;
-    margin: 0 auto;
+    height: 25px;
+    padding-top: 5px;
+    margin-top: 10px;
+    border-radius: 5px;
     text-align: center;
+    background-color: #0c6b9a;
+}
+
+@keyframes lds-circle {
+    0%, 100% {
+        animation-timing-function: cubic-bezier(.5,0,1,.5);
+    }
+    0% {
+        transform: rotateY(0deg)
+    }
+    50% {
+        transform: rotateY(1800deg);
+        animation-timing-function: cubic-bezier(0,.5,.5,1)
+    }
+    100% {
+        transform: rotateY(3600deg)
+    }
+}
+
+@-webkit-keyframes lds-circle {
+    0%, 100% {
+        -webkit-animation-timing-function: cubic-bezier(.5,0,1,.5);
+    }
+    0% {
+        -webkit-transform: rotateY(0deg)
+    }
+    50% {
+        -webkit-transform: rotateY(1800deg);
+        -webkit-animation-timing-function: cubic-bezier(0,.5,.5,1)
+    }
+    100% {
+        -webkit-transform: rotateY(3600deg)
+    }
+}
+.lds-circle{
+    width: 15px;
+    height: 15px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 50%;
+    -webkit-animation: lds-circle 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    animation: lds-circle 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
 
 #cryptoTransferModal{

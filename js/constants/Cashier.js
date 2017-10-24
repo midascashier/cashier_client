@@ -55,5 +55,6 @@ export default {
 
 	CRYPTO_API_URL: 'https://shapeshift.io/',
 	CRYPTO_API_GET_COINS: 'getcoins/',
-	CRYPTO_API_GET_RATE: 'rate/'
+	CRYPTO_API_GET_RATE: 'rate/',
+	CRYPTO_API_GET_MARKET: 'marketinfo/'
 }

@@ -161,7 +161,7 @@ let Content = React.createClass({
 		let actualState = this.state.info;
 		let processorID = UIService.getProcessorId();
 		// Calculate BTC just for bitCoin ProcessorID
-		if(processorID == Cashier.PROCESSOR_ID_BITCOIN && CashierStore.getBTCRate()){
+		if((processorID == Cashier.PROCESSOR_ID_BITCOIN && CashierStore.getBTCRate()) || (processorID == Cashier.PROCESSOR_ID_CRYPTO_TRANSFER && CashierStore.getBTCRate())){
 			actualState.btcAmount = amount * CashierStore.getBTCRate();
 		}
 		actualState.amount = amount;

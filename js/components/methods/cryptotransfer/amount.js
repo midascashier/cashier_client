@@ -8,9 +8,12 @@ import { CashierStore } from '../../../stores/CashierStore'
 
 let Amount = React.createClass({
     propTypes: {
+        amount: React.PropTypes.node,
         setAmount: React.PropTypes.func,
         limitsCheck: React.PropTypes.string,
-        amount: React.PropTypes.node
+
+        cryptoAmount: React.PropTypes.node,
+        setCryptoAmount: React.PropTypes.func
     },
 
     /**
@@ -48,20 +51,6 @@ let Amount = React.createClass({
         let placeHolderTXT = action + ' ' + translate('PROCESSING_AMOUNT', 'Amount');
         return (
             <div id="cryptoAmount">
-                <input
-                    className="form-control"
-                    placeholder={placeHolderTXT}
-                    type="number"
-                    autoComplete="off"
-                    disabled={amountFieldDisable}
-                    id="amount"
-                    name="amount"
-                    onChange={this.changeValue}
-                    value={this.props.amount}
-                    min="0"
-                    required
-                />
-
                 <div id="cryptoLimits">
                     <span>
                         {translate('PROCESSING_MIN', 'Min')}: {ApplicationService.currency_format(limits.minAmount)} {customer.currency}
@@ -79,6 +68,26 @@ let Amount = React.createClass({
                         }
                     })()}
                 </div>
+
+                <input
+                    className="form-control"
+                    placeholder={placeHolderTXT}
+                    type="number"
+                    autoComplete="off"
+                    disabled={amountFieldDisable}
+                    id="cryptoAmount"
+                    name="cryptoAmount"
+                    onChange={this.changeValue}
+                    value={this.props.cryptoAmount}
+                    min="0"
+                    required
+                />
+
+                <input
+                    type="hidden"
+                    id="amount"
+                    value={this.props.amount}
+                />
             </div>
         )
     }
