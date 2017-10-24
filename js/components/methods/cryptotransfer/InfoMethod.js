@@ -6,47 +6,6 @@ import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
-
-	propTypes: {
-		amount: React.PropTypes.node,
-		limitsCheck: React.PropTypes.string,
-		feeCheck: React.PropTypes.number,
-		feeCashValue: React.PropTypes.number,
-		allowContinueToConfirm: React.PropTypes.bool,
-		bitcoinAddress: React.PropTypes.string
-	},
-
-	/**
-	 * React function to set component initial state
-	 *
-	 * @returns {*|{customer, company}}
-	 */
-	getInitialState(){
-		return this.refreshLocalState();
-	},
-
-	/**
-	 *  this function sets and return object with local states
-	 *
-	 * @returns {{processor: (*|{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}), currentPayAccount: *, originPath: (*|string)}}
-	 */
-	refreshLocalState() {
-		return {
-			processor: CashierStore.getProcessor(),
-			currentPayAccount: CashierStore.getCurrentPayAccount(),
-			transaction: CashierStore.getTransaction()
-		}
-	},
-
-	/**
-	 * this is the callback function the store calls when a state change
-	 *
-	 * @private
-	 */
-	_onChange() {
-		this.setState(this.refreshLocalState());
-	},
-
 	/**
 	 * send the customer to select the processor again
 	 */

@@ -3,6 +3,7 @@ import { translate } from '../../../constants/Translate'
 import { Input } from '../../Inputs'
 import { Amount } from './amount'
 import { UIService } from '../../../services/UIService'
+import { CryptoTransferManager } from './CryptoTransferManager'
 import API from '../../../constants/Cashier'
 
 let AskInfo = React.createClass({
@@ -17,7 +18,9 @@ let AskInfo = React.createClass({
 		rate: React.PropTypes.number,
 		limitsCheck: React.PropTypes.string,
 		cryptoAmount: React.PropTypes.node,
-		setCryptoAmount: React.PropTypes.func
+		setCryptoAmount: React.PropTypes.func,
+
+		allowContinueToConfirm: React.PropTypes.func
 	},
 
 	componentWillMount() {
@@ -26,6 +29,12 @@ let AskInfo = React.createClass({
 		});
 
 		this.getCurrencies();
+	},
+
+	selectedCurrency() {
+		$('.cryptoTransferCurrency').click(function () {
+			alert('Hola')
+		});
 	},
 
 	getCurrencies() {
@@ -39,17 +48,10 @@ let AskInfo = React.createClass({
 		});
 	},
 
-	initialMethods() {
-		this.hideCurrencies();
-		this.searchCurrency();
-		this.selectedCurrency(this);
-	},
-
 	currencyContent(currency) {
 		currency = this.state.currencies[currency];
 		let id = currency.name.toLowerCase().replace(' ', '');
 		let unavailable = (currency.status != 'available') ? ' unavailableCurrency' : '';
-
 		return (
 			<div id={id} className={'cryptoTransferCurrency' + unavailable}>
 				<img src={currency.image} alt={currency.name}/>
@@ -113,7 +115,7 @@ let AskInfo = React.createClass({
 				<div id='cryptoTransferModal-content'>
 					<div id='cryptoTransferModal-header'>
 						<input id='cryptoTransferModal-currencySearch' type='text' placeholder={translate('CRYPTO_SEARCH_TXT')}/>
-						<span id='cryptoTransferModal-close' onClick={this.hideCurrencies.bind(this)}>&times;</span>
+						<span id='cryptoTransferModal-close' onClick={CryptoTransferManager.hideCurrencies.bind(this)}>&times;</span>
 					</div>
 
 					<div id='cryptoTransfer-currencies'>
@@ -126,7 +128,6 @@ let AskInfo = React.createClass({
 	},
 
 	render() {
-
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
 		let btcAmount = this.props.btcAmount;
@@ -138,8 +139,6 @@ let AskInfo = React.createClass({
 			title = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information')
 		}
 
-		this.initialMethods();
-
 		return (
 			<div id="btcAskInfo" className="box">
 				<div className="row">
@@ -148,7 +147,7 @@ let AskInfo = React.createClass({
 						<div className="infoCol scroll">
 							<div className="row">
 								<div className="col-sm-12">
-									<div id="cryptoTransfer-Btn" onClick={this.showCurrencies.bind(this)}>
+									<div id="cryptoTransfer-Btn" onClick={CryptoTransferManager.showCurrencies.bind(this)}>
 										<span>{translate('CRYPTO_SELECT_CURRENCY')}</span>
 										<div id="cryptoTransfer-Btn-content">
 											<img id="imgSmall" src=""/>
@@ -173,143 +172,9 @@ let AskInfo = React.createClass({
 		)
 	},
 
-	showCurrencies(){
-		$('#cryptoTransferModal').css('display', 'flex');
-	},
-
-	hideCurrencies(){
-		$('#cryptoTransferModal').css('display', 'none');
-
-		window.onclick = function (event) {
-			if (event.target == document.getElementById('cryptoTransferModal')) {
-				$('#cryptoTransferModal').css('display', 'none');
-			}
-		}
-	},
-
-	searchCurrency() {
-		$('#cryptoTransferModal-currencySearch').on('input', function () {
-			let txtSearch = $(this).val().toLowerCase();
-			if(txtSearch == '') {
-				$('.cryptoTransferCurrency').show();
-			}else{
-				$('.cryptoTransferCurrency').show().not('[id ^= "' + txtSearch + '"]').hide().filter('[id = "' + txtSearch + '"]').show();
-			}
-		});
-	},
-
-	selectedCurrency(self) {
-		$('.cryptoTransferCurrency').click(function () {
-			let symbolSelect = $(this).attr('id');
-			self.currencyActions(symbolSelect);
-		});
-	},
-
-	currencyActions(symbolSelect) {
-		let img = $('#' + symbolSelect + ' img').attr('src');
-		let symbolName = $('#' + symbolSelect + 'Name').text();
-		let symbolValue = $('#' + symbolSelect + 'Symbol').val();
-		this.getCurrencyRate(symbolValue);
-
-		//DOM update
-		$('#FAQs').removeAttr('style');
-		$('#imgSmall').attr('src', img);
-		$('#symbolName').text(symbolName);
-		$('#currencyName').val(symbolName);
-		$('#AskInform').removeAttr('style');
-		$('#Important').removeAttr('style');
-		$('#currencySymbol').val(symbolValue);
-		$('#AuthComponent').removeAttr('style');
-		$('#cryptoAskInform').css('display', 'block');
-		$('#cryptoTransfer-Btn-content').css('display', 'block');
-
-		$('#cryptoTransfer-Btn').css({
-			'color' : '#fff',
-			'border' : 'none',
-			'background-color' : '#fff'
-		});
-
-		this.hideCurrencies();
-		this.calculateLimits(symbolValue);
-	},
-
-	getCurrencyRate(symbolValue) {
-		let url = API.CRYPTO_API_URL + API.CRYPTO_API_GET_RATE + symbolValue + '_BTC';
-		fetch(url, {method: 'GET'}).then((response) => {
-			return response.json();
-		}).then((rate) => {
-			this.props.rate = rate.rate;
-		}).catch((err) => {
-			console.error(err);
-		});
-	},
-
-	calculateLimits(symbolValue) {
-		let round = 5;
-		let finalMin = null;
-		let finalMax = null;
-		let isCusMin = false;
-		let isCusMax = false;
-
-		let url = API.CRYPTO_API_URL + API.CRYPTO_API_GET_MARKET + symbolValue + '_BTC';
-		let spinCoin = "<div class='lds-circle'></div>";
-		$('#cryptoLimits span').html(spinCoin);
-
-		let limitMin = null;
-		let limitMax = null;
-		let limits = UIService.getProcessorLimitMinMax();
-		let caLimitMin = limits.minAmount;
-		let caLimitMax = limits.maxAmount;
-
-		fetch(url, {method: 'GET'}).then((response) => {
-			return response.json();
-		}).then((market) => {
-
-			limitMin = this.props.rate * market.minimum;
-			limitMax = this.props.rate * market.maxLimit;
-
-			this.props.setAmount(caLimitMin);
-			let caLimitMinBTC = $('#btcAmount').val();
-
-			let min =  null;
-			if(caLimitMinBTC > limitMin){
-				min = caLimitMinBTC;
-				isCusMin = true;
-			}else{
-				min = limitMin;
-				isCusMin = false;
-			}
-
-			min = parseFloat(min).toPrecision(3);
-			this.props.setBTCAmount(min);
-			let minAmount = parseFloat($('#amount').val());
-			let final = Math.round(minAmount + round);
-			finalMin = (isCusMin) ? caLimitMin : final;
-
-			//Max Limits
-			this.props.setAmount(caLimitMax);
-			let caLimitMaxBTC = $('#btcAmount').val();
-
-			let max =  null;
-			if(caLimitMaxBTC > limitMax){
-				max = caLimitMaxBTC;
-				isCusMax = true;
-			}else{
-				max = limitMax;
-				isCusMax = false;
-			}
-
-			max = parseFloat(max).toPrecision(3);
-			this.props.setBTCAmount(max);
-			let maxAmount = parseFloat($('#amount').val());
-			final = Math.round(maxAmount + round);
-			finalMax = (isCusMax) ? caLimitMax : final;
-
-			alert(finalMin + ' ' + finalMax);
-
-		}).catch((err) => {
-			console.error(err);
-		});
+	componentDidMount() {
+		this.selectedCurrency();
+		CryptoTransferManager.initialMethods();
 	}
 });
 
