@@ -4,7 +4,8 @@ import { Input } from '../../Inputs'
 import { Amount } from './amount'
 import { UIService } from '../../../services/UIService'
 import { CryptoTransferManager } from './CryptoTransferManager'
-import API from '../../../constants/Cashier'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
+import Cashier from '../../../constants/Cashier'
 
 let AskInfo = React.createClass({
 
@@ -25,24 +26,22 @@ let AskInfo = React.createClass({
 
 	componentWillMount() {
 		this.setState({
+			load : false,
 			currencies : false
 		});
 
 		this.getCurrencies();
 	},
 
-	selectedCurrency() {
-		$('.cryptoTransferCurrency').click(function () {
-			alert('Hola')
-		});
-	},
-
 	getCurrencies() {
-		let url = API.CRYPTO_API_URL + API.CRYPTO_API_GET_COINS;
+		let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_GET_COINS;
 		fetch(url).then((response) => {
 			return response.json()
 		}).then((currencies) => {
-			this.setState({currencies : currencies});
+			this.setState({
+				load : true,
+				currencies : currencies
+			});
 		}).catch(function(err) {
 			console.error(err);
 		});
@@ -139,29 +138,40 @@ let AskInfo = React.createClass({
 			title = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information')
 		}
 
+		let cryptoContent = <LoadingSpinner/>;
+
+		if(this.state.load){
+			cryptoContent = (
+				<div>
+					<div id="cryptoTransfer-Btn" onClick={CryptoTransferManager.showCurrencies.bind(this)}>
+						<span>{translate('CRYPTO_SELECT_CURRENCY')}</span>
+						<div id="cryptoTransfer-Btn-content">
+							<img id="imgSmall" src=""/>
+							<span id="symbolName"></span>
+						</div>
+					</div>
+
+					<div id="cryptoAskInform">
+						<Amount setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+						<Input className="form-control" type="hidden" id="btcAmount" onChange={this.props.setBTCAmount} value={btcAmount}/>
+
+						<Input className="form-control" placeholder={translate('CRYPTO_AMOUNT_TXT')} type="number" id="cryptoAmount" validate="isNumber"/>
+						<Input className="form-control" placeholder={translate('CRYPTO_REFUND_ADDRESS')} type="text" id="cryptoAdress" name="cryptoAdress" min="0" required/>
+					</div>
+					{CryptoTransferManager.initialMethods()}
+				</div>
+			)
+		}
+
 		return (
-			<div id="btcAskInfo" className="box">
+			<div id="cryptoAskInfo" className="box">
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="title">{title}</div>
 						<div className="infoCol scroll">
 							<div className="row">
 								<div className="col-sm-12">
-									<div id="cryptoTransfer-Btn" onClick={CryptoTransferManager.showCurrencies.bind(this)}>
-										<span>{translate('CRYPTO_SELECT_CURRENCY')}</span>
-										<div id="cryptoTransfer-Btn-content">
-											<img id="imgSmall" src=""/>
-											<span id="symbolName"></span>
-										</div>
-									</div>
-
-									<div id="cryptoAskInform">
-										<Amount setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-										<Input className="form-control" type="hidden" id="btcAmount" onChange={this.props.setBTCAmount} value={btcAmount}/>
-
-										<Input className="form-control" placeholder={translate('CRYPTO_AMOUNT_TXT')} type="number" id="cryptoAmount" validate="isNumber"/>
-										<Input className="form-control" placeholder={translate('CRYPTO_REFUND_ADDRESS')} type="text" id="cryptoAdress" name="cryptoAdress" min="0" required/>
-									</div>
+									{cryptoContent}
 								</div>
 							</div>
 						</div>
@@ -170,11 +180,6 @@ let AskInfo = React.createClass({
 				{this.buildCurrenciesContainer()}
 			</div>
 		)
-	},
-
-	componentDidMount() {
-		this.selectedCurrency();
-		CryptoTransferManager.initialMethods();
 	}
 });
 

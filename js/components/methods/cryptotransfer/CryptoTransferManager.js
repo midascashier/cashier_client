@@ -1,10 +1,17 @@
 import { UIService } from '../../../services/UIService'
+import Cashier from '../../../constants/Cashier'
 
 let CryptoTransferManager = {
 
     initialMethods() {
-        this.hideCurrencies();
         this.searchCurrency();
+        this.selectedCurrency(this);
+
+        window.onclick = function (event) {
+            if (event.target == document.getElementById('cryptoTransferModal')) {
+                $('#cryptoTransferModal').css('display', 'none');
+            }
+        }
     },
 
     showCurrencies(){
@@ -13,12 +20,6 @@ let CryptoTransferManager = {
 
     hideCurrencies(){
         $('#cryptoTransferModal').css('display', 'none');
-
-        window.onclick = function (event) {
-            if (event.target == document.getElementById('cryptoTransferModal')) {
-                $('#cryptoTransferModal').css('display', 'none');
-            }
-        }
     },
 
     searchCurrency() {
@@ -29,6 +30,13 @@ let CryptoTransferManager = {
             }else{
                 $('.cryptoTransferCurrency').show().not('[id ^= "' + txtSearch + '"]').hide().filter('[id = "' + txtSearch + '"]').show();
             }
+        });
+    },
+
+    selectedCurrency(self) {
+        $('.cryptoTransferCurrency').click(function () {
+            let symbolSelect = $(this).attr('id');
+            self.currencyActions(symbolSelect);
         });
     },
 
@@ -61,7 +69,7 @@ let CryptoTransferManager = {
     },
 
     getCurrencyRate(symbolValue) {
-        let url = API.CRYPTO_API_URL + API.CRYPTO_API_GET_RATE + symbolValue + '_BTC';
+        let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_GET_RATE + symbolValue + '_BTC';
         fetch(url, {method: 'GET'}).then((response) => {
             return response.json();
         }).then((rate) => {
@@ -78,7 +86,7 @@ let CryptoTransferManager = {
         let isCusMin = false;
         let isCusMax = false;
 
-        let url = API.CRYPTO_API_URL + API.CRYPTO_API_GET_MARKET + symbolValue + '_BTC';
+        let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_GET_MARKET + symbolValue + '_BTC';
         let spinCoin = "<div class='lds-circle'></div>";
         $('#cryptoLimits span').html(spinCoin);
 
