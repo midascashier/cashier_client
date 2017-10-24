@@ -4,7 +4,7 @@ import { Input } from '../../Inputs'
 import { Amount } from './amount'
 import { UIService } from '../../../services/UIService'
 import { CryptoTransferManager } from './CryptoTransferManager'
-import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
+import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 import Cashier from '../../../constants/Cashier'
 
 let AskInfo = React.createClass({
@@ -63,7 +63,6 @@ let AskInfo = React.createClass({
 	},
 
 	buildCurrenciesContainer() {
-
 		let currency = [];
 		let orderCurrencies = [];
 		let availableCurrencies = [];
@@ -85,9 +84,9 @@ let AskInfo = React.createClass({
 			unavailableCurrencies = currency.filter(function (current) {
 				if(current != 'BTC' && currencies[current].status != 'available'){
 					if(orderCurrencies.includes(current)){
-						$.forEach(orderCurrencies, function(k, v) {
+						orderCurrencies.forEach(function(k, v) {
 							if(v == current){
-								orderCurrencies.splice(k, 1);
+								this.splice(k, 1);
 							}
 						});
 					}
