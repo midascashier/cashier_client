@@ -7,67 +7,45 @@ import { ApplicationService } from '../../../services/ApplicationService'
 import { CashierStore } from '../../../stores/CashierStore'
 
 let Amount = React.createClass({
-    propTypes: {
-        amount: React.PropTypes.node,
-        setAmount: React.PropTypes.func,
-        limitsCheck: React.PropTypes.string,
-
-        cryptoAmount: React.PropTypes.node,
-        setCryptoAmount: React.PropTypes.func
-    },
-
-    /**
-     * Set transaction amount in the store
-     *
-     * @param event
-     */
-    changeValue(event) {
-        let amount = event.currentTarget.value;
-        this.props.setAmount(amount);
-    },
 
     render() {
-        let limits = UIService.getProcessorLimitMinMax();
-        let customer = CashierStore.getCustomer();
+        let action;
         let limitsErrorMsg;
         let limitsOK = false;
-        let amountFieldDisable = true;
-        if(limits.minAmount && limits.maxAmount){
-            amountFieldDisable = false;
-        }
+
+        let customer = CashierStore.getCustomer();
+        let isWithDraw = UIService.getIsWithDraw();
+
         if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS || this.props.limitsCheck == Cashier.LOADING){
             limitsOK = true;
         }else{
             limitsErrorMsg = errorMsgs.limitsMsgs[this.props.limitsCheck];
         }
 
-        let action;
-        let isWithDraw = UIService.getIsWithDraw();
         if (isWithDraw){
             action = translate('WITHDRAW');
         }else{
             action = translate('DEPOSIT');
         }
+
         let placeHolderTXT = action + ' ' + translate('PROCESSING_AMOUNT', 'Amount');
         return (
             <div id="cryptoAmount">
                 <div id="cryptoLimits">
-                    <span>
-                        {translate('PROCESSING_MIN', 'Min')}: {ApplicationService.currency_format(limits.minAmount)} {customer.currency}
-                        - {translate('PROCESSING_MAX', 'Max')}: {ApplicationService.currency_format(limits.maxAmount)} {customer.currency}
-                    </span><br/>
+                    <span>{
+                        translate('PROCESSING_MIN', 'Min') + ApplicationService.currency_format(this.props.limits.minAmount) + customer.currency + ' ' +
+                        translate('PROCESSING_MAX', 'Max') + ApplicationService.currency_format(this.props.limits.maxAmount) +  customer.currency
+                    }</span><br/>
                 </div>
 
                 <input
-                    className="form-control"
-                    placeholder={placeHolderTXT}
                     type="number"
                     autoComplete="off"
-                    disabled={amountFieldDisable}
-                    id="cryptoAmount"
-                    name="cryptoAmount"
-                    onChange={this.changeValue}
-                    value={this.props.cryptoAmount}
+                    id="customerAmount"
+                    name="customerAmount"
+                    className="form-control"
+                    placeholder={placeHolderTXT}
+                    value={this.props.customerAmount}
                     min="0"
                     required
                 />

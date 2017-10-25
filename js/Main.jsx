@@ -83,9 +83,9 @@ import { P2PTicketProcessing } from './components/methods/person2person/tickets/
 /**
  * Crypto Transfer
  */
-import { Cryptotransfer } from './components/methods/cryptotransfer/Cryptotransfer'
-import { CryptotransferConfirnWithdraw } from './components/methods/cryptotransfer/ConfirmWithdraw'
-import { CryptotransferTicketPending } from './components/methods/cryptotransfer/tickets/PendingTicket'
+import { CryptoTransfer } from './components/methods/CryptoTransfer/CryptoTransfer'
+import { CryptoTransferConfirnWithdraw } from './components/methods/CryptoTransfer/ConfirmWithdraw'
+import { CryptoTransferTicketPending } from './components/methods/CryptoTransfer/tickets/PendingTicket'
 
 /**
  * Common components
@@ -228,9 +228,9 @@ let routes = (
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
-				<Route path="btc_crypto_transfer/" component={Cryptotransfer}/>
+				<Route path="btc_crypto_transfer/" component={CryptoTransfer}/>
 				<Route path="btc_crypto_transfer/ticket/" component={LoadingTicket}>
-					<Route path="pending/" component={CryptotransferTicketPending}/>
+					<Route path="pending/" component={CryptoTransferTicketPending}/>
 				</Route>
 			</Route>
 

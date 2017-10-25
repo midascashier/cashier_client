@@ -7,15 +7,6 @@ import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
 
-	propTypes: {
-		amount: React.PropTypes.node,
-		limitsCheck: React.PropTypes.string,
-		feeCheck: React.PropTypes.number,
-		feeCashValue: React.PropTypes.number,
-		allowContinueToConfirm: React.PropTypes.bool,
-		bitcoinAddress: React.PropTypes.string
-	},
-
 	/**
 	 * React function to set component initial state
 	 *
