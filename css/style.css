@@ -343,7 +343,7 @@ div[class*="col-"] > div[class*="col-"]:before {
     margin-top: 10px;
     border-radius: 5px;
     text-align: center;
-    background-color: #0c6b9a;
+    background-color: #e4eaf8;
 }
 
 @keyframes lds-circle {
