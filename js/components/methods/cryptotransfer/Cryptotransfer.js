@@ -8,11 +8,10 @@ import {InfoMethod} from './InfoMethod'
 let Cryptotransfer = React.createClass({
 
 	propTypes: {
+		amount: React.PropTypes.node,
 		setAmount: React.PropTypes.func,
 		btcAmount: React.PropTypes.node,
-		changeValue: React.PropTypes.func,
 		setBTCAmount: React.PropTypes.func,
-		transactionAmount: React.PropTypes.func,
 
 		rate: React.PropTypes.number,
 		limitsCheck: React.PropTypes.string,
@@ -87,6 +86,7 @@ let Cryptotransfer = React.createClass({
 			<div id="crypto">
 				<div className="col-sm-6">
 					<AskInfo
+						amount={this.props.amount}
 						setAmount={this.props.setAmount}
 						btcAmount={this.props.btcAmount}
 						changeValue={this.changeValue}
@@ -95,6 +95,7 @@ let Cryptotransfer = React.createClass({
 						rate={this.props.rate}
 						limitsCheck={this.props.limitsCheck}
 						cryptoAmount={this.props.cryptoAmount}
+						setCryptoAmount={this.props.setCryptoAmount}
 
 						allowContinueToConfirm={this.props.allowContinueToConfirm}
 					/>

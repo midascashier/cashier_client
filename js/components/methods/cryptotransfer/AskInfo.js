@@ -10,11 +10,10 @@ import Cashier from '../../../constants/Cashier'
 let AskInfo = React.createClass({
 
 	propTypes: {
+		amount: React.PropTypes.node,
 		setAmount: React.PropTypes.func,
 		btcAmount: React.PropTypes.node,
-		changeValue: React.PropTypes.func,
 		setBTCAmount: React.PropTypes.func,
-		transactionAmount: React.PropTypes.func,
 
 		rate: React.PropTypes.number,
 		limitsCheck: React.PropTypes.string,
@@ -146,9 +145,13 @@ let AskInfo = React.createClass({
 					</div>
 
 					<div id="cryptoAskInform">
-						<Amount setAmount={this.props.setAmount} amount={this.props.amount} limitsCheck={this.props.limitsCheck}/>
-						<Input className="form-control" type="hidden" id="btcAmount" onChange={this.props.setBTCAmount} value={this.props.btcAmount}/>
+						<Amount
+							amount={this.props.amount}
+							setAmount={this.props.setAmount}
+							limitsCheck={this.props.limitsCheck}
+						/>
 
+						<Input className="form-control" type="hidden" id="btcAmount" onChange={this.props.setBTCAmount} value={this.props.btcAmount}/>
 						<Input className="form-control" placeholder={translate('CRYPTO_AMOUNT_TXT')} type="number" id="cryptoAmount" validate="isNumber"/>
 						<Input className="form-control" placeholder={translate('CRYPTO_REFUND_ADDRESS')} type="text" id="cryptoAdress" name="cryptoAdress" min="0" required/>
 					</div>
