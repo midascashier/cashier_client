@@ -126,11 +126,6 @@ let AskInfo = React.createClass({
 	},
 
 	render() {
-		let setAmount = this.props.setAmount;
-		let amount = this.props.amount;
-		let btcAmount = this.props.btcAmount;
-		let limitsCheck = this.props.limitsCheck;
-
 		let isWithDraw = UIService.getIsWithDraw();
 		let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
 		if(isWithDraw){
@@ -151,13 +146,13 @@ let AskInfo = React.createClass({
 					</div>
 
 					<div id="cryptoAskInform">
-						<Amount setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
-						<Input className="form-control" type="hidden" id="btcAmount" onChange={this.props.setBTCAmount} value={btcAmount}/>
+						<Amount setAmount={this.props.setAmount} amount={this.props.amount} limitsCheck={this.props.limitsCheck}/>
+						<Input className="form-control" type="hidden" id="btcAmount" onChange={this.props.setBTCAmount} value={this.props.btcAmount}/>
 
 						<Input className="form-control" placeholder={translate('CRYPTO_AMOUNT_TXT')} type="number" id="cryptoAmount" validate="isNumber"/>
 						<Input className="form-control" placeholder={translate('CRYPTO_REFUND_ADDRESS')} type="text" id="cryptoAdress" name="cryptoAdress" min="0" required/>
 					</div>
-					{CryptoTransferManager.initialMethods()}
+					{CryptoTransferManager.initialMethods(this.props)}
 				</div>
 			)
 		}

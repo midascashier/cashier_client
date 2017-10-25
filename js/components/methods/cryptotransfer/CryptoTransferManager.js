@@ -3,9 +3,9 @@ import Cashier from '../../../constants/Cashier'
 
 let CryptoTransferManager = {
 
-    initialMethods() {
+    initialMethods(props) {
         this.searchCurrency();
-        this.selectedCurrency(this);
+        this.selectedCurrency(props);
 
         window.onclick = function (event) {
             if (event.target == document.getElementById('cryptoTransferModal')) {
@@ -33,18 +33,18 @@ let CryptoTransferManager = {
         });
     },
 
-    selectedCurrency(self) {
+    selectedCurrency(props, self = this) {
         $('.cryptoTransferCurrency').click(function () {
             let symbolSelect = $(this).attr('id');
-            self.currencyActions(symbolSelect);
+            self.currencyActions(symbolSelect, props);
         });
     },
 
-    currencyActions(symbolSelect) {
+    currencyActions(symbolSelect ,props) {
         let img = $('#' + symbolSelect + ' img').attr('src');
         let symbolName = $('#' + symbolSelect + 'Name').text();
         let symbolValue = $('#' + symbolSelect + 'Symbol').val();
-        this.getCurrencyRate(symbolValue);
+        this.getCurrencyRate(symbolValue, props);
 
         //DOM update
         $('#FAQs').removeAttr('style');
@@ -65,21 +65,21 @@ let CryptoTransferManager = {
         });
 
         this.hideCurrencies();
-        this.calculateLimits(symbolValue);
+        this.calculateLimits(symbolValue, props);
     },
 
-    getCurrencyRate(symbolValue) {
+    getCurrencyRate(symbolValue, props) {
         let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_GET_RATE + symbolValue + '_BTC';
         fetch(url, {method: 'GET'}).then((response) => {
             return response.json();
         }).then((rate) => {
-            this.props.rate = rate.rate;
+            props.rate = rate.rate;
         }).catch((err) => {
             console.error(err);
         });
     },
 
-    calculateLimits(symbolValue) {
+    calculateLimits(symbolValue, props) {
         let round = 5;
         let finalMin = null;
         let finalMax = null;
@@ -100,47 +100,49 @@ let CryptoTransferManager = {
             return response.json();
         }).then((market) => {
 
-            limitMin = this.props.rate * market.minimum;
-            limitMax = this.props.rate * market.maxLimit;
+            if(props.rate) {
+                limitMin = props.rate * market.minimum;
+                limitMax = props.rate * market.maxLimit;
 
-            this.props.setAmount(caLimitMin);
-            let caLimitMinBTC = $('#btcAmount').val();
+                props.setAmount(caLimitMin);
+                let caLimitMinBTC = $('#btcAmount').val();
 
-            let min =  null;
-            if(caLimitMinBTC > limitMin){
-                min = caLimitMinBTC;
-                isCusMin = true;
-            }else{
-                min = limitMin;
-                isCusMin = false;
+                let min =  null;
+                if(caLimitMinBTC > limitMin){
+                    min = caLimitMinBTC;
+                    isCusMin = true;
+                }else{
+                    min = limitMin;
+                    isCusMin = false;
+                }
+
+                min = parseFloat(min).toPrecision(3);
+                props.setBTCAmount(min);
+                let minAmount = parseFloat($('#amount').val());
+                let final = Math.round(minAmount + round);
+                finalMin = (isCusMin) ? caLimitMin : final;
+
+                //Max Limits
+                props.setAmount(caLimitMax);
+                let caLimitMaxBTC = $('#btcAmount').val();
+
+                let max =  null;
+                if(caLimitMaxBTC > limitMax){
+                    max = caLimitMaxBTC;
+                    isCusMax = true;
+                }else{
+                    max = limitMax;
+                    isCusMax = false;
+                }
+
+                max = parseFloat(max).toPrecision(3);
+                props.setBTCAmount(max);
+                let maxAmount = parseFloat($('#amount').val());
+                final = Math.round(maxAmount + round);
+                finalMax = (isCusMax) ? caLimitMax : final;
+
+                alert(finalMin + ' ' + finalMax);
             }
-
-            min = parseFloat(min).toPrecision(3);
-            this.props.setBTCAmount(min);
-            let minAmount = parseFloat($('#amount').val());
-            let final = Math.round(minAmount + round);
-            finalMin = (isCusMin) ? caLimitMin : final;
-
-            //Max Limits
-            this.props.setAmount(caLimitMax);
-            let caLimitMaxBTC = $('#btcAmount').val();
-
-            let max =  null;
-            if(caLimitMaxBTC > limitMax){
-                max = caLimitMaxBTC;
-                isCusMax = true;
-            }else{
-                max = limitMax;
-                isCusMax = false;
-            }
-
-            max = parseFloat(max).toPrecision(3);
-            this.props.setBTCAmount(max);
-            let maxAmount = parseFloat($('#amount').val());
-            final = Math.round(maxAmount + round);
-            finalMax = (isCusMax) ? caLimitMax : final;
-
-            alert(finalMin + ' ' + finalMax);
 
         }).catch((err) => {
             console.error(err);
