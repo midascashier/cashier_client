@@ -1,11 +1,11 @@
 import React from 'react'
-import { translate } from '../../../constants/Translate'
-import { Input } from '../../Inputs'
 import { Amount } from './amount'
+import { Input } from '../../Inputs'
+import Cashier from '../../../constants/Cashier'
 import { UIService } from '../../../services/UIService'
+import { translate } from '../../../constants/Translate'
 import { CryptoTransferManager } from './CryptoTransferManager'
 import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
-import Cashier from '../../../constants/Cashier'
 
 let AskInfo = React.createClass({
 
@@ -146,9 +146,10 @@ let AskInfo = React.createClass({
 
 					<div id="cryptoAskInform">
 						<Amount
+							limits={this.props.limits}
 							amount={this.props.amount}
 							setAmount={this.props.setAmount}
-							limitsCheck={this.props.limitsCheck}
+							customerAmount={this.props.customerAmount}
 						/>
 
 						<Input className="form-control" type="hidden" id="btcAmount" onChange={this.props.setBTCAmount} value={this.props.btcAmount}/>
