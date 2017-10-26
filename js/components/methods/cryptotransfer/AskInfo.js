@@ -18,9 +18,7 @@ let AskInfo = React.createClass({
 		rate: React.PropTypes.number,
 		limitsCheck: React.PropTypes.string,
 		cryptoAmount: React.PropTypes.node,
-		setCryptoAmount: React.PropTypes.func,
-
-		allowContinueToConfirm: React.PropTypes.func
+		setCryptoAmount: React.PropTypes.func
 	},
 
 	componentWillMount() {

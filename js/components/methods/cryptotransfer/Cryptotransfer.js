@@ -18,9 +18,7 @@ let CryptoTransfer = React.createClass({
 		rate: React.PropTypes.number,
 		cryptoAmount: React.PropTypes.node,
 		setCryptoAmount: React.PropTypes.func,
-		customerAmount: React.PropTypes.node,
-
-		onChangeState: React.PropTypes.func
+		customerAmount: React.PropTypes.node
 	},
 
 	/**
