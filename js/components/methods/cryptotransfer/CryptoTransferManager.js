@@ -1,4 +1,6 @@
+import { ApplicationService } from '../../../services/ApplicationService'
 import { UIService } from '../../../services/UIService'
+import { translate } from '../../../constants/Translate'
 import Cashier from '../../../constants/Cashier'
 
 let CryptoTransferManager = {
@@ -6,6 +8,7 @@ let CryptoTransferManager = {
     initialMethods(props) {
         this.searchCurrency();
         this.selectedCurrency(props);
+        this.crytoCurrencyCalculate(props);
 
         window.onclick = function (event) {
             if (event.target == document.getElementById('cryptoTransferModal')) {
@@ -141,11 +144,28 @@ let CryptoTransferManager = {
                 final = Math.round(maxAmount + round);
                 finalMax = (isCusMax) ? caLimitMax : final;
 
-                alert(finalMin + ' ' + finalMax);
-            }
+                this.minAmount = finalMin;
+                this.maxAmount = finalMax;
 
+                let currency = props.limits.currencyCode;
+                let maxLimitCont = translate('PROCESSING_MIN', 'Min') + ApplicationService.currency_format(finalMin) + ' ' + currency + ' - ';
+                let minLimitCont = translate('PROCESSING_MAX', 'Max') + ApplicationService.currency_format(finalMax) + ' ' + currency;
+                let limitContent = maxLimitCont + ' ' + minLimitCont;
+                let limitsCont = "<span>" + limitContent + "</span>";
+
+                $('#cryptoLimits').html(limitsCont);
+            }
         }).catch((err) => {
             console.error(err);
+        });
+    },
+
+    crytoCurrencyCalculate() {
+        $('#cryptoAmount').on('input', function () {
+            let amount = parseFloat($(this).val()).toPrecision(3);
+            this.props.setBTCAmount(amount);
+            amount = parseFloat(props.rate * props.btcAmount);
+            this.props.cryptoAmount = amount.toFixed(8);
         });
     }
 };

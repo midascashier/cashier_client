@@ -2,10 +2,11 @@ import React from 'react'
 import {CashierStore} from '../../../stores/CashierStore'
 import {ApplicationService} from '../../../services/ApplicationService'
 import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
+import { UIService } from '../../../services/UIService'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
 
-let Cryptotransfer = React.createClass({
+let CryptoTransfer = React.createClass({
 
 	propTypes: {
 		amount: React.PropTypes.node,
@@ -13,12 +14,13 @@ let Cryptotransfer = React.createClass({
 		btcAmount: React.PropTypes.node,
 		setBTCAmount: React.PropTypes.func,
 
+		limits: React.PropTypes.object,
 		rate: React.PropTypes.number,
-		limitsCheck: React.PropTypes.string,
 		cryptoAmount: React.PropTypes.node,
 		setCryptoAmount: React.PropTypes.func,
+		customerAmount: React.PropTypes.node,
 
-		allowContinueToConfirm: React.PropTypes.func
+		onChangeState: React.PropTypes.func
 	},
 
 	/**
@@ -26,6 +28,7 @@ let Cryptotransfer = React.createClass({
 	 */
 	getInitialState(){
 		ApplicationService.getCurrency("BTC");
+		this.props.limits = UIService.getProcessorLimitMinMax();
 		return this.refreshLocalState();
 	},
 
@@ -33,26 +36,12 @@ let Cryptotransfer = React.createClass({
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState() {
-		let cryptoAddress = "";
-		if(this.state){
-			if(this.state.info.cryptoAddress != ""){
-				cryptoAddress = this.state.info.cryptoAddress;
-			}
-		}
-
-		let allowContinueToConfirm = false;
-		if(this.state){
-			if(this.state.info.allowContinueToConfirm){
-				allowContinueToConfirm = true;
-			}
-		}
-
 		return {
 			info: {
-				selectedProcessor: CashierStore.getProcessor(),
+				checkLimits : false,
+				allowContinueToConfirm: false,
 				transaction: CashierStore.getTransaction(),
-				cryptoAddress: cryptoAddress,
-				allowContinueToConfirm: allowContinueToConfirm
+				selectedProcessor: CashierStore.getProcessor()
 			}
 		}
 	},
@@ -66,21 +55,6 @@ let Cryptotransfer = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
-	/**
-	 * Set local state for crypto Address and if is allow to continue
-	 *
-	 * @param e
-	 * @param state
-	 */
-	changeValue(e, state) {
-		let actualState = this.state.info;
-		actualState.cryptoAddress = e;
-		actualState.allowContinueToConfirm = state;
-		this.setState({
-			info: actualState
-		})
-	},
-
 	render() {
 		return (
 			<div id="crypto">
@@ -89,11 +63,11 @@ let Cryptotransfer = React.createClass({
 						amount={this.props.amount}
 						setAmount={this.props.setAmount}
 						btcAmount={this.props.btcAmount}
-						changeValue={this.changeValue}
 						setBTCAmount={this.props.setBTCAmount}
+						customerAmount={this.props.customerAmount}
 
 						rate={this.props.rate}
-						limitsCheck={this.props.limitsCheck}
+						limits={this.props.limits}
 						cryptoAmount={this.props.cryptoAmount}
 						setCryptoAmount={this.props.setCryptoAmount}
 
@@ -110,7 +84,7 @@ let Cryptotransfer = React.createClass({
 						return(
 							<InfoMethod
 								amount={this.props.amount}
-								limitsCheck={this.props.limitsCheck}
+								limits={this.props.limits}
 								allowContinueToConfirm={this.props.allowContinueToConfirm}
 							/>
 						)
@@ -136,4 +110,4 @@ let Cryptotransfer = React.createClass({
 	}
 });
 
-module.exports.Cryptotransfer = Cryptotransfer;
+module.exports.CryptoTransfer = CryptoTransfer;

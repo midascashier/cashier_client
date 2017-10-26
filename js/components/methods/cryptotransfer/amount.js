@@ -3,8 +3,6 @@ import { translate } from '../../../constants/Translate'
 import  errorMsgs  from '../../../constants/limitsErrorMsgs'
 import Cashier from '../../../constants/Cashier'
 import { UIService } from '../../../services/UIService'
-import { ApplicationService } from '../../../services/ApplicationService'
-import { CashierStore } from '../../../stores/CashierStore'
 
 let Amount = React.createClass({
 
@@ -13,7 +11,6 @@ let Amount = React.createClass({
         let limitsErrorMsg;
         let limitsOK = false;
 
-        let customer = CashierStore.getCustomer();
         let isWithDraw = UIService.getIsWithDraw();
 
         if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS || this.props.limitsCheck == Cashier.LOADING){
@@ -31,12 +28,7 @@ let Amount = React.createClass({
         let placeHolderTXT = action + ' ' + translate('PROCESSING_AMOUNT', 'Amount');
         return (
             <div id="cryptoAmount">
-                <div id="cryptoLimits">
-                    <span>{
-                        translate('PROCESSING_MIN', 'Min') + ApplicationService.currency_format(this.props.limits.minAmount) + customer.currency + ' ' +
-                        translate('PROCESSING_MAX', 'Max') + ApplicationService.currency_format(this.props.limits.maxAmount) +  customer.currency
-                    }</span><br/>
-                </div>
+                <div id="cryptoLimits"></div>
 
                 <input
                     type="number"
