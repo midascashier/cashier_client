@@ -160,12 +160,12 @@ let CryptoTransferManager = {
         });
     },
 
-    crytoCurrencyCalculate() {
-        $('#cryptoAmount').on('input', function () {
+    crytoCurrencyCalculate(props) {
+        $('#customerAmount').on('input', function () {
             let amount = parseFloat($(this).val()).toPrecision(3);
-            this.props.setBTCAmount(amount);
+            props.setBTCAmount(amount);
             amount = parseFloat(props.rate * props.btcAmount);
-            this.props.cryptoAmount = amount.toFixed(8);
+            props.cryptoAmount = amount.toFixed(8);
         });
     }
 };
