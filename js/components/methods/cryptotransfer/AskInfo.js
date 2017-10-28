@@ -1,24 +1,29 @@
 import React from 'react'
 import { Amount } from './amount'
 import { Input } from '../../Inputs'
+import { CryptoCurrencies } from './CryptoCurrencies'
 import Cashier from '../../../constants/Cashier'
 import { UIService } from '../../../services/UIService'
 import { translate } from '../../../constants/Translate'
-import { CryptoTransferManager } from './CryptoTransferManager'
 import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 
 let AskInfo = React.createClass({
 
 	propTypes: {
 		amount: React.PropTypes.node,
-		setAmount: React.PropTypes.func,
 		btcAmount: React.PropTypes.node,
+		cryptoAmount: React.PropTypes.node,
+		customerAmount: React.PropTypes.node,
+
+		setAmount: React.PropTypes.func,
+		setLimits: React.PropTypes.func,
 		setBTCAmount: React.PropTypes.func,
+		getCurrencyRate: React.PropTypes.func,
+		setCryptoAmount: React.PropTypes.func,
+		setCustomerAmount: React.PropTypes.func,
 
 		rate: React.PropTypes.number,
-		limitsCheck: React.PropTypes.string,
-		cryptoAmount: React.PropTypes.node,
-		setCryptoAmount: React.PropTypes.func
+		limits: React.PropTypes.object
 	},
 
 	componentWillMount() {
@@ -28,6 +33,11 @@ let AskInfo = React.createClass({
 		});
 
 		this.getCurrencies();
+		window.onclick = function (event) {
+			if (event.target == document.getElementById('cryptoTransferModal')) {
+				$('#cryptoTransferModal').css('display', 'none');
+			}
+		}
 	},
 
 	getCurrencies() {
@@ -46,17 +56,17 @@ let AskInfo = React.createClass({
 
 	currencyContent(currency) {
 		currency = this.state.currencies[currency];
-		let id = currency.name.toLowerCase().replace(' ', '');
-		let unavailable = (currency.status != 'available') ? ' unavailableCurrency' : '';
-		return (
-			<div id={id} className={'cryptoTransferCurrency' + unavailable}>
-				<img src={currency.image} alt={currency.name}/>
-				<span id={id + 'Name'} className="currentName">{currency.name}</span>
-				<input type='hidden' id={id + 'Symbol'} value={currency.symbol}/>
-				<input type='hidden' id={id + 'Status'} value={currency.status}/>
-				<input type='hidden' id={id + 'ImgSmall'} value={currency.imageSmall}/>
-			</div>
-		);
+		return(
+			<CryptoCurrencies
+				currency={currency}
+			  	rate={this.props.rate}
+				limits={this.props.limits}
+				setAmount={this.props.setAmount}
+				setLimits={this.props.setLimits}
+				setBTCAmount={this.props.setBTCAmount}
+			 	getCurrencyRate={this.props.getCurrencyRate}
+			/>
+		)
 	},
 
 	buildCurrenciesContainer() {
@@ -110,7 +120,8 @@ let AskInfo = React.createClass({
 				<div id='cryptoTransferModal-content'>
 					<div id='cryptoTransferModal-header'>
 						<input id='cryptoTransferModal-currencySearch' type='text' placeholder={translate('CRYPTO_SEARCH_TXT')}/>
-						<span id='cryptoTransferModal-close' onClick={CryptoTransferManager.hideCurrencies.bind(this)}>&times;</span>
+						{this.searchCurrency()}
+						<span id='cryptoTransferModal-close' onClick={this.hideCurrencies.bind(this)}>&times;</span>
 					</div>
 
 					<div id='cryptoTransfer-currencies'>
@@ -120,6 +131,25 @@ let AskInfo = React.createClass({
 				</div>
 			</div>
 		)
+	},
+
+	showCurrencies(){
+		$('#cryptoTransferModal').css('display', 'flex');
+	},
+
+	hideCurrencies(){
+		$('#cryptoTransferModal').css('display', 'none');
+	},
+
+	searchCurrency() {
+		$('#cryptoTransferModal-currencySearch').on('input', function () {
+			let txtSearch = $(this).val().toLowerCase();
+			if(txtSearch == '') {
+				$('.cryptoTransferCurrency').show();
+			}else{
+				$('.cryptoTransferCurrency').show().not('[id ^= "' + txtSearch + '"]').hide().filter('[id = "' + txtSearch + '"]').show();
+			}
+		});
 	},
 
 	render() {
@@ -134,7 +164,7 @@ let AskInfo = React.createClass({
 		if(this.state.load){
 			cryptoContent = (
 				<div>
-					<div id="cryptoTransfer-Btn" onClick={CryptoTransferManager.showCurrencies.bind(this)}>
+					<div id="cryptoTransfer-Btn" onClick={this.showCurrencies.bind(this)}>
 						<span>{translate('CRYPTO_SELECT_CURRENCY')}</span>
 						<div id="cryptoTransfer-Btn-content">
 							<img id="imgSmall" src=""/>
@@ -144,17 +174,24 @@ let AskInfo = React.createClass({
 
 					<div id="cryptoAskInform">
 						<Amount
-							limits={this.props.limits}
 							amount={this.props.amount}
-							setAmount={this.props.setAmount}
+							btcAmount={this.props.btcAmount}
+							cryptoAmount={this.props.cryptoAmount}
 							customerAmount={this.props.customerAmount}
+
+							setAmount={this.props.setAmount}
+							setBTCAmount={this.props.setBTCAmount}
+							setCryptoAmount={this.props.setCryptoAmount}
+							setCustomerAmount={this.props.setCustomerAmount}
+							getCurrencyRate={this.props.setCurrencyRate}
+
+							rate={this.props.rate}
+							limits={this.props.limits}
 						/>
 
 						<Input className="form-control" type="hidden" id="btcAmount" onChange={this.props.setBTCAmount} value={this.props.btcAmount}/>
-						<Input className="form-control" placeholder={translate('CRYPTO_AMOUNT_TXT')} type="number" id="cryptoAmount" validate="isNumber"/>
 						<Input className="form-control" placeholder={translate('CRYPTO_REFUND_ADDRESS')} type="text" id="cryptoAdress" name="cryptoAdress" min="0" required/>
 					</div>
-					{CryptoTransferManager.initialMethods(this.props)}
 				</div>
 			)
 		}

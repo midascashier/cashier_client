@@ -1,24 +1,20 @@
 import React from 'react'
-import {CashierStore} from '../../../stores/CashierStore'
-import {ApplicationService} from '../../../services/ApplicationService'
-import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
+import { AskInfo } from './AskInfo'
+import { InfoMethod } from './InfoMethod'
+import Cashier from '../../../constants/Cashier'
 import { UIService } from '../../../services/UIService'
-import {AskInfo} from './AskInfo'
-import {InfoMethod} from './InfoMethod'
+import { CashierStore } from '../../../stores/CashierStore'
+import { ApplicationService } from '../../../services/ApplicationService'
+import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 
 let CryptoTransfer = React.createClass({
 
 	propTypes: {
 		amount: React.PropTypes.node,
-		setAmount: React.PropTypes.func,
 		btcAmount: React.PropTypes.node,
-		setBTCAmount: React.PropTypes.func,
 
-		limits: React.PropTypes.object,
-		rate: React.PropTypes.number,
-		cryptoAmount: React.PropTypes.node,
-		setCryptoAmount: React.PropTypes.func,
-		customerAmount: React.PropTypes.node
+		setAmount: React.PropTypes.func,
+		setBTCAmount: React.PropTypes.func
 	},
 
 	/**
@@ -26,7 +22,6 @@ let CryptoTransfer = React.createClass({
 	 */
 	getInitialState(){
 		ApplicationService.getCurrency("BTC");
-		this.props.limits = UIService.getProcessorLimitMinMax();
 		return this.refreshLocalState();
 	},
 
@@ -35,11 +30,13 @@ let CryptoTransfer = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			info: {
-				checkLimits : false,
-				allowContinueToConfirm: false,
-				transaction: CashierStore.getTransaction(),
-				selectedProcessor: CashierStore.getProcessor()
+			info : {
+				rate : '',
+				cryptoAmount : '',
+				customerAmount : '',
+				transaction : CashierStore.getTransaction(),
+				limits : UIService.getProcessorLimitMinMax(),
+				selectedProcessor : CashierStore.getProcessor()
 			}
 		}
 	},
@@ -53,23 +50,81 @@ let CryptoTransfer = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
+	getCurrencyRate(symbolValue) {
+		let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_GET_RATE + symbolValue + '_BTC';
+		fetch(url, {method: 'GET'}).then((response) => {
+			return response.json();
+		}).then((rate) => {
+			this.setCurrencyRate(rate.rate);
+		}).catch((err) => {
+			console.error(err);
+		});
+	},
+
+	/**
+	 * Set btc amount
+	 *
+	 * @param btcAmount
+	 * @param rate
+	 */
+	setCryptoAmount(btcAmount, rate){
+		let actualState = this.state.info;
+		actualState.cryptoAmount = btcAmount * rate ;
+		this.setState({info: actualState});
+	},
+
+	/**
+	 * Set btc amount
+	 * 
+	 * @param amount
+     */
+	setCustomerAmount(amount){
+		let actualState = this.state.info;
+		actualState.customerAmount = amount ;
+		this.setState({info: actualState});
+	},
+
+	/**
+	 * Set rate to current currency
+	 *
+	 * @param rate
+     */
+	setCurrencyRate(rate){
+		let actualState = this.state.info;
+		actualState.rate = rate ;
+		this.setState({info: actualState});
+	},
+
+	/**
+	 * Set limits to current currency
+	 *
+	 * @param limits
+     */
+	setCurrencyLimits(limits){
+		let actualState = this.state.info;
+		actualState.limits = limits ;
+		this.setState({info: actualState});
+	},
+
 	render() {
 		return (
 			<div id="crypto">
 				<div className="col-sm-6">
 					<AskInfo
 						amount={this.props.amount}
-						setAmount={this.props.setAmount}
 						btcAmount={this.props.btcAmount}
+						cryptoAmount={this.state.info.cryptoAmount}
+						customerAmount={this.state.info.customerAmount}
+
+						setAmount={this.props.setAmount}
+						setLimits={this.setCurrencyLimits}
 						setBTCAmount={this.props.setBTCAmount}
-						customerAmount={this.props.customerAmount}
+						setCryptoAmount={this.setCryptoAmount}
+						setCustomerAmount={this.setCustomerAmount}
+						getCurrencyRate={this.getCurrencyRate}
 
-						rate={this.props.rate}
-						limits={this.props.limits}
-						cryptoAmount={this.props.cryptoAmount}
-						setCryptoAmount={this.props.setCryptoAmount}
-
-						allowContinueToConfirm={this.props.allowContinueToConfirm}
+						rate={this.state.info.rate}
+						limits={this.state.info.limits}
 					/>
 				</div>
 
@@ -82,8 +137,19 @@ let CryptoTransfer = React.createClass({
 						return(
 							<InfoMethod
 								amount={this.props.amount}
-								limits={this.props.limits}
-								allowContinueToConfirm={this.props.allowContinueToConfirm}
+								btcAmount={this.props.btcAmount}
+								cryptoAmount={this.state.info.cryptoAmount}
+								customerAmount={this.state.info.customerAmount}
+
+								setAmount={this.props.setAmount}
+								setLimits={this.setCurrencyLimits}
+								setBTCAmount={this.props.setBTCAmount}
+								setCryptoAmount={this.setCryptoAmount}
+								setCustomerAmount={this.setCustomerAmount}
+								getCurrencyRate={this.setCurrencyRate}
+
+								rate={this.state.info.rate}
+								limits={this.state.info.limits}
 							/>
 						)
 					})()}
