@@ -343,6 +343,7 @@ div[class*="col-"] > div[class*="col-"]:before {
     margin-top: 10px;
     border-radius: 5px;
     text-align: center;
+    padding-bottom: 10px;
     background-color: #e4eaf8;
 }
 

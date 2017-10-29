@@ -119,8 +119,7 @@ let AskInfo = React.createClass({
 			<div id='cryptoTransferModal'>
 				<div id='cryptoTransferModal-content'>
 					<div id='cryptoTransferModal-header'>
-						<input id='cryptoTransferModal-currencySearch' type='text' placeholder={translate('CRYPTO_SEARCH_TXT')}/>
-						{this.searchCurrency()}
+						<input id='cryptoTransferModal-currencySearch' type='text' placeholder={translate('CRYPTO_SEARCH_TXT')} onInput={this.searchCurrency.bind(this)}/>
 						<span id='cryptoTransferModal-close' onClick={this.hideCurrencies.bind(this)}>&times;</span>
 					</div>
 
@@ -141,15 +140,13 @@ let AskInfo = React.createClass({
 		$('#cryptoTransferModal').css('display', 'none');
 	},
 
-	searchCurrency() {
-		$('#cryptoTransferModal-currencySearch').on('input', function () {
-			let txtSearch = $(this).val().toLowerCase();
-			if(txtSearch == '') {
-				$('.cryptoTransferCurrency').show();
-			}else{
-				$('.cryptoTransferCurrency').show().not('[id ^= "' + txtSearch + '"]').hide().filter('[id = "' + txtSearch + '"]').show();
-			}
-		});
+	searchCurrency(event) {
+		let txtSearch = event.target.value.toLowerCase();
+		if(txtSearch == '') {
+			$('.cryptoTransferCurrency').show();
+		}else{
+			$('.cryptoTransferCurrency').show().not('[id ^= "' + txtSearch + '"]').hide().filter('[id = "' + txtSearch + '"]').show();
+		}
 	},
 
 	render() {
