@@ -1,32 +1,30 @@
 import React from 'react'
-import { translate } from '../../../constants/Translate'
-import  errorMsgs  from '../../../constants/limitsErrorMsgs'
 import Cashier from '../../../constants/Cashier'
 import { UIService } from '../../../services/UIService'
+import { translate } from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import  errorMsgs  from '../../../constants/limitsErrorMsgs'
 
 let Amount = React.createClass({
 
     propTypes: {
-        amount: React.PropTypes.node,
-        btcAmount: React.PropTypes.node,
+        rate: React.PropTypes.number,
         cryptoAmount: React.PropTypes.node,
         customerAmount: React.PropTypes.node,
-
-        setAmount: React.PropTypes.func,
-        setBTCAmount: React.PropTypes.func,
         setCryptoAmount: React.PropTypes.func,
-        setCustomerAmount: React.PropTypes.func,
-
-        rate: React.PropTypes.number,
-        limits: React.PropTypes.object
+        setCustomerAmount: React.PropTypes.func
     },
 
     crytoCurrencyCalculate(event) {
-        let amount = parseFloat(event.target.value);
-        this.props.setCustomerAmount(amount);
-        this.props.setAmount(amount);
-        amount = parseFloat(this.props.rate * this.props.btcAmount).toFixed(8);
-        this.props.setCryptoAmount(amount, this.props.rate);
+        let customerAmount = parseFloat(event.target.value);
+        let btcAmount = customerAmount * parseFloat(CashierStore.getBTCRate()).toFixed(8);
+        this.props.setCryptoAmount(btcAmount, customerAmount);
+    },
+
+    customerAmountCalculate(event) {
+        let cryptoAmount = parseFloat(event.target.value);
+        let btcAmount = cryptoAmount * parseFloat(this.props.rate).toFixed(8);
+        this.props.setCustomerAmount(btcAmount, cryptoAmount);
     },
 
     render() {
@@ -61,13 +59,13 @@ let Amount = React.createClass({
                     className="form-control"
                     placeholder={placeHolderTXT}
                     value={this.props.customerAmount}
-                    onChange={this.crytoCurrencyCalculate.bind(this)}
+                    onInput={this.crytoCurrencyCalculate.bind(this)}
                     min="0"
                     required
                 />
 
                 {(() =>{
-                    if(!limitsOK && this.props.amount != ""){
+                    if(!limitsOK && this.props.cryptoAmount != ""){
                         return (
                             <div className="alert alert-danger" role="alert">
                                 <i className="fa fa-thumbs-o-down red"></i>
@@ -78,17 +76,12 @@ let Amount = React.createClass({
                 })()}
 
                 <input
-                    className="form-control"
-                    placeholder={translate('CRYPTO_AMOUNT_TXT')}
                     type="number"
                     id="cryptoAmount"
+                    className="form-control"
                     value={this.props.cryptoAmount}
-                />
-
-                <input
-                    type="hidden"
-                    id="amount"
-                    value={this.props.amount}
+                    placeholder={translate('CRYPTO_AMOUNT_TXT')}
+                    onInput={this.customerAmountCalculate.bind(this)}
                 />
             </div>
         )

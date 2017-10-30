@@ -1,8 +1,8 @@
 import React from 'react'
 import { Amount } from './amount'
 import { Input } from '../../Inputs'
-import { CryptoCurrencies } from './CryptoCurrencies'
 import Cashier from '../../../constants/Cashier'
+import { CryptoCurrencies } from './CryptoCurrencies'
 import { UIService } from '../../../services/UIService'
 import { translate } from '../../../constants/Translate'
 import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
@@ -10,20 +10,16 @@ import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 let AskInfo = React.createClass({
 
 	propTypes: {
-		amount: React.PropTypes.node,
-		btcAmount: React.PropTypes.node,
+		rate: React.PropTypes.number,
+		limits: React.PropTypes.object,
+		setLimits: React.PropTypes.func,
 		cryptoAmount: React.PropTypes.node,
 		customerAmount: React.PropTypes.node,
-
-		setAmount: React.PropTypes.func,
-		setLimits: React.PropTypes.func,
-		setBTCAmount: React.PropTypes.func,
 		getCurrencyRate: React.PropTypes.func,
 		setCryptoAmount: React.PropTypes.func,
 		setCustomerAmount: React.PropTypes.func,
-
-		rate: React.PropTypes.number,
-		limits: React.PropTypes.object
+		amountToBTCCalculate: React.PropTypes.func,
+		btcToAmountCalculate: React.PropTypes.func
 	},
 
 	componentWillMount() {
@@ -40,6 +36,9 @@ let AskInfo = React.createClass({
 		}
 	},
 
+	/**
+	 * Get currencies list available and unavailable to execute crypto transfer
+	 */
 	getCurrencies() {
 		let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_GET_COINS;
 		fetch(url).then((response) => {
@@ -54,6 +53,12 @@ let AskInfo = React.createClass({
 		});
 	},
 
+	/**
+	 * Generate content with important information for the current currency
+	 * 
+	 * @param currency
+	 * @returns {XML}
+     */
 	currencyContent(currency) {
 		currency = this.state.currencies[currency];
 		return(
@@ -61,14 +66,19 @@ let AskInfo = React.createClass({
 				currency={currency}
 			  	rate={this.props.rate}
 				limits={this.props.limits}
-				setAmount={this.props.setAmount}
 				setLimits={this.props.setLimits}
-				setBTCAmount={this.props.setBTCAmount}
 			 	getCurrencyRate={this.props.getCurrencyRate}
+				amountToBTCCalculate={this.props.amountToBTCCalculate}
+				btcToAmountCalculate={this.props.btcToAmountCalculate}
 			/>
 		)
 	},
 
+	/**
+	 * Build currencies container with all currencies available to crypto transfer
+	 *
+	 * @returns {XML}
+     */
 	buildCurrenciesContainer() {
 		let currency = [];
 		let orderCurrencies = [];
@@ -132,14 +142,11 @@ let AskInfo = React.createClass({
 		)
 	},
 
-	showCurrencies(){
-		$('#cryptoTransferModal').css('display', 'flex');
-	},
-
-	hideCurrencies(){
-		$('#cryptoTransferModal').css('display', 'none');
-	},
-
+	/**
+	 * Find any currency with a name similar to the entry search
+	 *
+	 * @param event
+     */
 	searchCurrency(event) {
 		let txtSearch = event.target.value.toLowerCase();
 		if(txtSearch == '') {
@@ -147,6 +154,14 @@ let AskInfo = React.createClass({
 		}else{
 			$('.cryptoTransferCurrency').show().not('[id ^= "' + txtSearch + '"]').hide().filter('[id = "' + txtSearch + '"]').show();
 		}
+	},
+
+	showCurrencies(){
+		$('#cryptoTransferModal').css('display', 'flex');
+	},
+
+	hideCurrencies(){
+		$('#cryptoTransferModal').css('display', 'none');
 	},
 
 	render() {
@@ -171,23 +186,25 @@ let AskInfo = React.createClass({
 
 					<div id="cryptoAskInform">
 						<Amount
-							amount={this.props.amount}
-							btcAmount={this.props.btcAmount}
-							cryptoAmount={this.props.cryptoAmount}
-							customerAmount={this.props.customerAmount}
-
-							setAmount={this.props.setAmount}
-							setBTCAmount={this.props.setBTCAmount}
-							setCryptoAmount={this.props.setCryptoAmount}
-							setCustomerAmount={this.props.setCustomerAmount}
-							getCurrencyRate={this.props.setCurrencyRate}
-
 							rate={this.props.rate}
 							limits={this.props.limits}
+							cryptoAmount={this.props.cryptoAmount}
+							setLimits={this.props.setCurrencyLimits}
+							customerAmount={this.props.customerAmount}
+							setCryptoAmount={this.props.setCryptoAmount}
+							getCurrencyRate={this.props.getCurrencyRate}
+							setCustomerAmount={this.props.setCustomerAmount}
 						/>
 
-						<Input className="form-control" type="hidden" id="btcAmount" onChange={this.props.setBTCAmount} value={this.props.btcAmount}/>
-						<Input className="form-control" placeholder={translate('CRYPTO_REFUND_ADDRESS')} type="text" id="cryptoAdress" name="cryptoAdress" min="0" required/>
+						<Input
+							type="text"
+							id="cryptoAdress"
+							name="cryptoAdress"
+							className="form-control"
+							placeholder={translate('CRYPTO_REFUND_ADDRESS')}
+							min="0"
+							required
+						/>
 					</div>
 				</div>
 			)

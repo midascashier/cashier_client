@@ -7,6 +7,18 @@ import { UIService } from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
 
+	propTypes: {
+		cryptoAmount: React.PropTypes.node,
+		customerAmount: React.PropTypes.node,
+
+		getCurrencyRate: React.PropTypes.func,
+		setCryptoAmount: React.PropTypes.func,
+		setCustomerAmount: React.PropTypes.func,
+
+		rate: React.PropTypes.number,
+		limits: React.PropTypes.object
+	},
+
 	/**
 	 * React function to set component initial state
 	 *
@@ -51,9 +63,8 @@ let InfoMethod = React.createClass({
 	 */
 	continueTransaction(){
 		let isWithDraw = UIService.getIsWithDraw();
-		TransactionService.setAmount(this.props.amount);
+		TransactionService.setAmount(this.props.customerAmount);
 		TransactionService.setBitcoinAddress(this.props.bitcoinAddress);
-		TransactionService.setFeeAmount(this.props.feeCashValue);
 		if(isWithDraw){
 			UIService.confirmTransaction();
 		}else{
@@ -69,28 +80,28 @@ let InfoMethod = React.createClass({
 		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
 			limitsCheck = true;
 		}
-		
+
 		let feeCheck = this.props.feeCheck;
 		let isWithDraw = UIService.getIsWithDraw();
 		let allowContinueToConfirm = true;
-		
+
 		if(isWithDraw){
 			allowContinueToConfirm = this.props.allowContinueToConfirm;
 		}
-		
+
 		let processorDisplayName = UIService.getProcessorDisplayName().toUpperCase();
-		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
+		let payAccountInfo = UIService.getDisplayLimits(this.props.customerAmount);
 		let originPath = UIService.getOriginPath();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
-		
+
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
 			processorName: processorDisplayName,
 			transactionType: transactionType
 		});
 
 		let isNextDisabled = "disabled";
-		
+
 		if(isWithDraw){
 			if(limitsCheck && !feeCheck && allowContinueToConfirm){
 				isNextDisabled = "";
@@ -110,11 +121,11 @@ let InfoMethod = React.createClass({
 							<tbody>
 								<tr>
 									<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-									<td><span>{payAccountInfo.minPayAccount}</span></td>
+									<td><span>{this.props.limits.minAmount}</span></td>
 								</tr>
 								<tr>
 									<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-									<td><span>{payAccountInfo.maxPayAccount}</span></td>
+									<td><span>{this.props.limits.maxAmount}</span></td>
 								</tr>
 								<tr>
 									<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>

@@ -9,14 +9,6 @@ import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 
 let CryptoTransfer = React.createClass({
 
-	propTypes: {
-		amount: React.PropTypes.node,
-		btcAmount: React.PropTypes.node,
-
-		setAmount: React.PropTypes.func,
-		setBTCAmount: React.PropTypes.func
-	},
-
 	/**
 	 * React function to set component initial state
 	 */
@@ -50,6 +42,11 @@ let CryptoTransfer = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
+	/**
+	 * Get rate to current currency symbol value
+	 * 
+	 * @param symbolValue
+     */
 	getCurrencyRate(symbolValue) {
 		let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_GET_RATE + symbolValue + '_BTC';
 		fetch(url, {method: 'GET'}).then((response) => {
@@ -62,25 +59,29 @@ let CryptoTransfer = React.createClass({
 	},
 
 	/**
-	 * Set btc amount
+	 * Set crypto amount
 	 *
 	 * @param btcAmount
-	 * @param rate
-	 */
-	setCryptoAmount(btcAmount, rate){
+	 * @param customerAmount
+     */
+	setCryptoAmount(btcAmount, customerAmount){
+		let rate = this.state.info.rate;
 		let actualState = this.state.info;
-		actualState.cryptoAmount = btcAmount * rate ;
+		actualState.customerAmount = customerAmount;
+		actualState.cryptoAmount = parseFloat(btcAmount / rate).toFixed(8);
 		this.setState({info: actualState});
 	},
 
 	/**
-	 * Set btc amount
+	 * Set customer Amount
 	 * 
-	 * @param amount
+	 * @param btcAmount
+	 * @param cryptoAmount
      */
-	setCustomerAmount(amount){
+	setCustomerAmount(btcAmount, cryptoAmount){
 		let actualState = this.state.info;
-		actualState.customerAmount = amount ;
+		actualState.cryptoAmount = cryptoAmount;
+		actualState.customerAmount = parseFloat(btcAmount / CashierStore.getBTCRate()).toFixed(2);
 		this.setState({info: actualState});
 	},
 
@@ -106,26 +107,50 @@ let CryptoTransfer = React.createClass({
 		this.setState({info: actualState});
 	},
 
+	/**
+	 * Calculate btc amount from crypto amount
+	 *
+	 * @param amount
+	 * @returns {number}
+	 */
+	amountToBTCCalculate(amount) {
+		return amount * parseFloat(CashierStore.getBTCRate()).toFixed(8);
+	},
+
+	/**
+	 * Calculate amount from crypto amount
+	 *
+	 * @param cryptoAmount
+	 * @returns {number}
+	 */
+	btcToAmountCalculate(cryptoAmount) {
+		return cryptoAmount * parseFloat(CashierStore.getBTCRate()).toFixed(8);
+	},
+
 	render() {
 		return (
 			<div id="crypto">
 				<div className="col-sm-6">
-					<AskInfo
-						amount={this.props.amount}
-						btcAmount={this.props.btcAmount}
-						cryptoAmount={this.state.info.cryptoAmount}
-						customerAmount={this.state.info.customerAmount}
+					{(() =>{
+						if(!this.state.info.selectedProcessor.processorId){
+							return <LoadingSpinner/>;
+						}
 
-						setAmount={this.props.setAmount}
-						setLimits={this.setCurrencyLimits}
-						setBTCAmount={this.props.setBTCAmount}
-						setCryptoAmount={this.setCryptoAmount}
-						setCustomerAmount={this.setCustomerAmount}
-						getCurrencyRate={this.getCurrencyRate}
-
-						rate={this.state.info.rate}
-						limits={this.state.info.limits}
-					/>
+						return(
+							<AskInfo
+								rate={this.state.info.rate}
+								limits={this.state.info.limits}
+								setLimits={this.setCurrencyLimits}
+								setCryptoAmount={this.setCryptoAmount}
+								getCurrencyRate={this.getCurrencyRate}
+								setCustomerAmount={this.setCustomerAmount}
+								cryptoAmount={this.state.info.cryptoAmount}
+								customerAmount={this.state.info.customerAmount}
+								amountToBTCCalculate={this.amountToBTCCalculate}
+								btcToAmountCalculate={this.btcToAmountCalculate}
+							/>
+						)
+					})()}
 				</div>
 
 				<div className="col-sm-6">
@@ -136,20 +161,14 @@ let CryptoTransfer = React.createClass({
 
 						return(
 							<InfoMethod
-								amount={this.props.amount}
-								btcAmount={this.props.btcAmount}
-								cryptoAmount={this.state.info.cryptoAmount}
-								customerAmount={this.state.info.customerAmount}
-
-								setAmount={this.props.setAmount}
 								setLimits={this.setCurrencyLimits}
-								setBTCAmount={this.props.setBTCAmount}
-								setCryptoAmount={this.setCryptoAmount}
-								setCustomerAmount={this.setCustomerAmount}
-								getCurrencyRate={this.setCurrencyRate}
-
 								rate={this.state.info.rate}
 								limits={this.state.info.limits}
+								cryptoAmount={this.state.info.cryptoAmount}
+								customerAmount={this.state.info.customerAmount}
+								setCryptoAmount={this.setCryptoAmount}
+								getCurrencyRate={this.getCurrencyRate}
+								setCustomerAmount={this.setCustomerAmount}
 							/>
 						)
 					})()}

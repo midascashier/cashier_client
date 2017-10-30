@@ -7,19 +7,13 @@ import { ApplicationService } from '../../../services/ApplicationService'
 let CryptoCurrencies = React.createClass({
 
     propTypes: {
-        amount: React.PropTypes.node,
-        btcAmount: React.PropTypes.node,
-        cryptoAmount: React.PropTypes.node,
-        customerAmount: React.PropTypes.node,
-
-        setAmount: React.PropTypes.func,
-        setBTCAmount: React.PropTypes.func,
-        getCurrencyRate: React.PropTypes.func,
-        setCryptoAmount: React.PropTypes.func,
-        setCustomerAmount: React.PropTypes.func,
-
         rate: React.PropTypes.number,
-        limits: React.PropTypes.object
+        limits: React.PropTypes.object,
+        setLimits: React.PropTypes.func,
+        currency: React.PropTypes.string,
+        getCurrencyRate: React.PropTypes.func,
+        amountToBTCCalculate: React.PropTypes.func,
+        btcToAmountCalculate: React.PropTypes.func
     },
 
     currencyActions(event) {
@@ -74,8 +68,7 @@ let CryptoCurrencies = React.createClass({
                     limitMin = this.props.rate * market.minimum;
                     limitMax = this.props.rate * market.maxLimit;
 
-                    this.props.setAmount(caLimitMin);
-                    let caLimitMinBTC = $('#btcAmount').val();
+                    let caLimitMinBTC = this.props.amountToBTCCalculate(caLimitMin);
 
                     let min =  null;
                     if(caLimitMinBTC > limitMin){
@@ -87,14 +80,12 @@ let CryptoCurrencies = React.createClass({
                     }
 
                     min = parseFloat(min).toPrecision(3);
-                    this.props.setBTCAmount(min);
-                    let minAmount = parseFloat($('#amount').val());
+                    let minAmount = this.props.btcToAmountCalculate(min);
                     let final = Math.round(minAmount + round);
                     finalMin = (isCusMin) ? caLimitMin : final;
 
                     //Max Limits
-                    this.props.setAmount(caLimitMax);
-                    let caLimitMaxBTC = $('#btcAmount').val();
+                    let caLimitMaxBTC = this.props.amountToBTCCalculate(caLimitMax);
 
                     let max =  null;
                     if(caLimitMaxBTC > limitMax){
@@ -106,8 +97,7 @@ let CryptoCurrencies = React.createClass({
                     }
 
                     max = parseFloat(max).toPrecision(3);
-                    this.props.setBTCAmount(max);
-                    let maxAmount = parseFloat($('#amount').val());
+                    let maxAmount = this.props.btcToAmountCalculate(max);
                     final = Math.round(maxAmount + round);
                     finalMax = (isCusMax) ? caLimitMax : final;
 
@@ -124,7 +114,6 @@ let CryptoCurrencies = React.createClass({
                     };
 
                     this.props.setLimits(limits);
-
                     $('#cryptoLimits').html(limitsCont);
 
                     clearTimeout(waitRate);
