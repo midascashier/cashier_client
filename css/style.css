@@ -325,6 +325,10 @@ div[class*="col-"] > div[class*="col-"]:before {
     color: #777;;
 }
 
+#symbolValue {
+    display: none;
+}
+
 #cryptoAskInform {
     width: 300px;
     display: none;

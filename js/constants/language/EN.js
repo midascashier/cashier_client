@@ -242,7 +242,8 @@ let _langTags = {
 	CRYPTO_AMOUNT_TXT: 'Crypto amount',
 	CRYPTO_REFUND_ADDRESS: 'Refund address',
 	CRYPTO_SELECT_CURRENCY: 'Select your crypto currency',
-	CRYPTO_SEARCH_TXT: 'Search currency name'
+	CRYPTO_SEARCH_TXT: 'Search currency name',
+	CRYPTO_REFUND_ERROR_MSG: 'Invalid refund address format'
 };
 
 export function EN(){
