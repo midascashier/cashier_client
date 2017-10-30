@@ -14,6 +14,7 @@ let AskInfo = React.createClass({
 		limits: React.PropTypes.object,
 		setLimits: React.PropTypes.func,
 		cryptoAmount: React.PropTypes.node,
+		limitsCheck: React.PropTypes.string,
 		customerAmount: React.PropTypes.node,
 		getCurrencyRate: React.PropTypes.func,
 		setCryptoAmount: React.PropTypes.func,
@@ -55,7 +56,7 @@ let AskInfo = React.createClass({
 
 	/**
 	 * Generate content with important information for the current currency
-	 * 
+	 *
 	 * @param currency
 	 * @returns {XML}
      */
@@ -188,6 +189,7 @@ let AskInfo = React.createClass({
 						<Amount
 							rate={this.props.rate}
 							limits={this.props.limits}
+							limitsCheck={this.props.limitsCheck}
 							cryptoAmount={this.props.cryptoAmount}
 							setLimits={this.props.setCurrencyLimits}
 							customerAmount={this.props.customerAmount}

@@ -16,7 +16,7 @@ let BitCoin = React.createClass({
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
 		setPromoCode: React.PropTypes.func,
-		promoCode: React.PropTypes.string,
+		promoCode: React.PropTypes.string
 	},
 
 	/**

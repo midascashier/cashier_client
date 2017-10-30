@@ -10,6 +10,7 @@ let Amount = React.createClass({
     propTypes: {
         rate: React.PropTypes.number,
         cryptoAmount: React.PropTypes.node,
+        limitsCheck: React.PropTypes.string,
         customerAmount: React.PropTypes.node,
         setCryptoAmount: React.PropTypes.func,
         setCustomerAmount: React.PropTypes.func

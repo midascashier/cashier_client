@@ -20,10 +20,11 @@ let CryptoTransfer = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			info : {
 				rate : '',
+				limitsCheck : '',
 				cryptoAmount : '',
 				customerAmount : '',
 				transaction : CashierStore.getTransaction(),
@@ -38,16 +39,16 @@ let CryptoTransfer = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
 	/**
 	 * Get rate to current currency symbol value
-	 * 
+	 *
 	 * @param symbolValue
      */
-	getCurrencyRate(symbolValue) {
+	getCurrencyRate(symbolValue){
 		let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_GET_RATE + symbolValue + '_BTC';
 		fetch(url, {method: 'GET'}).then((response) => {
 			return response.json();
@@ -56,6 +57,48 @@ let CryptoTransfer = React.createClass({
 		}).catch((err) => {
 			console.error(err);
 		});
+	},
+
+	/**
+	 * Check mix and Max limits
+	 *
+	 * @returns {*}
+     */
+	limitCheckStatus(){
+		let limitsInfo = this.state.info.limits;
+		let amount = this.state.info.customerAmount;
+
+		if(isNaN(amount)){
+			return Cashier.LOADING;
+		}
+
+		let min = parseFloat(limitsInfo.minAmount);
+		let max = parseFloat(limitsInfo.maxAmount);
+
+		if(!min && !max){
+			let limits = UIService.getProcessorLimitMinMax();
+			min = limits.minAmount;
+			max = limits.maxAmount;
+		}
+
+		if(amount < min){
+			return Cashier.M_BELOW_MIN;
+		}
+
+		if(amount > max){
+			return Cashier.M_ABOVE_MAX;
+		}
+
+		return Cashier.LIMIT_NO_ERRORS;
+	},
+
+	/**
+	 * set limits status local state
+	 */
+	checkLimits(){
+		let actualState = this.state.info;
+		actualState.limitsCheck = this.limitCheckStatus();
+		this.setState({info: actualState});
 	},
 
 	/**
@@ -69,7 +112,9 @@ let CryptoTransfer = React.createClass({
 		let actualState = this.state.info;
 		actualState.customerAmount = customerAmount;
 		actualState.cryptoAmount = parseFloat(btcAmount / rate).toFixed(8);
-		this.setState({info: actualState});
+		this.setState({info: actualState}, function afterAmountChange(){
+			this.checkLimits();
+		});
 	},
 
 	/**
@@ -82,7 +127,9 @@ let CryptoTransfer = React.createClass({
 		let actualState = this.state.info;
 		actualState.cryptoAmount = cryptoAmount;
 		actualState.customerAmount = parseFloat(btcAmount / CashierStore.getBTCRate()).toFixed(2);
-		this.setState({info: actualState});
+		this.setState({info: actualState}, function afterAmountChange(){
+			this.checkLimits();
+		});
 	},
 
 	/**
@@ -113,7 +160,7 @@ let CryptoTransfer = React.createClass({
 	 * @param amount
 	 * @returns {number}
 	 */
-	amountToBTCCalculate(amount) {
+	amountToBTCCalculate(amount){
 		return amount * parseFloat(CashierStore.getBTCRate()).toFixed(8);
 	},
 
@@ -123,7 +170,7 @@ let CryptoTransfer = React.createClass({
 	 * @param cryptoAmount
 	 * @returns {number}
 	 */
-	btcToAmountCalculate(cryptoAmount) {
+	btcToAmountCalculate(cryptoAmount){
 		return cryptoAmount * parseFloat(CashierStore.getBTCRate()).toFixed(8);
 	},
 
@@ -143,6 +190,7 @@ let CryptoTransfer = React.createClass({
 								setLimits={this.setCurrencyLimits}
 								setCryptoAmount={this.setCryptoAmount}
 								getCurrencyRate={this.getCurrencyRate}
+								limitsCheck={this.state.info.limitsCheck}
 								setCustomerAmount={this.setCustomerAmount}
 								cryptoAmount={this.state.info.cryptoAmount}
 								customerAmount={this.state.info.customerAmount}
@@ -181,14 +229,14 @@ let CryptoTransfer = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });
