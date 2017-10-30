@@ -26,7 +26,9 @@ let CryptoTransfer = React.createClass({
 				rate : '',
 				limitsCheck : '',
 				cryptoAmount : '',
+				cryptoAddress : '',
 				customerAmount : '',
+				cryptoAddressError : false,
 				transaction : CashierStore.getTransaction(),
 				limits : UIService.getProcessorLimitMinMax(),
 				selectedProcessor : CashierStore.getProcessor()
@@ -102,6 +104,23 @@ let CryptoTransfer = React.createClass({
 	},
 
 	/**
+	 * Check is crypto address is valid
+	 */
+	checkCryptoAddress(callback){
+		var symbol = document.getElementById('symbolValue');
+		var address = this.state.info.cryptoAddress;
+
+		let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_VALIDATE_ADDRESS + address + '/' + symbol.innerHTML;
+		fetch(url, {method: 'GET'}).then((response) => {
+			return response.json();
+		}).then((isValid) => {
+			callback(isValid.isvalid);
+		}).catch((err) => {
+			console.error(err);
+		});
+	},
+
+	/**
 	 * Set crypto amount
 	 *
 	 * @param btcAmount
@@ -155,6 +174,28 @@ let CryptoTransfer = React.createClass({
 	},
 
 	/**
+	 * Set crypto address
+	 *
+	 * @param cryptoAddress
+     */
+	setCryptoAddress(cryptoAddress){
+		let actualState = this.state.info;
+		actualState.cryptoAddress = cryptoAddress ;
+		this.setState({info: actualState}, function afterAmountChange(){
+			this.setCryptoAddressError(false);
+		});
+	},
+
+	/**
+	 * Set true in state if exist error in crypto address
+	 */
+	setCryptoAddressError(cryptoAddressError){
+		let actualState = this.state.info;
+		actualState.cryptoAddressError = cryptoAddressError ;
+		this.setState({info: actualState});
+	},
+
+	/**
 	 * Calculate btc amount from crypto amount
 	 *
 	 * @param amount
@@ -190,12 +231,15 @@ let CryptoTransfer = React.createClass({
 								setLimits={this.setCurrencyLimits}
 								setCryptoAmount={this.setCryptoAmount}
 								getCurrencyRate={this.getCurrencyRate}
+								setCryptoAddress={this.setCryptoAddress}
 								limitsCheck={this.state.info.limitsCheck}
 								setCustomerAmount={this.setCustomerAmount}
 								cryptoAmount={this.state.info.cryptoAmount}
+								cryptoAddress={this.state.info.cryptoAddress}
 								customerAmount={this.state.info.customerAmount}
 								amountToBTCCalculate={this.amountToBTCCalculate}
 								btcToAmountCalculate={this.btcToAmountCalculate}
+								cryptoAddressError={this.state.info.cryptoAddressError}
 							/>
 						)
 					})()}
@@ -212,11 +256,15 @@ let CryptoTransfer = React.createClass({
 								setLimits={this.setCurrencyLimits}
 								rate={this.state.info.rate}
 								limits={this.state.info.limits}
-								cryptoAmount={this.state.info.cryptoAmount}
-								customerAmount={this.state.info.customerAmount}
 								setCryptoAmount={this.setCryptoAmount}
 								getCurrencyRate={this.getCurrencyRate}
+								limitsCheck={this.state.info.limitsCheck}
 								setCustomerAmount={this.setCustomerAmount}
+								cryptoAmount={this.state.info.cryptoAmount}
+								checkCryptoAddress={this.checkCryptoAddress}
+								cryptoAddress={this.state.info.cryptoAddress}
+								customerAmount={this.state.info.customerAmount}
+								setCryptoAddressError={this.setCryptoAddressError}
 							/>
 						)
 					})()}

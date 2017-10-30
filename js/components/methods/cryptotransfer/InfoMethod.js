@@ -1,22 +1,24 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
-import { translate } from '../../../constants/Translate'
 import Cashier from '../../../constants/Cashier'
-import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
+import { translate } from '../../../constants/Translate'
+import { CashierStore } from '../../../stores/CashierStore'
+import { TransactionService } from '../../../services/TransactionService'
 
 let InfoMethod = React.createClass({
 
 	propTypes: {
+		rate: React.PropTypes.number,
+		limits: React.PropTypes.object,
+		limitsCheck: React.PropTypes.node,
 		cryptoAmount: React.PropTypes.node,
 		customerAmount: React.PropTypes.node,
-
 		getCurrencyRate: React.PropTypes.func,
 		setCryptoAmount: React.PropTypes.func,
+		cryptoAddress: React.PropTypes.string,
 		setCustomerAmount: React.PropTypes.func,
-
-		rate: React.PropTypes.number,
-		limits: React.PropTypes.object
+		checkCryptoAddress: React.PropTypes.func,
+		setCryptoAddressError: React.PropTypes.func
 	},
 
 	/**
@@ -62,16 +64,21 @@ let InfoMethod = React.createClass({
 	 *
 	 */
 	continueTransaction(){
-		let isWithDraw = UIService.getIsWithDraw();
-		TransactionService.setAmount(this.props.customerAmount);
-		TransactionService.setBitcoinAddress(this.props.bitcoinAddress);
-		if(isWithDraw){
-			UIService.confirmTransaction();
-		}else{
-			//process the deposit
-			let customer = UIService.getCustomerInformation();
-			TransactionService.processBTC({ account: customer.username }, 'instructions');
-		}
+		this.props.checkCryptoAddress((valid) => {
+			if(valid){
+				let isWithDraw = UIService.getIsWithDraw();
+				TransactionService.setAmount(this.props.customerAmount);
+				TransactionService.setBitcoinAddress(this.props.bitcoinAddress);
+				if(isWithDraw){
+					UIService.confirmTransaction();
+				}else{
+					let customer = UIService.getCustomerInformation();
+					TransactionService.processBTC({ account: customer.username }, 'instructions');
+				}
+			}else{
+				this.props.setCryptoAddressError(true);
+			}
+		});
 	},
 
 	render() {
@@ -103,11 +110,11 @@ let InfoMethod = React.createClass({
 		let isNextDisabled = "disabled";
 
 		if(isWithDraw){
-			if(limitsCheck && !feeCheck && allowContinueToConfirm){
+			if(limitsCheck && !feeCheck && this.props.cryptoAddress){
 				isNextDisabled = "";
 			}
 		}else{
-			if(limitsCheck && allowContinueToConfirm){
+			if(limitsCheck && this.props.cryptoAddress){
 				isNextDisabled = "";
 			}
 		}
@@ -136,8 +143,7 @@ let InfoMethod = React.createClass({
 					</div>
 					<div className="row mod-btns">
 						<div className="col-sm-6">
-							<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled}
-											className='btn btn-green'>
+							<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
 								{translate('PROCESSING_BUTTON_NEXT', 'Next')}
 							</button>
 							<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>

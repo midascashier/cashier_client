@@ -1,6 +1,5 @@
 import React from 'react'
 import { Amount } from './amount'
-import { Input } from '../../Inputs'
 import Cashier from '../../../constants/Cashier'
 import { CryptoCurrencies } from './CryptoCurrencies'
 import { UIService } from '../../../services/UIService'
@@ -14,11 +13,14 @@ let AskInfo = React.createClass({
 		limits: React.PropTypes.object,
 		setLimits: React.PropTypes.func,
 		cryptoAmount: React.PropTypes.node,
+		cryptoAddress: React.PropTypes.node,
 		limitsCheck: React.PropTypes.string,
 		customerAmount: React.PropTypes.node,
 		getCurrencyRate: React.PropTypes.func,
 		setCryptoAmount: React.PropTypes.func,
+		setCryptoAddress: React.PropTypes.func,
 		setCustomerAmount: React.PropTypes.func,
+		cryptoAddressError: React.PropTypes.node,
 		amountToBTCCalculate: React.PropTypes.func,
 		btcToAmountCalculate: React.PropTypes.func
 	},
@@ -157,6 +159,16 @@ let AskInfo = React.createClass({
 		}
 	},
 
+	/**
+	 * Change crypto address value
+	 *
+	 * @param event
+     */
+	changeCryptoAddress(event){
+		let cryptoAddress = event.target.value;
+		this.props.setCryptoAddress(cryptoAddress);
+	},
+
 	showCurrencies(){
 		$('#cryptoTransferModal').css('display', 'flex');
 	},
@@ -182,6 +194,7 @@ let AskInfo = React.createClass({
 						<div id="cryptoTransfer-Btn-content">
 							<img id="imgSmall" src=""/>
 							<span id="symbolName"></span>
+							<span id="symbolValue"></span>
 						</div>
 					</div>
 
@@ -198,11 +211,23 @@ let AskInfo = React.createClass({
 							setCustomerAmount={this.props.setCustomerAmount}
 						/>
 
-						<Input
+						{(() =>{
+							if(this.props.cryptoAddressError){
+								return (
+									<div className="alert alert-danger" role="alert">
+										<strong>{translate('CRYPTO_REFUND_ERROR_MSG')}</strong>
+									</div>
+								)
+							}
+						})()}
+
+						<input
 							type="text"
 							id="cryptoAdress"
 							name="cryptoAdress"
 							className="form-control"
+							value={this.props.cryptoAddress}
+							onInput={this.changeCryptoAddress.bind(this)}
 							placeholder={translate('CRYPTO_REFUND_ADDRESS')}
 							min="0"
 							required

@@ -29,9 +29,9 @@ let CryptoCurrencies = React.createClass({
         $('#imgSmall').attr('src', img);
         $('#symbolName').text(symbolName);
         $('#currencyName').val(symbolName);
+        $('#symbolValue').text(symbolValue);
         $('#AskInform').removeAttr('style');
         $('#Important').removeAttr('style');
-        $('#currencySymbol').val(symbolValue);
         $('#AuthComponent').removeAttr('style');
         $('#cryptoAskInform').css('display', 'block');
         $('#cryptoTransfer-Btn-content').css('display', 'block');
