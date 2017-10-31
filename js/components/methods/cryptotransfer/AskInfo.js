@@ -32,11 +32,12 @@ let AskInfo = React.createClass({
 		});
 
 		this.getCurrencies();
+
 		window.onclick = function (event) {
 			if (event.target == document.getElementById('cryptoTransferModal')) {
 				$('#cryptoTransferModal').css('display', 'none');
 			}
-		}
+		};
 	},
 
 	/**
@@ -198,6 +199,19 @@ let AskInfo = React.createClass({
 						</div>
 					</div>
 
+					<p id="refundErrorMsg">{translate('CRYPTO_REFUND_HELP')}</p>
+					{(() =>{
+						$('#helpAddress').mouseenter(function () {
+							$('#refundErrorMsg').css({
+								'display': 'block'
+							})
+						}).mouseleave(function () {
+							$('#refundErrorMsg').css({
+								'display': 'none'
+							})
+						})
+					})()}
+
 					<div id="cryptoAskInform">
 						<Amount
 							rate={this.props.rate}
@@ -221,17 +235,20 @@ let AskInfo = React.createClass({
 							}
 						})()}
 
-						<input
-							type="text"
-							id="cryptoAdress"
-							name="cryptoAdress"
-							className="form-control"
-							value={this.props.cryptoAddress}
-							onInput={this.changeCryptoAddress.bind(this)}
-							placeholder={translate('CRYPTO_REFUND_ADDRESS')}
-							min="0"
-							required
-						/>
+						<div id="cryptoAddressContainer">
+							<input
+								type="text"
+								id="cryptoAddress"
+								name="cryptoAddress"
+								className="form-control"
+								value={this.props.cryptoAddress}
+								onInput={this.changeCryptoAddress.bind(this)}
+								placeholder={translate('CRYPTO_REFUND_ADDRESS')}
+								min="0"
+								required
+							/>
+							<span id="helpAddress">?</span>
+						</div>
 					</div>
 				</div>
 			)
