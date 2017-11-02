@@ -12,13 +12,16 @@ let InfoMethod = React.createClass({
 		limits: React.PropTypes.object,
 		limitsCheck: React.PropTypes.node,
 		cryptoAmount: React.PropTypes.node,
+		cryptoAddress: React.PropTypes.node,
 		customerAmount: React.PropTypes.node,
 		getCurrencyRate: React.PropTypes.func,
 		setCryptoAmount: React.PropTypes.func,
-		cryptoAddress: React.PropTypes.string,
+		setAmountRateBTC: React.PropTypes.func,
 		setCustomerAmount: React.PropTypes.func,
 		checkCryptoAddress: React.PropTypes.func,
-		setCryptoAddressError: React.PropTypes.func
+		setCryptoCurrencyISO: React.PropTypes.node,
+		setCryptoCurrencyName: React.PropTypes.node,
+		setCryptoAddressError: React.PropTypes.node
 	},
 
 	/**
@@ -64,16 +67,30 @@ let InfoMethod = React.createClass({
 	 *
 	 */
 	continueTransaction(){
+
+		let amount = this.props.customerAmount;
+		let address = this.props.cryptoAddress;
+		let rateBTC = this.props.amountRateBTC;
+		let cryptoAmount = this.props.cryptoAmount;
+		let currencyISO = this.props.cryptoCurrencyISO;
+		let currencyName = this.props.cryptoCurrencyName;
+		let transaction = CashierStore.getTransaction();
+
+		transaction.amount = amount;
+		transaction.payAccountId = 0;
+		transaction.cryptoAddress = address;
+		transaction.currencyName = currencyName;
+		transaction.BTCConversionRate = rateBTC;
+		transaction.currencySymbol = currencyISO;
+		transaction.BTCConversionAmount = cryptoAmount;
+
 		this.props.checkCryptoAddress((valid) => {
 			if(valid){
 				let isWithDraw = UIService.getIsWithDraw();
-				TransactionService.setAmount(this.props.customerAmount);
-				TransactionService.setBitcoinAddress(this.props.bitcoinAddress);
 				if(isWithDraw){
 					UIService.confirmTransaction();
 				}else{
-					let customer = UIService.getCustomerInformation();
-					TransactionService.processBTC({ account: customer.username }, 'instructions');
+					TransactionService.processCryptoTransfer(transaction, 'instructions');
 				}
 			}else{
 				this.props.setCryptoAddressError(true);

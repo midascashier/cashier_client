@@ -19,10 +19,13 @@ let AskInfo = React.createClass({
 		getCurrencyRate: React.PropTypes.func,
 		setCryptoAmount: React.PropTypes.func,
 		setCryptoAddress: React.PropTypes.func,
+		setAmountRateBTC: React.PropTypes.func,
 		setCustomerAmount: React.PropTypes.func,
 		cryptoAddressError: React.PropTypes.node,
 		amountToBTCCalculate: React.PropTypes.func,
-		btcToAmountCalculate: React.PropTypes.func
+		btcToAmountCalculate: React.PropTypes.func,
+		setCryptoCurrencyISO: React.PropTypes.func,
+		setCryptoCurrencyName: React.PropTypes.func
 	},
 
 	componentWillMount() {
@@ -72,8 +75,11 @@ let AskInfo = React.createClass({
 				limits={this.props.limits}
 				setLimits={this.props.setLimits}
 			 	getCurrencyRate={this.props.getCurrencyRate}
+				setAmountRateBTC={this.props.setAmountRateBTC}
 				amountToBTCCalculate={this.props.amountToBTCCalculate}
 				btcToAmountCalculate={this.props.btcToAmountCalculate}
+				setCryptoCurrencyISO={this.props.setCryptoCurrencyISO}
+				setCryptoCurrencyName={this.props.setCryptoCurrencyName}
 			/>
 		)
 	},

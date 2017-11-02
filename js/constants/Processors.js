@@ -112,9 +112,9 @@ settings[Cashier.PROCESSOR_ID_DEBITCARD][REGISTER_ACCOUNTS_ALLOW] = 0;
 
 settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER] = [];
 settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER][LIMITS_VALIDATION_VERSION] = "lite";
-settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER][DEPOSIT_STEPS] = ["selectMethod", "askInfo"];
+settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "instructions"];
 settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER][WITHDRAW_STEPS] = ["selectMethod", "askInfo"];
-settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER][SETTING_ROUTE] = 'cryptotransfer/';
+settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER][SETTING_ROUTE] = 'btc_crypto_transfer/';
 settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER][REGISTER_ACCOUNTS_ALLOW] = 0;
 
 export default {

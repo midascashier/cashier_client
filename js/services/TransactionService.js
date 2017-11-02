@@ -393,6 +393,34 @@ class transactionService {
 	};
 
 	/**
+	 * this function sends to process a transaction
+	 */
+	processCryptoTransfer(dynamicParams, nextStep){
+
+		//clean current transaction response
+		CashierStore.getLastTransactionResponse().cleanTransaction();
+
+		let transaction = CashierStore.getTransaction();
+		let processorSelected = CashierStore.getProcessor();
+
+		let rabbitRequest = {
+			f: "process",
+			payAccountId: 0,
+			authHash: transaction.hash,
+			amount: transaction.amount,
+			promoCode: transaction.promoCode,
+			authUniqueId: transaction.randomTuid,
+			processorId: processorSelected.processorId,
+			dynamicParams: dynamicParams
+		};
+
+		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
+
+		UIService.processTransaction(nextStep);
+		stompConnector.makeProcessRequest("", rabbitRequest);
+	};
+
+	/**
 	 * update payAccount with transaction info
 	 */
 	updatePayAccount(payAccountEdit = null){
@@ -558,7 +586,7 @@ class transactionService {
 				email: payAccountSelected.personal.email
 			};
 
-		} else{
+		}else{
 			let Customer = CashierStore.getCustomer();
 			Customer.depositProcessors.map((processor) =>{
 				if(processor.caProcessor_Id == p2pTransaction.caProcessor_Id_Root){
@@ -622,6 +650,20 @@ class transactionService {
 	bitCoinTransaction(transactionId){
 		let data = {
 			f: "getBitCoinTransaction", module: 'transaction', transactionId: transactionId
+		};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		stompConnector.makeBackendRequest("", rabbitRequest);
+	};
+
+	/**
+	 * get the cryptoTransfer transaction details for the specific transaction Id
+	 *
+	 * @param transactionId
+	 */
+	cryptoTransferTransaction(transactionId){
+		let data = {
+			f: "getCryptoTransferTransaction", module: 'transaction', transactionId: transactionId
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
@@ -796,6 +838,14 @@ class transactionService {
 		CashierActions.setBitcoinAddress(address);
 	};
 
+	/**
+	 * sets crypto transfer transaction
+	 *
+	 * @param transaction
+	 */
+	setCryptoTransferTransaction(transaction){
+		CashierActions.setCryptoTransferTransaction(transaction);
+	};
 }
 
 export let TransactionService = new transactionService();

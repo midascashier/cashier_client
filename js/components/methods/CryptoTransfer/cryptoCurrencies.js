@@ -12,8 +12,11 @@ let CryptoCurrencies = React.createClass({
         setLimits: React.PropTypes.func,
         currency: React.PropTypes.string,
         getCurrencyRate: React.PropTypes.func,
+        setAmountRateBTC: React.PropTypes.func,
         amountToBTCCalculate: React.PropTypes.func,
-        btcToAmountCalculate: React.PropTypes.func
+        btcToAmountCalculate: React.PropTypes.func,
+        setCryptoCurrencyISO: React.PropTypes.func,
+        setCryptoCurrencyName: React.PropTypes.func
     },
 
     currencyActions(event) {
@@ -22,6 +25,8 @@ let CryptoCurrencies = React.createClass({
         let symbolName = $('#' + symbolSelect + 'Name').text();
         let symbolValue = $('#' + symbolSelect + 'Symbol').val();
 
+        this.props.setCryptoCurrencyName(symbolName);
+        this.props.setCryptoCurrencyISO(symbolValue);
         this.props.getCurrencyRate(symbolValue);
 
         //DOM update
@@ -65,6 +70,7 @@ let CryptoCurrencies = React.createClass({
 
             let waitRate = setInterval(() => {
                 if(this.props.rate) {
+                    this.props.setAmountRateBTC(this.props.rate);
                     limitMin = this.props.rate * market.minimum;
                     limitMax = this.props.rate * market.maxLimit;
 

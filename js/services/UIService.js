@@ -60,7 +60,7 @@ class UiService {
 		let processorSelected = "";
 		if(processor){
 			processorSelected = processor;
-		} else{
+		}else{
 			processorSelected = UIService.getProcessorName();
 		}
 		CashierActions.setCurrentStep(nextStep);

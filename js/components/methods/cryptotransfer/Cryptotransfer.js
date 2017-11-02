@@ -27,7 +27,10 @@ let CryptoTransfer = React.createClass({
 				limitsCheck : '',
 				cryptoAmount : '',
 				cryptoAddress : '',
+				amountRateBTC : '',
 				customerAmount : '',
+				cryptoCurrencyISO : '',
+				cryptoCurrencyName : '',
 				cryptoAddressError : false,
 				transaction : CashierStore.getTransaction(),
 				limits : UIService.getProcessorLimitMinMax(),
@@ -196,6 +199,33 @@ let CryptoTransfer = React.createClass({
 	},
 
 	/**
+	 * Set amount rate BTC
+	 */
+	setAmountRateBTC(rateBTC){
+		let actualState = this.state.info;
+		actualState.amountRateBTC = rateBTC ;
+		this.setState({info: actualState});
+	},
+
+	/**
+	 * Set crypto currency ISO
+	 */
+	setCryptoCurrencyISO(currencyISO){
+		let actualState = this.state.info;
+		actualState.cryptoCurrencyISO = currencyISO ;
+		this.setState({info: actualState});
+	},
+
+	/**
+	 * Set crypto currency name
+	 */
+	setCryptoCurrencyName(currencyName){
+		let actualState = this.state.info;
+		actualState.cryptoCurrencyName = currencyName ;
+		this.setState({info: actualState});
+	},
+
+	/**
 	 * Calculate btc amount from crypto amount
 	 *
 	 * @param amount
@@ -232,6 +262,7 @@ let CryptoTransfer = React.createClass({
 								setCryptoAmount={this.setCryptoAmount}
 								getCurrencyRate={this.getCurrencyRate}
 								setCryptoAddress={this.setCryptoAddress}
+								setAmountRateBTC={this.setAmountRateBTC}
 								limitsCheck={this.state.info.limitsCheck}
 								setCustomerAmount={this.setCustomerAmount}
 								cryptoAmount={this.state.info.cryptoAmount}
@@ -239,6 +270,8 @@ let CryptoTransfer = React.createClass({
 								customerAmount={this.state.info.customerAmount}
 								amountToBTCCalculate={this.amountToBTCCalculate}
 								btcToAmountCalculate={this.btcToAmountCalculate}
+								setCryptoCurrencyISO={this.setCryptoCurrencyISO}
+								setCryptoCurrencyName={this.setCryptoCurrencyName}
 								cryptoAddressError={this.state.info.cryptoAddressError}
 							/>
 						)
@@ -253,9 +286,9 @@ let CryptoTransfer = React.createClass({
 
 						return(
 							<InfoMethod
-								setLimits={this.setCurrencyLimits}
 								rate={this.state.info.rate}
 								limits={this.state.info.limits}
+								setLimits={this.setCurrencyLimits}
 								setCryptoAmount={this.setCryptoAmount}
 								getCurrencyRate={this.getCurrencyRate}
 								limitsCheck={this.state.info.limitsCheck}
@@ -263,8 +296,11 @@ let CryptoTransfer = React.createClass({
 								cryptoAmount={this.state.info.cryptoAmount}
 								checkCryptoAddress={this.checkCryptoAddress}
 								cryptoAddress={this.state.info.cryptoAddress}
+								amountRateBTC={this.state.info.amountRateBTC}
 								customerAmount={this.state.info.customerAmount}
 								setCryptoAddressError={this.setCryptoAddressError}
+								cryptoCurrencyISO={this.state.info.cryptoCurrencyISO}
+								cryptoCurrencyName={this.state.info.cryptoCurrencyName}
 							/>
 						)
 					})()}

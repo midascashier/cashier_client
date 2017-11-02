@@ -921,6 +921,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			break;
 
 		case actions.GET_BITCOIN_TRANSACTION_RESPONSE:
+		case actions.GET_CRYPTO_TRANSFER_TRANSACTION_RESPONSE:
 			_transactionResponse.details = data.response;
 			CashierStore.emitChange();
 			break;
