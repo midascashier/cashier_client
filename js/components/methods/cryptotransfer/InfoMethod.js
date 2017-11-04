@@ -4,6 +4,7 @@ import { UIService } from '../../../services/UIService'
 import { translate } from '../../../constants/Translate'
 import { CashierStore } from '../../../stores/CashierStore'
 import { TransactionService } from '../../../services/TransactionService'
+import { LoadingSpinnerSmall } from '../../../components/loading/LoadingSpinnerSmall'
 
 let InfoMethod = React.createClass({
 
@@ -40,6 +41,7 @@ let InfoMethod = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
+			checkIn : false,
 			processor: CashierStore.getProcessor(),
 			currentPayAccount: CashierStore.getCurrentPayAccount(),
 			transaction: CashierStore.getTransaction()
@@ -68,6 +70,8 @@ let InfoMethod = React.createClass({
 	 */
 	continueTransaction(){
 
+		this.setState({checkIn : true});
+
 		let amount = this.props.customerAmount;
 		let address = this.props.cryptoAddress;
 		let rateBTC = this.props.amountRateBTC;
@@ -93,12 +97,23 @@ let InfoMethod = React.createClass({
 					TransactionService.processCryptoTransfer(transaction, 'instructions');
 				}
 			}else{
+				this.setState({checkIn : false});
 				this.props.setCryptoAddressError(true);
 			}
 		});
 	},
 
 	render() {
+		let nextBTN = (
+			<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
+				{translate('PROCESSING_BUTTON_NEXT', 'Next')}
+			</button>
+		);
+
+		if(this.state.checkIn){
+			nextBTN = <LoadingSpinnerSmall/>;
+		}
+
 		let limitsCheck = false;
 
 		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
@@ -160,9 +175,7 @@ let InfoMethod = React.createClass({
 					</div>
 					<div className="row mod-btns">
 						<div className="col-sm-6">
-							<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
-								{translate('PROCESSING_BUTTON_NEXT', 'Next')}
-							</button>
+							{nextBTN}
 							<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
 						</div>
 						<div className="col-sm-6">
