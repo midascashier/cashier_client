@@ -70,16 +70,19 @@ let CryptoTransferTicketPending = React.createClass({
 	render() {
 
 		let address = this.state.address;
-		let amount = this.state.cryptoAmount;
-
-		let btcAmount = translate('BITCOIN_INSTRUCTIONS_AMOUNT', '', { btcAmount: amount });
+		let cryptoName = this.state.cryptoName;
+		let cryptoAmount = this.state.cryptoAmount;
+		let amount = translate('CRYPTO_INSTRUCTIONS_AMOUNT', '', { cryptoAmount: cryptoAmount, cryptoCurrency : cryptoName });
+		let cryptoInstructions = translate('CRYPTO_INSTRUCTIONS', 'Now send your crypto currency to us.', { cryptoCurrency : cryptoName });
+		let addressInstructions = translate('CRYPTO_INSTRUCTIONS_ADDRESS', 'Send the crypto currency to the following address', { cryptoCurrency : cryptoName });
+		let addressInfoInstructions = translate('CRYPTO_INSTRUCTIONS_ADDRESS_INFO', 'Please include any Miners Fee your crypto currency wallet charges.', { cryptoCurrency : cryptoName });
 
 		return (
 			<div id="CryptoAddressTicketInstructions">
 
 				<div className="col-sm-12">
 					<div className="rejected-message">
-						<div className="title">{translate('BITCOIN_INSTRUCTIONS', 'Now send your BitCoin to us.')}</div>
+						<div className="title">{cryptoInstructions}</div>
 					</div>
 				</div>
 
@@ -87,21 +90,22 @@ let CryptoTransferTicketPending = React.createClass({
 					<div className="modules">
 						<div className="row">
 
-							<div className="col-sm-6">
+							<div className="col-sm-4">
 								<div className="box">
 									<div className="row">
 										<div className="col-sm-12">
 											<div className="title">#1</div>
 											<div className="infoCol">
-												<div className="subtitle">{btcAmount}</div>
-												<p>{translate('BITCOIN_INSTRUCTIONS_AMOUNT_INFO', 'Otherwise, your transaction will not be successful')}</p>
+												<div className="subtitle">{amount}</div>
+												<p>{translate('CRYPTO_INSTRUCTIONS_AMOUNT_INFO', 'Otherwise, your transaction will not be successful')}</p>
+												<p><strong>IMPORTANT:</strong> If your deposit is less than <strong>monto {cryptoName}</strong>,  might not qualify for refund.</p>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 
-							<div className="col-sm-6">
+							<div className="col-sm-8">
 								<div className="box">
 									<div className="row">
 										<div className="col-sm-12">
@@ -109,22 +113,33 @@ let CryptoTransferTicketPending = React.createClass({
 												<div className="col-sm-12">
 													<div className="title">#2</div>
 													<div className="infoCol">
-														<div className="subtitle">{translate('BITCOIN_INSTRUCTIONS_ADDRESS', 'Send the BitCoin to the following address')}</div>
-														<p>{translate('BITCOIN_INSTRUCTIONS_ADDRESS_INFO', 'Please include any Miners Fee your BitCoin wallet charges.')}</p>
+														<div className="subtitle">{addressInstructions}</div>
+														<p>{addressInfoInstructions}</p>
 
 														<div className="row">
-															<div id="btcAddress" className="form-group">
+															<div id="cryptoAddress" className="form-group">
 																<div className="col-sm-12">
-																	<input type="text" className="form-control" id="bitCoinAddress" value={address} readOnly/>
+																	<input type="text" className="form-control" id="cryptoAddress" value={address} readOnly/>
 																</div>
 																<div className="col-sm-12 mod-center">
-																	<button type='button' onClick={this.copyToClipboard} disabled={!address}
-																					className='btn btn-green'>
+																	<button type='button' onClick={this.copyToClipboard} disabled={!address} className='btn btn-green'>
 																		{translate('PROCESSING_BUTTON_COPY', 'Copy')}
 																	</button>
 																</div>
 															</div>
 														</div>
+													</div>
+
+													<div id="QRCode">
+														{(() =>{
+															if(address){
+																return (
+																	<div className="img-responsive center-block">
+																		<QRCode value={address}/>
+																	</div>
+																)
+															}
+														})()}
 													</div>
 												</div>
 											</div>
@@ -143,7 +158,6 @@ let CryptoTransferTicketPending = React.createClass({
 	 * component is ready
 	 */
 	componentDidMount() {
-		this.interval = setInterval(this.timerTick, 500);
 		CashierStore.addChangeListener(this._onChange);
 	},
 
