@@ -244,7 +244,13 @@ let _langTags = {
 	CRYPTO_SEARCH_TXT: 'Search currency name',
 	CRYPTO_SELECT_CURRENCY: 'Select your crypto currency',
 	CRYPTO_REFUND_ERROR_MSG: 'Invalid refund address format',
-	CRYPTO_REFUND_HELP: 'The refund address is where we\'ll send your funds if we need to refund your transaction.  You can find this by clicking on your deposit wallet where you receive coins. It should list an existing deposit address.  If one does not exist, click on generate new address. If you store your cryptocurrency in a hardware wallet, the refund address is under the ‘receiving coin\' section.  It\'s either your deposit or receiving address, depending on the wallet.'
+	CRYPTO_REFUND_HELP: 'The refund address is where we\'ll send your funds if we need to refund your transaction.  You can find this by clicking on your deposit wallet where you receive coins. It should list an existing deposit address.  If one does not exist, click on generate new address. If you store your cryptocurrency in a hardware wallet, the refund address is under the ‘receiving coin\' section.  It\'s either your deposit or receiving address, depending on the wallet.',
+
+	CRYPTO_INSTRUCTIONS: "Now send your {cryptoCurrency} to us.",
+	CRYPTO_INSTRUCTIONS_AMOUNT: "Send exactly {cryptoAmount} {cryptoCurrency}",
+	CRYPTO_INSTRUCTIONS_AMOUNT_INFO: "Otherwise, your transaction will not be successful.",
+	CRYPTO_INSTRUCTIONS_ADDRESS: "Send the {cryptoCurrency} to the following address",
+	CRYPTO_INSTRUCTIONS_ADDRESS_INFO: "Please include any Miners Fee your {cryptoCurrency} wallet charges.",
 };
 
 export function EN(){
