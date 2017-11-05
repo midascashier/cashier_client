@@ -1,5 +1,5 @@
 import React from 'react'
-import { Amount } from './amount'
+import { Amount } from './Amount'
 import Cashier from '../../../constants/Cashier'
 import { CryptoCurrencies } from './CryptoCurrencies'
 import { UIService } from '../../../services/UIService'
