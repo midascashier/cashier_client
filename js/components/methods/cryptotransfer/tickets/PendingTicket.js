@@ -90,7 +90,7 @@ let CryptoTransferTicketPending = React.createClass({
 					<div className="modules">
 						<div className="row">
 
-							<div className="col-sm-4">
+							<div className="col-sm-5">
 								<div className="box">
 									<div className="row">
 										<div className="col-sm-12">
@@ -105,7 +105,7 @@ let CryptoTransferTicketPending = React.createClass({
 								</div>
 							</div>
 
-							<div className="col-sm-8">
+							<div className="col-sm-5">
 								<div className="box">
 									<div className="row">
 										<div className="col-sm-12">
@@ -129,22 +129,24 @@ let CryptoTransferTicketPending = React.createClass({
 															</div>
 														</div>
 													</div>
-
-													<div id="QRCode">
-														{(() =>{
-															if(address){
-																return (
-																	<div className="img-responsive center-block">
-																		<QRCode value={address}/>
-																	</div>
-																)
-															}
-														})()}
-													</div>
 												</div>
 											</div>
 										</div>
 									</div>
+								</div>
+							</div>
+
+							<div className="col-sm-2">
+								<div id="QRCode">
+									{(() =>{
+										if(address){
+											return (
+												<div className="mod-center img-responsive center-block">
+													<QRCode value={address}/>
+												</div>
+											)
+										}
+									})()}
 								</div>
 							</div>
 						</div>
