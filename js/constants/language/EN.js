@@ -242,6 +242,7 @@ let _langTags = {
 	CRYPTO_AMOUNT_TXT: 'Crypto amount',
 	CRYPTO_REFUND_ADDRESS: 'Refund address',
 	CRYPTO_SEARCH_TXT: 'Search currency name',
+	CRYPTO_UNAVAILABLE_TXT : 'Temporarily disabled',
 	CRYPTO_SELECT_CURRENCY: 'Select your crypto currency',
 	CRYPTO_REFUND_ERROR_MSG: 'Invalid refund address format',
 	CRYPTO_REFUND_HELP: 'The refund address is where we\'ll send your funds if we need to refund your transaction.  You can find this by clicking on your deposit wallet where you receive coins. It should list an existing deposit address.  If one does not exist, click on generate new address. If you store your cryptocurrency in a hardware wallet, the refund address is under the ‘receiving coin\' section.  It\'s either your deposit or receiving address, depending on the wallet.',

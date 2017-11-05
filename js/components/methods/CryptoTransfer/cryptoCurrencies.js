@@ -137,12 +137,14 @@ let CryptoCurrencies = React.createClass({
 
     render() {
         let currency = this.props.currency;
-        let id = currency.name.toLowerCase().replace(' ', '');
+        let id = (currency.status == 'available') ? currency.name.toLowerCase().replace(' ', '') : '';
         let unavailable = (currency.status != 'available') ? ' unavailableCurrency' : '';
+        let unavailableTXT = (currency.status != 'available') ? <span>{translate('CRYPTO_UNAVAILABLE_TXT', 'Temporarily disabled')}</span> : '';
 
         return (
             <div id={id} className={'cryptoTransferCurrency' + unavailable} onClick={this.currencyActions.bind(this)}>
                 <img src={currency.image} alt={currency.name}/>
+                {unavailableTXT}
                 <span id={id + 'Name'} className="currentName">{currency.name}</span>
                 <input type='hidden' id={id + 'Symbol'} value={currency.symbol}/>
                 <input type='hidden' id={id + 'Status'} value={currency.status}/>
