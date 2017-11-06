@@ -85,7 +85,7 @@ let CryptoCurrencies = React.createClass({
 
                     min = parseFloat(min).toPrecision(3);
                     let minAmount = this.props.btcToAmountCalculate(min);
-                    let final = Math.round(minAmount + round);
+                    let final = parseInt(minAmount) + round;
                     finalMin = (isCusMin) ? caLimitMin : final;
 
                     //Max Limits
@@ -102,7 +102,7 @@ let CryptoCurrencies = React.createClass({
 
                     max = parseFloat(max).toPrecision(3);
                     let maxAmount = this.props.btcToAmountCalculate(max);
-                    final = Math.round(maxAmount + round);
+                    final = parseInt(maxAmount) + round;
                     finalMax = (isCusMax) ? caLimitMax : final;
 
                     let currency = this.props.limits.currencyCode;
