@@ -75,7 +75,6 @@ let AskInfo = React.createClass({
 				limits={this.props.limits}
 				setLimits={this.props.setLimits}
 			 	getCurrencyRate={this.props.getCurrencyRate}
-				setAmountRateBTC={this.props.setAmountRateBTC}
 				amountToBTCCalculate={this.props.amountToBTCCalculate}
 				btcToAmountCalculate={this.props.btcToAmountCalculate}
 				setCryptoCurrencyISO={this.props.setCryptoCurrencyISO}
@@ -228,6 +227,7 @@ let AskInfo = React.createClass({
 							customerAmount={this.props.customerAmount}
 							setCryptoAmount={this.props.setCryptoAmount}
 							getCurrencyRate={this.props.getCurrencyRate}
+							setAmountRateBTC={this.props.setAmountRateBTC}
 							setCustomerAmount={this.props.setCustomerAmount}
 						/>
 

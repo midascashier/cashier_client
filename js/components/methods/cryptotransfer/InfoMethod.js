@@ -75,7 +75,6 @@ let InfoMethod = React.createClass({
 		let amount = this.props.customerAmount;
 		let address = this.props.cryptoAddress;
 		let rateBTC = this.props.amountRateBTC;
-		let cryptoAmount = this.props.cryptoAmount;
 		let currencyISO = this.props.cryptoCurrencyISO;
 		let currencyName = this.props.cryptoCurrencyName;
 		let transaction = CashierStore.getTransaction();
@@ -84,9 +83,8 @@ let InfoMethod = React.createClass({
 		transaction.payAccountId = 0;
 		transaction.cryptoAddress = address;
 		transaction.currencyName = currencyName;
-		transaction.BTCConversionRate = rateBTC;
 		transaction.currencySymbol = currencyISO;
-		transaction.BTCConversionAmount = cryptoAmount;
+		transaction.BTCConversionAmount = rateBTC;
 
 		this.props.checkCryptoAddress((valid) => {
 			if(valid){

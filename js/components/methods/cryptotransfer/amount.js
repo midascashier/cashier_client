@@ -13,19 +13,24 @@ let Amount = React.createClass({
         limitsCheck: React.PropTypes.string,
         customerAmount: React.PropTypes.node,
         setCryptoAmount: React.PropTypes.func,
-        setCustomerAmount: React.PropTypes.func
+        setAmountRateBTC: React.PropTypes.func,
+        setCustomerAmount: React.PropTypes.func,
+        amountToBTCCalculate: React.PropTypes.func,
+        btcToAmountCalculate: React.PropTypes.func
     },
 
     crytoCurrencyCalculate(event) {
         let customerAmount = parseFloat(event.target.value);
         let btcAmount = customerAmount * parseFloat(CashierStore.getBTCRate()).toFixed(8);
         this.props.setCryptoAmount(btcAmount, customerAmount);
+        this.props.setAmountRateBTC(btcAmount);
     },
 
     customerAmountCalculate(event) {
         let cryptoAmount = parseFloat(event.target.value);
         let btcAmount = cryptoAmount * parseFloat(this.props.rate).toFixed(8);
         this.props.setCustomerAmount(btcAmount, cryptoAmount);
+        this.props.setAmountRateBTC(btcAmount);
     },
 
     render() {
