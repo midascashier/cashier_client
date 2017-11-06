@@ -149,6 +149,8 @@ let InfoMethod = React.createClass({
 			}
 		}
 
+		let currency = this.props.limits.currencyCode;
+
 		return (
 			<div id="InfoMethodBitCoin">
 				<div className="col-sm-12">
@@ -158,11 +160,11 @@ let InfoMethod = React.createClass({
 							<tbody>
 								<tr>
 									<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-									<td><span>{this.props.limits.minAmount}</span></td>
+									<td><span>{this.props.limits.minAmount + ' ' + currency}</span></td>
 								</tr>
 								<tr>
 									<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-									<td><span>{this.props.limits.maxAmount}</span></td>
+									<td><span>{this.props.limits.maxAmount + ' ' + currency}</span></td>
 								</tr>
 								<tr>
 									<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>

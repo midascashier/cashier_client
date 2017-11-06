@@ -98,7 +98,7 @@ let CryptoTransferTicketPending = React.createClass({
 											<div className="infoCol">
 												<div className="subtitle">{amount}</div>
 												<p>{translate('CRYPTO_INSTRUCTIONS_AMOUNT_INFO', 'Otherwise, your transaction will not be successful')}</p>
-												<p><strong>IMPORTANT:</strong> If your deposit is less than <strong>monto {cryptoName}</strong>,  might not qualify for refund.</p>
+												<p><strong>IMPORTANT:</strong> If your deposit is less than <strong>{this.state.cryptoAmount} {cryptoName}</strong>,  might not qualify for refund.</p>
 											</div>
 										</div>
 									</div>
