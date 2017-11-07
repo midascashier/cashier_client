@@ -5,3 +5,4 @@ dev
 /config/RabbitConfig.js
 build/
 /config/phpConfig.php
+package-lock.json
