@@ -393,7 +393,7 @@ div[class*="col-"] > div[class*="col-"]:before {
     animation: lds-circle 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
 
-#cryptoTransferModal {
+#cryptoTransferModal, #moneroMsgModal{
     top: 0;
     left: 0;
     width: 100%;
@@ -404,7 +404,7 @@ div[class*="col-"] > div[class*="col-"]:before {
     background-color: rgba(0, 0, 0, 0.9);
 }
 
-#cryptoTransferModal-content {
+#cryptoTransferModal-content{
     width: 675px;
     margin: auto;
     height: 415px;
@@ -414,13 +414,35 @@ div[class*="col-"] > div[class*="col-"]:before {
     background-color: rgb(254, 254, 254);
 }
 
-#cryptoTransferModal-header {
+#moneroMsgModal-content{
+     width: 350px;
+     margin: auto;
+     height: 150px;
+     background-color: rgb(254, 254, 254);
+ }
+
+#moneroMsgModal-content p{
+    padding: 15px;
+}
+
+#cryptoTransferModal-header{
     z-index: 1;
     height: 60px;
     display: block;
     width: inherit;
     position: fixed;
     margin-top: -60px;
+    box-sizing: border-box;
+    background-color: rgb(254, 254, 254);
+}
+
+#moneroMsgModal-header{
+    z-index: 1;
+    height: 15px;
+    display: block;
+    width: inherit;
+    position: fixed;
+    margin-top: -15px;
     box-sizing: border-box;
     background-color: rgb(254, 254, 254);
 }
@@ -432,12 +454,16 @@ div[class*="col-"] > div[class*="col-"]:before {
     margin-left: 7.8%;
 }
 
-#cryptoTransferModal-close {
+#cryptoTransferModal-close, #moneroMsgModal-close{
     top: 0;
     margin: 1%;
     float: right;
     font-size: 30px;
     cursor: pointer;
+}
+
+#moneroMsgModal-close{
+    font-size: 23px;
 }
 
 #cryptoTransfer-currencies {

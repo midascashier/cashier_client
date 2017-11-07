@@ -40,6 +40,10 @@ let AskInfo = React.createClass({
 			if (event.target == document.getElementById('cryptoTransferModal')) {
 				$('#cryptoTransferModal').css('display', 'none');
 			}
+
+			if (event.target == document.getElementById('moneroMsgModal')) {
+				$('#moneroMsgModal').css('display', 'none');
+			}
 		};
 	},
 
@@ -183,9 +187,15 @@ let AskInfo = React.createClass({
 		$('#cryptoTransferModal').css('display', 'none');
 	},
 
+	hideMoneroMSG(){
+		$('#moneroMsgModal').css('display', 'none');
+	},
+
 	render() {
 		let isWithDraw = UIService.getIsWithDraw();
+		let moneroMSG = translate('CRYPTO_MONERO_MESSAGE');
 		let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
+
 		if(isWithDraw){
 			title = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information')
 		}
@@ -254,6 +264,15 @@ let AskInfo = React.createClass({
 								required
 							/>
 							<span id="helpAddress">?</span>
+						</div>
+					</div>
+
+					<div id='moneroMsgModal'>
+						<div id='moneroMsgModal-content'>
+							<div id='moneroMsgModal-header'>
+								<span id='moneroMsgModal-close' onClick={this.hideMoneroMSG.bind(this)}>&times;</span>
+							</div>
+							<p>{moneroMSG}</p>
 						</div>
 					</div>
 				</div>

@@ -24,6 +24,10 @@ let CryptoCurrencies = React.createClass({
         let symbolName = $('#' + symbolSelect + 'Name').text();
         let symbolValue = $('#' + symbolSelect + 'Symbol').val();
 
+        if(symbolSelect == 'monero'){
+            this.moneroActions();
+        }
+
         this.props.setCryptoCurrencyName(symbolName);
         this.props.setCryptoCurrencyISO(symbolValue);
         this.props.getCurrencyRate(symbolValue);
@@ -129,6 +133,12 @@ let CryptoCurrencies = React.createClass({
         });
     },
 
+    moneroActions(){
+        $('#moneroMsgModal').css({
+            'display' : 'flex'
+        });
+    },
+
     hideCurrencies(){
         $('#cryptoTransferModal').css('display', 'none');
     },
@@ -147,7 +157,7 @@ let CryptoCurrencies = React.createClass({
                 <input type='hidden' id={id + 'Symbol'} value={currency.symbol}/>
                 <input type='hidden' id={id + 'Status'} value={currency.status}/>
                 <input type='hidden' id={id + 'ImgSmall'} value={currency.imageSmall}/>
-            </div>      
+            </div>
         );
     }
 });
