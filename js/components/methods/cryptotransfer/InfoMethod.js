@@ -102,6 +102,25 @@ let InfoMethod = React.createClass({
 	},
 
 	render() {
+
+		let limitsCheck = false;
+
+		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
+			limitsCheck = true;
+		}
+
+		let isNextDisabled = "disabled";
+
+		if(isWithDraw){
+			if(limitsCheck && !feeCheck && this.props.cryptoAddress){
+				isNextDisabled = "";
+			}
+		}else{
+			if(limitsCheck && this.props.cryptoAddress){
+				isNextDisabled = "";
+			}
+		}
+
 		let nextBTN = (
 			<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
 				{translate('PROCESSING_BUTTON_NEXT', 'Next')}
@@ -110,12 +129,6 @@ let InfoMethod = React.createClass({
 
 		if(this.state.checkIn){
 			nextBTN = <LoadingSpinnerSmall/>;
-		}
-
-		let limitsCheck = false;
-
-		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
-			limitsCheck = true;
 		}
 
 		let feeCheck = this.props.feeCheck;
@@ -136,18 +149,6 @@ let InfoMethod = React.createClass({
 			processorName: processorDisplayName,
 			transactionType: transactionType
 		});
-
-		let isNextDisabled = "disabled";
-
-		if(isWithDraw){
-			if(limitsCheck && !feeCheck && this.props.cryptoAddress){
-				isNextDisabled = "";
-			}
-		}else{
-			if(limitsCheck && this.props.cryptoAddress){
-				isNextDisabled = "";
-			}
-		}
 
 		let currency = this.props.limits.currencyCode;
 

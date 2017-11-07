@@ -300,6 +300,14 @@ let routes = (
 					<Route path="deferred/" component={DeferredTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
+
+				<Route path="btc_crypto_transfer/" component={CryptoTransfer}/>
+				<Route path="btc_crypto_transfer/confirm/" component={CryptoTransferConfirnWithdraw}/>
+				<Route path="btc_crypto_transfer/ticket/" component={LoadingTicket}>
+					<Route path="approved/" component={ApprovedTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
+					<Route path="deferred/" component={DeferredTicket}/>
+				</Route>
 			</Route>
 		</Route>
 	</Router>

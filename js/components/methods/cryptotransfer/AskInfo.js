@@ -193,6 +193,8 @@ let AskInfo = React.createClass({
 
 	render() {
 		let isWithDraw = UIService.getIsWithDraw();
+		let helpMSG = (isWithDraw) ? translate('CRYPTO_DEPOSIT_HELP') : translate('CRYPTO_REFUND_HELP');
+		let addressMSG = (isWithDraw) ? translate('CRYPTO_DEPOSIT_ADDRESS') : translate('CRYPTO_REFUND_ADDRESS');
 		let moneroMSG = translate('CRYPTO_MONERO_MESSAGE');
 		let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
 
@@ -214,7 +216,8 @@ let AskInfo = React.createClass({
 						</div>
 					</div>
 
-					<p id="refundErrorMsg">{translate('CRYPTO_REFUND_HELP')}</p>
+					<p id="refundErrorMsg">{helpMSG}</p>
+
 					{(() =>{
 						$('#helpAddress').mouseenter(function () {
 							$('#refundErrorMsg').css({
@@ -259,7 +262,7 @@ let AskInfo = React.createClass({
 								className="form-control"
 								value={this.props.cryptoAddress}
 								onInput={this.changeCryptoAddress.bind(this)}
-								placeholder={translate('CRYPTO_REFUND_ADDRESS')}
+								placeholder={addressMSG}
 								min="0"
 								required
 							/>

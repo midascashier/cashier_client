@@ -81,14 +81,20 @@ let Amount = React.createClass({
                     }
                 })()}
 
-                <input
-                    type="number"
-                    id="cryptoAmount"
-                    className="form-control"
-                    value={this.props.cryptoAmount}
-                    placeholder={translate('CRYPTO_AMOUNT_TXT')}
-                    onInput={this.customerAmountCalculate.bind(this)}
-                />
+                {(() =>{
+                    if(!isWithDraw){
+                        return(
+                            <input
+                                type="number"
+                                id="cryptoAmount"
+                                className="form-control"
+                                value={this.props.cryptoAmount}
+                                placeholder={translate('CRYPTO_AMOUNT_TXT')}
+                                onInput={this.customerAmountCalculate.bind(this)}
+                            />
+                        )
+                    }
+                })()}
             </div>
         )
     }
