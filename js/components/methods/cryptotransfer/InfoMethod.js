@@ -103,7 +103,12 @@ let InfoMethod = React.createClass({
 
 	render() {
 
+		let limitsCheck = false;
 		let isNextDisabled = "disabled";
+
+		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
+			limitsCheck = true;
+		}
 
 		if(isWithDraw){
 			if(limitsCheck && !feeCheck && this.props.cryptoAddress){
@@ -123,12 +128,6 @@ let InfoMethod = React.createClass({
 
 		if(this.state.checkIn){
 			nextBTN = <LoadingSpinnerSmall/>;
-		}
-
-		let limitsCheck = false;
-
-		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
-			limitsCheck = true;
 		}
 
 		let feeCheck = this.props.feeCheck;
