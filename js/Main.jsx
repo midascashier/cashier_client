@@ -83,9 +83,9 @@ import { P2PTicketProcessing } from './components/methods/person2person/tickets/
 /**
  * Crypto Transfer
  */
-import { CryptoTransfer } from './components/methods/CryptoTransfer/CryptoTransfer'
-import { CryptoTransferConfirnWithdraw } from './components/methods/CryptoTransfer/ConfirmWithdraw'
-import { CryptoTransferTicketPending } from './components/methods/CryptoTransfer/tickets/PendingTicket'
+import { CryptoTransfer } from 'components/methods/cryptotransfer/CryptoTransfer'
+import { CryptoTransferConfirnWithdraw } from 'components/methods/cryptotransfer/ConfirmWithdraw'
+import { CryptoTransferTicketPending } from 'components/methods/cryptotransfer/tickets/PendingTicket'
 
 /**
  * Common components
