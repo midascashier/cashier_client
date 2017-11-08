@@ -34,6 +34,7 @@ let CryptoCurrencies = React.createClass({
 
         this.props.setCryptoCurrencyName(symbolName);
         this.props.setCryptoCurrencyISO(symbolValue);
+        this.props.getCurrencyRate(symbolValue);
 
         //DOM update
         $('#FAQs').removeAttr('style');
