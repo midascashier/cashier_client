@@ -49,22 +49,6 @@ let CryptoTransfer = React.createClass({
 	},
 
 	/**
-	 * Get rate to current currency symbol value
-	 *
-	 * @param symbolValue
-     */
-	getCurrencyRate(symbolValue){
-		let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_GET_RATE + symbolValue + '_BTC';
-		fetch(url, {method: 'GET'}).then((response) => {
-			return response.json();
-		}).then((rate) => {
-			this.setCurrencyRate(rate.rate);
-		}).catch((err) => {
-			console.error(err);
-		});
-	},
-
-	/**
 	 * Check mix and Max limits
 	 *
 	 * @returns {*}
