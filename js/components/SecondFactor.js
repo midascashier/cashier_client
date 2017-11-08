@@ -9,9 +9,10 @@ import {UIService} from '../services/UIService'
 let SecondFactor = React.createClass({
 
 	propTypes: {
+		setVerifyCode: React.PropTypes.func,
+		transaction: React.PropTypes.object,
 		limitsCheck: React.PropTypes.string,
-		allowContinueToConfirm: React.PropTypes.bool,
-		transaction: React.PropTypes.object
+		allowContinueToConfirm: React.PropTypes.bool
 	},
 
 	/**
@@ -47,11 +48,11 @@ let SecondFactor = React.createClass({
 	/**
 	 * Verify is token is valid
 	 */
-	verifyTransactionToken()
-	{
+	verifyTransactionToken(){
 		let token = this.state.info.code;
 		let actualState = this.state.info;
 		actualState.verifyCodeSent = true;
+		this.props.setVerifyCode(true);
 		this.setState(actualState);
 		TransactionService.verifyTransactionToken(token);
 	},
@@ -77,8 +78,7 @@ let SecondFactor = React.createClass({
 		this.setState(actualState);
 	},
 
-	render()
-	{
+	render(){
 		let originPath = UIService.getOriginPath();
 		let limitsCheck = false;
 		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
@@ -119,8 +119,10 @@ let SecondFactor = React.createClass({
 
 		return (
 			<div id="SecondFactor">
-				<p><em>{translate('SECOND_FACTOR_INFO')}</em></p>
-				<p><em>{translate('SECOND_FACTOR_PHONE_CONFIRMATION')}</em></p>
+				<div className="infoCol text-justify">
+					<p><em>{translate('SECOND_FACTOR_INFO')}</em></p>
+					<p><em>{translate('SECOND_FACTOR_PHONE_CONFIRMATION')}</em></p>
+				</div>
 
 				<div className="form-group">
 					<div id="requestedCodeHash">
@@ -193,11 +195,13 @@ let SecondFactor = React.createClass({
 								</div>
 							)
 						})()}
+
 						<div className="col-sm-1">
 							{(() =>{
 								if(verifyMsg != null && verifyMsg != "" && isCodeValid == 0){
 									return null;
 								}
+
 								if(verifyCodeSent && isCodeValid == 0){
 									return (<img src={originPath + '/images/loader-xs_17x17.gif'}/>)
 								}
@@ -207,6 +211,7 @@ let SecondFactor = React.createClass({
 								}
 							})()}
 						</div>
+
 						<div className="col-sm-3">
 							<button className="btn btn-green" disabled={disableVerifyButton} onClick={this.verifyTransactionToken}>
 								{translate('SECOND_FACTOR_VERIFY_CODE')}
