@@ -56,7 +56,9 @@ let Amount = React.createClass({
         let placeHolderTXT = action + ' ' + translate('PROCESSING_AMOUNT', 'Amount');
         return (
             <div id="cryptoAmount">
-                <div id="cryptoLimits"></div>
+                <div id="cryptoLimits">
+                    <div className='lds-circle'></div>
+                </div>
 
                 <input
                     type="number"

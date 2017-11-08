@@ -19,6 +19,10 @@ let CryptoCurrencies = React.createClass({
     },
 
     currencyActions(event) {
+
+        let spinCoin = "<div class='lds-circle'></div>";
+        $('#cryptoLimits span').html(spinCoin);
+
         let symbolSelect = event.currentTarget.id;
         let img = $('#' + symbolSelect + ' img').attr('src');
         let symbolName = $('#' + symbolSelect + 'Name').text();
@@ -30,7 +34,6 @@ let CryptoCurrencies = React.createClass({
 
         this.props.setCryptoCurrencyName(symbolName);
         this.props.setCryptoCurrencyISO(symbolValue);
-        this.props.getCurrencyRate(symbolValue);
 
         //DOM update
         $('#FAQs').removeAttr('style');
@@ -56,9 +59,6 @@ let CryptoCurrencies = React.createClass({
         let isCusMin = false;
         let isCusMax = false;
 
-        let spinCoin = "<div class='lds-circle'></div>";
-        $('#cryptoLimits span').html(spinCoin);
-
         let limitMin = null;
         let limitMax = null;
         let limits = UIService.getProcessorLimitMinMax();
@@ -71,10 +71,15 @@ let CryptoCurrencies = React.createClass({
             return response.json();
         }).then((market) => {
 
-            let waitRate = setInterval(() => {
-                if(this.props.rate) {
-                    limitMin = this.props.rate * market.minimum;
-                    limitMax = this.props.rate * market.maxLimit;
+            let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_GET_RATE + symbolValue + '_BTC';
+
+            fetch(url, {method: 'GET'}).then((response) => {
+                return response.json();
+            }).then((rate) => {
+
+                if(rate.rate) {
+                    limitMin = rate.rate * market.minimum;
+                    limitMax = rate.rate * market.maxLimit;
 
                     let caLimitMinBTC = this.props.amountToBTCCalculate(caLimitMin);
 
@@ -123,11 +128,11 @@ let CryptoCurrencies = React.createClass({
 
                     this.props.setLimits(limits);
                     $('#cryptoLimits').html(limitsCont);
-
-                    clearTimeout(waitRate);
                 }
-            }, 1000);
-
+            }).catch((err) => {
+                console.error(err);
+            });
+                
         }).catch((err) => {
             console.error(err);
         });
