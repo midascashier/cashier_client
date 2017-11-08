@@ -139,7 +139,6 @@ let InfoMethod = React.createClass({
 		}
 
 		let processorDisplayName = UIService.getProcessorDisplayName().toUpperCase();
-		let payAccountInfo = UIService.getDisplayLimits(this.props.customerAmount);
 		let originPath = UIService.getOriginPath();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
@@ -165,10 +164,6 @@ let InfoMethod = React.createClass({
 								<tr>
 									<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
 									<td><span>{this.props.limits.maxAmount + ' ' + currency}</span></td>
-								</tr>
-								<tr>
-									<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
-									<td><span>{payAccountInfo.remaining}</span></td>
 								</tr>
 							</tbody>
 						</table>

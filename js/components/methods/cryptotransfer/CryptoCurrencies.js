@@ -97,11 +97,11 @@ let CryptoCurrencies = React.createClass({
 
                 let max =  null;
                 if(caLimitMaxBTC > limitMax){
-                    max = caLimitMaxBTC;
-                    isCusMax = true;
-                }else{
                     max = limitMax;
                     isCusMax = false;
+                }else{
+                    max = caLimitMaxBTC;
+                    isCusMax = true;
                 }
 
                 max = parseFloat(max).toPrecision(3);
