@@ -588,7 +588,8 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 	let action = payload.action;
 	let data = payload.data;
-
+	console.log('store');
+console.log(action);
 	switch(action){
 		case actions.LOGIN_RESPONSE:
 			_UI.currentView = data.option;
@@ -923,6 +924,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.GET_BITCOIN_TRANSACTION_RESPONSE:
 		case actions.GET_CRYPTO_TRANSFER_TRANSACTION_RESPONSE:
 			_transactionResponse.details = data.response;
+			console.log('Crypto Response');
+			console.log(data);
 			CashierStore.emitChange();
 			break;
 
