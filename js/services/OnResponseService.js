@@ -17,8 +17,7 @@ class OnResponseService {
 		}else{
 			CashierActions.showUserMessage(data.userMessage);
 		}
-		console.log('onResponse');
-		console.log(action);
+
 		switch(action){
 			case actions.CUSTOMER_INFO_RESPONSE:
 				CashierActions.setSelectedCountry();

@@ -588,8 +588,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 	let action = payload.action;
 	let data = payload.data;
-	console.log('store');
-console.log(action);
+
 	switch(action){
 		case actions.LOGIN_RESPONSE:
 			_UI.currentView = data.option;
