@@ -415,8 +415,7 @@ class transactionService {
 		};
 
 		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
-		console.log('processCryptoTransfer');
-		console.log(rabbitRequest);
+
 		UIService.processTransaction(nextStep);
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
