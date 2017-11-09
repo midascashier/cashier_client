@@ -20,7 +20,7 @@ let LoadingTicket = React.createClass({
 	 */
 	refreshLocalState() {
 
-		console.log(CashierStore.getLastTransactionResponse());
+		console.log('refresh');
 
 		return {
 			transactionResponse: CashierStore.getLastTransactionResponse()
@@ -33,7 +33,7 @@ let LoadingTicket = React.createClass({
 	 * @private
 	 */
 	_onChange() {
-		console.log('refres state');
+		console.log('onchange state');
 		this.setState(this.refreshLocalState());
 	},
 
@@ -48,7 +48,7 @@ let LoadingTicket = React.createClass({
 					if((transactionResponse.status === "") && (!transactionResponse.userMessage)){
 
 						console.log(transactionResponse);
-						
+
 						return(
 							<div className="col-sm-12">
 								<div className="modules">
@@ -65,6 +65,9 @@ let LoadingTicket = React.createClass({
 
 					if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && !transactionResponse.details.creditCardTransaction && 
 						transactionResponse.status != cashier.TRANSACTION_STATUS_APPROVED && transactionResponse.transactionId != ""){
+
+						console.log('credit type');
+
 						return (
 							<div className="col-sm-12">
 								<div className="modules">
@@ -78,7 +81,7 @@ let LoadingTicket = React.createClass({
 							</div>		
 						)
 					}
-
+					console.log('children');
 					return this.props.children
 				})()}
 			</div>
