@@ -19,6 +19,9 @@ let LoadingTicket = React.createClass({
 	 * @returns {{transactionResponse: *}}
 	 */
 	refreshLocalState() {
+
+		console.log(CashierStore.getLastTransactionResponse());
+
 		return {
 			transactionResponse: CashierStore.getLastTransactionResponse()
 		}
@@ -30,6 +33,7 @@ let LoadingTicket = React.createClass({
 	 * @private
 	 */
 	_onChange() {
+		console.log('refres state');
 		this.setState(this.refreshLocalState());
 	},
 
@@ -42,6 +46,9 @@ let LoadingTicket = React.createClass({
 			<div id="loadingTicket">
 				{(() =>{
 					if((transactionResponse.status === "") && (!transactionResponse.userMessage)){
+
+						console.log(transactionResponse);
+						
 						return(
 							<div className="col-sm-12">
 								<div className="modules">
