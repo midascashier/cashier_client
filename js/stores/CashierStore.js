@@ -923,8 +923,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.GET_BITCOIN_TRANSACTION_RESPONSE:
 		case actions.GET_CRYPTO_TRANSFER_TRANSACTION_RESPONSE:
 			_transactionResponse.details = data.response;
-			console.log('Crypto Response');
-			console.log(data);
 			CashierStore.emitChange();
 			break;
 
