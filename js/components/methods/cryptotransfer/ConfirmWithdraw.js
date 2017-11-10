@@ -89,7 +89,7 @@ let CryptoTransferConfirmWithdraw = React.createClass({
 										<div className="row">
 											<div className="col-sm-12">
 												<div className="title">
-													{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}
+													{translate('CRYPTO_2FAT_TITLE')}
 												</div>
 
 												<SecondFactor

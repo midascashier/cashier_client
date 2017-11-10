@@ -242,7 +242,7 @@ let CryptoTransfer = React.createClass({
 	 * @returns {number}
 	 */
 	btcToAmountCalculate(cryptoAmount){
-		return cryptoAmount * parseFloat(CashierStore.getBTCRate()).toFixed(8);
+		return cryptoAmount / parseFloat(CashierStore.getBTCRate()).toFixed(8);
 	},
 
 	render() {

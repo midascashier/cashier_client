@@ -52,7 +52,7 @@ let SecondFactor = React.createClass({
 		let token = this.state.info.code;
 		let actualState = this.state.info;
 		actualState.verifyCodeSent = true;
-		this.props.setVerifyCode(true);
+
 		this.setState(actualState);
 		TransactionService.verifyTransactionToken(token);
 	},
@@ -115,6 +115,7 @@ let SecondFactor = React.createClass({
 
 		if(isCodeValid == 1){
 			disableVerifyButton = true;
+			this.props.setVerifyCode(true);
 		}
 
 		return (

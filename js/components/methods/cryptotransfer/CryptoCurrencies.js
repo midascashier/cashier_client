@@ -19,6 +19,10 @@ let CryptoCurrencies = React.createClass({
     },
 
     currencyActions(event) {
+
+        let spinCoin = "<div class='lds-circle'></div>";
+        $('#cryptoLimits span').html(spinCoin);
+
         let symbolSelect = event.currentTarget.id;
         let img = $('#' + symbolSelect + ' img').attr('src');
         let symbolName = $('#' + symbolSelect + 'Name').text();
@@ -56,9 +60,6 @@ let CryptoCurrencies = React.createClass({
         let isCusMin = false;
         let isCusMax = false;
 
-        let spinCoin = "<div class='lds-circle'></div>";
-        $('#cryptoLimits span').html(spinCoin);
-
         let limitMin = null;
         let limitMax = null;
         let limits = UIService.getProcessorLimitMinMax();
@@ -67,66 +68,63 @@ let CryptoCurrencies = React.createClass({
         let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_GET_MARKET + symbolValue + '_BTC';
 
         this.hideCurrencies();
+
         fetch(url, {method: 'GET'}).then((response) => {
             return response.json();
         }).then((market) => {
 
-            let waitRate = setInterval(() => {
-                if(this.props.rate) {
-                    limitMin = this.props.rate * market.minimum;
-                    limitMax = this.props.rate * market.maxLimit;
+            if(market.rate) {
+                limitMin = market.rate * market.minimum;
+                limitMax = market.rate * market.maxLimit;
 
-                    let caLimitMinBTC = this.props.amountToBTCCalculate(caLimitMin);
+                let caLimitMinBTC = this.props.amountToBTCCalculate(caLimitMin);
 
-                    let min =  null;
-                    if(caLimitMinBTC > limitMin){
-                        min = caLimitMinBTC;
-                        isCusMin = true;
-                    }else{
-                        min = limitMin;
-                        isCusMin = false;
-                    }
-
-                    min = parseFloat(min).toPrecision(3);
-                    let minAmount = this.props.btcToAmountCalculate(min);
-                    let final = parseInt(minAmount) + round;
-                    finalMin = (isCusMin) ? caLimitMin : final;
-
-                    //Max Limits
-                    let caLimitMaxBTC = this.props.amountToBTCCalculate(caLimitMax);
-
-                    let max =  null;
-                    if(caLimitMaxBTC > limitMax){
-                        max = caLimitMaxBTC;
-                        isCusMax = true;
-                    }else{
-                        max = limitMax;
-                        isCusMax = false;
-                    }
-
-                    max = parseFloat(max).toPrecision(3);
-                    let maxAmount = this.props.btcToAmountCalculate(max);
-                    final = parseInt(maxAmount) + round;
-                    finalMax = (isCusMax) ? caLimitMax : final;
-
-                    let currency = this.props.limits.currencyCode;
-                    let maxLimitCont = translate('PROCESSING_MIN', 'Min') + ApplicationService.currency_format(finalMin) + ' ' + currency + ' - ';
-                    let minLimitCont = translate('PROCESSING_MAX', 'Max') + ApplicationService.currency_format(finalMax) + ' ' + currency;
-                    let limitContent = maxLimitCont + ' ' + minLimitCont;
-                    let limitsCont = "<span>" + limitContent + "</span>";
-
-                    let limits = {
-                        minAmount : finalMin,
-                        maxAmount : finalMax,
-                        currencyCode : currency
-                    };
-
-                    this.props.setLimits(limits);
-                    $('#cryptoLimits').html(limitsCont);
-
-                    clearTimeout(waitRate);
+                let min =  null;
+                if(caLimitMinBTC > limitMin){
+                    min = caLimitMinBTC;
+                    isCusMin = true;
+                }else{
+                    min = limitMin;
+                    isCusMin = false;
                 }
-            }, 1000);
+
+                min = parseFloat(min).toPrecision(3);
+                let minAmount = this.props.btcToAmountCalculate(min);
+                let final = parseInt(minAmount) + round;
+                finalMin = (isCusMin) ? caLimitMin : final;
+
+                //Max Limits
+                let caLimitMaxBTC = this.props.amountToBTCCalculate(caLimitMax);
+
+                let max =  null;
+                if(caLimitMaxBTC > limitMax){
+                    max = limitMax;
+                    isCusMax = false;
+                }else{
+                    max = caLimitMaxBTC;
+                    isCusMax = true;
+                }
+
+                max = parseFloat(max).toPrecision(3);
+                let maxAmount = this.props.btcToAmountCalculate(max);
+                final = parseInt(maxAmount) + round;
+                finalMax = (isCusMax) ? caLimitMax : final;
+
+                let currency = this.props.limits.currencyCode;
+                let maxLimitCont = translate('PROCESSING_MIN', 'Min') + ApplicationService.currency_format(finalMin) + ' ' + currency + ' - ';
+                let minLimitCont = translate('PROCESSING_MAX', 'Max') + ApplicationService.currency_format(finalMax) + ' ' + currency;
+                let limitContent = maxLimitCont + ' ' + minLimitCont;
+                let limitsCont = "<span>" + limitContent + "</span>";
+
+                let limits = {
+                    minAmount : finalMin,
+                    maxAmount : finalMax,
+                    currencyCode : currency
+                };
+
+                this.props.setLimits(limits);
+                $('#cryptoLimits').html(limitsCont);
+            }
 
         }).catch((err) => {
             console.error(err);
