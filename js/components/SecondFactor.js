@@ -115,7 +115,10 @@ let SecondFactor = React.createClass({
 
 		if(isCodeValid == 1){
 			disableVerifyButton = true;
-			this.props.setVerifyCode(true);
+
+			if("setVerifyCode" in this.props){
+				this.props.setVerifyCode(true);
+			}
 		}
 
 		return (

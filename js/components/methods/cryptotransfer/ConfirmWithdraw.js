@@ -51,7 +51,7 @@ let CryptoTransferConfirmWithdraw = React.createClass({
 	 */
 	processTransaction(){
 		let transaction = this.state.transaction;
-		TransactionService.processCryptoTransfer({ account : transaction.bitcoinAddress }, 'ticket');
+		TransactionService.processCryptoTransfer(transaction, 'ticket');
 	},
 
 	/**
