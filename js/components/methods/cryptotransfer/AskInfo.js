@@ -227,7 +227,7 @@ let AskInfo = React.createClass({
 							$('#refundErrorMsg').css({
 								'display': 'none'
 							})
-						})
+						});
 					})()}
 
 					<div id="cryptoAskInform">

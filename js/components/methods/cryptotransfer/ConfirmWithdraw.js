@@ -71,7 +71,7 @@ let CryptoTransferConfirmWithdraw = React.createClass({
 	render(){
 		let originPath = UIService.getOriginPath();
 		let transaction = this.state.transaction;
-
+		let limits = UIService.getProcessorLimitMinMax();
 		let isNextDisabled = '';
 		if(!this.state.verifyCode){
 			isNextDisabled = 'disabled';
@@ -114,7 +114,7 @@ let CryptoTransferConfirmWithdraw = React.createClass({
 														<tbody>
 															<tr>
 																<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
-																<td><span>{transaction.amount}</span></td>
+																<td><span>{transaction.amount + ' ' + limits.currencyCode}</span></td>
 															</tr>
 															<tr>
 																<td>{translate('CRYPTO_DEPOSIT_ADDRESS', 'Address')}</td>
