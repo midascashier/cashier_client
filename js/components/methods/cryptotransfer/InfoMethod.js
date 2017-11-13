@@ -11,6 +11,7 @@ let InfoMethod = React.createClass({
 	propTypes: {
 		rate: React.PropTypes.number,
 		limits: React.PropTypes.object,
+		promoCode: React.PropTypes.node,
 		limitsCheck: React.PropTypes.node,
 		cryptoAmount: React.PropTypes.node,
 		cryptoAddress: React.PropTypes.node,
@@ -71,7 +72,7 @@ let InfoMethod = React.createClass({
 	continueTransaction(){
 
 		this.setState({checkIn : true});
-
+		let promoCode = this.props.promoCode;
 		let amount = this.props.customerAmount;
 		let address = this.props.cryptoAddress;
 		let rateBTC = this.props.amountRateBTC;
@@ -81,6 +82,7 @@ let InfoMethod = React.createClass({
 
 		transaction.amount = amount;
 		transaction.payAccountId = 0;
+		transaction.promoCode = promoCode;
 		transaction.cryptoAddress = address;
 		transaction.currencyName = currencyName;
 		transaction.currencySymbol = currencyISO;

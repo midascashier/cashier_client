@@ -12,6 +12,8 @@ let AskInfo = React.createClass({
 		rate: React.PropTypes.number,
 		limits: React.PropTypes.object,
 		setLimits: React.PropTypes.func,
+		promoCode: React.PropTypes.node,
+		setPromoCode: React.PropTypes.func,
 		cryptoAmount: React.PropTypes.node,
 		cryptoAddress: React.PropTypes.node,
 		limitsCheck: React.PropTypes.string,
@@ -179,6 +181,16 @@ let AskInfo = React.createClass({
 		this.props.setCryptoAddress(cryptoAddress);
 	},
 
+	/**
+	 * Chance value to promo code input
+	 *
+	 * @param event
+     */
+	changePromoCode(event){
+		let promoCode = event.target.value;
+		this.props.setPromoCode(promoCode);
+	},
+
 	showCurrencies(){
 		$('#cryptoTransferModal').css('display', 'flex');
 	},
@@ -193,6 +205,7 @@ let AskInfo = React.createClass({
 
 	render() {
 		let isWithDraw = UIService.getIsWithDraw();
+		let promoCodeTXT = translate('TRANSACTION_PROMO_CODE', 'Promo code');
 		let helpMSG = (isWithDraw) ? translate('CRYPTO_DEPOSIT_HELP') : translate('CRYPTO_REFUND_HELP');
 		let addressMSG = (isWithDraw) ? translate('CRYPTO_DEPOSIT_ADDRESS') : translate('CRYPTO_REFUND_ADDRESS');
 		let moneroMSG = translate('CRYPTO_MONERO_MESSAGE');
@@ -268,6 +281,14 @@ let AskInfo = React.createClass({
 							/>
 							<span id="helpAddress">?</span>
 						</div>
+
+						{(() =>{
+							if(!isWithDraw){
+								return (
+									<input type="text" className="form-control" placeholder={promoCodeTXT} onInput={this.changePromoCode} value={this.props.promoCode}/>
+								);
+							}
+						})()}
 					</div>
 
 					<div id='moneroMsgModal'>

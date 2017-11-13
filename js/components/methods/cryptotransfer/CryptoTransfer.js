@@ -4,6 +4,7 @@ import { InfoMethod } from './InfoMethod'
 import Cashier from '../../../constants/Cashier'
 import { UIService } from '../../../services/UIService'
 import { CashierStore } from '../../../stores/CashierStore'
+import { TransactionService } from '../../../services/TransactionService'
 import { ApplicationService } from '../../../services/ApplicationService'
 import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 
@@ -24,6 +25,7 @@ let CryptoTransfer = React.createClass({
 		return {
 			info : {
 				rate : '',
+				promoCode: '',
 				limitsCheck : '',
 				cryptoAmount : '',
 				cryptoAddress : '',
@@ -226,6 +228,18 @@ let CryptoTransfer = React.createClass({
 	},
 
 	/**
+	 * Set transaction transaction promoCode in the store
+	 *
+	 * @param promoCode
+     */
+	setPromoCode(promoCode){
+		TransactionService.setPromoCode(promoCode);
+		let actualState = this.state.info;
+		actualState.promoCode = promoCode ;
+		this.setState({info: actualState});
+	},
+
+	/**
 	 * Calculate btc amount from crypto amount
 	 *
 	 * @param amount
@@ -258,7 +272,9 @@ let CryptoTransfer = React.createClass({
 							<AskInfo
 								rate={this.state.info.rate}
 								limits={this.state.info.limits}
+								setPromoCode={this.setPromoCode}
 								setLimits={this.setCurrencyLimits}
+								promoCode={this.state.info.promoCode}
 								setCryptoAmount={this.setCryptoAmount}
 								getCurrencyRate={this.getCurrencyRate}
 								setCryptoAddress={this.setCryptoAddress}
@@ -289,6 +305,7 @@ let CryptoTransfer = React.createClass({
 								rate={this.state.info.rate}
 								limits={this.state.info.limits}
 								setLimits={this.setCurrencyLimits}
+								promoCode={this.state.info.promoCode}
 								setCryptoAmount={this.setCryptoAmount}
 								getCurrencyRate={this.getCurrencyRate}
 								limitsCheck={this.state.info.limitsCheck}

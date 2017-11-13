@@ -254,7 +254,8 @@ let _langTags = {
 	CRYPTO_INSTRUCTIONS_AMOUNT_INFO: "Otherwise, your transaction will not be successful.",
 	CRYPTO_INSTRUCTIONS_ADDRESS: "Send the {cryptoCurrency} to the following address",
 	CRYPTO_INSTRUCTIONS_ADDRESS_INFO: "Please include any Miners Fee your {cryptoCurrency} wallet charges.",
-	CRYPTO_MONERO_MESSAGE : "If you enter a Monero refund address, DO NOT use an address from an exchange or shared wallet that requires a payment ID. Only use a refund address from a wallet you control, which doesn\'t require a payment ID."
+	CRYPTO_MONERO_MESSAGE : "If you enter a Monero refund address, DO NOT use an address from an exchange or shared wallet that requires a payment ID. Only use a refund address from a wallet you control, which doesn\'t require a payment ID.",
+	CRYPTO_EXPIRED_SESSION_MSG : 'Your session as expired for a security aspect, for continued with a transaction, start login again in the cashier please'
 };
 
 export function EN(){
