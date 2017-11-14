@@ -308,7 +308,7 @@ let AskInfo = React.createClass({
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="title">{title}</div>
-						<div className="infoCol scroll">
+						<div className="cryptoScroll">
 							<div className="row">
 								<div className="col-sm-12">
 									{cryptoContent}

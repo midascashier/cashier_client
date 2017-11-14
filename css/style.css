@@ -393,6 +393,13 @@ div[class*="col-"] > div[class*="col-"]:before {
     animation: lds-circle 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
 
+.cryptoScroll{
+    height: 370px;
+    padding-top: 25px;
+    overflow-x: hidden;
+    overflow-y : scroll;
+}
+
 #cryptoTransferModal, #moneroMsgModal{
     top: 0;
     left: 0;
