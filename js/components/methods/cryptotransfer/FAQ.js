@@ -6,7 +6,7 @@ let FAQ = React.createClass({
         let faq = document.getElementById('methodInfo');
         let isShow = faq.style.display;
 
-        if(isShow == 'none'){
+        if(isShow == 'none' || isShow == ''){
             faq.style.display = 'block'
         }else{
             faq.style.display = 'none'
