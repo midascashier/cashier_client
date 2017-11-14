@@ -304,6 +304,8 @@ class transactionService {
 			lang: application.lang,
 			createdBy: 10093, //TODO: temporary
 			alsid: application.sid,
+			sid: application.sid,
+			tuid: application.tuid,
 			type: "d",
 			isDefer: 0
 		};
