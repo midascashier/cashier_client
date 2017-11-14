@@ -241,7 +241,7 @@ let _langTags = {
 	//Crypto Transfer
 	CRYPTO_AMOUNT_TXT: 'Crypto amount',
 	CRYPTO_REFUND_ADDRESS: 'Refund address',
-	CRYPTO_DEPOSIT_ADDRESS: 'Deposit address',
+	CRYPTO_DEPOSIT_ADDRESS: 'Address',
 	CRYPTO_SEARCH_TXT: 'Search currency name',
 	CRYPTO_UNAVAILABLE_TXT : 'Temporarily disabled',
 	CRYPTO_SELECT_CURRENCY: 'Select your crypto currency',
