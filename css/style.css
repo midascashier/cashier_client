@@ -594,3 +594,7 @@ div[class*="col-"] > div[class*="col-"]:before {
 #verificationCodeInputContent{
     margin-bottom: 36px;
 }
+
+#methodInfo{
+    display: none;
+}

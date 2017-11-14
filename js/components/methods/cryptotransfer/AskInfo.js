@@ -1,4 +1,5 @@
 import React from 'react'
+import { FAQ } from './FAQ'
 import { Amount } from './Amount'
 import Cashier from '../../../constants/Cashier'
 import { CryptoCurrencies } from './CryptoCurrencies'
@@ -289,6 +290,8 @@ let AskInfo = React.createClass({
 								);
 							}
 						})()}
+
+						<FAQ/>
 					</div>
 
 					<div id='moneroMsgModal'>
