@@ -114,7 +114,6 @@ let BitCoinTicketPending = React.createClass({
 											<div className="title">#1</div>
 											<div className="infoCol">
 												<div className="subtitle">{btcAmount}</div>
-												<p>{translate('BITCOIN_INSTRUCTIONS_AMOUNT_INFO', 'Otherwise, your transaction will not be successful')}</p>
 											</div>
 										</div>
 									</div>
