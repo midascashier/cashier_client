@@ -73,7 +73,7 @@ let DebitCards = React.createClass({
 							<div className="title">DebitCards</div>
 							<div className="infoCol">
 								<p>
-									<a target="_blank" href="https://de.secureprivate.com/docs/common/PREPAID_CARD_APPLICATION_FORM.pdf">
+									<a href='#' onClick='https://de.secureprivate.com/docs/common/PREPAID_CARD_APPLICATION_FORM.pdf'>
 										<strong>NEW TO DEBIT CARDS PLEASE CLICK HERE TO PRINT OUT THE KYC FORM</strong>
 									</a>
 								</p>
