@@ -597,4 +597,5 @@ div[class*="col-"] > div[class*="col-"]:before {
 
 #methodInfo{
     display: none;
+    text-align: justify;
 }
