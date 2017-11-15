@@ -291,7 +291,13 @@ let AskInfo = React.createClass({
 							}
 						})()}
 
-						<FAQ/>
+						{(() =>{
+							if(!isWithDraw){
+								return (
+									<FAQ/>
+								);
+							}
+						})()}
 					</div>
 
 					<div id='moneroMsgModal'>
