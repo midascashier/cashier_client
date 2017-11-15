@@ -110,6 +110,11 @@ let CryptoCurrencies = React.createClass({
                 final = parseInt(maxAmount) + round;
                 finalMax = (isCusMax) ? caLimitMax : final;
 
+                if((!finalMin || finalMin == typeof "undefined") || (!finalMax || finalMax == typeof "undefined") || finalMax < finalMin){
+                    finalMin = caLimitMin;
+                    finalMax = caLimitMax;
+                }
+
                 let currency = this.props.limits.currencyCode;
                 let maxLimitCont = translate('PROCESSING_MIN', 'Min') + ApplicationService.currency_format(finalMin) + ' ' + currency + ' - ';
                 let minLimitCont = translate('PROCESSING_MAX', 'Max') + ApplicationService.currency_format(finalMax) + ' ' + currency;
