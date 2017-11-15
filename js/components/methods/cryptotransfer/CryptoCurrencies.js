@@ -110,7 +110,7 @@ let CryptoCurrencies = React.createClass({
                 final = parseInt(maxAmount) + round;
                 finalMax = (isCusMax) ? caLimitMax : final;
 
-                if((!finalMin || finalMin == typeof "undefined") || (!finalMax || finalMax == typeof "undefined")){
+                if((!finalMin || finalMin == typeof "undefined") || (!finalMax || finalMax == typeof "undefined") || finalMax < finalMin){
                     finalMin = caLimitMin;
                     finalMax = caLimitMax;
                 }
