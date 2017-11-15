@@ -132,6 +132,24 @@ let CryptoCurrencies = React.createClass({
             }
 
         }).catch((err) => {
+
+            let finalMin = caLimitMin;
+            let finalMax = caLimitMax;
+
+            let currency = this.props.limits.currencyCode;
+            let maxLimitCont = translate('PROCESSING_MIN', 'Min') + ApplicationService.currency_format(finalMin) + ' ' + currency + ' - ';
+            let minLimitCont = translate('PROCESSING_MAX', 'Max') + ApplicationService.currency_format(finalMax) + ' ' + currency;
+            let limitContent = maxLimitCont + ' ' + minLimitCont;
+            let limitsCont = "<span>" + limitContent + "</span>";
+
+            let limits = {
+                minAmount : finalMin,
+                maxAmount : finalMax,
+                currencyCode : currency
+            };
+
+            this.props.setLimits(limits);
+            $('#cryptoLimits').html(limitsCont);
             console.error(err);
         });
     },
