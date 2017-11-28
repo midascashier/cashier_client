@@ -599,14 +599,14 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.LOGIN_RESPONSE:
 			_UI.currentView = data.option;
 			_application.sid = data.sid;
-			_application.referrer = ('referrer' in data) ? data.referrer : '';
-			_application.remoteAddr = ('remoteAddr' in data) ? data.remoteAddr : '';
-			_application.remoteHost = ('remoteHost' in data) ? data.remoteHost : '';
-			_application.xForwardedFor = ('xForwardedFor' in data) ? data.xForwardedFor : '';
 			_company.companyId = data.companyId;
 
 			if(typeof Storage !== "undefined"){
 				let application = JSON.parse(localStorage.application);
+				_application.referrer = application.referrer;
+				_application.remoteAddr = application.remoteAddr;
+				_application.remoteHost = application.remoteHost;
+				_application.xForwardedFor = application.xForwardedFor;
 			}
 
 			CashierStore.storeData("application", _application);
