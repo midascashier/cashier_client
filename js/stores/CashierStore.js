@@ -40,7 +40,12 @@ let _application = {
 	sid: null,
 	tuid: null,
 	lang: "en",
-	platform: 'desktop'
+	referrer: '',
+	remoteAddr: '',
+	remoteHost: '',
+	xForwardedFor: '',
+	platform: 'desktop',
+	userAgent: navigator.userAgent
 };
 
 /**
@@ -464,7 +469,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * get application object
 	 *
 	 * @returns {{sid: null, tuid: null, lang: string, platform: string}}
-	 */
+     */
 	getApplication: () =>{
 		if(!_application.platform){
 			let platform = 'desktop';
@@ -477,6 +482,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		if(_application.sid){
 			_application.referrer = document.URL || location.href;
 		}
+
 		return _application;
 	},
 
@@ -593,6 +599,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.LOGIN_RESPONSE:
 			_UI.currentView = data.option;
 			_application.sid = data.sid;
+			_application.referrer = data.referrer;
+			_application.remoteAddr = data.remoteAddr;
+			_application.remoteHost = data.remoteHost;
+			_application.xForwardedFor = data.xForwardedFor;
 			_company.companyId = data.companyId;
 
 			if(typeof Storage !== "undefined"){

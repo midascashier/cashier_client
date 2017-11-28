@@ -299,15 +299,24 @@ class transactionService {
 
 		let application = CashierStore.getApplication();
 		let transaction = CashierStore.getTransaction();
+		let customer = CashierStore.getCustomer();
 
 		var req = {
-			lang: application.lang,
-			createdBy: 10093, //TODO: temporary
-			alsid: application.sid,
-			sid: application.sid,
-			tuid: application.tuid,
 			type: "d",
-			isDefer: 0
+			isDefer: 0,
+			genTOKEN: 1,
+			createdBy: 10093, //TODO: temporary
+			password: 'TOKEN',
+			sid: application.sid,
+			lang: application.lang,
+			tuid: application.tuid,
+			username: customer.username,
+			companyId: customer.companyId,
+			platform: application.platform,
+			referrer: application.referrer,
+			userAgent: application.userAgent,
+			remoteAddr: application.remoteAddr,
+			remoteHost: application.remoteHost
 		};
 
 		//payouts params

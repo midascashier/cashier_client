@@ -16,15 +16,16 @@
         <div id="msjs" style="width:100%; background-color:red; text-align: center;font-weight: bold;display:none;">Connection Error</div>
         <div id="app"></div>
         <script>
-
-          let loginInfo = <?php echo((count($_REQUEST)) > 0 ? json_encode($_REQUEST) : "null") ?>;
-          let remoteAddr = "<?php echo $_REQUEST['remoteAddr'] ?>";
-          let remoteHost = "<?php echo $_REQUEST['remoteHost'] ?>";
-          let xForwardedFor = "<?php echo $_REQUEST['xForwardedFor'] ?>";
+            let sid = "<?php echo $_REQUEST['sid'] ?>";
+            let tuid = "<?php echo $_REQUEST['tuid'] ?>";
+            let remoteAddr = "<?php echo $_REQUEST['remoteAddr'] ?>";
+            let xForwardedFor = "<?php echo $_REQUEST['xForwardedFor'] ?>";
+            let remoteHost = "<?php echo gethostbyaddr($_SERVER['REMOTE_ADDR']) ?>";
+            let loginInfo = <?php echo((count($_REQUEST)) > 0 ? json_encode($_REQUEST) : "null") ?>;
 
           let application = {
-          	sid: null,
-          	tuid: null,
+          	sid: sid,
+          	tuid: tuid,
           	lang: "en",
           	platform: 'desktop',
           	remoteAddr: remoteAddr,
@@ -34,7 +35,7 @@
           	referrer: document.referrer || location.referrer,
           	xForwardedFor: xForwardedFor
           };
-
+            console.log(application);
           if (!loginInfo){
             let application = JSON.parse(localStorage.application);
             let ui = JSON.parse(localStorage.ui);
@@ -56,7 +57,6 @@
             }
 
             localStorage.setItem('application', JSON.stringify(application));
-
           }
         </script>
         <script src="/js/libs/jquery.min.js"></script>
@@ -66,6 +66,5 @@
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="/js/libs/bootstrap.min.js"></script>
-
     </body>
 </html>
