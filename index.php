@@ -35,7 +35,7 @@
           	referrer: document.referrer || location.referrer,
           	xForwardedFor: xForwardedFor
           };
-            console.log(application);
+
           if (!loginInfo){
             let application = JSON.parse(localStorage.application);
             let ui = JSON.parse(localStorage.ui);
