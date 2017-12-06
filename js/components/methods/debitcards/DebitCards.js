@@ -80,7 +80,7 @@ let DebitCards = React.createClass({
 							<div className="title">DebitCards</div>
 							<div className="infoCol">
 								<p>
-									<a href='#' onClick={debitCardsForm}>
+									<a href='#' onClick={this.debitCardsForm}>
 										<strong>NEW TO DEBIT CARDS PLEASE CLICK HERE TO PRINT OUT THE KYC FORM</strong>
 									</a>
 								</p>
