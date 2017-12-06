@@ -73,7 +73,7 @@ let DebitCards = React.createClass({
 							<div className="title">DebitCards</div>
 							<div className="infoCol">
 								<p>
-									<a href='#' onClick={this.debitCardsForm}>
+									<a href='#' onClick={debitCardsForm}>
 										<strong>NEW TO DEBIT CARDS PLEASE CLICK HERE TO PRINT OUT THE KYC FORM</strong>
 									</a>
 								</p>
@@ -87,7 +87,7 @@ let DebitCards = React.createClass({
 								</ul>
 								<p><span>2.</span> Scan or photograph your utility bill (must match the address and the name on the KYC Form)</p>
 								<p><span>3.</span> Scan or photograph the KYC form</p>
-								<p><span>4.</span> Email your scanned documents to debitcards@bookmaker.eu</p>
+								<p><span>4.</span> Email your scanned documents to cashier@DigitalExchange.eu</p>
 							</div>
 						</div>
 					</div>

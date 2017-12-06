@@ -404,7 +404,6 @@ class UiService {
 	 * Set first step as current
 	 */
 	setFirstStep(){
-
 		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
 
