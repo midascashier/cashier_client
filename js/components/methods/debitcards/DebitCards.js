@@ -40,6 +40,13 @@ let DebitCards = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
+	/**
+	 * Debit cards form show
+	 */
+	debitCardsForm(){
+		window.open('https://de.secureprivate.com/docs/common/PREPAID_CARD_APPLICATION_FORM.pdf', 'form', 'toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=0,resizable=1,width=600,height=680');
+	},
+
 	render() {
 		if(this.state.payAccount && this.state.payAccount.payAccountId){
 			return (
