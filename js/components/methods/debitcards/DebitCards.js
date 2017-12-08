@@ -3,9 +3,9 @@ import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
 import cashier from '../../../constants/Cashier'
 import {CashierStore} from '../../../stores/CashierStore'
-import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {DownloadDoc} from '../../commonComponents/files/DownloadDoc'
 import {TransactionService} from '../../../services/TransactionService'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 
 let DebitCards = React.createClass({
 
