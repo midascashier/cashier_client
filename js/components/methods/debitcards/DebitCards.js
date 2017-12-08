@@ -1,10 +1,11 @@
 import React from 'react'
-import {CashierStore} from '../../../stores/CashierStore'
-import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
-import {TransactionService} from '../../../services/TransactionService'
 import cashier from '../../../constants/Cashier'
+import {CashierStore} from '../../../stores/CashierStore'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
+import {DownloadDoc} from '../../commonComponents/files/DownloadDoc'
+import {TransactionService} from '../../../services/TransactionService'
 
 let DebitCards = React.createClass({
 
@@ -41,10 +42,10 @@ let DebitCards = React.createClass({
 	},
 
 	/**
-	 * Debit cards form show
+	 *Download prepaid card form
 	 */
-	debitCardsForm(){
-		window.open('https://de.secureprivate.com/docs/common/PREPAID_CARD_APPLICATION_FORM.pdf', 'form', 'toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=0,resizable=1,width=600,height=680');
+	debitCardDoc(){
+		DownloadDoc('docs/common/PREPAID_CARD_APPLICATION_FORM.pdf', 'PREPAID_CARD_APPLICATION_FORM.pdf');
 	},
 
 	render() {
@@ -80,7 +81,7 @@ let DebitCards = React.createClass({
 							<div className="title">DebitCards</div>
 							<div className="infoCol">
 								<p>
-									<a href='#' onClick={this.debitCardsForm}>
+									<a href='#' onClick={this.debitCardDoc}>
 										<strong>NEW TO DEBIT CARDS PLEASE CLICK HERE TO PRINT OUT THE KYC FORM</strong>
 									</a>
 								</p>
