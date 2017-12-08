@@ -82,7 +82,7 @@ let DebitCards = React.createClass({
 							<div className="infoCol">
 								<p>
 									<a href='#' onClick={this.debitCardDoc}>
-										<strong>NEW TO DEBIT CARDS PLEASE CLICK HERE TO PRINT OUT THE KYC FORM</strong>
+										<strong>NEW ON DEBIT CARDS CLICK HERE TO DOWNLOAD AND PRINT THE KYC FORM</strong>
 									</a>
 								</p>
 								<p>This form will be required by customer service to proceed with the FREE delivery of your DebitCard.</p>
