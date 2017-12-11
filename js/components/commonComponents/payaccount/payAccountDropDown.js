@@ -47,7 +47,7 @@ let PayAccountDropDown = React.createClass({
         let payAccount = info.payAccount;
 
         if (!this.props.msgDeleteBtn) {
-            deleteButton  = translate('PROCESSING_BUTTON_DELETE_ACCOUNT');
+            deleteButton  = translate('PROCESSING_BUTTON_DELETE_ACCOUNT', 'Delete Account');
         }else{
             deleteButton = this.props.msgDeleteBtn;
         }
@@ -62,7 +62,7 @@ let PayAccountDropDown = React.createClass({
 
         return(
             <div className="form-group" id="payAccount">
-                <label className="col-sm-4 control-label">{translate('SELECT_ACCOUNT', 'Account')}:</label>
+                <label className="col-sm-4 control-label">{translate('SELECT_ACCOUNT', 'Select your account')}:</label>
                 <div className="col-sm-5" id="selectPayAccount">
                     <SelectPayAccount setAmount={info.setAmount} amount={info.amount}/>
                 </div>

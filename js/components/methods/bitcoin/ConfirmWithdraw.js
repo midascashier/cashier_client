@@ -74,8 +74,8 @@ let BitCoinConfirmWithdraw = React.createClass({
 												<div
 													className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 												<div className="infoCol text-justify">
-													<p>BitCoin withdraws will be process inside 24 hours, but are typically processed within an
-														hour.</p>
+													<p>{translate('BITCOIN_INSTRUCTIONS_PROCESS_INSIDE')}</p>
+													hour.
 												</div>
 											</div>
 

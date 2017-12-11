@@ -79,7 +79,7 @@ let Astropay = React.createClass({
 			<div id="astropay">
 				<div className="col-sm-6">
 					<Link to={`/transaction_history/`}>
-						<p>{translate('TRANSACTION_HISTORY')}</p>
+						<p>{translate('TRANSACTION_HISTORY', 'Transaction History')}</p>
 					</Link>
 					<AskInfo 
 						amount={this.props.amount}

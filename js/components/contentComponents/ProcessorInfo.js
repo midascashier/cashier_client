@@ -62,11 +62,11 @@ let ProcessorInfo = React.createClass({
 		let minProcessorLimit = ApplicationService.currency_format(this.getMinProcessorLimit());
 		let maxProcessorLimit = ApplicationService.currency_format(this.getMaxProcessorLimit());
 		let currencyCode = this.props.selectedProcessor.limits.currencyCode;
-		let buttonNext = translate('PROCESSING_BUTTON_NEXT_DEPOSIT', 'Next');
-		let switch_button = translate('SWICTH_WITHDRAW', 'Next');
+		let buttonNext = translate('PROCESSING_BUTTON_NEXT_DEPOSIT', 'Deposit with');
+		let switch_button = translate('SWICTH_WITHDRAW', 'Withdraw Instead');
 		if(isWithDraw){
-			buttonNext = translate('PROCESSING_BUTTON_NEXT_WITHDRAW', 'Next');
-			switch_button = translate('SWITCH_DEPOSIT', 'Next');
+			buttonNext = translate('PROCESSING_BUTTON_NEXT_WITHDRAW', 'Withdraw to');
+			switch_button = translate('SWITCH_DEPOSIT', 'Deposit Instead');
 		}
 
 		let currentView = UIService.getCurrentView().toUpperCase();
@@ -118,7 +118,7 @@ let ProcessorInfo = React.createClass({
 										return (
 											<p>
 												<Link to={`/pendingControlNumber/`}>
-													{translate('PENDING_MTCN', 'Enter Pending Control Numbers')}
+													{translate('PENDING_MTCN', 'Pending Control Numbers')}
 												</Link>
 											</p>
 										)

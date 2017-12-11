@@ -143,7 +143,7 @@ let InfoMethod = React.createClass({
 												onClick={this.continueTransaction.bind(null, confirmTerms)}>
 									{translate('PROCESSING_BUTTON_NEXT', 'Next')}
 								</button>
-								<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
+								<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD', 'Use different Method')}.</a></p>
 							</div>
 							<div className="col-sm-6">
 								<img src={originPath + '/images/ssl.png'} alt="ssl"/>

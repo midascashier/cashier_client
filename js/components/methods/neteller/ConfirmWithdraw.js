@@ -75,11 +75,9 @@ let NetellerConfirmWithdraw = React.createClass({
 									<div className="box">
 										<div className="row">
 											<div className="col-sm-12">
-												<div className="title">{translate('IMPORTANT_REMINDERS', 'reminder')}</div>
+												<div className="title">{translate('IMPORTANT_REMINDERS', 'Important Reminders')}</div>
 												<div className="infoCol text-justify">
-													<p>
-														Withdraws will be process inside 24 hours, but are typically processed within an hour.
-													</p>
+													<p>{translate('NETELLER_INSTRUCTIONS_PROCESS_INSIDE')}</p>
 												</div>
 											</div>
 										</div>

@@ -38,7 +38,7 @@ let AskInfo = React.createClass({
 								<div className="col-sm-12">
 									<div className="form-horizontal">
 										<div className="form-group" id="payAccount">
-											<label className="col-sm-4 control-label">{translate('DEBITCARD_INFO', '')}:</label>
+											<label className="col-sm-4 control-label">{translate('DEBITCARD_INFO', 'Debit Card Information')}:</label>
 											{(() =>{
 												if(payAccountId != 0){
 													return (

@@ -95,8 +95,7 @@ let InfoMethod = React.createClass({
 		TransactionService.setAmount(this.props.amount);
 		if(isWithDraw){
 			UIService.confirmTransaction();
-		}
-		else{
+		}else{
 			//process the deposit
 			let payAccount = {};
 			payAccount.account = this.props.account;
@@ -122,7 +121,6 @@ let InfoMethod = React.createClass({
 			isNextDisabled = "";
 		}
 
-		let processor = this.state.processor;
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 
 		return (
@@ -133,28 +131,33 @@ let InfoMethod = React.createClass({
 						<div className="table-responsive">
 							<table className="table table-striped">
 								<tbody>
-								<tr>
-									<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-									<td><span>{payAccountInfo.minPayAccount}</span></td>
-								</tr>
-								<tr>
-									<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-									<td><span>{payAccountInfo.maxPayAccount}</span></td>
-								</tr>
-								<tr>
-									<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
-									<td><span>{payAccountInfo.remaining}</span></td>
-								</tr>
+									<tr>
+										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+										<td><span>{payAccountInfo.minPayAccount}</span></td>
+									</tr>
+									<tr>
+										<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
+										<td><span>{payAccountInfo.maxPayAccount}</span></td>
+									</tr>
+									<tr>
+										<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
+										<td><span>{payAccountInfo.remaining}</span></td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
 						<div className="row mod-btns">
 							<div className="col-sm-6">
-								<button type='button' onClick={this.continueTransaction} ref='processingButton'
-												disabled={isNextDisabled} className='btn btn-green'>
+								<button
+									type='button'
+									onClick={this.continueTransaction}
+									ref='processingButton'
+									disabled={isNextDisabled}
+									className='btn btn-green'
+								>
 									{translate('PROCESSING_BUTTON_NEXT', 'Next')}
 								</button>
-								<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
+								<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD', 'Use different Method')}.</a></p>
 							</div>
 							<div className="col-sm-6">
 								<img src={originPath + '/images/ssl.png'} alt="ssl"/>

@@ -50,8 +50,7 @@ class StompConnector {
 		return new Promise((resolve, reject) =>{
 			if(this.stompClient.connected){
 				resolve();
-			} else{
-
+			}else{
 				this.makeConnection().then(() =>{
 					//set reply queue
 					this.prepareReplyQueue();
@@ -102,7 +101,6 @@ class StompConnector {
 	 */
 	prepareReplyQueue(){
 		this.replyQueue = Math.random().toString(36).substring(7);
-
 		this.stompClient.send(this.replyQueue, { "exclusive": true, "auto-delete": true }, "");
 		this.reply_queue_subscription = this.stompClient.subscribe("/queue/" + this.replyQueue, this.processMessage);
 	};

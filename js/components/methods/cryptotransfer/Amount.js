@@ -91,7 +91,7 @@ let Amount = React.createClass({
                                 id="cryptoAmount"
                                 className="form-control"
                                 value={this.props.cryptoAmount}
-                                placeholder={translate('CRYPTO_AMOUNT_TXT')}
+                                placeholder={translate('CRYPTO_AMOUNT_TXT', 'Crypto amount')}
                                 onInput={this.customerAmountCalculate.bind(this)}
                             />
                         )

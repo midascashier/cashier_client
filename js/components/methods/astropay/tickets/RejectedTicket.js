@@ -56,7 +56,7 @@ let AstroPayRejectedTicket = React.createClass({
 										<div className="col-sm-12">
 											<div className="alert alert-danger" role="alert">
 												<i className="fa fa-ban red"></i>
-												<strong>Transaction Rejected</strong>
+												<strong></strong>
 												<p>
 													<strong>Unfortunately</strong>, we were unable to process your Astropay deposit for ${ApplicationService.currency_format(transaction.amount)} at this time.
 													Perhaps our Customer Support team can help. Call us at 877-314-4195 or Live Chat. Or, you could try a <a onClick={this.setFirstStep}>different deposit method</a>.
