@@ -2,6 +2,10 @@
  * Created by jobando on 03-Jun-16.
  */
 let _langTags = {
+	//Sorts words
+	IMPORTANT: "Importante: ",
+	WARNING_MINER_DEPOSIT: "Si su depósito es menor que ",
+	WARNING_MINER_DEPOSIT_END: "  podría no calificar para el reembolso.",
 	PROCESSING_SPINNER: 'Procesando... favor espere!',
 	WELCOME: "Inicio",
 	WELCOME_TITLE: "Bienvenido(a) a ",
@@ -120,10 +124,13 @@ let _langTags = {
 	NETELLER: "Neteller",
 	NETELLER_ACCOUNT: "Cuenta de Neteller",
 	SKRILL_ACCOUNT: "Cuenta de Skrill",
+	SKRILL_INSTRUCTIONS_PROCESS_INSIDE: "Los retiros se procesarán dentro de las 24 horas, pero normalmente se procesan en una hora.",
 	SELECT_ACCOUNT: "Seleccione su cuenta",
 	NETELLER_SECURE: "2FA o ID de Seguridad",
 	NETELLER_NEW: "Ingrese su cuenta de Neteller",
+	NETELLER_INSTRUCTIONS_PROCESS_INSIDE: "Los retiros se procesarán dentro de las 24 horas, pero normalmente se procesan en una hora.",
 	DEBITCARD_INFO: 'Información de la tarjeta de débito',
+	DEBITCARD_INSTRUCTIONS_PROCESS_INSIDE: "Los retiros se procesarán dentro de las 24 horas, pero normalmente se procesan en una hora.",
 	BITCOIN: "BitCoin",
 	BITCOIN_INSTRUCTIONS: "Envíenos sus BitCoin's",
 	BITCOIN_INSTRUCTIONS_INFO: "Sus fondos deben estar disponibles dentro de los 30 minutos después de hacer su transferencia.",
@@ -134,6 +141,7 @@ let _langTags = {
 	BITCOIN_INSTRUCTIONS_TIME: "Pronto se completará su transacción",
 	BITCOIN_INSTRUCTIONS_TIME_INFO1: "El precio de esta transacción de BTC solo es válido para",
 	BITCOIN_INSTRUCTIONS_TIME_INFO2: "minutos. Después de eso, el precio de la transacción cambiará y es posible que reciba una cantidad diferente a la esperada.",
+	BITCOIN_INSTRUCTIONS_PROCESS_INSIDE: "Los retiros de BitCoin se procesarán dentro de las 24 horas, pero normalmente se procesan ensegida",
 	BITCOIN_ADDRESS: "Direccion BitCoin",
 	CREDIT_CARD: "Tarjeta",
 	CREDIT_CARD_SELECT: "Seleccione su tarjeta",
@@ -173,11 +181,13 @@ let _langTags = {
 	P2P_NAME: "Nombre",
 	P2P_AGENCY_NAME: "Nombre de la Agencia",
 	P2P_ADDRESS: "Dirección",
+	P2P_ADDRESS_LOCATION: "150 metros al norte de la farmacia La Bomba, frente albergue Cataluña, San Pedro de Montes de Oca",
 	P2P_RIA: "Haga su pago en una de los siguientes establecimientos",
 	P2P_RECEIVER: "Beneficiario",
 	P2P_COUNTRY: 'País',
 	P2P_STATE: 'Estado',
 	P2P_CITY: 'Ciudad',
+	P2P_MAKE_PAYMENT: "Haga su pago en uno de los siguientes establecimientos",
 	P2P_PHONE: 'Teléfono',
 	P2P_EMAIL: 'Correo Electrónico',
 	P2P_DESTINATION: "Destino",
@@ -188,6 +198,11 @@ let _langTags = {
 	P2P_CONTROL_NUMBER: "Número de Control",
 	P2P_AMOUNT_SEND: "Monto Enviado",
 	P2P_FEE_SEND: "Costos",
+	P2P_INSTRUCTION_REJECT: "Aviso importante: No seguir las instrucciones a continuación dará como resultado una transacción rechazada. Detalles.",
+	P2P_INSTRUCTION_NEXT_HOURS: "La información de este receptor solo es válida durante las próximas 48 horas.",
+	P2P_INSTRUCTION_MIN_DEPOSIT: "El depósito mínimo es de $ 50.00, y el máximo es de $ 400.00",
+	P2P_INSTRUCTION_ONLY_USD: "Su transacción debe ser enviada en USD y recibida en USD.",
+	P2P_INSTRUCTIONS_CORRECT_ADDRESS: "Asegúrese de que su dirección sea correcta. Si necesita cambiar su dirección, puede cambiarla en el cliente. Luego puede solicitar su retiro de Money Transfer a la nueva dirección.",
 	PENDING_MTCN: "Confirmaciones Pendientes",
 	PENDING_MTCN_SENDER: "Remitente",
 	PENDING_MTCN_RECEIVER: "Beneficiario",
@@ -196,6 +211,7 @@ let _langTags = {
 	PENDING_MTCN_AMOUNT: "Monto",
 	PENDING_MTCN_FEE: "Costos",
 	PENDING_MTCN_DIGITS: "dígitos",
+	GENCK_INSTRUCTIONS_PROCESS_INSIDE: "Los retiros se procesarán dentro de las 24 horas, pero normalmente se procesan en una hora.",
 	SECOND_FACTOR_INFO: "Como medida de seguridad nueva, solicitamos la autenticación de 2 factores cada vez que solicita un retiro",
 	SECOND_FACTOR_PHONE_CONFIRMATION: "Por favor, confirme su número de teléfono abajo y solicite su código cuando esté listo",
 	SECOND_FACTOR_PHONE_REGISTERED: "Número de teléfono registrado",
@@ -221,6 +237,7 @@ let _langTags = {
 	CREDIT_CARD_REACHED: "La tarjeta de crédito seleccionada ha alcanzado su límite permitido con nosotros. Seleccione otra tarjeta de crédito",
 	CC_MAX_TRANSACTION: "La tarjeta de crédito seleccionada ha alcanzado su número máximo de transacciones permitidas. Seleccione otra tarjeta de crédito",
 	ONETAP_ACCOUNT: "Cuenta de 1TAP",
+	ONETAB_INSTRUCTIONS_PROCESS_INSIDE: "Los retiros se procesarán dentro de las 24 horas, pero normalmente se procesan en una hora.",
 	CK_FIRST_NAME: "Primer Nombre",
 	CK_MIDDLE_NAME: "Segundo Nombre",
 	CK_LAST_NAME: "Apellidos",
@@ -257,7 +274,8 @@ let _langTags = {
 	CRYPTO_INSTRUCTIONS_ADDRESS: "Envié la {cryptoCurrency} a la siguiente dirección",
 	CRYPTO_INSTRUCTIONS_ADDRESS_INFO: "Por favor incluya el cargo del minero en {cryptoCurrency} cargos de billetera.",
 	CRYPTO_MONERO_MESSAGE : "Si ingresa una dirección de reembolso de Monero, NO use una dirección de un intercambio o una billetera compartida que requiera una identificación de pago. Solo use una dirección de reembolso de una billetera que controle, que no requiere una identificación de pago.",
-	CRYPTO_EXPIRED_SESSION_MSG : 'Su sesión ha expirado debido a inactividad. Por favor, vuelva a iniciar sesión para continuar usando nuestro cajero.'
+	CRYPTO_EXPIRED_SESSION_MSG : 'Su sesión ha expirado debido a inactividad. Por favor, vuelva a iniciar sesión para continuar usando nuestro cajero.',
+	CRYPTO_INSTRUCTIONS_PROCESS_INSIDE: "Las retiradas de Crypto Transfer se procesarán dentro de las 24 horas, pero normalmente se procesan dentro de una hora."
 };
 
 export function ES(){
