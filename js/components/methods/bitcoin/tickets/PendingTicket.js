@@ -3,6 +3,7 @@ import QRCode from 'qrcode.react'
 import { UIService } from '../../../../services/UIService'
 import { CashierStore } from '../../../../stores/CashierStore'
 import { translate } from '../../../../constants/Translate'
+import { GetBitcoin } from '../../../commonComponents/tools/GetBitcoin'
 
 let BitCoinTicketPending = React.createClass({
 
@@ -117,6 +118,7 @@ let BitCoinTicketPending = React.createClass({
 											</div>
 										</div>
 									</div>
+									<GetBitcoin/>
 								</div>
 							</div>
 
