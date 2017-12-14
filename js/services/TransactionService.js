@@ -857,6 +857,22 @@ class transactionService {
 	setCryptoTransferTransaction(transaction){
 		CashierActions.setCryptoTransferTransaction(transaction);
 	};
+
+	/**
+	 *Login account in Coin Direct
+	 */
+	coinDirectLogin(params){
+		let application = CashierStore.getApplication();
+		let coinDirectLogin = {
+			email: params.email,
+			f: "coinDirectLogin",
+			sid: application.sid,
+			password: params.password
+		};
+
+		let rabbitRequest = assign(coinDirectLogin);
+		stompConnector.makeProcessRequest("", rabbitRequest);
+	};
 }
 
 export let TransactionService = new transactionService();

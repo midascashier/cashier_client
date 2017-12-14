@@ -1008,6 +1008,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		case actions.UPDATE_PAYACCOUNT_INFO_RESPONSE:
 		break;
 
+		case actions.COIN_DIRECT_LOGIN_RESPONSE:
+			data;
+			CashierStore.emitChange();
+		break;
+
 		default:
 			console.log("Store No Action: " + action);
 		break;

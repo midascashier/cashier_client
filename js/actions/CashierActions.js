@@ -172,6 +172,13 @@ let CashierActions = {
 			action: actions.SET_EDITCC,
 			data: { editMode: editMode }
 		});
+	},
+
+	coinDirect: (params) =>{
+		CashierDispatcher.dispatch({
+			action: actions.COIN_DIRECT_LOGIN,
+			data: params
+		});
 	}
 };
 

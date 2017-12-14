@@ -142,11 +142,11 @@ let AskInfo = React.createClass({
 		}
 
 		return(
-			<div id='cryptoTransferModal'>
+			<div id='cryptoTransferModal' className="modal">
 				<div id='cryptoTransferModal-content'>
 					<div id='cryptoTransferModal-header'>
 						<input id='cryptoTransferModal-currencySearch' type='text' placeholder={translate('CRYPTO_SEARCH_TXT', 'Search currency name')} onInput={this.searchCurrency.bind(this)}/>
-						<span id='cryptoTransferModal-close' onClick={this.hideCurrencies.bind(this)}>&times;</span>
+						<span id='cryptoTransferModal-close' className="modal-close" onClick={this.hideCurrencies.bind(this)}>&times;</span>
 					</div>
 
 					<div id='cryptoTransfer-currencies'>
@@ -301,10 +301,10 @@ let AskInfo = React.createClass({
 						})()}
 					</div>
 
-					<div id='moneroMsgModal'>
+					<div id='moneroMsgModal' className="modal">
 						<div id='moneroMsgModal-content'>
 							<div id='moneroMsgModal-header'>
-								<span id='moneroMsgModal-close' onClick={this.hideMoneroMSG.bind(this)}>&times;</span>
+								<span id='moneroMsgModal-close' className="modal-close" onClick={this.hideMoneroMSG.bind(this)}>&times;</span>
 							</div>
 							<p>{moneroMSG}</p>
 						</div>

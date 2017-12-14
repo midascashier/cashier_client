@@ -3,6 +3,7 @@
  */
 let _langTags = {
 	//Sorts words
+	HERE: 'Aquí',
 	IMPORTANT: "Importante: ",
 	WARNING_MINER_DEPOSIT: "Si su depósito es menor que ",
 	WARNING_MINER_DEPOSIT_END: "  podría no calificar para el reembolso.",
@@ -275,7 +276,16 @@ let _langTags = {
 	CRYPTO_INSTRUCTIONS_ADDRESS_INFO: "Por favor incluya el cargo del minero en {cryptoCurrency} cargos de billetera.",
 	CRYPTO_MONERO_MESSAGE : "Si ingresa una dirección de reembolso de Monero, NO use una dirección de un intercambio o una billetera compartida que requiera una identificación de pago. Solo use una dirección de reembolso de una billetera que controle, que no requiere una identificación de pago.",
 	CRYPTO_EXPIRED_SESSION_MSG : 'Su sesión ha expirado debido a inactividad. Por favor, vuelva a iniciar sesión para continuar usando nuestro cajero.',
-	CRYPTO_INSTRUCTIONS_PROCESS_INSIDE: "Las retiradas de Crypto Transfer se procesarán dentro de las 24 horas, pero normalmente se procesan dentro de una hora."
+	CRYPTO_INSTRUCTIONS_PROCESS_INSIDE: "Las retiradas de Crypto Transfer se procesarán dentro de las 24 horas, pero normalmente se procesan dentro de una hora.",
+
+	GET_BITCOIN: 'Obtener Bitcoin',
+	GET_BITCOIN_LOGIN: 'Iniciar sesión',
+	GET_BITCOIN_SIGN_UP: 'Regístrate',
+	GET_BITCOIN_PLACE_EMAIL: 'Correo',
+	GET_BITCOIN_PLACE_PASSWORD: 'Contraseña',
+	GET_BITCOIN_PLACE_CONFIRM_PASS: 'Confirmar Contraseña',
+	GET_BITCOIN_GO_LOGIN: '¿Ya tienes una cuenta? Iniciar sesión ',
+	GET_BITCOIN_GO_SIGN_UP: '¿Crear una nueva cuenta? Regístrate '
 };
 
 export function ES(){

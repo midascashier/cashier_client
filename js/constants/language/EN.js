@@ -3,6 +3,7 @@
  */
 let _langTags = {
 	//Sorts words
+	HERE: 'Here',
 	IMPORTANT: "Important: ",
 	WARNING_MINER_DEPOSIT: "If your deposit is less than ",
 	WARNING_MINER_DEPOSIT_END: "  might not qualify for refund.",
@@ -275,7 +276,16 @@ let _langTags = {
 	CRYPTO_INSTRUCTIONS_ADDRESS_INFO: "Please include any Miners Fee your {cryptoCurrency} wallet charges.",
 	CRYPTO_MONERO_MESSAGE: "If you enter a Monero refund address, DO NOT use an address from an exchange or shared wallet that requires a payment ID. Only use a refund address from a wallet you control, which doesn\'t require a payment ID.",
 	CRYPTO_EXPIRED_SESSION_MSG: 'Your session has expired due to inactivity. Please login again to continue using our cashier.',
-	CRYPTO_INSTRUCTIONS_PROCESS_INSIDE: "Crypto Transfer withdraws will be process inside 24 hours, but are typically processed within anhour."
+	CRYPTO_INSTRUCTIONS_PROCESS_INSIDE: "Crypto Transfer withdraws will be process inside 24 hours, but are typically processed within anhour.",
+
+	GET_BITCOIN: 'Get Bitcoin',
+	GET_BITCOIN_LOGIN: 'Login',
+	GET_BITCOIN_SIGN_UP: 'Sign up',
+	GET_BITCOIN_PLACE_EMAIL: 'Email',
+	GET_BITCOIN_PLACE_PASSWORD: 'Password',
+	GET_BITCOIN_PLACE_CONFIRM_PASS: 'Confirm password',
+	GET_BITCOIN_GO_LOGIN: 'Already have an account? Login ',
+	GET_BITCOIN_GO_SIGN_UP: 'Create new account? Sign Up '
 };
 
 export function EN(){

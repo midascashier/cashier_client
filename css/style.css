@@ -400,7 +400,7 @@ div[class*="col-"] > div[class*="col-"]:before {
     overflow-y : scroll;
 }
 
-#cryptoTransferModal, #moneroMsgModal{
+.modal{
     top: 0;
     left: 0;
     width: 100%;
@@ -463,7 +463,7 @@ div[class*="col-"] > div[class*="col-"]:before {
     padding: 15px;
 }
 
-#cryptoTransferModal-header{
+#cryptoTransferModal-header, #getBitcoinModal-header{
     z-index: 1;
     height: 60px;
     display: block;
@@ -485,14 +485,14 @@ div[class*="col-"] > div[class*="col-"]:before {
     background-color: rgb(254, 254, 254);
 }
 
-#cryptoTransferModal-currencySearch {
+#cryptoTransferModal-currencySearch{
     height: 35px;
     width: 27.2%;
     margin-top: 2%;
     margin-left: 7.8%;
 }
 
-#cryptoTransferModal-close, #moneroMsgModal-close{
+.modal-close{
     top: 0;
     margin: 1%;
     float: right;
@@ -598,4 +598,35 @@ div[class*="col-"] > div[class*="col-"]:before {
 #methodInfo{
     display: none;
     text-align: justify;
+}
+
+#getBitcoinModal-header h2{
+    text-align: center;
+}
+
+#getBitcoinModal-content{
+    width: 350px;
+    margin: auto;
+    height: 200px;
+    background-color: rgb(254, 254, 254);
+}
+
+#getBitcoinModal-Form input{
+    width: 90%;
+    height: 34px;
+    margin-top: 5px;
+    border-radius: 2px;
+    border: solid 1px gray;
+}
+
+#getBitcoinModal-Form input::-webkit-input-placeholder{
+    font-size: 15px;
+}
+
+#coinDirectConfirmPass{
+    visibility: hidden;
+}
+
+#coinDirectGo{
+    margin: 10px;
 }
