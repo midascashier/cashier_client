@@ -1,13 +1,14 @@
 import React from 'react'
 import { translate } from '../../../constants/Translate'
+import { CashierStore } from '../../../stores/CashierStore'
 import { TransactionService } from '../../../services/TransactionService'
 
 let GetBitcoin = React.createClass({
 
+    /**
+     * Execute the initial functions when the component is mounted
+     */
     componentWillMount(){
-
-        this.setState(this.refreshLocalState());
-
         window.onclick = function (event) {
             if (event.target == document.getElementById('getBitcoinModal')) {
                 $('#getBitcoinModal').css('display', 'none');
@@ -16,22 +17,24 @@ let GetBitcoin = React.createClass({
     },
 
     /**
+     * React function to set component initial state
+     */
+    getInitialState(){
+        let messagesGO = {
+            btnGO: 'GET_BITCOIN_LOGIN',
+            messageGO: 'GET_BITCOIN_GO_LOGIN'
+        };
+
+        return Object.assign(CashierStore.getCoindDirect(), messagesGO);
+    },
+
+    /**
      * this is the callback function the store calls when a state change
      *
      * @private
      */
     _onChange() {
-        this.setState(this.refreshLocalState());
-    },
-
-    /**
-     * this function sets and return object with local states
-     */
-    refreshLocalState() {
-        return {
-            btnGO : 'GET_BITCOIN_LOGIN',
-            messageGo : 'GET_BITCOIN_GO_LOGIN'
-        }
+        this.setState(CashierStore.getCoindDirect());
     },
 
     showBitcoinContent(){
@@ -54,32 +57,40 @@ let GetBitcoin = React.createClass({
         TransactionService.coinDirectLogin(params);
     },
 
+    getUser(){
+        TransactionService.coinDirectGetUser(this.state.login.linkId);
+    },
+
     switchAction(){
         let msgGo = 'GET_BITCOIN_GO_LOGIN';
         let show = $('#coinDirectConfirmPass').css('visibility');
         if(show == 'hidden'){
-            this.setState({
-                btnGO : 'GET_BITCOIN_SIGN_UP'
-            });
+            let actualState = this.state;
+            actualState.btnGO = 'GET_BITCOIN_SIGN_UP';
+            this.setState(actualState);
 
             show = 'visible';
             msgGo = 'GET_BITCOIN_GO_SIGN_UP';
         }else{
             show = 'hidden';
-            this.setState({
-                btnGO : 'GET_BITCOIN_LOGIN'
-            });
+            let actualState = this.state;
+            actualState.btnGO = 'GET_BITCOIN_LOGIN';
+            this.setState(actualState);
         }
 
-        this.setState({
-            messageGo : msgGo
-        });
+        let actualState = this.state;
+        actualState.messageGO = msgGo;
+        this.setState(actualState);
 
         $('#coinDirectConfirmPass').css('visibility', show);
     },
 
     render(){
-        let msgGO = this.state.messageGo;
+        if(this.state.login.linkId){
+            this.getUser();
+        }
+
+        let msgGO = this.state.messageGO;
         let placeEmail = 'GET_BITCOIN_PLACE_EMAIL';
         let placePassword = 'GET_BITCOIN_PLACE_PASSWORD';
         let placeConfirmPass = 'GET_BITCOIN_PLACE_CONFIRM_PASS';
@@ -108,6 +119,20 @@ let GetBitcoin = React.createClass({
                 </div>
             </div>
         )
+    },
+
+    /**
+     * component is ready
+     */
+    componentDidMount() {
+        CashierStore.addChangeListener(this._onChange);
+    },
+
+    /**
+     * React function to remove listener to this component once is unmounted
+     */
+    componentWillUnmount() {
+        CashierStore.removeChangeListener(this._onChange);
     }
 });
 

@@ -873,6 +873,19 @@ class transactionService {
 		let rabbitRequest = assign(coinDirectLogin);
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
+
+	/**
+	 *Get account in Coin Direct
+	 */
+	coinDirectGetUser(linkId){
+		let coinDirectGetUser = {
+			f: "coinDirectGetUser",
+			linkId: linkId
+		};
+
+		let rabbitRequest = assign(coinDirectGetUser);
+		stompConnector.makeProcessRequest("", rabbitRequest);
+	};
 }
 
 export let TransactionService = new transactionService();

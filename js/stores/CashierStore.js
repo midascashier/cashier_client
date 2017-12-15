@@ -362,6 +362,13 @@ let _transactionResponse = {
 	}
 };
 
+let CoinDirect = {
+	login: {
+		linkId: false,
+		success: false
+	}
+};
+
 let CHANGE_EVENT = 'change';
 
 let CashierStore = assign({}, EventEmitter.prototype, {
@@ -584,6 +591,10 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getServerTime: () =>{
 		return _UI.serverTime;
+	},
+
+	getCoindDirect: () =>{
+		return CoinDirect
 	}
 
 });
@@ -1009,7 +1020,12 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		break;
 
 		case actions.COIN_DIRECT_LOGIN_RESPONSE:
-			data;
+			CoinDirect.login = data.response.coinDirectData;
+			CashierStore.emitChange();
+		break;
+
+		case actions.COIN_DIRECT_GET_USER_RESPONSE:
+			CoinDirect.login = data;
 			CashierStore.emitChange();
 		break;
 

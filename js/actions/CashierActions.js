@@ -174,9 +174,16 @@ let CashierActions = {
 		});
 	},
 
-	coinDirect: (params) =>{
+	coinDirectLogin: (params) =>{
 		CashierDispatcher.dispatch({
 			action: actions.COIN_DIRECT_LOGIN,
+			data: params
+		});
+	},
+
+	coinDirectGetUser: (params) =>{
+		CashierDispatcher.dispatch({
+			action: actions.COIN_DIRECT_GET_USER,
 			data: params
 		});
 	}
