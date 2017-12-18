@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-</head>
-<body>
 <?php
 require_once('config/phpConfig.php');
-
 
 class restart
 {
@@ -32,9 +25,7 @@ class restart
    */
   private function curl($parameters, $URL)
   {
-
     $curl = curl_init();
-
     $parameters .= "&sys_access_pass=1";
 
     curl_setopt_array($curl, array(
@@ -57,32 +48,35 @@ class restart
     }
 
     if ($_SESSION["sid"]) {
-      $html = <<<HTML
-    <form id="alForm" action="/" method="POST">
-        <input type="hidden" id="sid" name="sid" value={$_SESSION["sid"]}>
-        <input type="hidden" id="companyId" name="companyId" value={$result->response->companyId}>
-        <input type="hidden" id="option" name="option" value="deposit">
-        <input type="hidden" id="restart" name="restart" value="1">
-        <input type="hidden" id="processorId" name="processorId" value={$result->response->processorIdSelected}>
-        <input type="hidden" id="Tstatus" name="Tstatus" value={$result->response->tStatusId}>
-    </form>
-    <script>
-                    var login_form = document.getElementById("alForm");
-                    if(login_form){
-                        login_form.submit();
-                    }
-    </script>
-HTML;
+      $html = "
+        <!DOCTYPE html>
+          <html lang='en'>
+            <head>
+                <meta charset='UTF-8'>
+            </head>
+          <body>
+            <form id='alForm' action='/' method='POST'>
+              <input type='hidden' id='sid' name='sid' value={$_SESSION['sid']}>
+              <input type='hidden' id='companyId' name='companyId' value={$result->response->companyId}>
+              <input type='hidden' id='option' name='option' value='deposit'>
+              <input type='hidden' id='restart' name='restart' value='1'>
+              <input type='hidden' id='processorId' name='processorId' value={$result->response->processorIdSelected}>
+              <input type='hidden' id='Tstatus' name='Tstatus' value={$result->response->tStatusId}>
+            </form>
+            <script>
+              var login_form = document.getElementById('alForm');
+              if(login_form){
+                login_form.submit();
+              }
+            </script>
+          </body>
+        </html>          
+      ";
 
       echo $html;
     }
   }
-
 }
 
 $restart = new restart($_REQUEST);
 $restart->getTransactionInfo();
-?>
-
-</body>
-</html>
