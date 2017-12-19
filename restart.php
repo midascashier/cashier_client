@@ -47,7 +47,7 @@ class restart
       $_SESSION["sid"] = $result->response->sid;
     }
 
-    if (false){
+    if ($_SESSION["sid"]){
       $html = "
         <!DOCTYPE html>
           <html lang='en'>
