@@ -47,7 +47,7 @@ class restart
       $_SESSION["sid"] = $result->response->sid;
     }
 
-    if ($_SESSION["sid"]) {
+    if (false){
       $html = "
         <!DOCTYPE html>
           <html lang='en'>
@@ -74,6 +74,26 @@ class restart
       ";
 
       echo $html;
+    }else{
+      $newPokerUrl = SKIN_POKER_HTTP_DOMAIN_NAME;
+      $error = "
+        <!DOCTYPE html>
+          <html lang='en'>
+            <head>
+            <meta charset='UTF-8'>
+          </head>
+          <body>
+            <h1>An error has occurred</h1>
+          </body>
+          <script>
+            setTimeout(function(){
+                window.location = '{$newPokerUrl}';
+            }, 5000);
+          </script>
+        </html>  
+      ";
+
+      echo $error;
     }
   }
 }
