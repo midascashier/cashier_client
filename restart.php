@@ -26,7 +26,7 @@ class restart
   private function curl($parameters, $URL)
   {
     $curl = curl_init();
-    $parameters .= "&sys_access_pass=1";
+    $parameters .= "&sys_access_pass=".ACCESS_PASSWORD;
 
     curl_setopt_array($curl, array(
       CURLOPT_RETURNTRANSFER => 1,
