@@ -80,27 +80,21 @@ let SkrillConfirmWithdraw = React.createClass({
 					<div className="col-sm-12">
 						<div className="modules">
 							<div className="row">
-
 								<div className="col-sm-6 ">
 									<div className="box">
-
 										<div className="row">
 											<div className="col-sm-12">
-												<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
+												<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Ensure Your Billing Information is Correct')}</div>
 												<div className="infoCol text-justify">
-													<p>
-														Withdraws will be process inside 24 hours, but are typically processed within an hour.
-													</p>
+													<p>{translate('SKRILL_INSTRUCTIONS_PROCESS_INSIDE')}</p>
 												</div>
 											</div>
-
 										</div>
 									</div>
 								</div>
 
 								<div className="col-sm-6">
 									<div className="box">
-
 										<div className="row">
 											<div className="col-sm-12">
 												<div className="title">{translate('METHOD_DETAILS_WITHDRAW', 'Withdraw Details')}</div>
@@ -108,7 +102,7 @@ let SkrillConfirmWithdraw = React.createClass({
 														<table className="table table-striped">
 															<tbody>
 																<tr>
-																	<td>{translate('SKRILL', 'Account')}</td>
+																	<td>{translate('SKRILL_ACCOUNT', 'Skrill Account')}</td>
 																	<td><span>{secureData.account}</span></td>
 																</tr>
 																<tr>
@@ -139,10 +133,8 @@ let SkrillConfirmWithdraw = React.createClass({
 												</div>
 											</div>
 										</div>
-
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>

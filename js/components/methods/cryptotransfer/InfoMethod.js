@@ -173,7 +173,7 @@ let InfoMethod = React.createClass({
 					<div className="row mod-btns">
 						<div className="col-sm-6">
 							{nextBTN}
-							<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
+							<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD', 'Use different Method')}.</a></p>
 						</div>
 						<div className="col-sm-6">
 							<img src={originPath + '/images/ssl.png'} alt="ssl"/>

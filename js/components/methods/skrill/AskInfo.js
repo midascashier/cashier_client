@@ -60,7 +60,6 @@ let AskInfo = React.createClass({
 							<div className="form-horizontal">
 
 								{(() =>{
-
 									if(!isWithDraw){
 										promoCode = (
 											<div className="form-group">
@@ -76,11 +75,9 @@ let AskInfo = React.createClass({
 									return (
 										<div>
 											<PayAccountDropDown info={this.getProps()}/>
-
 											<div className="form-group">
 												<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 											</div>
-
 											{promoCode}
 										</div>
 									)

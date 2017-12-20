@@ -100,7 +100,7 @@ let EcoConfirmWithdraw = React.createClass({
 																<td><span>{ApplicationService.currency_format(transaction.amount) + ' ' + customer.currency}</span></td>
 															</tr>
 															<tr>
-																<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
+																<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee Amount')}</td>
 																<td><span>{ApplicationService.currency_format(transaction.fee) + ' ' + customer.currency}</span></td>
 															</tr>
 														</tbody>

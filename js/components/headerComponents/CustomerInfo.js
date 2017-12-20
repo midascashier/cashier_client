@@ -14,7 +14,7 @@ let CustomerInfo = React.createClass({
 					<div className="col-sm-12">
 						<div className="row">
 
-							<div className="col-sm-5">{translate('CUSTOMER_INFO_USER')}:
+							<div className="col-sm-5">{translate('CUSTOMER_INFO_USER', 'User')}:
 								<span>
 									{(() =>{
 										if(!this.props.customer.customerId){
@@ -26,7 +26,7 @@ let CustomerInfo = React.createClass({
 								</span>
 							</div>
 
-							<div className="col-sm-7">{translate('CUSTOMER_INFO_EMAIL')}:
+							<div className="col-sm-7">{translate('CUSTOMER_INFO_EMAIL', 'Email')}:
 								<span>
 									{(() =>{
 										if(!this.props.customer.customerId){

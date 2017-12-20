@@ -101,7 +101,6 @@ let DebitCards = React.createClass({
 					</div>
 				</div>
 			)
-
 		}
 
 		return <div className="col-sm-12"><LoadingSpinner /></div>;

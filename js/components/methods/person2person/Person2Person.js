@@ -83,16 +83,17 @@ let Person2Person = React.createClass({
 		return (
 			<div id="person2person">
 				<div className="col-sm-6">
-					<AskInfo amount={this.props.amount}
-									 setAmount={this.props.setAmount}
-									 limitsCheck={this.props.limitsCheck}
-									 timeFrameDay={this.state.timeFrameDay}
-									 timeFrameTime={this.state.timeFrameTime}
-									 timeFrameTimeChange={this.timeFrameTimeChange}
-									 timeFrameDayChange={this.timeFrameDayChange}
-									 payAccount={this.state.payAccount}
-									 feeCashValue={this.props.feeCashValue}
-									 feeCheck={this.props.feeCheck}
+					<AskInfo 
+						amount={this.props.amount}
+						setAmount={this.props.setAmount}
+						limitsCheck={this.props.limitsCheck}
+						timeFrameDay={this.state.timeFrameDay}
+						timeFrameTime={this.state.timeFrameTime}
+						timeFrameTimeChange={this.timeFrameTimeChange}
+						timeFrameDayChange={this.timeFrameDayChange}
+						payAccount={this.state.payAccount}
+						feeCashValue={this.props.feeCashValue}
+						feeCheck={this.props.feeCheck}
 					/>
 				</div>
 				<div className="col-sm-6">
@@ -100,15 +101,18 @@ let Person2Person = React.createClass({
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner />;
 						} else{
-							return <InfoMethod amount={this.props.amount}
-																 limitsCheck={this.props.limitsCheck}
-																 timeFrameDay={this.state.timeFrameDay}
-																 timeFrameTime={this.state.timeFrameTime}
-																 timeFrameTimeChange={this.timeFrameTimeChange}
-																 timeFrameDayChange={this.timeFrameDayChange}
-																 feeCheck={this.props.feeCheck}
-																 feeCashValue={this.props.feeCashValue}
-							/>;
+							return(
+								<InfoMethod 
+									amount={this.props.amount}
+									limitsCheck={this.props.limitsCheck}
+									timeFrameDay={this.state.timeFrameDay}
+									timeFrameTime={this.state.timeFrameTime}
+									timeFrameTimeChange={this.timeFrameTimeChange}
+									timeFrameDayChange={this.timeFrameDayChange}
+									feeCheck={this.props.feeCheck}
+									feeCashValue={this.props.feeCashValue}
+								/>	
+							);
 						}
 					})()}
 				</div>

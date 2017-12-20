@@ -145,7 +145,7 @@ let AskInfo = React.createClass({
 			<div id='cryptoTransferModal'>
 				<div id='cryptoTransferModal-content'>
 					<div id='cryptoTransferModal-header'>
-						<input id='cryptoTransferModal-currencySearch' type='text' placeholder={translate('CRYPTO_SEARCH_TXT')} onInput={this.searchCurrency.bind(this)}/>
+						<input id='cryptoTransferModal-currencySearch' type='text' placeholder={translate('CRYPTO_SEARCH_TXT', 'Search currency name')} onInput={this.searchCurrency.bind(this)}/>
 						<span id='cryptoTransferModal-close' onClick={this.hideCurrencies.bind(this)}>&times;</span>
 					</div>
 
@@ -207,13 +207,14 @@ let AskInfo = React.createClass({
 	render() {
 		let isWithDraw = UIService.getIsWithDraw();
 		let promoCodeTXT = translate('TRANSACTION_PROMO_CODE', 'Promo code');
-		let helpMSG = (isWithDraw) ? translate('CRYPTO_DEPOSIT_HELP') : translate('CRYPTO_REFUND_HELP');
-		let addressMSG = (isWithDraw) ? translate('CRYPTO_DEPOSIT_ADDRESS') : translate('CRYPTO_REFUND_ADDRESS');
-		let moneroMSG = translate('CRYPTO_MONERO_MESSAGE');
-		let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
+		let helpMSG = (isWithDraw) ? translate('CRYPTO_DEPOSIT_HELP', 'Enter the e-wallet address to deposit this transaction.')
+			: translate('CRYPTO_REFUND_HELP');
+		let addressMSG = (isWithDraw) ? translate('CRYPTO_DEPOSIT_ADDRESS', 'Address') : translate('CRYPTO_REFUND_ADDRESS', 'Refund address');
+		let moneroMSG = translate('CRYPTO_MONERO_MESSAGE', 'If you enter a Monero refund address, DO NOT use an address from an exchange or shared wallet that requires a payment ID. Only use a refund address from a wallet you control, which doesn\'t require a payment ID.');
+		let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please enter the Information');
 
 		if(isWithDraw){
-			title = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information')
+			title = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please enter the Information')
 		}
 
 		let cryptoContent = <LoadingSpinner/>;
@@ -222,7 +223,7 @@ let AskInfo = React.createClass({
 			cryptoContent = (
 				<div>
 					<div id="cryptoTransfer-Btn" onClick={this.showCurrencies.bind(this)}>
-						<span>{translate('CRYPTO_SELECT_CURRENCY')}</span>
+						<span>{translate('CRYPTO_SELECT_CURRENCY', 'Select your crypto currency')}</span>
 						<div id="cryptoTransfer-Btn-content">
 							<img id="imgSmall" src=""/>
 							<span id="symbolName"></span>
@@ -262,7 +263,7 @@ let AskInfo = React.createClass({
 							if(this.props.cryptoAddressError){
 								return (
 									<div className="alert alert-danger" role="alert">
-										<strong>{translate('CRYPTO_REFUND_ERROR_MSG')}</strong>
+										<strong>{translate('CRYPTO_REFUND_ERROR_MSG', 'Invalid refund address format')}</strong>
 									</div>
 								)
 							}

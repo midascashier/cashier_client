@@ -73,7 +73,6 @@ let Skrill_1tap = React.createClass({
 
 	},
 
-
 	render() {
 		return (
 			<div id="1tap">

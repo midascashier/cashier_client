@@ -90,7 +90,7 @@ let Register = React.createClass({
 			<div id="ecoPayzRegister">
 				<form onSubmit={this.addNewPayAccount}>
 					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('ECOPAYZ_ACCOUNT', 'Enter New Account')}:</label>
+						<label className="col-sm-4 control-label">{translate('ECOPAYZ_ACCOUNT', 'ECO Account Number"')}:</label>
 						<div className="col-sm-8">
 							<Input
 								className="form-control" type="text" id="openPayzNewAccount" name="openPayzNewAccount" ref="account"

@@ -145,8 +145,7 @@ let P2PTicketPending = React.createClass({
 										<ul>
 											<li>{translate('P2P_AGENCY_NAME', 'Agency_Name')}: Easypay - Phillgus</li>
 											<li>
-												{translate('P2P_ADDRESS', 'ADDRESS')}:
-												150 mts Norte de la farmacia La Bomba, frenteal hostel Cataluña, San Pedro de Montes de Oca
+												{translate('P2P_ADDRESS', 'ADDRESS') + translate('P2P_ADDRESS_LOCATION', '')}
 											</li>
 											<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
 											<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
@@ -167,19 +166,19 @@ let P2PTicketPending = React.createClass({
 							{(() =>{
 								if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
 									return <p>
-										<strong>Make your payment in one of the following establishments</strong><br />
+										<strong>{translate('P2P_MAKE_PAYMENT')}</strong><br />
 										<img src="/images/ria.jpg"/>
 									</p>
 								}
 							})()}
 
 							<p className="subtitle">
-								<em>Important Notice: Not following the instructions below will result in a rejected transaction Details.</em>
+								<em>{translate('P2P_INSTRUCTION_REJECT')}</em>
 							</p>
 							<ul>
-								<li>This receiver's information is only valid for the next 48 hours.</li>
-								<li>The minimum deposit is $50.00, and the maximum is $400.00</li>
-								<li>Your transaction must be sent in USD and received in USD.</li>
+								<li>{translate('P2P_INSTRUCTION_NEXT_HOURS')}</li>
+								<li>{translate('P2P_INSTRUCTION_MIN_DEPOSIT')}</li>
+								<li>{translate('P2P_INSTRUCTION_ONLY_USD')}</li>
 							</ul>
 						</div>
 					</div>

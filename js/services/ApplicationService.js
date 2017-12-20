@@ -27,6 +27,7 @@ class applicationService {
 			}
 			obj = obj[args[i]];
 		}
+
 		return true;
 	};
 
@@ -58,7 +59,7 @@ class applicationService {
 	getCountryStates(country = null){
 		if(!country){
 			country = CashierStore.getUI().selectedCountry;
-		} else{
+		}else{
 			CashierActions.setSelectedCountry(country);
 		}
 
@@ -111,7 +112,6 @@ class applicationService {
 	 * @returns {boolean}
      */
 	emptyInput(input) {
-
 		input.preventDefault();
 
 		for(let i = 0; i < input.target.length; i++){

@@ -12,9 +12,9 @@ let ProcessorsList = React.createClass({
 	},
 
 	render() {
-		let titleText = translate('METHOD_SELECT_YOUR_DEPOSIT_METHOD');
+		let titleText = translate('METHOD_SELECT_YOUR_DEPOSIT_METHOD', 'Select Your Deposit Method');
 		if(UIService.getIsWithDraw()){
-			titleText = translate('METHOD_SELECT_YOUR_WITHDRAW_METHOD');
+			titleText = translate('METHOD_SELECT_YOUR_WITHDRAW_METHOD', 'Select Your Withdraw Method');
 		}
 		let isSelected = false;
 		return (

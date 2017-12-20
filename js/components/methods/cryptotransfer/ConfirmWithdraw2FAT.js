@@ -125,10 +125,7 @@ let CryptoTransferConfirmWithdraw = React.createClass({
 												</div>
 
 												<div className="infoCol text-justify">
-													<p>
-														Crypto Transfer withdraws will be process inside 24 hours, but are typically processed within an
-														hour.
-													</p>
+													<p>{translate('CRYPTO_INSTRUCTIONS_PROCESS_INSIDE')}</p>
 
 													<p>
 														<a onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>

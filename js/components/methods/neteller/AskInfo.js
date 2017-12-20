@@ -72,7 +72,7 @@ let AskInfo = React.createClass({
 			netellerForm = (
 				<div>
 					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('NETELLER_SECURE', 'Secure ID')}:</label>
+						<label className="col-sm-4 control-label">{translate('NETELLER_SECURE', '2FA or Secure ID')}:</label>
 						<div className="col-sm-8">
 							<Input type="password" value={password} onChange={netellerPassword} validate="password"
 								   require/>

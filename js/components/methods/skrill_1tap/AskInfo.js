@@ -64,7 +64,7 @@ let AskInfo = React.createClass({
 								<div className="col-sm-12">
 									<div className="form-horizontal">
 										<div className="form-group" id="payAccount">
-											<label className="col-sm-4 control-label">{translate('ONETAP_ACCOUNT', 'ONETAP Account')}:</label>
+											<label className="col-sm-4 control-label">{translate('ONETAP_ACCOUNT', '1TAP Account')}:</label>
 											<div className="col-sm-8" id="selectPayAccount">
 												<Input className="form-control" type="text" id="ecoAccount" name="OneTapAccount" validate="isEmail" onChange={changeValue.bind(null, 'account', 0)} value={account} require/>
 											</div>

@@ -21,8 +21,8 @@ let BitCoinTicketPending = React.createClass({
 	 * @returns {{address: string, amount: string, minutes: number}}
 	 */
 	refreshLocalState() {
-		let address = "Loading...";
-		let btcAmount = "Loading...";
+		let address = translate('LOADING', 'Loading...');
+		let btcAmount = translate('LOADING', 'Loading...');
 		let rateExpiration = 15;
 
 		let transaction = UIService.getLastTransactionResponse();
@@ -92,7 +92,7 @@ let BitCoinTicketPending = React.createClass({
 		let amount = this.state.amount;
 		let timer = this.state.timer;
 
-		let btcAmount = translate('BITCOIN_INSTRUCTIONS_AMOUNT', '', { btcAmount: amount });
+		let btcAmount = translate('BITCOIN_INSTRUCTIONS_AMOUNT', 'Send BTC amount from your wallet', { btcAmount: amount });
 
 		return (
 			<div id="BitCoinTicketInstructions">
@@ -174,14 +174,14 @@ let BitCoinTicketPending = React.createClass({
 											<div className="infoCol">
 												<div
 													className="subtitle">{translate('BITCOIN_INSTRUCTIONS_TIME', 'Prompty complete your transaction.')}</div>
-												<p>{translate('BITCOIN_INSTRUCTIONS_TIME_INFO1', 'instruction')} <b><font
-													color="red">{timer}</font></b> {translate('BITCOIN_INSTRUCTIONS_TIME_INFO2', 'instruction')}
+												<p>{translate('BITCOIN_INSTRUCTIONS_TIME_INFO1', 'This BTC transaction price is only valid for')} <b><font
+													color="red">{timer}</font></b> {translate('BITCOIN_INSTRUCTIONS_TIME_INFO2', '"minutes. After that, the transaction price will change, and you may receive a different amount than expected.')}
 												</p>
 											</div>
 										</div>
 									</div>
 								</div>
-								<p><strong>{translate('BITCOIN_INSTRUCTIONS_INFO', '')}</strong></p>
+								<p><strong>{translate('BITCOIN_INSTRUCTIONS_INFO', 'Your funds should be available within 30 minutes of making the transfer from your wallet.')}</strong></p>
 							</div>
 						</div>
 					</div>

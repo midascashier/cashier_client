@@ -50,9 +50,7 @@ let Register = React.createClass({
 	 * @returns {boolean}
 	 */
 	addNewPayAccount(e){
-
 		if (!ApplicationService.emptyInput(e)) {
-
 			this.setState({
 				displaySaveButton: false
 			});
@@ -85,22 +83,29 @@ let Register = React.createClass({
 			<div id="netellerRegister">
 				<form onSubmit={this.addNewPayAccount}>
 					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('SKRILL_EMAIL', 'Enter Email')}:</label>
+						<label className="col-sm-4 control-label">{translate('SKRILL_EMAIL', "Skrill's Email")}:</label>
 						<div className="col-sm-8">
-							<Input className="form-control" type="text" id="SkrillAccount" name="SkrillAccount" ref="email"
-										 validate="isEmail" onChange={this.changeValue} value={this.state.payAccount.account} require/>
+							<Input
+								className="form-control"
+								type="text"
+								id="SkrillAccount"
+								name="SkrillAccount"
+								ref="email"
+								validate="isEmail"
+								onChange={this.changeValue}
+								value={this.state.payAccount.account}
+								require
+							/>
 						</div>
 					</div>
 
 					<div className="col-md-4 col-md-offset-4">
 						<div className="row">
 							<div className="col-sm-6">
-								{this.state.displaySaveButton ? <button type='submit'
-																												className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
+								{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
 							</div>
 							<div className="col-sm-6">
-								{this.state.displaySaveButton ? <button type='button' onClick={this.cancel}
-																												className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Save')}</button> : null }
+								{this.state.displaySaveButton ? <button type='button' onClick={this.cancel} className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Cancel')}</button> : null }
 							</div>
 						</div>
 					</div>
