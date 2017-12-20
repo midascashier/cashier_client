@@ -20,12 +20,7 @@ let GetBitcoin = React.createClass({
      * React function to set component initial state
      */
     getInitialState(){
-        let messagesGO = {
-            btnGO: 'GET_BITCOIN_LOGIN',
-            messageGO: 'GET_BITCOIN_GO_LOGIN'
-        };
-
-        return Object.assign(CashierStore.getCoindDirect(), messagesGO);
+        return CashierStore.getCoindDirect();
     },
 
     /**
@@ -33,7 +28,7 @@ let GetBitcoin = React.createClass({
      *
      * @private
      */
-    _onChange() {
+    _onChange(){
         this.setState(CashierStore.getCoindDirect());
     },
 
@@ -58,11 +53,13 @@ let GetBitcoin = React.createClass({
     },
 
     getUser(){
-        TransactionService.coinDirectGetUser(this.state.login.linkId);
+        if(this.state.login.linkId){
+            TransactionService.coinDirectGetUser(this.state.login.linkId);
+        }
     },
 
     switchAction(){
-        let msgGo = 'GET_BITCOIN_GO_LOGIN';
+        let msgGO = 'GET_BITCOIN_GO_LOGIN';
         let show = $('#coinDirectConfirmPass').css('visibility');
         if(show == 'hidden'){
             let actualState = this.state;
@@ -70,7 +67,7 @@ let GetBitcoin = React.createClass({
             this.setState(actualState);
 
             show = 'visible';
-            msgGo = 'GET_BITCOIN_GO_SIGN_UP';
+            msgGO = 'GET_BITCOIN_GO_SIGN_UP';
         }else{
             show = 'hidden';
             let actualState = this.state;
@@ -79,7 +76,7 @@ let GetBitcoin = React.createClass({
         }
 
         let actualState = this.state;
-        actualState.messageGO = msgGo;
+        actualState.messageGO = msgGO;
         this.setState(actualState);
 
         $('#coinDirectConfirmPass').css('visibility', show);
@@ -90,7 +87,6 @@ let GetBitcoin = React.createClass({
             this.getUser();
         }
 
-        let msgGO = this.state.messageGO;
         let placeEmail = 'GET_BITCOIN_PLACE_EMAIL';
         let placePassword = 'GET_BITCOIN_PLACE_PASSWORD';
         let placeConfirmPass = 'GET_BITCOIN_PLACE_CONFIRM_PASS';
@@ -113,7 +109,7 @@ let GetBitcoin = React.createClass({
                             <input type="password" id="coinDirectPassword" placeholder={translate(placePassword)}/>
                             <input type="password" id="coinDirectConfirmPass" placeholder={translate(placeConfirmPass)}/>
                             <button id="coinDirectGo" className="btn btn-green" onClick={this.login}>{translate(this.state.btnGO)}</button>
-                            <p>{translate(msgGO)}<a onClick={this.switchAction}>{translate('HERE')}</a></p>
+                            <p>{translate(this.state.messageGO)}<a onClick={this.switchAction}>{translate('HERE')}</a></p>
                         </div>
                     </div>
                 </div>

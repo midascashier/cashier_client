@@ -363,9 +363,15 @@ let _transactionResponse = {
 };
 
 let CoinDirect = {
+	action: true,
+	btnGO: 'GET_BITCOIN_LOGIN',
+	messageGO: 'GET_BITCOIN_GO_LOGIN',
 	login: {
 		linkId: false,
 		success: false
+	},
+	user: {
+
 	}
 };
 
@@ -1025,7 +1031,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		break;
 
 		case actions.COIN_DIRECT_GET_USER_RESPONSE:
-			CoinDirect.login = data;
+			CoinDirect.user = data;
 			CashierStore.emitChange();
 		break;
 

@@ -6,6 +6,7 @@ import { TransactionService } from '../../services/TransactionService'
 import { ApplicationService } from '../../services/ApplicationService'
 import { CashierStore } from '../../stores/CashierStore'
 import cashier from '../../constants/Cashier'
+import { GetBitcoin } from '../commonComponents/tools/GetBitcoin'
 
 let ProcessorInfo = React.createClass({
 	propTypes: {
@@ -126,6 +127,9 @@ let ProcessorInfo = React.createClass({
 								})()}
 								<img src={originPath + '/images/ssl.png'} alt="ssl"/>
 							</div>
+
+							<GetBitcoin/>
+
 							<div className="col-sm-6">
 								<button type="button" className="btn btn-grey" onClick={this.switchAction}>{switch_button}</button>
 							</div>
