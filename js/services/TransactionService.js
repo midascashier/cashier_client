@@ -577,7 +577,6 @@ class transactionService {
 			let payAccountSelected = CashierStore.getCurrentPayAccount();
 			let transaction = CashierStore.getTransaction();
 			let transactionResponse = CashierStore.getLastTransactionResponse();
-
 			p2pRequest = {
 				f: "p2pSendMTCN",
 				id: transactionResponse.transactionId,
