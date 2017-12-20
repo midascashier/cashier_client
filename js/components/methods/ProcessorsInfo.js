@@ -54,6 +54,10 @@ let ProcessorsInfo = React.createClass({
 		}
 	},
 
+	waitLimits(){
+
+	},
+
 	render(){
 		let processors = this.getProcessors();
 		return (
@@ -62,7 +66,11 @@ let ProcessorsInfo = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<ProcessorsList selectedProcessor={parseInt(this.state.selectedProcessor.processorId)} processors={processors}/>
+					<ProcessorsList
+						processors={processors}
+						waitLimits={this.waitLimits}
+						selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
+					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{

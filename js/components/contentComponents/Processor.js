@@ -4,6 +4,7 @@ import { UIService } from '../../services/UIService'
 let Processor = React.createClass({
 	propTypes: {
 		selected: React.PropTypes.bool,
+		waitLimits: React.PropTypes.func,
 		processorId: React.PropTypes.string,
 		displayName: React.PropTypes.string
 	},
@@ -11,7 +12,8 @@ let Processor = React.createClass({
 	/**
 	 * this function change current processor
 	 */
-	selectProcessor() {
+	selectProcessor(){
+		this.props.waitLimits();
 		UIService.selectProcessor(this.props.processorId);
 	},
 
