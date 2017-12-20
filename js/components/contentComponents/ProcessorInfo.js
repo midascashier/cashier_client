@@ -93,15 +93,31 @@ let ProcessorInfo = React.createClass({
 									<tbody>
 									<tr>
 										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-										<td>
-											<span>{minProcessorLimit} {currencyCode}</span>
-										</td>
+										{(() =>{
+											if(this.state.readyLimits) {
+												return (
+													<h1>Test</h1>
+												)
+											}
+
+											return(
+												<td><span>{minProcessorLimit} {currencyCode}</span></td>
+											)
+										})()}
 									</tr>
 									<tr>
 										<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-										<td>
-											<span>{maxProcessorLimit} {currencyCode}</span>
-										</td>
+										{(() =>{
+											if(this.state.readyLimits) {
+												return (
+													<h1>Test</h1>
+												)
+											}
+
+											return(
+												<td><span>{maxProcessorLimit} {currencyCode}</span></td>
+											)
+										})()}
 									</tr>
 									</tbody>
 								</table>

@@ -54,7 +54,7 @@ let ProcessorsInfo = React.createClass({
 		}
 	},
 
-	render() {
+	render(){
 		let processors = this.getProcessors();
 		return (
 			<div id="processorsInfo">
