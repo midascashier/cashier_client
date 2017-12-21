@@ -7,8 +7,8 @@ import Processors from '../../constants/Processors';
 
 let ProcessorsList = React.createClass({
 	propTypes: {
-		selectedProcessor: React.PropTypes.number,
-		processors: React.PropTypes.array
+		processors: React.PropTypes.array,
+		selectedProcessor: React.PropTypes.number
 	},
 
 	render() {
@@ -36,10 +36,10 @@ let ProcessorsList = React.createClass({
 										if (Processors.settings[processor.caProcessor_Id]){
 											return (
 												<Processor
-													key={processor.caProcessor_Id}
 													selected={isSelected}
-													processorId={processor.caProcessor_Id}
 													name={processor.Name}
+													key={processor.caProcessor_Id}
+													processorId={processor.caProcessor_Id}
 												/>
 											)
 										}

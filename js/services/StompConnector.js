@@ -9,6 +9,9 @@ class StompConnector {
 	 * StompConnector constructor
 	 */
 	constructor(){
+
+		this.stopSending = false;
+
 		/**
 		 * Stomp connection handler
 		 * @type {}
@@ -40,6 +43,13 @@ class StompConnector {
 		 */
 		this.resolveConnection = () =>{
 		};
+	}
+
+	/**
+	 * Stop proses to sending messages to rabbit
+	 */
+	stopSending(){
+		this.stopSending = true;
 	}
 
 	/**
@@ -194,16 +204,18 @@ class StompConnector {
 	 * @param message
      */
 	sendMessage(queue, headers, message){
-		let correlation_id = message.f + "Response";
-		if(!headers){
-			headers = { "reply-to": this.replyQueue, "correlation_id": correlation_id, "expiration": 60000 };
-		}
-		if(this.stompClient.connected){
-			this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));
-		}else{
-			this.sleep(2000);
+		if(!this.stopSending){
+			let correlation_id = message.f + "Response";
+			if(!headers){
+				headers = { "reply-to": this.replyQueue, "correlation_id": correlation_id, "expiration": 60000 };
+			}
 			if(this.stompClient.connected){
 				this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));
+			}else{
+				this.sleep(2000);
+				if(this.stompClient.connected){
+					this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));
+				}
 			}
 		}
 	};

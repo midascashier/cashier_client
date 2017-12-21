@@ -374,7 +374,6 @@ class UiService {
 
 			let processorSteps = stepsSetting;
 			CashierActions.selectProcessor(processorID, processorSteps, processorSteps[0]);
-			TransactionService.selectProcessor(processorID);
 		}
 	};
 

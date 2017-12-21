@@ -11,13 +11,12 @@ let Processor = React.createClass({
 	/**
 	 * this function change current processor
 	 */
-	selectProcessor() {
+	selectProcessor(){
 		UIService.selectProcessor(this.props.processorId);
 	},
 
-	render() {
+	render(){
 		let isActive = "";
-		let originPath = UIService.getOriginPath();
 		if(this.props.selected){
 			isActive = "active";
 		}
@@ -25,10 +24,10 @@ let Processor = React.createClass({
 		return (
 			<div className="col-sm-6">
 				<div className={"method "+ isActive} onClick={this.selectProcessor}>
-					<a href="javascript:;" className={this.props.name.toLowerCase()}></a>
+					<a href="javascript:;" className={this.props.name.toLowerCase()}/>
 					{(() =>{
 						if(this.props.selected){
-							return <i className='fa fa-check-circle'></i>;
+							return <i className='fa fa-check-circle'/>;
 						}
 					})()}
 				</div>

@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { translate } from '../../constants/Translate'
+import { Loading } from '../loading/Loading'
+import cashier from '../../constants/Cashier'
 import { UIService } from '../../services/UIService'
+import { translate } from '../../constants/Translate'
+import { CashierStore } from '../../stores/CashierStore'
 import { TransactionService } from '../../services/TransactionService'
 import { ApplicationService } from '../../services/ApplicationService'
-import { CashierStore } from '../../stores/CashierStore'
-import cashier from '../../constants/Cashier'
 
 let ProcessorInfo = React.createClass({
 	propTypes: {
@@ -93,15 +94,31 @@ let ProcessorInfo = React.createClass({
 									<tbody>
 									<tr>
 										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-										<td>
-											<span>{minProcessorLimit} {currencyCode}</span>
-										</td>
+										{(() =>{
+											if(CashierStore.getWaitLimits()) {
+												return (
+													<td><span><Loading/></span></td>
+												)
+											}
+
+											return(
+												<td><span>{minProcessorLimit} {currencyCode}</span></td>
+											)
+										})()}
 									</tr>
 									<tr>
 										<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-										<td>
-											<span>{maxProcessorLimit} {currencyCode}</span>
-										</td>
+										{(() =>{
+											if(CashierStore.getWaitLimits()) {
+												return (
+													<td><span><Loading/></span></td>
+												)
+											}
+
+											return(
+												<td><span>{maxProcessorLimit} {currencyCode}</span></td>
+											)
+										})()}
 									</tr>
 									</tbody>
 								</table>

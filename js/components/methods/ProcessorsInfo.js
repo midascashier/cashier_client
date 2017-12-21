@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { CashierStore } from '../../stores/CashierStore'
-import { translate } from '../../constants/Translate'
-import { ProcessorsList } from '../contentComponents/ProcessorsList'
-import { ProcessorInfo } from '../contentComponents/ProcessorInfo'
-import { LoadingSpinner } from '../../components/loading/LoadingSpinner'
 import { UIService } from '../../services/UIService'
+import { translate } from '../../constants/Translate'
+import { CashierStore } from '../../stores/CashierStore'
+import { ProcessorInfo } from '../contentComponents/ProcessorInfo'
+import { ProcessorsList } from '../contentComponents/ProcessorsList'
+import { LoadingSpinner } from '../../components/loading/LoadingSpinner'
 
 let ProcessorsInfo = React.createClass({
 
@@ -37,7 +37,7 @@ let ProcessorsInfo = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -54,7 +54,7 @@ let ProcessorsInfo = React.createClass({
 		}
 	},
 
-	render() {
+	render(){
 		let processors = this.getProcessors();
 		return (
 			<div id="processorsInfo">
@@ -62,7 +62,10 @@ let ProcessorsInfo = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<ProcessorsList selectedProcessor={parseInt(this.state.selectedProcessor.processorId)} processors={processors}/>
+					<ProcessorsList
+						processors={processors}
+						selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
+					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{

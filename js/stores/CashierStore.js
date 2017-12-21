@@ -2,6 +2,7 @@ let EventEmitter = require('events').EventEmitter;
 let CashierDispatcher = require('../dispatcher/CashierDispatcher');
 
 import assign from 'object-assign'
+import Cashier from '../constants/Cashier'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
 import processors from '../constants/Processors'
@@ -168,6 +169,7 @@ let _processor = {
 	bonus: [],
 	rate: 0,
 	limits: [],
+	waitLimits: false,
 	limitRules: [],
 	fees: {
 		enableBP: 0,
@@ -584,8 +586,43 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getServerTime: () =>{
 		return _UI.serverTime;
-	}
+	},
 
+	getWaitLimits(){
+		return _processor.waitLimits;
+	},
+
+	/**
+	 * this function change current processor
+	 */
+	checkLimits(processorId){
+		_processor.waitLimits = true;
+
+		let url = Cashier.REQUEST_PROXY;
+		let company = this.getCompany();
+		let customer = this.getCustomer();
+
+		if(processorId){
+			let data = {
+				module: "limits",
+				ws: Cashier.BACKEND_WS,
+				processorId: processorId,
+				companyId: company.companyId,
+				f: "getProcessorMinMaxLimits",
+				currencyCode: customer.currency,
+				isWithdraw: this.getIsWithdraw(),
+				XDEBUG_SESSION_START: 'ECLIPSE_DBGP',
+				level: customer.personalInformation.level
+			};
+
+			$.post(url, data).done(function(data){
+				let res = JSON.parse(data);
+				_processor.limits = res.response.MinMaxLimits;
+				_processor.waitLimits = false;
+				CashierStore.emitChange();
+			});
+		}
+	}
 });
 
 /**
@@ -952,7 +989,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				_UI.currentStep = data.currentStep;
 			}
 			_processor.load(data.processorId);
-			CashierStore.emitChange();
+			CashierStore.checkLimits(data.processorId);
 		break;
 
 		case actions.VALIDATE_PAYACCOUNT:
