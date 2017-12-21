@@ -7,6 +7,7 @@ import Processors from '../../constants/Processors';
 
 let ProcessorsList = React.createClass({
 	propTypes: {
+		waitLimits: React.PropTypes.func,
 		processors: React.PropTypes.array,
 		selectedProcessor: React.PropTypes.number
 	},
@@ -39,6 +40,7 @@ let ProcessorsList = React.createClass({
 													selected={isSelected}
 													name={processor.Name}
 													key={processor.caProcessor_Id}
+													waitLimits={this.props.waitLimits}
 													processorId={processor.caProcessor_Id}
 												/>
 											)

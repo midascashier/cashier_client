@@ -10,6 +10,7 @@ import { ApplicationService } from '../../services/ApplicationService'
 
 let ProcessorInfo = React.createClass({
 	propTypes: {
+		waitLimits: React.PropTypes.node,
 		selectedProcessor: React.PropTypes.object.isRequired
 	},
 
@@ -95,7 +96,7 @@ let ProcessorInfo = React.createClass({
 									<tr>
 										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
 										{(() =>{
-											if(CashierStore.getWaitLimits()) {
+											if(this.props.waitLimits) {
 												return (
 													<td><span><Loading/></span></td>
 												)
@@ -109,7 +110,7 @@ let ProcessorInfo = React.createClass({
 									<tr>
 										<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
 										{(() =>{
-											if(CashierStore.getWaitLimits()) {
+											if(this.props.waitLimits) {
 												return (
 													<td><span><Loading/></span></td>
 												)
