@@ -41,4 +41,7 @@
    */
   const ACCESS_PASSWORD = 1;
 
+  const _WS_CASHIER = 'http://cashier.localhost:8080/wscashier/wsController.php';
+
+  const _WS_BACKEND = 'http://cashier.backend.localhost:8080/ws/wsBEController.php';
 ?>
