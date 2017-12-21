@@ -2,6 +2,7 @@ let EventEmitter = require('events').EventEmitter;
 let CashierDispatcher = require('../dispatcher/CashierDispatcher');
 
 import assign from 'object-assign'
+import Cashier from '../constants/Cashier'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
 import processors from '../constants/Processors'
@@ -595,8 +596,35 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return _processor.waitLimits;
 	},
 
-	waitLimits(){
+	/**
+	 * this function change current processor
+	 */
+	checkLimits(processorId){
 		_processor.waitLimits = true;
+
+		let url = Cashier.BACKEND_WS;
+		let company = this.getCompany();
+		let customer = this.getCustomer();
+
+		if(processorId){
+			let data = {
+				f: "getProcessorMinMaxLimits",
+				sys_access_pass:1,
+				module: "limits",
+				processorId: processorId,
+				companyId: company.companyId,
+				currencyCode: customer.currency,
+				isWithdraw: this.getIsWithdraw(),
+				XDEBUG_SESSION_START: 'ECLIPSE_DBGP',
+				level: customer.personalInformation.level
+			};
+
+			$.post(url, data).done(function(data){
+				_processor.limits = data.response.MinMaxLimits;
+				_processor.waitLimits = false;
+				this.emitChange();
+			});
+		}
 	}
 });
 
@@ -835,7 +863,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				data.response.MinMaxLimits.currencyMax = Math.ceil(data.response.MinMaxLimits.currencyMax);
 				data.response.MinMaxLimits.currencyMin = Math.ceil(data.response.MinMaxLimits.currencyMin);
 				_processor.limits = data.response.MinMaxLimits;
-				_processor.waitLimits = false;
 			}else{
 				_processor.limits = {currencyMin: 0, currencyMax: 0, currencyCode: _customer.currency};
 			}
@@ -965,7 +992,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				_UI.currentStep = data.currentStep;
 			}
 			_processor.load(data.processorId);
-			CashierStore.emitChange();
+			CashierStore.checkLimits(data.processorId);
 		break;
 
 		case actions.VALIDATE_PAYACCOUNT:

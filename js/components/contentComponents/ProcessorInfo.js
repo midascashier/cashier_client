@@ -10,7 +10,6 @@ import { ApplicationService } from '../../services/ApplicationService'
 
 let ProcessorInfo = React.createClass({
 	propTypes: {
-		waitLimits: React.PropTypes.node,
 		selectedProcessor: React.PropTypes.object.isRequired
 	},
 

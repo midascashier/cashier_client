@@ -1,6 +1,5 @@
 import React from 'react'
-import Cashier from '../../constants/Cashier'
-import { CashierStore } from '../../stores/CashierStore'
+import { UIService } from '../../services/UIService'
 
 let Processor = React.createClass({
 	propTypes: {
@@ -13,28 +12,7 @@ let Processor = React.createClass({
 	 * this function change current processor
 	 */
 	selectProcessor(){
-		let url = Cashier.BACKEND_WS;
-		let company = CashierStore.getCompany();
-		let customer = CashierStore.getCustomer();
-		let processor = CashierStore.getProcessor();
-
-		if(this.props.processorId || processor.processorId){
-			let data = {
-				f: "getProcessorMinMaxLimits",
-				sys_access_pass:1,
-				module: "limits",
-				companyId: company.companyId,
-				processorId: (this.props.processorId) ? this.props.processorId : processor.processorId,
-				level: customer.personalInformation.level,
-				isWithdraw: CashierStore.getIsWithdraw(),
-				currencyCode: customer.currency,
-				XDEBUG_SESSION_START: 'ECLIPSE_DBGP'
-			};
-
-			$.post(url, data).done(function(data){
-				CashierStore.setProcessorLimits(data.response.MinMaxLimits)
-			});
-		}
+		UIService.selectProcessor(this.props.processorId);
 	},
 
 	render(){
