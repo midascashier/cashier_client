@@ -35,7 +35,7 @@
         remoteAddress: remoteAddr,
         xForwardedFor: xForwardedFor,
         userAgent: navigator.userAgent,
-        referrer: document.referrer || location.referrer,
+        referrer: document.referrer || location.referrer
       };
 
       if (!loginInfo) {

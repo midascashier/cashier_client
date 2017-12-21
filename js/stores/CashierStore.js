@@ -588,16 +588,26 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return _UI.serverTime;
 	},
 
+	/**
+	 * get limits state
+	 *
+	 * @returns {boolean}
+     */
 	getWaitLimits(){
 		return _processor.waitLimits;
+	},
+
+	/**
+	 * Wait limits during execute ws
+	 */
+	waitLimits(){
+		_processor.waitLimits = true;
 	},
 
 	/**
 	 * this function change current processor
 	 */
 	checkLimits(processorId){
-		_processor.waitLimits = true;
-
 		let url = Cashier.REQUEST_PROXY;
 		let company = this.getCompany();
 		let customer = this.getCustomer();

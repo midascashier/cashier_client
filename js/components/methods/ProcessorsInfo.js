@@ -26,7 +26,7 @@ let ProcessorsInfo = React.createClass({
 	 *
 	 */
 	refreshLocalState() {
-		return {
+		return{
 			customer: CashierStore.getCustomer(),
 			waitLimits: CashierStore.getWaitLimits(),
 			selectedProcessor: CashierStore.getProcessor()
@@ -55,6 +55,14 @@ let ProcessorsInfo = React.createClass({
 		}
 	},
 
+	/**
+	 * Print loading message to wait limits test
+	 */
+	waitLimits(){
+		CashierStore.waitLimits();
+		this.setState(this.refreshLocalState());
+	},
+
 	render(){
 		let processors = this.getProcessors();
 		return (
@@ -65,6 +73,7 @@ let ProcessorsInfo = React.createClass({
 					</Link>
 					<ProcessorsList
 						processors={processors}
+						waitLimits={this.waitLimits}
 						selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
 					/>
 				</div>
@@ -74,7 +83,7 @@ let ProcessorsInfo = React.createClass({
 							return <LoadingSpinner />;
 						}
 
-						return <ProcessorInfo selectedProcessor={this.state.selectedProcessor}/>
+						return <ProcessorInfo selectedProcessor={this.state.selectedProcessor} waitLimits={this.state.waitLimits}/>
 					})()}
 				</div>
 			</div>
