@@ -299,7 +299,6 @@ class transactionService {
 
 		let application = CashierStore.getApplication();
 		let transaction = CashierStore.getTransaction();
-		let customer = CashierStore.getCustomer();
 
 		var req = {
 			lang: application.lang,

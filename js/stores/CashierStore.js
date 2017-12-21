@@ -544,10 +544,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return _processor;
 	},
 
-	setProcessorLimits(limits){
-		_processor.limits = limits;
-	},
-
 	/**
 	 * get UI
 	 *
@@ -602,17 +598,17 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	checkLimits(processorId){
 		_processor.waitLimits = true;
 
-		let url = Cashier.BACKEND_WS;
+		let url = Cashier.REQUEST_PROXY;
 		let company = this.getCompany();
 		let customer = this.getCustomer();
 
 		if(processorId){
 			let data = {
-				f: "getProcessorMinMaxLimits",
-				sys_access_pass:1,
 				module: "limits",
+				ws: Cashier.BACKEND_WS,
 				processorId: processorId,
 				companyId: company.companyId,
+				f: "getProcessorMinMaxLimits",
 				currencyCode: customer.currency,
 				isWithdraw: this.getIsWithdraw(),
 				XDEBUG_SESSION_START: 'ECLIPSE_DBGP',
@@ -620,9 +616,10 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 			};
 
 			$.post(url, data).done(function(data){
-				_processor.limits = data.response.MinMaxLimits;
+				let res = JSON.parse(data);
+				_processor.limits = res.response.MinMaxLimits;
 				_processor.waitLimits = false;
-				this.emitChange();
+				CashierStore.emitChange();
 			});
 		}
 	}
