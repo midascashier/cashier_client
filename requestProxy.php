@@ -8,6 +8,7 @@ class requestProxy{
     $curl = curl_init();
     $ws = "_WS_{$_REQUEST['ws']}";
     $parameters = $_REQUEST;
+    $parameters['format'] = 'json';
     $parameters['sys_access_pass'] = ACCESS_PASSWORD;
 
     if(defined($ws)){
@@ -22,12 +23,11 @@ class requestProxy{
       ));
 
       $resp = curl_exec($curl);
-      curl_close($curl);
-
     }else{
       $resp = "Error {$ws} not defined ws config";
     }
 
+    curl_close($curl);
     echo $resp;
   }
 }
