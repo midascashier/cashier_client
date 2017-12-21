@@ -543,6 +543,10 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return _processor;
 	},
 
+	setProcessorLimits(limits){
+		_processor.limits = limits;
+	},
+
 	/**
 	 * get UI
 	 *

@@ -20,25 +20,19 @@ let Processor = React.createClass({
 
 		if(this.props.processorId || processor.processorId){
 			let data = {
-				method: 'POST',
-				body: {
-					f: "getProcessorMinMaxLimits",
-					sys_access_pass:1,
-					module: "limits",
-					companyId: company.companyId,
-					processorId: (this.props.processorId) ? this.props.processorId : processor.processorId,
-					level: customer.personalInformation.level,
-					isWithdraw: CashierStore.getIsWithdraw(),
-					currencyCode: customer.currency
-				}
+				f: "getProcessorMinMaxLimits",
+				sys_access_pass:1,
+				module: "limits",
+				companyId: company.companyId,
+				processorId: (this.props.processorId) ? this.props.processorId : processor.processorId,
+				level: customer.personalInformation.level,
+				isWithdraw: CashierStore.getIsWithdraw(),
+				currencyCode: customer.currency,
+				XDEBUG_SESSION_START: 'ECLIPSE_DBGP'
 			};
 
-			fetch(url, data).then((response) => {
-				return response.json()
-			}).then((limits) => {
-				console.log(limits)
-			}).catch(function(err){
-				console.error(err);
+			$.post(url, data).done(function(data){
+				CashierStore.setProcessorLimits(data.response.MinMaxLimits)
 			});
 		}
 	},
