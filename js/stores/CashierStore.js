@@ -168,6 +168,7 @@ let _processor = {
 	bonus: [],
 	rate: 0,
 	limits: [],
+	waitLimits: false,
 	limitRules: [],
 	fees: {
 		enableBP: 0,
@@ -584,8 +585,15 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getServerTime: () =>{
 		return _UI.serverTime;
-	}
+	},
 
+	getWaitLimits(){
+		return _processor.waitLimits;
+	},
+
+	waitLimits(){
+		_processor.waitLimits = true;
+	}
 });
 
 /**
@@ -823,6 +831,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				data.response.MinMaxLimits.currencyMax = Math.ceil(data.response.MinMaxLimits.currencyMax);
 				data.response.MinMaxLimits.currencyMin = Math.ceil(data.response.MinMaxLimits.currencyMin);
 				_processor.limits = data.response.MinMaxLimits;
+				_processor.waitLimits = false;
 			}else{
 				_processor.limits = {currencyMin: 0, currencyMax: 0, currencyCode: _customer.currency};
 			}

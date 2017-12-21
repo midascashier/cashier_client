@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { CashierStore } from '../../stores/CashierStore'
-import { translate } from '../../constants/Translate'
-import { ProcessorsList } from '../contentComponents/ProcessorsList'
-import { ProcessorInfo } from '../contentComponents/ProcessorInfo'
-import { LoadingSpinner } from '../../components/loading/LoadingSpinner'
 import { UIService } from '../../services/UIService'
+import { translate } from '../../constants/Translate'
+import { CashierStore } from '../../stores/CashierStore'
+import { ProcessorInfo } from '../contentComponents/ProcessorInfo'
+import { ProcessorsList } from '../contentComponents/ProcessorsList'
+import { LoadingSpinner } from '../../components/loading/LoadingSpinner'
 
 let ProcessorsInfo = React.createClass({
 
@@ -28,6 +28,7 @@ let ProcessorsInfo = React.createClass({
 	refreshLocalState() {
 		return {
 			customer: CashierStore.getCustomer(),
+			waitLimits: CashierStore.getWaitLimits(),
 			selectedProcessor: CashierStore.getProcessor()
 		}
 	},
@@ -37,7 +38,7 @@ let ProcessorsInfo = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -54,10 +55,6 @@ let ProcessorsInfo = React.createClass({
 		}
 	},
 
-	waitLimits(){
-
-	},
-
 	render(){
 		let processors = this.getProcessors();
 		return (
@@ -68,7 +65,6 @@ let ProcessorsInfo = React.createClass({
 					</Link>
 					<ProcessorsList
 						processors={processors}
-						waitLimits={this.waitLimits}
 						selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
 					/>
 				</div>

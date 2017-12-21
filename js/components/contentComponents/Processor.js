@@ -1,10 +1,10 @@
 import React from 'react'
-import { UIService } from '../../services/UIService'
+import Cashier from '../../constants/Cashier'
+import { CashierStore } from '../../stores/CashierStore'
 
 let Processor = React.createClass({
 	propTypes: {
 		selected: React.PropTypes.bool,
-		waitLimits: React.PropTypes.func,
 		processorId: React.PropTypes.string,
 		displayName: React.PropTypes.string
 	},
@@ -13,13 +13,38 @@ let Processor = React.createClass({
 	 * this function change current processor
 	 */
 	selectProcessor(){
-		this.props.waitLimits();
-		UIService.selectProcessor(this.props.processorId);
+		let url = Cashier.BACKEND_WS;
+		let company = CashierStore.getCompany();
+		let customer = CashierStore.getCustomer();
+		let processor = CashierStore.getProcessor();
+
+		if(this.props.processorId || processor.processorId){
+			let data = {
+				method: 'POST',
+				body: {
+					f: "getProcessorMinMaxLimits",
+					sys_access_pass:1,
+					module: "limits",
+					companyId: company.companyId,
+					processorId: (this.props.processorId) ? this.props.processorId : processor.processorId,
+					level: customer.personalInformation.level,
+					isWithdraw: CashierStore.getIsWithdraw(),
+					currencyCode: customer.currency
+				}
+			};
+
+			fetch(url, data).then((response) => {
+				return response.json()
+			}).then((limits) => {
+				console.log(limits)
+			}).catch(function(err){
+				console.error(err);
+			});
+		}
 	},
 
-	render() {
+	render(){
 		let isActive = "";
-		let originPath = UIService.getOriginPath();
 		if(this.props.selected){
 			isActive = "active";
 		}
@@ -27,10 +52,10 @@ let Processor = React.createClass({
 		return (
 			<div className="col-sm-6">
 				<div className={"method "+ isActive} onClick={this.selectProcessor}>
-					<a href="javascript:;" className={this.props.name.toLowerCase()}></a>
+					<a href="javascript:;" className={this.props.name.toLowerCase()}/>
 					{(() =>{
 						if(this.props.selected){
-							return <i className='fa fa-check-circle'></i>;
+							return <i className='fa fa-check-circle'/>;
 						}
 					})()}
 				</div>

@@ -57,5 +57,8 @@ export default {
 	CRYPTO_API_GET_RATE: 'rate/',
 	CRYPTO_API_GET_COINS: 'getcoins/',
 	CRYPTO_API_GET_MARKET: 'marketinfo/',
-	CRYPTO_API_VALIDATE_ADDRESS: 'validateAddress/'
+	CRYPTO_API_VALIDATE_ADDRESS: 'validateAddress/',
+
+	CASHIER_WS: 'http://cashier.localhost:8080/wscashier/wsController.php',
+	BACKEND_WS: 'http://cashier.backend.localhost:8080/ws/wsBEController.php'
 }

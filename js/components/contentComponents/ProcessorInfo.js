@@ -1,14 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { translate } from '../../constants/Translate'
+import { Loading } from '../loading/Loading'
+import cashier from '../../constants/Cashier'
 import { UIService } from '../../services/UIService'
+import { translate } from '../../constants/Translate'
+import { CashierStore } from '../../stores/CashierStore'
 import { TransactionService } from '../../services/TransactionService'
 import { ApplicationService } from '../../services/ApplicationService'
-import { CashierStore } from '../../stores/CashierStore'
-import cashier from '../../constants/Cashier'
 
 let ProcessorInfo = React.createClass({
 	propTypes: {
+		waitLimits: React.PropTypes.node,
 		selectedProcessor: React.PropTypes.object.isRequired
 	},
 
@@ -94,9 +96,9 @@ let ProcessorInfo = React.createClass({
 									<tr>
 										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
 										{(() =>{
-											if(this.state.readyLimits) {
+											if(CashierStore.getWaitLimits()) {
 												return (
-													<h1>Test</h1>
+													<td><span><Loading/></span></td>
 												)
 											}
 
@@ -108,9 +110,9 @@ let ProcessorInfo = React.createClass({
 									<tr>
 										<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
 										{(() =>{
-											if(this.state.readyLimits) {
+											if(CashierStore.getWaitLimits()) {
 												return (
-													<h1>Test</h1>
+													<td><span><Loading/></span></td>
 												)
 											}
 
