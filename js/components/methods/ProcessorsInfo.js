@@ -28,7 +28,6 @@ let ProcessorsInfo = React.createClass({
 	refreshLocalState() {
 		return {
 			customer: CashierStore.getCustomer(),
-			waitLimits: CashierStore.getWaitLimits(),
 			selectedProcessor: CashierStore.getProcessor()
 		}
 	},
