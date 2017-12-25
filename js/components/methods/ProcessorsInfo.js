@@ -71,6 +71,7 @@ let ProcessorsInfo = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
+
 					<ProcessorsList
 						processors={processors}
 						waitLimits={this.waitLimits}
