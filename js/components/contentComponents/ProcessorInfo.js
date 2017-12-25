@@ -80,6 +80,7 @@ let ProcessorInfo = React.createClass({
 
 		let customer = CashierStore.getCustomer();
 		let pendingP2P = customer.pendingP2PTransactions;
+		let waitLimits = (this.props.waitLimits) ? 'disabled' : '';
 
 		return (
 			<div id="processorInfo">
@@ -128,7 +129,9 @@ let ProcessorInfo = React.createClass({
 
 						<div className="row mod-btns">
 							<div className="col-sm-6">
-								<button onClick={this.startTransaction} type="button" className="btn btn-green">{buttonNext} {processorDisplayName}</button>
+								<button onClick={this.startTransaction} type="button" className="btn btn-green" disabled={waitLimits}>
+									{buttonNext} {processorDisplayName}
+								</button>
 							</div>
 							<div className="col-sm-6">
 								{(() =>{

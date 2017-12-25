@@ -2,7 +2,6 @@ let EventEmitter = require('events').EventEmitter;
 let CashierDispatcher = require('../dispatcher/CashierDispatcher');
 
 import assign from 'object-assign'
-import Cashier from '../constants/Cashier'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
 import processors from '../constants/Processors'
@@ -609,14 +608,14 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * this function change current processor
 	 */
 	checkLimits(processorId){
-		let url = Cashier.REQUEST_PROXY;
+		let url = cashier.REQUEST_PROXY;
 		let company = this.getCompany();
 		let customer = this.getCustomer();
 
 		if(processorId){
 			let data = {
 				module: "limits",
-				ws: Cashier.BACKEND_WS,
+				ws: cashier.BACKEND_WS,
 				processorId: processorId,
 				companyId: company.companyId,
 				f: "getProcessorMinMaxLimits",
