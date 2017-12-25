@@ -22,10 +22,9 @@ class customerService {
 	 *
 	 */
 	stompConnection(data){
-		stompConnector.initConnection()
-			.then(()=>{
-				this.connectionDone(data);
-			});
+		stompConnector.initConnection().then(()=>{
+			this.connectionDone(data);
+		});
 	};
 
 	/**

@@ -10,7 +10,12 @@ class StompConnector {
 	 */
 	constructor(){
 
-		this.stopSending = false;
+		/**
+		 * Use to verify if the system is not blocked
+		 *
+		 * @type {boolean}
+         */
+		this.sending = true;
 
 		/**
 		 * Stomp connection handler
@@ -49,7 +54,7 @@ class StompConnector {
 	 * Stop proses to sending messages to rabbit
 	 */
 	stopSending(){
-		this.stopSending = true;
+		this.sending = false;
 	}
 
 	/**
@@ -204,7 +209,7 @@ class StompConnector {
 	 * @param message
      */
 	sendMessage(queue, headers, message){
-		if(!this.stopSending){
+		if(this.sending){
 			let correlation_id = message.f + "Response";
 			if(!headers){
 				headers = { "reply-to": this.replyQueue, "correlation_id": correlation_id, "expiration": 60000 };
