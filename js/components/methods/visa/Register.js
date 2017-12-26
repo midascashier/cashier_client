@@ -337,41 +337,70 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_ADDRESS', 'Address')}:</label>
 						<div className="col-sm-8">
-							<Input type="text" id="address" ref="address" validate="isString"
-										 onChange={this.changeValue.bind(null, 'address1', '', 0)} value={this.state.payAccount.address1}
-										 require/>
+							<Input
+								type="text"
+								id="address"
+								ref="address"
+								validate="isString"
+								value={this.state.payAccount.address1}
+								onChange={this.changeValue.bind(null, 'address1', '', 0)}
+								require
+							/>
 						</div>
 					</div>
 
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_ZIP', 'Postal Code')}:</label>
 						<div className="col-sm-8">
-							<Input type="text" id="zip" ref="zip" validate="isNumber"
-										 onChange={this.changeValue.bind(null, 'zip', '', 0)} value={this.state.payAccount.zip} require/>
+							<Input
+								id="zip"
+								ref="zip"
+								type="text"
+								validate="isNumber"
+								value={this.state.payAccount.zip}
+								onChange={this.changeValue.bind(null, 'zip', '', 0)}
+								require
+							/>
 						</div>
 					</div>
 
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_EMAIL', 'Email')}:</label>
 						<div className="col-sm-8">
-							<Input type="text" id="email" ref="email" validate="isEmail"
-										 onChange={this.changeValue.bind(null, 'email', '', 0)} value={this.state.payAccount.email}
-										 require/>
+							<Input
+								id="email"
+								ref="email"
+								type="text"
+								validate="isEmail"
+								value={this.state.payAccount.email}
+								onChange={this.changeValue.bind(null, 'email', '', 0)}
+								require
+							/>
 						</div>
 					</div>
 
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_PHONE', 'Phone')}:</label>
 						<div className="col-sm-8">
-							<Input type="text" id="phone" ref="phone" validate="isNumber"
-										 onChange={this.changeValue.bind(null, 'phone', '', 0)} value={this.state.payAccount.phone}
-										 require/>
+							<Input
+								id="phone"
+								ref="phone"
+								type="text"
+								validate="isNumber"
+								value={this.state.payAccount.phone}
+								onChange={this.changeValue.bind(null, 'phone', '', 0)}
+								require
+							/>
 						</div>
 					</div>
 
-					<ExtraInfo changeValue={this.changeValue} ssn={this.state.payAccount.ssn}
-										 dobMonth={this.state.payAccount.dobMonth} dobDay={this.state.payAccount.dobDay}
-										 dobYear={this.state.payAccount.dobYear} require/>
+					<ExtraInfo
+						changeValue={this.changeValue}
+						ssn={this.state.payAccount.ssn}
+						dobDay={this.state.payAccount.dobDay}
+						dobYear={this.state.payAccount.dobYear}
+						dobMonth={this.state.payAccount.dobMonth}
+					/>
 
 					<div className="col-md-4 col-md-offset-4">
 						<div className="row">

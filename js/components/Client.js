@@ -1,6 +1,6 @@
 import React from 'react'
-import { CustomerService } from './../services/CustomerService'
 import { CashierStore } from './../stores/CashierStore'
+import { CustomerService } from './../services/CustomerService'
 
 let Client = React.createClass({
 

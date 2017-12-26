@@ -6,7 +6,7 @@ import { UIService } from './UIService'
 import { CustomerService } from './CustomerService'
 import cashier from '../constants/Cashier'
 
-class transactionService {
+class transactionService{
 
 	/**
 	 * here is where we start the transaction process
