@@ -1,10 +1,12 @@
 import assign from 'object-assign'
-import { CashierStore } from '../stores/CashierStore'
-import { CashierActions } from '../actions/CashierActions'
-import { stompConnector } from './StompConnector'
 import { UIService } from './UIService'
-import { CustomerService } from './CustomerService'
 import cashier from '../constants/Cashier'
+import actions from '../constants/Actions'
+import { stompConnector } from './StompConnector'
+import { CustomerService } from './CustomerService'
+import { CashierStore } from '../stores/CashierStore'
+import { onResponseService } from './OnResponseService'
+import { CashierActions } from '../actions/CashierActions'
 
 class transactionService{
 
@@ -36,10 +38,16 @@ class transactionService{
 	 * Function to get Customer Processors
 	 */
 	getProcessors(){
-		let data = { f: "processors" };
+		let data = {
+			f: "processors",
+			ws: cashier.CASHIER_WS
+		};
+
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+
+		let action = actions.PROCESSORS_RESPONSE;
+		this.httpService(action, rabbitRequest);
 	};
 
 	/**
@@ -59,13 +67,20 @@ class transactionService{
 		});
 
 		let data = {
-			f: "changeStatus", beUserId: cashier.ONLINE_BE_USER_ID, statusId: cashier.TRANSACTION_STATUS_CANCELLED, isFlowBack: cashier.IS_FLOWBACK, tuid: tuid, sid: sid
+			sid: sid,
+			tuid: tuid,
+			f: "changeStatus",
+			ws: cashier.CASHIER_WS,
+			isFlowBack: cashier.IS_FLOWBACK,
+			beUserId: cashier.ONLINE_BE_USER_ID,
+			statusId: cashier.TRANSACTION_STATUS_CANCELLED,
 		};
 
 		let rabbitRequest = Object.assign(data, "");
 
 		if (sid && tuid){
-			stompConnector.makeTransactionRequest("", rabbitRequest);
+			let action = actions.CHANGE_STATUS_RESPONSE;
+			this.httpService(action, rabbitRequest);
 		}
 	};
 
@@ -73,24 +88,28 @@ class transactionService{
 	 * Function to get pay account previous pay accounts
 	 */
 	getProcessorsMinMax(processorID){
-
 		let company = CashierStore.getCompany();
-		let processor = CashierStore.getProcessor();
 		let customer = CashierStore.getCustomer();
+		let processor = CashierStore.getProcessor();
 
 		if (processorID || processor.processorId){
 			let data = {
-				f: "getProcessorMinMaxLimits",
 				module: "limits",
+				ws: cashier.BACKEND_WS,
 				companyId: company.companyId,
-				processorId: (processorID) ? processorID : processor.processorId,
-				level: customer.personalInformation.level,
+				f: "getProcessorMinMaxLimits",
+				currencyCode: customer.currency,
+				XDEBUG_SESSION_START: 'ECLIPSE_DBGP',
 				isWithdraw: CashierStore.getIsWithdraw(),
-				currencyCode: customer.currency
+				level: customer.personalInformation.level,
+				processorId: (processorID) ? processorID : processor.processorId
 			};
+
 			let application = CashierStore.getApplication();
 			let rabbitRequest = Object.assign(data, application);
-			stompConnector.makeBackendRequest("", rabbitRequest);
+
+			let action = actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE;
+			this.httpService(action, rabbitRequest);
 		}
 	};
 
@@ -327,7 +346,7 @@ class transactionService{
 	 */
 	process(dynamicParams, nextStep){
 
-		//clean current transaction response
+		let url = cashier.REQUEST_PROXY;
 		CashierStore.getLastTransactionResponse().cleanTransaction();
 
 		let transaction = CashierStore.getTransaction();
@@ -345,11 +364,17 @@ class transactionService{
 		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
 
 		UIService.processTransaction(nextStep);
+
+		$.post(url, rabbitRequest, function (data) {
+			console.log(data);
+		});
+
 		stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 
 	processAstroPay(dynamicParams, amount, nextStep){
 
+		let url = cashier.REQUEST_PROXY;
 		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
 		let transaction = CashierStore.getTransaction();
@@ -359,12 +384,18 @@ class transactionService{
 			processorId: cashier.PROCESSOR_ID_ASTROPAY,
 			payAccountId: 0,
 			amount: amount,
+			dynamicParams: dynamicParams,
 			promoCode: transaction.promoCode,
-			dynamicParams: dynamicParams
+			XDEBUG_SESSION_START: 'ECLIPSE_DBGP'
 		};
 		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
 		UIService.processTransaction(nextStep);
-		stompConnector.makeProcessRequest("", rabbitRequest);
+		
+		$.post(url, rabbitRequest, function (data) {
+			console.log(data);
+		});
+
+		//stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 
 	/**
@@ -372,6 +403,7 @@ class transactionService{
 	 */
 	processBTC(dynamicParams, nextStep){
 
+		let url = cashier.REQUEST_PROXY;
 		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
 
@@ -379,7 +411,8 @@ class transactionService{
 		let processorSelected = CashierStore.getProcessor();
 
 		let rabbitRequest = {
-			f: "process",
+			f: 'process',
+			ws: cashier.CASHIER_WS,
 			processorId: processorSelected.processorId,
 			payAccountId: 0, //Bitcoin doesn't need payaccountID
 			amount: transaction.amount,
@@ -389,9 +422,13 @@ class transactionService{
 			dynamicParams: dynamicParams
 		};
 		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
-
 		UIService.processTransaction(nextStep);
-		stompConnector.makeProcessRequest("", rabbitRequest);
+
+		$.post(url, rabbitRequest, function (data) {
+			console.log(data);
+		});
+
+		//stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 
 	/**
@@ -399,7 +436,7 @@ class transactionService{
 	 */
 	processCryptoTransfer(dynamicParams, nextStep){
 
-		//clean current transaction response
+		let url = cashier.REQUEST_PROXY;
 		CashierStore.getLastTransactionResponse().cleanTransaction();
 
 		let transaction = CashierStore.getTransaction();
@@ -417,9 +454,13 @@ class transactionService{
 		};
 
 		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
-
 		UIService.processTransaction(nextStep);
-		stompConnector.makeProcessRequest("", rabbitRequest);
+
+		$.post(url, rabbitRequest, function (data) {
+			console.log(data);
+		});
+
+		//stompConnector.makeProcessRequest("", rabbitRequest);
 	};
 
 	/**
@@ -493,7 +534,6 @@ class transactionService{
 	 * this function sends to process a cc transaction
 	 */
 	processCC(){
-
 		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
 
@@ -507,17 +547,19 @@ class transactionService{
 
 		let CCRequest = {
 			f: "ccProcess",
-			processorId: processorSelected.processorId,
-			payAccountId: payAccountSelected.payAccountId,
+			journalIdSelected: 0,
+			ws: cashier.CASHIER_WS,
 			amount: transaction.amount,
 			promoCode: transaction.promoCode,
-			journalIdSelected: 0
+			processorId: processorSelected.processorId,
+			payAccountId: payAccountSelected.payAccountId
 		};
 
 		let rabbitRequest = assign(this.getProxyRequest(), CCRequest);
-
 		UIService.processTransaction('instructions');
-		stompConnector.makeProcessRequest("", rabbitRequest);
+
+		let action = actions.PROCESS_CC_RESPONSE;
+		this.httpService(action, rabbitRequest);
 	};
 
 	/**
@@ -525,6 +567,7 @@ class transactionService{
 	 */
 	processGetName(){
 
+		let url = cashier.REQUEST_PROXY;
 		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
 
@@ -561,6 +604,7 @@ class transactionService{
 	 */
 	processSubmit(p2pTransaction = null){
 
+		let url = cashier.REQUEST_PROXY;
 		let p2pRequest = {};
 		let processorName;
 		if(!p2pTransaction){
@@ -847,6 +891,23 @@ class transactionService{
 	setCryptoTransferTransaction(transaction){
 		CashierActions.setCryptoTransferTransaction(transaction);
 	};
+
+	/**
+	 * Post service http
+	 *
+	 * @param action
+	 * @param params
+     */
+	httpService(action, params){
+		let url = cashier.REQUEST_PROXY;
+		$.post(url, params, function (data){
+			let res = JSON.parse(data);
+			if(res.state != 'ok'){
+				action = actions.USER_MESSAGE;
+			}
+			onResponseService.processResponse(action, res);
+		});
+	}
 }
 
 export let TransactionService = new transactionService();

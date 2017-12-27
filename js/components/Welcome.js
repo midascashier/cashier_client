@@ -1,15 +1,40 @@
 import React from 'react'
 import { translate } from '../constants/Translate'
 import { CashierStore } from '../stores/CashierStore'
-import { stompConnector } from '../services/StompConnector'
+import { CustomerService } from '../services/CustomerService'
 
 let Welcome = React.createClass({
 
-	render() {
+	/**
+	 * React function to set component initial state
+	 */
+	getInitialState(){
+		return this.refreshLocalState();
+	},
 
-		if (CashierStore.getConnectionStatus()){
-			stompConnector.sleep(9000);
-			location.reload();
+	/**
+	 * this function sets and return object with local states
+	 */
+	refreshLocalState() {
+		return{
+			customer: CashierStore.getCustomer()
+		}
+	},
+
+	/**
+	 * this is the callback function the store calls when a state change
+	 *
+	 * @private
+	 */
+	_onChange(){
+		this.setState(this.refreshLocalState());
+	},
+
+	render(){
+		let customer = this.state.customer;
+		if (customer.customerId){
+			let login = CashierStore.getLoginInfo();
+			CustomerService.connectionDone(login);
 		}
 
 		return (
@@ -40,6 +65,22 @@ let Welcome = React.createClass({
 				</div>
 			</div>
 		)
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount(){
+		CustomerService.startConnection();
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount() {
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 
