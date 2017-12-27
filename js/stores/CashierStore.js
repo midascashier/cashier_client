@@ -621,7 +621,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 				f: "getProcessorMinMaxLimits",
 				currencyCode: customer.currency,
 				isWithdraw: this.getIsWithdraw(),
-				XDEBUG_SESSION_START: 'ECLIPSE_DBGP',
 				level: customer.personalInformation.level
 			};
 
