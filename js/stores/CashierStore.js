@@ -608,7 +608,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * this function change current processor
 	 */
 	checkLimits(processorId){
-		let url = cashier.REQUEST_PROXY;
+
 		let company = this.getCompany();
 		let customer = this.getCustomer();
 
@@ -624,14 +624,36 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 				level: customer.personalInformation.level
 			};
 
-			$.post(url, data).done(function(data){
-				let res = JSON.parse(data);
-				_processor.limits = res.response.MinMaxLimits;
+			this.execPost(data, function(response){
+				if(response && response.MinMaxLimits){
+					_processor.limits = response.MinMaxLimits;
+				}
 				_processor.waitLimits = false;
 				CashierStore.emitChange();
-			});
+			})
+
 		}
+	},
+
+	/**
+	 * execute post request
+	 *
+	 * @param request
+	 * @param callback
+	 */
+	execPost(request, callback){
+		let url = cashier.REQUEST_PROXY;
+		$.post(url, request).done(function(response){
+			if(response){
+				let dataResponse = JSON.parse(response);
+				if(dataResponse && dataResponse.response){
+					callback(dataResponse.response);
+				}
+			}
+			callback(null);
+		})
 	}
+
 });
 
 /**
