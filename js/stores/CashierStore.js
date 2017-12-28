@@ -9,6 +9,13 @@ import {translate} from '../constants/Translate'
 import { stompConnector} from '../services/StompConnector'
 
 /**
+ * Login info from alDEN
+ *
+ * @type {{}}
+ */
+let _loginInfo = {};
+
+/**
  * UI
  *
  * @type {{language: string, currentView: string, currentStep: string, currentProcessorSteps: Array, processorId: number, payAccountId: number, countryInfo: Array, countries: {}, selectedCountry: string, countryStates: Array, currencies: {}}}
@@ -377,6 +384,15 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	addChangeListener(callback) {
 		this.on(CHANGE_EVENT, callback);
+	},
+
+	/**
+	 * Return login info
+	 * 
+	 * @returns {{}}
+     */
+	getLoginInfo(){
+		return _loginInfo;
 	},
 
 	/**
@@ -892,9 +908,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					data.response.MinMaxLimits.currencyMax = Math.ceil(data.response.MinMaxLimits.currencyMax);
 					data.response.MinMaxLimits.currencyMin = Math.ceil(data.response.MinMaxLimits.currencyMin);
 					_processor.limits = data.response.MinMaxLimits;
-				}else{
-					_processor.limits = {currencyMin: 0, currencyMax: 0, currencyCode: _customer.currency};
+					_processor.waitLimits = false;
 				}
+
 				CashierStore.emitChange();
 			break;
 
@@ -1021,7 +1037,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_UI.currentStep = data.currentStep;
 				}
 				_processor.load(data.processorId);
-				CashierStore.checkLimits(data.processorId);
+				CashierStore.emitChange();
 			break;
 
 			case actions.VALIDATE_PAYACCOUNT:

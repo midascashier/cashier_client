@@ -1,20 +1,24 @@
-import { CashierStore } from '../stores/CashierStore'
-import { CashierActions } from '../actions/CashierActions'
-import { stompConnector } from './StompConnector'
-import { ApplicationService } from './ApplicationService'
 import { UIService } from './UIService'
-import { TransactionService } from './TransactionService'
+import cashier from '../constants/Cashier'
 import actions from '../constants/Actions'
+import { stompConnector } from './StompConnector'
+import { CashierStore } from '../stores/CashierStore'
+import { TransactionService } from './TransactionService'
+import { ApplicationService } from './ApplicationService'
+import { CashierActions } from '../actions/CashierActions'
 
-class customerService {
+class customerService{
 
 	/**
 	 * Create RabbitMQ connection and login to client
 	 */
 	startConnection(){
 		let data = loginInfo;
-		this.setLoginInfo(data);
-		this.stompConnection(data);
+
+		if(data){
+			this.setLoginInfo(data);
+			this.getCustomerInfo();
+		}
 	};
 
 	/**
@@ -42,20 +46,24 @@ class customerService {
 	 * @param data
      */
 	connectionDone(data){
-		this.getCustomerInfo();
-		TransactionService.loginResponse(data);
 		UIService.loginResponse(data);
 		ApplicationService.loginResponse();
+		TransactionService.loginResponse(data);
 	};
 
 	/**
 	 * Function to get Customer Information
 	 */
 	getCustomerInfo(){
-		let data = { f: "customerInfo" };
+		let data = {
+			f: "customerInfo",
+			ws: cashier.CASHIER_WS
+		};
+
+		let action = actions.CUSTOMER_INFO_RESPONSE;
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		TransactionService.httpService(action, rabbitRequest);
 	};
 
 	/**

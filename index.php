@@ -13,9 +13,6 @@
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
-    <div id="msjs" style="width:100%; background-color:red; text-align: center;font-weight: bold;display:none;">Connection
-      Error
-    </div>
     <div id="app"></div>
     <script>
       let sid = "<?php echo $_REQUEST['sid'] ?>";

@@ -8,8 +8,8 @@ class applicationService {
 	 * Do some other actions after login response
 	 */
 	loginResponse(){
-		this.getCompanyInfo();
 		this.getCountries();
+		this.getCompanyInfo();
 	};
 
 	/**
