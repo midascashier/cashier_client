@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { UIService } from '../../services/UIService'
 import { translate } from '../../constants/Translate'
 import { CashierStore } from '../../stores/CashierStore'
+import { CustomerService } from '../../services/CustomerService'
 import { ProcessorInfo } from '../contentComponents/ProcessorInfo'
 import { ProcessorsList } from '../contentComponents/ProcessorsList'
 import { LoadingSpinner } from '../../components/loading/LoadingSpinner'
@@ -23,7 +24,6 @@ let ProcessorsInfo = React.createClass({
 
 	/**
 	 * this function sets and return object with local states
-	 *
 	 */
 	refreshLocalState() {
 		return{
@@ -56,6 +56,21 @@ let ProcessorsInfo = React.createClass({
 	},
 
 	/**
+	 * Restart customer info
+	 */
+	restartConnection(){
+		let customer = CashierStore.getCustomer();
+		if(!this.state.selectedProcessor.processorId && !customer.customerId){
+			let login = CashierStore.getLoginInfo();
+			if (customer.customerId){
+				CustomerService.startConnection();
+			}else{
+				CustomerService.connectionDone(login);
+			}
+		}
+	},
+
+	/**
 	 * Print loading message to wait limits test
 	 */
 	waitLimits(){
@@ -81,7 +96,8 @@ let ProcessorsInfo = React.createClass({
 				<div className="col-sm-6">
 					{(() =>{
 						if(!this.state.selectedProcessor.processorId){
-							return <LoadingSpinner />;
+							//this.restartConnection();
+							return <LoadingSpinner/>;
 						}
 
 						return <ProcessorInfo selectedProcessor={this.state.selectedProcessor} waitLimits={this.state.waitLimits}/>
@@ -95,7 +111,7 @@ let ProcessorsInfo = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		this.props.setAmount("");
 		CashierStore.addChangeListener(this._onChange);
 	},
@@ -103,7 +119,7 @@ let ProcessorsInfo = React.createClass({
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

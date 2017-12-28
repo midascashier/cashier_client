@@ -102,7 +102,7 @@ let InfoMethod = React.createClass({
 		UIService.confirmTransaction();
 	},
 
-	render() {
+	render(){
 		let limitsCheck = this.allowProcess();
 		let formValidator = this.props.formValidator();
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);

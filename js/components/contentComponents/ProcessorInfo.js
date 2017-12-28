@@ -129,8 +129,7 @@ let ProcessorInfo = React.createClass({
 
                         <div className="row mod-btns">
                             <div className="col-sm-6">
-                                <button onClick={this.startTransaction} type="button" className="btn btn-green"
-                                        disabled={waitLimits}>
+                                <button onClick={this.startTransaction} type="button" className="btn btn-green" disabled={waitLimits}>
                                     {buttonNext} {processorDisplayName}
                                 </button>
                             </div>
