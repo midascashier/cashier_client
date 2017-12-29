@@ -11,6 +11,7 @@ class requestProxy
 
     $parameters = $_REQUEST;
     $parameters['format'] = 'json';
+    $parameters['userId'] = ONLINE_BE_USER_ID;
     $parameters['sys_access_pass'] = ACCESS_PASSWORD;
 
     if(DEBUG_ENABLED){
@@ -28,13 +29,15 @@ class requestProxy
           CURLOPT_SSL_VERIFYHOST => 0,
           CURLOPT_SSL_VERIFYPEER => 0,
           CURLOPT_URL => $url,
-          CURLOPT_POSTFIELDS => $parameters,
+          CURLOPT_POSTFIELDS => urldecode(http_build_query($parameters, '', '&')),
           CURLOPT_USERAGENT => "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)"
         ));
 
+        $this->log('Request: ' . $url . '?' . urldecode(http_build_query($parameters, '', '&')));
         $response = curl_exec($curl);
         if($response){
-          $check = strpos($response, '"state":"ok"');
+          $responseData = json_decode($response);
+          $check = ($responseData->state == 'ok');
           if(!$check){
 
             $lastErrorCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
@@ -49,29 +52,29 @@ class requestProxy
             $content .= "Error information: \n";
             $content .= $lastErrorCode . ":" . $lastError . " \n";
 
-            log($content);
-            $response = json_encode(array('Error' => "Invalid Response"));
+            $this->log($content);
           }
         }else{
-          $response = json_encode(array('Error' => "Invalid Response"));
+          $response = json_encode(array('error' => "Invalid Response"));
         }
 
+        $this->log('Response: ' . $response);
       }else{
-        $response = json_encode(array('Error' => "{$routeWS} not defined ws config"));
-        log("Error {$routeWS} not defined ws config");
+        $response = json_encode(array('error' => "{$routeWS} not defined ws config"));
+        $this->log("Error {$routeWS} not defined ws config: " . urldecode(http_build_query($parameters, '', '&')));
       }
     }catch(Exception $e){
-      $response = json_encode(array('Error' => $e->getCode().'- '.$e->getMessage()));
-      log($e->getCode().'- '.$e->getMessage());
+      $response = json_encode(array('error' => $e->getCode().'- '.$e->getMessage()));
+      $this->log($e->getCode().'- '.$e->getMessage());
     }
 
     curl_close($curl);
     echo $response;
   }
 
-  public function log($message){
-
-    $content = date('Y-m-d H:i:s') . ":\n\n";
+  function log($message)
+  {
+    $content = date('Y-m-d H:i:s') . ": ";
     $content .= $message;
     $content .= "\n";
 

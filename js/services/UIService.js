@@ -1,12 +1,13 @@
 import React from 'react'
-import RouterContainer from './RouterContainer'
-import { CashierStore } from '../stores/CashierStore'
-import { CashierActions } from '../actions/CashierActions'
-import { TransactionService } from './TransactionService'
-import { ApplicationService } from './ApplicationService'
 import cashier from '../constants/Cashier'
-import  ProcessorSettings from '../constants/Processors'
-import { stompConnector } from './StompConnector'
+import actions from '../constants/Actions'
+import ProcessorSettings from '../constants/Processors'
+import RouterContainer from './RouterContainer'
+import {CashierStore} from '../stores/CashierStore'
+import {CashierActions} from '../actions/CashierActions'
+import {TransactionService} from './TransactionService'
+import {ApplicationService} from './ApplicationService'
+import {ConnectorServices} from './ConnectorServices'
 
 class UiService {
 
@@ -526,7 +527,7 @@ class UiService {
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeBackendRequest("", rabbitRequest);
+		ConnectorServices.makeBackendRequest(actions.GET_PACIFIC_TIME_HOUR_RESPONSE, rabbitRequest);
 	}
 }
 

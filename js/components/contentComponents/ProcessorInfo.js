@@ -84,9 +84,6 @@ let ProcessorInfo = React.createClass({
 
         return (
             <div id="processorInfo">
-                <p>
-
-                </p>
                 <div className="row">
                     <div className="col-sm-12">
                         <div className="deposit-limits">

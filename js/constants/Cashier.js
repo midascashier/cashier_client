@@ -61,5 +61,6 @@ export default {
 
 	REQUEST_PROXY: '/requestProxy.php',
 	CASHIER_WS: 'CASHIER',
-	BACKEND_WS: 'BACKEND'
+	BACKEND_WS: 'BACKEND',
+	BONUS_WS: 'BONUS'
 }

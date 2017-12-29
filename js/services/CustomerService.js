@@ -1,11 +1,10 @@
-import { UIService } from './UIService'
-import cashier from '../constants/Cashier'
 import actions from '../constants/Actions'
-import { stompConnector } from './StompConnector'
-import { CashierStore } from '../stores/CashierStore'
-import { TransactionService } from './TransactionService'
-import { ApplicationService } from './ApplicationService'
-import { CashierActions } from '../actions/CashierActions'
+import {UIService} from './UIService'
+import {ConnectorServices} from './ConnectorServices'
+import {CashierStore} from '../stores/CashierStore'
+import {TransactionService} from './TransactionService'
+import {ApplicationService} from './ApplicationService'
+import {CashierActions} from '../actions/CashierActions'
 
 class customerService{
 
@@ -26,9 +25,7 @@ class customerService{
 	 *
 	 */
 	stompConnection(data){
-		stompConnector.initConnection().then(()=>{
-			this.connectionDone(data);
-		});
+		this.connectionDone(data);
 	};
 
 	/**
@@ -36,8 +33,7 @@ class customerService{
 	 *
 	 */
 	setLoginInfo(data){
-		let action = actions.LOGIN_RESPONSE;
-		CashierActions.responses(action, data);
+		CashierActions.responses(actions.LOGIN_RESPONSE, data);
 	};
 
 	/**
@@ -56,14 +52,12 @@ class customerService{
 	 */
 	getCustomerInfo(){
 		let data = {
-			f: "customerInfo",
-			ws: cashier.CASHIER_WS
+			f: "customerInfo"
 		};
 
-		let action = actions.CUSTOMER_INFO_RESPONSE;
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		TransactionService.httpService(action, rabbitRequest);
+		ConnectorServices.makeCustomerRequest(actions.CUSTOMER_INFO_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -80,7 +74,7 @@ class customerService{
 		let data = { f: "customerLastTransactions", limit: 10 };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		ConnectorServices.makeCustomerRequest(actions.CUSTOMER_TRANSACTIONS_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -93,7 +87,7 @@ class customerService{
 		let data = { f: "getAssignedP2PNames", username: username, companyId: companyId, processorId: 0 };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		ConnectorServices.makeCustomerRequest(actions.CUSTOMER_TRANSACTIONS_PENDING_MTCN_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -109,7 +103,7 @@ class customerService{
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		ConnectorServices.makeCustomerRequest(actions.PAYACCOUNTS_DISABLE_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -123,7 +117,7 @@ class customerService{
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		ConnectorServices.makeCustomerRequest(actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -135,7 +129,7 @@ class customerService{
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		ConnectorServices.makeCustomerRequest(actions.PROCESSORS_LIMIT_RULES_RESPONSE, rabbitRequest);
 	};
 }
 

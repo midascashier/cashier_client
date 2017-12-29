@@ -5,7 +5,7 @@
    *
    * @var string
    */
-  const CASHIER_CONTROLLER_WS = 'http://cashier.localhost:8080/wscashier/wsController.php';
+  const CASHIER_CONTROLLER_WS = 'http://cashier:8080/wscashier/wsController.php';
 
   /**
    * Enable / Disable Flag - Must be in sync with phpConfig::SECURITY_IOVATION_ENABLE
@@ -29,7 +29,7 @@
   /**
    * CompanyId
    */
-  const COMPANY_ID_POKER = '100';
+  const COMPANY_ID_POKER = '50';
 
   /**
    * debug active
@@ -41,7 +41,14 @@
    */
   const ACCESS_PASSWORD = 1;
 
-  const _WS_CASHIER = 'http://cashier.localhost:8080/wscashier/wsController.php';
+  /**
+   * online user id
+   */
+  const ONLINE_BE_USER_ID = 10093;
 
-  const _WS_BACKEND = 'http://cashier.backend.localhost:8080/ws/wsBEController.php';
+  const _WS_CASHIER = 'http://cashier:8080/wscashier/wsController.php';
+  const _WS_LIMITS = 'http://cashier:8080/wsprivate/wsLimits.php';
+  const _WS_BACKEND = 'http://cashier.backend:8080/ws/wsBEController.php';
+  const _WS_BONUS = 'http://bonus:8080/ws/wsBonus.php';
+
 ?>

@@ -1,6 +1,7 @@
-import { CashierStore } from '../stores/CashierStore'
-import { CashierActions } from '../actions/CashierActions'
-import { stompConnector } from './StompConnector'
+import actions from '../constants/Actions'
+import {CashierStore} from '../stores/CashierStore'
+import {CashierActions} from '../actions/CashierActions'
+import {ConnectorServices} from './ConnectorServices'
 
 class applicationService {
 
@@ -38,7 +39,7 @@ class applicationService {
 		let data = { f: "getCompanyInfo" };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		ConnectorServices.makeCustomerRequest(actions.COMPANY_INFO_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -48,7 +49,7 @@ class applicationService {
 		let data = { f: "countries" };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		ConnectorServices.makeCustomerRequest(actions.COUNTRIES_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -69,7 +70,7 @@ class applicationService {
 			let data = { f: "states", country: country };
 			let application = CashierStore.getApplication();
 			let rabbitRequest = Object.assign(data, application);
-			stompConnector.makeCustomerRequest("", rabbitRequest);
+			ConnectorServices.makeCustomerRequest(actions.STATES_RESPONSE, rabbitRequest);
 		}
 	};
 
@@ -82,7 +83,7 @@ class applicationService {
 		let data = { f: "getCurrency", currencyCode: currencyCode };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		ConnectorServices.makeCustomerRequest(actions.GET_CURRENCY_RESPONSE, rabbitRequest);
 	}
 
 	/**
