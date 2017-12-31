@@ -46,6 +46,16 @@
    */
   const ONLINE_BE_USER_ID = 10093;
 
+  /**
+   * timeout of connect
+   */
+  const WS_CONNECT_TIMEOUT = 10;
+
+  /**
+   * timeout of execution
+   */
+  const WS_TIMEOUT = 30;
+
   const _WS_CASHIER = 'http://cashier:8080/wscashier/wsController.php';
   const _WS_LIMITS = 'http://cashier:8080/wsprivate/wsLimits.php';
   const _WS_BACKEND = 'http://cashier.backend:8080/ws/wsBEController.php';

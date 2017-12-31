@@ -1,10 +1,10 @@
 import React from 'react'
-import { translate } from '../../../constants/Translate'
+import {translate} from '../../../constants/Translate'
 import Cashier from '../../../constants/Cashier'
-import { CashierStore } from '../../../stores/CashierStore'
-import { UIService } from '../../../services/UIService'
-import { TransactionService } from '../../../services/TransactionService'
-
+import {CashierStore} from '../../../stores/CashierStore'
+import {UIService} from '../../../services/UIService'
+import {TransactionService} from '../../../services/TransactionService'
+import {Loading} from '../../loading/Loading'
 let InfoMethod = React.createClass({
 
 	propTypes: {
@@ -26,14 +26,14 @@ let InfoMethod = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	},
 
@@ -42,7 +42,7 @@ let InfoMethod = React.createClass({
 	 *
 	 * @returns {{transaction: (*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, cleanTransaction: (function())}), processor: (*|{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, fees: Array, limits: Array, limitRules: Array, load: (function(*))}), currentPayAccount: (*|{payAccountId: null, displayName: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limitsData: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))}), customer: (*|{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: {}, load: (function(*))})}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			transaction: CashierStore.getTransaction(),
 			currentPayAccount: CashierStore.getCurrentPayAccount(),
@@ -55,7 +55,7 @@ let InfoMethod = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -85,7 +85,7 @@ let InfoMethod = React.createClass({
 	 * send the customer to select the processor again
 	 *
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
@@ -102,10 +102,39 @@ let InfoMethod = React.createClass({
 		UIService.confirmTransaction();
 	},
 
+	/**
+	 * validate date of birth / SSB and DOB
+	 *
+	 * @returns {{check: boolean, message: string}}
+	 */
+	validateExtra(){
+
+		let checkData = {check: false, message: ''};
+		let dobTransactionCheck = Boolean(this.state.transaction.dobDay && this.state.transaction.dobMonth && this.state.transaction.dobYear);
+		let payAccountDOB = Boolean(this.state.currentPayAccount.extra.dobDay && this.state.currentPayAccount.extra.dobMonth && this.state.currentPayAccount.extra.dobYear);
+
+		let country = this.state.customer.personalInformation.country;
+		if(country === 'US'){
+
+			let transactionSSN = Boolean(this.state.transaction.ssn && this.state.transaction.ssn.length === 4);
+			let payAccountSSN = Boolean(this.state.currentPayAccount.extra.ssn && this.state.currentPayAccount.extra.ssn.length === 4);
+
+			checkData.check = (dobTransactionCheck || payAccountDOB) && (transactionSSN || payAccountSSN);
+			if(!checkData.check){
+				checkData.message = translate('PROCESSING_VALIDATION_DOB_SSN', 'Please, check your date of birth or SSN!');
+			}
+		}else{
+			checkData.check = (dobTransactionCheck || payAccountDOB);
+			if(!checkData.check){
+				checkData.message = translate('PROCESSING_VALIDATION_DOB', 'Please, validate your date of birth!');
+			}
+		}
+
+		return checkData;
+	},
+
 	render(){
-		let limitsCheck = this.allowProcess();
-		let formValidator = this.props.formValidator();
-		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
+
 		let originPath = UIService.getOriginPath();
 		let isEditingCCInfo = UIService.getCCEditMode();
 		let processorDisplayName = UIService.getProcessorName().toUpperCase();
@@ -115,47 +144,87 @@ let InfoMethod = React.createClass({
 			processorName: processorDisplayName, transactionType: transactionType
 		});
 
+		let validateExtra = this.validateExtra();
+		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
+
+		let allowProcess = false;
+		if(!isEditingCCInfo){
+			allowProcess = payAccountInfo.payAccountId && this.allowProcess() && this.props.formValidator() && validateExtra.check;
+		}
+
 		let isNextDisabled = "disabled";
-		if(payAccountInfo.payAccountId && limitsCheck && formValidator && !isEditingCCInfo && ((this.state.transaction.dobDay && this.state.transaction.dobMonth && this.state.transaction.dobYear)||(this.state.currentPayAccount.extra.ssn && this.state.currentPayAccount.extra.dobDay && this.state.currentPayAccount.extra.dobMonth && this.state.currentPayAccount.extra.dobYear))){
+		if(!isEditingCCInfo && allowProcess){
 			isNextDisabled = "";
 		}
+
 		return (
 			<div id="InfoMethodVisa">
 				<div className="row">
 					<div className="col-sm-12">
-					<div className="title">{title}</div>
-					<div className="table-responsive">
-						<table className="table table-striped">
-							<tbody>
-							<tr>
-								<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-								<td><span>{payAccountInfo.minPayAccount}</span></td>
-							</tr>
-							<tr>
-								<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-								<td><span>{payAccountInfo.maxPayAccount}</span></td>
-							</tr>
-							<tr>
-								<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
-								<td><span>{payAccountInfo.remaining}</span></td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
-					<div className="row mod-btns">
-						<div className="col-sm-6">
-							<button type='button' className='btn btn-green' disabled={isNextDisabled}
-											onClick={this.continueTransaction}>
-								{translate('PROCESSING_BUTTON_NEXT', 'Next')}
-							</button>
-							<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
+						<div className="title">{title}</div>
+						<div className="table-responsive">
+							<table className="table table-striped">
+								<tbody>
+									<tr>
+										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+										{(() =>{
+											if(payAccountInfo.minPayAccount){
+												return (<td><span>{payAccountInfo.minPayAccount}</span></td>)
+											}else{
+												return (<td><span><Loading/></span></td>)
+											}
+										})()}
+									</tr>
+									<tr>
+										<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
+										{(() =>{
+											if(payAccountInfo.maxPayAccount){
+												return (<td><span>{payAccountInfo.maxPayAccount}</span></td>)
+											}else{
+												return (<td><span><Loading/></span></td>)
+											}
+										})()}
+									</tr>
+									<tr>
+										<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
+										{(() =>{
+											if(payAccountInfo.remaining){
+												return (<td><span>{payAccountInfo.remaining}</span></td>)
+											}else{
+												return (<td><span><Loading/></span></td>)
+											}
+										})()}
+									</tr>
+								</tbody>
+							</table>
 						</div>
-						<div className="col-sm-6">
-							<img src={originPath + '/images/ssl.png'} alt="ssl"/>
+
+						{(() =>{
+							if(!validateExtra.check){
+								return (
+									<div className="alert alert-danger" role="alert">
+										<i className="fa fa-exclamation-circle red"></i>
+										<strong>{validateExtra.message}</strong>
+									</div>
+								)
+							}
+						})()}
+
+						<div className="row mod-btns">
+							<div className="col-sm-6">
+								<button type='button' className='btn btn-green' disabled={isNextDisabled} onClick={this.continueTransaction}>
+									{translate('PROCESSING_BUTTON_NEXT', 'Next')}
+								</button>
+								<p>
+									<a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a>
+								</p>
+							</div>
+							<div className="col-sm-6">
+								<img src={originPath + '/images/ssl.png'} alt="ssl"/>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 			</div>
 		)
 	}

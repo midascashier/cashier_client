@@ -515,7 +515,12 @@ class UiService {
 	 */
 	switchAction(){
 		CashierActions.switchAction();
-		location.reload();
+		let reloadMeForm = document.getElementById('reloadMeForm');
+		if(reloadMeForm){
+			reloadMeForm.submit();
+		}else{
+			location.reload();
+		}
 	}
 
 	/**

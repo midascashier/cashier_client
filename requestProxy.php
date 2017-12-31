@@ -25,6 +25,8 @@ class requestProxy
         $url = constant($routeWS);
         curl_setopt_array($curl, array(
           CURLOPT_POST => 1,
+          CURLOPT_TIMEOUT => WS_TIMEOUT,
+          CURLOPT_CONNECTTIMEOUT => WS_CONNECT_TIMEOUT,
           CURLOPT_RETURNTRANSFER => 1,
           CURLOPT_SSL_VERIFYHOST => 0,
           CURLOPT_SSL_VERIFYPEER => 0,
@@ -33,7 +35,7 @@ class requestProxy
           CURLOPT_USERAGENT => "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)"
         ));
 
-        $this->log('Request: ' . $url . '?' . urldecode(http_build_query($parameters, '', '&')));
+        //$this->log('Request: ' . $url . '?' . urldecode(http_build_query($parameters, '', '&')));
         $response = curl_exec($curl);
         if($response){
           $responseData = json_decode($response);
@@ -55,16 +57,16 @@ class requestProxy
             $this->log($content);
           }
         }else{
-          $response = json_encode(array('error' => "Invalid Response"));
+          $response = json_encode(array('userMessage' => "Error processing your request"));
         }
 
-        $this->log('Response: ' . $response);
+        //$this->log('Response: ' . $response);
       }else{
-        $response = json_encode(array('error' => "{$routeWS} not defined ws config"));
+        $response = json_encode(array('userMessage' => "Error processing your request"));
         $this->log("Error {$routeWS} not defined ws config: " . urldecode(http_build_query($parameters, '', '&')));
       }
     }catch(Exception $e){
-      $response = json_encode(array('error' => $e->getCode().'- '.$e->getMessage()));
+      $response = json_encode(array('userMessage' => "Error processing your request"));
       $this->log($e->getCode().'- '.$e->getMessage());
     }
 

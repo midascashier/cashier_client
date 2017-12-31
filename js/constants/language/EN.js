@@ -112,6 +112,9 @@ let _langTags = {
 	PROCESSING_FEE_TYPE_OPTIONS: "Pay the fees with",
 	PROCESSING_FEE_ENOUGH_BALANCE: "You don't have enough balance to cover the required fees",
 	PROCESSING_BUTTON_EDIT_CARD: "Edit Card",
+	//Validations
+	PROCESSING_VALIDATION_DOB: "Please, check your date of birth!",
+	PROCESSING_VALIDATION_DOB_SSN: "Please, check your date of birth or SSN!",
 	//Transaction
 	TRANSACTION_AMOUNT: "Amount",
 	TRANSACTION_FEE_TYPE_CASH: "Cash",
