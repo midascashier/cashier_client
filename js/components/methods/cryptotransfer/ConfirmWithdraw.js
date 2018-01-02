@@ -3,7 +3,6 @@ import { CashierStore } from '../../../stores/CashierStore'
 import { translate } from '../../../constants/Translate'
 import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
 
 let CryptoTransferConfirmWithdraw = React.createClass({
 
@@ -39,7 +38,18 @@ let CryptoTransferConfirmWithdraw = React.createClass({
 	 */
 	processTransaction(){
 		let transaction = this.state.transaction;
-		TransactionService.processCryptoTransfer(transaction, 'ticket');
+
+		let dynamicParams = {
+			amount: transaction.amount,
+			payAccountId: transaction.payAccountId,
+			promoCode: transaction.promoCode,
+			cryptoAddress: transaction.cryptoAddress,
+			currencyName: transaction.currencyName,
+			currencySymbol: transaction.currencySymbol,
+			BTCConversionAmount: transaction.BTCConversionAmount
+		};
+
+		TransactionService.processCryptoTransfer(dynamicParams, 'ticket');
 	},
 
 	/**

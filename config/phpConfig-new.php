@@ -32,6 +32,11 @@
   const COMPANY_ID_POKER = '50';
 
   /**
+   * CompanyId
+   */
+  const COMPANY_ID_YAPOKER = '60';
+
+  /**
    * debug active
    */
   const DEBUG_ENABLED = false;

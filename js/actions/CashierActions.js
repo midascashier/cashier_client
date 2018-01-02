@@ -65,10 +65,10 @@ let CashierActions = {
 		});
 	},
 
-	setCryptoAddress: (address) =>{
+	setCryptoAddress: (cryptoAddress) =>{
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_CRYPTO_ADDRESS,
-			data: { address: address }
+			data: { cryptoAddress: cryptoAddress }
 		});
 	},
 	setCryptoCurrencyName: (currencyName) =>{
