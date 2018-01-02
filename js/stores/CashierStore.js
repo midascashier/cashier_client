@@ -293,7 +293,7 @@ let _payAccounts = [];
 /**
  * Stores information of the transaction
  *
- * @type {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cleanTransaction: (())}}
+ * @type {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cryptoAddress: string, currencyName: string, currencySymbol: string, BTCConversionAmount: string, cleanTransaction(): void}}
  * @private
  */
 let _transaction = {
@@ -320,6 +320,10 @@ let _transaction = {
 	secondFactorMessage: '',
 	secondFactorMaxAttempts: false,
 	promoCode: '',
+	cryptoAddress: '',
+	currencyName: '',
+	currencySymbol: '',
+	BTCConversionAmount: '',
 	cleanTransaction(){
 		this.amount = '';
 		this.fee = 0;
@@ -336,13 +340,17 @@ let _transaction = {
 		this.timeFrameTime = null;
 		this.controlNumber = '';
 		this.promoCode = '';
+		this.cryptoAddress = '';
+		this.currencyName = '';
+		this.currencySymbol = '';
+		this.BTCConversionAmount = '';
 	}
 };
 
 /**
  * Stores transaction result
  *
- * @type {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
+ * @type {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, status: string, details: Array, data: null, cleanTransaction(): void}}
  * @private
  */
 let _transactionResponse = {
@@ -354,19 +362,19 @@ let _transactionResponse = {
 	userMessage: "",
 	state: "",
 	status: "",
-	details: [], //specific details for different type of transactions (BTC, CC, P2P, etc)
-    data: null,
+	details: [],
+	data: null,
 	cleanTransaction(){
 		this.transactionId = 0;
 		this.journalId = 0;
 		this.amount = "";
+		this.feeType = '';
 		this.fee = 0;
-		this.feeType = "";
-		this.status = "";
 		this.userMessage = "";
 		this.state = "";
+		this.status = "";
 		this.details = [];
-        this.data = null;
+		this.data = null;
 	}
 };
 
@@ -406,7 +414,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * Return last transaction cashier response
 	 *
-	 * @returns {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
+	 * @returns {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: function()}}
 	 */
 	getLastTransactionResponse: () =>{
 		return _transactionResponse;
@@ -971,6 +979,30 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			_transaction.promoCode = promoCode;
 			CashierStore.emitChange();
 		break;
+
+		case actions.CHANGE_TRANSACTION_CRYPTO_ADDRESS:
+			let cryptoAddress = data.cryptoAddress;
+			_transaction.cryptoAddress = cryptoAddress;
+			//CashierStore.emitChange();
+			break;
+
+		case actions.CHANGE_TRANSACTION_CURRENCY_NAME:
+			let currencyName = data.currencyName;
+			_transaction.currencyName = currencyName;
+			//CashierStore.emitChange();
+			break;
+
+		case actions.CHANGE_TRANSACTION_CURRENCY_SYM:
+			let currencySymbol = data.currencySymbol;
+			_transaction.currencySymbol = currencySymbol;
+			//CashierStore.emitChange();
+			break;
+
+		case actions.CHANGE_TRANSACTION_BTC_CONVERTION_AMOUNT:
+			let BTCConversionAmount = data.BTCConversionAmount;
+			_transaction.BTCConversionAmount = BTCConversionAmount;
+			//CashierStore.emitChange();
+			break;
 
 		case actions.PROCESS_RESPONSE:
 		case actions.PROCESS_P2P_GET_NAME_RESPONSE:

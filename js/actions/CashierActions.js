@@ -65,6 +65,33 @@ let CashierActions = {
 		});
 	},
 
+	setCryptoAddress: (address) =>{
+		CashierDispatcher.dispatch({
+			action: actions.CHANGE_TRANSACTION_CRYPTO_ADDRESS,
+			data: { address: address }
+		});
+	},
+	setCryptoCurrencyName: (currencyName) =>{
+		CashierDispatcher.dispatch({
+			action: actions.CHANGE_TRANSACTION_CURRENCY_NAME,
+			data: { currencyName: currencyName }
+		});
+	},
+
+	setCryptoCurrencyISO: (currencyISO) =>{
+		CashierDispatcher.dispatch({
+			action: actions.CHANGETRANSACTIONCURRENCYSYM,
+			data: { currencyISO: currencyISO }
+		});
+	},
+
+	setTransactionBTCConversionAmount: (BTCConversionAmount) =>{
+		CashierDispatcher.dispatch({
+			action: actions.CHANGE_TRANSACTION_BTC_CONVERTION_AMOUNT,
+			data: { BTCConversionAmount: BTCConversionAmount }
+		});
+	},
+
 	setTransactionTimeFrame: (timeFrame) =>{
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_TIMEFRAME,

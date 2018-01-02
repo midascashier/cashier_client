@@ -155,7 +155,7 @@ class UiService {
 	/**
 	 * get transaction information
 	 *
-	 * @returns {*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())}}
+	 * @returns {*|{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cleanTransaction}}
 	 */
 	getTransactionInformation(){
 		return CashierStore.getTransaction();
@@ -336,7 +336,7 @@ class UiService {
 	/**
 	 * Return last transaction cashier response
 	 *
-	 * @returns {*|{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
+	 * @returns {*|{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: function()}}
 	 */
 	getLastTransactionResponse(){
 		return CashierStore.getLastTransactionResponse();

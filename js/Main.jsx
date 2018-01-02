@@ -231,6 +231,7 @@ let routes = (
 				<Route path="btc_crypto_transfer/" component={CryptoTransfer}/>
 				<Route path="btc_crypto_transfer/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={CryptoTransferTicketPending}/>
+					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 			</Route>
 

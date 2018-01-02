@@ -288,6 +288,34 @@ class transactionService{
 	}
 
 	/**
+	 * @param address
+	 */
+	setCryptoAddress(address){
+		CashierActions.setCryptoAddress(address);
+	}
+
+	/**
+	 * @param currencyISO
+	 */
+	setCryptoCurrencyISO(currencyISO){
+		CashierActions.setCryptoCurrencyISO(currencyISO);
+	}
+
+	/**
+	 * @param currencyName
+	 */
+	setCryptoCurrencyName(currencyName){
+		CashierActions.setCryptoCurrencyName(currencyName);
+	}
+
+	/**
+	 * @param BTCConversionAmount
+	 */
+	setTransactionBTCConversionAmount(BTCConversionAmount){
+		CashierActions.setTransactionBTCConversionAmount(BTCConversionAmount);
+	}
+
+	/**
 	 * return PayAccount
 	 */
 	getCurrentPayAccount(){
@@ -408,6 +436,7 @@ class transactionService{
 	 */
 	processCryptoTransfer(dynamicParams, nextStep){
 
+		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
 
 		let transaction = CashierStore.getTransaction();
