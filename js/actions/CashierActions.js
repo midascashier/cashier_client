@@ -78,10 +78,10 @@ let CashierActions = {
 		});
 	},
 
-	setCryptoCurrencyISO: (currencyISO) =>{
+	setCryptoCurrencyISO: (currencySymbol) =>{
 		CashierDispatcher.dispatch({
-			action: actions.CHANGETRANSACTIONCURRENCYSYM,
-			data: { currencyISO: currencyISO }
+			action: actions.CHANGE_TRANSACTION_CURRENCY_SYM,
+			data: { currencySymbol: currencySymbol }
 		});
 	},
 
