@@ -86,7 +86,7 @@ class connectorServices {
 				try{
 					let dataResponse = JSON.parse(response);
 					if(dataResponse && dataResponse.state != 'ok'){
-						onResponseService.processResponse(actions.USER_MESSAGE, dataResponse);
+						onResponseService.processResponse(action, dataResponse);
 					}else{
 						if(dataResponse && dataResponse.response){
 							onResponseService.processResponse(action, dataResponse);

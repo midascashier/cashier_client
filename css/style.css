@@ -599,3 +599,15 @@ div[class*="col-"] > div[class*="col-"]:before {
     display: none;
     text-align: justify;
 }
+
+.ticket-header {
+  font-size: x-large;
+  margin-bottom: 15px;
+}
+.ticket-header i {
+  font-size: x-large!important
+}
+.ticket-body {
+  line-height: 1.5;
+  font-size: 14px;
+}

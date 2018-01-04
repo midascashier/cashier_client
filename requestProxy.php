@@ -35,7 +35,10 @@ class requestProxy
           CURLOPT_USERAGENT => "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)"
         ));
 
-        //$this->log('Request: ' . $url . '?' . urldecode(http_build_query($parameters, '', '&')));
+        if(DEBUG_ENABLED){
+          $this->log('Request: ' . $url . '?' . urldecode(http_build_query($parameters, '', '&')));
+        }
+
         $response = curl_exec($curl);
         if($response){
           $responseData = json_decode($response);
@@ -60,7 +63,9 @@ class requestProxy
           $response = json_encode(array('userMessage' => "Error processing your request"));
         }
 
-        //$this->log('Response: ' . $response);
+        if(DEBUG_ENABLED){
+          $this->log('Request: ' . $url . '?' . urldecode(http_build_query($parameters, '', '&')));
+        }
       }else{
         $response = json_encode(array('userMessage' => "Error processing your request"));
         $this->log("Error {$routeWS} not defined ws config: " . urldecode(http_build_query($parameters, '', '&')));

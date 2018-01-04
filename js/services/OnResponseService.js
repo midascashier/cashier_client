@@ -10,11 +10,9 @@ import Cashier from '../constants/Cashier'
  */
 class OnResponseService {
 	processResponse(action, data){
-		CashierActions.responses(action, data);
 
-		if(data.userMessage){
-			CashierActions.showUserMessage(data.userMessage);
-		}
+		CashierActions.responses(action, data);
+		CashierActions.showUserMessage(data.userMessage);
 
 		switch(action){
 			case actions.CUSTOMER_INFO_RESPONSE:

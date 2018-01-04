@@ -1,7 +1,7 @@
 import React from 'react'
-import { CashierStore } from '../../stores/CashierStore'
-import { UIService } from '../../services/UIService'
-import { ApplicationService } from '../../services/ApplicationService'
+import {CashierStore} from '../../stores/CashierStore'
+import {UIService} from '../../services/UIService'
+import {ApplicationService} from '../../services/ApplicationService'
 
 let RejectedTicket = React.createClass({
 
@@ -15,7 +15,7 @@ let RejectedTicket = React.createClass({
 	/**
 	 * build the state
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let company = UIService.getCompanyInformation();
 		let customer = UIService.getCustomerInformation();
 		let transaction = UIService.getTransactionInformation();
@@ -33,18 +33,25 @@ let RejectedTicket = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
-	render() {
+	/**
+	 * function to open chat window
+	 */
+	openChat(event){
+		chat();
+	},
+
+	render(){
 
 		let currencyAmount = this.state.currencyAmount;
 		let currency = this.state.currency;
@@ -52,7 +59,7 @@ let RejectedTicket = React.createClass({
 		let companyPhone = this.state.companyPhone;
 		let isWithDraw = UIService.getIsWithDraw();
 		let action;
-		if (isWithDraw){
+		if(isWithDraw){
 			action = "withdraw";
 		}else{
 			action = "deposit";
@@ -64,12 +71,25 @@ let RejectedTicket = React.createClass({
 					<div className="row">
 						<div className="col-sm-12">
 							<div className="alert alert-danger" role="alert">
-								<i className="fa fa-ban red"></i>
-								<strong>Transaction Rejected</strong>
-								<p>
-									<strong>Unfortunately</strong>, we were unable to process your <strong>{processorName}</strong> {action} for {ApplicationService.currency_format(currencyAmount) + ' ' + currency} at this time.
-									Perhaps our Customer Support team can help. Call us at {companyPhone} or Live Chat. Or, you could try a <a onClick={this.setFirstStep}>different deposit method</a>.
-								</p>
+
+								<div className="text-center col-sm-12 ticket-header">
+									<i className="fa fa-ban red"></i>
+									<strong>
+										Transaction Rejected
+									</strong>
+								</div>
+								<div className="ticket-body">
+									<p>
+										<strong>Unfortunately</strong>, we were unable to process your <strong>{processorName}</strong> {action} for <strong>{ApplicationService.currency_format(currencyAmount) + ' ' + currency}</strong> at this time.
+									</p>
+									<p>
+										Perhaps our Customer Support team can help.
+									</p>
+									<p>
+										Call us at {companyPhone} or <a onClick={this.openChat}>Live Chat</a> or you could try a <a onClick={this.setFirstStep}>different deposit method</a>.
+									</p>
+								</div>
+
 							</div>
 						</div>
 					</div>
@@ -81,14 +101,14 @@ let RejectedTicket = React.createClass({
 	/**
 	 * component is ready
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });
