@@ -3,6 +3,7 @@ import {CompanyInfo} from './CompanyInfo'
 import {CustomerInfo} from './CustomerInfo'
 import {translate} from '../../constants/Translate'
 import {CashierStore} from '../../stores/CashierStore'
+import {ConnectorServices} from '../../services/ConnectorServices'
 
 let Info = React.createClass({
 	
@@ -50,6 +51,7 @@ let Info = React.createClass({
 				{(() =>{
 					if(this.state.UI.userMessage){
 						if(this.state.UI.userMessage == 'Your session has expired'){
+							ConnectorServices.stop = true;
 							return(
 								<div id='expiredSessionModal'>
 									<div id='expiredSessionModal-content'>

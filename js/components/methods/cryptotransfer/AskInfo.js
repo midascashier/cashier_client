@@ -204,7 +204,7 @@ let AskInfo = React.createClass({
 		$('#moneroMsgModal').css('display', 'none');
 	},
 
-	render() {
+	render(){
 		let isWithDraw = UIService.getIsWithDraw();
 		let promoCodeTXT = translate('TRANSACTION_PROMO_CODE', 'Promo code');
 		let helpMSG = (isWithDraw) ? translate('CRYPTO_DEPOSIT_HELP', 'Enter the e-wallet address to deposit this transaction.')
