@@ -67,7 +67,7 @@ let Info = React.createClass({
 						}
 
 						return(
-							<div className="alert alert-warning text-center">
+							<div className="alert alert-warning text-center errorMessage-title">
 								<i className="fa fa-warning orange"/>
 								{this.state.UI.userMessage}
 							</div>
