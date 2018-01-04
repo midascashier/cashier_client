@@ -259,7 +259,7 @@ let CryptoTransfer = React.createClass({
 		return cryptoAmount / parseFloat(CashierStore.getBTCRate()).toFixed(8);
 	},
 
-	render() {
+	render(){
 		return (
 			<div id="crypto">
 				<div className="col-sm-6">

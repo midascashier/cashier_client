@@ -7,7 +7,9 @@ class connectorServices {
 	/**
 	 * ConnectorServices constructor
 	 */
-	constructor(){}
+	constructor(){
+		this.stop = false
+	}
 
 	/**
 	 * send message to the backend
@@ -94,8 +96,7 @@ class connectorServices {
 							onResponseService.processResponse(action, []);
 						}
 					}
-				}
-				catch(e){
+				}catch(e){
 					console.log(e.message);
 					console.log(response);
 					onResponseService.processResponse(actions.USER_MESSAGE, {userMessage: 'Error processing your request'});
