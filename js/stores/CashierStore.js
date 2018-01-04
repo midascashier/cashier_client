@@ -655,37 +655,37 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				CashierStore.storeData("ui", _UI);
 				CashierStore.storeData("company", _company);
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.USER_MESSAGE:
 				_UI.userMessage = data.message;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.CUSTOMER_INFO_RESPONSE:
 				_customer.load(data.response.customerInfo);
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.COMPANY_INFO_RESPONSE:
 				_company.load(data.response.companyInformation);
 				CashierStore.storeData("company", _company);
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.GET_PENDING_PAYOUT_RESPONSE:
 				_customer.pendingPayouts = data.response.pendingPayout;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
 				_customer.lastTransactions = data.response.transactions;
-			break;
+				break;
 
 			case actions.SET_EDITCC:
 				_UI.ccEdit = data.editMode;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.SWITCH_ACTION:
 				if(_UI.currentView == cashier.VIEW_DEPOSIT){
@@ -694,7 +694,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_UI.currentView = cashier.VIEW_DEPOSIT;
 				}
 				CashierStore.storeData("ui", _UI);
-			break;
+				break;
 
 			case actions.CUSTOMER_TRANSACTIONS_PENDING_MTCN_RESPONSE:
 				let p2pTransactions = [];
@@ -708,15 +708,15 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				}
 				_customer.pendingP2PTransactions = p2pTransactions;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.CHANGE_STATUS_RESPONSE:
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.COUNTRIES_RESPONSE:
 				_UI.countries = data.response.countries;
-			break;
+				break;
 
 			case actions.CHANGE_APPLICATION_SELECTED_COUNTRY:
 				if(!data.country){
@@ -724,7 +724,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				}else{
 					_UI.selectedCountry = data.country;
 				}
-			break;
+				break;
 
 			case actions.STATES_RESPONSE:
 				let countryInfo = data.response.countryInfo;
@@ -736,11 +736,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				}
 				_UI.countryInfo[countryInfo.Small] = countryInfo;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.CONNECTION_ERRROR:
 				_UI.connectionError = data.opt;
-			break;
+				break;
 
 			case actions.GET_CURRENCY_RESPONSE:
 				let currencyInfo = data.response.currencyInfo;
@@ -748,12 +748,12 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_UI.currencies[currencyInfo.Iso] = currencyInfo;
 				}
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.RESTART_TRANSACTION_RESPONSE:
 				_transactionResponse.status = data.tStatus;
 				_transactionResponse.userMessage = "Restart";
-			break;
+				break;
 
 			case actions.PROCESSORS_RESPONSE:
 				_customer.depositProcessors = data.response.processors.deposit;
@@ -778,15 +778,15 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				// set default processor
 				_UI.processorId = processor.caProcessor_Id;
 				_processor.load(processor.caProcessor_Id);
-			break;
+				break;
 
 			case actions.CHANGE_TRANSACTION_FEE_AMOUNT:
 				_transaction.fee = data.amount;
-			break;
+				break;
 
 			case actions.CHANGE_TRANSACTION_FEETYPE:
 				_transaction.feeType = data.feeType;
-			break;
+				break;
 
 			case actions.PROCESSOR_FEES_CONFIGURATION_RESPONSE:
 				_processor.fees.enableBP = data.response.processorFeesConfig.enableBPOption;
@@ -803,11 +803,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				}
 				_processor.fees.cashType = data.response.processorFeesConfig.cashOptionType;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.SET_BITCOIN_ADDRESS:
 				_transaction.bitcoinAddress = data.bitcoinaddress;
-			break;
+				break;
 
 			case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
 				let firstPayAccount = 0;
@@ -858,7 +858,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				}
 				_payAccounts[_processor.processorId] = payAccounts_processor;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE:
 				if(data.response){
@@ -869,89 +869,89 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				}
 
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.PROCESSORS_LIMIT_RULES_RESPONSE:
 				_processor.limitRules = data.response.processorLimits;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.CHANGE_PAYACCOUNT:
 				_payAccount = _payAccounts[data.processorID][data.payAccountID];
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.CHANGE_TRANSACTION_AMOUNT:
 				_transaction.amount = data.amount;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.CHANGE_TRANSACTION_CVV:
 				_payAccount.secure.password = data.cvv;
-			break;
+				break;
 
 			case actions.PROCESSOR_FEES_RESPONSE:
 				_processor.fees.structure = data.response.processorFees;
-			break;
+				break;
 
 			case actions.CHANGE_TRANSACTION_FEE:
 				_transaction.fee = data.fee;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.CHANGE_TRANSACTION_TERMS:
 				_transaction.checkTermsAndConditions = data.checked;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.CHANGE_TRANSACTION_TIMEFRAME:
 				let timeFrame = data.timeFrame;
 				_transaction.timeFrameDay = timeFrame.timeFrameDay;
 				_transaction.timeFrameTime = timeFrame.timeFrameTime;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.CHANGE_TRANSACTION_CONTROL_NUMBER:
 				let controlNumber = data.controlNumber;
 				_transaction.controlNumber = controlNumber;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.CHANGE_TRANSACTION_SEND_BY:
 				let sendBy = data.sendBy;
 				_transaction.sendBy = sendBy;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.CHANGE_TRANSACTION_PROMO_CODE:
 				let promoCode = data.promoCode;
 				_transaction.promoCode = promoCode;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.CHANGE_TRANSACTION_CRYPTO_ADDRESS:
 				let cryptoAddress = data.cryptoAddress;
 				_transaction.cryptoAddress = cryptoAddress;
 				//CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.CHANGE_TRANSACTION_CURRENCY_NAME:
 				let currencyName = data.currencyName;
 				_transaction.currencyName = currencyName;
 				//CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.CHANGE_TRANSACTION_CURRENCY_SYM:
 				let currencySymbol = data.currencySymbol;
 				_transaction.currencySymbol = currencySymbol;
 				//CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.CHANGE_TRANSACTION_BTC_CONVERTION_AMOUNT:
 				let BTCConversionAmount = data.BTCConversionAmount;
 				_transaction.BTCConversionAmount = BTCConversionAmount;
 				//CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.PROCESS_RESPONSE:
 			case actions.PROCESS_P2P_GET_NAME_RESPONSE:
@@ -981,7 +981,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				if(_transactionResponse.userMessage == ""){
 					_transactionResponse.userMessage = data.userMessage;
 				}
-			break;
+				break;
 
 			case actions.START_TRANSACTION:
 				//do some work before start the transaction
@@ -990,27 +990,27 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				_payAccount.cleanPayAccount();
 				_UI.ccEdit = 0;
 				_payAccounts = [];
-			break;
+				break;
 
 			case actions.SET_STEP:
 				_UI.currentStep = data.step;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.GET_BITCOIN_TRANSACTION_RESPONSE:
 			case actions.GET_CRYPTO_TRANSFER_TRANSACTION_RESPONSE:
 				_transactionResponse.details = data.response;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.SETS_PAYACCOUNT:
 				_payAccount.load(data.payAccount);
-			break;
+				break;
 
 			case actions.GET_CREDITCARD_TRANSACTION_RESPONSE:
 				_transactionResponse.details = data.response;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.SELECT_PROCESSOR:
 				_UI.processorId = data.processorId;
@@ -1020,10 +1020,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				}
 				_processor.load(data.processorId);
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.VALIDATE_PAYACCOUNT:
-			break;
+				break;
 
 			case actions.PAYACCOUNTS_VALIDATE_SECURE_RESPONSE:
 				_payAccount.updateSuccess = 0;
@@ -1031,16 +1031,16 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_payAccount.updateSuccess = data.response.updateSuccess;
 				}
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.SET_TUID:
 				_transaction.randomTuid = data.tuid;
-			break;
+				break;
 
 			case actions.GET_PACIFIC_TIME_HOUR_RESPONSE:
 				_UI.serverTime = data.response.currentHour;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.SEND_TRANSACTION_TOKEN_RESPONSE:
 				if(data.response && data.response.hash){
@@ -1049,7 +1049,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_transaction.secondFactorMessage = data.userMessage;
 				}
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.VERIFY_TRANSACTION_TOKEN_RESPONSE:
 				if(data.response.reason == cashier.SECOND_FACTOR_MAX_ATTEMPTS_REACHED){
@@ -1059,26 +1059,26 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				_transaction.isCodeValid = data.response.verified;
 				_transaction.secondFactorMessage = data.response.reasonMessage;
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.START_SECOND_FACTOR:
 				_transaction.secondFactorMaxAttempts = false;
 				_transaction.secondFactorMessage = "";
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.PAYACCOUNTS_DISABLE_RESPONSE:
 				_payAccount.cleanPayAccount();
 				CashierStore.emitChange();
-			break;
+				break;
 
 			case actions.UPDATE_PAYACCOUNT_INFO_RESPONSE:
-			break;
+				break;
 
 			default:
 				console.log("Store No Action: " + action);
-			break;
-		}	
+				break;
+		}
 	}
 
 	return true;
