@@ -87,13 +87,17 @@ class connectorServices {
 			if(response){
 				try{
 					let dataResponse = JSON.parse(response);
-					if(dataResponse && dataResponse.state != 'ok'){
-						onResponseService.processResponse(action, dataResponse);
+					if(dataResponse && dataResponse.state == 'expired'){
+						onResponseService.processResponse(actions.USER_MESSAGE, dataResponse);
 					}else{
-						if(dataResponse && dataResponse.response){
+						if(dataResponse && dataResponse.state != 'ok'){
 							onResponseService.processResponse(action, dataResponse);
 						}else{
-							onResponseService.processResponse(action, []);
+							if(dataResponse && dataResponse.response){
+								onResponseService.processResponse(action, dataResponse);
+							}else{
+								onResponseService.processResponse(action, []);
+							}
 						}
 					}
 				}catch(e){
