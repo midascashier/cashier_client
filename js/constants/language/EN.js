@@ -254,7 +254,7 @@ let _langTags = {
 	CK_EMAIL: "Email Address",
 	CK_SEND_BY: "Send By",
 	CK_SEND_BY_FEDEX: "FedEx",
-	CK_SEND_BY_REGULAR: "Regular Email",
+	CK_SEND_BY_REGULAR: "Regular Mail",
 	IMPORTANT_REMINDERS: "Important Reminders",
 	CARDHOLDER_NAME: "CardHolder name must include first and last Name",
 

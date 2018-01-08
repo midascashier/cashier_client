@@ -65,7 +65,7 @@ let AskInfo = React.createClass({
 		sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_FEDEX', 'FedEx') }, 'FedEx'));
 		
 		if(processorFees.enableFree == 1){
-			sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_REGULAR', 'Regular Email') }, 'Mail'));
+			sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_REGULAR', 'Regular mail') }, 'Mail'));
 		}
 
 		let feeOptions = [];

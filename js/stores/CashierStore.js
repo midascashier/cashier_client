@@ -459,7 +459,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getLanguage: () =>{
 		if(!_UI.language && _customer.lang){
-			var culture = _customer.lang.split('-');
+			let culture = _customer.lang.split('-');
 			_UI.language = culture[0].toUpperCase();
 		}
 		return (_UI.language) ? _UI.language : 'EN';

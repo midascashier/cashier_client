@@ -107,20 +107,6 @@ class customerService{
 	};
 
 	/**
-	 * Function to get pay account previous pay accounts
-	 *
-	 * @param processorID
-     */
-	getCustomerProcessorsMinMax(processorID){
-		let data = {
-			f: "getProcessorMinMaxLimits", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
-		};
-		let application = CashierStore.getApplication();
-		let rabbitRequest = Object.assign(data, application);
-		ConnectorServices.makeCustomerRequest(actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE, rabbitRequest);
-	};
-
-	/**
 	 * Function to get processor limit rules
 	 */
 	getProcessorLimitRules(processorID){
