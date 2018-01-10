@@ -1,12 +1,13 @@
 import React from 'react'
-import RouterContainer from './RouterContainer'
-import { CashierStore } from '../stores/CashierStore'
-import { CashierActions } from '../actions/CashierActions'
-import { TransactionService } from './TransactionService'
-import { ApplicationService } from './ApplicationService'
 import cashier from '../constants/Cashier'
-import  ProcessorSettings from '../constants/Processors'
-import { stompConnector } from './StompConnector'
+import actions from '../constants/Actions'
+import ProcessorSettings from '../constants/Processors'
+import RouterContainer from './RouterContainer'
+import {CashierStore} from '../stores/CashierStore'
+import {CashierActions} from '../actions/CashierActions'
+import {TransactionService} from './TransactionService'
+import {ApplicationService} from './ApplicationService'
+import {ConnectorServices} from './ConnectorServices'
 
 class UiService {
 
@@ -154,7 +155,7 @@ class UiService {
 	/**
 	 * get transaction information
 	 *
-	 * @returns {*|{amount: string, fee: number, feeType: string, bonusId: number, checkTermsAndConditions: number, descriptor: string, cleanTransaction: (function())}}
+	 * @returns {*|{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cleanTransaction}}
 	 */
 	getTransactionInformation(){
 		return CashierStore.getTransaction();
@@ -335,7 +336,7 @@ class UiService {
 	/**
 	 * Return last transaction cashier response
 	 *
-	 * @returns {*|{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
+	 * @returns {*|{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: function()}}
 	 */
 	getLastTransactionResponse(){
 		return CashierStore.getLastTransactionResponse();
@@ -514,7 +515,12 @@ class UiService {
 	 */
 	switchAction(){
 		CashierActions.switchAction();
-		location.reload();
+		let reloadMeForm = document.getElementById('reloadMeForm');
+		if(reloadMeForm){
+			reloadMeForm.submit();
+		}else{
+			location.reload();
+		}
 	}
 
 	/**
@@ -526,7 +532,7 @@ class UiService {
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeBackendRequest("", rabbitRequest);
+		ConnectorServices.makeBackendRequest(actions.GET_PACIFIC_TIME_HOUR_RESPONSE, rabbitRequest);
 	}
 }
 

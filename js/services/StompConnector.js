@@ -9,6 +9,14 @@ class StompConnector {
 	 * StompConnector constructor
 	 */
 	constructor(){
+
+		/**
+		 * Use to verify if the system is not blocked
+		 *
+		 * @type {boolean}
+         */
+		this.sending = true;
+
 		/**
 		 * Stomp connection handler
 		 * @type {}
@@ -43,6 +51,13 @@ class StompConnector {
 	}
 
 	/**
+	 * Stop proses to sending messages to rabbit
+	 */
+	stopSending(){
+		this.sending = false;
+	}
+
+	/**
 	 * Initializes and prepares everything that's necessary for the STOMP Connection.
 	 * @returns {Promise}
 	 */
@@ -50,8 +65,7 @@ class StompConnector {
 		return new Promise((resolve, reject) =>{
 			if(this.stompClient.connected){
 				resolve();
-			} else{
-
+			}else{
 				this.makeConnection().then(() =>{
 					//set reply queue
 					this.prepareReplyQueue();
@@ -102,7 +116,6 @@ class StompConnector {
 	 */
 	prepareReplyQueue(){
 		this.replyQueue = Math.random().toString(36).substring(7);
-
 		this.stompClient.send(this.replyQueue, { "exclusive": true, "auto-delete": true }, "");
 		this.reply_queue_subscription = this.stompClient.subscribe("/queue/" + this.replyQueue, this.processMessage);
 	};
@@ -196,16 +209,18 @@ class StompConnector {
 	 * @param message
      */
 	sendMessage(queue, headers, message){
-		let correlation_id = message.f + "Response";
-		if(!headers){
-			headers = { "reply-to": this.replyQueue, "correlation_id": correlation_id, "expiration": 60000 };
-		}
-		if(this.stompClient.connected){
-			this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));
-		}else{
-			this.sleep(2000);
+		if(this.sending){
+			let correlation_id = message.f + "Response";
+			if(!headers){
+				headers = { "reply-to": this.replyQueue, "correlation_id": correlation_id, "expiration": 60000 };
+			}
 			if(this.stompClient.connected){
 				this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));
+			}else{
+				this.sleep(2000);
+				if(this.stompClient.connected){
+					this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));
+				}
 			}
 		}
 	};

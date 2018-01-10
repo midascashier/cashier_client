@@ -599,3 +599,18 @@ div[class*="col-"] > div[class*="col-"]:before {
     display: none;
     text-align: justify;
 }
+
+.errorMessage-title, .errorMessage-title i {
+  font-size: 14px!important
+}
+.ticket-header {
+  font-size: x-large;
+  margin-bottom: 14px;
+}
+.ticket-header i {
+  font-size: x-large!important
+}
+.ticket-body {
+  line-height: 1.5;
+  font-size: 14px;
+}

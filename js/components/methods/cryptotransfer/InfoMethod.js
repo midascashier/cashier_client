@@ -36,9 +36,9 @@ let InfoMethod = React.createClass({
 	},
 
 	/**
-	 *  this function sets and return object with local states
+	 * this function sets and return object with local states
 	 *
-	 * @returns {{processor: (*|{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}), currentPayAccount: *, originPath: (*|string)}}
+	 * @returns {{checkIn: boolean, processor: *|{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, rate: number, limits: Array, limitRules: Array, fees: {enableBP: number, enableCash: number, enableFree: number, cashType: string, structure: Array}, load: function(*)}, currentPayAccount: *|{payAccountId: null, displayName: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limitsData: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: function(*)}, transaction: *|{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cleanTransaction}}}
 	 */
 	refreshLocalState() {
 		return {
@@ -74,19 +74,20 @@ let InfoMethod = React.createClass({
 		this.setState({checkIn : true});
 		let promoCode = this.props.promoCode;
 		let amount = this.props.customerAmount;
+		let fee = this.props.feeCashValue;
 		let address = this.props.cryptoAddress;
 		let rateBTC = this.props.amountRateBTC;
 		let currencyISO = this.props.cryptoCurrencyISO;
 		let currencyName = this.props.cryptoCurrencyName;
-		let transaction = CashierStore.getTransaction();
 
-		transaction.amount = amount;
-		transaction.payAccountId = 0;
-		transaction.promoCode = promoCode;
-		transaction.cryptoAddress = address;
-		transaction.currencyName = currencyName;
-		transaction.currencySymbol = currencyISO;
-		transaction.BTCConversionAmount = rateBTC;
+		//set values
+		TransactionService.setAmount(amount);
+		TransactionService.setFeeAmount(fee);
+		TransactionService.setPromoCode(promoCode);
+		TransactionService.setCryptoAddress(address);
+		TransactionService.setCryptoCurrencyISO(currencyISO);
+		TransactionService.setCryptoCurrencyName(currencyName);
+		TransactionService.setTransactionBTCConversionAmount(rateBTC);
 
 		this.props.checkCryptoAddress((valid) => {
 			if(valid){
@@ -94,7 +95,18 @@ let InfoMethod = React.createClass({
 				if(isWithDraw){
 					UIService.confirmTransaction();
 				}else{
-					TransactionService.processCryptoTransfer(transaction, 'instructions');
+
+					let dynamicParams = {
+						amount: amount,
+						payAccountId: 0,
+						promoCode: promoCode,
+						cryptoAddress: address,
+						currencyName: currencyName,
+						currencySymbol: currencyISO,
+						BTCConversionAmount: rateBTC
+					};
+
+					TransactionService.processCryptoTransfer(dynamicParams, 'instructions');
 				}
 			}else{
 				this.setState({checkIn : false});
@@ -173,7 +185,7 @@ let InfoMethod = React.createClass({
 					<div className="row mod-btns">
 						<div className="col-sm-6">
 							{nextBTN}
-							<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
+							<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD', 'Use different Method')}.</a></p>
 						</div>
 						<div className="col-sm-6">
 							<img src={originPath + '/images/ssl.png'} alt="ssl"/>

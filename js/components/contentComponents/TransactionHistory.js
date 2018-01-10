@@ -51,11 +51,11 @@ let TransactionHistory = React.createClass({
 					<table className="table table-striped">
 						<tbody>
 							<tr>
-								<th>{translate('TRANSACTION_HISTORY_TABLE_COL_DATE')}</th>
-								<th>{translate('TRANSACTION_HISTORY_TABLE_COL_TYPE')}</th>
-								<th>{translate('TRANSACTION_HISTORY_TABLE_COL_METHOD')}</th>
-								<th>{translate('TRANSACTION_HISTORY_TABLE_COL_AMOUNT')}</th>
-								<th>{translate('TRANSACTION_HISTORY_TABLE_COL_STATUS')}</th>
+								<th>{translate('TRANSACTION_HISTORY_TABLE_COL_DATE', 'Date')}</th>
+								<th>{translate('TRANSACTION_HISTORY_TABLE_COL_TYPE', 'Type')}</th>
+								<th>{translate('TRANSACTION_HISTORY_TABLE_COL_METHOD', 'Method')}</th>
+								<th>{translate('TRANSACTION_HISTORY_TABLE_COL_AMOUNT', 'Amount')}</th>
+								<th>{translate('TRANSACTION_HISTORY_TABLE_COL_STATUS', 'Status')}</th>
 								<th></th>
 							</tr>
 							{(() =>{

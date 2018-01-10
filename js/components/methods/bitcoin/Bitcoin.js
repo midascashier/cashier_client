@@ -74,11 +74,9 @@ let BitCoin = React.createClass({
 		let actualState = this.state.info;
 		actualState.bitcoinAddress = e;
 		actualState.allowContinueToConfirm = state;
-		this.setState(
-			{
-				info: actualState
-			}
-		)
+		this.setState({
+			info: actualState
+		})
 	},
 
 	render() {

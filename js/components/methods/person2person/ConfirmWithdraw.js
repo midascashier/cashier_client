@@ -96,11 +96,7 @@ let P2PConfirmWithdraw = React.createClass({
 											<div className="col-sm-12">
 												<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 												<div className="infoCol text-justify">
-													<p>
-														Ensure your address is correct.
-														If you need to change your address, you can change it in the client.
-														Then you may request your Money Transfer withdraw to the new address.
-													</p>
+													<p>{translate('P2P_INSTRUCTIONS_CORRECT_ADDRESS')}</p>
 													<p><strong>Address on File:</strong></p>
 													<div className="text-center">
 														<p>

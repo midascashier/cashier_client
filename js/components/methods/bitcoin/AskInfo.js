@@ -105,7 +105,6 @@ let AskInfo = React.createClass({
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>

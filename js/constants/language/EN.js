@@ -2,6 +2,10 @@
  * Created by jobando on 03-Jun-16.
  */
 let _langTags = {
+	//Sorts words
+	IMPORTANT: "Important: ",
+	WARNING_MINER_DEPOSIT: "If your deposit is less than ",
+	WARNING_MINER_DEPOSIT_END: "  might not qualify for refund.",
 	PROCESSING_SPINNER: 'Processing... please wait!',
 	WELCOME: "Welcome",
 	WELCOME_TITLE: "Welcome to",
@@ -108,6 +112,9 @@ let _langTags = {
 	PROCESSING_FEE_TYPE_OPTIONS: "Pay the fees with",
 	PROCESSING_FEE_ENOUGH_BALANCE: "You don't have enough balance to cover the required fees",
 	PROCESSING_BUTTON_EDIT_CARD: "Edit Card",
+	//Validations
+	PROCESSING_VALIDATION_DOB: "Please, check your date of birth!",
+	PROCESSING_VALIDATION_DOB_SSN: "Please, check your date of birth or SSN!",
 	//Transaction
 	TRANSACTION_AMOUNT: "Amount",
 	TRANSACTION_FEE_TYPE_CASH: "Cash",
@@ -120,10 +127,13 @@ let _langTags = {
 	NETELLER: "Neteller",
 	NETELLER_ACCOUNT: "Neteller Account",
 	SKRILL_ACCOUNT: "Skrill Account",
+	SKRILL_INSTRUCTIONS_PROCESS_INSIDE: "Withdraws will be process inside 24 hours, but are typically processed within an hour.",
 	SELECT_ACCOUNT: "Select your account",
 	NETELLER_SECURE: "2FA or Secure ID",
 	NETELLER_NEW: "Enter your Neteller Email Account",
+	NETELLER_INSTRUCTIONS_PROCESS_INSIDE: "Withdraws will be process inside 24 hours, but are typically processed within an hour.",
 	DEBITCARD_INFO: 'Debit Card Information',
+	DEBITCARD_INSTRUCTIONS_PROCESS_INSIDE: "Withdraws will be process inside 24 hours, but are typically processed within an hour.",
 	BITCOIN: "Bitcoin",
 	BITCOIN_INSTRUCTIONS: "Now send your Bitcoin to us.",
 	BITCOIN_INSTRUCTIONS_INFO: "Your funds should be available within 30 minutes of making the transfer from your wallet.",
@@ -134,6 +144,7 @@ let _langTags = {
 	BITCOIN_INSTRUCTIONS_TIME: "Prompty complete your transaction",
 	BITCOIN_INSTRUCTIONS_TIME_INFO1: "This BTC transaction price is only valid for",
 	BITCOIN_INSTRUCTIONS_TIME_INFO2: "minutes. After that, the transaction price will change, and you may receive a different amount than expected.",
+	BITCOIN_INSTRUCTIONS_PROCESS_INSIDE: "BitCoin withdraws will be process inside 24 hours, but are typically processed within an",
 	BITCOIN_ADDRESS: "Bitcoin Address",
 	CREDIT_CARD: "Card",
 	CREDIT_CARD_SELECT: "Credit Card",
@@ -173,12 +184,14 @@ let _langTags = {
 	P2P_LAST_NAME: "Last Name",
 	P2P_NAME: "Name",
 	P2P_AGENCY_NAME: "Agency Name",
-	P2P_ADDRESS: "Address",
+	P2P_ADDRESS: "Address: ",
+	P2P_ADDRESS_LOCATION: "150 meters North of the pharmacy La Bomba, front hostel Catalonia, San Pedro de Montes de Oca",
 	P2P_RIA: "Make your payment in one of the following establishments",
 	P2P_RECEIVER: "Receiver",
 	P2P_COUNTRY: "Country",
 	P2P_STATE: "State",
 	P2P_CITY: "City",
+	P2P_MAKE_PAYMENT: "Make your payment in one of the following establishments",
 	P2P_PHONE: "Phone",
 	P2P_EMAIL: "Email",
 	P2P_DESTINATION: "Destination",
@@ -189,6 +202,11 @@ let _langTags = {
 	P2P_CONTROL_NUMBER: "Control #",
 	P2P_AMOUNT_SEND: "Funds Sent",
 	P2P_FEE_SEND: "Fee",
+	P2P_INSTRUCTION_REJECT: "Important Notice: Not following the instructions below will result in a rejected transaction Details.",
+	P2P_INSTRUCTION_NEXT_HOURS: "This receiver's information is only valid for the next 48 hours.",
+	P2P_INSTRUCTION_MIN_DEPOSIT: "The minimum deposit is $50.00, and the maximum is $400.00",
+	P2P_INSTRUCTION_ONLY_USD: "Your transaction must be sent in USD and received in USD.",
+	P2P_INSTRUCTIONS_CORRECT_ADDRESS: "Ensure your address is correct. If you need to change your address, you can change it in the client. Then you may request your Money Transfer withdraw to the new address.",
 	PENDING_MTCN: "Pending Control Numbers",
 	PENDING_MTCN_SENDER: "Sender",
 	PENDING_MTCN_RECEIVER: "Receiver",
@@ -197,6 +215,7 @@ let _langTags = {
 	PENDING_MTCN_AMOUNT: "Amount",
 	PENDING_MTCN_FEE: "Fee",
 	PENDING_MTCN_DIGITS: "digits",
+	GENCK_INSTRUCTIONS_PROCESS_INSIDE: "Withdraws will be process inside 24 hours, but are typically processed within an hour.",
 	SECOND_FACTOR_INFO: "As a new security measure we are requesting 2 factor authentication every time you request a withdraw",
 	SECOND_FACTOR_PHONE_CONFIRMATION: "Please confirm your phone number bellow and request your code when ready",
 	SECOND_FACTOR_PHONE_REGISTERED: "Registered phone number",
@@ -219,7 +238,10 @@ let _langTags = {
 	LOADING: "Loading...",
 	M_BELOW_MIN: "Please increase the amount and try again",
 	M_ABOVE_MAX: "Please decrease the amount and try again",
+	CREDIT_CARD_REACHED: "The credit card selected has reached its allowed limit with us. Please select another credit card",
+	CC_MAX_TRANSACTION: "The credit card selected has reached its maximum number of transactions allowed. Please select another credit card",
 	ONETAP_ACCOUNT: "1TAP Account",
+	ONETAB_INSTRUCTIONS_PROCESS_INSIDE: "Withdraws will be process inside 24 hours, but are typically processed within an hour.",
 	CK_FIRST_NAME: "First Name",
 	CK_MIDDLE_NAME: "Middle Name",
 	CK_LAST_NAME: "Last Name",
@@ -233,7 +255,7 @@ let _langTags = {
 	CK_EMAIL: "Email Address",
 	CK_SEND_BY: "Send By",
 	CK_SEND_BY_FEDEX: "FedEx",
-	CK_SEND_BY_REGULAR: "Regular Email",
+	CK_SEND_BY_REGULAR: "Regular Mail",
 	IMPORTANT_REMINDERS: "Important Reminders",
 	CARDHOLDER_NAME: "CardHolder name must include first and last Name",
 
@@ -255,8 +277,9 @@ let _langTags = {
 	CRYPTO_INSTRUCTIONS_AMOUNT_INFO: "Otherwise, your transaction will not be successful.",
 	CRYPTO_INSTRUCTIONS_ADDRESS: "Send the {cryptoCurrency} to the following address",
 	CRYPTO_INSTRUCTIONS_ADDRESS_INFO: "Please include any Miners Fee your {cryptoCurrency} wallet charges.",
-	CRYPTO_MONERO_MESSAGE : "If you enter a Monero refund address, DO NOT use an address from an exchange or shared wallet that requires a payment ID. Only use a refund address from a wallet you control, which doesn\'t require a payment ID.",
-	CRYPTO_EXPIRED_SESSION_MSG : 'Your session has expired due to inactivity. Please login again to continue using our cashier.'
+	CRYPTO_MONERO_MESSAGE: "If you enter a Monero refund address, DO NOT use an address from an exchange or shared wallet that requires a payment ID. Only use a refund address from a wallet you control, which doesn\'t require a payment ID.",
+	CRYPTO_EXPIRED_SESSION_MSG: 'Your session has expired due to inactivity. Please login again to continue using our cashier.',
+	CRYPTO_INSTRUCTIONS_PROCESS_INSIDE: "Crypto Transfer withdraws will be process inside 24 hours, but are typically processed within anhour."
 };
 
 export function EN(){

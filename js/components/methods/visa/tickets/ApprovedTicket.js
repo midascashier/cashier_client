@@ -25,9 +25,10 @@ let VisaApprovedTicket = React.createClass({
 		let transaction = UIService.getTransactionInformation();
 		let transactionResponse = UIService.getLastTransactionResponse();
 		let descriptor = "Loading...";
-		if (transactionResponse && transactionResponse.details && transactionResponse.details.creditCardTransaction){
+		if(transactionResponse && transactionResponse.details && transactionResponse.details.creditCardTransaction){
 			descriptor = transactionResponse.details.creditCardTransaction.Descriptor;
 		}
+
 		return {
 			email: customer.personalInformation.email,
 			currency: customer.currency,

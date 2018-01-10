@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { CashierStore } from '../../stores/CashierStore'
-import { translate } from '../../constants/Translate'
-import { ProcessorsList } from '../contentComponents/ProcessorsList'
-import { ProcessorInfo } from '../contentComponents/ProcessorInfo'
-import { LoadingSpinner } from '../../components/loading/LoadingSpinner'
 import { UIService } from '../../services/UIService'
+import { translate } from '../../constants/Translate'
+import { CashierStore } from '../../stores/CashierStore'
+import { CustomerService } from '../../services/CustomerService'
+import { ProcessorInfo } from '../contentComponents/ProcessorInfo'
+import { ProcessorsList } from '../contentComponents/ProcessorsList'
+import { LoadingSpinner } from '../../components/loading/LoadingSpinner'
 
 let ProcessorsInfo = React.createClass({
 
@@ -23,11 +24,11 @@ let ProcessorsInfo = React.createClass({
 
 	/**
 	 * this function sets and return object with local states
-	 *
 	 */
 	refreshLocalState() {
-		return {
+		return{
 			customer: CashierStore.getCustomer(),
+			waitLimits: CashierStore.getWaitLimits(),
 			selectedProcessor: CashierStore.getProcessor()
 		}
 	},
@@ -37,7 +38,7 @@ let ProcessorsInfo = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -54,7 +55,30 @@ let ProcessorsInfo = React.createClass({
 		}
 	},
 
-	render() {
+	/**
+	 * Restart customer info
+	 */
+	restartConnection(){
+		let customer = CashierStore.getCustomer();
+		if(!this.state.selectedProcessor.processorId && !customer.customerId){
+			let login = CashierStore.getLoginInfo();
+			if (customer.customerId){
+				CustomerService.startConnection();
+			}else{
+				CustomerService.connectionDone(login);
+			}
+		}
+	},
+
+	/**
+	 * Print loading message to wait limits test
+	 */
+	waitLimits(){
+		CashierStore.waitLimits();
+		this.setState(this.refreshLocalState());
+	},
+
+	render(){
 		let processors = this.getProcessors();
 		return (
 			<div id="processorsInfo">
@@ -62,15 +86,21 @@ let ProcessorsInfo = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<p>{translate('TRANSACTION_HISTORY')}</p>
 					</Link>
-					<ProcessorsList selectedProcessor={parseInt(this.state.selectedProcessor.processorId)} processors={processors}/>
+
+					<ProcessorsList
+						processors={processors}
+						waitLimits={this.waitLimits}
+						selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
+					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
 						if(!this.state.selectedProcessor.processorId){
-							return <LoadingSpinner />;
+							//this.restartConnection();
+							return <LoadingSpinner/>;
 						}
 
-						return <ProcessorInfo selectedProcessor={this.state.selectedProcessor}/>
+						return <ProcessorInfo selectedProcessor={this.state.selectedProcessor} waitLimits={this.state.waitLimits}/>
 					})()}
 				</div>
 			</div>
@@ -81,7 +111,7 @@ let ProcessorsInfo = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		this.props.setAmount("");
 		CashierStore.addChangeListener(this._onChange);
 	},
@@ -89,7 +119,7 @@ let ProcessorsInfo = React.createClass({
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

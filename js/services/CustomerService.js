@@ -1,20 +1,23 @@
-import { CashierStore } from '../stores/CashierStore'
-import { CashierActions } from '../actions/CashierActions'
-import { stompConnector } from './StompConnector'
-import { ApplicationService } from './ApplicationService'
-import { UIService } from './UIService'
-import { TransactionService } from './TransactionService'
+import {UIService} from './UIService'
 import actions from '../constants/Actions'
+import {CashierStore} from '../stores/CashierStore'
+import {ConnectorServices} from './ConnectorServices'
+import {TransactionService} from './TransactionService'
+import {ApplicationService} from './ApplicationService'
+import {CashierActions} from '../actions/CashierActions'
 
-class customerService {
+class customerService{
 
 	/**
 	 * Create RabbitMQ connection and login to client
 	 */
 	startConnection(){
 		let data = loginInfo;
-		this.setLoginInfo(data);
-		this.stompConnection(data);
+
+		if(data){
+			this.setLoginInfo(data);
+			this.getCustomerInfo();
+		}
 	};
 
 	/**
@@ -22,10 +25,7 @@ class customerService {
 	 *
 	 */
 	stompConnection(data){
-		stompConnector.initConnection()
-			.then(()=>{
-				this.connectionDone(data);
-			});
+		this.connectionDone(data);
 	};
 
 	/**
@@ -33,8 +33,7 @@ class customerService {
 	 *
 	 */
 	setLoginInfo(data){
-		let action = actions.LOGIN_RESPONSE;
-		CashierActions.responses(action, data);
+		CashierActions.responses(actions.LOGIN_RESPONSE, data);
 	};
 
 	/**
@@ -43,20 +42,22 @@ class customerService {
 	 * @param data
      */
 	connectionDone(data){
-		this.getCustomerInfo();
-		TransactionService.loginResponse(data);
 		UIService.loginResponse(data);
 		ApplicationService.loginResponse();
+		TransactionService.loginResponse(data);
 	};
 
 	/**
 	 * Function to get Customer Information
 	 */
 	getCustomerInfo(){
-		let data = { f: "customerInfo" };
+		let data = {
+			f: "customerInfo"
+		};
+
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		ConnectorServices.makeCustomerRequest(actions.CUSTOMER_INFO_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -73,7 +74,7 @@ class customerService {
 		let data = { f: "customerLastTransactions", limit: 10 };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		ConnectorServices.makeCustomerRequest(actions.CUSTOMER_TRANSACTIONS_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -86,7 +87,7 @@ class customerService {
 		let data = { f: "getAssignedP2PNames", username: username, companyId: companyId, processorId: 0 };
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		ConnectorServices.makeCustomerRequest(actions.CUSTOMER_TRANSACTIONS_PENDING_MTCN_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -102,21 +103,7 @@ class customerService {
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
-	};
-
-	/**
-	 * Function to get pay account previous pay accounts
-	 *
-	 * @param processorID
-     */
-	getCustomerProcessorsMinMax(processorID){
-		let data = {
-			f: "getProcessorMinMaxLimits", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
-		};
-		let application = CashierStore.getApplication();
-		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		ConnectorServices.makeCustomerRequest(actions.PAYACCOUNTS_DISABLE_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -128,7 +115,7 @@ class customerService {
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		ConnectorServices.makeCustomerRequest(actions.PROCESSORS_LIMIT_RULES_RESPONSE, rabbitRequest);
 	};
 }
 

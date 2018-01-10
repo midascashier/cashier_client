@@ -1,14 +1,14 @@
 import React from 'react'
-import { render }  from 'react-dom'
 import ReactGA  from 'react-ga'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { render }  from 'react-dom'
 import { Client } from './components/Client'
 import { Welcome } from './components/Welcome'
 import { Content } from './components/Content'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { LoadingTicket } from './components/methodTickets/LoadingTicket'
 import { RejectedTicket } from './components/methodTickets/RejectedTicket'
 import { ApprovedTicket } from './components/methodTickets/ApprovedTicket'
 import { DeferredTicket } from './components/methodTickets/DeferredTicket'
-import { LoadingTicket } from './components/methodTickets/LoadingTicket'
 
 /**
  * Neteller set of components to create routes
@@ -231,6 +231,7 @@ let routes = (
 				<Route path="btc_crypto_transfer/" component={CryptoTransfer}/>
 				<Route path="btc_crypto_transfer/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={CryptoTransferTicketPending}/>
+					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 			</Route>
 

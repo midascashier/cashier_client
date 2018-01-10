@@ -1,8 +1,9 @@
 import React from 'react'
-import { translate } from '../../constants/Translate'
-import { CustomerInfo } from './CustomerInfo'
-import { CompanyInfo } from './CompanyInfo'
-import { CashierStore } from '../../stores/CashierStore'
+import {CompanyInfo} from './CompanyInfo'
+import {CustomerInfo} from './CustomerInfo'
+import {translate} from '../../constants/Translate'
+import {CashierStore} from '../../stores/CashierStore'
+import {ConnectorServices} from '../../services/ConnectorServices'
 
 let Info = React.createClass({
 	
@@ -49,15 +50,15 @@ let Info = React.createClass({
 
 				{(() =>{
 					if(this.state.UI.userMessage){
-
 						if(this.state.UI.userMessage == 'Your session has expired'){
+							ConnectorServices.stop = true;
 							return(
 								<div id='expiredSessionModal'>
 									<div id='expiredSessionModal-content'>
 										<img id="restartIMG" src="/images/restart.svg"/>
-										<p id="restartTXT">{translate('CRYPTO_EXPIRED_SESSION_MSG')}</p>
+										<p id="restartTXT">{translate('CRYPTO_EXPIRED_SESSION_MSG', 'Your session has expired due to inactivity. Please login again to continue using our cashier.')}</p>
 										<div className="alert alert-warning text-center">
-											<i className="fa fa-warning orange"></i>
+											<i className="fa fa-warning orange"/>
 											{this.state.UI.userMessage}
 										</div>
 									</div>
@@ -66,8 +67,8 @@ let Info = React.createClass({
 						}
 
 						return(
-							<div className="alert alert-warning text-center">
-								<i className="fa fa-warning orange"></i>
+							<div className="alert alert-warning text-center errorMessage-title">
+								<i className="fa fa-warning orange"/>
 								{this.state.UI.userMessage}
 							</div>
 						)

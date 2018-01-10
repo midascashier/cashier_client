@@ -5,7 +5,6 @@ import { AmountController } from '../../AmountController'
 import { UIService } from '../../../services/UIService'
 import { Register } from './Register.js'
 import { FeeController } from '../../FeeController'
-import { LoadingSpinner } from '../../loading/LoadingSpinner'
 import { PayAccountDropDown } from '../../commonComponents/payaccount/payAccountDropDown'
 
 let AskInfo = React.createClass({
@@ -47,8 +46,9 @@ let AskInfo = React.createClass({
 		let isWithDraw = UIService.getIsWithDraw();
 		let withdrawFee = "";
 		let depositTimeToSend = "";
-		let processingTitle = (!isWithDraw) ? translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P') : translate('PROCESSING_WITHDRAW_INFORMATION_TITLE_P2P');
-		let deleteButton = (!isWithDraw) ? translate('PROCESSING_BUTTON_DELETE_SENDER') : translate('PROCESSING_BUTTON_DELETE_RECEIVER');
+		let processingTitle = (!isWithDraw) ? translate('PROCESSING_DEPOSIT_INFORMATION_TITLE_P2P', "Please Enter the Sender's Information")
+			: translate('PROCESSING_WITHDRAW_INFORMATION_TITLE_P2P', "Please Enter the Receiver's Information");
+		let deleteButton = (!isWithDraw) ? translate('PROCESSING_BUTTON_DELETE_SENDER', 'Delete Sender') : translate('PROCESSING_BUTTON_DELETE_RECEIVER', 'Delete Receiver');
 
 		if(timeFrameDay == "TOMORROW"){
 			for(let i = 0; i < 24; i++){

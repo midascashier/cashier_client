@@ -54,7 +54,7 @@ let AskInfo = React.createClass({
 		let payAccountDisplayName = payAccount.displayName;
 		let isWithDraw = UIService.getIsWithDraw();
 		let withdrawFee = "";
-		let deleteButton = (!isWithDraw) ? translate('PROCESSING_BUTTON_DELETE_SENDER') : translate('PROCESSING_BUTTON_DELETE_RECEIVER');
+		let deleteButton = (!isWithDraw) ? translate('PROCESSING_BUTTON_DELETE_SENDER', 'Delete Sender') : translate('PROCESSING_BUTTON_DELETE_RECEIVER', 'Delete Receiver');
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
 
 		if(isWithDraw){
@@ -65,7 +65,7 @@ let AskInfo = React.createClass({
 		sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_FEDEX', 'FedEx') }, 'FedEx'));
 		
 		if(processorFees.enableFree == 1){
-			sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_REGULAR', 'Regular Email') }, 'Mail'));
+			sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_REGULAR', 'Regular mail') }, 'Mail'));
 		}
 
 		let feeOptions = [];
@@ -113,7 +113,7 @@ let AskInfo = React.createClass({
 									<div className="col-sm-8">
 										<div className="alert alert-danger" role="alert">
 											<i className="fa fa-thumbs-o-down red"></i>
-											<strong>{translate('PROCESSING_FEE_ENOUGH_BALANCE')}</strong>
+											<strong>{translate('PROCESSING_FEE_ENOUGH_BALANCE', "You don't have enough balance to cover the required fees")}</strong>
 										</div>
 									</div>
 								)

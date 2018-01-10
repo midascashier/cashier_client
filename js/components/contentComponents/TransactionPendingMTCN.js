@@ -85,7 +85,7 @@ let TransactionPendingMTCN = React.createClass({
 					let controlNumberLabel = translate('PENDING_MTCN_MTCN', 'Control Number');
 					let amountLabel = translate('PENDING_MTCN_AMOUNT', 'Amount');
 					let feeLabel = translate('PENDING_MTCN_FEE', 'Fee');
-					let digitsLabel = translate('PENDING_MTCN_DIGITS');
+					let digitsLabel = translate('PENDING_MTCN_DIGITS', 'digits');
 					let btnConfirmLabel = translate('PROCESSING_BUTTON_CONFIRM', 'Confirm');
 					let btnEditLabel = translate('PROCESSING_BUTTON_EDIT', 'Edit');
 

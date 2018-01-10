@@ -80,17 +80,13 @@ let SkrillConfirmWithdraw = React.createClass({
 					<div className="col-sm-12">
 						<div className="modules">
 							<div className="row">
-
 								<div className="col-sm-6 ">
 									<div className="box">
-
 										<div className="row">
 											<div className="col-sm-12">
 												<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 												<div className="infoCol text-justify">
-													<p>
-														Withdraws will be process inside 24 hours, but are typically processed within an hour.
-													</p>
+													<p>{translate('ONETAB_INSTRUCTIONS_PROCESS_INSIDE')}</p>
 												</div>
 											</div>
 
@@ -104,28 +100,28 @@ let SkrillConfirmWithdraw = React.createClass({
 										<div className="row">
 											<div className="col-sm-12">
 												<div className="title">{translate('METHOD_DETAILS_WITHDRAW', 'Withdraw Details')}</div>
-													<div className="table-responsive">
-														<table className="table table-striped">
-															<tbody>
-																<tr>
-																	<td>{translate('SKRILL', 'Account')}</td>
-																	<td><span>{secureData.account}</span></td>
-																</tr>
-																<tr>
-																	<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
-																	<td><span>{ApplicationService.currency_format(transaction.amount)}</span></td>
-																</tr>
-																<tr>
-																	<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
-																	<td><span>{ApplicationService.currency_format(transaction.fee)}</span></td>
-																</tr>
-															</tbody>
-														</table>
-													</div>
-													<p>
-														<i className="fa fa-pencil green"></i>
-														<a onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>
-													</p>
+												<div className="table-responsive">
+													<table className="table table-striped">
+														<tbody>
+															<tr>
+																<td>{translate('SKRILL_ACCOUNT', 'Skrill Account')}</td>
+																<td><span>{secureData.account}</span></td>
+															</tr>
+															<tr>
+																<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
+																<td><span>{ApplicationService.currency_format(transaction.amount)}</span></td>
+															</tr>
+															<tr>
+																<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
+																<td><span>{ApplicationService.currency_format(transaction.fee)}</span></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+												<p>
+													<i className="fa fa-pencil green"></i>
+													<a onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>
+												</p>
 												<div className="row">
 													<div className="col-sm-6">
 														<button type="button" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}</button>
@@ -139,10 +135,8 @@ let SkrillConfirmWithdraw = React.createClass({
 												</div>
 											</div>
 										</div>
-
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>

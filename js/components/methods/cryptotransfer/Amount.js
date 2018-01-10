@@ -33,14 +33,12 @@ let Amount = React.createClass({
         this.props.setAmountRateBTC(btcAmount);
     },
 
-    render() {
-
+    render(){
         let action;
         let limitsErrorMsg;
         let limitsOK = false;
 
         let isWithDraw = UIService.getIsWithDraw();
-
         if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS || this.props.limitsCheck == Cashier.LOADING){
             limitsOK = true;
         }else{
@@ -76,7 +74,7 @@ let Amount = React.createClass({
                     if(!limitsOK && this.props.cryptoAmount != ""){
                         return (
                             <div className="alert alert-danger" role="alert">
-                                <i className="fa fa-thumbs-o-down red"></i>
+                                <i className="fa fa-thumbs-o-down red"/>
                                 <strong>{limitsErrorMsg}</strong>
                             </div>
                         )
@@ -91,7 +89,7 @@ let Amount = React.createClass({
                                 id="cryptoAmount"
                                 className="form-control"
                                 value={this.props.cryptoAmount}
-                                placeholder={translate('CRYPTO_AMOUNT_TXT')}
+                                placeholder={translate('CRYPTO_AMOUNT_TXT', 'Crypto amount')}
                                 onInput={this.customerAmountCalculate.bind(this)}
                             />
                         )

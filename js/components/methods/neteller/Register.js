@@ -117,7 +117,7 @@ let Register = React.createClass({
 								{
 									this.state.displaySaveButton ? 
 										<button type='button' onClick={this.cancel} className='btn btn-green'>
-											{translate('PROCESSING_BUTTON_CANCEL', 'Save')}
+											{translate('PROCESSING_BUTTON_CANCEL', 'Cancel')}
 										</button>
 									: null 
 								}

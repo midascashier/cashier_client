@@ -1,12 +1,13 @@
 import assign from 'object-assign'
-import { CashierStore } from '../stores/CashierStore'
-import { CashierActions } from '../actions/CashierActions'
-import { stompConnector } from './StompConnector'
-import { UIService } from './UIService'
-import { CustomerService } from './CustomerService'
+import {UIService} from './UIService'
 import cashier from '../constants/Cashier'
+import actions from '../constants/Actions'
+import {ConnectorServices} from './ConnectorServices'
+import {CustomerService} from './CustomerService'
+import {CashierStore} from '../stores/CashierStore'
+import {CashierActions} from '../actions/CashierActions'
 
-class transactionService {
+class transactionService{
 
 	/**
 	 * here is where we start the transaction process
@@ -36,10 +37,14 @@ class transactionService {
 	 * Function to get Customer Processors
 	 */
 	getProcessors(){
-		let data = { f: "processors" };
+		let data = {
+			f: "processors"
+		};
+
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+
+		ConnectorServices.makeCashierRequest(actions.PROCESSORS_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -59,13 +64,18 @@ class transactionService {
 		});
 
 		let data = {
-			f: "changeStatus", beUserId: cashier.ONLINE_BE_USER_ID, statusId: cashier.TRANSACTION_STATUS_CANCELLED, isFlowBack: cashier.IS_FLOWBACK, tuid: tuid, sid: sid
+			sid: sid,
+			tuid: tuid,
+			f: "changeStatus",
+			isFlowBack: cashier.IS_FLOWBACK,
+			beUserId: cashier.ONLINE_BE_USER_ID,
+			statusId: cashier.TRANSACTION_STATUS_CANCELLED,
 		};
 
 		let rabbitRequest = Object.assign(data, "");
 
 		if (sid && tuid){
-			stompConnector.makeTransactionRequest("", rabbitRequest);
+			ConnectorServices.makeCashierRequest(actions.CHANGE_STATUS_RESPONSE, rabbitRequest);
 		}
 	};
 
@@ -73,24 +83,25 @@ class transactionService {
 	 * Function to get pay account previous pay accounts
 	 */
 	getProcessorsMinMax(processorID){
-
 		let company = CashierStore.getCompany();
-		let processor = CashierStore.getProcessor();
 		let customer = CashierStore.getCustomer();
+		let processor = CashierStore.getProcessor();
 
 		if (processorID || processor.processorId){
 			let data = {
-				f: "getProcessorMinMaxLimits",
 				module: "limits",
 				companyId: company.companyId,
-				processorId: (processorID) ? processorID : processor.processorId,
-				level: customer.personalInformation.level,
+				f: "getProcessorMinMaxLimits",
+				currencyCode: customer.currency,
 				isWithdraw: CashierStore.getIsWithdraw(),
-				currencyCode: customer.currency
+				level: customer.personalInformation.level,
+				processorId: (processorID) ? processorID : processor.processorId
 			};
+
 			let application = CashierStore.getApplication();
 			let rabbitRequest = Object.assign(data, application);
-			stompConnector.makeBackendRequest("", rabbitRequest);
+
+			ConnectorServices.makeBackendRequest(actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE, rabbitRequest);
 		}
 	};
 
@@ -103,7 +114,7 @@ class transactionService {
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeTransactionRequest("", rabbitRequest);
+		ConnectorServices.makeTransactionRequest(actions.PROCESSORS_LIMIT_RULES_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -127,7 +138,7 @@ class transactionService {
 			};
 			let application = CashierStore.getApplication();
 			let rabbitRequest = Object.assign(data, application);
-			stompConnector.makeCustomerRequest("", rabbitRequest);
+			ConnectorServices.makeCustomerRequest(actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE, rabbitRequest);
 		}
 	};
 
@@ -144,7 +155,7 @@ class transactionService {
 
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeTransactionRequest("", rabbitRequest);
+		ConnectorServices.makeTransactionRequest(actions.PROCESSOR_FEES_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -162,7 +173,7 @@ class transactionService {
 
 		let rabbitRequest = Object.assign(data, application);
 		rabbitRequest.tuid = randomTuid;
-		stompConnector.makeTransactionRequest("", rabbitRequest);
+		ConnectorServices.makeTransactionRequest(actions.SEND_TRANSACTION_TOKEN_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -180,7 +191,7 @@ class transactionService {
 		let application = CashierStore.getApplication();
 
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeTransactionRequest("", rabbitRequest);
+		ConnectorServices.makeTransactionRequest(actions.VERIFY_TRANSACTION_TOKEN_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -204,7 +215,7 @@ class transactionService {
 
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeTransactionRequest("", rabbitRequest);
+		ConnectorServices.makeTransactionRequest(actions.PROCESSOR_FEES_CONFIGURATION_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -277,6 +288,34 @@ class transactionService {
 	}
 
 	/**
+	 * @param address
+	 */
+	setCryptoAddress(address){
+		CashierActions.setCryptoAddress(address);
+	}
+
+	/**
+	 * @param currencyISO
+	 */
+	setCryptoCurrencyISO(currencyISO){
+		CashierActions.setCryptoCurrencyISO(currencyISO);
+	}
+
+	/**
+	 * @param currencyName
+	 */
+	setCryptoCurrencyName(currencyName){
+		CashierActions.setCryptoCurrencyName(currencyName);
+	}
+
+	/**
+	 * @param BTCConversionAmount
+	 */
+	setTransactionBTCConversionAmount(BTCConversionAmount){
+		CashierActions.setTransactionBTCConversionAmount(BTCConversionAmount);
+	}
+
+	/**
 	 * return PayAccount
 	 */
 	getCurrentPayAccount(){
@@ -299,24 +338,15 @@ class transactionService {
 
 		let application = CashierStore.getApplication();
 		let transaction = CashierStore.getTransaction();
-		let customer = CashierStore.getCustomer();
 
 		var req = {
-			type: "d",
-			isDefer: 0,
-			genTOKEN: 1,
-			createdBy: 10093, //TODO: temporary
-			password: 'TOKEN',
-			sid: application.sid,
 			lang: application.lang,
+			createdBy: 10093, //TODO: temporary
+			alsid: application.sid,
+			sid: application.sid,
 			tuid: application.tuid,
-			username: customer.username,
-			companyId: customer.companyId,
-			platform: application.platform,
-			referrer: application.referrer,
-			userAgent: application.userAgent,
-			remoteAddr: application.remoteAddr,
-			remoteHost: application.remoteHost
+			type: "d",
+			isDefer: 0
 		};
 
 		//payouts params
@@ -336,7 +366,6 @@ class transactionService {
 	 */
 	process(dynamicParams, nextStep){
 
-		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
 
 		let transaction = CashierStore.getTransaction();
@@ -354,7 +383,7 @@ class transactionService {
 		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
 
 		UIService.processTransaction(nextStep);
-		stompConnector.makeProcessRequest("", rabbitRequest);
+		ConnectorServices.makeProcessRequest(actions.PROCESS_RESPONSE, rabbitRequest);
 	};
 
 	processAstroPay(dynamicParams, amount, nextStep){
@@ -368,12 +397,12 @@ class transactionService {
 			processorId: cashier.PROCESSOR_ID_ASTROPAY,
 			payAccountId: 0,
 			amount: amount,
-			promoCode: transaction.promoCode,
-			dynamicParams: dynamicParams
+			dynamicParams: dynamicParams,
+			promoCode: transaction.promoCode
 		};
 		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
 		UIService.processTransaction(nextStep);
-		stompConnector.makeProcessRequest("", rabbitRequest);
+		ConnectorServices.makeProcessRequest(actions.PROCESS_CC_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -388,7 +417,7 @@ class transactionService {
 		let processorSelected = CashierStore.getProcessor();
 
 		let rabbitRequest = {
-			f: "process",
+			f: 'process',
 			processorId: processorSelected.processorId,
 			payAccountId: 0, //Bitcoin doesn't need payaccountID
 			amount: transaction.amount,
@@ -398,9 +427,8 @@ class transactionService {
 			dynamicParams: dynamicParams
 		};
 		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
-
 		UIService.processTransaction(nextStep);
-		stompConnector.makeProcessRequest("", rabbitRequest);
+		ConnectorServices.makeProcessRequest(actions.PROCESS_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -426,9 +454,8 @@ class transactionService {
 		};
 
 		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
-
 		UIService.processTransaction(nextStep);
-		stompConnector.makeProcessRequest("", rabbitRequest);
+		ConnectorServices.makeProcessRequest(actions.PROCESS_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -494,15 +521,13 @@ class transactionService {
 		};
 
 		validateRabbitRequest = Object.assign(validateRabbitRequest, payAccount);
-
-		stompConnector.makeCustomerRequest("", validateRabbitRequest);
+		ConnectorServices.makeCustomerRequest(actions.PAYACCOUNTS_VALIDATE_SECURE_RESPONSE, validateRabbitRequest);
 	}
 
 	/**
 	 * this function sends to process a cc transaction
 	 */
 	processCC(){
-
 		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
 
@@ -516,17 +541,16 @@ class transactionService {
 
 		let CCRequest = {
 			f: "ccProcess",
-			processorId: processorSelected.processorId,
-			payAccountId: payAccountSelected.payAccountId,
+			journalIdSelected: 0,
 			amount: transaction.amount,
 			promoCode: transaction.promoCode,
-			journalIdSelected: 0
+			processorId: processorSelected.processorId,
+			payAccountId: payAccountSelected.payAccountId
 		};
 
 		let rabbitRequest = assign(this.getProxyRequest(), CCRequest);
-
 		UIService.processTransaction('instructions');
-		stompConnector.makeProcessRequest("", rabbitRequest);
+		ConnectorServices.makeCashierRequest(actions.PROCESS_CC_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -560,7 +584,7 @@ class transactionService {
 		let rabbitRequest = assign(this.getProxyRequest(), p2pRequest);
 
 		UIService.processTransaction('instructions');
-		stompConnector.makeProcessRequest("", rabbitRequest);
+		ConnectorServices.makeProcessRequest(actions.PROCESS_P2P_GET_NAME_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -577,7 +601,6 @@ class transactionService {
 			let payAccountSelected = CashierStore.getCurrentPayAccount();
 			let transaction = CashierStore.getTransaction();
 			let transactionResponse = CashierStore.getLastTransactionResponse();
-
 			p2pRequest = {
 				f: "p2pSendMTCN",
 				id: transactionResponse.transactionId,
@@ -631,7 +654,7 @@ class transactionService {
 		let rabbitRequest = assign(this.getProxyRequest(), p2pRequest);
 
 		UIService.processTransaction('instructions', processorName);
-		stompConnector.makeProcessRequest("", rabbitRequest);
+		ConnectorServices.makeProcessRequest(actions.PROCESS_P2P_SUBMIT_RESPONSE, rabbitRequest);
 
 		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
@@ -664,7 +687,7 @@ class transactionService {
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeBackendRequest("", rabbitRequest);
+		ConnectorServices.makeBackendRequest(actions.GET_BITCOIN_TRANSACTION_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -678,7 +701,7 @@ class transactionService {
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeBackendRequest("", rabbitRequest);
+		ConnectorServices.makeBackendRequest(actions.GET_CRYPTO_TRANSFER_TRANSACTION_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -692,7 +715,7 @@ class transactionService {
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeBackendRequest("", rabbitRequest);
+		ConnectorServices.makeBackendRequest(actions.GET_CREDITCARD_TRANSACTION_RESPONSE, rabbitRequest);
 	};
 
 	/**
@@ -775,7 +798,7 @@ class transactionService {
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application, payAccount, payAccountInfo);
-		stompConnector.makeBackendRequest("", rabbitRequest);
+		ConnectorServices.makeBackendRequest(actions.VALIDATE_PAYACCOUNT, rabbitRequest);
 	};
 
 	/**
@@ -787,7 +810,7 @@ class transactionService {
 		};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
-		stompConnector.makeCustomerRequest("", rabbitRequest);
+		ConnectorServices.makeCustomerRequest(actions.GET_PENDING_PAYOUT_RESPONSE, rabbitRequest);
 
 	}
 
@@ -816,7 +839,7 @@ class transactionService {
 		};
 
 		let rabbitRequest = assign(payAccountRequest);
-		stompConnector.makeProcessRequest("", rabbitRequest);
+		ConnectorServices.makeProcessRequest(actions.PAYACCOUNTS_VALIDATE_SECURE_RESPONSE, rabbitRequest);
 	}
 
 	/**
@@ -857,6 +880,7 @@ class transactionService {
 	setCryptoTransferTransaction(transaction){
 		CashierActions.setCryptoTransferTransaction(transaction);
 	};
+
 }
 
 export let TransactionService = new transactionService();

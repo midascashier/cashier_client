@@ -63,11 +63,11 @@ let RedirectTicket = React.createClass({
     componentDidMount() {
         if (this.props.simpleRedirect) {
             window.location = this.props.url;
+        }else{
+            setTimeout(function() {
+                document.getElementById("message").submit();
+            }, 500);
         }
-
-        setTimeout(function() {
-            document.getElementById("message").submit();
-        }, 1000);
     }
 });
 

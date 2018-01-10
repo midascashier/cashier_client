@@ -6,6 +6,14 @@ import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
 import processors from '../constants/Processors'
 import {translate} from '../constants/Translate'
+import {ConnectorServices} from '../services/ConnectorServices'
+
+/**
+ * Login info from alDEN
+ *
+ * @type {{}}
+ */
+let _loginInfo = {};
 
 /**
  * UI
@@ -168,6 +176,7 @@ let _processor = {
 	bonus: [],
 	rate: 0,
 	limits: [],
+	waitLimits: false,
 	limitRules: [],
 	fees: {
 		enableBP: 0,
@@ -285,7 +294,7 @@ let _payAccounts = [];
 /**
  * Stores information of the transaction
  *
- * @type {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cleanTransaction: (())}}
+ * @type {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cryptoAddress: string, currencyName: string, currencySymbol: string, BTCConversionAmount: string, cleanTransaction(): void}}
  * @private
  */
 let _transaction = {
@@ -312,6 +321,10 @@ let _transaction = {
 	secondFactorMessage: '',
 	secondFactorMaxAttempts: false,
 	promoCode: '',
+	cryptoAddress: '',
+	currencyName: '',
+	currencySymbol: '',
+	BTCConversionAmount: '',
 	cleanTransaction(){
 		this.amount = '';
 		this.fee = 0;
@@ -328,13 +341,17 @@ let _transaction = {
 		this.timeFrameTime = null;
 		this.controlNumber = '';
 		this.promoCode = '';
+		this.cryptoAddress = '';
+		this.currencyName = '';
+		this.currencySymbol = '';
+		this.BTCConversionAmount = '';
 	}
 };
 
 /**
  * Stores transaction result
  *
- * @type {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
+ * @type {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, status: string, details: Array, data: null, cleanTransaction(): void}}
  * @private
  */
 let _transactionResponse = {
@@ -346,35 +363,44 @@ let _transactionResponse = {
 	userMessage: "",
 	state: "",
 	status: "",
-	details: [], //specific details for different type of transactions (BTC, CC, P2P, etc)
-    data: null,
+	details: [],
+	data: null,
 	cleanTransaction(){
 		this.transactionId = 0;
 		this.journalId = 0;
 		this.amount = "";
+		this.feeType = '';
 		this.fee = 0;
-		this.feeType = "";
-		this.status = "";
 		this.userMessage = "";
 		this.state = "";
+		this.status = "";
 		this.details = [];
-        this.data = null;
+		this.data = null;
 	}
 };
 
 let CHANGE_EVENT = 'change';
 
 let CashierStore = assign({}, EventEmitter.prototype, {
-	emitChange() {
+	emitChange(){
 		this.emit(CHANGE_EVENT);
 	},
 
-	removeChangeListener(callback) {
+	removeChangeListener(callback){
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
-	addChangeListener(callback) {
+	addChangeListener(callback){
 		this.on(CHANGE_EVENT, callback);
+	},
+
+	/**
+	 * Return login info
+	 *
+	 * @returns {{}}
+	 */
+	getLoginInfo(){
+		return _loginInfo;
 	},
 
 	/**
@@ -389,20 +415,20 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * Return last transaction cashier response
 	 *
-	 * @returns {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: (function())}}
+	 * @returns {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: function()}}
 	 */
 	getLastTransactionResponse: () =>{
 		return _transactionResponse;
 	},
 
-    /**
-     * Return last data transaction cashier response
-     *
-     * @returns object
-     */
-    getLastDataTransactionResponse: () =>{
-        return _transactionResponse.data;
-    },
+	/**
+	 * Return last data transaction cashier response
+	 *
+	 * @returns object
+	 */
+	getLastDataTransactionResponse: () =>{
+		return _transactionResponse.data;
+	},
 
 	/**
 	 * Get selected country
@@ -433,19 +459,19 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getLanguage: () =>{
 		if(!_UI.language && _customer.lang){
-			var culture = _customer.lang.split('-');
+			let culture = _customer.lang.split('-');
 			_UI.language = culture[0].toUpperCase();
 		}
 		return (_UI.language) ? _UI.language : 'EN';
 	},
 
 	/**
-	 * save data from cashier in localstorage
+	 * save data from cashier in local-storage
 	 *
 	 * @param name
 	 * @param obj
 	 */
-	storeData: (name, obj) =>{
+	storeData(name, obj){
 		if(typeof Storage !== "undefined"){
 			localStorage.setItem(name, JSON.stringify(obj));
 		}
@@ -469,7 +495,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * get application object
 	 *
 	 * @returns {{sid: null, tuid: null, lang: string, platform: string}}
-     */
+	 */
 	getApplication: () =>{
 		if(!_application.platform){
 			let platform = 'desktop';
@@ -584,8 +610,23 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getServerTime: () =>{
 		return _UI.serverTime;
-	}
+	},
 
+	/**
+	 * get limits state
+	 *
+	 * @returns {boolean}
+	 */
+	getWaitLimits(){
+		return _processor.waitLimits;
+	},
+
+	/**
+	 * Wait limits during execute ws
+	 */
+	waitLimits(){
+		_processor.waitLimits = true;
+	}
 });
 
 /**
@@ -595,423 +636,451 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 	let action = payload.action;
 	let data = payload.data;
 
-	switch(action){
-		case actions.LOGIN_RESPONSE:
-			_UI.currentView = data.option;
-			_application.sid = data.sid;
-			_company.companyId = data.companyId;
+	if(!ConnectorServices.stop){
+		switch(action){
+			case actions.LOGIN_RESPONSE:
+				_UI.currentView = data.option;
+				_application.sid = data.sid;
+				_company.companyId = data.companyId;
 
-			if(typeof Storage !== "undefined"){
-				let application = JSON.parse(localStorage.application);
-				_application.referrer = application.referrer;
-				_application.remoteAddr = application.remoteAddr;
-				_application.remoteHost = application.remoteHost;
-				_application.xForwardedFor = application.xForwardedFor;
-			}
-
-			CashierStore.storeData("application", _application);
-			CashierStore.storeData("ui", _UI);
-			CashierStore.storeData("company", _company);
-			CashierStore.emitChange();
-			break;
-
-		case actions.USER_MESSAGE:
-			_UI.userMessage = data.message;
-			CashierStore.emitChange();
-			break;
-
-		case actions.CUSTOMER_INFO_RESPONSE:
-			_customer.load(data.response.customerInfo);
-			CashierStore.emitChange();
-			break;
-
-		case actions.COMPANY_INFO_RESPONSE:
-			_company.load(data.response.companyInformation);
-			CashierStore.storeData("company", _company);
-			CashierStore.emitChange();
-			break;
-
-		case actions.GET_PENDING_PAYOUT_RESPONSE:
-			_customer.pendingPayouts = data.response.pendingPayout;
-			CashierStore.emitChange();
-			break;
-
-		case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
-			_customer.lastTransactions = data.response.transactions;
-			break;
-
-		case actions.SET_EDITCC:
-			_UI.ccEdit = data.editMode;
-			CashierStore.emitChange();
-			break;
-
-		case actions.SWITCH_ACTION:
-			if(_UI.currentView == cashier.VIEW_DEPOSIT){
-				_UI.currentView = cashier.VIEW_WITHDRAW;
-			}else{
-				_UI.currentView = cashier.VIEW_DEPOSIT;
-			}
-			CashierStore.storeData("ui", _UI);
-			break;
-
-		case actions.CUSTOMER_TRANSACTIONS_PENDING_MTCN_RESPONSE:
-			let p2pTransactions = [];
-			if(data.response && data.response.P2PNames){
-				let p2pNames = data.response.P2PNames;
-				p2pNames.forEach((transaction) =>{
-					p2pTransactions[transaction.caTransaction_Id] = transaction;
-				});
-			}else{
-				p2pTransactions = cashier.NO_RESPONSE;
-			}
-			_customer.pendingP2PTransactions = p2pTransactions;
-			CashierStore.emitChange();
-			break;
-
-		case actions.CHANGE_STATUS_RESPONSE:
-			CashierStore.emitChange();
-			break;
-
-		case actions.COUNTRIES_RESPONSE:
-			_UI.countries = data.response.countries;
-			break;
-
-		case actions.CHANGE_APPLICATION_SELECTED_COUNTRY:
-			if(!data.country){
-				_UI.selectedCountry = _customer.personalInformation.country;
-			}else{
-				_UI.selectedCountry = data.country;
-			}
-			break;
-
-		case actions.STATES_RESPONSE:
-			let countryInfo = data.response.countryInfo;
-			let states = data.response.states;
-			if(states){
-				_UI.countryStates[countryInfo.Small] = states;
-			}else{
-				_UI.countryStates[countryInfo.Small] = {};
-			}
-			_UI.countryInfo[countryInfo.Small] = countryInfo;
-			CashierStore.emitChange();
-			break;
-
-		case actions.CONNECTION_ERRROR:
-			_UI.connectionError = data.opt;
-			break;
-
-		case actions.GET_CURRENCY_RESPONSE:
-			let currencyInfo = data.response.currencyInfo;
-			if(currencyInfo && currencyInfo.Rate){
-				_UI.currencies[currencyInfo.Iso] = currencyInfo;
-			}
-			CashierStore.emitChange();
-			break;
-
-		case actions.RESTART_TRANSACTION_RESPONSE:
-			_transactionResponse.status = data.tStatus;
-			_transactionResponse.userMessage = "Restart";
-			break;
-
-		case actions.PROCESSORS_RESPONSE:
-			_customer.depositProcessors = data.response.processors.deposit;
-			_customer.withdrawProcessors = data.response.processors.withdraw;
-
-			let processor = [];
-
-			let selectedProcessor = CashierStore.getUI();
-
-			if(!CashierStore.getIsWithdraw() && _customer.depositProcessors.length > 0 && !selectedProcessor.processorId){
-				processor = _customer.depositProcessors[0];
-			}else if(_customer.withdrawProcessors.length > 0 && !selectedProcessor.processorId){
-				processor = _customer.withdrawProcessors[0];
-			}else if(selectedProcessor.processorId){
-				_customer.depositProcessors.map((item) =>{
-					if(item.caProcessor_Id == selectedProcessor.processorId){
-						processor = item;
-					}
-				});
-			}
-
-			// set default processor
-			_UI.processorId = processor.caProcessor_Id;
-			_processor.load(processor.caProcessor_Id);
-			break;
-
-		case actions.CHANGE_TRANSACTION_FEE_AMOUNT:
-			_transaction.fee = data.amount;
-			break;
-
-		case actions.CHANGE_TRANSACTION_FEETYPE:
-			_transaction.feeType = data.feeType;
-			break;
-
-		case actions.PROCESSOR_FEES_CONFIGURATION_RESPONSE:
-			_processor.fees.enableBP = data.response.processorFeesConfig.enableBPOption;
-			if(_processor.fees.enableBP == 1){
-				_transaction.feeType = "Betpoints";
-			}
-			_processor.fees.enableCash = data.response.processorFeesConfig.enableCashOption;
-			if(_processor.fees.enableCash == 1 && _transaction.feeType == ""){
-				_transaction.feeType = "Cash";
-			}
-			_processor.fees.enableFree = data.response.processorFeesConfig.enableFreeOption;
-			if(_processor.fees.enableFree == 1 && _transaction.feeType == ""){
-				_transaction.feeType = "Free";
-			}
-			_processor.fees.cashType = data.response.processorFeesConfig.cashOptionType;
-			CashierStore.emitChange();
-			break;
-
-		case actions.SET_BITCOIN_ADDRESS:
-			_transaction.bitcoinAddress = data.bitcoinaddress;
-			break;
-
-		case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
-			let firstPayAccount = 0;
-			let payAccounts_processor = {};
-			let payAccountTemp = Object.assign({}, _payAccount);
-			if(data.response && data.response.payAccounts){
-				if(data.response.payAccounts[0].processorIdRoot == _processor.processorId){
-					data.response.payAccounts.forEach((payAccount) =>{
-						payAccount.limitsData.available = Math.floor(payAccount.limitsData.available);
-						payAccount.limitsData.availableWithdraw = Math.floor(payAccount.limitsData.availableWithdraw);
-						payAccount.limitsData.maxAmount = Math.floor(payAccount.limitsData.maxAmount);
-						payAccount.limitsData.maxAmountWithdraw = Math.floor(payAccount.limitsData.maxAmountWithdraw);
-						payAccount.limitsData.minAmount = Math.ceil(payAccount.limitsData.minAmount);
-						payAccount.limitsData.minAmountWithdraw = Math.ceil(payAccount.limitsData.minAmountWithdraw);
-					});
-					let payAccounts = data.response.payAccounts;
-					if(payAccounts){
-						payAccounts.map((item, key) =>{
-							let payAccount = Object.assign({key: key}, payAccountTemp);
-							payAccount.load(item);
-							payAccounts_processor[payAccount.payAccountId] = payAccount;
-							if(!firstPayAccount){
-								firstPayAccount = payAccount.payAccountId;
-							}
-						});
-						_payAccount = payAccounts_processor[firstPayAccount];
-					}
+				if(typeof Storage !== "undefined"){
+					let application = JSON.parse(localStorage.application);
+					_application.referrer = application.referrer;
+					_application.remoteAddr = application.remoteAddr;
+					_application.remoteHost = application.remoteHost;
+					_application.xForwardedFor = application.xForwardedFor;
 				}
-			}
 
-			if(_payAccount.payAccountId === null){
-				if(payAccounts_processor[firstPayAccount]){
-					_payAccount = payAccounts_processor[firstPayAccount];
+				CashierStore.storeData("application", _application);
+				CashierStore.storeData("ui", _UI);
+				CashierStore.storeData("company", _company);
+				CashierStore.emitChange();
+				break;
+
+			case actions.USER_MESSAGE:
+				_UI.userMessage = data.message;
+				CashierStore.emitChange();
+				break;
+
+			case actions.CUSTOMER_INFO_RESPONSE:
+				_customer.load(data.response.customerInfo);
+				CashierStore.emitChange();
+				break;
+
+			case actions.COMPANY_INFO_RESPONSE:
+				_company.load(data.response.companyInformation);
+				CashierStore.storeData("company", _company);
+				CashierStore.emitChange();
+				break;
+
+			case actions.GET_PENDING_PAYOUT_RESPONSE:
+				_customer.pendingPayouts = data.response.pendingPayout;
+				CashierStore.emitChange();
+				break;
+
+			case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
+				_customer.lastTransactions = data.response.transactions;
+				break;
+
+			case actions.SET_EDITCC:
+				_UI.ccEdit = data.editMode;
+				CashierStore.emitChange();
+				break;
+
+			case actions.SWITCH_ACTION:
+				if(_UI.currentView == cashier.VIEW_DEPOSIT){
+					_UI.currentView = cashier.VIEW_WITHDRAW;
 				}else{
-					_payAccount.displayName = cashier.NO_RESPONSE;
+					_UI.currentView = cashier.VIEW_DEPOSIT;
 				}
-			}else{
-				if(processors.settings[_processor.processorId][processors.REGISTER_ACCOUNTS_ALLOW]){
-					let addPayAccountOption = Object.assign({}, _payAccount);
-					addPayAccountOption.payAccountId = 0;
-					if(_processor.processorClass == 1){
-						addPayAccountOption.displayName = translate('REGISTER_NEW_ACCOUNT_CC', 'register');
-					}else{
-						addPayAccountOption.displayName = translate('REGISTER_NEW_ACCOUNT', 'register');
+				CashierStore.storeData("ui", _UI);
+				break;
+
+			case actions.CUSTOMER_TRANSACTIONS_PENDING_MTCN_RESPONSE:
+				let p2pTransactions = [];
+				if(data.response && data.response.P2PNames){
+					let p2pNames = data.response.P2PNames;
+					p2pNames.forEach((transaction) =>{
+						p2pTransactions[transaction.caTransaction_Id] = transaction;
+					});
+				}else{
+					p2pTransactions = cashier.NO_RESPONSE;
+				}
+				_customer.pendingP2PTransactions = p2pTransactions;
+				CashierStore.emitChange();
+				break;
+
+			case actions.CHANGE_STATUS_RESPONSE:
+				CashierStore.emitChange();
+				break;
+
+			case actions.COUNTRIES_RESPONSE:
+				_UI.countries = data.response.countries;
+				break;
+
+			case actions.CHANGE_APPLICATION_SELECTED_COUNTRY:
+				if(!data.country){
+					_UI.selectedCountry = _customer.personalInformation.country;
+				}else{
+					_UI.selectedCountry = data.country;
+				}
+				break;
+
+			case actions.STATES_RESPONSE:
+				let countryInfo = data.response.countryInfo;
+				let states = data.response.states;
+				if(states){
+					_UI.countryStates[countryInfo.Small] = states;
+				}else{
+					_UI.countryStates[countryInfo.Small] = {};
+				}
+				_UI.countryInfo[countryInfo.Small] = countryInfo;
+				CashierStore.emitChange();
+				break;
+
+			case actions.CONNECTION_ERRROR:
+				_UI.connectionError = data.opt;
+				break;
+
+			case actions.GET_CURRENCY_RESPONSE:
+				let currencyInfo = data.response.currencyInfo;
+				if(currencyInfo && currencyInfo.Rate){
+					_UI.currencies[currencyInfo.Iso] = currencyInfo;
+				}
+				CashierStore.emitChange();
+				break;
+
+			case actions.RESTART_TRANSACTION_RESPONSE:
+				_transactionResponse.status = data.tStatus;
+				_transactionResponse.userMessage = "Restart";
+				break;
+
+			case actions.PROCESSORS_RESPONSE:
+				_customer.depositProcessors = data.response.processors.deposit;
+				_customer.withdrawProcessors = data.response.processors.withdraw;
+
+				let processor = [];
+
+				let selectedProcessor = CashierStore.getUI();
+
+				if(!CashierStore.getIsWithdraw() && _customer.depositProcessors.length > 0 && !selectedProcessor.processorId){
+					processor = _customer.depositProcessors[0];
+				}else if(_customer.withdrawProcessors.length > 0 && !selectedProcessor.processorId){
+					processor = _customer.withdrawProcessors[0];
+				}else if(selectedProcessor.processorId){
+					_customer.depositProcessors.map((item) =>{
+						if(item.caProcessor_Id == selectedProcessor.processorId){
+							processor = item;
+						}
+					});
+				}
+
+				// set default processor
+				_UI.processorId = processor.caProcessor_Id;
+				_processor.load(processor.caProcessor_Id);
+				break;
+
+			case actions.CHANGE_TRANSACTION_FEE_AMOUNT:
+				_transaction.fee = data.amount;
+				break;
+
+			case actions.CHANGE_TRANSACTION_FEETYPE:
+				_transaction.feeType = data.feeType;
+				break;
+
+			case actions.PROCESSOR_FEES_CONFIGURATION_RESPONSE:
+				_processor.fees.enableBP = data.response.processorFeesConfig.enableBPOption;
+				if(_processor.fees.enableBP == 1){
+					_transaction.feeType = "Betpoints";
+				}
+				_processor.fees.enableCash = data.response.processorFeesConfig.enableCashOption;
+				if(_processor.fees.enableCash == 1 && _transaction.feeType == ""){
+					_transaction.feeType = "Cash";
+				}
+				_processor.fees.enableFree = data.response.processorFeesConfig.enableFreeOption;
+				if(_processor.fees.enableFree == 1 && _transaction.feeType == ""){
+					_transaction.feeType = "Free";
+				}
+				_processor.fees.cashType = data.response.processorFeesConfig.cashOptionType;
+				CashierStore.emitChange();
+				break;
+
+			case actions.SET_BITCOIN_ADDRESS:
+				_transaction.bitcoinAddress = data.bitcoinaddress;
+				break;
+
+			case actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
+				let firstPayAccount = 0;
+				let payAccounts_processor = {};
+				let payAccountTemp = Object.assign({}, _payAccount);
+				if(data.response && data.response.payAccounts){
+					if(data.response.payAccounts[0].processorIdRoot == _processor.processorId){
+						data.response.payAccounts.forEach((payAccount) =>{
+							payAccount.limitsData.available = Math.floor(payAccount.limitsData.available);
+							payAccount.limitsData.availableWithdraw = Math.floor(payAccount.limitsData.availableWithdraw);
+							payAccount.limitsData.maxAmount = Math.floor(payAccount.limitsData.maxAmount);
+							payAccount.limitsData.maxAmountWithdraw = Math.floor(payAccount.limitsData.maxAmountWithdraw);
+							payAccount.limitsData.minAmount = Math.ceil(payAccount.limitsData.minAmount);
+							payAccount.limitsData.minAmountWithdraw = Math.ceil(payAccount.limitsData.minAmountWithdraw);
+						});
+						let payAccounts = data.response.payAccounts;
+						if(payAccounts){
+							payAccounts.map((item, key) =>{
+								let payAccount = Object.assign({key: key}, payAccountTemp);
+								payAccount.load(item);
+								payAccounts_processor[payAccount.payAccountId] = payAccount;
+								if(!firstPayAccount){
+									firstPayAccount = payAccount.payAccountId;
+								}
+							});
+							_payAccount = payAccounts_processor[firstPayAccount];
+						}
 					}
-					payAccounts_processor[addPayAccountOption.payAccountId] = addPayAccountOption;
-				}
-			}
-			_payAccounts[_processor.processorId] = payAccounts_processor;
-			CashierStore.emitChange();
-			break;
-
-		case actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE:
-			if(data.response){
-				data.response.MinMaxLimits.currencyMax = Math.ceil(data.response.MinMaxLimits.currencyMax);
-				data.response.MinMaxLimits.currencyMin = Math.ceil(data.response.MinMaxLimits.currencyMin);
-				_processor.limits = data.response.MinMaxLimits;
-			}else{
-				_processor.limits = {currencyMin: 0, currencyMax: 0, currencyCode: _customer.currency};
-			}
-			CashierStore.emitChange();
-			break;
-
-		case actions.PROCESSORS_LIMIT_RULES_RESPONSE:
-			_processor.limitRules = data.response.processorLimits;
-			CashierStore.emitChange();
-			break;
-
-		case actions.CHANGE_PAYACCOUNT:
-			_payAccount = _payAccounts[data.processorID][data.payAccountID];
-			CashierStore.emitChange();
-			break;
-
-		case actions.CHANGE_TRANSACTION_AMOUNT:
-			_transaction.amount = data.amount;
-			CashierStore.emitChange();
-			break;
-
-		case actions.CHANGE_TRANSACTION_CVV:
-			_payAccount.secure.password = data.cvv;
-			break;
-
-		case actions.PROCESSOR_FEES_RESPONSE:
-			_processor.fees.structure = data.response.processorFees;
-			break;
-
-		case actions.CHANGE_TRANSACTION_FEE:
-			_transaction.fee = data.fee;
-			CashierStore.emitChange();
-			break;
-
-		case actions.CHANGE_TRANSACTION_TERMS:
-			_transaction.checkTermsAndConditions = data.checked;
-			CashierStore.emitChange();
-			break;
-
-		case actions.CHANGE_TRANSACTION_TIMEFRAME:
-			let timeFrame = data.timeFrame;
-			_transaction.timeFrameDay = timeFrame.timeFrameDay;
-			_transaction.timeFrameTime = timeFrame.timeFrameTime;
-			CashierStore.emitChange();
-			break;
-
-		case actions.CHANGE_TRANSACTION_CONTROL_NUMBER:
-			let controlNumber = data.controlNumber;
-			_transaction.controlNumber = controlNumber;
-			CashierStore.emitChange();
-			break;
-
-		case actions.CHANGE_TRANSACTION_SEND_BY:
-			let sendBy = data.sendBy;
-			_transaction.sendBy = sendBy;
-			CashierStore.emitChange();
-			break;
-
-		case actions.CHANGE_TRANSACTION_PROMO_CODE:
-			let promoCode = data.promoCode;
-			_transaction.promoCode = promoCode;
-			CashierStore.emitChange();
-			break;
-
-		case actions.PROCESS_RESPONSE:
-		case actions.PROCESS_P2P_GET_NAME_RESPONSE:
-		case actions.PROCESS_P2P_SUBMIT_RESPONSE:
-		case actions.PROCESS_CC_RESPONSE:
-			_transactionResponse.amount = _transaction.amount;
-			_transactionResponse.fee = _transaction.fee;
-			_transactionResponse.feeType = _transaction.feeType;
-			if(data.response && data.response.transaction){
-                _transactionResponse.data = data.response.transaction;
-				_transactionResponse.journalId = data.response.transaction.caJournal_Id;
-				_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
-				_transactionResponse.status = Number(data.response.transaction.caTransactionStatus_Id);
-				_transactionResponse.userMessage = data.response.transaction.userMessage;
-
-				let processorClassId = _processor.processorClass;
-				if(processorClassId == cashier.PROCESSOR_CLASS_ID_PERSON_2_PERSON){
-					_transactionResponse.details = data.response.transaction;
 				}
 
-			}else if(data.state){
-				_transactionResponse.state = data.state;
-				_transactionResponse.status = 0;
-				_transactionResponse.userMessage = data.userMessage;
-			}
+				if(_payAccount.payAccountId === null){
+					if(payAccounts_processor[firstPayAccount]){
+						_payAccount = payAccounts_processor[firstPayAccount];
+					}else{
+						_payAccount.displayName = cashier.NO_RESPONSE;
+					}
+				}else{
+					if(processors.settings[_processor.processorId][processors.REGISTER_ACCOUNTS_ALLOW]){
+						let addPayAccountOption = Object.assign({}, _payAccount);
+						addPayAccountOption.payAccountId = 0;
+						if(_processor.processorClass == 1){
+							addPayAccountOption.displayName = translate('REGISTER_NEW_ACCOUNT_CC', 'register');
+						}else{
+							addPayAccountOption.displayName = translate('REGISTER_NEW_ACCOUNT', 'register');
+						}
+						payAccounts_processor[addPayAccountOption.payAccountId] = addPayAccountOption;
+					}
+				}
+				_payAccounts[_processor.processorId] = payAccounts_processor;
+				CashierStore.emitChange();
+				break;
 
-			if(_transactionResponse.userMessage == ""){
-				_transactionResponse.userMessage = data.userMessage;
-			}
-			break;
+			case actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE:
+				if(data.response){
+					data.response.MinMaxLimits.currencyMax = Math.ceil(data.response.MinMaxLimits.currencyMax);
+					data.response.MinMaxLimits.currencyMin = Math.ceil(data.response.MinMaxLimits.currencyMin);
+					_processor.limits = data.response.MinMaxLimits;
+					_processor.waitLimits = false;
+				}
 
-		case actions.START_TRANSACTION:
-			//do some work before start the transaction
-			_transaction.cleanTransaction();
-			_payAccount.cleanPayAccount();
-			_UI.ccEdit = 0;
-			_payAccounts = [];
-			break;
+				CashierStore.emitChange();
+				break;
 
-		case actions.SET_STEP:
-			_UI.currentStep = data.step;
-			CashierStore.emitChange();
-			break;
+			case actions.PROCESSORS_LIMIT_RULES_RESPONSE:
+				_processor.limitRules = data.response.processorLimits;
+				CashierStore.emitChange();
+				break;
 
-		case actions.GET_BITCOIN_TRANSACTION_RESPONSE:
-		case actions.GET_CRYPTO_TRANSFER_TRANSACTION_RESPONSE:
-			_transactionResponse.details = data.response;
-			CashierStore.emitChange();
-			break;
+			case actions.CHANGE_PAYACCOUNT:
+				_payAccount = _payAccounts[data.processorID][data.payAccountID];
+				CashierStore.emitChange();
+				break;
 
-		case actions.SETS_PAYACCOUNT:
-			_payAccount.load(data.payAccount);
-			break;
+			case actions.CHANGE_TRANSACTION_AMOUNT:
+				_transaction.amount = data.amount;
+				CashierStore.emitChange();
+				break;
 
-		case actions.GET_CREDITCARD_TRANSACTION_RESPONSE:
-			_transactionResponse.details = data.response;
-			CashierStore.emitChange();
-			break;
+			case actions.CHANGE_TRANSACTION_CVV:
+				_payAccount.secure.password = data.cvv;
+				break;
 
-		case actions.SELECT_PROCESSOR:
-			_UI.processorId = data.processorId;
-			_UI.currentProcessorSteps = data.processorSteps;
-			if(!_UI.currentStep){
-				_UI.currentStep = data.currentStep;
-			}
-			_processor.load(data.processorId);
-			CashierStore.emitChange();
-			break;
+			case actions.PROCESSOR_FEES_RESPONSE:
+				_processor.fees.structure = data.response.processorFees;
+				break;
 
-		case actions.VALIDATE_PAYACCOUNT:
-			break;
+			case actions.CHANGE_TRANSACTION_FEE:
+				_transaction.fee = data.fee;
+				CashierStore.emitChange();
+				break;
 
-		case actions.PAYACCOUNTS_VALIDATE_SECURE_RESPONSE:
-			_payAccount.updateSuccess = 0;
-			if(data.response && data.response.updateSuccess){
-				_payAccount.updateSuccess = data.response.updateSuccess;
-			}
-			CashierStore.emitChange();
-			break;
+			case actions.CHANGE_TRANSACTION_TERMS:
+				_transaction.checkTermsAndConditions = data.checked;
+				CashierStore.emitChange();
+				break;
 
-		case actions.SET_TUID:
-			_transaction.randomTuid = data.tuid;
-			break;
+			case actions.CHANGE_TRANSACTION_TIMEFRAME:
+				let timeFrame = data.timeFrame;
+				_transaction.timeFrameDay = timeFrame.timeFrameDay;
+				_transaction.timeFrameTime = timeFrame.timeFrameTime;
+				CashierStore.emitChange();
+				break;
 
-		case actions.GET_PACIFIC_TIME_HOUR_RESPONSE:
-			_UI.serverTime = data.response.currentHour;
-			CashierStore.emitChange();
-			break;
+			case actions.CHANGE_TRANSACTION_CONTROL_NUMBER:
+				let controlNumber = data.controlNumber;
+				_transaction.controlNumber = controlNumber;
+				CashierStore.emitChange();
+				break;
 
-		case actions.SEND_TRANSACTION_TOKEN_RESPONSE:
-			if(data.response && data.response.hash){
-				_transaction.hash = data.response.hash;
-			}else{
-				_transaction.secondFactorMessage = data.userMessage;
-			}
-			CashierStore.emitChange();
-			break;
+			case actions.CHANGE_TRANSACTION_SEND_BY:
+				let sendBy = data.sendBy;
+				_transaction.sendBy = sendBy;
+				CashierStore.emitChange();
+				break;
 
-		case actions.VERIFY_TRANSACTION_TOKEN_RESPONSE:
-			if(data.response.reason == cashier.SECOND_FACTOR_MAX_ATTEMPTS_REACHED){
-				_transaction.hash = "";
-				_transaction.secondFactorMaxAttempts = true;
-			}
-			_transaction.isCodeValid = data.response.verified;
-			_transaction.secondFactorMessage = data.response.reasonMessage;
-			CashierStore.emitChange();
-			break;
+			case actions.CHANGE_TRANSACTION_PROMO_CODE:
+				let promoCode = data.promoCode;
+				_transaction.promoCode = promoCode;
+				CashierStore.emitChange();
+				break;
 
-		case actions.START_SECOND_FACTOR:
-			_transaction.secondFactorMaxAttempts = false;
-			_transaction.secondFactorMessage = "";
-			CashierStore.emitChange();
-			break;
+			case actions.CHANGE_TRANSACTION_CRYPTO_ADDRESS:
+				let cryptoAddress = data.cryptoAddress;
+				_transaction.cryptoAddress = cryptoAddress;
+				//CashierStore.emitChange();
+				break;
 
-		case actions.PAYACCOUNTS_DISABLE_RESPONSE:
-			_payAccount.cleanPayAccount();
-			CashierStore.emitChange();
-			break;
+			case actions.CHANGE_TRANSACTION_CURRENCY_NAME:
+				let currencyName = data.currencyName;
+				_transaction.currencyName = currencyName;
+				//CashierStore.emitChange();
+				break;
 
-		case actions.UPDATE_PAYACCOUNT_INFO_RESPONSE:
-			break;
+			case actions.CHANGE_TRANSACTION_CURRENCY_SYM:
+				let currencySymbol = data.currencySymbol;
+				_transaction.currencySymbol = currencySymbol;
+				//CashierStore.emitChange();
+				break;
 
-		default:
-			console.log("Store No Action: " + action);
-			break;
+			case actions.CHANGE_TRANSACTION_BTC_CONVERTION_AMOUNT:
+				let BTCConversionAmount = data.BTCConversionAmount;
+				_transaction.BTCConversionAmount = BTCConversionAmount;
+				//CashierStore.emitChange();
+				break;
+
+			case actions.PROCESS_RESPONSE:
+			case actions.PROCESS_P2P_GET_NAME_RESPONSE:
+			case actions.PROCESS_P2P_SUBMIT_RESPONSE:
+			case actions.PROCESS_CC_RESPONSE:
+				_transactionResponse.amount = _transaction.amount;
+				_transactionResponse.fee = _transaction.fee;
+				_transactionResponse.feeType = _transaction.feeType;
+				if(data.response && data.response.transaction){
+					_transactionResponse.data = data.response.transaction;
+					_transactionResponse.journalId = data.response.transaction.caJournal_Id;
+					_transactionResponse.transactionId = data.response.transaction.caTransaction_Id;
+					_transactionResponse.status = Number(data.response.transaction.caTransactionStatus_Id);
+					_transactionResponse.userMessage = data.response.transaction.userMessage;
+
+					let processorClassId = _processor.processorClass;
+					if(processorClassId == cashier.PROCESSOR_CLASS_ID_PERSON_2_PERSON){
+						_transactionResponse.details = data.response.transaction;
+					}
+
+				}else if(data.state){
+					_transactionResponse.state = data.state;
+					_transactionResponse.status = 0;
+					_transactionResponse.userMessage = data.userMessage;
+				}
+
+				if(_transactionResponse.userMessage == ""){
+					_transactionResponse.userMessage = data.userMessage;
+				}
+				break;
+
+			case actions.START_TRANSACTION:
+				//do some work before start the transaction
+				_transactionResponse.userMessage = '';
+				_transaction.cleanTransaction();
+				_payAccount.cleanPayAccount();
+				_UI.ccEdit = 0;
+				_payAccounts = [];
+				break;
+
+			case actions.SET_STEP:
+				_UI.currentStep = data.step;
+				CashierStore.emitChange();
+				break;
+
+			case actions.GET_BITCOIN_TRANSACTION_RESPONSE:
+			case actions.GET_CRYPTO_TRANSFER_TRANSACTION_RESPONSE:
+				_transactionResponse.details = data.response;
+				CashierStore.emitChange();
+				break;
+
+			case actions.SETS_PAYACCOUNT:
+				_payAccount.load(data.payAccount);
+				break;
+
+			case actions.GET_CREDITCARD_TRANSACTION_RESPONSE:
+				_transactionResponse.details = data.response;
+				CashierStore.emitChange();
+				break;
+
+			case actions.SELECT_PROCESSOR:
+				_UI.processorId = data.processorId;
+				_UI.currentProcessorSteps = data.processorSteps;
+				if(!_UI.currentStep){
+					_UI.currentStep = data.currentStep;
+				}
+				_processor.load(data.processorId);
+				CashierStore.emitChange();
+				break;
+
+			case actions.VALIDATE_PAYACCOUNT:
+				break;
+
+			case actions.PAYACCOUNTS_VALIDATE_SECURE_RESPONSE:
+				_payAccount.updateSuccess = 0;
+				if(data.response && data.response.updateSuccess){
+					_payAccount.updateSuccess = data.response.updateSuccess;
+				}
+				CashierStore.emitChange();
+				break;
+
+			case actions.SET_TUID:
+				_transaction.randomTuid = data.tuid;
+				break;
+
+			case actions.GET_PACIFIC_TIME_HOUR_RESPONSE:
+				_UI.serverTime = data.response.currentHour;
+				CashierStore.emitChange();
+				break;
+
+			case actions.SEND_TRANSACTION_TOKEN_RESPONSE:
+				if(data.response && data.response.hash){
+					_transaction.hash = data.response.hash;
+				}else{
+					_transaction.secondFactorMessage = data.userMessage;
+				}
+				CashierStore.emitChange();
+				break;
+
+			case actions.VERIFY_TRANSACTION_TOKEN_RESPONSE:
+				if(data.response.reason == cashier.SECOND_FACTOR_MAX_ATTEMPTS_REACHED){
+					_transaction.hash = "";
+					_transaction.secondFactorMaxAttempts = true;
+				}
+				_transaction.isCodeValid = data.response.verified;
+				_transaction.secondFactorMessage = data.response.reasonMessage;
+				CashierStore.emitChange();
+				break;
+
+			case actions.START_SECOND_FACTOR:
+				_transaction.secondFactorMaxAttempts = false;
+				_transaction.secondFactorMessage = "";
+				CashierStore.emitChange();
+				break;
+
+			case actions.PAYACCOUNTS_DISABLE_RESPONSE:
+				_payAccount.cleanPayAccount();
+				CashierStore.emitChange();
+				break;
+
+			case actions.UPDATE_PAYACCOUNT_INFO_RESPONSE:
+				break;
+
+			default:
+				console.log("Store No Action: " + action);
+				break;
+		}
 	}
+
 	return true;
 });
 

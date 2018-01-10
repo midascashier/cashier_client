@@ -18,7 +18,7 @@ let CryptoCurrencies = React.createClass({
         setCryptoCurrencyName: React.PropTypes.func
     },
 
-    currencyActions(event) {
+    currencyActions(event){
 
         let spinCoin = "<div class='lds-circle'></div>";
         $('#cryptoLimits span').html(spinCoin);
@@ -164,13 +164,13 @@ let CryptoCurrencies = React.createClass({
         $('#cryptoTransferModal').css('display', 'none');
     },
 
-    render() {
+    render(){
         let currency = this.props.currency;
-        let id = (currency.status == 'available') ? currency.name.toLowerCase().replace(' ', '') : '';
+        let id = (currency.status == 'available') ? currency.name.toLowerCase().split(' ').join('') : '';
         let unavailable = (currency.status != 'available') ? ' unavailableCurrency' : '';
         let unavailableTXT = (currency.status != 'available') ? <span className="unavailableName">{translate('CRYPTO_UNAVAILABLE_TXT', 'Temporarily disabled')}</span> : '';
 
-        return (
+        return(
             <div id={id} className={'cryptoTransferCurrency' + unavailable} onClick={this.currencyActions.bind(this)}>
                 <img src={currency.image} alt={currency.name}/>
                 {unavailableTXT}

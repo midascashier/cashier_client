@@ -20,8 +20,8 @@ let CompanyInfo = React.createClass({
 	/**
 	 * function to open chat window
 	 */
-	openFAQ(event) {
-		FAQ();
+	openFAQ() {
+		window.open('https://den.secureprivate.com/FAQ.html', 'FAQ', 'toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=1,resizable=0,width=800,height=680');
 	},
 
 	render() {
@@ -33,7 +33,7 @@ let CompanyInfo = React.createClass({
 					<div className="col-sm-12">
 						<div className="row">
 							<div className="col-sm-2"></div>
-							<div className="col-sm-4">{translate('CUSTOMER_INFO_BALANCE')}:
+							<div className="col-sm-4">{translate('CUSTOMER_INFO_BALANCE', 'Current Balance')}:
 								<span>
 									{(() =>{
 										if(!this.props.customer.customerId){
@@ -45,18 +45,18 @@ let CompanyInfo = React.createClass({
 								</span>
 							</div>
 							<div className="col-sm-6">
-								{translate('CUSTOMER_INFO_NEED_HELP')}
+								{translate('CUSTOMER_INFO_NEED_HELP', 'Need Help? ')}
 								{(() =>{
 									if(isWithdraw){
 										return <a href='#' onClick={this.openFAQ}>FAQ, </a>;
 									}
 								})()}
-								<a href='#' onClick={this.openChat}>{translate('CUSTOMER_INFO_LIVE_CHAT')},</a>
+								<a href='#' onClick={this.openChat}>{translate('CUSTOMER_INFO_LIVE_CHAT', 'Live Chat')},</a>
 								{(() =>{
 									if(!this.props.company.companyId){
 										return <Loading />;
 									} else{
-										return ' ' + translate('CUSTOMER_INFO_PHONE') + " " + this.props.company.companyLabel.COMPANY_PHONE;
+										return ' ' + translate('CUSTOMER_INFO_PHONE', 'Or') + " " + this.props.company.companyLabel.COMPANY_PHONE;
 									}
 								})()}
 							</div>

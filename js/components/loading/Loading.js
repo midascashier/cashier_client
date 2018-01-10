@@ -1,10 +1,11 @@
 import React from 'react'
+import { translate } from '../../constants/Translate'
 
 let Loading = React.createClass({
 	render() {
 		return (
 			<span id="loading">
-				Loading...
+				{translate('LOADING', 'Loading...')}
 			</span>
 		)
 	}

@@ -48,10 +48,10 @@ let Steps = React.createClass({
 
 	render() {
 		let stepTexts = {
-			"selectMethod": UIService.getIsWithDraw() ? translate('STEPS_WITHDRAW_METHOD') : translate('STEPS_DEPOSIT_METHOD'),
-			"askInfo": UIService.getIsWithDraw() ? translate('STEPS_HOW_MUCH_WITHDRAW') : translate('STEPS_HOW_MUCH_DEPOSIT'),
-			"confirm": translate('STEPS_CONFIRMATION'),
-			"instructions": translate('STEPS_INSTRUCTIONS')
+			"selectMethod": UIService.getIsWithDraw() ? translate('STEPS_WITHDRAW_METHOD', 'Withdraw Method') : translate('STEPS_DEPOSIT_METHOD', 'Deposit Method'),
+			"askInfo": UIService.getIsWithDraw() ? translate('STEPS_HOW_MUCH_WITHDRAW', 'How Much?') : translate('STEPS_HOW_MUCH_DEPOSIT', 'How Much?'),
+			"confirm": translate('STEPS_CONFIRMATION', 'Confirmation'),
+			"instructions": translate('STEPS_INSTRUCTIONS', 'Instructions')
 		};
 
 		let processorSteps = this.state.currentProcessorSteps;

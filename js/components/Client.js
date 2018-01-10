@@ -1,13 +1,10 @@
 import React from 'react'
-import { CustomerService } from './../services/CustomerService'
-import { CashierStore } from './../stores/CashierStore'
 
 let Client = React.createClass({
-
 	/**
 	 * Showing in this container the component selected and the components or methods of the children at any point in the rendering time
 	 */
-	render() {
+	render(){
 		return (
 			<div id="main">
 				<div id="mainContent" className="global">
@@ -17,17 +14,6 @@ let Client = React.createClass({
 				</div>
 			</div>
 		)
-	},
-
-	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount() {
-		let app = CashierStore.getApplication();
-		if(!app.sid){
-			CustomerService.startConnection();
-		}
 	}
 });
 
