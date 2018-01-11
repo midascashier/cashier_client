@@ -42,9 +42,28 @@ let AstroPayRejectedTicket = React.createClass({
 		UIService.setFirstStep();
 	},
 
+	/**
+	 * function to open chat window
+	 */
+	openChat(event){
+		chat();
+	},
+
 	render() {
 		let creditCardTransaction = this.state.creditCardTransaction;
-		let transaction = CashierStore.getTransaction();
+
+		let currencyAmount = this.state.currencyAmount;
+		let currency = this.state.currency;
+		let processorName = this.state.processorName;
+		let companyPhone = this.state.companyPhone;
+		let isWithDraw = UIService.getIsWithDraw();
+		let action;
+		if(isWithDraw){
+			action = "withdraw";
+		}else{
+			action = "deposit";
+		}
+
 		return (
 			<div id="astropayRejectedTicket">
 				{(() =>{
@@ -55,12 +74,25 @@ let AstroPayRejectedTicket = React.createClass({
 									<div className="row">
 										<div className="col-sm-12">
 											<div className="alert alert-danger" role="alert">
-												<i className="fa fa-ban red"></i>
-												<strong></strong>
-												<p>
-													<strong>Unfortunately</strong>, we were unable to process your Astropay deposit for ${ApplicationService.currency_format(transaction.amount)} at this time.
-													Perhaps our Customer Support team can help. Call us at 877-314-4195 or Live Chat. Or, you could try a <a onClick={this.setFirstStep}>different deposit method</a>.
-												</p>
+
+												<div className="text-center col-sm-12 ticket-header">
+													<i className="fa fa-ban red"></i>
+													<strong>
+														Transaction Rejected
+													</strong>
+												</div>
+												<div className="ticket-body">
+													<p>
+														<strong>Unfortunately</strong>, we were unable to process your <strong>{processorName}</strong> {action} for <strong>{ApplicationService.currency_format(currencyAmount) + ' ' + currency}</strong> at this time.
+													</p>
+													<p>
+														Perhaps our Customer Support team can help.
+													</p>
+													<p>
+														Call us at {companyPhone} or <a onClick={this.openChat}>Live Chat</a> or you could try a <a onClick={this.setFirstStep}>different deposit method</a>.
+													</p>
+												</div>
+
 											</div>
 										</div>
 									</div>

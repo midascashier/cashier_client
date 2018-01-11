@@ -263,23 +263,22 @@ class UiService {
 
 	/**
 	 * get the payAccount currency amount
-	 *
-	 * @returns {{payAccountId: null, currencyCode: *, available: number, availableWithdraw: number, maxAmount: number, maxAmountWithdraw: number, minAmount: number, minAmountWithdraw: number}}
+	 * 
+	 * @returns {{payAccountId: null, available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}|_payAccount.limitsData|{available, type, remaining, enabled, enabledOn, minAmount, maxAmount, availableWithdraw, remainingWithdraw, enabledWithdraw, enabledOnWithdraw, minAmountWithdraw, maxAmountWithdraw, depositLimits, withdrawLimits, limitsPassed}|{}|*}
 	 */
 	getPayAccountLimits(){
 		let payAccount = CashierStore.getCurrentPayAccount();
-		let limits = {
-			payAccountId: payAccount.payAccountId,
-			currencyCode: payAccount.limitsData.currencyCode,
-			available: Number(payAccount.limitsData.available),
-			availableWithdraw: Number(payAccount.limitsData.availableWithdraw),
-			maxAmount: Number(payAccount.limitsData.maxAmount),
-			maxAmountWithdraw: Number(payAccount.limitsData.maxAmountWithdraw),
-			minAmount: Number(payAccount.limitsData.minAmount),
-			minAmountWithdraw: Number(payAccount.limitsData.minAmountWithdraw)
-		};
+		let limitsData = CashierStore.getCurrentPayAccountLimit();
 
-		return limits;
+		limitsData.payAccountId = payAccount.payAccountId;
+		limitsData.available = Number(limitsData.available);
+		limitsData.availableWithdraw = Number(limitsData.availableWithdraw);
+		limitsData.maxAmount = Number(limitsData.maxAmount);
+		limitsData.maxAmountWithdraw = Number(limitsData.maxAmountWithdraw);
+		limitsData.minAmount = Number(limitsData.minAmount);
+		limitsData.minAmountWithdraw = Number(limitsData.minAmountWithdraw);
+
+		return limitsData;
 	}
 
 	/**
@@ -324,13 +323,17 @@ class UiService {
 			remaining = remaining + " " + currencyCode;
 		}
 
-		return {
+		let limits = {
 			minPayAccount: ApplicationService.currency_format(minPayAccount)+ " " + currencyCode,
 			maxPayAccount: ApplicationService.currency_format(maxPayAccount)+ " " + currencyCode,
 			payAccountId: payAccountLimits.payAccountId,
 			remaining: ApplicationService.currency_format(remaining)+ " " + currencyCode,
-			currencyCode: currencyCode
-		}
+			currencyCode: currencyCode,
+			enabled: (payAccountLimits.enabled),
+			enabledOn: payAccountLimits.enabledOn
+		};
+
+		return limits;
 	}
 
 	/**
