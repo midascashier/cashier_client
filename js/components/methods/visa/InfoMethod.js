@@ -1,10 +1,11 @@
 import React from 'react'
-import {translate} from '../../../constants/Translate'
+import {Loading} from '../../loading/Loading'
 import Cashier from '../../../constants/Cashier'
+import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
 import {UIService} from '../../../services/UIService'
 import {TransactionService} from '../../../services/TransactionService'
-import {Loading} from '../../loading/Loading'
+
 let InfoMethod = React.createClass({
 
 	propTypes: {
@@ -192,6 +193,13 @@ let InfoMethod = React.createClass({
 												return (<td><span>{payAccountInfo.remaining}</span></td>)
 											}else{
 												return (<td><span><Loading/></span></td>)
+											}
+										})()}
+									</tr>
+									<tr>
+										{(() =>{
+											if(payAccountInfo.errorLimitMessage){
+												return (<td colSpan={2} dangerouslySetInnerHTML={{__html: payAccountInfo.errorLimitMessage}}></td>)
 											}
 										})()}
 									</tr>
