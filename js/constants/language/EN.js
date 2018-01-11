@@ -281,15 +281,15 @@ let _langTags = {
 	CRYPTO_INSTRUCTIONS_PROCESS_INSIDE: "Crypto Transfer withdraws will be process inside 24 hours, but are typically processed within anhour.",
 
 	//resources
-	CC_LIMIT_ERROR_COUNT: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle red"></i><strong>{displayName}</strong> - <span>The credit card selected has reached its maximum number of transactions allowed. Please select another credit card.</span></div>',
-	CC_LIMIT_ERROR_COUNT_TIME_SPAN: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle red"></i><strong>{displayName}</strong> - <span>The credit card selected has reached its maximum number of transactions allowed. It will be available again in <strong>{remaining} minute(s)</strong>.</span></div>',
-	CC_LIMIT_ERROR_AMOUNT: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle red"></i><strong>{displayName}</strong> - <span>The credit card selected has reached its allowed limit with us. Please select another credit card. It will be available again in <strong>{remaining} minute(s)</strong>.</span></div>',
-	CC_LIMIT_ERROR_NUM_CC: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle red"></i><span>You have exceeded the maximum number of different credit cards we allow. Please select from one of the cards already on file.</span></div>',
+	CC_LIMIT_ERROR_COUNT: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle red"></i><strong>{displayName}</strong> - <span>The credit card selected has reached its maximum number of transactions allowed. Please select another credit card</span></div>',
+	CC_LIMIT_ERROR_COUNT_TIME_SPAN: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle red"></i><strong>{displayName}</strong> - <span>The credit card selected has reached its maximum number of transactions allowed. It will be available again in <strong>{remaining} minute(s)</strong></span></div>',
+	CC_LIMIT_ERROR_AMOUNT: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle red"></i><strong>{displayName}</strong> - <span>The credit card selected has reached its allowed limit with us. Please select another credit card</span></div>',
+	CC_LIMIT_ERROR_NUM_CC: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle red"></i><span>You have exceeded the maximum number of different credit cards we allow. Please select from one of the cards already on file</span></div>',
 	CC_LIMIT_ERROR_OTHER: '',
-	CC_LIMIT_AVAILABLE: '<div class="alert alert-success" role="alert"><i class="fa fa-check"></i><strong>{displayName}</strong> - <span>available:</span><strong> {available} {currencyCode}.</strong></div>',
-	CC_LIMIT_BELOW_MIN: '<div class="alert alert-danger" role="alert"><i class="fa fa-ban"></i><span>Our minimum deposit amount is {minAmount} {currencyCode}.</span></div>',
-	CC_LIMIT_ABOVE_MAX: '<div class="alert alert-danger" role="alert"><i class="fa fa-ban"></i><span>Our maximum deposit amount is {maxAmount} {currencyCode}.</span></div>',
-	CC_LIMIT_ABOVE_AVAILABLE: '<div class="alert alert-info" role="alert"><i class="fa fa-ban"></i><strong>{displayName}</strong> - <span>The maximum amount available for this card is {available} {currencyCode}.</span></div>',
+	CC_LIMIT_AVAILABLE: '<div class="alert alert-success" role="alert"><i class="fa fa-check"></i><strong>{displayName}</strong> - <span>available:</span><strong> {available} {currencyCode}</strong></div>',
+	CC_LIMIT_BELOW_MIN: '<div class="alert alert-danger" role="alert"><i class="fa fa-ban"></i><span>Our minimum deposit amount is {minAmount} {currencyCode}</span></div>',
+	CC_LIMIT_ABOVE_MAX: '<div class="alert alert-danger" role="alert"><i class="fa fa-ban"></i><span>Our maximum deposit amount is {maxAmount} {currencyCode}</span></div>',
+	CC_LIMIT_ABOVE_AVAILABLE: '<div class="alert alert-info" role="alert"><i class="fa fa-ban"></i><strong>{displayName}</strong> - <span>The maximum amount available for this card is {available} {currencyCode}</span></div>',
 };
 
 export function EN(){

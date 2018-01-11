@@ -330,7 +330,7 @@ class UiService {
 			//limitError += translate('CC_LIMIT_BELOW_MIN', '', payAccountLimits);
 			//limitError += translate('CC_LIMIT_ABOVE_MAX', '', payAccountLimits);
 
-			if(currentAmount > 0 && !payAccountLimits.enabled){
+			if(!payAccountLimits.enabled){
 				let limitRemaining = payAccountLimits.remaining + 1;
 				switch(payAccountLimits.type.toUpperCase()){
 					case 'COUNT':
