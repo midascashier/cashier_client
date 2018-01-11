@@ -215,6 +215,26 @@ let Register = React.createClass({
 		return (
 			<div id="visaRegister">
 				<form onSubmit={this.addNewPayAccount}>
+
+					<div className="form-group">
+						<div className="col-md-4 col-md-offset-4">
+							<div className="row">
+								<div className="col-sm-6">
+									{this.state.displaySaveButton ?
+										<button type='submit' className='btn btn-green'>
+											{translate('PROCESSING_BUTTON_SAVE', 'Save')}
+										</button>
+										: null}
+								</div>
+								<div className="col-sm-6">
+									<button type='button' onClick={this.cancel} className='btn btn-green'>
+										{translate('PROCESSING_BUTTON_CANCEL', 'Save')}
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}:</label>
 						<div className="col-sm-8">
