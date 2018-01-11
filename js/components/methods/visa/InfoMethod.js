@@ -150,7 +150,7 @@ let InfoMethod = React.createClass({
 
 		let allowProcess = false;
 		if(!isEditingCCInfo){
-			allowProcess = payAccountInfo.payAccountId && this.allowProcess() && this.props.formValidator() && validateExtra.check;
+			allowProcess = payAccountInfo.payAccountId && payAccountInfo.enabled && this.allowProcess() && this.props.formValidator() && validateExtra.check;
 		}
 
 		let isNextDisabled = "disabled";
