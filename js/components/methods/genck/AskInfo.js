@@ -7,8 +7,8 @@ import { Register } from './Register.js'
 import { CustomerService } from '../../../services/CustomerService'
 import { LoadingSpinner } from '../../loading/LoadingSpinner'
 import { CashierStore } from './../../../stores/CashierStore'
-import { PayAccountDropDown } from '../../commonComponents/payaccount/payAccountDropDown'
 import { ApplicationService } from '../../../services/ApplicationService'
+import { PayAccountDropDown } from '../../commonComponents/payaccount/PayAccountDropDown'
 
 let AskInfo = React.createClass({
 
@@ -37,22 +37,24 @@ let AskInfo = React.createClass({
 		return this.props
 	},
 
-	render() {
+	render(){
 		let customer = CashierStore.getCustomer();
+		let isWithDraw = UIService.getIsWithDraw();
 		let processor = CashierStore.getProcessor();
+
+		let defaultOption = 'FedEx';
+		let amount = this.props.amount;
+		let feeType = this.props.feeType;
 		let processorFees = processor.fees;
 		let setSendBy = this.props.setSendBy;
-		let defaultOption = 'FedEx';
-		let sendBy = (this.props.sendBy) ? this.props.sendBy : this.props.setSendBy(defaultOption);
-		let setFeeType = this.props.setFeeType;
-		let feeType = this.props.feeType;
 		let setAmount = this.props.setAmount;
-		let amount = this.props.amount;
-		let limitsCheck = this.props.limitsCheck;
+		let setFeeType = this.props.setFeeType;
 		let payAccount = this.props.payAccount;
+		let limitsCheck = this.props.limitsCheck;
 		let payAccountId = payAccount.payAccountId;
 		let payAccountDisplayName = payAccount.displayName;
-		let isWithDraw = UIService.getIsWithDraw();
+		let sendBy = (this.props.sendBy) ? this.props.sendBy : this.props.setSendBy(defaultOption);
+
 		let withdrawFee = "";
 		let deleteButton = (!isWithDraw) ? translate('PROCESSING_BUTTON_DELETE_SENDER', 'Delete Sender') : translate('PROCESSING_BUTTON_DELETE_RECEIVER', 'Delete Receiver');
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
@@ -143,7 +145,12 @@ let AskInfo = React.createClass({
 
 									return (
 										<div>
-											<PayAccountDropDown info={this.getProps()} msgDeleteBtn={deleteButton}/>
+											<PayAccountDropDown
+												info={payAccount}
+												amount={this.props.amount}
+												msgDeleteBtn={deleteButton}
+												setAmount={this.props.setAmount}
+											/>
 
 											<div className="form-group">
 												<label className="col-sm-4 control-label">{translate('CK_SEND_BY', 'Send by')}:</label>

@@ -1,8 +1,9 @@
 import React from 'react'
-import { Input } from '../../Inputs'
-import { UIService } from '../../../services/UIService'
-import { translate } from '../../../constants/Translate'
-import { CashierStore } from '../../../stores/CashierStore'
+import {Input} from '../../Inputs'
+import cashier from '../../../constants/Cashier'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
 
 let ExtraInfo = React.createClass({
 
@@ -22,6 +23,7 @@ let ExtraInfo = React.createClass({
 		let dobDay = this.props.dobDay;
 		let dobYear = this.props.dobYear;
 		let dobMonth = this.props.dobMonth;
+		let allowYear = new Date().getFullYear()-17;
 
 		selectDays.push(UIService.renderOption({ label: '' }, ''));
 		selectYears.push(UIService.renderOption({ label: '' }, ''));
@@ -31,27 +33,35 @@ let ExtraInfo = React.createClass({
 			i = ('0' + i).slice(-2);
 			selectDays.push(UIService.renderOption({ label: i }, i));
 		}
-
 		for(let i = 1; i < 13; i++){
 			i = ('0' + i).slice(-2);
 			selectMonths.push(UIService.renderOption({ label: i }, i));
 		}
-
-		let allowYear = new Date().getFullYear()-17;
 		for(let i = 1940; i < allowYear; i++){
 			selectYears.push(UIService.renderOption({ label: i }, i));
 		}
 
-		return (
+		return(
 			<div id="visaExtraInfo">
 				{(() =>{
 					let country = CashierStore.getSelectedCountry();
-					if(country == 'US'){
+					if(country == cashier.USA_COUNTRY_CODE){
 						return(
 							<div className="form-group">
 								<label className="col-sm-4 control-label">{translate('CREDIT_CARD_SSN')}:</label>
 								<div className="col-sm-4">
-									<Input type="text" name="ssn" id="ssn" ref="ssn" validate="isSSN" maxlength="4" autoComplete="off" onChange={this.props.changeValue.bind(null,'ssn', 'transaction', 0)} value={ssn} require/>
+									<Input
+										id="ssn"
+										ref="ssn"
+										name="ssn"
+										type="text"
+										value={ssn}
+										maxlength="4"
+										validate="isSSN"
+										autoComplete="off"
+										onChange={this.props.changeValue.bind(null,'ssn', 'transaction', 0)}
+										require
+									/>
 								</div>
 							</div>
 						)
@@ -61,17 +71,44 @@ let ExtraInfo = React.createClass({
 				<div className="form-group">
 					<label className="col-sm-4 control-label">{translate('CREDIT_CARD_DOB')}:</label>
 					<div className="col-sm-2">
-						<select className="form-control" id="dobMonth" ref="dobMonth" data-validation='isNumber' name="dobMonth" onChange={this.props.changeValue.bind(null,'dobMonth', 'transaction', 1)} value={dobMonth} data-isRequired>
+						<select
+							id="dobMonth"
+							ref="dobMonth"
+							name="dobMonth"
+							value={dobMonth}
+							className="form-control"
+							data-validation='isNumber'
+							onChange={this.props.changeValue.bind(null,'dobMonth', 'transaction', 1)}
+							data-isRequired
+						>
 							{selectMonths}
 						</select>
 					</div>
 					<div className="col-sm-2">
-						<select className="form-control" id="dobDay" ref="dobDay" data-validation='isNumber' name="dobDay" onChange={this.props.changeValue.bind(null,'dobDay', 'transaction', 1)} value={dobDay} data-isRequired>
+						<select
+							id="dobDay"
+							ref="dobDay"
+							name="dobDay"
+							value={dobDay}
+							data-isRequired
+							className="form-control"
+							data-validation='isNumber'
+							onChange={this.props.changeValue.bind(null,'dobDay', 'transaction', 1)}
+						>
 							{selectDays}
 						</select>
 					</div>
 					<div className="col-sm-4">
-						<select className="form-control" id="dobYear" ref="dobYear" data-validation='isNumber' name="dobYear" onChange={this.props.changeValue.bind(null,'dobYear', 'transaction', 1)} value={dobYear} data-isRequired>
+						<select
+							id="dobYear"
+							ref="dobYear"
+							name="dobYear"
+							value={dobYear}
+							data-isRequired
+							className="form-control"
+							data-validation='isNumber'
+							onChange={this.props.changeValue.bind(null,'dobYear', 'transaction', 1)}
+						>
 							{selectYears}
 						</select>
 					</div>

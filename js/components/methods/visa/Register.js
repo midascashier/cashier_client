@@ -1,13 +1,13 @@
 import React from 'react'
-import { Input } from '../../Inputs'
-import { translate } from '../../../constants/Translate'
+import {Input} from '../../Inputs'
+import {ExtraInfo} from './ExtraInfo'
 import cashier from '../../../constants/Cashier'
-import { CashierStore } from '../../../stores/CashierStore'
-import { CashierActions } from '../../../actions/CashierActions'
-import { UIService } from '../../../services/UIService'
-import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
-import { ExtraInfo } from './ExtraInfo'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {CashierActions} from '../../../actions/CashierActions'
+import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
 
 let Register = React.createClass({
 
@@ -25,42 +25,42 @@ let Register = React.createClass({
 	 *
 	 */
 	refreshLocalState() {
-		let country = CashierStore.getSelectedCountry();
 		let states = UIService.getCountryStates();
 		let customer = CashierStore.getCustomer();
+		let country = CashierStore.getSelectedCountry();
 
-		let firstName = customer.personalInformation.firstName ? customer.personalInformation.firstName : "";
-		let lastName = customer.personalInformation.lastName ? customer.personalInformation.lastName : "";
+		let ssn = customer.personalInformation.ssn ? customer.personalInformation.ssn : "";
 		let city = customer.personalInformation.city ? customer.personalInformation.city : "";
-		let address1 = customer.personalInformation.addressOne ? customer.personalInformation.addressOne : "";
-		let zip = customer.personalInformation.postalCode ? customer.personalInformation.postalCode : "";
 		let email = customer.personalInformation.email ? customer.personalInformation.email : "";
 		let phone = customer.personalInformation.phone ? customer.personalInformation.phone : "";
-		let ssn = customer.personalInformation.ssn ? customer.personalInformation.ssn : "";
+		let zip = customer.personalInformation.postalCode ? customer.personalInformation.postalCode : "";
+		let lastName = customer.personalInformation.lastName ? customer.personalInformation.lastName : "";
+		let firstName = customer.personalInformation.firstName ? customer.personalInformation.firstName : "";
+		let address1 = customer.personalInformation.addressOne ? customer.personalInformation.addressOne : "";
 		let customerState = customer.personalInformation.state ? customer.personalInformation.state : states[0]['Small'];
 
-		return {
+		return{
 			displaySaveButton: true,
 			payAccount: {
-				extra3: "",
-				account: "",
-				password: "",
+				dob: '',
+				ssn: ssn,
+				zip: zip,
+				city: city,
 				extra1: '',
 				extra2: '',
-				country: country,
-				state: customerState,
-				firstName: firstName,
-				lastName: lastName,
-				city: city,
-				address1: address1,
-				zip: zip,
+				extra3: '',
+				dobDay: '',
+				account: '',
+				dobYear: '',
+				dobMonth: '',
+				password: '',
 				email: email,
 				phone: phone,
-				ssn: ssn,
-				dobDay: "",
-				dobMonth: "",
-				dobYear: "",
-				dob: ""
+				country: country,
+				address1: address1,
+				lastName: lastName,
+				state: customerState,
+				firstName: firstName
 			}
 		}
 	},
@@ -71,20 +71,20 @@ let Register = React.createClass({
 	 * @private
 	 */
 	_onChange() {
-		let payAccount = this.state.payAccount;
-		let UI = CashierStore.getUI();
 		let displaySave = false;
+		let UI = CashierStore.getUI();
+		let payAccount = this.state.payAccount;
+
 		if(UI.userMessage){
 			displaySave = true;
 		}
-
 		if(!displaySave && this.state.displaySaveButton){
 			displaySave = true;
 		}
 
 		this.setState({
-			displaySaveButton: displaySave,
-			payAccount
+			payAccount,
+			displaySaveButton: displaySave
 		});
 	},
 
@@ -97,19 +97,16 @@ let Register = React.createClass({
      * @param event
      */
 	changeValue(propertyName, property = null, isSelectComponent = 0, event){
-		let actualState = this.state;
-
 		let value = event;
+		let actualState = this.state;
 
 		if(isSelectComponent){
 			value.target.style['border-color'] = '';
 			value = value.target.value;
 		}
-
 		if(propertyName == 'country'){
 			UIService.getCountryStates(value);
 		}
-
 		if(propertyName == 'extra3'){
 			CashierActions.showUserMessage('');
 		}
@@ -126,13 +123,16 @@ let Register = React.createClass({
 	 * checks if first and last name are part of cardHolder
 	 */
 	checkCardHolderName(){
-		let firstName = this.state.payAccount.firstName.toUpperCase();
 		let lastName = this.state.payAccount.lastName.toUpperCase();
 		let cardHolder = this.state.payAccount.extra3.toUpperCase();
+		let firstName = this.state.payAccount.firstName.toUpperCase();
+
 		if(cardHolder.indexOf(firstName) >= 0 && cardHolder.indexOf(lastName) >= 0){
 			return true
 		}
+
 		CashierActions.showUserMessage(translate('CARDHOLDER_NAME', 'ERROR'));
+
 		return false;
 	},
 
@@ -143,15 +143,12 @@ let Register = React.createClass({
 	 * @returns {boolean}
 	 */
 	addNewPayAccount(e){
-
 		if (!ApplicationService.emptyInput(e)) {
+			let actualState = this.state;
 
 			if(!this.checkCardHolderName()){
 				return false;
 			}
-
-			let actualState = this.state;
-
 			if(!this.state.dobDay){
 				actualState.payAccount.dobDay = e.target.querySelector('[name="dobDay"]').value;
 			}
@@ -162,12 +159,11 @@ let Register = React.createClass({
 				actualState.payAccount.dobYear = e.target.querySelector('[name="dobYear"]').value;
 			}
 
+			actualState.displaySaveButton = false;
+			actualState.payAccount.extra1 = ('0' + actualState.payAccount.extra1).slice(-2);
 			actualState.payAccount.dobDay = ('0' + actualState.payAccount.dobDay).slice(-2);
 			actualState.payAccount.dobMonth = ('0' + actualState.payAccount.dobMonth).slice(-2);
 			actualState.payAccount.dob = actualState.payAccount.dobYear + "-" + actualState.payAccount.dobMonth + "-" + this.state.payAccount.dobDay;
-			actualState.payAccount.extra1 = ('0' + actualState.payAccount.extra1).slice(-2);
-
-			actualState.displaySaveButton = false;
 
 			this.setState({
 				actualState
@@ -197,15 +193,13 @@ let Register = React.createClass({
 	},
 
 	render(){
-		let selectMonths = [];
-		let countries = UIService.getCountries();
-		let states = UIService.getCountryStates();
-		let selectYears = [];
-		let countryOptionNodes = [];
-		let now = new Date();
-		let processor = CashierStore.getProcessor();
-		let ccValidation = "isCreditNumber";
 		let cvvValidation = "isCVV";
+		let ccValidation = "isCreditNumber";
+
+		let ccDate = UIService.getCCDate();
+		let countriesInfo = UIService.getCountriesInfo();
+		let processor = CashierStore.getProcessor();
+
 		if(processor.processorId == cashier.PROCESSOR_ID_VISA){
 			ccValidation = "isVisa";
 		}else{
@@ -218,62 +212,64 @@ let Register = React.createClass({
 			}
 		}
 
-		selectMonths.push(UIService.renderOption({ label: '' }, ''));
-		selectYears.push(UIService.renderOption({ label: '' }, ''));
-
-		for(let i = 1; i < 13; i++){
-			selectMonths.push(UIService.renderOption({ label: i }, i));
-		}
-
-		for(let i = now.getFullYear(); i < now.getFullYear() + 15; i++){
-			selectYears.push(UIService.renderOption({ label: i }, i));
-		}
-
-		for(let i = 0; i < countries.length; i++){
-			countryOptionNodes.push(UIService.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
-		}
-
-		let stateOptionNodes = [];
-		for(let i = 0; i < states.length; i++){
-			stateOptionNodes.push(UIService.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
-		}
-
 		return (
 			<div id="visaRegister">
 				<form onSubmit={this.addNewPayAccount}>
-
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}:</label>
 						<div className="col-sm-8">
-							<Input type="text" id="ccName" ref="ccName" validate="isText"
-										 onChange={this.changeValue.bind(null, 'extra3', '', 0)} value={this.state.payAccount.extra3}
-										 require/>
+							<Input
+								type="text"
+								id="ccName"
+								ref="ccName"
+								validate="isText"
+								onChange={this.changeValue.bind(null, 'extra3', '', 0)} value={this.state.payAccount.extra3}
+								require
+							/>
 						</div>
 					</div>
 
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_NUMBER', 'Card Number')}:</label>
 						<div className="col-sm-8">
-							<Input type="text" id="creditCardNumber" ref="creditCardNumber" validate={ccValidation}
-										 onChange={this.changeValue.bind(null, 'account', '', 0)} value={this.state.payAccount.account}
-										 require/>
+							<Input
+								type="text"
+								id="creditCardNumber"
+								ref="creditCardNumber"
+								validate={ccValidation}
+								value={this.state.payAccount.account}
+								onChange={this.changeValue.bind(null, 'account', '', 0)}
+								require
+							/>
 						</div>
 					</div>
 
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
 						<div className="col-sm-4">
-							<select className="form-control" id="ccExpMonth" validate='isNumber'
-											onChange={this.changeValue.bind(null, 'extra1', '', 1)} value={this.state.payAccount.extra1}
-											data-validation="isNumber" data-isRequired>
-								{selectMonths}
+							<select
+								data-isRequired
+								id="ccExpMonth"
+								validate='isNumber'
+								className="form-control"
+								data-validation="isNumber"
+								value={this.state.payAccount.extra1}
+								onChange={this.changeValue.bind(null, 'extra1', '', 1)}
+							>
+								{ccDate.selectMonths}
 							</select>
 						</div>
 						<div className="col-sm-4">
-							<select className="form-control" id="ccExpYear" validate='isNumber'
-											onChange={this.changeValue.bind(null, 'extra2', '', 1)} value={this.state.payAccount.extra2}
-											data-validation="isNumber" data-isRequired>
-								{selectYears}
+							<select
+								id="ccExpYear"
+								data-isRequired
+								validate='isNumber'
+								className="form-control"
+								data-validation="isNumber"
+								value={this.state.payAccount.extra2}
+								onChange={this.changeValue.bind(null, 'extra2', '', 1)}
+							>
+								{ccDate.selectYears}
 							</select>
 						</div>
 					</div>
@@ -281,36 +277,60 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
 						<div className="col-sm-4">
-							<Input type="text" id="cvv" ref="cvv" validate={cvvValidation}
-										 onChange={this.changeValue.bind(null, 'password', '', 0)} value={this.state.payAccount.password}
-										 require/>
+							<Input
+								id="cvv"
+								ref="cvv"
+								type="text"
+								validate={cvvValidation}
+								value={this.state.payAccount.password}
+								onChange={this.changeValue.bind(null, 'password', '', 0)}
+								require
+							/>
 						</div>
 					</div>
 
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_FIRST_NAME', 'First Name')}:</label>
 						<div className="col-sm-8">
-							<Input type="text" name="firstName" id="firstName" ref="firstName" validate="isText"
-										 onChange={this.changeValue.bind(null, 'firstName', '', 0)} value={this.state.payAccount.firstName}
-										 require/>
+							<Input
+								type="text"
+								id="firstName"
+								ref="firstName"
+								name="firstName"
+								validate="isText"
+								value={this.state.payAccount.firstName}
+								onChange={this.changeValue.bind(null, 'firstName', '', 0)}
+								require
+							/>
 						</div>
 					</div>
 
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_LAST_NAME', 'Last Name')}:</label>
 						<div className="col-sm-8">
-							<Input type="text" id="lastName" ref="lastName" validate="isText"
-										 onChange={this.changeValue.bind(null, 'lastName', '', 0)} value={this.state.payAccount.lastName}
-										 require/>
+							<Input
+								type="text"
+								id="lastName"
+								ref="lastName"
+								validate="isText"
+								value={this.state.payAccount.lastName}
+								onChange={this.changeValue.bind(null, 'lastName', '', 0)}
+								require
+							/>
 						</div>
 					</div>
 
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_COUNTRY', 'Country')}:</label>
 						<div className="col-sm-8">
-							<select className="form-control" id="country" value={this.state.payAccount.country}
-											data-validation='isString' onChange={this.changeValue.bind(null, 'country', '', 1)}>
-								{countryOptionNodes}
+							<select
+								id="country"
+								className="form-control"
+								data-validation='isString'
+								value={this.state.payAccount.country}
+								onChange={this.changeValue.bind(null, 'country', '', 1)}
+							>
+								{countriesInfo.countries}
 							</select>
 						</div>
 					</div>
@@ -318,10 +338,15 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_STATE', 'State')}:</label>
 						<div className="col-sm-8">
-							<select className="form-control" id="countryState" value={this.state.payAccount.state}
-											data-validation='isString' onChange={this.changeValue.bind(null, 'state', '', 1)}
-											disabled={!states.length}>
-								{stateOptionNodes}
+							<select
+								id="countryState"
+								className="form-control"
+								data-validation='isString'
+								value={this.state.payAccount.state}
+								disabled={!countriesInfo.states.length}
+								onChange={this.changeValue.bind(null, 'state', '', 1)}
+							>
+								{countriesInfo.states}
 							</select>
 						</div>
 					</div>
@@ -329,8 +354,15 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_CITY', 'City')}:</label>
 						<div className="col-sm-8">
-							<Input type="text" id="city" ref="city" validate="isString"
-										 onChange={this.changeValue.bind(null, 'city', '', 0)} value={this.state.payAccount.city} require/>
+							<Input
+								id="city"
+								ref="city"
+								type="text"
+								validate="isString"
+								value={this.state.payAccount.city}
+								onChange={this.changeValue.bind(null, 'city', '', 0)}
+								require
+							/>
 						</div>
 					</div>
 
@@ -356,7 +388,6 @@ let Register = React.createClass({
 								id="zip"
 								ref="zip"
 								type="text"
-								validate="isNumber"
 								value={this.state.payAccount.zip}
 								onChange={this.changeValue.bind(null, 'zip', '', 0)}
 								require
@@ -405,9 +436,11 @@ let Register = React.createClass({
 					<div className="col-md-4 col-md-offset-4">
 						<div className="row">
 							<div className="col-sm-6">
-								{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>
-									{translate('PROCESSING_BUTTON_SAVE', 'Save')}
-								</button> : null }
+								{this.state.displaySaveButton ?
+									<button type='submit' className='btn btn-green'>
+										{translate('PROCESSING_BUTTON_SAVE', 'Save')}
+									</button>
+								: null}
 							</div>
 							<div className="col-sm-6">
 								<button type='button' onClick={this.cancel} className='btn btn-green'>

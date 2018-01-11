@@ -1,16 +1,16 @@
 import React from 'react'
+import {Register} from './Register'
 import  cashier  from '../../../constants/Cashier'
-import { translate } from '../../../constants/Translate'
-import { AmountController } from '../../AmountController'
-import { UIService } from '../../../services/UIService'
-import { CustomerService } from '../../../services/CustomerService'
-import { FeeController } from '../../FeeController'
-import { PayAccountDropDown } from '../../commonComponents/payaccount/payAccountDropDown'
-import { Register } from './Register'
+import {FeeController} from '../../FeeController'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {AmountController} from '../../AmountController'
+import {CustomerService} from '../../../services/CustomerService'
+import {PayAccountDropDown} from '../../commonComponents/payaccount/PayAccountDropDown'
 
 let AskInfo = React.createClass({
 
-	propTypes: {
+	propTypes:{
 		transactionAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number,
@@ -19,7 +19,7 @@ let AskInfo = React.createClass({
 		payAccount: React.PropTypes.node
 	},
 
-	componentWillMount() {
+	componentWillMount(){
 		this.state = {
 			errorMessage: null
 		}
@@ -30,26 +30,26 @@ let AskInfo = React.createClass({
 	 *
 	 * @returns {*}
      */
-	getProps() {
+	getProps(){
 		return this.props
 	},
 
 	/**
 	 * Disable selected payAccount
 	 */
-	disablePayAccount() {
+	disablePayAccount(){
 		CustomerService.getDisablePayAccount();
 	},
 
-	render() {
-		let setAmount = this.props.setAmount;
+	render(){
 		let amount = this.props.amount;
-		let limitsCheck = this.props.limitsCheck;
-		let payAccount = this.props.payAccount;
-		let payAccountId = payAccount.payAccountId;
-		let payAccountDisplayName = payAccount.displayName;
 		let feeCheck = this.props.feeCheck;
+		let setAmount = this.props.setAmount;
+		let payAccount = this.props.payAccount;
+		let limitsCheck = this.props.limitsCheck;
+		let payAccountId = payAccount.payAccountId;
 		let feeCashValue = this.props.feeCashValue;
+		let payAccountDisplayName = payAccount.displayName;
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
 
 		let withdrawFee = "";
@@ -81,7 +81,12 @@ let AskInfo = React.createClass({
 
 										return(
 											<div>
-												<PayAccountDropDown info={this.getProps()}/>
+												<PayAccountDropDown
+													info={payAccount}
+													amount={this.props.amount}
+													setAmount={this.props.setAmount}
+												/>
+
 												<div className="form-group">
 													<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 												</div>

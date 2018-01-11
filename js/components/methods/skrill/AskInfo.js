@@ -6,7 +6,7 @@ import {PromoCode} from '../../PromoCode'
 import {UIService} from '../../../services/UIService'
 import {Register} from './Register.js'
 import {CustomerService} from '../../../services/CustomerService'
-import { PayAccountDropDown } from '../../commonComponents/payaccount/payAccountDropDown'
+import { PayAccountDropDown } from '../../commonComponents/payaccount/PayAccountDropDown'
 
 let AskInfo = React.createClass({
 
@@ -74,7 +74,11 @@ let AskInfo = React.createClass({
 
 									return (
 										<div>
-											<PayAccountDropDown info={this.getProps()}/>
+											<PayAccountDropDown
+												info={payAccount}
+												amount={this.props.amount}
+												setAmount={this.props.setAmount}
+											/>
 											<div className="form-group">
 												<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 											</div>

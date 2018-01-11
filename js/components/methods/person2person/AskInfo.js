@@ -5,7 +5,7 @@ import { AmountController } from '../../AmountController'
 import { UIService } from '../../../services/UIService'
 import { Register } from './Register.js'
 import { FeeController } from '../../FeeController'
-import { PayAccountDropDown } from '../../commonComponents/payaccount/payAccountDropDown'
+import { PayAccountDropDown } from '../../commonComponents/payaccount/PayAccountDropDown'
 
 let AskInfo = React.createClass({
 
@@ -112,7 +112,12 @@ let AskInfo = React.createClass({
 
 									return (
 										<div>
-											<PayAccountDropDown info={this.getProps()} msgDeleteBtn={deleteButton}/>
+											<PayAccountDropDown
+												info={payAccount}
+												amount={this.props.amount}
+												msgDeleteBtn={deleteButton}
+												setAmount={this.props.setAmount}
+											/>
 											{depositTimeToSend}
 											<div className="form-group">
 												<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>

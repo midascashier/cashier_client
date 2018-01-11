@@ -566,6 +566,68 @@ class UiService {
 		let rabbitRequest = Object.assign(data, application);
 		ConnectorServices.makeBackendRequest(actions.GET_PACIFIC_TIME_HOUR_RESPONSE, rabbitRequest);
 	}
+
+	/**
+	 * Get months and years after the current date to use in CC expire date
+	 *
+	 * @returns {{selectMonths: Array, selectYears: Array}}
+     */
+	getCCDate(){
+		let now = new Date();
+		let selectYears = [];
+		let selectMonths = [];
+		selectYears.push(UIService.renderOption({ label: '' }, ''));
+		selectMonths.push(UIService.renderOption({ label: '' }, ''));
+
+		for(let i = 1; i < 13; i++){
+			i = ('0' + i).slice(-2);
+			selectMonths.push(UIService.renderOption({ label: i }, i));
+		}
+
+		for(let i = now.getFullYear(); i < now.getFullYear() + 15; i++){
+			selectYears.push(UIService.renderOption({ label: i }, i));
+		}
+
+		return {
+			selectMonths: selectMonths,
+			selectYears: selectYears
+		}
+	}
+
+	/**
+	 * Get countries and list of states to use in location information
+	 *
+	 * @returns {{states: Array, countries: Array}}
+     */
+	getCountriesInfo(){
+		let stateOptionNodes = [];
+		let countryOptionNodes = [];
+		let countries = UIService.getCountries();
+		let states = UIService.getCountryStates();
+
+		for(let i = 0; i < countries.length; i++){
+			countryOptionNodes.push(UIService.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
+		}
+
+		for(let i = 0; i < states.length; i++){
+			stateOptionNodes.push(UIService.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
+		}
+
+		return{
+			states: stateOptionNodes,
+			countries: countryOptionNodes
+		}
+	}
+
+	/**
+	 * Check if the current selected processor is of type CC
+	 * 
+	 * @returns {boolean}
+     */
+	isCC(){
+		let processor = CashierStore.getProcessor();
+		return (processor.processorClass == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS);
+	}
 }
 
 export let UIService = new UiService();
