@@ -7,7 +7,7 @@ import { UIService } from '../../../services/UIService'
 import { Register } from './Register.js'
 import { LoadingSpinner } from '../../loading/LoadingSpinner'
 import { FeeController } from '../../FeeController'
-import { PayAccountDropDown } from '../../commonComponents/payaccount/payAccountDropDown'
+import { PayAccountDropDown } from '../../commonComponents/payaccount/PayAccountDropDown'
 
 let AskInfo = React.createClass({
 
@@ -108,7 +108,11 @@ let AskInfo = React.createClass({
 
 									return (
 										<div className="scroll">
-											<PayAccountDropDown info={this.getProps()}/>
+											<PayAccountDropDown
+												info={payAccount}
+												amount={this.props.amount}
+												setAmount={this.props.setAmount}
+											/>
 											{deposit}
 											{netellerForm}
 										</div>

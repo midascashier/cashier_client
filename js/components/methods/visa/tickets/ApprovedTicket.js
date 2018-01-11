@@ -61,7 +61,7 @@ let VisaApprovedTicket = React.createClass({
 		let balance = this.state.balance;
 		let descriptor = this.state.descriptor;
 
-		return (
+		return(
 			<div className="internal-content" id="visaApprovedTicket">
 				<div className="row">
 					<div className="col-sm-6">
@@ -87,4 +87,3 @@ let VisaApprovedTicket = React.createClass({
 });
 
 module.exports.VisaApprovedTicket = VisaApprovedTicket;
-

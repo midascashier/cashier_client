@@ -1,13 +1,13 @@
 import React from 'react'
-import { CashierActions } from './../actions/CashierActions'
-import { CashierStore } from './../stores/CashierStore'
 import { translate } from '../constants/Translate'
+import { CashierStore } from './../stores/CashierStore'
+import { CashierActions } from './../actions/CashierActions'
 
 let SelectPayAccount = React.createClass({
 
 	propTypes: {
-		setAmount: React.PropTypes.func,
-		amount: React.PropTypes.node
+		amount: React.PropTypes.node,
+		setAmount: React.PropTypes.func
 	},
 
 	/**
@@ -62,9 +62,7 @@ let SelectPayAccount = React.createClass({
 		let optionNodes = [];
 		let defaultValue = "";
 		let renderOption = function(item, key){
-			return (
-				<option key={key} value={key}>{item.label}</option>
-			)
+			return <option key={key} value={key}>{item.label}</option>
 		};
 		let payAccounts = this.state.payAccounts;
 
@@ -75,12 +73,12 @@ let SelectPayAccount = React.createClass({
 					optionNodes.push(renderOption({ label: payAccounts[index].displayName }, index));
 				}
 			}
-		} else{
+		}else{
 			defaultValue = "";
 			optionNodes.push(renderOption({ label: translate('LOADING', 'loading') }, -1));
 		}
 
-		return (
+		return(
 			<select ref="element" className="form-control" value={defaultValue} onChange={this.changeValue}>
 				{optionNodes}
 			</select>

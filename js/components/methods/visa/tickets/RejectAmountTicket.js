@@ -92,7 +92,6 @@ let VisaRejectAmountTicket = React.createClass({
 	},
 
 	render() {
-
 		let currency = this.state.currency;
 		let currencyAmount = this.state.currencyAmount;
 		let transactionAmount = this.state.transactionAmount;
