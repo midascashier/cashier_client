@@ -169,6 +169,8 @@ let _langTags = {
 	CREDIT_CARD_QUICK_FIX: "Quick fix...",
 	CREDIT_CARD_QUICK_FIX_INFO: "Your credit card was not recognized because of incorrect information. Please double-check the information below and make sure it's all correct. After that, we can get you to the poker tables with your stack of chips. Say when...",
 	CREDIT_CARD_DEPOSIT_SUCCESSFUL: "<div className='title'>Your {currencyAmount} deposit was successful.</div><p>This charge will show up on your statement as <strong>{descriptor}</strong>.</p><p>Your balance is now {currencyFormat}</p><p>An email has been sent to {email} with the transaction details.</p>",
+	CREDIT_CARD_DEPOSIT_REJECTED: "<p>Your credit card told us	<strong>{currencyFormat}</strong> puts you over the credit limit.</p><p>What smaller amount would you like to deposit?</p>",
+
 	P2P_TITLE_INFO_DEPOSIT: "Please Enter the Sender's Information",
 	P2P_TITLE_INFO_WITHDRAW: "Please Enter the Receiver's Information",
 	P2P_INSTRUCTIONS: "Now send your funds.",

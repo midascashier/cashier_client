@@ -1,8 +1,8 @@
 import React from 'react'
 import { translate } from '../../../../constants/Translate'
 import { UIService } from '../../../../services/UIService'
-import { TransactionService } from '../../../../services/TransactionService'
 import { CashierStore } from '../../../../stores/CashierStore'
+import { TransactionService } from '../../../../services/TransactionService'
 import { ApplicationService } from '../../../../services/ApplicationService'
 
 let VisaRejectAmountTicket = React.createClass({
@@ -38,14 +38,14 @@ let VisaRejectAmountTicket = React.createClass({
 	/**
 	 * component is ready
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	},
 
@@ -54,7 +54,7 @@ let VisaRejectAmountTicket = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -68,7 +68,7 @@ let VisaRejectAmountTicket = React.createClass({
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
@@ -77,7 +77,7 @@ let VisaRejectAmountTicket = React.createClass({
 	 *
 	 * @param event
 	 */
-	changeValue(event) {
+	changeValue(event){
 		let amount = event.currentTarget.value;
 		TransactionService.setAmount(amount);
 
@@ -91,37 +91,36 @@ let VisaRejectAmountTicket = React.createClass({
 		}
 	},
 
-	render() {
+	render(){
 
+		let tags = [];
+		let limits = this.state.limits;
 		let currency = this.state.currency;
 		let currencyAmount = this.state.currencyAmount;
 		let transactionAmount = this.state.transactionAmount;
-		let limits = this.state.limits;
+		tags['currencyFormat'] = ApplicationService.currency_format(transactionAmount) + ' ' + currency;
+		let content = translate('CREDIT_CARD_DEPOSIT_REJECTED', '', tags);
 
-		return (
+		return(
 			<div id="visaRejectAmountTicket">
 				<div className="title">Quick fix...</div>
 				<div className="col-sm-12">
-				<p>Your credit card told us	<strong>{ApplicationService.currency_format(transactionAmount) + ' ' + currency}</strong> puts you over
-					the credit limit.</p>
-				<p>What smaller amount would you like to deposit?</p>
-				<br />
-				<div className="row">
-					<div className="form-group col-md-6 col-md-offset-3">
-						<label for="">Enter a Smaller Deposit Amount:</label>
-						<input type="number" id="amount" className="form-control center-block" value={currencyAmount}
-									 onChange={this.changeValue}/>
-						<small>{translate('PROCESSING_MIN', 'Min')}: {ApplicationService.currency_format(limits.minAmount) + ' ' + currency}
-							- Max: Check your credit card limit.
-						</small>
+					<p dangerouslySetInnerHTML={{__html: content}}/>
+					<br/>
+					<div className="row">
+						<div className="form-group col-md-6 col-md-offset-3">
+							<label for="">{translate('')}</label>
+							<input type="number" id="amount" className="form-control center-block" value={currencyAmount}
+							onChange={this.changeValue}/>
+							<small>{translate('PROCESSING_MIN', 'Min')}: {ApplicationService.currency_format(limits.minAmount) + ' ' + currency} - Max: Check your credit card limit.</small>
+						</div>
 					</div>
+					<br />
+					<button type="button" className="btn btn-green" disabled={!this.state.enableReprocess} onClick={this.reProcessTransaction}>
+						Complete this deposit
+					</button>
+					<p><a onClick={this.setFirstStep}>No thanks. I'll deposit a different way.</a></p>
 				</div>
-				<br />
-				<button type="button" className="btn btn-green" disabled={!this.state.enableReprocess}
-								onClick={this.reProcessTransaction}>Complete this deposit
-				</button>
-				<p><a onClick={this.setFirstStep}>No thanks. I'll deposit a different way.</a></p>
-			</div>
 			</div>
 		)
 	}
