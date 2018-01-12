@@ -278,7 +278,18 @@ let _langTags = {
 	CRYPTO_INSTRUCTIONS_ADDRESS_INFO: "Por favor incluya el cargo del minero en {cryptoCurrency} cargos de billetera.",
 	CRYPTO_MONERO_MESSAGE : "Si ingresa una dirección de reembolso de Monero, NO use una dirección de un intercambio o una billetera compartida que requiera una identificación de pago. Solo use una dirección de reembolso de una billetera que controle, que no requiere una identificación de pago.",
 	CRYPTO_EXPIRED_SESSION_MSG : 'Su sesión ha expirado debido a inactividad. Por favor, vuelva a iniciar sesión para continuar usando nuestro cajero.',
-	CRYPTO_INSTRUCTIONS_PROCESS_INSIDE: "Las retiradas de Crypto Transfer se procesarán dentro de las 24 horas, pero normalmente se procesan dentro de una hora."
+	CRYPTO_INSTRUCTIONS_PROCESS_INSIDE: "Las retiradas de Crypto Transfer se procesarán dentro de las 24 horas, pero normalmente se procesan dentro de una hora.",
+
+	//resources
+	CC_LIMIT_ERROR_COUNT: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i><strong>{displayName}</strong> - <span>La tarjeta seleccionada ha alcanzado el máximo número de transacciones permitido por nosotros. Por favor intente otra tarjeta</span></div>',
+	CC_LIMIT_ERROR_COUNT_TIME_SPAN: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i><strong>{displayName}</strong> - <span>La tarjeta seleccionada ha alcanzado el máximo número de transacciones permitido por nosotros. Estará disponible de nuevo en: <strong>{remaining} minuto(s)</strong></span></div>',
+	CC_LIMIT_ERROR_AMOUNT: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i><strong>{displayName}</strong> - <span>La tarjeta seleccionada ha alcanzado nuestro límite permitido. Por favor intente otra tarjeta</span></div>',
+	CC_LIMIT_ERROR_NUM_CC: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i><span>Usted ha excedido el número máximo de tarjetas permitidas con nosotros. Por favor seleccione una registrada anteriormente</span></div>',
+	CC_LIMIT_ERROR_OTHER: '',
+	CC_LIMIT_AVAILABLE: '<div class="alert alert-success" role="alert"><i class="fa fa-check"></i><strong>{displayName}</strong> - <span>available:</span><strong> {available} {currencyCode}</strong></div>',
+	CC_LIMIT_BELOW_MIN: '<div class="alert alert-danger" role="alert"><i class="fa fa-ban"></i><span>Our minimum deposit amount is {minAmount} {currencyCode}</span></div>',
+	CC_LIMIT_ABOVE_MAX: '<div class="alert alert-danger" role="alert"><i class="fa fa-ban"></i><span>Our maximum deposit amount is {maxAmount} {currencyCode}</span></div>',
+	CC_LIMIT_ABOVE_AVAILABLE: '<div class="alert alert-info" role="alert"><i class="fa fa-ban"></i><strong>{displayName}</strong> - <span>The maximum amount available for this card is {available} {currencyCode}</span></div>',
 };
 
 export function ES(){

@@ -8,6 +8,7 @@ import {CashierActions} from '../actions/CashierActions'
 import {TransactionService} from './TransactionService'
 import {ApplicationService} from './ApplicationService'
 import {ConnectorServices} from './ConnectorServices'
+import {translate} from '../constants/Translate'
 
 class UiService {
 
@@ -270,6 +271,7 @@ class UiService {
 		let payAccount = CashierStore.getCurrentPayAccount();
 		let limitsData = CashierStore.getCurrentPayAccountLimit();
 
+		limitsData.displayName = payAccount.displayName;
 		limitsData.payAccountId = payAccount.payAccountId;
 		limitsData.available = Number(limitsData.available);
 		limitsData.availableWithdraw = Number(limitsData.availableWithdraw);
@@ -306,6 +308,8 @@ class UiService {
 
 		let minPayAccount = processorLimits.minAmount;
 		let maxPayAccount = processorLimits.maxAmount;
+		let limitError = "";
+		let limits = {};
 
 		if(payAccountLimits.payAccountId > 0){
 
@@ -321,17 +325,42 @@ class UiService {
 				remaining = 0;
 			}
 			remaining = remaining + " " + currencyCode;
+
+			//limitError += translate('CC_LIMIT_AVAILABLE', '', payAccountLimits);
+			//limitError += translate('CC_LIMIT_BELOW_MIN', '', payAccountLimits);
+			//limitError += translate('CC_LIMIT_ABOVE_MAX', '', payAccountLimits);
+
+			if(!payAccountLimits.enabled){
+				let limitRemaining = payAccountLimits.remaining + 1;
+				switch(payAccountLimits.type.toUpperCase()){
+					case 'COUNT':
+						if(limitRemaining <= 59){
+							limitError += translate('CC_LIMIT_ERROR_COUNT_TIME_SPAN', '', payAccountLimits);
+						}else{
+							limitError += translate('CC_LIMIT_ERROR_COUNT', '', payAccountLimits);
+						}
+						break;
+					case 'AMOUNT':
+						limitError += translate('CC_LIMIT_ERROR_AMOUNT', '', payAccountLimits);
+						break;
+					case 'NUMCC':
+						limitError += translate('CC_LIMIT_ERROR_NUM_CC', '', payAccountLimits);
+						break;
+				}
+			}
+
+			//limitError += translate('CC_LIMIT_ABOVE_AVAILABLE', '', payAccountLimits);
 		}
 
-		let limits = {
-			minPayAccount: ApplicationService.currency_format(minPayAccount)+ " " + currencyCode,
-			maxPayAccount: ApplicationService.currency_format(maxPayAccount)+ " " + currencyCode,
-			payAccountId: payAccountLimits.payAccountId,
-			remaining: ApplicationService.currency_format(remaining)+ " " + currencyCode,
-			currencyCode: currencyCode,
-			enabled: (payAccountLimits.enabled),
-			enabledOn: payAccountLimits.enabledOn
-		};
+		limits.minPayAccount = ApplicationService.currency_format(minPayAccount) + " " + currencyCode;
+		limits.maxPayAccount = ApplicationService.currency_format(maxPayAccount) + " " + currencyCode;
+		limits.payAccountId = payAccountLimits.payAccountId;
+		limits.remaining = ApplicationService.currency_format(remaining) + " " + currencyCode;
+		limits.currencyCode = currencyCode;
+		limits.available = (payAccountLimits.available);
+		limits.enabled = (payAccountLimits.enabled);
+		limits.enabledOn = payAccountLimits.enabledOn;
+		limits.errorLimitMessage = limitError;
 
 		return limits;
 	}

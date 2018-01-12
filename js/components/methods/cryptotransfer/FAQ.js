@@ -124,7 +124,7 @@ let FAQ = React.createClass({
                     <p>No, you need to create a new address for every deposit.</p>
 
                     <p><strong>What are the deposit limits?</strong></p>
-                    <p><li>Minimum deposit = $100</li>
+                    <p><li>Minimum deposit = $150</li>
                         <li>Maximum deposit = $2500</li>
                     </p>
 

@@ -14,15 +14,17 @@ import { ES } from './language/ES'
  * @returns {*}
  */
 export function translate(key, defaultText = '', tags = {}){
-	var currentLang = CashierStore.getLanguage();
+	let currentLang = CashierStore.getLanguage();
+	let langTags = {};
+
 	switch(currentLang){
 		case "ES":
-			var langTags = ES();
+			langTags = ES();
 			break;
 		default:
-			var langTags = EN();
+			langTags = EN();
 	}
-	var content = langTags[key];
+	let content = langTags[key];
 	content = (content) ? content : defaultText;
 	content = (content) ? content : key;
 
@@ -32,4 +34,4 @@ export function translate(key, defaultText = '', tags = {}){
 	});
 
 	return content;
-};
+}
