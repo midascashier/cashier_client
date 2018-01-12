@@ -1,6 +1,7 @@
 import React from 'react'
-import { ApplicationService } from '../services/ApplicationService'
-import { inputsErrorMsgs } from '../constants/inputsErrorMsgs'
+import {UIService} from '../services/UIService'
+import {inputsErrorMsgs} from '../constants/inputsErrorMsgs' //TODO add message error types in the input validation
+import {ApplicationService} from '../services/ApplicationService'
 
 let Input = React.createClass({
 
@@ -36,7 +37,15 @@ let Input = React.createClass({
 	 */
 	validateData(e){
 		let isValid;
-		if(!ApplicationService.validateInfo(e, this.props.validate)){
+		let validate;
+		if(this.props.validate == 'rgxValidate'){
+			let rgx = UIService.getZipCodeRegex();
+			validate = ApplicationService.validateInfo(e, this.props.validate, rgx);
+		}else{
+			validate = ApplicationService.validateInfo(e, this.props.validate);
+		}
+
+		if(!validate){
 			let errorMessage = "Invalid Data";
 			switch(this.props.id){
 				case "ccName":
@@ -122,7 +131,7 @@ let Input = React.createClass({
 		}
 	},
 
-	render() {
+	render(){
 		let require = 0;
 		if(typeof this.props.require != "undefined"){
 			require = 1;

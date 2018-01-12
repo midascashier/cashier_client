@@ -599,6 +599,15 @@ class UiService {
 		let processor = CashierStore.getProcessor();
 		return (processor.processorClass == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS);
 	}
+
+	/**
+	 * Get regex for validate zip code from current country
+	 *
+	 * @returns {*|string}
+     */
+	getZipCodeRegex(){
+		return CashierStore.getZipCountryRegex();
+	}
 }
 
 export let UIService = new UiService();

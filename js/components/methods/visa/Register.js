@@ -143,7 +143,10 @@ let Register = React.createClass({
 	 * @returns {boolean}
 	 */
 	addNewPayAccount(e){
-		if (!ApplicationService.emptyInput(e)) {
+		let rgx = [];
+		rgx['zip'] = UIService.getZipCodeRegex();
+
+		if (!ApplicationService.emptyInput(e, rgx)) {
 			let actualState = this.state;
 
 			if(!this.checkCardHolderName()){
@@ -194,11 +197,11 @@ let Register = React.createClass({
 
 	render(){
 		let cvvValidation = "isCVV";
+		let zipValidation = "isNumber";
 		let ccValidation = "isCreditNumber";
-
 		let ccDate = UIService.getCCDate();
-		let countriesInfo = UIService.getCountriesInfo();
 		let processor = CashierStore.getProcessor();
+		let countriesInfo = UIService.getCountriesInfo();
 
 		if(processor.processorId == cashier.PROCESSOR_ID_VISA){
 			ccValidation = "isVisa";
@@ -212,7 +215,12 @@ let Register = React.createClass({
 			}
 		}
 
-		return (
+		let country = this.state.payAccount.country;
+		if(country == cashier.USA_COUNTRY_CODE || country == cashier.CAN_COUNTRY_CODE){
+			zipValidation = 'rgxValidate';
+		}
+
+		return(
 			<div id="visaRegister">
 				<form onSubmit={this.addNewPayAccount}>
 					<div className="form-group">
@@ -388,6 +396,7 @@ let Register = React.createClass({
 								id="zip"
 								ref="zip"
 								type="text"
+								validate={zipValidation}
 								value={this.state.payAccount.zip}
 								onChange={this.changeValue.bind(null, 'zip', '', 0)}
 								require

@@ -36,7 +36,8 @@ let _UI = {
 	currencies: [],
 	connectionError: 0,
 	userMessage: '',
-	ccEdit: 0
+	ccEdit: 0,
+	zipCountryRegex: ''
 };
 
 /**
@@ -635,6 +636,15 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	waitLimits(){
 		_processor.waitLimits = true;
+	},
+
+	/**
+	 * Get regex for validate zip code from current country
+	 *
+	 * @returns {string}
+     */
+	getZipCountryRegex(){
+		return _UI.zipCountryRegex;
 	}
 });
 
@@ -725,6 +735,14 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 			case actions.COUNTRIES_RESPONSE:
 				_UI.countries = data.response.countries;
+				_UI.countries.filter(function (country) {
+					if(country.ZipCodeRegex){
+						if(country.Small == _UI.selectedCountry){
+							_UI.zipCountryRegex = country.ZipCodeRegex;
+						}
+					}
+				});
+				
 				break;
 
 			case actions.CHANGE_APPLICATION_SELECTED_COUNTRY:

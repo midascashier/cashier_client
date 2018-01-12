@@ -110,9 +110,10 @@ class applicationService {
 	 * Checking if any input data in form is empty and mark this input
 	 *
 	 * @param input
+	 * @param rgxSpecial
 	 * @returns {boolean}
      */
-	emptyInput(input) {
+	emptyInput(input, rgxSpecial = null) {
 		input.preventDefault();
 
 		for(let i = 0; i < input.target.length; i++){
@@ -124,7 +125,16 @@ class applicationService {
 					return true;
 				}
 
-				if(!this.validateInfo(input.target[i].value, input.target[i].getAttribute('data-validation')) && input.target[i].value.length > 0 ){
+				let validate;
+				let dataValidate = input.target[i].getAttribute('data-validation');
+				if(dataValidate == 'rgxValidate'){
+					let rgx = input.target[i].getAttribute('id');
+					validate = this.validateInfo(input.target[i].value, dataValidate, rgxSpecial[rgx]);
+				}else{
+					validate = this.validateInfo(input.target[i].value, dataValidate);
+				}
+
+				if(!validate && input.target[i].value.length > 0 ){
 					input.target[i].style['border-color'] = 'red';
 					input.target[i].focus();
 					return true;
@@ -140,9 +150,10 @@ class applicationService {
 	 *
 	 * @param value
 	 * @param type
-	 * @returns {*}
-	 */
-	validateInfo(value, type){
+	 * @param rgx
+     * @returns {*}
+     */
+	validateInfo(value, type, rgx = null){
 		if (!type){
 			type = "isString";
 		}
@@ -161,9 +172,15 @@ class applicationService {
 		regExp['isText'] = { text: /^([^0-9]*)$/};
 		regExp['password'] = { string: /^.{5,}$/ };
 		regExp['isControlNumber'] = { MG: /^[0-9]{8}$/, WU: /^[0-9]{10}$/, RIA: /^[0-9]{11}$/ };
+		regExp['rgxValidate'] = {rgxValidate: rgx};
 
 		let isValid;
 		for(let regExpOpt in regExp[type]){
+
+			if(rgx){
+				regExp[type][regExpOpt] = rgx.split('/').join('');
+			}
+
 			let validationRegExp = new RegExp(regExp[type][regExpOpt]);
 			if(validationRegExp.test(value)){
 				isValid = true;
