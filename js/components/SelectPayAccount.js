@@ -1,7 +1,8 @@
 import React from 'react'
-import { translate } from '../constants/Translate'
-import { CashierStore } from './../stores/CashierStore'
-import { CashierActions } from './../actions/CashierActions'
+import {translate} from '../constants/Translate'
+import {CashierStore} from './../stores/CashierStore'
+import {CashierActions} from './../actions/CashierActions'
+import {TransactionService} from './../services/TransactionService'
 
 let SelectPayAccount = React.createClass({
 
@@ -24,7 +25,7 @@ let SelectPayAccount = React.createClass({
 	 *
 	 * @returns {{processor: (*|{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}), payAccounts: *, currentPayAccount: *}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			processor: CashierStore.getProcessor(),
 			payAccounts: CashierStore.getProcessorPayAccount(),
@@ -37,7 +38,7 @@ let SelectPayAccount = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -46,11 +47,15 @@ let SelectPayAccount = React.createClass({
 	 *
 	 * @param event
 	 */
-	changeValue(event) {
+	changeValue(event){
 		let processorID = this.state.processor.processorId;
 		let payAccountID = event.currentTarget.value;
 		this.props.setAmount(this.props.amount);
 		CashierActions.changePayAccount(payAccountID, processorID);
+
+		if(payAccountID > 0){
+			TransactionService.getPayAccountLimits(payAccountID);
+		}
 	},
 
 	/**
@@ -58,7 +63,7 @@ let SelectPayAccount = React.createClass({
 	 *
 	 * @returns {*|XML}
 	 */
-	render() {
+	render(){
 		let optionNodes = [];
 		let defaultValue = "";
 		let renderOption = function(item, key){
@@ -69,16 +74,16 @@ let SelectPayAccount = React.createClass({
 		if(payAccounts){
 			defaultValue = this.state.currentPayAccount.payAccountId;
 			for(let index in payAccounts){
-				if (payAccounts[index].displayName){
-					optionNodes.push(renderOption({ label: payAccounts[index].displayName }, index));
+				if(payAccounts[index].displayName){
+					optionNodes.push(renderOption({label: payAccounts[index].displayName}, index));
 				}
 			}
 		}else{
 			defaultValue = "";
-			optionNodes.push(renderOption({ label: translate('LOADING', 'loading') }, -1));
+			optionNodes.push(renderOption({label: translate('LOADING', 'loading')}, -1));
 		}
 
-		return(
+		return (
 			<select ref="element" className="form-control" value={defaultValue} onChange={this.changeValue}>
 				{optionNodes}
 			</select>
@@ -89,14 +94,14 @@ let SelectPayAccount = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

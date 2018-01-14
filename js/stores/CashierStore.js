@@ -887,14 +887,31 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				CashierStore.emitChange();
 				break;
 
+			case actions.GET_PAY_ACCOUNT_LIMITS_RESPONSE:
+				if(data.response && data.response.payAccount){
+					let payAccountData = data.response.payAccount;
+					if(payAccount && _payAccount.payAccountId){
+						_payAccount.limitsData = payAccountData.limitsData;
+						_payAccount.limitsData.available = Math.floor(payAccountData.limitsData.available);
+						_payAccount.limitsData.availableWithdraw = Math.floor(payAccountData.limitsData.availableWithdraw);
+						_payAccount.limitsData.maxAmount = Math.floor(payAccountData.limitsData.maxAmount);
+						_payAccount.limitsData.maxAmountWithdraw = Math.floor(payAccountData.limitsData.maxAmountWithdraw);
+						_payAccount.limitsData.minAmount = Math.ceil(payAccountData.limitsData.minAmount);
+						_payAccount.limitsData.minAmountWithdraw = Math.ceil(payAccountData.limitsData.minAmountWithdraw);
+					}
+				}
+				CashierStore.emitChange();
+				break;
+
 			case actions.PROCESSORS_LIMIT_MIN_MAX_RESPONSE:
 				if(data.response){
 					data.response.MinMaxLimits.currencyMax = Math.ceil(data.response.MinMaxLimits.currencyMax);
 					data.response.MinMaxLimits.currencyMin = Math.ceil(data.response.MinMaxLimits.currencyMin);
 					_processor.limits = data.response.MinMaxLimits;
-					_processor.waitLimits = false;
+
 				}
 
+				_processor.waitLimits = false;
 				CashierStore.emitChange();
 				break;
 

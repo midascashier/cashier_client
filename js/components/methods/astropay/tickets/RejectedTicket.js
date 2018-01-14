@@ -16,13 +16,22 @@ let AstroPayRejectedTicket = React.createClass({
 	 * build the state
 	 */
 	refreshLocalState() {
+		let company = UIService.getCompanyInformation();
+		let customer = UIService.getCustomerInformation();
+		let transaction = UIService.getTransactionInformation();
+		let processorName = UIService.getProcessorDisplayName();
+
 		let transactionResponse = UIService.getLastTransactionResponse();
 		let creditCardTransaction = [];
 		if (transactionResponse && transactionResponse.details && transactionResponse.details.creditCardTransaction){
 			creditCardTransaction = transactionResponse.details.creditCardTransaction;
 		}
 		return {
-			creditCardTransaction: creditCardTransaction
+			creditCardTransaction: creditCardTransaction,
+			currency: customer.currency,
+			currencyAmount: transaction.amount,
+			processorName: processorName,
+			companyPhone: company.companyLabel.COMPANY_PHONE
 		}
 	},
 

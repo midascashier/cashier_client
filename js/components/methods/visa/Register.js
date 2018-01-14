@@ -190,6 +190,9 @@ let Register = React.createClass({
 				}
 			}
 			CashierActions.changePayAccount(previousPayAccount, processorID.processorId);
+			if(previousPayAccount > 0){
+				TransactionService.getPayAccountLimits(previousPayAccount);
+			}
 		}else{
 			UIService.changeUIState('/' + UIService.getCurrentView() + '/');
 		}

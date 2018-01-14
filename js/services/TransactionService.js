@@ -118,6 +118,30 @@ class transactionService{
 	};
 
 	/**
+	 * get payAccount limits
+	 *
+	 * @param payAccountId
+	 */
+	getPayAccountLimits(payAccountId){
+
+		let company = CashierStore.getCompany();
+		let customer = CashierStore.getCustomer();
+		let payAccount = CashierStore.getCurrentPayAccount();
+
+		if(payAccountId || payAccount.payAccountId){
+			let data = {
+				f: "getPayAccountLimits",
+				payAccountId: (payAccountId) ? payAccountId : payAccount.payAccountId,
+				customerId: customer.customerId,
+				companyId: company.companyId
+			};
+			let application = CashierStore.getApplication();
+			let rabbitRequest = Object.assign(data, application);
+			ConnectorServices.makeTransactionRequest(actions.GET_PAY_ACCOUNT_LIMITS_RESPONSE, rabbitRequest);
+		}
+	};
+
+	/**
 	 * Function to get pay account previous pay accounts
 	 */
 	getPreviousPayAccount(processorID){
