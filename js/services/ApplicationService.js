@@ -134,7 +134,7 @@ class applicationService {
 					validate = this.validateInfo(input.target[i].value, dataValidate);
 				}
 
-				if(!validate && input.target[i].value.length > 0 ){
+				if(!validate){
 					input.target[i].style['border-color'] = 'red';
 					input.target[i].focus();
 					return true;
