@@ -105,8 +105,8 @@ let Register = React.createClass({
 			value = value.target.value;
 		}
 		if(propertyName == 'country'){
-			UIService.currentZipCode(value);
 			UIService.getCountryStates(value);
+			UIService.setCurrentSelectedCountry(value);
 		}
 		if(propertyName == 'extra3'){
 			CashierActions.showUserMessage('');
@@ -143,10 +143,7 @@ let Register = React.createClass({
 	 * @returns {boolean}
 	 */
 	addNewPayAccount(e){
-		let rgx = [];
-		rgx['zip'] = UIService.getZipCodeRegex();
-
-		if (!ApplicationService.emptyInput(e, rgx)) {
+		if (!ApplicationService.emptyInput(e)) {
 			let actualState = this.state;
 
 			if(!this.checkCardHolderName()){
@@ -199,8 +196,8 @@ let Register = React.createClass({
 	},
 
 	render(){
-		let zipValidation = "";
 		let cvvValidation = "isCVV";
+		let zipValidation = "isString";
 		let ccValidation = "isCreditNumber";
 		let ccDate = UIService.getCCDate();
 		let processor = CashierStore.getProcessor();

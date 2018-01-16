@@ -37,12 +37,10 @@ let _UI = {
 	connectionError: 0,
 	userMessage: '',
 	ccEdit: 0,
-	currentCountrySelected: '',
-	zipCountryRegex: ''
+	currentSelectedCountry: ''
 };
 
 /**
- *
  * @type {{sid: null, tuid: null, lang: string, platform: string}}
  * @private
  */
@@ -644,29 +642,43 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * 
 	 * @param country
      */
-	setCurrentCountrySelected(country){
-		_UI.currentCountrySelected = country;
-	},
-
-	setZipCodeRegex(countries){
-		countries.filter(function (country){
-			if(country.Small == _UI.selectedCountry){
-				if(country.ZipCodeRegex){
-					_UI.zipCountryRegex = country.ZipCodeRegex;
-				}else{
-					_UI.zipCountryRegex = '';
-				}
-			}
-		});
+	setCurrentSelectedCountry(country){
+		_UI.currentSelectedCountry = country
 	},
 
 	/**
-	 * Get regex for validate zip code from current country
+	 * Get current selected country
 	 *
 	 * @returns {string}
      */
-	getZipCodeRegex(){
-		return _UI.zipCountryRegex;
+	getCurrentSelectedCountry(){
+		return _UI.currentSelectedCountry;
+	},
+
+	/**
+	 * Get zip code from current country selected
+	 */
+	getZipCodeRegex(currentCountry){
+		let zipCodeRgx = '';
+
+		_UI.countries.filter(function (country){
+			if(country.Small == currentCountry){
+				if(country.ZipCodeRegex){
+					zipCodeRgx = country.ZipCodeRegex;
+				}
+			}
+		});
+
+		return zipCodeRgx;
+	},
+
+	/**
+	 * Get countries
+	 *
+	 * @returns {{}}
+     */
+	getCountries(){
+		return _UI.countries;
 	}
 });
 
@@ -758,7 +770,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 				case actions.COUNTRIES_RESPONSE:
 					_UI.countries = data.response.countries;
-					CashierStore.setZipCodeRegex(data.response.countries);
+					CashierStore.setCurrentSelectedCountry(_UI.selectedCountry);
 					break;
 
 				case actions.CHANGE_APPLICATION_SELECTED_COUNTRY:
@@ -1133,12 +1145,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					break;
 
 				case actions.UPDATE_PAYACCOUNT_INFO_RESPONSE:
-					break;
-
-				case actions.COUNTRY_ZIP_CODE_RESPONSE:
-					if(data.response.countries){
-						CashierStore.setZipCodeRegex(data.response.countries);
-					}
 					break;
 
 				default:

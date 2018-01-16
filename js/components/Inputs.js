@@ -39,7 +39,12 @@ let Input = React.createClass({
 		let isValid;
 		let validate;
 		if(this.props.validate == 'rgxValidate'){
-			let rgx = UIService.getZipCodeRegex();
+			let rgx = '';
+			if(this.props.id == 'zip'){
+				let compare = UIService.getCountrySelected();
+				rgx = UIService.getCurrentZipCodeRgx(compare);
+			}
+
 			validate = ApplicationService.validateInfo(e, this.props.validate, rgx);
 		}else{
 			validate = ApplicationService.validateInfo(e, this.props.validate);
@@ -116,15 +121,15 @@ let Input = React.createClass({
 	 * @param e
 	 */
 	changeHandler(e) {
-		let value = e.target.value;
 		let isValid;
+		let value = e.target.value;
 		if(typeof this.props.onChange === 'function'){
 			if(this.props.validate){
 				isValid = this.validateData(value);
 			}
 			if(!isValid && value.length > 0){
 				e.target.style['border-color'] = 'red';
-			} else{
+			}else{
 				e.target.style['border-color'] = '';
 			}
 			this.props.onChange(value, isValid);

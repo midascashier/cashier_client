@@ -630,27 +630,28 @@ class UiService {
 	}
 
 	/**
+	 * Set current selected country from any input in UI
+	 *
+	 * @param country
+     */
+	setCurrentSelectedCountry(country){
+		CashierStore.setCurrentSelectedCountry(country)
+	}
+
+	/**
+	 * Get current country selected
+	 */
+	getCountrySelected(){
+		return CashierStore.getCurrentSelectedCountry()
+	}
+
+	/**
 	 * Verify current zip code
 	 *
 	 * @param country
      */
-	currentZipCode(country){
-		CashierStore.setCurrentCountrySelected(country);
-
-		let data = {f: 'countries'};
-		let application = CashierStore.getApplication();
-		let request = Object.assign(data, application);
-
-		ConnectorServices.makeCashierRequest(actions.COUNTRY_ZIP_CODE_RESPONSE, request);
-	}
-
-	/**
-	 * Get regex for validate zip code from current country
-	 *
-	 * @returns {*|string}
-     */
-	getZipCodeRegex(){
-		return CashierStore.getZipCodeRegex();
+	getCurrentZipCodeRgx(country){
+		return CashierStore.getZipCodeRegex(country);
 	}
 }
 

@@ -1,7 +1,8 @@
+import {UIService} from './UIService'
 import actions from '../constants/Actions'
 import {CashierStore} from '../stores/CashierStore'
-import {CashierActions} from '../actions/CashierActions'
 import {ConnectorServices} from './ConnectorServices'
+import {CashierActions} from '../actions/CashierActions'
 
 class applicationService {
 
@@ -113,7 +114,7 @@ class applicationService {
 	 * @param rgxSpecial
 	 * @returns {boolean}
      */
-	emptyInput(input, rgxSpecial = null) {
+	emptyInput(input){
 		input.preventDefault();
 
 		for(let i = 0; i < input.target.length; i++){
@@ -128,8 +129,14 @@ class applicationService {
 				let validate;
 				let dataValidate = input.target[i].getAttribute('data-validation');
 				if(dataValidate == 'rgxValidate'){
-					let rgx = input.target[i].getAttribute('id');
-					validate = this.validateInfo(input.target[i].value, dataValidate, rgxSpecial[rgx]);
+					let rgx = '';
+					let id = input.target[i].getAttribute('id');
+					if(id == 'zip'){
+						let compare = UIService.getCountrySelected();
+						rgx = UIService.getCurrentZipCodeRgx(compare);
+					}
+
+					validate = this.validateInfo(input.target[i].value, dataValidate, rgx);
 				}else{
 					validate = this.validateInfo(input.target[i].value, dataValidate);
 				}
