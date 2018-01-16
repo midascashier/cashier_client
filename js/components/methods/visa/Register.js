@@ -105,6 +105,7 @@ let Register = React.createClass({
 			value = value.target.value;
 		}
 		if(propertyName == 'country'){
+			UIService.currentZipCode(value);
 			UIService.getCountryStates(value);
 		}
 		if(propertyName == 'extra3'){

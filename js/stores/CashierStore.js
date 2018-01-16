@@ -37,6 +37,7 @@ let _UI = {
 	connectionError: 0,
 	userMessage: '',
 	ccEdit: 0,
+	currentCountrySelected: '',
 	zipCountryRegex: ''
 };
 
@@ -639,11 +640,32 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
+	 * Set current country selected in any input in user interface
+	 * 
+	 * @param country
+     */
+	setCurrentCountrySelected(country){
+		_UI.currentCountrySelected = country;
+	},
+
+	setZipCodeRegex(countries){
+		countries.filter(function (country){
+			if(country.Small == _UI.selectedCountry){
+				if(country.ZipCodeRegex){
+					_UI.zipCountryRegex = country.ZipCodeRegex;
+				}else{
+					_UI.zipCountryRegex = '';
+				}
+			}
+		});
+	},
+
+	/**
 	 * Get regex for validate zip code from current country
 	 *
 	 * @returns {string}
      */
-	getZipCountryRegex(){
+	getZipCodeRegex(){
 		return _UI.zipCountryRegex;
 	}
 });
@@ -735,14 +757,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 			case actions.COUNTRIES_RESPONSE:
 				_UI.countries = data.response.countries;
-				_UI.countries.filter(function (country) {
-					if(country.ZipCodeRegex){
-						if(country.Small == _UI.selectedCountry){
-							_UI.zipCountryRegex = country.ZipCodeRegex;
-						}
-					}
-				});
-				
+				CashierStore.setZipCodeRegex(data.response.countries);
 				break;
 
 			case actions.CHANGE_APPLICATION_SELECTED_COUNTRY:
@@ -1117,6 +1132,12 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				break;
 
 			case actions.UPDATE_PAYACCOUNT_INFO_RESPONSE:
+				break;
+
+			case actions.COUNTRY_ZIP_CODE_RESPONSE:
+				if(data.response.countries){
+					CashierStore.setZipCodeRegex(data.response.countries);
+				}
 				break;
 
 			default:

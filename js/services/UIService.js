@@ -630,12 +630,27 @@ class UiService {
 	}
 
 	/**
+	 * Verify current zip code
+	 *
+	 * @param country
+     */
+	currentZipCode(country){
+		CashierStore.setCurrentCountrySelected(country);
+
+		let data = {f: 'countries'};
+		let application = CashierStore.getApplication();
+		let request = Object.assign(data, application);
+
+		ConnectorServices.makeCashierRequest(actions.COUNTRY_ZIP_CODE_RESPONSE, request);
+	}
+
+	/**
 	 * Get regex for validate zip code from current country
 	 *
 	 * @returns {*|string}
      */
 	getZipCodeRegex(){
-		return CashierStore.getZipCountryRegex();
+		return CashierStore.getZipCodeRegex();
 	}
 }
 
