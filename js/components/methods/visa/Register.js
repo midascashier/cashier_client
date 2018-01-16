@@ -116,7 +116,6 @@ let Register = React.createClass({
 		this.setState(
 			actualState
 		);
-
 	},
 
 	/**
@@ -199,8 +198,8 @@ let Register = React.createClass({
 	},
 
 	render(){
+		let zipValidation = "";
 		let cvvValidation = "isCVV";
-		let zipValidation = "isNumber";
 		let ccValidation = "isCreditNumber";
 		let ccDate = UIService.getCCDate();
 		let processor = CashierStore.getProcessor();
