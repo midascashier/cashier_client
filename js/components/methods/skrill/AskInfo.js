@@ -1,12 +1,12 @@
 import React from 'react'
-import {translate} from '../../../constants/Translate'
-import cashier  from '../../../constants/Cashier'
-import {AmountController} from '../../AmountController'
-import {PromoCode} from '../../PromoCode'
-import {UIService} from '../../../services/UIService'
 import {Register} from './Register.js'
+import {PromoCode} from '../../PromoCode'
+import cashier  from '../../../constants/Cashier'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {AmountController} from '../../AmountController'
 import {CustomerService} from '../../../services/CustomerService'
-import { PayAccountDropDown } from '../../commonComponents/payaccount/PayAccountDropDown'
+import {PayAccountDropDown} from '../../commonComponents/payaccount/PayAccountDropDown'
 
 let AskInfo = React.createClass({
 
@@ -30,11 +30,14 @@ let AskInfo = React.createClass({
 		return this.props
 	},
 
+	/**
+	 * Remove current selected PayAccount
+	 */
 	disablePayAccount() {
 		CustomerService.getDisablePayAccount();
 	},
 
-	render() {
+	render(){
 		let limitsCheck = this.props.limitsCheck;
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;

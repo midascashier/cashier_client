@@ -1,20 +1,20 @@
 import React from 'react'
-import {CashierStore} from '../../../stores/CashierStore'
-import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
+import {CashierStore} from '../../../stores/CashierStore'
 import {TransactionService} from '../../../services/TransactionService'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 
 let Skrill = React.createClass({
 
-	propTypes: {
-		setAmount: React.PropTypes.func,
-		limitsCheck: React.PropTypes.string,
+	propTypes:{
 		amount: React.PropTypes.string,
-		feeCashValue: React.PropTypes.number,
+		setAmount: React.PropTypes.func,
 		feeCheck: React.PropTypes.number,
-		setPromoCode: React.PropTypes.func,
 		promoCode: React.PropTypes.string,
+		setPromoCode: React.PropTypes.func,
+		limitsCheck: React.PropTypes.string,
+		feeCashValue: React.PropTypes.number
 	},
 
 	/**
@@ -27,7 +27,7 @@ let Skrill = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			selectedProcessor: CashierStore.getProcessor(),
 			payAccount: TransactionService.getCurrentPayAccount()
@@ -39,12 +39,12 @@ let Skrill = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
-	render() {
-		return (
+	render(){
+		return(
 			<div id="skrill">
 				<div className="col-sm-6">
 					<AskInfo 
@@ -75,14 +75,14 @@ let Skrill = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

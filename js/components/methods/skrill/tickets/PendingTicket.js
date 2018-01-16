@@ -1,9 +1,9 @@
 import React from 'react'
-import { RedirectTicket } from '../../../methodTickets/RedirectTicket'
+import {RedirectTicket} from '../../../methodTickets/RedirectTicket'
 
 let SkrillTicketPending = React.createClass({
     
-	render() {
+	render(){
 		return (
 			<div>
 				<RedirectTicket/>

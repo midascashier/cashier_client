@@ -1,9 +1,9 @@
 import React from 'react'
 import {Loading} from '../../loading/Loading'
 import Cashier from '../../../constants/Cashier'
+import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
-import {UIService} from '../../../services/UIService'
 import {TransactionService} from '../../../services/TransactionService'
 
 let InfoMethod = React.createClass({
@@ -21,21 +21,6 @@ let InfoMethod = React.createClass({
 	 */
 	getInitialState(){
 		return this.refreshLocalState();
-	},
-
-	/**
-	 * React function to add listener to this component once is mounted
-	 * here the component listen changes from the store
-	 */
-	componentDidMount(){
-		CashierStore.addChangeListener(this._onChange);
-	},
-
-	/**
-	 * React function to remove listener to this component once is unmounted
-	 */
-	componentWillUnmount(){
-		CashierStore.removeChangeListener(this._onChange);
 	},
 
 	/**
@@ -64,7 +49,6 @@ let InfoMethod = React.createClass({
 	 * this function checks if password and amount are valid
 	 */
 	allowProcess(){
-
 		if(this.props.amount == ""){
 			return false;
 		}
@@ -76,10 +60,8 @@ let InfoMethod = React.createClass({
 		}
 
 		let checkTerms = this.state.transaction.checkTermsAndConditions;
-		if(checkAmount && checkTerms){
-			return true;
-		}
-		return false;
+
+		return (checkAmount && checkTerms);
 	},
 
 	/**
@@ -109,7 +91,6 @@ let InfoMethod = React.createClass({
 	 * @returns {{check: boolean, message: string}}
 	 */
 	validateExtra(){
-
 		let checkData = {check: false, message: ''};
 		let dobTransactionCheck = Boolean(this.state.transaction.dobDay && this.state.transaction.dobMonth && this.state.transaction.dobYear);
 		let payAccountDOB = Boolean(this.state.currentPayAccount.extra.dobDay && this.state.currentPayAccount.extra.dobMonth && this.state.currentPayAccount.extra.dobYear);
@@ -135,7 +116,6 @@ let InfoMethod = React.createClass({
 	},
 
 	render(){
-
 		let originPath = UIService.getOriginPath();
 		let isEditingCCInfo = UIService.getCCEditMode();
 		let processorDisplayName = UIService.getProcessorName().toUpperCase();
@@ -158,7 +138,7 @@ let InfoMethod = React.createClass({
 			isNextDisabled = "";
 		}
 
-		return (
+		return(
 			<div id="InfoMethodVisa">
 				<div className="row">
 					<div className="col-sm-12">
@@ -207,17 +187,6 @@ let InfoMethod = React.createClass({
 							</table>
 						</div>
 
-						{(() =>{
-							if(!validateExtra.check){
-								return (
-									<div className="alert alert-danger" role="alert">
-										<i className="fa fa-exclamation-circle red"></i>
-										<strong>{validateExtra.message}</strong>
-									</div>
-								)
-							}
-						})()}
-
 						<div className="row mod-btns">
 							<div className="col-sm-6">
 								<button type='button' className='btn btn-green' disabled={isNextDisabled} onClick={this.continueTransaction}>
@@ -235,6 +204,21 @@ let InfoMethod = React.createClass({
 				</div>
 			</div>
 		)
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount(){
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount(){
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 
