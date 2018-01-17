@@ -174,7 +174,7 @@ class applicationService {
 		regExp['isNumber'] = { int: /^[0-9]+$/, float: /[0-9]+[,\.][0-9]+/ };
 		regExp['isIP'] = { ip: /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/ };
 		regExp['isBitCoinAddress'] = { bitcoinAddress: /^[13][a-km-zA-HJ-NP-Z0-9]{26,33}$/i };
-		regExp['isEmail'] = { email: /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/ };
+		regExp['isEmail'] = { email: /^[_a-z0-9-$]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/ };
 		regExp['isString'] = { string: /^[a-zA-Z0-9\,\.\s]{1,}$/ };
 		regExp['isText'] = { text: /^([^0-9]*)$/};
 		regExp['password'] = { string: /^.{5,}$/ };
