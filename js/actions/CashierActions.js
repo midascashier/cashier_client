@@ -8,6 +8,7 @@ let CashierActions = {
 			data: { payAccountID: payAccountID, processorID: processorID }
 		});
 	},
+
 	setTransactionAmount: (amount) =>{
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_AMOUNT,
