@@ -998,11 +998,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					if(limits){
 						let currencyCode = limits.currencyCode;
 						_processor.limitCurrency[currencyCode] = {
-							currencyMin: limits.Min,
-							currencyMax: limits.Max,
-							rate: limits.Rate,
-							conversionRate: limits.ConversionRate,
-							minerFee: limits.MinerFee
+							currencyMin: Number(limits.Min),
+							currencyMax: Number(limits.Max),
+							rate: Number(limits.Rate),
+							conversionRate: Number(limits.ConversionRate),
+							minerFee: Number(limits.MinerFee)
 						};
 					}
 					CashierStore.emitChange();
