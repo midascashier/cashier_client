@@ -165,7 +165,7 @@ let _company = {
 /**
  * Stores the information of the selected processor
  *
- * @type {{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, rate: number, limits: Array, limitRules: Array, fees: {enableBP: number, enableCash: number, enableFree: number, cashType: string, structure: Array}, load: (function(*))}}
+ * @type {{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, rate: number, limits: Array, waitLimits: boolean, limitRules: Array, limitCurrency: Array, fees: {enableBP: number, enableCash: number, enableFree: number, cashType: string, structure: Array}, load(*): void}}
  * @private
  */
 let _processor = {
@@ -178,6 +178,7 @@ let _processor = {
 	limits: [],
 	waitLimits: false,
 	limitRules: [],
+	limitCurrency: [],
 	fees: {
 		enableBP: 0,
 		enableCash: 0,
