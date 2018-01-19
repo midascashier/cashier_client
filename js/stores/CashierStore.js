@@ -163,10 +163,8 @@ let _company = {
 };
 
 /**
- * Stores the information of the selected processor
  *
- * @type {{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, rate: number, limits: Array, waitLimits: boolean, limitRules: Array, limitCurrency: {currencyMin: number, currencyMax: number, currencyCode: string}, fees: {enableBP: number, enableCash: number, enableFree: number, cashType: string, structure: Array}, load(*): void}}
- *
+ * @type {{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, rate: number, limits: Array, waitLimits: boolean, limitRules: Array, limitCurrency: Array, fees: {enableBP: number, enableCash: number, enableFree: number, cashType: string, structure: Array}, load(*): void}}
  * @private
  */
 let _processor = {
@@ -179,7 +177,7 @@ let _processor = {
 	limits: [],
 	waitLimits: false,
 	limitRules: [],
-	limitCurrency: {currency: []},
+	limitCurrency: [],
 	fees: {
 		enableBP: 0,
 		enableCash: 0,
@@ -953,7 +951,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					let limits = data.response.result;
 					if(limits){
 						let currencyCode = limits.currencyCode;
-						_processor.limitCurrency.currency[currencyCode] = {
+						_processor.limitCurrency[currencyCode] = {
 							currencyMin: limits.Min,
 							currencyMax: limits.Max,
 							rate: limits.Rate,
