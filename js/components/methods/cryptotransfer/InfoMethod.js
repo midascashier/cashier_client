@@ -66,12 +66,7 @@ let InfoMethod = React.createClass({
 		UIService.setFirstStep();
 	},
 
-	/**
-	 * this function sends deposit info to cashier
-	 *
-	 */
-	continueTransaction(){
-		this.setState({checkIn : true});
+	goTransaction(){
 		let promoCode = this.props.promoCode;
 		let amount = this.props.customerAmount;
 		let fee = this.props.feeCashValue;
@@ -89,30 +84,44 @@ let InfoMethod = React.createClass({
 		TransactionService.setCryptoCurrencyName(currencyName);
 		TransactionService.setTransactionBTCConversionAmount(rateBTC);
 
-		this.props.checkCryptoAddress((valid) => {
-			if(valid){
-				let isWithDraw = UIService.getIsWithDraw();
-				if(isWithDraw){
-					UIService.confirmTransaction();
+		let isWithDraw = UIService.getIsWithDraw();
+		if(isWithDraw){
+			UIService.confirmTransaction();
+		}else{
+
+			let dynamicParams = {
+				amount: amount,
+				payAccountId: 0,
+				promoCode: promoCode,
+				cryptoAddress: address,
+				currencyName: currencyName,
+				currencySymbol: currencyISO,
+				BTCConversionAmount: rateBTC
+			};
+
+			TransactionService.processCryptoTransfer(dynamicParams, 'instructions');
+		}
+	},
+
+	/**
+	 * this function sends deposit info to cashier
+	 */
+	continueTransaction(){
+		this.setState({checkIn : true});
+		let currencyISO = this.props.cryptoCurrencyISO;
+		let needCryptoAddress = UIService.refundAddressRequired(currencyISO);
+		if(needCryptoAddress){
+			this.props.checkCryptoAddress((valid) => {
+				if(valid){
+					this.goTransaction()
 				}else{
-
-					let dynamicParams = {
-						amount: amount,
-						payAccountId: 0,
-						promoCode: promoCode,
-						cryptoAddress: address,
-						currencyName: currencyName,
-						currencySymbol: currencyISO,
-						BTCConversionAmount: rateBTC
-					};
-
-					TransactionService.processCryptoTransfer(dynamicParams, 'instructions');
+					this.setState({checkIn : false});
+					this.props.setCryptoAddressError(true);
 				}
-			}else{
-				this.setState({checkIn : false});
-				this.props.setCryptoAddressError(true);
-			}
-		});
+			});
+		}else{
+			this.goTransaction()
+		}
 	},
 
 	render(){
