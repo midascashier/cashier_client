@@ -386,8 +386,9 @@ let _CryptoTransfer = {
 	currencies: false,
 	loadingLimits: false,
 	currentLimits: false,
-	cryptoCurrencyISO : '',
-	cryptoCurrencyName : ''
+	cryptoCurrencyISO: '',
+	cryptoCurrencyName: '',
+	validCurrentAddress: true
 };
 
 let CHANGE_EVENT = 'change';
@@ -711,6 +712,10 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return _CryptoTransfer.rate
 	},
 
+	getCurrentCryptoConvertionRate(){
+		return _CryptoTransfer.conversionRate
+	},
+
 	setCurrentCryptoSymbol(symbol){
 		_CryptoTransfer.cryptoCurrencyISO = symbol
 	},
@@ -725,6 +730,10 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	getCurrentCryptoName(){
 		return _CryptoTransfer.cryptoCurrencyName
+	},
+
+	getValidAddress(){
+		return _CryptoTransfer.validCurrentAddress
 	}
 });
 
@@ -993,21 +1002,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					CashierStore.emitChange();
 					break;
 
-				case actions.GET_CRYPTO_TRANSFER_LIMITS_RESPONSE:
-					let limits = data.response.result;
-					if(limits){
-						let currencyCode = limits.currencyCode;
-						_processor.limitCurrency[currencyCode] = {
-							currencyMin: Number(limits.Min),
-							currencyMax: Number(limits.Max),
-							rate: Number(limits.Rate),
-							conversionRate: Number(limits.ConversionRate),
-							minerFee: Number(limits.MinerFee)
-						};
-					}
-					CashierStore.emitChange();
-					break;
-
 				case actions.CHANGE_PAYACCOUNT:
 					_payAccount = _payAccounts[data.processorID][data.payAccountID];
 					CashierStore.emitChange();
@@ -1223,6 +1217,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_CryptoTransfer.loadingLimits = false;
 					CashierStore.emitChange();
 					break;
+
+                case actions.VALIDATE_CRYPTO_ADDRESS:
+                    _CryptoTransfer.validCurrentAddress = data.response.result;
+                    CashierStore.emitChange();
+                    break;
 
 				default:
 					console.log("Store No Action: " + action);

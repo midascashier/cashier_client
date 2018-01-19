@@ -723,6 +723,10 @@ class UiService {
 		return CashierStore.getCurrentCryptoRate()
 	}
 
+	getCurrentCryptoConvertionRate(){
+		return CashierStore.getCurrentCryptoConvertionRate()
+	}
+	
 	setCurrentCryptoSymbol(symbol){
 		CashierStore.setCurrentCryptoSymbol(symbol)
 	}
@@ -737,6 +741,24 @@ class UiService {
 
 	getCurrentCryptoName(){
 		return CashierStore.getCurrentCryptoName()
+	}
+
+	refundAddressRequired(currencyCode){
+		return (currencyCode != 'BTC' && currencyCode != 'LTC' && currencyCode != 'BCH')? true : false;
+	}
+
+	validateCryptoAddress(currencyCode, address){
+		let params = {
+			address: address,
+			f: 'validateAddress',
+			currencyCode: currencyCode
+		};
+
+		ConnectorServices.makeCashierRequest(actions.VALIDATE_CRYPTO_ADDRESS, params);
+	}
+
+	getValidAddress(){
+		return CashierStore.getValidAddress()
 	}
 }
 

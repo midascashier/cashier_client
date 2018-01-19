@@ -23,7 +23,7 @@ let Amount = React.createClass({
     },
 
     crytoCurrencyCalculate(event){
-        let cryptoAmount =  0;
+        let cryptoAmount;
         let symbol = this.props.getSymbol();
         let amount = parseFloat(event.target.value);
 
@@ -34,14 +34,11 @@ let Amount = React.createClass({
             cryptoAmount = (ltcAmount / this.props.rate);
         }
 
-        this.props.setCryptoAmount(cryptoAmount, amount);
-    },
+        if(isNaN(cryptoAmount)){
+            cryptoAmount = 0;
+        }
 
-    customerAmountCalculate(event){
-        let cryptoAmount = parseFloat(event.target.value);
-        let btcAmount = cryptoAmount * parseFloat(this.props.rate).toFixed(8);
-        this.props.setCustomerAmount(btcAmount, cryptoAmount);
-        this.props.setAmountRateBTC(btcAmount);
+        this.props.setCryptoAmount(cryptoAmount, amount);
     },
 
     render(){
@@ -107,15 +104,11 @@ let Amount = React.createClass({
 
                 {(() =>{
                     if(!isWithDraw){
+                        let symbol = this.props.getSymbol();
                         return(
-                            <input
-                                type="number"
-                                id="cryptoAmount"
-                                className="form-control"
-                                value={this.props.cryptoAmount}
-                                placeholder={translate('CRYPTO_AMOUNT_TXT', 'Crypto amount')}
-                                onInput={this.customerAmountCalculate.bind(this)}
-                            />
+                            <div>
+                                <p>{symbol} amount: {this.props.cryptoAmount}</p>
+                            </div>
                         )
                     }
                 })()}

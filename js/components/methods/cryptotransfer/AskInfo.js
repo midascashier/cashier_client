@@ -300,20 +300,28 @@ let AskInfo = React.createClass({
 							}
 						})()}
 
-						<div id="cryptoAddressContainer">
-							<input
-								type="text"
-								id="cryptoAddress"
-								name="cryptoAddress"
-								className="form-control"
-								value={this.props.cryptoAddress}
-								onInput={this.changeCryptoAddress.bind(this)}
-								placeholder={addressMSG}
-								min="0"
-								required
-							/>
-							<span id="helpAddress">?</span>
-						</div>
+						{(() =>{
+							let symbol = this.props.getSymbol();
+							let needAddress = UIService.refundAddressRequired(symbol);
+							if(needAddress){
+								return(
+									<div id="cryptoAddressContainer">
+										<input
+											type="text"
+											id="cryptoAddress"
+											name="cryptoAddress"
+											className="form-control"
+											value={this.props.cryptoAddress}
+											onInput={this.changeCryptoAddress.bind(this)}
+											placeholder={addressMSG}
+											min="0"
+											required
+										/>
+										<span id="helpAddress">?</span>
+									</div>
+								)	
+							}
+						})()}
 
 						{(() =>{
 							if(!isWithDraw){

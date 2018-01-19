@@ -32,9 +32,11 @@ let CryptoTransfer = React.createClass({
 				customerAmount : '',
 				cryptoAddressError : false,
 				rate : UIService.getCurrentCryptoRate(),
+				validAddress: UIService.getValidAddress(),
 				limits : UIService.getProcessorLimitMinMax(),
 				cryptoCurrencyName : UIService.getCurrentCryptoName(),
-				cryptoCurrencyISO : UIService.getCurrentCryptoSymbol()
+				cryptoCurrencyISO : UIService.getCurrentCryptoSymbol(),
+				conversionRate : UIService.getCurrentCryptoConvertionRate()
 			}
 		}
 	},
@@ -285,6 +287,7 @@ let CryptoTransfer = React.createClass({
 
 						return(
 							<InfoMethod
+								getSymbol={this.getSymbol}
 								rate={this.state.info.rate}
 								limits={this.state.info.limits}
 								setLimits={this.setCurrencyLimits}

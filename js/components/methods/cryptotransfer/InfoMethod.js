@@ -12,6 +12,7 @@ let InfoMethod = React.createClass({
 		rate: React.PropTypes.number,
 		limits: React.PropTypes.object,
 		promoCode: React.PropTypes.node,
+		getSymbol: React.PropTypes.func,
 		limitsCheck: React.PropTypes.node,
 		cryptoAmount: React.PropTypes.node,
 		cryptoAddress: React.PropTypes.node,
@@ -127,7 +128,8 @@ let InfoMethod = React.createClass({
 				isNextDisabled = "";
 			}
 		}else{
-			if(limitsCheck && this.props.cryptoAddress){
+			let needCryptoAddress = UIService.refundAddressRequired(this.props.getSymbol());
+			if(limitsCheck && (this.props.cryptoAddress || !needCryptoAddress)){
 				isNextDisabled = "";
 			}
 		}
