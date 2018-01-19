@@ -380,6 +380,18 @@ let _transactionResponse = {
 	}
 };
 
+let _CryptoTransfer = {
+	rate: 0,
+	minerFee: 0,
+	conversionRate: 0,
+	currencies: false,
+	loadingLimits: false,
+	currentLimits: false,
+	cryptoCurrencyISO: '',
+	cryptoCurrencyName: '',
+	validCurrentAddress: true
+};
+
 let CHANGE_EVENT = 'change';
 
 let CashierStore = assign({}, EventEmitter.prototype, {
@@ -980,7 +992,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 						data.response.MinMaxLimits.currencyMax = Math.ceil(data.response.MinMaxLimits.currencyMax);
 						data.response.MinMaxLimits.currencyMin = Math.ceil(data.response.MinMaxLimits.currencyMin);
 						_processor.limits = data.response.MinMaxLimits;
-
 					}
 
 					_processor.waitLimits = false;
@@ -1113,6 +1124,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					CashierStore.emitChange();
 					break;
 
+				case actions.GET_CRYPTO_TRANSACTION_RESPONSE:
 				case actions.GET_BITCOIN_TRANSACTION_RESPONSE:
 				case actions.GET_CRYPTO_TRANSFER_TRANSACTION_RESPONSE:
 					_transactionResponse.details = data.response;
