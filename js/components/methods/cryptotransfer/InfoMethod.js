@@ -108,9 +108,10 @@ let InfoMethod = React.createClass({
 	 */
 	continueTransaction(){
 		this.setState({checkIn : true});
+		let processor = UIService.getProcessorId();
 		let currencyISO = this.props.cryptoCurrencyISO;
 		let needCryptoAddress = UIService.refundAddressRequired(currencyISO);
-		if(needCryptoAddress){
+		if(needCryptoAddress || processor == Cashier.PROCESSOR_ID_CRYPTO_TRANSFER){
 			this.props.checkCryptoAddress((valid) => {
 				if(valid){
 					this.goTransaction()

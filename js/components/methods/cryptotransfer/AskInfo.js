@@ -1,6 +1,7 @@
 import React from 'react'
 import {FAQ} from './FAQ'
 import {Amount} from './Amount'
+import Cashier from '../../../constants/Cashier'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
@@ -302,8 +303,9 @@ let AskInfo = React.createClass({
 
 						{(() =>{
 							let symbol = this.props.getSymbol();
+							let processor = UIService.getProcessorId();
 							let needAddress = UIService.refundAddressRequired(symbol);
-							if(needAddress){
+							if(needAddress || processor == Cashier.PROCESSOR_ID_CRYPTO_TRANSFER){
 								return(
 									<div id="cryptoAddressContainer">
 										<input
