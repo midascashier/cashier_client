@@ -70,11 +70,10 @@ let CryptoScreenTicketPending = React.createClass({
 	},
 
 	render() {
-
 		let address = this.state.address;
-		let cryptoName = this.state.cryptoName;
 		let cryptoAmount = this.state.cryptoAmount;
 		let cryptoSymbol = this.state.CryptoCurrencyISO;
+		let cryptoName = UIService.getCurrentCryptoName();
 		let amount = translate('CRYPTO_INSTRUCTIONS_AMOUNT', 'Send crypto Amount from your wallet', { cryptoAmount: cryptoAmount, cryptoCurrency : cryptoName });
 		let cryptoInstructions = translate('CRYPTO_INSTRUCTIONS', 'Now send your crypto currency to us.', { cryptoCurrency : cryptoName });
 		let addressInstructions = translate('CRYPTO_INSTRUCTIONS_ADDRESS', 'Send the crypto currency to the following address', { cryptoCurrency : cryptoName });
