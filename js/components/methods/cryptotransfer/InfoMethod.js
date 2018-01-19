@@ -138,8 +138,9 @@ let InfoMethod = React.createClass({
 				isNextDisabled = "";
 			}
 		}else{
+			let processor = UIService.getProcessorId();
 			let needCryptoAddress = UIService.refundAddressRequired(this.props.getSymbol());
-			if(limitsCheck && (this.props.cryptoAddress || !needCryptoAddress)){
+			if(limitsCheck && (this.props.cryptoAddress || (!needCryptoAddress && processor != Cashier.PROCESSOR_ID_CRYPTO_TRANSFER))){
 				isNextDisabled = "";
 			}
 		}

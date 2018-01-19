@@ -165,8 +165,25 @@ let AskInfo = React.createClass({
      */
 	buildCurrenciesContainer(){
 		if(this.state.currencies){
-			let availableCurrencies = this.state.currencies.available;
-			let unavailableCurrencies = this.state.currencies.unavailable;
+			let availableCurrencies = [];
+			let unavailableCurrencies = [];
+
+			let processor = UIService.getProcessorId();
+			if(processor == Cashier.PROCESSOR_ID_CRYPTO_TRANSFER){
+				let currenciesA = this.state.currencies.available;
+				let currenciesU = this.state.currencies.unavailable;
+
+				availableCurrencies = currenciesA.filter(function (current){
+					return (current.symbol != 'BTC')
+				});
+
+				unavailableCurrencies = currenciesU.filter(function (current){
+					return (current.symbol != 'BTC')
+				});
+			}else{
+				availableCurrencies = this.state.currencies.available;
+				unavailableCurrencies = this.state.currencies.unavailable;
+			}
 
 			return(
 				<div id='cryptoTransferModal'>
