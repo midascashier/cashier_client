@@ -38,7 +38,7 @@ class UiService {
 			CashierActions.setCurrentStep(processorSteps[processorSteps.length - 1]);
 			if(data.Tstatus == 2){
 				nextPath += route + "ticket/approved/";
-			} else{
+			}else{
 				nextPath += route + "ticket/rejected/";
 			}
 		}

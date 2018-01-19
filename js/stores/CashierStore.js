@@ -639,9 +639,9 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * Set current country selected in any input in user interface
-	 * 
+	 *
 	 * @param country
-     */
+	 */
 	setCurrentSelectedCountry(country){
 		_UI.currentSelectedCountry = country
 	},
@@ -650,7 +650,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Get current selected country
 	 *
 	 * @returns {string}
-     */
+	 */
 	getCurrentSelectedCountry(){
 		return _UI.currentSelectedCountry;
 	},
@@ -661,7 +661,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	getZipCodeRegex(currentCountry){
 		let zipCodeRgx = '';
 
-		_UI.countries.filter(function (country){
+		_UI.countries.filter(function(country){
 			if(country.Small == currentCountry){
 				if(country.ZipCodeRegex){
 					zipCodeRgx = country.ZipCodeRegex;
@@ -676,9 +676,52 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Get countries
 	 *
 	 * @returns {{}}
-     */
+	 */
 	getCountries(){
 		return _UI.countries;
+	},
+
+	/**
+	 * Get crypto currencies list
+	 */
+	getCryptoCurrencies(){
+		return _CryptoTransfer.currencies
+	},
+
+	loadingLimits(){
+		_CryptoTransfer.loadingLimits = true
+	},
+
+	getLoadingLimits(){
+		return _CryptoTransfer.loadingLimits
+	},
+
+	getCurrentCryptoRate(){
+		return _CryptoTransfer.rate
+	},
+
+	getCurrentCryptoConvertionRate(){
+		return _CryptoTransfer.conversionRate
+	},
+
+	setCurrentCryptoSymbol(symbol){
+		_CryptoTransfer.cryptoCurrencyISO = symbol
+	},
+
+	getCurrentCryptoSymbol(){
+		return _CryptoTransfer.cryptoCurrencyISO
+	},
+
+	setCurrentCryptoName(name){
+		_CryptoTransfer.cryptoCurrencyName = name
+	},
+
+	getCurrentCryptoName(){
+		return _CryptoTransfer.cryptoCurrencyName
+	},
+
+	getValidAddress(){
+		return _CryptoTransfer.validCurrentAddress
 	}
 });
 
@@ -1145,6 +1188,27 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					break;
 
 				case actions.UPDATE_PAYACCOUNT_INFO_RESPONSE:
+					break;
+
+				case actions.GET_CRYPTO_CURRENCIES_RESPONSE:
+					_CryptoTransfer.currencies = data.response.result;
+					CashierStore.emitChange();
+					break;
+
+				case actions.GET_CRYPTO_CURRENCY_LIMITS_RESPONSE:
+					_processor.limits.currencyMin = data.response.result.Min;
+					_processor.limits.currencyMax = data.response.result.Max;
+					_CryptoTransfer.rate = data.response.result.Rate;
+					_CryptoTransfer.minerFee = data.response.result.MinerFee;
+					_CryptoTransfer.conversionRate = data.response.result.ConversionRate;
+					_CryptoTransfer.currentLimits = data.response.result;
+					_CryptoTransfer.loadingLimits = false;
+					CashierStore.emitChange();
+					break;
+
+				case actions.VALIDATE_CRYPTO_ADDRESS:
+					_CryptoTransfer.validCurrentAddress = data.response.result;
+					CashierStore.emitChange();
 					break;
 
 				default:

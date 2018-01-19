@@ -1,6 +1,7 @@
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
 import {onResponseService} from './OnResponseService'
+import {CashierStore} from '../stores/CashierStore'
 
 class connectorServices {
 
@@ -79,6 +80,9 @@ class connectorServices {
 	 * @param request
 	 */
 	httpService(module, action, request){
+
+		let application = CashierStore.getApplication();
+		request = Object.assign(request, application);
 
 		let httpRequest = Object.assign(request, {ws: module});
 		let url = cashier.REQUEST_PROXY;

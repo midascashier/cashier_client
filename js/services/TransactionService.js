@@ -729,6 +729,20 @@ class transactionService{
 	};
 
 	/**
+	 * get the Crypto Screen transaction details for the specific transaction Id
+	 *
+	 * @param transactionId
+	 */
+	getCryptoTransaction(transactionId){
+		let data = {
+			f: "getCryptoTransaction", module: 'transaction', transactionId: transactionId
+		};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		ConnectorServices.makeBackendRequest(actions.GET_CRYPTO_TRANSACTION_RESPONSE, rabbitRequest);
+	};
+
+	/**
 	 * get the BitCoin transaction details for the specific transaction Id
 	 *
 	 * @param transactionId
