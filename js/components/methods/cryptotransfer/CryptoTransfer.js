@@ -1,12 +1,12 @@
 import React from 'react'
-import {AskInfo} from './AskInfo'
-import {InfoMethod} from './InfoMethod'
+import { AskInfo } from './AskInfo'
+import { InfoMethod } from './InfoMethod'
 import Cashier from '../../../constants/Cashier'
-import {UIService} from '../../../services/UIService'
-import {CashierStore} from '../../../stores/CashierStore'
-import {TransactionService} from '../../../services/TransactionService'
-import {ApplicationService} from '../../../services/ApplicationService'
-import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
+import { UIService } from '../../../services/UIService'
+import { CashierStore } from '../../../stores/CashierStore'
+import { TransactionService } from '../../../services/TransactionService'
+import { ApplicationService } from '../../../services/ApplicationService'
+import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
 
 let CryptoTransfer = React.createClass({
 
@@ -24,19 +24,19 @@ let CryptoTransfer = React.createClass({
 	refreshLocalState(){
 		return {
 			info : {
+				rate : '',
 				promoCode: '',
 				limitsCheck : '',
 				cryptoAmount : '',
 				cryptoAddress : '',
 				amountRateBTC : '',
 				customerAmount : '',
+				cryptoCurrencyISO : '',
+				cryptoCurrencyName : '',
 				cryptoAddressError : false,
-				rate : UIService.getCurrentCryptoRate(),
-				validAddress: UIService.getValidAddress(),
+				transaction : CashierStore.getTransaction(),
 				limits : UIService.getProcessorLimitMinMax(),
-				cryptoCurrencyName : UIService.getCurrentCryptoName(),
-				cryptoCurrencyISO : UIService.getCurrentCryptoSymbol(),
-				conversionRate : UIService.getCurrentCryptoConvertionRate()
+				selectedProcessor : CashierStore.getProcessor()
 			}
 		}
 	},
@@ -50,16 +50,27 @@ let CryptoTransfer = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
-	getSymbol(){
-		let symbol = this.state.info;
-		return symbol.cryptoCurrencyISO;
+	/**
+	 * Get rate to current currency symbol value
+	 *
+	 * @param symbolValue
+	 */
+	getCurrencyRate(symbolValue){
+		let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_GET_RATE + symbolValue + '_BTC';
+		fetch(url, {method: 'GET'}).then((response) => {
+			return response.json();
+		}).then((rate) => {
+			this.setCurrencyRate(rate.rate);
+		}).catch((err) => {
+			console.error(err);
+		});
 	},
 
 	/**
 	 * Check mix and Max limits
 	 *
 	 * @returns {*}
-     */
+	 */
 	limitCheckStatus(){
 		let limitsInfo = this.state.info.limits;
 		let amount = this.state.info.customerAmount;
@@ -117,13 +128,14 @@ let CryptoTransfer = React.createClass({
 	/**
 	 * Set crypto amount
 	 *
-	 * @param cryptoAmount
+	 * @param btcAmount
 	 * @param customerAmount
-     */
-	setCryptoAmount(cryptoAmount, customerAmount){
+	 */
+	setCryptoAmount(btcAmount, customerAmount){
+		let rate = this.state.info.rate;
 		let actualState = this.state.info;
 		actualState.customerAmount = customerAmount;
-		actualState.cryptoAmount = parseFloat(cryptoAmount).toFixed(8);
+		actualState.cryptoAmount = parseFloat(btcAmount / rate).toFixed(8);
 		this.setState({info: actualState}, function afterAmountChange(){
 			this.checkLimits();
 		});
@@ -131,14 +143,14 @@ let CryptoTransfer = React.createClass({
 
 	/**
 	 * Set customer Amount
-	 * 
-	 * @param amount
+	 *
+	 * @param btcAmount
 	 * @param cryptoAmount
-     */
-	setCustomerAmount(amount, cryptoAmount){
+	 */
+	setCustomerAmount(btcAmount, cryptoAmount){
 		let actualState = this.state.info;
 		actualState.cryptoAmount = cryptoAmount;
-		actualState.customerAmount = parseFloat((btcAmount / CashierStore.getBTCRate())).toFixed(5);
+		actualState.customerAmount = parseFloat(btcAmount / CashierStore.getBTCRate()).toFixed(2);
 		this.setState({info: actualState}, function afterAmountChange(){
 			this.checkLimits();
 		});
@@ -148,7 +160,7 @@ let CryptoTransfer = React.createClass({
 	 * Set rate to current currency
 	 *
 	 * @param rate
-     */
+	 */
 	setCurrencyRate(rate){
 		let actualState = this.state.info;
 		actualState.rate = rate ;
@@ -156,10 +168,21 @@ let CryptoTransfer = React.createClass({
 	},
 
 	/**
+	 * Set limits to current currency
+	 *
+	 * @param limits
+	 */
+	setCurrencyLimits(limits){
+		let actualState = this.state.info;
+		actualState.limits = limits ;
+		this.setState({info: actualState});
+	},
+
+	/**
 	 * Set crypto address
 	 *
 	 * @param cryptoAddress
-     */
+	 */
 	setCryptoAddress(cryptoAddress){
 		let actualState = this.state.info;
 		actualState.cryptoAddress = cryptoAddress ;
@@ -191,8 +214,7 @@ let CryptoTransfer = React.createClass({
 	 */
 	setCryptoCurrencyISO(currencyISO){
 		let actualState = this.state.info;
-		actualState.cryptoCurrencyISO = currencyISO;
-		UIService.setCurrentCryptoSymbol(currencyISO);
+		actualState.cryptoCurrencyISO = currencyISO ;
 		this.setState({info: actualState});
 	},
 
@@ -201,8 +223,7 @@ let CryptoTransfer = React.createClass({
 	 */
 	setCryptoCurrencyName(currencyName){
 		let actualState = this.state.info;
-		actualState.cryptoCurrencyName = currencyName;
-		UIService.setCurrentCryptoSymbol(currencyName);
+		actualState.cryptoCurrencyName = currencyName ;
 		this.setState({info: actualState});
 	},
 
@@ -210,7 +231,7 @@ let CryptoTransfer = React.createClass({
 	 * Set transaction transaction promoCode in the store
 	 *
 	 * @param promoCode
-     */
+	 */
 	setPromoCode(promoCode){
 		TransactionService.setPromoCode(promoCode);
 		let actualState = this.state.info;
@@ -243,23 +264,19 @@ let CryptoTransfer = React.createClass({
 			<div id="crypto">
 				<div className="col-sm-6">
 					{(() =>{
-						let processor = CashierStore.getProcessor();
-						if(!processor.processorId){
+						if(!this.state.info.selectedProcessor.processorId){
 							return <LoadingSpinner/>;
 						}
 
 						return(
 							<AskInfo
-								getSymbol={this.getSymbol}
 								rate={this.state.info.rate}
 								limits={this.state.info.limits}
 								setPromoCode={this.setPromoCode}
-								loadingLimits={this.loadingLimits}
 								setLimits={this.setCurrencyLimits}
 								promoCode={this.state.info.promoCode}
 								setCryptoAmount={this.setCryptoAmount}
 								getCurrencyRate={this.getCurrencyRate}
-								loadLimits={this.state.info.loadLimits}
 								setCryptoAddress={this.setCryptoAddress}
 								setAmountRateBTC={this.setAmountRateBTC}
 								limitsCheck={this.state.info.limitsCheck}
@@ -267,7 +284,6 @@ let CryptoTransfer = React.createClass({
 								cryptoAmount={this.state.info.cryptoAmount}
 								cryptoAddress={this.state.info.cryptoAddress}
 								customerAmount={this.state.info.customerAmount}
-								conversionRate={this.state.info.conversionRate}
 								amountToBTCCalculate={this.amountToBTCCalculate}
 								btcToAmountCalculate={this.btcToAmountCalculate}
 								setCryptoCurrencyISO={this.setCryptoCurrencyISO}
@@ -280,14 +296,12 @@ let CryptoTransfer = React.createClass({
 
 				<div className="col-sm-6">
 					{(() =>{
-						let processor = CashierStore.getProcessor();
-						if(!processor.processorId){
+						if(!this.state.info.selectedProcessor.processorId){
 							return <LoadingSpinner/>;
 						}
 
 						return(
 							<InfoMethod
-								getSymbol={this.getSymbol}
 								rate={this.state.info.rate}
 								limits={this.state.info.limits}
 								setLimits={this.setCurrencyLimits}

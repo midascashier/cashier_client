@@ -105,7 +105,7 @@ let AskInfo = React.createClass({
 			'border' : 'none',
 			'background-color' : '#fff'
 		});
-		
+
 		this.hideCurrencies();
 	},
 
@@ -124,7 +124,7 @@ let AskInfo = React.createClass({
 	 *
 	 * @param currency
 	 * @returns {XML}
-     */
+	 */
 	currencyAvailableContent(currency) {
 		let id = (currency.status == 'available') ? currency.name.toLowerCase().split(' ').join('') : '';
 		return(
@@ -162,7 +162,7 @@ let AskInfo = React.createClass({
 	 * Build currencies container with all currencies available to crypto transfer
 	 *
 	 * @returns {XML}
-     */
+	 */
 	buildCurrenciesContainer(){
 		if(this.state.currencies){
 			let availableCurrencies = [];
@@ -209,7 +209,7 @@ let AskInfo = React.createClass({
 	 * Find any currency with a name similar to the entry search
 	 *
 	 * @param event
-     */
+	 */
 	searchCurrency(event) {
 		let txtSearch = event.target.value.toLowerCase();
 		if(txtSearch == '') {
@@ -223,7 +223,7 @@ let AskInfo = React.createClass({
 	 * Change crypto address value
 	 *
 	 * @param event
-     */
+	 */
 	changeCryptoAddress(event){
 		let cryptoAddress = event.target.value;
 		this.props.setCryptoAddress(cryptoAddress);
@@ -233,7 +233,7 @@ let AskInfo = React.createClass({
 	 * Chance value to promo code input
 	 *
 	 * @param event
-     */
+	 */
 	changePromoCode(event){
 		let promoCode = event.target.value;
 		this.props.setPromoCode(promoCode);
@@ -338,7 +338,7 @@ let AskInfo = React.createClass({
 										/>
 										<span id="helpAddress">?</span>
 									</div>
-								)	
+								)
 							}
 						})()}
 

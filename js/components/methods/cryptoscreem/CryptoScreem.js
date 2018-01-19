@@ -59,7 +59,7 @@ let CryptoScreem = React.createClass({
 	 * Check mix and Max limits
 	 *
 	 * @returns {*}
-     */
+	 */
 	limitCheckStatus(){
 		let limitsInfo = this.state.info.limits;
 		let amount = this.state.info.customerAmount;
@@ -119,7 +119,7 @@ let CryptoScreem = React.createClass({
 	 *
 	 * @param cryptoAmount
 	 * @param customerAmount
-     */
+	 */
 	setCryptoAmount(cryptoAmount, customerAmount){
 		let actualState = this.state.info;
 		actualState.customerAmount = customerAmount;
@@ -131,10 +131,10 @@ let CryptoScreem = React.createClass({
 
 	/**
 	 * Set customer Amount
-	 * 
+	 *
 	 * @param amount
 	 * @param cryptoAmount
-     */
+	 */
 	setCustomerAmount(amount, cryptoAmount){
 		let actualState = this.state.info;
 		actualState.cryptoAmount = cryptoAmount;
@@ -148,7 +148,7 @@ let CryptoScreem = React.createClass({
 	 * Set rate to current currency
 	 *
 	 * @param rate
-     */
+	 */
 	setCurrencyRate(rate){
 		let actualState = this.state.info;
 		actualState.rate = rate ;
@@ -159,7 +159,7 @@ let CryptoScreem = React.createClass({
 	 * Set crypto address
 	 *
 	 * @param cryptoAddress
-     */
+	 */
 	setCryptoAddress(cryptoAddress){
 		let actualState = this.state.info;
 		actualState.cryptoAddress = cryptoAddress ;
@@ -210,7 +210,7 @@ let CryptoScreem = React.createClass({
 	 * Set transaction transaction promoCode in the store
 	 *
 	 * @param promoCode
-     */
+	 */
 	setPromoCode(promoCode){
 		TransactionService.setPromoCode(promoCode);
 		let actualState = this.state.info;
