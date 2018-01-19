@@ -1,17 +1,20 @@
 import React from 'react'
 import Cashier from '../../../constants/Cashier'
-import { UIService } from '../../../services/UIService'
-import { translate } from '../../../constants/Translate'
-import {CashierStore} from '../../../stores/CashierStore'
-import  errorMsgs  from '../../../constants/limitsErrorMsgs'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import errorMsgs from '../../../constants/limitsErrorMsgs'
+import {ApplicationService} from '../../../services/ApplicationService'
 
 let Amount = React.createClass({
 
     propTypes: {
         rate: React.PropTypes.number,
+        getSymbol: React.PropTypes.func,
+        loadLimits: React.PropTypes.bool,
         cryptoAmount: React.PropTypes.node,
         limitsCheck: React.PropTypes.string,
         customerAmount: React.PropTypes.node,
+        conversionRate: React.PropTypes.node,
         setCryptoAmount: React.PropTypes.func,
         setAmountRateBTC: React.PropTypes.func,
         setCustomerAmount: React.PropTypes.func,
@@ -19,14 +22,22 @@ let Amount = React.createClass({
         btcToAmountCalculate: React.PropTypes.func
     },
 
-    crytoCurrencyCalculate(event) {
-        let customerAmount = parseFloat(event.target.value);
-        let btcAmount = customerAmount * parseFloat(CashierStore.getBTCRate()).toFixed(8);
-        this.props.setCryptoAmount(btcAmount, customerAmount);
-        this.props.setAmountRateBTC(btcAmount);
+    crytoCurrencyCalculate(event){
+        let cryptoAmount =  0;
+        let symbol = this.props.getSymbol();
+        let amount = parseFloat(event.target.value);
+
+        if(symbol == 'BTC' || symbol == 'LTC' || symbol == 'BCH'){
+            cryptoAmount = amount / this.props.rate;
+        }else{
+            let ltcAmount = amount / this.props.conversionRate;
+            cryptoAmount = (ltcAmount / this.props.rate);
+        }
+
+        this.props.setCryptoAmount(cryptoAmount, amount);
     },
 
-    customerAmountCalculate(event) {
+    customerAmountCalculate(event){
         let cryptoAmount = parseFloat(event.target.value);
         let btcAmount = cryptoAmount * parseFloat(this.props.rate).toFixed(8);
         this.props.setCustomerAmount(btcAmount, cryptoAmount);
@@ -45,7 +56,7 @@ let Amount = React.createClass({
             limitsErrorMsg = errorMsgs.limitsMsgs[this.props.limitsCheck];
         }
 
-        if (isWithDraw){
+        if(isWithDraw){
             action = translate('WITHDRAW');
         }else{
             action = translate('DEPOSIT');
@@ -55,7 +66,20 @@ let Amount = React.createClass({
         return (
             <div id="cryptoAmount">
                 <div id="cryptoLimits">
-                    <div className='lds-circle'></div>
+                    {(() =>{
+                        if(UIService.getLoadingLimits()){
+                            return (
+                                <div className='lds-circle'></div>
+                            )
+                        }
+
+                        let currency = this.props.limits.currencyCode;
+                        let maxLimitCont = translate('PROCESSING_MIN', 'Min') + ApplicationService.currency_format(this.props.limits.minAmount) + ' ' + currency + ' - ';
+                        let minLimitCont = translate('PROCESSING_MAX', 'Max') + ApplicationService.currency_format(this.props.limits.maxAmount) + ' ' + currency;
+                        let limitContent = maxLimitCont + ' ' + minLimitCont;
+
+                        return <span>{limitContent}</span>
+                    })()}
                 </div>
 
                 <input

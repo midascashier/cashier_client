@@ -676,6 +676,68 @@ class UiService {
 	getCurrentZipCodeRgx(country){
 		return CashierStore.getZipCodeRegex(country);
 	}
+
+	/**
+	 *
+	 */
+	loadCryptoCurrencies(){
+		let company = this.getCompanyInformation();
+		let params = {
+			f: 'getCoins',
+			companyId: company.companyId
+		};
+
+		ConnectorServices.makeCashierRequest(actions.GET_CRYPTO_CURRENCIES_RESPONSE, params);
+	}
+
+	getCryptoCurrencies(){
+		return CashierStore.getCryptoCurrencies();
+	}
+
+	loadCurrencyLimits(cryptoCurrencyCode){
+		let company = this.getCompanyInformation();
+		let customer = this.getCustomerInformation();
+		let currency = this.getProcessorLimitMinMax();
+
+		let params = {
+			companyId: company.companyId,
+			f: 'getCryptoTransferLimits',
+			lowerLimit: currency.minAmount,
+			upperLimit: currency.maxAmount,
+			currencyCode: cryptoCurrencyCode,
+			customerCurrency: customer.currency
+		};
+
+		ConnectorServices.makeCashierRequest(actions.GET_CRYPTO_CURRENCY_LIMITS_RESPONSE, params);
+	}
+
+	loadingLimits(){
+		CashierStore.loadingLimits()
+	}
+
+	getLoadingLimits(){
+		return CashierStore.getLoadingLimits()
+	}
+
+	getCurrentCryptoRate(){
+		return CashierStore.getCurrentCryptoRate()
+	}
+
+	setCurrentCryptoSymbol(symbol){
+		CashierStore.setCurrentCryptoSymbol(symbol)
+	}
+
+	getCurrentCryptoSymbol(){
+		return CashierStore.getCurrentCryptoSymbol()
+	}
+
+	setCurrentCryptoName(name){
+		CashierStore.setCurrentCryptoName(name)
+	}
+
+	getCurrentCryptoName(){
+		return CashierStore.getCurrentCryptoName()
+	}
 }
 
 export let UIService = new UiService();
