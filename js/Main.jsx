@@ -317,8 +317,8 @@ let routes = (
 					<Route path="deferred/" component={DeferredTicket}/>
 				</Route>
 
-				<Route path="cryptoscreen/" component={CryptoScreen}/>
-				<Route path="cryptoscreen/confirm/" component={CryptoScreenConfirmWithdraw}/>
+				<Route path="cryptoscreen/" component={CryptoTransfer}/>
+				<Route path="cryptoscreen/confirm/" component={CryptoTransferConfirmWithdraw}/>
 				<Route path="cryptoscreen/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
