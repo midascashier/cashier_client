@@ -4,7 +4,7 @@
 let _langTags = {
 	//Sorts words
 	IMPORTANT: "Importante: ",
-	WARNING_MINER_DEPOSIT_CC: "Enviar solamente {currencyName} ({currencySymbol}) a esta dirección. Al envíar otra criptomoneda podría perder los fondos.",
+	WARNING_MINER_DEPOSIT_CC: "Enviar solamente {cryptoName} ({cryptoSymbol}) a esta dirección. Al envíar otra criptomoneda podría perder los fondos.",
 	WARNING_MINER_DEPOSIT: "Si su depósito es menor que ",
 	WARNING_MINER_DEPOSIT_END: "  podría no calificar para el reembolso.",
 	PROCESSING_SPINNER: 'Procesando... favor espere!',
