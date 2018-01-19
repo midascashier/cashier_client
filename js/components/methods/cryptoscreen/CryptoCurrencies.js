@@ -33,8 +33,10 @@ let CryptoCurrencies = React.createClass({
 	refreshLocalState(){
 		let processor = CashierStore.getProcessor();
 		let limitCurrency = processor.limitCurrency;
+		let currentCurrency = '';
 		return {
-			currencyLimits: limitCurrency
+			currencyLimits: limitCurrency,
+			currentCurrency: currentCurrency
 		}
 	},
 
@@ -51,11 +53,13 @@ let CryptoCurrencies = React.createClass({
 		$('#cryptoTransferModal').css('display', 'none');
 	},
 
-	setLimitsCurrencySelected(symbolSelect){
-
+	renderLimits(){
+		let symbolSelect = this.state.currentCurrency;
 		let currency = this.props.currency;
+
 		if(this.state.currencyLimits && this.state.currencyLimits[currency.symbol]){
-			clearInterval(this.interval);
+			clearInterval(this.intervalLimits);
+			currency = this.props.currency;
 
 			let spinCoin = "<div class='lds-circle'></div>";
 			$('#cryptoLimits span').html(spinCoin);
@@ -151,12 +155,12 @@ let CryptoCurrencies = React.createClass({
 				currencyCode: currency
 			});
 			$('#cryptoLimits').html(limitsCont);
-
-			this.hideCurrencies();
 		}
-
 	},
 
+	/**
+	 * @param event
+	 */
 	currencyActions(event){
 
 		let spinCoin = "<div class='lds-circle'></div>";
@@ -175,7 +179,14 @@ let CryptoCurrencies = React.createClass({
 		this.props.setCryptoCurrencyISO(symbolValue);
 		this.props.getCurrencyRate(symbolValue);
 
-		this.interval = setInterval(this.setLimitsCurrencySelected(symbolSelect), 1000);
+		this.setState({
+			currentCurrency: symbolSelect
+		});
+
+		this.hideCurrencies();
+		this.intervalLimits = setInterval(
+			this.renderLimits,
+			1000);
 	},
 
 	moneroActions(){
