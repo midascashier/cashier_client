@@ -69,7 +69,7 @@ let CryptoScreenTicketPending = React.createClass({
 		document.body.removeChild(clipBoard);
 	},
 
-	render() {
+	render(){
 		let address = this.state.address;
 		let cryptoAmount = this.state.cryptoAmount;
 		let cryptoSymbol = this.state.CryptoCurrencyISO;

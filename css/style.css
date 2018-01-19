@@ -295,7 +295,7 @@ div[class*="col-"] > div[class*="col-"]:before {
 /* Crypto Transfer style */
 #cryptoTransfer-Btn {
     width: 200px;
-    padding: 15px;
+    padding: 5px;
     margin: 0 auto;
     cursor: pointer;
     text-align: center;
@@ -304,6 +304,10 @@ div[class*="col-"] > div[class*="col-"]:before {
     background-color: rgb(204, 204, 204);
     border: 1px solid rgb(191, 191, 191);
     transition: background-color 0.7s;
+}
+
+#imgSmall{
+    width: 60px;
 }
 
 #cryptoTransfer-Btn:hover {
