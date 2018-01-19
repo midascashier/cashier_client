@@ -1,45 +1,45 @@
 import React from 'react'
-import ReactGA from 'react-ga'
-import {render} from 'react-dom'
-import {Client} from './components/Client'
-import {Welcome} from './components/Welcome'
-import {Content} from './components/Content'
-import {Router, Route, IndexRoute, browserHistory} from 'react-router'
-import {LoadingTicket} from './components/methodTickets/LoadingTicket'
-import {RejectedTicket} from './components/methodTickets/RejectedTicket'
-import {ApprovedTicket} from './components/methodTickets/ApprovedTicket'
-import {DeferredTicket} from './components/methodTickets/DeferredTicket'
+import ReactGA  from 'react-ga'
+import { render }  from 'react-dom'
+import { Client } from './components/Client'
+import { Welcome } from './components/Welcome'
+import { Content } from './components/Content'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { LoadingTicket } from './components/methodTickets/LoadingTicket'
+import { RejectedTicket } from './components/methodTickets/RejectedTicket'
+import { ApprovedTicket } from './components/methodTickets/ApprovedTicket'
+import { DeferredTicket } from './components/methodTickets/DeferredTicket'
 
 /**
  * Neteller set of components to create routes
  */
-import {Neteller} from './components/methods/neteller/Neteller'
-import {NetellerConfirmWithdraw} from './components/methods/neteller/ConfirmWithdraw'
+import { Neteller } from './components/methods/neteller/Neteller'
+import { NetellerConfirmWithdraw } from './components/methods/neteller/ConfirmWithdraw'
 
 /**
  * Skrill set of components to create routes
  */
-import {Skrill} from './components/methods/skrill/Skrill'
-import {SkrillConfirmWithdraw} from './components/methods/skrill/ConfirmWithdraw'
-import {SkrillTicketPending} from './components/methods/skrill/tickets/PendingTicket'
+import { Skrill } from './components/methods/skrill/Skrill'
+import { SkrillConfirmWithdraw } from './components/methods/skrill/ConfirmWithdraw'
+import { SkrillTicketPending } from './components/methods/skrill/tickets/PendingTicket'
 
 /**
  * DebitCards set of components to create routes
  */
-import {DebitCards} from './components/methods/debitcards/DebitCards'
-import {DebitCardConfirmWithdraw} from './components/methods/debitcards/ConfirmWithdraw'
+import { DebitCards } from './components/methods/debitcards/DebitCards'
+import { DebitCardConfirmWithdraw } from './components/methods/debitcards/ConfirmWithdraw'
 
 /**
  * EcoPayz set of components to create routes
  */
-import {Ecopayz} from './components/methods/ecopayz/Ecopayz'
-import {EcoConfirmWithdraw} from './components/methods/ecopayz/ConfirmWithdraw'
-import {EcopayzTicketPending} from './components/methods/ecopayz/tickets/PendingTicket'
+import { Ecopayz } from './components/methods/ecopayz/Ecopayz'
+import { EcoConfirmWithdraw } from './components/methods/ecopayz/ConfirmWithdraw'
+import { EcopayzTicketPending } from './components/methods/ecopayz/tickets/PendingTicket'
 
 /**
  * skrill_1tap set of components to create routes
  */
-import {Skrill_1tap} from './components/methods/skrill_1tap/Skrill_1tap'
+import { Skrill_1tap } from './components/methods/skrill_1tap/Skrill_1tap'
 
 /**
  * genck set of components to create routes
@@ -86,7 +86,13 @@ import {P2PTicketProcessing} from './components/methods/person2person/tickets/Pr
 import {CryptoTransfer} from './components/methods/cryptotransfer/CryptoTransfer'
 import {CryptoTransferConfirmWithdraw} from './components/methods/cryptotransfer/ConfirmWithdraw'
 import {CryptoTransferTicketPending} from './components/methods/cryptotransfer/tickets/PendingTicket'
-import {CryptoScreenTicketPending} from './components/methods/cryptotransfer/tickets/PendingTicketCS'
+
+/**
+ * Crypto Screem
+ */
+import {CryptoScreem} from './components/methods/cryptoscreem/CryptoScreem'
+import {CryptoScreemConfirmWithdraw} from './components/methods/cryptoscreem/ConfirmWithdraw'
+import {CryptoScreenTicketPending} from './components/methods/cryptoscreem/tickets/PendingTicket'
 
 /**
  * Common components
@@ -235,7 +241,7 @@ let routes = (
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
-				<Route path="cryptoscreen/" component={CryptoTransfer}/>
+				<Route path="cryptoscreen/" component={CryptoScreem}/>
 				<Route path="cryptoscreen/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={CryptoScreenTicketPending}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -317,8 +323,8 @@ let routes = (
 					<Route path="deferred/" component={DeferredTicket}/>
 				</Route>
 
-				<Route path="cryptoscreen/" component={CryptoTransfer}/>
-				<Route path="cryptoscreen/confirm/" component={CryptoTransferConfirmWithdraw}/>
+				<Route path="cryptoscreen/" component={CryptoScreem}/>
+				<Route path="cryptoscreen/confirm/" component={CryptoScreemConfirmWithdraw}/>
 				<Route path="cryptoscreen/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
