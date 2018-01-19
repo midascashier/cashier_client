@@ -379,6 +379,17 @@ let _transactionResponse = {
 	}
 };
 
+let _CryptoTransfer = {
+	rate: 0,
+	minerFee: 0,
+	conversionRate: 0,
+	currencies: false,
+	loadingLimits: false,
+	currentLimits: false,
+	cryptoCurrencyISO : '',
+	cryptoCurrencyName : ''
+};
+
 let CHANGE_EVENT = 'change';
 
 let CashierStore = assign({}, EventEmitter.prototype, {
@@ -679,6 +690,41 @@ let CashierStore = assign({}, EventEmitter.prototype, {
      */
 	getCountries(){
 		return _UI.countries;
+	},
+
+	/**
+	 * Get crypto currencies list
+	 */
+	getCryptoCurrencies(){
+		return _CryptoTransfer.currencies
+	},
+
+	loadingLimits(){
+		_CryptoTransfer.loadingLimits = true
+	},
+
+	getLoadingLimits(){
+		return _CryptoTransfer.loadingLimits
+	},
+
+	getCurrentCryptoRate(){
+		return _CryptoTransfer.rate
+	},
+
+	setCurrentCryptoSymbol(symbol){
+		_CryptoTransfer.cryptoCurrencyISO = symbol
+	},
+
+	getCurrentCryptoSymbol(){
+		return _CryptoTransfer.cryptoCurrencyISO
+	},
+
+	setCurrentCryptoName(name){
+		_CryptoTransfer.cryptoCurrencyName = name
+	},
+
+	getCurrentCryptoName(){
+		return _CryptoTransfer.cryptoCurrencyName
 	}
 });
 
@@ -1160,6 +1206,22 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					break;
 
 				case actions.UPDATE_PAYACCOUNT_INFO_RESPONSE:
+					break;
+
+				case actions.GET_CRYPTO_CURRENCIES_RESPONSE:
+					_CryptoTransfer.currencies = data.response.result;
+					CashierStore.emitChange();
+					break;
+
+				case actions.GET_CRYPTO_CURRENCY_LIMITS_RESPONSE:
+					_processor.limits.currencyMin = data.response.result.Min;
+					_processor.limits.currencyMax = data.response.result.Max;
+					_CryptoTransfer.rate = data.response.result.Rate;
+					_CryptoTransfer.minerFee = data.response.result.MinerFee;
+					_CryptoTransfer.conversionRate = data.response.result.ConversionRate;
+					_CryptoTransfer.currentLimits = data.response.result;
+					_CryptoTransfer.loadingLimits = false;
+					CashierStore.emitChange();
 					break;
 
 				default:

@@ -1,23 +1,24 @@
 import React from 'react'
-import { FAQ } from './FAQ'
-import { Amount } from './Amount'
-import Cashier from '../../../constants/Cashier'
-import { CryptoCurrencies } from './CryptoCurrencies'
-import { UIService } from '../../../services/UIService'
-import { translate } from '../../../constants/Translate'
-import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
+import {FAQ} from './FAQ'
+import {Amount} from './Amount'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 
 let AskInfo = React.createClass({
 
 	propTypes: {
 		rate: React.PropTypes.number,
 		limits: React.PropTypes.object,
+		getSymbol: React.PropTypes.func,
 		setLimits: React.PropTypes.func,
 		promoCode: React.PropTypes.node,
 		setPromoCode: React.PropTypes.func,
 		cryptoAmount: React.PropTypes.node,
 		cryptoAddress: React.PropTypes.node,
 		limitsCheck: React.PropTypes.string,
+		conversionRate:React.PropTypes.node,
 		customerAmount: React.PropTypes.node,
 		getCurrencyRate: React.PropTypes.func,
 		setCryptoAmount: React.PropTypes.func,
@@ -31,62 +32,128 @@ let AskInfo = React.createClass({
 		setCryptoCurrencyName: React.PropTypes.func
 	},
 
-	componentWillMount() {
-		this.setState({
-			load : false,
-			currencies : false
-		});
+	/**
+	 * React function to set component initial state
+	 */
+	getInitialState(){
+		return this.refreshLocalState();
+	},
 
-		this.getCurrencies();
+	/**
+	 * this function sets and return object with local states
+	 */
+	refreshLocalState(){
+		return {
+			currencies : UIService.getCryptoCurrencies()
+		}
+	},
 
+	/**
+	 * this is the callback function the store calls when a state change
+	 *
+	 * @private
+	 */
+	_onChange(){
+		this.setState(this.refreshLocalState());
+	},
+
+	/**
+	 *
+	 */
+	componentWillMount(){
+		UIService.loadCryptoCurrencies();
 		window.onclick = function (event) {
-			if (event.target == document.getElementById('cryptoTransferModal')) {
+			if(event.target == document.getElementById('cryptoTransferModal')){
 				$('#cryptoTransferModal').css('display', 'none');
 			}
 
-			if (event.target == document.getElementById('moneroMsgModal')) {
+			if(event.target == document.getElementById('moneroMsgModal')){
 				$('#moneroMsgModal').css('display', 'none');
 			}
 		};
 	},
 
-	/**
-	 * Get currencies list available and unavailable to execute crypto transfer
-	 */
-	getCurrencies() {
-		let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_GET_COINS;
-		fetch(url).then((response) => {
-			return response.json()
-		}).then((currencies) => {
-			this.setState({
-				load : true,
-				currencies : currencies
-			});
-		}).catch(function(err) {
-			console.error(err);
+	currencyActions(event){
+		UIService.loadingLimits();
+		let symbolSelect = event.currentTarget.id;
+		let img = $('#' + symbolSelect + ' img').attr('src');
+		let symbolName = $('#' + symbolSelect + 'Name').text();
+		let symbolValue = $('#' + symbolSelect + 'Symbol').val();
+		UIService.loadCurrencyLimits(symbolValue);
+
+		if(symbolSelect == 'monero'){
+			this.moneroActions();
+		}
+
+		this.props.setCryptoCurrencyName(symbolName);
+		this.props.setCryptoCurrencyISO(symbolValue);
+
+		//DOM update
+		$('#FAQs').removeAttr('style');
+		$('#imgSmall').attr('src', img);
+		$('#symbolName').text(symbolName);
+		$('#currencyName').val(symbolName);
+		$('#symbolValue').text(symbolValue);
+		$('#AskInform').removeAttr('style');
+		$('#Important').removeAttr('style');
+		$('#cryptoAskInform').css('display', 'block');
+		$('#cryptoTransfer-Btn-content').css('display', 'block');
+
+		$('#cryptoTransfer-Btn').css({
+			'color' : '#fff',
+			'border' : 'none',
+			'background-color' : '#fff'
+		});
+		
+		this.hideCurrencies();
+	},
+
+	moneroActions(){
+		$('#moneroMsgModal').css({
+			'display' : 'flex'
 		});
 	},
 
+	hideCurrencies(){
+		$('#cryptoTransferModal').css('display', 'none');
+	},
+
 	/**
-	 * Generate content with important information for the current currency
+	 * Generate content with important information for the current available currency
 	 *
 	 * @param currency
 	 * @returns {XML}
      */
-	currencyContent(currency) {
-		currency = this.state.currencies[currency];
+	currencyAvailableContent(currency) {
+		let id = (currency.status == 'available') ? currency.name.toLowerCase().split(' ').join('') : '';
 		return(
-			<CryptoCurrencies
-				currency={currency}
-			  	rate={this.props.rate}
-				limits={this.props.limits}
-				setLimits={this.props.setLimits}
-			 	getCurrencyRate={this.props.getCurrencyRate}
-				amountToBTCCalculate={this.props.amountToBTCCalculate}
-				btcToAmountCalculate={this.props.btcToAmountCalculate}
-				setCryptoCurrencyISO={this.props.setCryptoCurrencyISO}
-				setCryptoCurrencyName={this.props.setCryptoCurrencyName}
-			/>
+			<div id={id} className={'cryptoTransferCurrency'} onClick={this.currencyActions.bind(this)}>
+				<img src={currency.image} alt={currency.name}/>
+				<span id={id + 'Name'} className="currentName">{currency.name}</span>
+				<input type='hidden' id={id + 'Symbol'} value={currency.symbol}/>
+				<input type='hidden' id={id + 'Status'} value={currency.status}/>
+				<input type='hidden' id={id + 'ImgSmall'} value={currency.imageSmall}/>
+			</div>
+		)
+	},
+
+	/**
+	 * Generate content with important information for the current unavailable currency
+	 *
+	 * @param currency
+	 * @returns {XML}
+	 */
+	currencyUnavailableContent(currency) {
+		let id = (currency.status == 'available') ? currency.name.toLowerCase().split(' ').join('') : '';
+		return(
+			<div id={id} className={'cryptoTransferCurrency unavailableCurrency'} onClick={this.currencyActions.bind(this)}>
+				<img src={currency.image} alt={currency.name}/>
+				<span className="unavailableName">{translate('CRYPTO_UNAVAILABLE_TXT', 'Temporarily disabled')}</span>
+				<span id={id + 'Name'} className="currentName">{currency.name}</span>
+				<input type='hidden' id={id + 'Symbol'} value={currency.symbol}/>
+				<input type='hidden' id={id + 'Status'} value={currency.status}/>
+				<input type='hidden' id={id + 'ImgSmall'} value={currency.imageSmall}/>
+			</div>
 		)
 	},
 
@@ -95,67 +162,29 @@ let AskInfo = React.createClass({
 	 *
 	 * @returns {XML}
      */
-	buildCurrenciesContainer() {
-		let currency = [];
-		let orderCurrencies = [];
-		let availableCurrencies = [];
-		let unavailableCurrencies = [];
-		let currencies = this.state.currencies;
+	buildCurrenciesContainer(){
+		if(this.state.currencies){
+			let availableCurrencies = this.state.currencies.available;
+			let unavailableCurrencies = this.state.currencies.unavailable;
 
-		orderCurrencies[0] = 'BCH';
-		orderCurrencies[1] = 'ETH';
-		orderCurrencies[2] = 'LTC';
-		orderCurrencies[3] = 'XMR';
-		orderCurrencies[4] = 'DASH';
+			return(
+				<div id='cryptoTransferModal'>
+					<div id='cryptoTransferModal-content'>
+						<div id='cryptoTransferModal-header'>
+							<input id='cryptoTransferModal-currencySearch' type='text' placeholder={translate('CRYPTO_SEARCH_TXT', 'Search currency name')} onInput={this.searchCurrency.bind(this)}/>
+							<span id='cryptoTransferModal-close' onClick={this.hideCurrencies.bind(this)}>&times;</span>
+						</div>
 
-		if(currencies){
-			currency = Object.keys(currencies);
-			availableCurrencies = currency.filter(function (current) {
-				return ((current != 'BTC' && current != 'XRP') && currencies[current].status == 'available');
-			});
-
-			unavailableCurrencies = currency.filter(function (current) {
-				if((current != 'BTC' && current != 'XRP') && currencies[current].status != 'available'){
-					if(orderCurrencies.includes(current)){
-						orderCurrencies.forEach(function(k, v) {
-							if(v == current){
-								this.splice(k, 1);
-							}
-						});
-					}
-
-					return true;
-				}
-
-				return false;
-			});
-
-			availableCurrencies.forEach(function (current, k) {
-				orderCurrencies.forEach(function (v) {
-					if(current == v){
-						availableCurrencies.splice(k, 1);
-					}
-				});
-			});
-
-			availableCurrencies = orderCurrencies.concat(availableCurrencies);
-		}
-
-		return(
-			<div id='cryptoTransferModal'>
-				<div id='cryptoTransferModal-content'>
-					<div id='cryptoTransferModal-header'>
-						<input id='cryptoTransferModal-currencySearch' type='text' placeholder={translate('CRYPTO_SEARCH_TXT', 'Search currency name')} onInput={this.searchCurrency.bind(this)}/>
-						<span id='cryptoTransferModal-close' onClick={this.hideCurrencies.bind(this)}>&times;</span>
-					</div>
-
-					<div id='cryptoTransfer-currencies'>
-						{availableCurrencies.map(this.currencyContent)}
-						{unavailableCurrencies.map(this.currencyContent)}
+						<div id='cryptoTransfer-currencies'>
+							{availableCurrencies.map(this.currencyAvailableContent)}
+							{unavailableCurrencies.map(this.currencyUnavailableContent)}
+						</div>
 					</div>
 				</div>
-			</div>
-		)
+			)
+		}
+
+		return <span/>
 	},
 
 	/**
@@ -219,7 +248,7 @@ let AskInfo = React.createClass({
 
 		let cryptoContent = <LoadingSpinner/>;
 
-		if(this.state.load){
+		if(this.state.currencies){
 			cryptoContent = (
 				<div>
 					<div id="cryptoTransfer-Btn" onClick={this.showCurrencies.bind(this)}>
@@ -249,9 +278,11 @@ let AskInfo = React.createClass({
 						<Amount
 							rate={this.props.rate}
 							limits={this.props.limits}
+							getSymbol={this.props.getSymbol}
 							limitsCheck={this.props.limitsCheck}
 							cryptoAmount={this.props.cryptoAmount}
 							setLimits={this.props.setCurrencyLimits}
+							conversionRate={this.props.conversionRate}
 							customerAmount={this.props.customerAmount}
 							setCryptoAmount={this.props.setCryptoAmount}
 							getCurrencyRate={this.props.getCurrencyRate}
@@ -287,15 +318,10 @@ let AskInfo = React.createClass({
 						{(() =>{
 							if(!isWithDraw){
 								return (
-									<input type="text" className="form-control" placeholder={promoCodeTXT} onInput={this.changePromoCode} value={this.props.promoCode}/>
-								);
-							}
-						})()}
-
-						{(() =>{
-							if(!isWithDraw){
-								return (
-									<FAQ/>
+									<div>
+										<input type="text" className="form-control" placeholder={promoCodeTXT} onInput={this.changePromoCode} value={this.props.promoCode}/>
+										<FAQ/>
+									</div>
 								);
 							}
 						})()}
@@ -313,7 +339,7 @@ let AskInfo = React.createClass({
 			)
 		}
 
-		return (
+		return(
 			<div id="cryptoAskInfo" className="box">
 				<div className="row">
 					<div className="col-sm-12">
@@ -330,6 +356,21 @@ let AskInfo = React.createClass({
 				{this.buildCurrenciesContainer()}
 			</div>
 		)
+	},
+
+	/**
+	 * React function to add listener to this component once is mounted
+	 * here the component listen changes from the store
+	 */
+	componentDidMount(){
+		CashierStore.addChangeListener(this._onChange);
+	},
+
+	/**
+	 * React function to remove listener to this component once is unmounted
+	 */
+	componentWillUnmount(){
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 
