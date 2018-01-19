@@ -241,9 +241,9 @@ let routes = (
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
-				<Route path="cryptoscreen/" component={CryptoScreen}/>
+				<Route path="cryptoscreen/" component={CryptoTransfer}/>
 				<Route path="cryptoscreen/ticket/" component={LoadingTicket}>
-					<Route path="pending/" component={CryptoScreenTicketPending}/>
+					<Route path="pending/" component={CryptoTransferTicketPending}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 			</Route>
