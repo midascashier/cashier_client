@@ -88,11 +88,11 @@ import {CryptoTransferConfirmWithdraw} from './components/methods/cryptotransfer
 import {CryptoTransferTicketPending} from './components/methods/cryptotransfer/tickets/PendingTicket'
 
 /**
- * Crypto Screeam
+ * Crypto Screem
  */
-import {CryptoScreem} from 'components/methods/cryptoscreem/CryptoScreem'
-import {CryptoScreemConfirmWithdraw} from 'components/methods/cryptoscreem/ConfirmWithdraw'
-import {CryptoScreenTicketPending} from 'components/methods/cryptoscreem/tickets/PendingTicket'
+import {CryptoScreem} from './components/methods/cryptoscreem/CryptoScreem'
+import {CryptoScreemConfirmWithdraw} from './components/methods/cryptoscreem/ConfirmWithdraw'
+import {CryptoScreenTicketPending} from './components/methods/cryptoscreem/tickets/PendingTicket'
 
 /**
  * Common components
