@@ -5,6 +5,7 @@ import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
 import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
+import cashier from '../../../constants/Cashier'
 
 let AskInfo = React.createClass({
 
@@ -43,7 +44,9 @@ let AskInfo = React.createClass({
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState(){
+		let processor = CashierStore.getProcessor();
 		return {
+			processorId: processor.processorId,
 			currencies : UIService.getCryptoCurrencies()
 		}
 	},
@@ -126,6 +129,13 @@ let AskInfo = React.createClass({
      */
 	currencyAvailableContent(currency) {
 		let id = (currency.status == 'available') ? currency.name.toLowerCase().split(' ').join('') : '';
+
+		if(this.state.processorId != cashier.PROCESSOR_ID_CRYPTOScreen){
+			if(currency.symbol === 'BTC'){
+				return null;
+			}
+		}
+
 		return(
 			<div id={id} className={'cryptoTransferCurrency'} onClick={this.currencyActions.bind(this)}>
 				<img src={currency.image} alt={currency.name}/>
@@ -145,6 +155,7 @@ let AskInfo = React.createClass({
 	 */
 	currencyUnavailableContent(currency) {
 		let id = (currency.status == 'available') ? currency.name.toLowerCase().split(' ').join('') : '';
+
 		return(
 			<div id={id} className={'cryptoTransferCurrency unavailableCurrency'} onClick={this.currencyActions.bind(this)}>
 				<img src={currency.image} alt={currency.name}/>

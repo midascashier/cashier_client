@@ -744,7 +744,13 @@ class UiService {
 	}
 
 	refundAddressRequired(currencyCode){
-		return (currencyCode != 'BTC' && currencyCode != 'LTC' && currencyCode != 'BCH')? true : false;
+		let processor = CashierStore.getProcessor();
+		let processorId = processor.processorId;
+		if(processorId == cashier.PROCESSOR_ID_CRYPTOScreen){
+			return (currencyCode != 'BTC' && currencyCode != 'LTC' && currencyCode != 'BCH')? true : false;
+		}else{
+			return true;
+		}
 	}
 
 	validateCryptoAddress(currencyCode, address){
