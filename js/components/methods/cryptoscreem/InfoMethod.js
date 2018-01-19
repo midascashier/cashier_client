@@ -94,6 +94,7 @@ let InfoMethod = React.createClass({
 				payAccountId: 0,
 				promoCode: promoCode,
 				cryptoAddress: address,
+				refundAddress: address,
 				currencyName: currencyName,
 				currencySymbol: currencyISO,
 				BTCConversionAmount: rateBTC
