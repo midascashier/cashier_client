@@ -26,12 +26,9 @@ let FAQ = React.createClass({
                     <p><strong>What are the fees?</strong></p>
                     <p>You can expect to pay a miner’s fee on every transaction, but nothing more. We calculate the miner’s fee by looking at the best fee across all coin networks and averaging things out. Below, you’ll find our miner’s fee structure:</p>
 
-                    <p><strong>BCH:</strong>	Bitcoin Cash Miner Fee: .0002 BCH</p>
                     <p><strong>ETH:</strong>	Ether Miner Fee: 0.001 ETH</p>
-                    <p><strong>LTC:</strong>	Litecoin Miner Fee: 0.001 LTC</p>
                     <p><strong>XMR:</strong>	Monero Miner Fee: 0.02 XMR</p>
                     <p><strong>DASH:</strong> Dash Miner Fee: 0.002 DASH</p>
-                    <p><strong>BTC:</strong>	Bitcoin Miner Fee: 0.001 BTC</p>
                     <details>
                         <summary><strong>View more</strong></summary>
                         <div className="newspaper">

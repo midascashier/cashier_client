@@ -74,10 +74,16 @@ let CryptoScreenTicketPending = React.createClass({
 		let address = this.state.address;
 		let cryptoName = this.state.cryptoName;
 		let cryptoAmount = this.state.cryptoAmount;
+		let cryptoSymbol = this.state.CryptoCurrencyISO;
 		let amount = translate('CRYPTO_INSTRUCTIONS_AMOUNT', 'Send crypto Amount from your wallet', { cryptoAmount: cryptoAmount, cryptoCurrency : cryptoName });
 		let cryptoInstructions = translate('CRYPTO_INSTRUCTIONS', 'Now send your crypto currency to us.', { cryptoCurrency : cryptoName });
 		let addressInstructions = translate('CRYPTO_INSTRUCTIONS_ADDRESS', 'Send the crypto currency to the following address', { cryptoCurrency : cryptoName });
 		let addressInfoInstructions = translate('CRYPTO_INSTRUCTIONS_ADDRESS_INFO', 'Please include any Miners Fee your crypto currency wallet charges.', { cryptoCurrency : cryptoName });
+
+		let tags = {
+			'cryptoName': cryptoName,
+			'cryptoSymbol': cryptoSymbol
+		};
 
 		return (
 			<div id="CryptoScreenAddressTicketInstructions">
@@ -99,7 +105,7 @@ let CryptoScreenTicketPending = React.createClass({
 											<div className="title">#1</div>
 											<div className="infoCol">
 												<div className="subtitle">{amount}</div>
-												<p><strong>{translate('IMPORTANT')}</strong>{translate('WARNING_MINER_DEPOSIT')}<strong>{this.state.cryptoAmount} {cryptoName}</strong>,{translate('WARNING_MINER_DEPOSIT_END')}</p>
+												<p><strong>{translate('IMPORTANT')}</strong>{translate('WARNING_MINER_DEPOSIT_CC', '', tags)}</p>
 											</div>
 										</div>
 									</div>
