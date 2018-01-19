@@ -28,13 +28,15 @@ let CryptoTransferTicketPending = React.createClass({
 		let CryptoCurrencyISO = "Loading...";
 
 		let transaction = UIService.getLastTransactionResponse();
-		TransactionService.cryptoTransferTransaction(transaction.transactionId);
-
 		if(transaction && transaction.details && transaction.details.cryptoTransferTransaction){
 			address = transaction.details.cryptoTransferTransaction.AddressFrom;
 			cryptoName = transaction.details.cryptoTransferTransaction.CryptoCurrencyName;
 			cryptoAmount = transaction.details.cryptoTransferTransaction.CryptoCurrencyAmount;
 			CryptoCurrencyISO = transaction.details.cryptoTransferTransaction.CryptoCurrencyISO;
+		}else{
+			if(transaction.transactionId){
+				TransactionService.cryptoTransferTransaction(transaction.transactionId);
+			}
 		}
 
 		return {

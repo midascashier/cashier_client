@@ -165,7 +165,8 @@ let _company = {
 /**
  * Stores the information of the selected processor
  *
- * @type {{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, rate: number, limits: Array, limitRules: Array, fees: {enableBP: number, enableCash: number, enableFree: number, cashType: string, structure: Array}, load: (function(*))}}
+ * @type {{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, rate: number, limits: Array, waitLimits: boolean, limitRules: Array, limitCurrency: {currencyMin: number, currencyMax: number, currencyCode: string}, fees: {enableBP: number, enableCash: number, enableFree: number, cashType: string, structure: Array}, load(*): void}}
+ *
  * @private
  */
 let _processor = {
@@ -178,6 +179,7 @@ let _processor = {
 	limits: [],
 	waitLimits: false,
 	limitRules: [],
+	limitCurrency: {currency: []},
 	fees: {
 		enableBP: 0,
 		enableCash: 0,
@@ -936,7 +938,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 						data.response.MinMaxLimits.currencyMax = Math.ceil(data.response.MinMaxLimits.currencyMax);
 						data.response.MinMaxLimits.currencyMin = Math.ceil(data.response.MinMaxLimits.currencyMin);
 						_processor.limits = data.response.MinMaxLimits;
-
 					}
 
 					_processor.waitLimits = false;
@@ -945,6 +946,21 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 				case actions.PROCESSORS_LIMIT_RULES_RESPONSE:
 					_processor.limitRules = data.response.processorLimits;
+					CashierStore.emitChange();
+					break;
+
+				case actions.GET_CRYPTO_TRANSFER_LIMITS_RESPONSE:
+					let limits = data.response.result;
+					if(limits){
+						let currencyCode = limits.currencyCode;
+						_processor.limitCurrency.currency[currencyCode] = {
+							currencyMin: limits.Min,
+							currencyMax: limits.Max,
+							rate: limits.Rate,
+							conversionRate: limits.ConversionRate,
+							minerFee: limits.MinerFee
+						};
+					}
 					CashierStore.emitChange();
 					break;
 
@@ -1069,6 +1085,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					CashierStore.emitChange();
 					break;
 
+				case actions.GET_CRYPTO_TRANSACTION_RESPONSE:
 				case actions.GET_BITCOIN_TRANSACTION_RESPONSE:
 				case actions.GET_CRYPTO_TRANSFER_TRANSACTION_RESPONSE:
 					_transactionResponse.details = data.response;

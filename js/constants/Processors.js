@@ -117,6 +117,13 @@ settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER][WITHDRAW_STEPS] = ["selectMethod"
 settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER][SETTING_ROUTE] = 'btc_crypto_transfer/';
 settings[Cashier.PROCESSOR_ID_CRYPTO_TRANSFER][REGISTER_ACCOUNTS_ALLOW] = 0;
 
+settings[Cashier.PROCESSOR_ID_CRYPTOScreen] = [];
+settings[Cashier.PROCESSOR_ID_CRYPTOScreen][LIMITS_VALIDATION_VERSION] = "lite";
+settings[Cashier.PROCESSOR_ID_CRYPTOScreen][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "instructions"];
+settings[Cashier.PROCESSOR_ID_CRYPTOScreen][WITHDRAW_STEPS] = ["selectMethod", "askInfo"];
+settings[Cashier.PROCESSOR_ID_CRYPTOScreen][SETTING_ROUTE] = 'cryptoscreen/';
+settings[Cashier.PROCESSOR_ID_CRYPTOScreen][REGISTER_ACCOUNTS_ALLOW] = 0;
+
 export default {
 	settings: settings,
 	SETTING_ROUTE: SETTING_ROUTE,

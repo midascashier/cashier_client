@@ -38,7 +38,7 @@ class UiService {
 			CashierActions.setCurrentStep(processorSteps[processorSteps.length - 1]);
 			if(data.Tstatus == 2){
 				nextPath += route + "ticket/approved/";
-			} else{
+			}else{
 				nextPath += route + "ticket/rejected/";
 			}
 		}
@@ -104,11 +104,11 @@ class UiService {
 		let ticketResult = 'rejected';
 		if(status == cashier.TRANSACTION_STATUS_APPROVED){
 			ticketResult = 'approved';
-		} else if(status == cashier.TRANSACTION_STATUS_PENDING){
+		}else if(status == cashier.TRANSACTION_STATUS_PENDING){
 			ticketResult = 'pending';
-		} else if(status == cashier.TRANSACTION_STATUS_PROCESSING){
+		}else if(status == cashier.TRANSACTION_STATUS_PROCESSING){
 			ticketResult = 'processing';
-		} else if(status == cashier.TRANSACTION_STATUS_DEFERRED){
+		}else if(status == cashier.TRANSACTION_STATUS_DEFERRED){
 			ticketResult = 'deferred';
 		}
 
@@ -134,9 +134,9 @@ class UiService {
 			let ticketResult = 'rejected';
 			if(layout == 'card'){
 				ticketResult += '/blockByBank';
-			} else if(layout == 'amount'){
+			}else if(layout == 'amount'){
 				ticketResult += '/invalidAmount';
-			} else if(layout == 'invalid-card'){
+			}else if(layout == 'invalid-card'){
 				ticketResult += '/invalidCard';
 			}
 
@@ -233,7 +233,7 @@ class UiService {
 	 */
 	getProcessorName(){
 		let processor = CashierStore.getProcessor();
-		if (processor.Name.toLowerCase() == "btcscreen"){
+		if(processor.Name.toLowerCase() == "btcscreen"){
 			return "bitcoin";
 		}
 		return processor.Name.toLowerCase();
@@ -259,12 +259,35 @@ class UiService {
 		let minAmount = Number(processor.limits.currencyMin);
 		let maxAmount = Number(processor.limits.currencyMax);
 		let currencyCode = processor.limits.currencyCode;
-		return { minAmount: minAmount, maxAmount: maxAmount, currencyCode: currencyCode };
+		return {minAmount: minAmount, maxAmount: maxAmount, currencyCode: currencyCode};
+	}
+
+	/**
+	 * get the processor currency amount
+	 *
+	 * @param currency
+	 *
+	 * @returns {*}
+	 */
+	getCryptoTransferLimits(currency){
+		let processor = CashierStore.getProcessor();
+		let customer = CashierStore.getCustomer();
+		let data = {
+			f: "getCryptoTransferLimits",
+			customerCurrency: customer.currency,
+			currencyCode: currency,
+			lowerLimit: processor.limits.currencyMin,
+			upperLimit: processor.limits.currencyMax
+		};
+
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		ConnectorServices.makeCashierRequest(actions.GET_CRYPTO_TRANSFER_LIMITS_RESPONSE, rabbitRequest);
 	}
 
 	/**
 	 * get the payAccount currency amount
-	 * 
+	 *
 	 * @returns {{payAccountId: null, available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}|_payAccount.limitsData|{available, type, remaining, enabled, enabledOn, minAmount, maxAmount, availableWithdraw, remainingWithdraw, enabledWithdraw, enabledOnWithdraw, minAmountWithdraw, maxAmountWithdraw, depositLimits, withdrawLimits, limitsPassed}|{}|*}
 	 */
 	getPayAccountLimits(){
@@ -395,8 +418,8 @@ class UiService {
 				stepOption = ProcessorSettings.WITHDRAW_STEPS;
 			}
 
-			if (processorID in ProcessorSettings.settings) {
-				if (stepOption in ProcessorSettings.settings[processorID]) {
+			if(processorID in ProcessorSettings.settings){
+				if(stepOption in ProcessorSettings.settings[processorID]){
 					stepsSetting = ProcessorSettings.settings[processorID][stepOption];
 				}
 			}
@@ -464,7 +487,7 @@ class UiService {
 	getCountryStates(country = null){
 		if(!country){
 			country = CashierStore.getUI().selectedCountry;
-		} else{
+		}else{
 			CashierActions.setSelectedCountry(country);
 		}
 		let countryStates = CashierStore.getUI().countryStates;
@@ -495,10 +518,10 @@ class UiService {
 		for(let i = 0; i < countries.length; i++){
 			let _country = countries[i];
 			if(_country.Small == country){
-				return { Small: _country.Small, Name: _country.Name };
+				return {Small: _country.Small, Name: _country.Name};
 			}
 		}
-		return { Small: country, Name: country };
+		return {Small: country, Name: country};
 	}
 
 	/**
@@ -515,11 +538,11 @@ class UiService {
 			for(let i = 0; i < states.length; i++){
 				let _countryState = states[i];
 				if(_countryState.Small == countryState){
-					return { Small: _countryState.Small, Name: _countryState.Name };
+					return {Small: _countryState.Small, Name: _countryState.Name};
 				}
 			}
 		}
-		return { Small: countryState, Name: countryState };
+		return {Small: countryState, Name: countryState};
 	}
 
 	/**
@@ -531,7 +554,7 @@ class UiService {
 	 */
 	renderOption(item, key){
 		if(!key || key == null || key == undefined || key == ''){
-			let optId = 'opt'+(new Date().getTime());
+			let optId = 'opt' + (new Date().getTime());
 			return (
 				<option id={optId} key={optId} value={key}>{item.label}</option>
 			)
@@ -571,21 +594,21 @@ class UiService {
 	 * Get months and years after the current date to use in CC expire date
 	 *
 	 * @returns {{selectMonths: Array, selectYears: Array}}
-     */
+	 */
 	getCCDate(){
 		let now = new Date();
 		let selectYears = [];
 		let selectMonths = [];
-		selectYears.push(UIService.renderOption({ label: '' }, ''));
-		selectMonths.push(UIService.renderOption({ label: '' }, ''));
+		selectYears.push(UIService.renderOption({label: ''}, ''));
+		selectMonths.push(UIService.renderOption({label: ''}, ''));
 
 		for(let i = 1; i < 13; i++){
 			i = ('0' + i).slice(-2);
-			selectMonths.push(UIService.renderOption({ label: i }, i));
+			selectMonths.push(UIService.renderOption({label: i}, i));
 		}
 
 		for(let i = now.getFullYear(); i < now.getFullYear() + 15; i++){
-			selectYears.push(UIService.renderOption({ label: i }, i));
+			selectYears.push(UIService.renderOption({label: i}, i));
 		}
 
 		return {
@@ -598,7 +621,7 @@ class UiService {
 	 * Get countries and list of states to use in location information
 	 *
 	 * @returns {{states: Array, countries: Array}}
-     */
+	 */
 	getCountriesInfo(){
 		let stateOptionNodes = [];
 		let countryOptionNodes = [];
@@ -606,14 +629,14 @@ class UiService {
 		let states = UIService.getCountryStates();
 
 		for(let i = 0; i < countries.length; i++){
-			countryOptionNodes.push(UIService.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
+			countryOptionNodes.push(UIService.renderOption({label: countries[i]['Name']}, countries[i]['Small']));
 		}
 
 		for(let i = 0; i < states.length; i++){
-			stateOptionNodes.push(UIService.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
+			stateOptionNodes.push(UIService.renderOption({label: states[i]['Name']}, states[i]['Small']));
 		}
 
-		return{
+		return {
 			states: stateOptionNodes,
 			countries: countryOptionNodes
 		}
@@ -621,9 +644,9 @@ class UiService {
 
 	/**
 	 * Check if the current selected processor is of type CC
-	 * 
+	 *
 	 * @returns {boolean}
-     */
+	 */
 	isCC(){
 		let processor = CashierStore.getProcessor();
 		return (processor.processorClass == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS);
@@ -633,7 +656,7 @@ class UiService {
 	 * Set current selected country from any input in UI
 	 *
 	 * @param country
-     */
+	 */
 	setCurrentSelectedCountry(country){
 		CashierStore.setCurrentSelectedCountry(country)
 	}
@@ -649,7 +672,7 @@ class UiService {
 	 * Verify current zip code
 	 *
 	 * @param country
-     */
+	 */
 	getCurrentZipCodeRgx(country){
 		return CashierStore.getZipCodeRegex(country);
 	}
