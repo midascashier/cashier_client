@@ -4,7 +4,7 @@ import { translate } from '../../../constants/Translate'
 import { CashierStore } from '../../../stores/CashierStore'
 import { TransactionService } from '../../../services/TransactionService'
 
-let CryptoScreemConfirmWithdraw = React.createClass({
+let CryptoScreenConfirmWithdraw = React.createClass({
 
 	/**
 	 * React function to set component initial state
@@ -163,4 +163,4 @@ let CryptoScreemConfirmWithdraw = React.createClass({
 	}
 });
 
-module.exports.CryptoScreemConfirmWithdraw = CryptoScreemConfirmWithdraw;
+module.exports.CryptoScreenConfirmWithdraw = CryptoScreenConfirmWithdraw;

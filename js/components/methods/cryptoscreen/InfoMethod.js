@@ -43,7 +43,7 @@ let InfoMethod = React.createClass({
 	 */
 	refreshLocalState(){
 		return {
-			checkIn : false,
+			checkIn: false,
 			processor: CashierStore.getProcessor(),
 			currentPayAccount: CashierStore.getCurrentPayAccount(),
 			transaction: CashierStore.getTransaction()
@@ -55,14 +55,14 @@ let InfoMethod = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
@@ -70,19 +70,19 @@ let InfoMethod = React.createClass({
 		let promoCode = this.props.promoCode;
 		let amount = this.props.customerAmount;
 		let fee = this.props.feeCashValue;
-		let address = this.props.cryptoAddress;
-		let rateBTC = this.props.amountRateBTC;
-		let currencyISO = this.props.cryptoCurrencyISO;
-		let currencyName = this.props.cryptoCurrencyName;
+		let cryptoAddress = this.props.cryptoAddress;
+		let currencyRate = UIService.getCurrentCryptoConvertionRate();
+		let currencyISO = UIService.getCurrentCryptoSymbol();
+		let currencyName = UIService.getCurrentCryptoName();
 
 		//set values
 		TransactionService.setAmount(amount);
 		TransactionService.setFeeAmount(fee);
 		TransactionService.setPromoCode(promoCode);
-		TransactionService.setCryptoAddress(address);
+		TransactionService.setCryptoAddress(cryptoAddress);
 		TransactionService.setCryptoCurrencyISO(currencyISO);
 		TransactionService.setCryptoCurrencyName(currencyName);
-		TransactionService.setTransactionBTCConversionAmount(rateBTC);
+		TransactionService.setTransactionBTCConversionAmount(currencyRate);
 
 		let isWithDraw = UIService.getIsWithDraw();
 		if(isWithDraw){
@@ -93,11 +93,11 @@ let InfoMethod = React.createClass({
 				amount: amount,
 				payAccountId: 0,
 				promoCode: promoCode,
-				cryptoAddress: address,
-				refundAddress: address,
+				cryptoAddress: cryptoAddress,
+				refundAddress: cryptoAddress,
 				currencyName: currencyName,
 				currencySymbol: currencyISO,
-				BTCConversionAmount: rateBTC
+				BTCConversionAmount: currencyRate
 			};
 
 			TransactionService.processCryptoTransfer(dynamicParams, 'instructions');
@@ -108,16 +108,16 @@ let InfoMethod = React.createClass({
 	 * this function sends deposit info to cashier
 	 */
 	continueTransaction(){
-		this.setState({checkIn : true});
+		this.setState({checkIn: true});
 		let processor = UIService.getProcessorId();
 		let currencyISO = this.props.cryptoCurrencyISO;
 		let needCryptoAddress = UIService.refundAddressRequired(currencyISO);
 		if(needCryptoAddress || processor == Cashier.PROCESSOR_ID_CRYPTO_TRANSFER){
-			this.props.checkCryptoAddress((valid) => {
+			this.props.checkCryptoAddress((valid) =>{
 				if(valid){
 					this.goTransaction()
 				}else{
-					this.setState({checkIn : false});
+					this.setState({checkIn: false});
 					this.props.setCryptoAddressError(true);
 				}
 			});
@@ -177,7 +177,7 @@ let InfoMethod = React.createClass({
 		let currency = this.props.limits.currencyCode;
 
 		return (
-			<div id="InfoMethodBitCoin">
+			<div id="InfoMethodCryptoScreen">
 				<div className="col-sm-12">
 					<div className="title">{title}</div>
 					<div className="table-responsive">
@@ -197,7 +197,9 @@ let InfoMethod = React.createClass({
 					<div className="row mod-btns">
 						<div className="col-sm-6">
 							{nextBTN}
-							<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD', 'Use different Method')}.</a></p>
+							<p>
+								<a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD', 'Use different Method')}.</a>
+							</p>
 						</div>
 						<div className="col-sm-6">
 							<img src={originPath + '/images/ssl.png'} alt="ssl"/>
@@ -212,14 +214,14 @@ let InfoMethod = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

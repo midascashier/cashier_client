@@ -8,7 +8,7 @@ import {TransactionService} from '../../../services/TransactionService'
 import {ApplicationService} from '../../../services/ApplicationService'
 import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 
-let CryptoScreem = React.createClass({
+let CryptoScreen = React.createClass({
 
 	/**
 	 * React function to set component initial state
@@ -101,8 +101,8 @@ let CryptoScreem = React.createClass({
 	 * Check is crypto address is valid
 	 */
 	checkCryptoAddress(callback){
-		var symbol = document.getElementById('symbolValue');
-		var address = this.state.info.cryptoAddress;
+		let symbol = document.getElementById('symbolValue');
+		let address = this.state.info.cryptoAddress;
 
 		let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_VALIDATE_ADDRESS + address + '/' + symbol.innerHTML;
 		fetch(url, {method: 'GET'}).then((response) => {
@@ -193,6 +193,7 @@ let CryptoScreem = React.createClass({
 		let actualState = this.state.info;
 		actualState.cryptoCurrencyISO = currencyISO;
 		UIService.setCurrentCryptoSymbol(currencyISO);
+		TransactionService.setCryptoCurrencyISO(currencyISO);
 		this.setState({info: actualState});
 	},
 
@@ -202,7 +203,8 @@ let CryptoScreem = React.createClass({
 	setCryptoCurrencyName(currencyName){
 		let actualState = this.state.info;
 		actualState.cryptoCurrencyName = currencyName;
-		UIService.setCurrentCryptoSymbol(currencyName);
+		UIService.setCurrentCryptoName(currencyName);
+		TransactionService.setCryptoCurrencyName(currencyName);
 		this.setState({info: actualState});
 	},
 
@@ -328,4 +330,4 @@ let CryptoScreem = React.createClass({
 	}
 });
 
-module.exports.CryptoScreem = CryptoScreem;
+module.exports.CryptoScreen = CryptoScreen;

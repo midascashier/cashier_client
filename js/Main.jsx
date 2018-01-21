@@ -88,11 +88,11 @@ import {CryptoTransferConfirmWithdraw} from './components/methods/cryptotransfer
 import {CryptoTransferTicketPending} from './components/methods/cryptotransfer/tickets/PendingTicket'
 
 /**
- * Crypto Screem
+ * Crypto Screen
  */
-import {CryptoScreem} from './components/methods/cryptoscreem/CryptoScreem'
-import {CryptoScreemConfirmWithdraw} from './components/methods/cryptoscreem/ConfirmWithdraw'
-import {CryptoScreenTicketPending} from './components/methods/cryptoscreem/tickets/PendingTicket'
+import {CryptoScreen} from './components/methods/cryptoscreen/CryptoScreen'
+import {CryptoScreenConfirmWithdraw} from './components/methods/cryptoscreen/ConfirmWithdraw'
+import {CryptoScreenTicketPending} from './components/methods/cryptoscreen/tickets/PendingTicket'
 
 /**
  * Common components
@@ -241,7 +241,7 @@ let routes = (
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
-				<Route path="cryptoscreen/" component={CryptoScreem}/>
+				<Route path="cryptoscreen/" component={CryptoScreen}/>
 				<Route path="cryptoscreen/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={CryptoScreenTicketPending}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -323,8 +323,8 @@ let routes = (
 					<Route path="deferred/" component={DeferredTicket}/>
 				</Route>
 
-				<Route path="cryptoscreen/" component={CryptoScreem}/>
-				<Route path="cryptoscreen/confirm/" component={CryptoScreemConfirmWithdraw}/>
+				<Route path="cryptoscreen/" component={CryptoScreen}/>
+				<Route path="cryptoscreen/confirm/" component={CryptoScreenConfirmWithdraw}/>
 				<Route path="cryptoscreen/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
