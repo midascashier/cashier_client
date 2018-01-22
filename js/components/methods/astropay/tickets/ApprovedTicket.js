@@ -58,7 +58,7 @@ let AstroPayApprovedTicket = React.createClass({
 			currency: currency,
 			currencyAmount: currencyAmount
 		};
-		
+
 		return (
 			<div className="internal-content" id="astroPayApprovedTicket">
 				<div className="row">

@@ -1,7 +1,8 @@
 import React from 'react'
-import { UIService } from '../../../../services/UIService'
-import { CashierStore } from '../../../../stores/CashierStore'
-import { ApplicationService } from '../../../../services/ApplicationService'
+import {UIService} from '../../../../services/UIService'
+import  {translate} from '../../../../constants/Translate'
+import {CashierStore} from '../../../../stores/CashierStore'
+import {ApplicationService} from  '../../../../services/ApplicationService'
 
 let VisaApprovedTicket = React.createClass({
 
@@ -61,7 +62,14 @@ let VisaApprovedTicket = React.createClass({
 		let balance = this.state.balance;
 		let descriptor = this.state.descriptor;
 
-		return(
+		let tags = [];
+		tags['email'] = email;
+		tags['descriptor'] = descriptor;
+		tags['currencyFormat'] = ApplicationService.currency_format(balance) + ' ' + currency;
+		tags['currencyAmount'] = ApplicationService.currency_format(currencyAmount) + ' ' + currency;
+		let content = translate('CREDIT_CARD_DEPOSIT_SUCCESSFUL', '', tags);
+
+		return (
 			<div className="internal-content" id="visaApprovedTicket">
 				<div className="row">
 					<div className="col-sm-6">
@@ -73,11 +81,8 @@ let VisaApprovedTicket = React.createClass({
 					</div>
 					<div className="col-sm-6">
 						<div className="success-message">
-							<i className="fa fa-check-circle-o green"></i>
-							<div className="title">Your {ApplicationService.currency_format(currencyAmount) + ' ' + currency} deposit was successful.</div>
-							<p>This charge will show up on your statement as <strong>{descriptor}</strong>.</p>
-							<p>Your balance is now {ApplicationService.currency_format(balance) + ' ' + currency}</p>
-							<p>An email has been sent to {email} with the transaction details.</p>
+							<i className="fa fa-check-circle-o green"/>
+							<div className="title" dangerouslySetInnerHTML={{__html: content}}/>
 						</div>
 					</div>
 				</div>

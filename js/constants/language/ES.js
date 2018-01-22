@@ -169,6 +169,8 @@ let _langTags = {
 	CREDIT_CARD_INFO: "Algunos bancos pueden interpretar el aumento de los volúmenes de transacciones en internet como un riesgo de fraude y pueden rechazar las solicitudes de depósitos posteriores. Recomendamos altamente depositar dinero suficiente para cubrir sus apuestas previstas para el día.",
 	CREDIT_CARD_QUICK_FIX: "Arreglo rapido...",
 	CREDIT_CARD_QUICK_FIX_INFO: "Su tarjeta de crédito no fue reconocida debido a la información incorrecta. Compruebe por favor la siguiente información y asegurarse de que todo correcta. Después de eso, podemos llegar a las mesas de Poker con su pila de fichas. Di cuando...",
+	CREDIT_CARD_DEPOSIT_SUCCESSFUL: "<div className='title'>Tu depósito de {currencyAmount} fue exitoso.</div><p>Este cargo aparecerá en tu extracto como <strong>{descriptor}</strong>.</p><p>Tu saldo ahora es {currencyFormat}</p><p>Se ha enviado un correo electrónico a {email} con los detalles de la transacción.</p>",
+	CREDIT_CARD_DEPOSIT_REJECTED: "<p>Su tarjeta de crédito nos dijo que <strong>{currencyFormat}</strong> excede el límite de crédito.</p><p>¿Qué cantidad más pequeña le gustaría depositar?</p>",
 	P2P_TITLE_INFO_DEPOSIT: "Por favor, introduzca la información del remitente",
 	P2P_TITLE_INFO_WITHDRAW: "Por favor, introduzca la información del Receptor",
 	P2P_INSTRUCTIONS: "Envíanos tus fondos.",
