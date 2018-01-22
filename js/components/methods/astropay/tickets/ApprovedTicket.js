@@ -52,6 +52,13 @@ let AstroPayApprovedTicket = React.createClass({
 		let email = this.state.email;
 		let balance = this.state.balance;
 
+		let tags = {
+			email: email,
+			balance: balance,
+			currency: currency,
+			currencyAmount: currencyAmount
+		};
+
 		return (
 			<div className="internal-content" id="astroPayApprovedTicket">
 				<div className="row">
@@ -64,10 +71,8 @@ let AstroPayApprovedTicket = React.createClass({
 					</div>
 					<div className="col-sm-6">
 						<div className="success-message">
-							<i className="fa fa-check-circle-o green"></i>
-							<div className="title">Your {currencyAmount + ' ' + currency} deposit was successful.</div>
-							<p>Your balance is now {balance + ' ' + currency}</p>
-							<p>An email has been sent to {email} with the transaction details.</p>
+							<i className="fa fa-check-circle-o green"/>
+							{translate('ASTROPAY_SUCCESS_DEPOSIT_BALANCE', '', tags)}
 						</div>
 					</div>
 				</div>
