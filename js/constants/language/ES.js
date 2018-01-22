@@ -292,6 +292,8 @@ let _langTags = {
 	CC_LIMIT_BELOW_MIN: '<div class="alert alert-danger" role="alert"><i class="fa fa-ban"></i><span>Our minimum deposit amount is {minAmount} {currencyCode}</span></div>',
 	CC_LIMIT_ABOVE_MAX: '<div class="alert alert-danger" role="alert"><i class="fa fa-ban"></i><span>Our maximum deposit amount is {maxAmount} {currencyCode}</span></div>',
 	CC_LIMIT_ABOVE_AVAILABLE: '<div class="alert alert-info" role="alert"><i class="fa fa-ban"></i><strong>{displayName}</strong> - <span>The maximum amount available for this card is {available} {currencyCode}</span></div>',
+
+	ASTROPAY_SUCCESS_DEPOSIT_BALANCE: "<div className='title'>Your {currencyAmount + ' ' + currency} deposit was successful.</div><p>Your balance is now {balance + ' ' + currency}</p><p>An email has been sent to {email} with the transaction details.</p>"
 };
 
 export function ES(){
