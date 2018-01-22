@@ -107,7 +107,7 @@ let Amount = React.createClass({
                         let symbol = this.props.getSymbol();
                         return(
                             <div>
-                                <p>{symbol} amount: {this.props.cryptoAmount}</p>
+                                <p>{symbol} {translate('TRANSACTION_AMOUNT', 'Amount')}: {this.props.cryptoAmount}</p>
                             </div>
                         )
                     }

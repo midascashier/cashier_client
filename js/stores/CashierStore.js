@@ -700,38 +700,81 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return _CryptoTransfer.currencies
 	},
 
+	/**
+	 * Activate flag for wait limits
+	 */
 	loadingLimits(){
 		_CryptoTransfer.loadingLimits = true
 	},
 
+	/**
+	 * Returns if the limits are loading
+	 *
+	 * @returns {boolean}
+     */
 	getLoadingLimits(){
 		return _CryptoTransfer.loadingLimits
 	},
 
+	/**
+	 * Return current crypto currency  rate
+	 *
+	 * @returns {number}
+     */
 	getCurrentCryptoRate(){
 		return _CryptoTransfer.rate
 	},
 
+	/**
+	 * Return current crypto currency  convertion rate
+	 *
+	 * @returns {number}
+     */
 	getCurrentCryptoConvertionRate(){
 		return _CryptoTransfer.conversionRate
 	},
 
+	/**
+	 * Set crypto currency symbol selected
+	 *
+	 * @param symbol
+     */
 	setCurrentCryptoSymbol(symbol){
 		_CryptoTransfer.cryptoCurrencyISO = symbol
 	},
 
+	/**
+	 * Get current crypto currency symbol
+	 *
+	 * @returns {string}
+     */
 	getCurrentCryptoSymbol(){
 		return _CryptoTransfer.cryptoCurrencyISO
 	},
 
+	/**
+	 * Set current crypto currency name
+	 *
+	 * @param name
+     */
 	setCurrentCryptoName(name){
 		_CryptoTransfer.cryptoCurrencyName = name
 	},
 
+	/**
+	 * Get current crypto currency name
+	 * 
+	 * @returns {string}
+     */
 	getCurrentCryptoName(){
 		return _CryptoTransfer.cryptoCurrencyName
 	},
 
+	/**
+	 * Get if current refund address is valid or not
+	 * 
+	 * @returns {boolean}
+     */
 	getValidAddress(){
 		return _CryptoTransfer.validCurrentAddress
 	}

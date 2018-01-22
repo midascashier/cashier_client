@@ -678,7 +678,7 @@ class UiService {
 	}
 
 	/**
-	 *
+	 *Load crypto currencies list from cashier service
 	 */
 	loadCryptoCurrencies(){
 		let company = this.getCompanyInformation();
@@ -690,10 +690,20 @@ class UiService {
 		ConnectorServices.makeCashierRequest(actions.GET_CRYPTO_CURRENCIES_RESPONSE, params);
 	}
 
+	/**
+	 * Get crypto currencies list
+	 *
+	 * @returns {*}
+     */
 	getCryptoCurrencies(){
 		return CashierStore.getCryptoCurrencies();
 	}
 
+	/**
+	 * Load current crypto currency limits from cashier service
+	 *
+	 * @param cryptoCurrencyCode
+     */
 	loadCurrencyLimits(cryptoCurrencyCode){
 		let company = this.getCompanyInformation();
 		let customer = this.getCustomerInformation();
@@ -711,38 +721,82 @@ class UiService {
 		ConnectorServices.makeCashierRequest(actions.GET_CRYPTO_CURRENCY_LIMITS_RESPONSE, params);
 	}
 
+	/**
+	 * Activate flag for wait limits response
+	 */
 	loadingLimits(){
 		CashierStore.loadingLimits()
 	}
 
+	/**
+	 * Return limits loading state
+	 *
+	 * @returns {*}
+     */
 	getLoadingLimits(){
 		return CashierStore.getLoadingLimits()
 	}
 
+	/**
+	 * Get rate from current crypto currency
+	 *
+	 * @returns {*}
+     */
 	getCurrentCryptoRate(){
 		return CashierStore.getCurrentCryptoRate()
 	}
 
+	/**
+	 * Get convertion rate from current crypto currency
+	 *
+	 * @returns {*}
+     */
 	getCurrentCryptoConvertionRate(){
 		return CashierStore.getCurrentCryptoConvertionRate()
 	}
-	
+
+	/**
+	 * Set crypto currency symbol selected
+	 *
+	 * @param symbol
+     */
 	setCurrentCryptoSymbol(symbol){
 		CashierStore.setCurrentCryptoSymbol(symbol)
 	}
 
+	/**
+	 * Get crypto currency symbol selected
+	 *
+	 * @returns {*}
+     */
 	getCurrentCryptoSymbol(){
 		return CashierStore.getCurrentCryptoSymbol()
 	}
 
+	/**
+	 * Set crypto currency name selected
+	 *
+	 * @param name
+     */
 	setCurrentCryptoName(name){
 		CashierStore.setCurrentCryptoName(name)
 	}
 
+	/**
+	 * Get crypto currency name selected
+	 *
+	 * @returns {*}
+     */
 	getCurrentCryptoName(){
 		return CashierStore.getCurrentCryptoName()
 	}
 
+	/**
+	 * Return if is required refund address
+	 *
+	 * @param currencyCode
+	 * @returns {boolean}
+     */
 	refundAddressRequired(currencyCode){
 		let processor = CashierStore.getProcessor();
 		let processorId = processor.processorId;
@@ -753,6 +807,12 @@ class UiService {
 		}
 	}
 
+	/**
+	 * Validate if is valid refund address format
+	 *
+	 * @param currencyCode
+	 * @param address
+     */
 	validateCryptoAddress(currencyCode, address){
 		let params = {
 			address: address,
@@ -763,6 +823,11 @@ class UiService {
 		ConnectorServices.makeCashierRequest(actions.VALIDATE_CRYPTO_ADDRESS, params);
 	}
 
+	/**
+	 * Get result if current address is valid
+	 *
+	 * @returns {*}
+     */
 	getValidAddress(){
 		return CashierStore.getValidAddress()
 	}

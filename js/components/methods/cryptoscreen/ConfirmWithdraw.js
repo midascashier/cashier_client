@@ -1,8 +1,8 @@
 import React from 'react'
-import { UIService } from '../../../services/UIService'
-import { translate } from '../../../constants/Translate'
-import { CashierStore } from '../../../stores/CashierStore'
-import { TransactionService } from '../../../services/TransactionService'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {TransactionService} from '../../../services/TransactionService'
 
 let CryptoScreenConfirmWithdraw = React.createClass({
 
@@ -85,10 +85,7 @@ let CryptoScreenConfirmWithdraw = React.createClass({
 												<div
 													className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 												<div className="infoCol text-justify">
-													<p>
-														Crypto Transfer withdraws will be process inside 24 hours, but are typically processed within an
-														hour.
-													</p>
+													<p>{translate('CRYPTO_WITHDRAWS_INSIDE', 'Crypto Transfer withdraws will be process inside 24 hours, but are typically processed within an hour.')}</p>
 												</div>
 											</div>
 
@@ -98,7 +95,6 @@ let CryptoScreenConfirmWithdraw = React.createClass({
 
 								<div className="col-sm-6">
 									<div className="box">
-
 										<div className="row">
 											<div className="col-sm-12">
 												<div className="title">{translate('METHOD_DETAILS_WITHDRAW', 'Withdraw Details')}</div>
@@ -135,10 +131,8 @@ let CryptoScreenConfirmWithdraw = React.createClass({
 												</div>
 											</div>
 										</div>
-
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
