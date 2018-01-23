@@ -109,9 +109,8 @@ class applicationService {
 
 	/**
 	 * Checking if any input data in form is empty and mark this input
-	 *
+	 * 
 	 * @param input
-	 * @param rgxSpecial
 	 * @returns {boolean}
      */
 	emptyInput(input){
@@ -137,8 +136,10 @@ class applicationService {
 					}
 
 					validate = this.validateInfo(input.target[i].value, dataValidate, rgx);
-				}else{
+				}else if(dataValidate != null){
 					validate = this.validateInfo(input.target[i].value, dataValidate);
+				}else{
+					validate = true;
 				}
 
 				if(!validate){

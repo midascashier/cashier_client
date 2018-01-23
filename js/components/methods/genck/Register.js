@@ -199,7 +199,7 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CK_MIDDLE_NAME', 'Middle Name')}:</label>
 						<div className="col-sm-8">
-							<Input type="text" id="lastName" ref="lastName" validate="isString" onChange={this.changeValue.bind(null, 'middleName', 0)} value={this.state.payAccount.middleName} />
+							<Input type="text" id="lastName" ref="lastName" onChange={this.changeValue.bind(null, 'middleName', 0)} value={this.state.payAccount.middleName}/>
 						</div>
 					</div>
 
@@ -220,7 +220,7 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CK_ADDRESS2', 'Address2')}:</label>
 						<div className="col-sm-8">
-							<Input type="text" id="lastName" ref="lastName" validate="isString" onChange={this.changeValue.bind(null, 'address2', 0)} value={this.state.payAccount.address2} />
+							<Input type="text" id="lastName" ref="lastName" onChange={this.changeValue.bind(null, 'address2', 0)} value={this.state.payAccount.address2}/>
 						</div>
 					</div>
 
