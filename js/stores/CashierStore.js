@@ -46,7 +46,6 @@ let _UI = {
  */
 let _application = {
 	sid: null,
-	tuid: null,
 	lang: "en",
 	referrer: '',
 	remoteAddr: '',

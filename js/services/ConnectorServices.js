@@ -82,7 +82,7 @@ class connectorServices {
 	httpService(module, action, request){
 
 		let application = CashierStore.getApplication();
-		request = Object.assign(application, request);
+		request = Object.assign(request, application);
 
 		let httpRequest = Object.assign(request, {ws: module});
 		let url = cashier.REQUEST_PROXY;
