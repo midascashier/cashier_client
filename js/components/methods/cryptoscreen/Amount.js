@@ -22,6 +22,11 @@ let Amount = React.createClass({
         btcToAmountCalculate: React.PropTypes.func
     },
 
+    /**
+     * Calculate crypto currency amount from customer amount
+     * 
+     * @param event
+     */
     crytoCurrencyCalculate(event){
         let cryptoAmount;
         let symbol = this.props.getSymbol();
@@ -42,7 +47,6 @@ let Amount = React.createClass({
     },
 
     render(){
-        let action;
         let limitsErrorMsg;
         let limitsOK = false;
 
@@ -53,12 +57,7 @@ let Amount = React.createClass({
             limitsErrorMsg = errorMsgs.limitsMsgs[this.props.limitsCheck];
         }
 
-        if(isWithDraw){
-            action = translate('WITHDRAW');
-        }else{
-            action = translate('DEPOSIT');
-        }
-
+        let action = (isWithDraw) ? translate('WITHDRAW') : translate('DEPOSIT');
         let placeHolderTXT = action + ' ' + translate('PROCESSING_AMOUNT', 'Amount');
         return (
             <div id="cryptoAmount">

@@ -56,7 +56,6 @@ let InfoMethod = React.createClass({
 
 	/**
 	 * this function sends deposit info to cashier
-	 *
 	 */
 	continueTransaction(){
 		let isWithDraw = UIService.getIsWithDraw();
@@ -72,7 +71,7 @@ let InfoMethod = React.createClass({
 		}
 	},
 
-	render() {
+	render(){
 		let limitsCheck = false;
 
 		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
@@ -133,8 +132,7 @@ let InfoMethod = React.createClass({
 					</div>
 					<div className="row mod-btns">
 						<div className="col-sm-6">
-							<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled}
-											className='btn btn-green'>
+							<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
 								{translate('PROCESSING_BUTTON_NEXT', 'Next')}
 							</button>
 							<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>

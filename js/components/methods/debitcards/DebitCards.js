@@ -2,6 +2,7 @@ import React from 'react'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
 import cashier from '../../../constants/Cashier'
+import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
 import {DownloadDoc} from '../../commonComponents/files/DownloadDoc'
 import {TransactionService} from '../../../services/TransactionService'
@@ -48,7 +49,7 @@ let DebitCards = React.createClass({
 		DownloadDoc('docs/common/PREPAID_CARD_APPLICATION_FORM.pdf', 'PREPAID_CARD_APPLICATION_FORM.pdf');
 	},
 
-	render() {
+	render(){
 		if(this.state.payAccount && this.state.payAccount.payAccountId){
 			return (
 				<div id="debitCards">
@@ -74,6 +75,8 @@ let DebitCards = React.createClass({
 			)
 		}else if(!this.state.payAccount.displayName || this.state.payAccount.displayName === null || this.state.payAccount.displayName == cashier.NO_RESPONSE){
 
+			let content = translate('DEBITCARD_STEEPS_INFORMATION');
+
 			return (
 				<div id="debitCards">
 					<div className="col-md-6 col-md-offset-3">
@@ -82,20 +85,10 @@ let DebitCards = React.createClass({
 							<div className="infoCol">
 								<p>
 									<a href='#' onClick={this.debitCardDoc}>
-										<strong>NEW ON DEBIT CARDS CLICK HERE TO DOWNLOAD AND PRINT THE KYC FORM</strong>
+										<strong>{translate('DEBITCARD_NEW_IN_DONWLOAD')}</strong>
 									</a>
 								</p>
-								<p>This form will be required by customer service to proceed with the FREE delivery of your DebitCard.</p>
-								<p>In order to apply for a prepaid debit, follow these easy steps:</p>
-								<p><span>1.</span> Scan or photograph one of the following options:</p>
-								<ul>
-									<li>Passport</li>
-									<li>National ID</li>
-									<li>Driver's license with SSC</li>
-								</ul>
-								<p><span>2.</span> Scan or photograph your utility bill (must match the address and the name on the KYC Form)</p>
-								<p><span>3.</span> Scan or photograph the KYC form</p>
-								<p><span>4.</span> Email your scanned documents to cashier@DigitalExchange.eu</p>
+								<div dangerouslySetInnerHTML={{__html: content}}/>
 							</div>
 						</div>
 					</div>

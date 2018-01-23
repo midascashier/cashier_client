@@ -76,10 +76,8 @@ let CryptoScreenConfirmWithdraw = React.createClass({
 					<div className="col-sm-12">
 						<div className="modules">
 							<div className="row">
-
 								<div className="col-sm-6 ">
 									<div className="box">
-
 										<div className="row">
 											<div className="col-sm-12">
 												<div
@@ -88,7 +86,6 @@ let CryptoScreenConfirmWithdraw = React.createClass({
 													<p>{translate('CRYPTO_WITHDRAWS_INSIDE', 'Crypto Transfer withdraws will be process inside 24 hours, but are typically processed within an hour.')}</p>
 												</div>
 											</div>
-
 										</div>
 									</div>
 								</div>
@@ -112,10 +109,12 @@ let CryptoScreenConfirmWithdraw = React.createClass({
 														</tbody>
 													</table>
 												</div>
+
 												<p>
-													<i className="fa fa-pencil green"></i>
+													<i className="fa fa-pencil green"/>
 													<a onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>
 												</p>
+
 												<div className="row">
 													<div className="col-sm-6">
 														<button type="button" onClick={this.processTransaction} className="btn btn-green">

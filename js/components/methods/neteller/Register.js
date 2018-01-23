@@ -1,11 +1,11 @@
 import React from 'react'
-import { Input } from '../../Inputs'
-import { translate } from '../../../constants/Translate'
-import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
-import { CashierActions } from '../../../actions/CashierActions'
-import { CashierStore } from '../../../stores/CashierStore'
-import { UIService } from '../../../services/UIService'
+import {Input} from '../../Inputs'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {CashierActions} from '../../../actions/CashierActions'
+import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
 
 let Register = React.createClass({
 	/**
@@ -50,7 +50,6 @@ let Register = React.createClass({
 	 * @returns {boolean}
 	 */
 	addNewPayAccount(e){
-
 		if (!ApplicationService.emptyInput(e)) {
 
 			this.setState({
@@ -83,7 +82,7 @@ let Register = React.createClass({
 		}
 	},
 
-	render() {
+	render(){
 		return (
 			<div id="netellerRegister">
 				<form onSubmit={this.addNewPayAccount}>

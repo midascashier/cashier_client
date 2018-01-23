@@ -135,6 +135,8 @@ let _langTags = {
 	NETELLER_INSTRUCTIONS_PROCESS_INSIDE: "Withdraws will be process inside 24 hours, but are typically processed within an hour.",
 	DEBITCARD_INFO: 'Debit Card Information',
 	DEBITCARD_INSTRUCTIONS_PROCESS_INSIDE: "Withdraws will be process inside 24 hours, but are typically processed within an hour.",
+	DEBITCARD_NEW_IN_DONWLOAD: "NEW ON DEBIT CARDS CLICK HERE TO DOWNLOAD AND PRINT THE KYC FORM",
+	DEBITCARD_STEEPS_INFORMATION: "<p>This form will be required by customer service to proceed with the FREE delivery of your DebitCard.</p><p>In order to apply for a prepaid debit, follow these easy steps:</p><p><span>1.</span> Scan or photograph one of the following options:</p><ul><li>Passport</li><li>National ID</li><li>Driver's license with SSC</li></ul><p><span>2.</span> Scan or photograph your utility bill (must match the address and the name on the KYC Form)</p><p><span>3.</span> Scan or photograph the KYC form</p><p><span>4.</span> Email your scanned documents to cashier@DigitalExchange.eu</p>",
 	BITCOIN: "Bitcoin",
 	BITCOIN_INSTRUCTIONS: "Now send your Bitcoin to us.",
 	BITCOIN_INSTRUCTIONS_INFO: "Your funds should be available within 30 minutes of making the transfer from your wallet.",
@@ -169,7 +171,7 @@ let _langTags = {
 	CREDIT_CARD_INFO: "Certain banks may interpret increased transaction volumes over the internet as a fraud risk and may decline subsequent deposit requests. We highly recommend depositing enough money now to cover your planned bets for the day.",
 	CREDIT_CARD_QUICK_FIX: "Quick fix...",
 	CREDIT_CARD_QUICK_FIX_INFO: "Your credit card was not recognized because of incorrect information. Please double-check the information below and make sure it's all correct. After that, we can get you to the poker tables with your stack of chips. Say when...",
-	CREDIT_CARD_DEPOSIT_SUCCESSFUL: "<div className='title'>Your {currencyAmount} deposit was successful.</div><p>This charge will show up on your statement as <strong>{descriptor}</strong>.</p><p>Your balance is now {currencyFormat}</p><p>An email has been sent to {email} with the transaction details.</p>",
+	CREDIT_CARD_DEPOSIT_SUCCESSFUL: "<div class='title'>Your {currencyAmount} deposit was successful.</div><p>This charge will show up on your statement as <strong>{descriptor}</strong>.</p><p>Your balance is now {currencyFormat}</p><p>An email has been sent to {email} with the transaction details.</p>",
 	CREDIT_CARD_DEPOSIT_REJECTED: "<p>Your credit card told us	<strong>{currencyFormat}</strong> puts you over the credit limit.</p><p>What smaller amount would you like to deposit?</p>",
 
 	P2P_TITLE_INFO_DEPOSIT: "Please Enter the Sender's Information",
@@ -209,7 +211,9 @@ let _langTags = {
 	P2P_INSTRUCTION_NEXT_HOURS: "This receiver's information is only valid for the next 48 hours.",
 	P2P_INSTRUCTION_MIN_DEPOSIT: "The minimum deposit is $50.00, and the maximum is $400.00",
 	P2P_INSTRUCTION_ONLY_USD: "Your transaction must be sent in USD and received in USD.",
+	P2P_IMPORTANCE_NOTICE: "<strong>Make your payment</strong><strong>Important Notice: Not following the instructions below will result in a rejected transaction details.</strong>",
 	P2P_INSTRUCTIONS_CORRECT_ADDRESS: "Ensure your address is correct. If you need to change your address, you can change it in the client. Then you may request your Money Transfer withdraw to the new address.",
+	P2P_INSTRUCTIONS_ONLY_VALID: "<li>This receiver's information is only valid for the next 48 hours.</li> <li>The minimum deposit is $50.00, and the maximum is $400.00</li> <li>Your transaction must be sent in USD and received in USD.</li>",
 	PENDING_MTCN: "Pending Control Numbers",
 	PENDING_MTCN_SENDER: "Sender",
 	PENDING_MTCN_RECEIVER: "Receiver",
@@ -236,6 +240,7 @@ let _langTags = {
 	GO_TO_POKER_LOBBY: "Go to Poker Lobby",
 	SKRILL_EMAIL: "Skrill's Email",
 	ECOPAYZ_ACCOUNT: "ECO Account Number",
+	ECOPAYZ_WITHDRAWS_PROCESS: "Withdraws will be process inside 24 hours, but are typically processed within an hour.",
 	REGISTER_NEW_ACCOUNT_CC: "Add a new credit card",
 	REGISTER_NEW_ACCOUNT: "Register new account",
 	LOADING: "Loading...",
@@ -290,11 +295,12 @@ let _langTags = {
 	CC_LIMIT_ERROR_COUNT_TIME_SPAN: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle red"></i><strong>{displayName}</strong> - <span>The credit card selected has reached its maximum number of transactions allowed. It will be available again in <strong>{remaining} minute(s)</strong></span></div>',
 	CC_LIMIT_ERROR_AMOUNT: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle red"></i><strong>{displayName}</strong> - <span>The credit card selected has reached its allowed limit with us. Please select another credit card</span></div>',
 	CC_LIMIT_ERROR_NUM_CC: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle red"></i><span>You have exceeded the maximum number of different credit cards we allow. Please select from one of the cards already on file</span></div>',
-	CC_LIMIT_ERROR_OTHER: '',
 	CC_LIMIT_AVAILABLE: '<div class="alert alert-success" role="alert"><i class="fa fa-check"></i><strong>{displayName}</strong> - <span>available:</span><strong> {available} {currencyCode}</strong></div>',
 	CC_LIMIT_BELOW_MIN: '<div class="alert alert-danger" role="alert"><i class="fa fa-ban"></i><span>Our minimum deposit amount is {minAmount} {currencyCode}</span></div>',
 	CC_LIMIT_ABOVE_MAX: '<div class="alert alert-danger" role="alert"><i class="fa fa-ban"></i><span>Our maximum deposit amount is {maxAmount} {currencyCode}</span></div>',
 	CC_LIMIT_ABOVE_AVAILABLE: '<div class="alert alert-info" role="alert"><i class="fa fa-ban"></i><strong>{displayName}</strong> - <span>The maximum amount available for this card is {available} {currencyCode}</span></div>',
+
+	ASTROPAY_SUCCESS_DEPOSIT_BALANCE: "<div class='title'>Your {currencyAmount + ' ' + currency} deposit was successful.</div><p>Your balance is now {balance + ' ' + currency}</p><p>An email has been sent to {email} with the transaction details.</p>"
 };
 
 export function EN(){

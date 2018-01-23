@@ -79,7 +79,7 @@ let BitCoin = React.createClass({
 		})
 	},
 
-	render() {
+	render(){
 		return (
 			<div id="bitCoin">
 				<div className="col-sm-6">

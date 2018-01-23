@@ -20,7 +20,7 @@ let VisaApprovedTicket = React.createClass({
 	 *
 	 * @returns {{balance: string, email: string, currencyAmount: string, descriptor: string}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let customer = UIService.getCustomerInformation();
 		let transaction = UIService.getTransactionInformation();
 		let transactionResponse = UIService.getLastTransactionResponse();
@@ -41,7 +41,7 @@ let VisaApprovedTicket = React.createClass({
 	/**
 	 * component is ready
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
@@ -50,11 +50,11 @@ let VisaApprovedTicket = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
-	render() {
+	render(){
 		let originPath = UIService.getOriginPath();
 		let currencyAmount = this.state.currencyAmount;
 		let currency = this.state.currency;
@@ -82,7 +82,7 @@ let VisaApprovedTicket = React.createClass({
 					<div className="col-sm-6">
 						<div className="success-message">
 							<i className="fa fa-check-circle-o green"/>
-							<div className="title" dangerouslySetInnerHTML={{__html: content}}/>
+							<div dangerouslySetInnerHTML={{__html: content}}/>
 						</div>
 					</div>
 				</div>

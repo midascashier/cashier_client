@@ -66,6 +66,9 @@ let InfoMethod = React.createClass({
 		UIService.setFirstStep();
 	},
 
+	/**
+	 * Execute action to start new transaction
+	 */
 	goTransaction(){
 		let promoCode = this.props.promoCode;
 		let amount = this.props.customerAmount;

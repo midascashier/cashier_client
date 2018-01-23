@@ -52,7 +52,6 @@ let Register = React.createClass({
 	 * @returns {boolean}
 	 */
 	addNewPayAccount(e){
-
 		if (!ApplicationService.emptyInput(e)) {
 
 			this.setState({
@@ -85,7 +84,7 @@ let Register = React.createClass({
 		}
 	},
 
-	render() {
+	render(){
 		return (
 			<div id="ecoPayzRegister">
 				<form onSubmit={this.addNewPayAccount}>
@@ -98,7 +97,7 @@ let Register = React.createClass({
 							/>
 						</div>
 					</div>
-					
+
 					<div className="col-md-4 col-md-offset-4">
 						<div className="row">
 							<div className="col-sm-6">
@@ -106,7 +105,7 @@ let Register = React.createClass({
 									{translate('PROCESSING_BUTTON_SAVE', 'Save')}
 								</button> : null }
 							</div>
-							
+
 							<div className="col-sm-6">
 								{this.state.displayCancelButton ? <button type='button' onClick={this.cancel} className='btn btn-green'>
 									{translate('PROCESSING_BUTTON_CANCEL', 'Save')}

@@ -1,10 +1,10 @@
 import React from 'react'
-import {translate} from '../../../constants/Translate'
 import {Input} from '../../Inputs'
-import {AmountController} from '../../AmountController'
 import {PromoCode} from '../../PromoCode'
-import {UIService} from '../../../services/UIService'
 import {FeeController} from '../../FeeController'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {AmountController} from '../../AmountController'
 
 let AskInfo = React.createClass({
 
@@ -24,8 +24,7 @@ let AskInfo = React.createClass({
 		promoCode: React.PropTypes.string
 	},
 
-	render() {
-
+	render(){
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
 		let btcAmount = this.props.btcAmount;
@@ -49,7 +48,6 @@ let AskInfo = React.createClass({
 						<div className="title">{title}</div>
 						<div className="infoCol scroll">
 							<div className="row">
-
 								<div className="col-sm-12">
 									<div className="form-horizontal">
 										{(() =>{
@@ -72,33 +70,21 @@ let AskInfo = React.createClass({
 										{(() =>{
 											if(!isWithDraw){
 												return (
-													<div className="form-group">
-														<label className="col-sm-4 control-label">BTC ~</label>
-														<div className="col-sm-8">
-															<Input className="form-control" type="number" id="btcAmount" name="btcAmount" ref="btcAmount" validate="isNumber" onChange={this.props.setBTCAmount} value={btcAmount}/>
+													<div>
+														<div className="form-group">
+															<label className="col-sm-4 control-label">BTC ~</label>
+															<div className="col-sm-8">
+																<Input className="form-control" type="number" id="btcAmount" name="btcAmount" ref="btcAmount" validate="isNumber" onChange={this.props.setBTCAmount} value={btcAmount}/>
+															</div>
+														</div>
+														<div className="form-group">
+															<PromoCode setPromoCode={setPromoCode} promoCode={promoCode}/>
+														</div>
+														<div className="form-group">
+															<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
 														</div>
 													</div>
 												);
-											}
-										})()}
-
-										{(() =>{
-											if(!isWithDraw){
-												return (
-													<div className="form-group">
-														<PromoCode setPromoCode={setPromoCode} promoCode={promoCode}/>
-													</div>
-												);
-											}
-										})()}
-
-										{(() =>{
-											if(isWithDraw){
-												return (
-													<div className="form-group">
-														<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
-													</div>
-												)
 											}
 										})()}
 									</div>

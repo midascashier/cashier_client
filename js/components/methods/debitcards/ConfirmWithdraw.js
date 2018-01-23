@@ -1,9 +1,9 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
-import { translate } from '../../../constants/Translate'
-import { UIService } from '../../../services/UIService'
-import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
 
 let DebitCardConfirmWithdraw = React.createClass({
 
@@ -104,12 +104,12 @@ let DebitCardConfirmWithdraw = React.createClass({
 														</tbody>
 													</table>
 												</div>
-												
+
 												<p>
-													<i className="fa fa-pencil green"></i>
+													<i className="fa fa-pencil green"/>
 													<a onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>
 												</p>
-												
+
 												<div className="row">
 													<div className="col-sm-6">
 														<button type="button" onClick={this.processTransaction} className="btn btn-green">
@@ -119,7 +119,7 @@ let DebitCardConfirmWithdraw = React.createClass({
 															<a onClick={this.setFirstStep}>{translate('METHOD_USE_DIFFERENT', 'Use a different method.')}</a>
 														</p>
 													</div>
-													
+
 													<div className="col-sm-6">
 														<img src={originPath + '/images/ssl.png'} alt="ssl"/>
 													</div>

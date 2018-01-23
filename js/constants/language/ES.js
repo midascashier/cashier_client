@@ -135,6 +135,8 @@ let _langTags = {
 	NETELLER_INSTRUCTIONS_PROCESS_INSIDE: "Los retiros se procesarán dentro de las 24 horas, pero normalmente se procesan en una hora.",
 	DEBITCARD_INFO: 'Información de la tarjeta de débito',
 	DEBITCARD_INSTRUCTIONS_PROCESS_INSIDE: "Los retiros se procesarán dentro de las 24 horas, pero normalmente se procesan en una hora.",
+	DEBITCARD_NEW_IN_DONWLOAD: "NUEVO EN TARJETAS DE DÉBITO, HAGA CLIC AQUÍ PARA DESCARGAR E IMPRIMIR EL FORMULARIO DE KYC",
+	DEBITCARD_STEEPS_INFORMATION: "<p>El servicio al cliente requerirá este formulario para proceder con la entrega GRATUITA de su tarjeta de débito.</p><p>Para solicitar una targeta débito, siga estos sencillos pasos:</p><p><span>1.</span> Escanee o fotografíe una de las siguientes opciones:</p><ul><li>Pasaporte</li><li>ID nacional</li><li>Licencia de conducir con SSC</li></ul><p><span>2.</span> Escanee o fotografíe su factura de servicios (debe coincidir con la dirección y el nombre en el formulario KYC)</p><p><span>3.</span> Escanee o fotografíe el formulario KYC</p><p><span>4.</span> Envíe por correo electrónico su escaneado documentos a cashier@DigitalExchange.eu</p>",
 	BITCOIN: "BitCoin",
 	BITCOIN_INSTRUCTIONS: "Envíenos sus BitCoin's",
 	BITCOIN_INSTRUCTIONS_INFO: "Sus fondos deben estar disponibles dentro de los 30 minutos después de hacer su transferencia.",
@@ -169,7 +171,7 @@ let _langTags = {
 	CREDIT_CARD_INFO: "Algunos bancos pueden interpretar el aumento de los volúmenes de transacciones en internet como un riesgo de fraude y pueden rechazar las solicitudes de depósitos posteriores. Recomendamos altamente depositar dinero suficiente para cubrir sus apuestas previstas para el día.",
 	CREDIT_CARD_QUICK_FIX: "Arreglo rapido...",
 	CREDIT_CARD_QUICK_FIX_INFO: "Su tarjeta de crédito no fue reconocida debido a la información incorrecta. Compruebe por favor la siguiente información y asegurarse de que todo correcta. Después de eso, podemos llegar a las mesas de Poker con su pila de fichas. Di cuando...",
-	CREDIT_CARD_DEPOSIT_SUCCESSFUL: "<div className='title'>Tu depósito de {currencyAmount} fue exitoso.</div><p>Este cargo aparecerá en tu extracto como <strong>{descriptor}</strong>.</p><p>Tu saldo ahora es {currencyFormat}</p><p>Se ha enviado un correo electrónico a {email} con los detalles de la transacción.</p>",
+	CREDIT_CARD_DEPOSIT_SUCCESSFUL: "<div class='title'>Tu depósito de {currencyAmount} fue exitoso.</div><p>Este cargo aparecerá en tu extracto como <strong>{descriptor}</strong>.</p><p>Tu saldo ahora es {currencyFormat}</p><p>Se ha enviado un correo electrónico a {email} con los detalles de la transacción.</p>",
 	CREDIT_CARD_DEPOSIT_REJECTED: "<p>Su tarjeta de crédito nos dijo que <strong>{currencyFormat}</strong> excede el límite de crédito.</p><p>¿Qué cantidad más pequeña le gustaría depositar?</p>",
 	P2P_TITLE_INFO_DEPOSIT: "Por favor, introduzca la información del remitente",
 	P2P_TITLE_INFO_WITHDRAW: "Por favor, introduzca la información del Receptor",
@@ -209,6 +211,8 @@ let _langTags = {
 	P2P_INSTRUCTION_MIN_DEPOSIT: "El depósito mínimo es de $ 50.00, y el máximo es de $ 400.00",
 	P2P_INSTRUCTION_ONLY_USD: "Su transacción debe ser enviada en USD y recibida en USD.",
 	P2P_INSTRUCTIONS_CORRECT_ADDRESS: "Asegúrese de que su dirección sea correcta. Si necesita cambiar su dirección, puede cambiarla en el cliente. Luego puede solicitar su retiro de Money Transfer a la nueva dirección.",
+	P2P_IMPORTANCE_NOTICE: "<strong>Haga su pago</strong><strong>Aviso importante: no seguir las instrucciones a continuación dará como resultado una transacción rechazada.</strong>",
+	P2P_INSTRUCTIONS_ONLY_VALID: "<li>La información de este receptor solo es válida durante las próximas 48 horas.</li><li>El depósito mínimo es de $ 50.00, y el máximo es de $ 400.00</li><li>Su transacción debe ser enviada en USD y recibida en USD.</li>",
 	PENDING_MTCN: "Confirmaciones Pendientes",
 	PENDING_MTCN_SENDER: "Remitente",
 	PENDING_MTCN_RECEIVER: "Beneficiario",
@@ -235,6 +239,7 @@ let _langTags = {
 	GO_TO_POKER_LOBBY: "Ir al salón de Poker",
 	SKRILL_EMAIL: "Correo del Skrill",
 	ECOPAYZ_ACCOUNT: "Número de cuenta",
+	ECOPAYZ_WITHDRAWS_PROCESS: "Los retiros se procesan dentro de las próximas 24 horas, pero normalmente se procesan en una hora.",
 	REGISTER_NEW_ACCOUNT_CC: "Agregar nueva tarjeta de crédito",
 	REGISTER_NEW_ACCOUNT: "Registrar una cuenta",
 	LOADING: "Cargando...",
@@ -295,7 +300,7 @@ let _langTags = {
 	CC_LIMIT_ABOVE_MAX: '<div class="alert alert-danger" role="alert"><i class="fa fa-ban"></i><span>Our maximum deposit amount is {maxAmount} {currencyCode}</span></div>',
 	CC_LIMIT_ABOVE_AVAILABLE: '<div class="alert alert-info" role="alert"><i class="fa fa-ban"></i><strong>{displayName}</strong> - <span>The maximum amount available for this card is {available} {currencyCode}</span></div>',
 
-	ASTROPAY_SUCCESS_DEPOSIT_BALANCE: "<div className='title'>Your {currencyAmount + ' ' + currency} deposit was successful.</div><p>Your balance is now {balance + ' ' + currency}</p><p>An email has been sent to {email} with the transaction details.</p>"
+	ASTROPAY_SUCCESS_DEPOSIT_BALANCE: "<div class='title'>Tu depósito de{currencyAmount + ' ' + currency} fue exitoso.</div><p>Su saldo ahora es {balance + ' ' + currency}</p><p> Se ha enviado un correo electrónico a {email} con los detalles de la transacción.</p>"
 };
 
 export function ES(){

@@ -1,8 +1,8 @@
 import React from 'react'
-import { translate } from '../../../../constants/Translate'
 import Cashier from '../../../../constants/Cashier'
-import { UIService } from '../../../../services/UIService'
-import { CashierStore } from '../../../../stores/CashierStore'
+import {UIService} from '../../../../services/UIService'
+import {translate} from '../../../../constants/Translate'
+import {CashierStore} from '../../../../stores/CashierStore'
 
 let P2PTicketProcessing = React.createClass({
 
@@ -20,7 +20,7 @@ let P2PTicketProcessing = React.createClass({
 	 *
 	 * @returns {{transaction: (*|{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array})}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let transactionResponse = UIService.getLastTransactionResponse();
 		let transaction = UIService.getTransactionInformation();
 		let controlNumber = transaction.controlNumber;
@@ -41,22 +41,24 @@ let P2PTicketProcessing = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
-	render() {
-		let transactionDetails = this.state.transactionDetails;
+	render(){
+		let fee = this.state.fee;
 		let controlNumber = this.state.controlNumber;
 		let currencyAmount = this.state.currencyAmount;
-		let fee = this.state.fee;
+		let transactionDetails = this.state.transactionDetails;
+		let importantContent = translate('P2P_IMPORTANCE_NOTICE');
+		let makeContent = translate('P2P_INSTRUCTIONS_ONLY_VALID');
 
 		return (
 			<div id="P2PTicketProcessing">
@@ -132,22 +134,14 @@ let P2PTicketProcessing = React.createClass({
 													{(() =>{
 														if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
 															return <p>
-																<strong>Make your payment in one of the following establishments</strong><br />
+																<strong>{translate('P2P_MAKE_PAYMENT', 'Make your payment in one of the following establishments')}</strong><br />
 																<img src="/images/ria.jpg"/>
 															</p>
 														}
 													})()}
 
-													<p>
-														<strong>Make your payment</strong>
-														<strong>Important Notice: Not following the instructions below will result in a rejected transaction details.</strong>
-													</p>
-
-													<ul>
-														<li>This receiver's information is only valid for the next 48 hours.</li>
-														<li>The minimum deposit is $50.00, and the maximum is $400.00</li>
-														<li>Your transaction must be sent in USD and received in USD.</li>
-													</ul>
+													<p dangerouslySetInnerHTML={{__html: importantContent}}/>
+													<ul dangeroudlySetInnerHTML={{__html: makeContent}} />
 												</div>
 											</div>
 										</div>

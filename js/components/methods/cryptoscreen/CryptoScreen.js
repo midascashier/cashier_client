@@ -56,7 +56,7 @@ let CryptoScreen = React.createClass({
 	},
 
 	/**
-	 * Check mix and Max limits
+	 * Check Min and Max limits
 	 *
 	 * @returns {*}
 	 */

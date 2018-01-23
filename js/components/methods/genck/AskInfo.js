@@ -1,14 +1,14 @@
 import React from 'react'
-import  cashier  from '../../../constants/Cashier'
-import { translate } from '../../../constants/Translate'
-import { AmountController } from '../../AmountController'
-import { UIService } from '../../../services/UIService'
-import { Register } from './Register.js'
-import { CustomerService } from '../../../services/CustomerService'
-import { LoadingSpinner } from '../../loading/LoadingSpinner'
-import { CashierStore } from './../../../stores/CashierStore'
-import { ApplicationService } from '../../../services/ApplicationService'
-import { PayAccountDropDown } from '../../commonComponents/payaccount/PayAccountDropDown'
+import {Register} from './Register.js'
+import cashier from '../../../constants/Cashier'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {AmountController} from '../../AmountController'
+import {LoadingSpinner} from '../../loading/LoadingSpinner'
+import {CashierStore} from './../../../stores/CashierStore'
+import {CustomerService} from '../../../services/CustomerService'
+import {ApplicationService} from '../../../services/ApplicationService'
+import {PayAccountDropDown} from '../../commonComponents/payaccount/PayAccountDropDown'
 
 let AskInfo = React.createClass({
 
@@ -24,7 +24,7 @@ let AskInfo = React.createClass({
 		sendBy: React.PropTypes.string
 	},
 
-	disablePayAccount() {
+	disablePayAccount(){
 		CustomerService.getDisablePayAccount();
 	},
 
@@ -33,7 +33,7 @@ let AskInfo = React.createClass({
 	 *
 	 * @returns {*}
 	 */
-	getProps() {
+	getProps(){
 		return this.props
 	},
 
@@ -114,7 +114,7 @@ let AskInfo = React.createClass({
 								return (
 									<div className="col-sm-8">
 										<div className="alert alert-danger" role="alert">
-											<i className="fa fa-thumbs-o-down red"></i>
+											<i className="fa fa-thumbs-o-down red"/>
 											<strong>{translate('PROCESSING_FEE_ENOUGH_BALANCE', "You don't have enough balance to cover the required fees")}</strong>
 										</div>
 									</div>

@@ -1,9 +1,9 @@
 import React from 'react'
-import {CashierStore} from '../../../stores/CashierStore'
-import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
-import { TransactionService } from '../../../services/TransactionService'
+import {CashierStore} from '../../../stores/CashierStore'
+import {TransactionService} from '../../../services/TransactionService'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 
 let Genck = React.createClass({
 
@@ -47,7 +47,6 @@ let Genck = React.createClass({
 	 * @param element
      */
 	setSendBy(element) {
-
 		let value = '';
 
 		if (typeof element != "object") {
@@ -89,13 +88,13 @@ let Genck = React.createClass({
 						return(
 							<InfoMethod
 								amount={this.props.amount}
-								limitsCheck={this.props.limitsCheck}
-								feeCheck={this.props.feeCheck}
-								feeCashValue={this.props.feeCashValue}
 								setSendBy={this.setSendBy}
 								sendBy={this.state.sendBy}
 								setFeeType={this.setFeeType}
 								feeType={this.state.feeType}
+								feeCheck={this.props.feeCheck}
+								limitsCheck={this.props.limitsCheck}
+								feeCashValue={this.props.feeCashValue}
 							/>
 						)
 					})()}

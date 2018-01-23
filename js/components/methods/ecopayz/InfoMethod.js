@@ -1,9 +1,9 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
-import { translate } from '../../../constants/Translate'
 import Cashier from '../../../constants/Cashier'
-import { TransactionService } from '../../../services/TransactionService'
 import { UIService } from '../../../services/UIService'
+import { translate } from '../../../constants/Translate'
+import { CashierStore } from '../../../stores/CashierStore'
+import { TransactionService } from '../../../services/TransactionService'
 
 let InfoMethod = React.createClass({
 
@@ -52,7 +52,6 @@ let InfoMethod = React.createClass({
 
 	/**
 	 * this function sends deposit info to cashier
-	 *
 	 */
 	continueTransaction(){
 		let isWithDraw = UIService.getIsWithDraw();
@@ -67,7 +66,7 @@ let InfoMethod = React.createClass({
 		}
 	},
 
-	render() {
+	render(){
 		let limitsCheck = false;
 
 		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS && this.props.amount){

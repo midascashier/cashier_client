@@ -1,9 +1,9 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
-import { translate } from '../../../constants/Translate'
-import { UIService } from '../../../services/UIService'
-import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
 
 let CKConfirmWithdraw = React.createClass({
 
@@ -104,7 +104,7 @@ let CKConfirmWithdraw = React.createClass({
 													</table>
 												</div>
 												<p>
-													<i className="fa fa-pencil green"></i>
+													<i className="fa fa-pencil green"/>
 													<a onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>
 												</p>
 

@@ -1,13 +1,13 @@
 import React from 'react'
-import { translate } from '../../../constants/Translate'
-import  cashier  from '../../../constants/Cashier'
-import { Input } from '../../Inputs'
-import { AmountController } from '../../AmountController'
-import { UIService } from '../../../services/UIService'
-import { Register } from './Register.js'
-import { LoadingSpinner } from '../../loading/LoadingSpinner'
-import { FeeController } from '../../FeeController'
-import { PayAccountDropDown } from '../../commonComponents/payaccount/PayAccountDropDown'
+import {Input} from '../../Inputs'
+import {Register} from './Register.js'
+import cashier from '../../../constants/Cashier'
+import {FeeController} from '../../FeeController'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {AmountController} from '../../AmountController'
+import {LoadingSpinner} from '../../loading/LoadingSpinner'
+import {PayAccountDropDown} from '../../commonComponents/payaccount/PayAccountDropDown'
 
 let AskInfo = React.createClass({
 
@@ -31,7 +31,7 @@ let AskInfo = React.createClass({
 		return this.props
 	},
 
-	render() {
+	render(){
 		let netellerPassword = this.props.netellerPassword;
 		let limitsCheck = this.props.limitsCheck;
 		let setAmount = this.props.setAmount;
@@ -95,9 +95,7 @@ let AskInfo = React.createClass({
 					<div className="infoCol">
 						<div className="col-sm-12">
 							<div className="form-horizontal">
-
 								{(() =>{
-
 									if(!payAccountDisplayName){
 										return <LoadingSpinner/>;
 									}

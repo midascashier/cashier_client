@@ -65,14 +65,13 @@ let BitCoinConfirmWithdraw = React.createClass({
 					<div className="col-sm-12">
 						<div className="modules">
 							<div className="row">
-
 								<div className="col-sm-6 ">
 									<div className="box">
-
 										<div className="row">
 											<div className="col-sm-12">
-												<div
-													className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
+												<div className="title">
+													{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}
+												</div>
 												<div className="infoCol text-justify">
 													<p>{translate('BITCOIN_INSTRUCTIONS_PROCESS_INSIDE')}</p>
 													hour.
@@ -85,7 +84,6 @@ let BitCoinConfirmWithdraw = React.createClass({
 
 								<div className="col-sm-6">
 									<div className="box">
-
 										<div className="row">
 											<div className="col-sm-12">
 												<div className="title">{translate('METHOD_DETAILS_WITHDRAW', 'Withdraw Details')}</div>
@@ -108,7 +106,7 @@ let BitCoinConfirmWithdraw = React.createClass({
 													</table>
 												</div>
 												<p>
-													<i className="fa fa-pencil green"></i>
+													<i className="fa fa-pencil green"/>
 													<a onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>
 												</p>
 												<div className="row">
@@ -126,10 +124,8 @@ let BitCoinConfirmWithdraw = React.createClass({
 												</div>
 											</div>
 										</div>
-
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>

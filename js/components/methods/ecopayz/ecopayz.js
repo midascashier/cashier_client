@@ -1,9 +1,9 @@
 import React from 'react'
-import {CashierStore} from '../../../stores/CashierStore'
-import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
-import { TransactionService } from '../../../services/TransactionService'
+import {CashierStore} from '../../../stores/CashierStore'
+import {TransactionService} from '../../../services/TransactionService'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 
 let Ecopayz = React.createClass({
 
@@ -83,7 +83,7 @@ let Ecopayz = React.createClass({
 					{(() =>{
 						
 						if(!this.state.selectedProcessor.processorId){
-							return <LoadingSpinner />;
+							return <LoadingSpinner/>;
 						}
 
 						return(

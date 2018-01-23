@@ -59,7 +59,7 @@ let AskInfo = React.createClass({
 	},
 
 	/**
-	 *
+	 *Execute action when this component will mount
 	 */
 	componentWillMount(){
 		UIService.loadCryptoCurrencies();
@@ -74,6 +74,11 @@ let AskInfo = React.createClass({
 		};
 	},
 
+	/**
+	 * Execute any action when select any crypto currency
+	 *
+	 * @param event
+     */
 	currencyActions(event){
 		UIService.loadingLimits();
 		let symbolSelect = event.currentTarget.id;
@@ -109,12 +114,18 @@ let AskInfo = React.createClass({
 		this.hideCurrencies();
 	},
 
+	/**
+	 * Execute action when select monero crypto currency
+	 */
 	moneroActions(){
 		$('#moneroMsgModal').css({
 			'display' : 'flex'
 		});
 	},
 
+	/**
+	 * Hide crypto currencies modal
+	 */
 	hideCurrencies(){
 		$('#cryptoTransferModal').css('display', 'none');
 	},
@@ -222,14 +233,23 @@ let AskInfo = React.createClass({
 		this.props.setPromoCode(promoCode);
 	},
 
+	/**
+	 * Show currencies when click in any element with this action
+	 */
 	showCurrencies(){
 		$('#cryptoTransferModal').css('display', 'flex');
 	},
 
+	/**
+	 * Hide currencies when click in any element with this action
+	 */
 	hideCurrencies(){
 		$('#cryptoTransferModal').css('display', 'none');
 	},
 
+	/**
+	 * Hide monero message when click in any element with this action
+	 */
 	hideMoneroMSG(){
 		$('#moneroMsgModal').css('display', 'none');
 	},
@@ -256,8 +276,8 @@ let AskInfo = React.createClass({
 						<span>{translate('CRYPTO_SELECT_CURRENCY', 'Select your crypto currency')}</span>
 						<div id="cryptoTransfer-Btn-content">
 							<img id="imgSmall" src=""/>
-							<span id="symbolName"></span>
-							<span id="symbolValue"></span>
+							<span id="symbolName"/>
+							<span id="symbolValue"/>
 						</div>
 					</div>
 

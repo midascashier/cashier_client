@@ -19,7 +19,7 @@ let AstroPayApprovedTicket = React.createClass({
 	 *
 	 * @returns {{balance: string, email: string, currencyAmount: string, descriptor: string}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let customer = UIService.getCustomerInformation();
 		let transaction = UIService.getTransactionInformation();
 		let transactionResponse = UIService.getLastTransactionResponse();
@@ -41,11 +41,11 @@ let AstroPayApprovedTicket = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
-	render() {
+	render(){
 		let originPath = UIService.getOriginPath();
 		let currencyAmount = this.state.currencyAmount;
 		let currency = this.state.currency;
@@ -58,6 +58,8 @@ let AstroPayApprovedTicket = React.createClass({
 			currency: currency,
 			currencyAmount: currencyAmount
 		};
+
+		let content = translate('ASTROPAY_SUCCESS_DEPOSIT_BALANCE', '', tags);
 
 		return (
 			<div className="internal-content" id="astroPayApprovedTicket">
@@ -72,7 +74,7 @@ let AstroPayApprovedTicket = React.createClass({
 					<div className="col-sm-6">
 						<div className="success-message">
 							<i className="fa fa-check-circle-o green"/>
-							{translate('ASTROPAY_SUCCESS_DEPOSIT_BALANCE', '', tags)}
+							<div dangerouslySetInnerHTML={{__html: content}}/>
 						</div>
 					</div>
 				</div>

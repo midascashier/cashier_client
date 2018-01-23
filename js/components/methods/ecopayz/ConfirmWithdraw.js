@@ -1,9 +1,9 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
-import { translate } from '../../../constants/Translate'
-import { UIService } from '../../../services/UIService'
-import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
 
 let EcoConfirmWithdraw = React.createClass({
 
@@ -61,9 +61,9 @@ let EcoConfirmWithdraw = React.createClass({
 	},
 
 	render(){
-		let originPath = UIService.getOriginPath();
 		let customer = this.state.customer;
 		let transaction = this.state.transaction;
+		let originPath = UIService.getOriginPath();
 
 		return (
 			<div id="confirmCkWithdraw" className="internal-content">
@@ -79,7 +79,7 @@ let EcoConfirmWithdraw = React.createClass({
 												<div className="title">{translate('IMPORTANT_REMINDERS', 'reminder')}</div>
 												<div className="infoCol text-justify">
 													<p>
-														Withdraws will be process inside 24 hours, but are typically processed within an hour.
+														{translate('ECOPAYZ_WITHDRAWS_PROCESS', 'Withdraws will be process inside 24 hours, but are typically processed within an hour.')}
 													</p>
 												</div>
 											</div>
@@ -108,7 +108,7 @@ let EcoConfirmWithdraw = React.createClass({
 												</div>
 
 												<p>
-													<i className="fa fa-pencil green"></i>
+													<i className="fa fa-pencil green"/>
 													<a onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>
 												</p>
 

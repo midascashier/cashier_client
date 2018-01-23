@@ -1,9 +1,9 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
-import { translate } from '../../../constants/Translate'
 import Cashier from '../../../constants/Cashier'
-import { TransactionService } from '../../../services/TransactionService'
-import { UIService } from '../../../services/UIService'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {TransactionService} from '../../../services/TransactionService'
 
 let InfoMethod = React.createClass({
 
@@ -29,7 +29,7 @@ let InfoMethod = React.createClass({
 	 *
 	 * @returns {{processor: (*|{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}), currentPayAccount: *, originPath: (*|string)}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			processor: CashierStore.getProcessor(),
 			currentPayAccount: CashierStore.getCurrentPayAccount()
@@ -39,7 +39,7 @@ let InfoMethod = React.createClass({
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
@@ -48,7 +48,7 @@ let InfoMethod = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -74,7 +74,7 @@ let InfoMethod = React.createClass({
 		}
 	},
 
-	render() {
+	render(){
 		let limitsCheck = false;
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();

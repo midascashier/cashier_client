@@ -1,12 +1,12 @@
 import React from 'react'
-import { Input } from '../../Inputs'
-import { translate } from '../../../constants/Translate'
-import { UIService } from '../../../services/UIService'
-import { TransactionService } from '../../../services/TransactionService'
-import { CashierStore } from '../../../stores/CashierStore'
-import { ApplicationService } from '../../../services/ApplicationService'
-import { CashierActions } from '../../../actions/CashierActions'
-import { LoadingSpinnerSmall } from '../../../components/loading/LoadingSpinnerSmall'
+import {Input} from '../../Inputs'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {CashierActions} from '../../../actions/CashierActions'
+import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
+import {LoadingSpinnerSmall} from '../../../components/loading/LoadingSpinnerSmall'
 
 let Register = React.createClass({
 
@@ -23,7 +23,7 @@ let Register = React.createClass({
 	 * this function sets and return object with local states
 	 *
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let country = CashierStore.getSelectedCountry();
 		let customer = CashierStore.getCustomer();
 
@@ -103,7 +103,6 @@ let Register = React.createClass({
 	 * @returns {boolean}
 	 */
 	addNewPayAccount(e){
-
 		if (!ApplicationService.emptyInput(e)) {
 
 			let actualState = this.state;
@@ -136,7 +135,7 @@ let Register = React.createClass({
 	/**
 	 * Cancel button
 	 */
-	cancel() {
+	cancel(){
 		let payAccounts = CashierStore.getProcessorPayAccount();
 		if(Object.keys(payAccounts).length > 0){
 			let processorID = CashierStore.getProcessor();
