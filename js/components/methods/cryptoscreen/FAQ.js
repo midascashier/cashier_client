@@ -1,6 +1,16 @@
 import React from 'react'
+import {UIService} from '../../../services/UIService'
 
 let FAQ = React.createClass({
+
+    faq : {
+        currencyLimits: '',
+        processorLimits: ''
+    },
+
+    componentWillMount(){
+        this.faq.processorLimits = UIService.getProcessorLimitMinMax();
+    },
 
     showFAQ(){
         let faq = document.getElementById('methodInfo');
@@ -14,6 +24,9 @@ let FAQ = React.createClass({
     },
 
     render(){
+        let currency = UIService.getCurrentCryptoName();
+        this.faq.currencyLimits = UIService.getProcessorLimitMinMax();
+
         return(
             <div className="textData">
                 <br />
@@ -121,8 +134,20 @@ let FAQ = React.createClass({
                     <p>No, you need to create a new address for every deposit.</p>
 
                     <p><strong>What are the deposit limits?</strong></p>
-                    <p><li>Minimum deposit = $150</li>
-                        <li>Maximum deposit = $2500</li>
+
+                    <p>For Bitcoin, Litecoin y Bitcoin Cash:</p>
+
+                    <p>
+                        <li>Minimum deposit = {this.faq.processorLimits.minAmount + ' ' + this.faq.processorLimits.currencyCode}</li>
+                        <li>Maximum deposit = {this.faq.processorLimits.maxAmount + ' ' + this.faq.processorLimits.currencyCode}</li>
+                    </p>
+
+                    <p>For other cryptocurrencies may vary</p>
+                    <p>Current crypto currency: {currency}</p>
+
+                    <p>
+                        <li>Minimum deposit = {this.faq.currencyLimits.minAmount + ' ' + this.faq.currencyLimits.currencyCode}</li>
+                        <li>Maximum deposit = {this.faq.currencyLimits.maxAmount + ' ' + this.faq.currencyLimits.currencyCode}</li>
                     </p>
 
                     <p><strong>I’d like to see a coin added. How can I suggest that?</strong></p>
