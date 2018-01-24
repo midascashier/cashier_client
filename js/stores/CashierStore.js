@@ -381,8 +381,12 @@ let _transactionResponse = {
 let _CryptoTransfer = {
 	rate: 0,
 	minerFee: 0,
+	promoCode: '',
+	cryptoAmount: '',
 	conversionRate: 0,
 	currencies: false,
+	customerAmount: '',
+	cryptoAddress: null,
 	loadingLimits: false,
 	currentLimits: false,
 	cryptoCurrencyISO: '',
@@ -767,6 +771,38 @@ let CashierStore = assign({}, EventEmitter.prototype, {
      */
 	getCurrentCryptoName(){
 		return _CryptoTransfer.cryptoCurrencyName
+	},
+
+	setCryptoAddress(cryptoAddress){
+		_CryptoTransfer.cryptoAddress = cryptoAddress
+	},
+
+	getCryptoAddress(){
+		return _CryptoTransfer.cryptoAddress	
+	},
+
+	setCryptoPromoCode(promoCode){
+		_CryptoTransfer.promoCode = promoCode
+	},
+
+	getCryptoPromoCode(){
+		return _CryptoTransfer.promoCode
+	},
+
+	setCryptoAmount(cryptoAmount){
+		_CryptoTransfer.cryptoAmount = cryptoAmount
+	},
+
+	getCryptoAmount(){
+		return _CryptoTransfer.cryptoAmount
+	},
+
+	setCryptoCustomerAmount(customerAmount){
+		_CryptoTransfer.customerAmount = customerAmount
+	},
+
+	getCryptoCustomerAmount(){
+		return _CryptoTransfer.customerAmount
 	},
 
 	/**

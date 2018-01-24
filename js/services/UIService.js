@@ -704,16 +704,15 @@ class UiService {
 	 *
 	 * @param cryptoCurrencyCode
      */
-	loadCurrencyLimits(cryptoCurrencyCode){
+	loadCurrencyLimits(cryptoCurrencyCode, minAmount, maxAmount){
 		let company = this.getCompanyInformation();
 		let customer = this.getCustomerInformation();
-		let currency = this.getProcessorLimitMinMax();
 
 		let params = {
 			companyId: company.companyId,
 			f: 'getCryptoTransferLimits',
-			lowerLimit: currency.minAmount,
-			upperLimit: currency.maxAmount,
+			lowerLimit: minAmount,
+			upperLimit: maxAmount,
 			currencyCode: cryptoCurrencyCode,
 			customerCurrency: customer.currency
 		};
@@ -792,6 +791,78 @@ class UiService {
 	}
 
 	/**
+	 * Set crypto address
+	 *
+	 * @param cryptoAddress
+     */
+	setCryptoAddress(cryptoAddress){
+		CashierStore.setCryptoAddress(cryptoAddress)
+	}
+
+	/**
+	 * Get crypto address
+	 *
+	 * @returns {*}
+     */
+	getCryptoAddress(){
+		return CashierStore.getCryptoAddress()
+	}
+
+	/**
+	 * Set crypto promo code
+	 *
+	 * @param promoCode
+     */
+	setCryptoPromoCode(promoCode){
+		CashierStore.setCryptoPromoCode(promoCode)
+	}
+
+	/**
+	 * Get crypto promo code
+	 *
+	 * @returns {*}
+     */
+	getCryptoPromoCode(){
+		return CashierStore.getCryptoPromoCode()
+	}
+
+	/**
+	 * Set crypto amount
+	 *
+	 * @param cryptoAmount
+     */
+	setCryptoAmount(cryptoAmount){
+		CashierStore.setCryptoAmount(cryptoAmount)
+	}
+
+	/**
+	 * Get crypto amount
+	 *
+	 * @returns {*}
+     */
+	getCryptoAmount(){
+		return CashierStore.getCryptoAmount()
+	}
+
+	/**
+	 * Set crypto customer amount
+	 *
+	 * @param customerAmount
+     */
+	setCryptoCustomerAmount(customerAmount){
+		CashierStore.setCryptoCustomerAmount(customerAmount)
+	}
+
+	/**
+	 * Get crypto customer amount
+	 *
+	 * @returns {*}
+     */
+	getCryptoCustomerAmount(){
+		return CashierStore.getCryptoCustomerAmount()
+	}
+
+	/**
 	 * Return if is required refund address
 	 *
 	 * @param currencyCode
@@ -814,13 +885,17 @@ class UiService {
 	 * @param address
      */
 	validateCryptoAddress(currencyCode, address){
-		let params = {
-			address: address,
-			f: 'validateAddress',
-			currencyCode: currencyCode
-		};
+		if(address){
+			let params = {
+				address: address,
+				f: 'validateAddress',
+				currencyCode: currencyCode
+			};
 
-		ConnectorServices.makeCashierRequest(actions.VALIDATE_CRYPTO_ADDRESS, params);
+			ConnectorServices.makeCashierRequest(actions.VALIDATE_CRYPTO_ADDRESS, params);
+		}
+
+		this.setCryptoAddress(address);
 	}
 
 	/**

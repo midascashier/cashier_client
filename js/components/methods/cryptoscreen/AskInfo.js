@@ -33,6 +33,11 @@ let AskInfo = React.createClass({
 		setCryptoCurrencyName: React.PropTypes.func
 	},
 
+	cryptoScreen: {
+		currencyLimits: '',
+		processorLimits: ''
+	},
+
 	/**
 	 * React function to set component initial state
 	 */
@@ -63,7 +68,9 @@ let AskInfo = React.createClass({
 	 */
 	componentWillMount(){
 		UIService.loadCryptoCurrencies();
-		window.onclick = function (event) {
+		this.cryptoScreen.processorLimits = UIService.getProcessorLimitMinMax();
+
+		window.onclick = function (event){
 			if(event.target == document.getElementById('cryptoTransferModal')){
 				$('#cryptoTransferModal').css('display', 'none');
 			}
@@ -82,10 +89,11 @@ let AskInfo = React.createClass({
 	currencyActions(event){
 		UIService.loadingLimits();
 		let symbolSelect = event.currentTarget.id;
+		let limits = this.cryptoScreen.processorLimits;
 		let img = $('#' + symbolSelect + ' img').attr('src');
 		let symbolName = $('#' + symbolSelect + 'Name').text();
 		let symbolValue = $('#' + symbolSelect + 'Symbol').val();
-		UIService.loadCurrencyLimits(symbolValue);
+		UIService.loadCurrencyLimits(symbolValue, limits.minAmount, limits.maxAmount);
 
 		if(symbolSelect == 'monero'){
 			this.moneroActions();
@@ -219,8 +227,10 @@ let AskInfo = React.createClass({
 	 * @param event
 	 */
 	changeCryptoAddress(event){
+		let symbol = this.props.getSymbol();
 		let cryptoAddress = event.target.value;
 		this.props.setCryptoAddress(cryptoAddress);
+		UIService.validateCryptoAddress(symbol, cryptoAddress);
 	},
 
 	/**
@@ -323,9 +333,8 @@ let AskInfo = React.createClass({
 
 						{(() =>{
 							let symbol = this.props.getSymbol();
-							let processor = UIService.getProcessorId();
 							let needAddress = UIService.refundAddressRequired(symbol);
-							if(needAddress || processor == Cashier.PROCESSOR_ID_CRYPTO_TRANSFER){
+							if(needAddress){
 								return(
 									<div id="cryptoAddressContainer">
 										<input
