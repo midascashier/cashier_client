@@ -230,7 +230,7 @@ let AskInfo = React.createClass({
 		let symbol = this.props.getSymbol();
 		let cryptoAddress = event.target.value;
 		this.props.setCryptoAddress(cryptoAddress);
-		UIService.validateCryptoAddress(symbol, cryptoAddress);
+		//UIService.validateCryptoAddress(symbol, cryptoAddress);
 	},
 
 	/**
