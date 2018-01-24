@@ -1,8 +1,8 @@
 import React from 'react'
-import { translate } from '../../constants/Translate'
 import cashier from '../../constants/Cashier'
-import { ApplicationService } from '../../services/ApplicationService'
-import { TransactionService } from '../../services/TransactionService'
+import {translate} from '../../constants/Translate'
+import {ApplicationService} from '../../services/ApplicationService'
+import {TransactionService} from '../../services/TransactionService'
 
 let TransactionHistory = React.createClass({
 
