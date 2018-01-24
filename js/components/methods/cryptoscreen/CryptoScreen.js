@@ -327,6 +327,7 @@ let CryptoScreen = React.createClass({
 	 */
 	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
+		TransactionService.selectProcessor(UIService.getProcessorId());
 	}
 });
 
