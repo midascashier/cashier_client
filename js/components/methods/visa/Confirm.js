@@ -1,10 +1,10 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
-import { translate } from '../../../constants/Translate'
+import { Input } from '../../commonComponents/Inputs'
 import { UIService } from '../../../services/UIService'
+import { translate } from '../../../constants/Translate'
+import { CashierStore } from '../../../stores/CashierStore'
 import { TransactionService } from '../../../services/TransactionService'
 import { ApplicationService } from '../../../services/ApplicationService'
-import { Input } from '../../Inputs'
 
 let VisaConfirm = React.createClass({
 

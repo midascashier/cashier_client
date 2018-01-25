@@ -1,9 +1,9 @@
 import React from 'react'
-import { translate } from '../../../constants/Translate'
-import { FeeController } from '../../FeeController'
-import { AmountController } from '../../AmountController'
-import { UIService } from '../../../services/UIService'
-import { Input } from '../../Inputs'
+import {Input} from '../../commonComponents/Inputs'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {FeeController} from '../../commonComponents/FeeController'
+import {AmountController} from '../../commonComponents/AmountController'
 
 let AskInfo = React.createClass({
 

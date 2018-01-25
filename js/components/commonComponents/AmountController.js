@@ -1,10 +1,10 @@
 import React from 'react'
-import { translate } from '../constants/Translate'
-import  errorMsgs  from '../constants/limitsErrorMsgs'
-import Cashier from '../constants/Cashier'
-import { UIService } from '../services/UIService'
-import { ApplicationService } from '../services/ApplicationService'
-import { CashierStore } from '../stores/CashierStore'
+import Cashier from '../../constants/Cashier'
+import {UIService} from '../../services/UIService'
+import {translate} from '../../constants/Translate'
+import {CashierStore} from '../../stores/CashierStore'
+import  errorMsgs  from '../../constants/limitsErrorMsgs'
+import {ApplicationService} from '../../services/ApplicationService'
 
 let AmountController = React.createClass({
 	propTypes: {

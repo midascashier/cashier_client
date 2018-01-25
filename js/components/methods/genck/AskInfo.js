@@ -3,11 +3,11 @@ import {Register} from './Register.js'
 import cashier from '../../../constants/Cashier'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
-import {AmountController} from '../../AmountController'
 import {LoadingSpinner} from '../../loading/LoadingSpinner'
 import {CashierStore} from './../../../stores/CashierStore'
 import {CustomerService} from '../../../services/CustomerService'
 import {ApplicationService} from '../../../services/ApplicationService'
+import {AmountController} from '../../commonComponents/AmountController'
 import {PayAccountDropDown} from '../../commonComponents/payaccount/PayAccountDropDown'
 
 let AskInfo = React.createClass({

@@ -1,7 +1,7 @@
 import React from 'react'
-import {UIService} from '../services/UIService'
-import {inputsErrorMsgs} from '../constants/inputsErrorMsgs' //TODO add message error types in the input validation
-import {ApplicationService} from '../services/ApplicationService'
+import {UIService} from '../../services/UIService'
+import {inputsErrorMsgs} from '../../constants/inputsErrorMsgs' //TODO add message error types in the input validation
+import {ApplicationService} from '../../services/ApplicationService'
 
 let Input = React.createClass({
 

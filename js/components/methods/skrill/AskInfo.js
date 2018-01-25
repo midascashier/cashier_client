@@ -1,11 +1,11 @@
 import React from 'react'
 import {Register} from './Register.js'
-import {PromoCode} from '../../PromoCode'
 import cashier  from '../../../constants/Cashier'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
-import {AmountController} from '../../AmountController'
+import {PromoCode} from '../../commonComponents/PromoCode'
 import {CustomerService} from '../../../services/CustomerService'
+import {AmountController} from '../../commonComponents/AmountController'
 import {PayAccountDropDown} from '../../commonComponents/payaccount/PayAccountDropDown'
 
 let AskInfo = React.createClass({

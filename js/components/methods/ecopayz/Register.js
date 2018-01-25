@@ -1,11 +1,11 @@
 import React from 'react'
-import { Input } from '../../Inputs'
-import { translate } from '../../../constants/Translate'
-import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
-import { CashierActions } from '../../../actions/CashierActions'
-import { CashierStore } from '../../../stores/CashierStore'
-import { UIService } from '../../../services/UIService'
+import {Input} from '../../commonComponents/Inputs'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {CashierActions} from '../../../actions/CashierActions'
+import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
 
 let Register = React.createClass({
 

@@ -1,11 +1,11 @@
 import React from 'react'
-import { translate } from '../../../constants/Translate'
+import {Register} from './Register.js'
 import  cashier  from '../../../constants/Cashier'
-import { AmountController } from '../../AmountController'
-import { UIService } from '../../../services/UIService'
-import { Register } from './Register.js'
-import { FeeController } from '../../FeeController'
-import { PayAccountDropDown } from '../../commonComponents/payaccount/PayAccountDropDown'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {FeeController} from '../../commonComponents/FeController'
+import {AmountController} from '../../commonComponents/AmountController'
+import {PayAccountDropDown} from '../../commonComponents/payaccount/PayAccountDropDown'
 
 let AskInfo = React.createClass({
 

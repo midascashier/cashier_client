@@ -1,9 +1,9 @@
 import React from 'react'
-import { CashierStore } from './../stores/CashierStore'
-import { translate } from '../constants/Translate'
-import { UIService } from '../services/UIService'
-import { TransactionService } from '../services/TransactionService'
-import { ApplicationService } from '../services/ApplicationService'
+import {UIService} from '../../services/UIService'
+import {translate} from '../../constants/Translate'
+import {CashierStore} from './../../stores/CashierStore'
+import {TransactionService} from '../../services/TransactionService'
+import {ApplicationService} from '../../services/ApplicationService'
 
 let FeeController = React.createClass({
 

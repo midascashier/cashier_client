@@ -1,11 +1,11 @@
 import React from 'react'
-import { translate } from '../../../../constants/Translate'
 import Cashier from '../../../../constants/Cashier'
-import { ApplicationService } from '../../../../services/ApplicationService'
-import { Input } from '../../../Inputs'
+import { Input } from '../../../commonComponents/Inputs'
 import { UIService } from '../../../../services/UIService'
-import { TransactionService } from '../../../../services/TransactionService'
+import { translate } from '../../../../constants/Translate'
 import { CashierStore } from '../../../../stores/CashierStore'
+import { ApplicationService } from '../../../../services/ApplicationService'
+import { TransactionService } from '../../../../services/TransactionService'
 
 let P2PTicketPending = React.createClass({
 

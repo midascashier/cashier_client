@@ -1,10 +1,10 @@
 import React from 'react'
 import Cashier from '../../../constants/Cashier'
-import { UIService } from '../../../services/UIService'
-import { translate } from '../../../constants/Translate'
-import { CashierStore } from '../../../stores/CashierStore'
-import { SecondFactor } from '../../../components/SecondFactor'
-import { TransactionService } from '../../../services/TransactionService'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {SecondFactor} from '../../commonComponents/SecondFactor'
+import {TransactionService} from '../../../services/TransactionService'
 
 let CryptoTransferConfirmWithdraw = React.createClass({
 

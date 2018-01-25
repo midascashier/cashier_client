@@ -1,6 +1,6 @@
 import React from 'react'
-import { Input } from '../../Inputs'
-import { translate } from '../../../constants/Translate'
+import {Input} from '../../commonComponents/Inputs'
+import {translate} from '../../../constants/Translate'
 
 let EditMode = React.createClass({
 

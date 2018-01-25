@@ -1,8 +1,8 @@
 import React from 'react'
-import {translate} from '../constants/Translate'
-import {CashierStore} from './../stores/CashierStore'
-import {CashierActions} from './../actions/CashierActions'
-import {TransactionService} from './../services/TransactionService'
+import {translate} from '../../constants/Translate'
+import {CashierStore} from './../../stores/CashierStore'
+import {CashierActions} from './../../actions/CashierActions'
+import {TransactionService} from './../../services/TransactionService'
 
 let SelectPayAccount = React.createClass({
 

@@ -1,10 +1,10 @@
 import React from 'react'
-import {translate} from '../constants/Translate'
-import {CashierStore} from '../stores/CashierStore'
 import {Input} from './Inputs'
-import Cashier from '../constants/Cashier'
-import {TransactionService} from '../services/TransactionService'
-import {UIService} from '../services/UIService'
+import Cashier from '../../constants/Cashier'
+import {UIService} from '../../services/UIService'
+import {translate} from '../../constants/Translate'
+import {CashierStore} from '../../stores/CashierStore'
+import {TransactionService} from '../../services/TransactionService'
 
 let SecondFactor = React.createClass({
 

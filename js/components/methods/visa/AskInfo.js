@@ -6,9 +6,9 @@ import  cashier  from '../../../constants/Cashier'
 import {TermsController} from '../../TermsController'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
-import {AmountController} from '../../AmountController'
 import {CashierStore} from '../../../stores/CashierStore'
 import {LoadingSpinner} from '../../loading/LoadingSpinner'
+import {AmountController} from '../../commonComponents/AmountController'
 import {PayAccountDropDown} from '../../../components/commonComponents/payaccount/PayAccountDropDown'
 
 let AskInfo = React.createClass({

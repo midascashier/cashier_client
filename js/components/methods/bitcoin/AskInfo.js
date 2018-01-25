@@ -1,10 +1,10 @@
 import React from 'react'
-import {Input} from '../../Inputs'
-import {PromoCode} from '../../PromoCode'
-import {FeeController} from '../../FeeController'
+import {Input} from '../../commonComponents/Inputs'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
-import {AmountController} from '../../AmountController'
+import {PromoCode} from '../../commonComponents/PromoCode'
+import {FeeController} from '../../commonComponents/FeeController'
+import {AmountController} from '../../commonComponents/AmountController'
 
 let AskInfo = React.createClass({
 

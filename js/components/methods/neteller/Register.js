@@ -1,5 +1,5 @@
 import React from 'react'
-import {Input} from '../../Inputs'
+import {Input} from '../../commonComponents/Inputs'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'

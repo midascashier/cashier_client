@@ -1,9 +1,9 @@
 import React from 'react'
-import { Input } from '../../../Inputs'
-import { translate } from '../../../../constants/Translate'
+import { Input } from '../../../commonComponents/Inputs'
 import { UIService } from '../../../../services/UIService'
-import { TransactionService } from '../../../../services/TransactionService'
+import { translate } from '../../../../constants/Translate'
 import { CashierStore } from '../../../../stores/CashierStore'
+import { TransactionService } from '../../../../services/TransactionService'
 
 let VisaRejectCardTicket = React.createClass({
 

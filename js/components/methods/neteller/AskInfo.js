@@ -1,12 +1,12 @@
 import React from 'react'
-import {Input} from '../../Inputs'
 import {Register} from './Register.js'
 import cashier from '../../../constants/Cashier'
-import {FeeController} from '../../FeeController'
+import {Input} from '../../commonComponents/Inputs'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
-import {AmountController} from '../../AmountController'
 import {LoadingSpinner} from '../../loading/LoadingSpinner'
+import {FeeController} from '../../commonComponents/FeeController'
+import {AmountController} from '../../commonComponents/AmountController'
 import {PayAccountDropDown} from '../../commonComponents/payaccount/PayAccountDropDown'
 
 let AskInfo = React.createClass({

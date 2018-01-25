@@ -1,6 +1,6 @@
 import React from 'react'
-import {translate} from '../constants/Translate'
-import {TransactionService} from './../services/TransactionService'
+import {translate} from '../../constants/Translate'
+import {TransactionService} from './../../services/TransactionService'
 
 let PromoCode = React.createClass({
 
