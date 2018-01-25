@@ -619,3 +619,33 @@ div[class*="col-"] > div[class*="col-"]:before {
   line-height: 1.5;
   font-size: 14px;
 }
+
+#requestsOptions{
+    float: left;
+    display: flex;
+    width: inherit;
+    margin-top: 20px;
+}
+
+.DocsOptions{
+    float: left;
+    width: 150px;
+    height: 35px;
+    color: white;
+    display: flex;
+    cursor: pointer;
+    margin-left: 5px;
+    background-color: #0b97c4;
+    border-radius: 2px 2px 0 0;
+    -webkit-justify-content: center;
+    -webkit-align-items: center;
+}
+
+#requestOptionContent{
+    width: inherit;
+    height: 408px;
+    border-radius: 2px;
+    display: inline-block;
+    border: solid #0b97c4 1px;
+    background-color: #e3e3e3;
+}

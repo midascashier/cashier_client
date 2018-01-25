@@ -99,6 +99,7 @@ import {CryptoScreenTicketPending} from './components/methods/cryptoscreen/ticke
  */
 import {ProcessorsInfo} from './components/methods/ProcessorsInfo'
 import {TransactionHistoryContent} from './components/TransactionHistoryContent'
+import {RequestsContent} from './components/RequestContent'
 import {PendingControlNumber} from './components/PendingMTCNContent'
 import RouterContainer from './services/RouterContainer'
 

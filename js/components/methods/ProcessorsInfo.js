@@ -84,9 +84,13 @@ let ProcessorsInfo = React.createClass({
 			<div id="processorsInfo">
 				<div className="col-sm-6">
 					<Link to={`/transaction_history/`}>
-						<p>{translate('TRANSACTION_HISTORY')}</p>
+						<span>{translate('TRANSACTION_HISTORY')}</span>
 					</Link>
-
+					&nbsp;
+					&nbsp;
+					<Link to={`/requests/`}>
+						<span>{translate('METHOD_REQUESTS')}</span>
+					</Link>
 					<ProcessorsList
 						processors={processors}
 						waitLimits={this.waitLimits}

@@ -33,6 +33,7 @@ let _langTags = {
 	CUSTOMER_INFO_COUNTRY: "Country",
 	CUSTOMER_INFO_ADDRESS: "Address",
 	METHOD_TRANSACTION_HISTORY: "Transaction History",
+	METHOD_REQUESTS: "My Requests",
 	METHOD_SELECT_YOUR_DEPOSIT_METHOD: "Select Your Deposit Method",
 	METHOD_SELECT_YOUR_WITHDRAW_METHOD: "Select Your Withdraw Method",
 	METHOD_DETAILS_DEPOSIT: "Deposit Details",
@@ -300,7 +301,12 @@ let _langTags = {
 	CC_LIMIT_ABOVE_MAX: '<div class="alert alert-danger" role="alert"><i class="fa fa-ban"></i><span>Our maximum deposit amount is {maxAmount} {currencyCode}</span></div>',
 	CC_LIMIT_ABOVE_AVAILABLE: '<div class="alert alert-info" role="alert"><i class="fa fa-ban"></i><strong>{displayName}</strong> - <span>The maximum amount available for this card is {available} {currencyCode}</span></div>',
 
-	ASTROPAY_SUCCESS_DEPOSIT_BALANCE: "<div class='title'>Your {currencyAmount + ' ' + currency} deposit was successful.</div><p>Your balance is now {balance + ' ' + currency}</p><p>An email has been sent to {email} with the transaction details.</p>"
+	ASTROPAY_SUCCESS_DEPOSIT_BALANCE: "<div class='title'>Your {currencyAmount + ' ' + currency} deposit was successful.</div><p>Your balance is now {balance + ' ' + currency}</p><p>An email has been sent to {email} with the transaction details.</p>",
+	
+	MY_REQUEST_TITLE: "My Requests",
+	MY_REQUEST_VERIFY_IDENTITY: "Verify my identity",
+	MY_REQUEST_UPDATE_INFORMATION: "Update my information",
+	MY_REQUEST_REPORT_PROBLEM: "Report a problem"
 };
 
 export function EN(){

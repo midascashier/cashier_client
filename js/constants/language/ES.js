@@ -33,6 +33,7 @@ let _langTags = {
 	CUSTOMER_INFO_COUNTRY: "Pais",
 	CUSTOMER_INFO_ADDRESS: "Direccion",
 	METHOD_TRANSACTION_HISTORY: "Historial",
+	METHOD_REQUESTS: "Mis Solicitudes",
 	METHOD_SELECT_YOUR_DEPOSIT_METHOD: "Deposita con:",
 	METHOD_SELECT_YOUR_WITHDRAW_METHOD: "¿Cómo quiere retirar?",
 	METHOD_DETAILS_DEPOSIT: "Detalles del depósito",
@@ -300,7 +301,13 @@ let _langTags = {
 	CC_LIMIT_ABOVE_MAX: '<div class="alert alert-danger" role="alert"><i class="fa fa-ban"></i><span>Our maximum deposit amount is {maxAmount} {currencyCode}</span></div>',
 	CC_LIMIT_ABOVE_AVAILABLE: '<div class="alert alert-info" role="alert"><i class="fa fa-ban"></i><strong>{displayName}</strong> - <span>The maximum amount available for this card is {available} {currencyCode}</span></div>',
 
-	ASTROPAY_SUCCESS_DEPOSIT_BALANCE: "<div class='title'>Tu depósito de{currencyAmount + ' ' + currency} fue exitoso.</div><p>Su saldo ahora es {balance + ' ' + currency}</p><p> Se ha enviado un correo electrónico a {email} con los detalles de la transacción.</p>"
+	ASTROPAY_SUCCESS_DEPOSIT_BALANCE: "<div class='title'>Tu depósito de{currencyAmount + ' ' + currency} fue exitoso.</div><p>Su saldo ahora es {balance + ' ' + currency}</p><p> Se ha enviado un correo electrónico a {email} con los detalles de la transacción.</p>",
+
+	MY_REQUEST_TITLE: "Mis Solicitudes",
+	MY_REQUEST_VERIFY_IDENTITY: "Verificar mi identidad",
+	MY_REQUEST_UPDATE_INFORMATION: "Actualizar mi información",
+	MY_REQUEST_REPORT_PROBLEM: "Informar de un problema"
+	
 };
 
 export function ES(){
