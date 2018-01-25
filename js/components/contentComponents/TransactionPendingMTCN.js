@@ -1,11 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router'
-import { translate } from '../../constants/Translate'
-import { Input } from '../../components/Inputs'
-import { CashierStore } from '../../stores/CashierStore'
-import { cashier } from '../../constants/Cashier'
-import { UIService } from '../../services/UIService'
-import { TransactionService } from '../../services/TransactionService'
+import {Link} from 'react-router'
+import {UIService} from '../../services/UIService'
+import {translate} from '../../constants/Translate'
+import {CashierStore} from '../../stores/CashierStore'
+import {Input} from '../../components/commonComponents/Inputs'
+import {TransactionService} from '../../services/TransactionService'
 
 let TransactionPendingMTCN = React.createClass({
 
