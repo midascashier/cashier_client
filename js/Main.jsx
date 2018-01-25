@@ -124,6 +124,7 @@ let routes = (
 			<IndexRoute component={Welcome}/>
 			<Route path="/welcome/" component={Welcome}/>
 			<Route path="/transaction_history/" component={TransactionHistoryContent}/>
+			<Route path="/requests/" component={RequestsContent}/>
 			<Route path="/pendingControlNumber/" component={PendingControlNumber}/>
 
 			<Route path="/deposit/" component={Content}>
