@@ -3,7 +3,7 @@ import {Register} from './Register.js'
 import  cashier  from '../../../constants/Cashier'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
-import {FeeController} from '../../commonComponents/FeController'
+import {FeeController} from '../../commonComponents/FeeController'
 import {AmountController} from '../../commonComponents/AmountController'
 import {PayAccountDropDown} from '../../commonComponents/payaccount/PayAccountDropDown'
 
