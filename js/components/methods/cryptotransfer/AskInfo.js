@@ -111,11 +111,11 @@ let AskInfo = React.createClass({
 		if(currencies){
 			currency = Object.keys(currencies);
 			availableCurrencies = currency.filter(function (current) {
-				return ((current != 'BTC' && current != 'XRP') && currencies[current].status == 'available');
+				return ((current != 'BTC' && current != 'XRP' && current != 'NEO') && currencies[current].status == 'available');
 			});
 
 			unavailableCurrencies = currency.filter(function (current) {
-				if((current != 'BTC' && current != 'XRP') && currencies[current].status != 'available'){
+				if((current != 'BTC' && current != 'XRP' && current != 'NEO') && currencies[current].status != 'available'){
 					if(orderCurrencies.includes(current)){
 						orderCurrencies.forEach(function(k, v) {
 							if(v == current){
