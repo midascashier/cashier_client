@@ -306,7 +306,10 @@ let _langTags = {
 	MY_REQUEST_TITLE: "My Requests",
 	MY_REQUEST_VERIFY_IDENTITY: "Verify my identity",
 	MY_REQUEST_UPDATE_INFORMATION: "Update my information",
-	MY_REQUEST_REPORT_PROBLEM: "Report a problem"
+	MY_REQUEST_REPORT_PROBLEM: "Report a problem",
+	MY_REQUEST_VERIFY_TITLE: "Verification type",
+	MY_REQUEST_DOCS_OPTION_ID_TXT: "IDENTIFICATION",
+	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "ELECTRONIC WALLET"
 };
 
 export function EN(){

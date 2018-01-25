@@ -59,8 +59,6 @@ let RequestsContent = React.createClass({
     },
 
     render(){
-        let optionContent = this.optionContent();
-
         return(
             <div id="requestContent">
                 <div className="internal-content">
@@ -79,7 +77,7 @@ let RequestsContent = React.createClass({
                                 </div>
                             </div>
                             <div id="requestOptionContent">
-                                {optionContent}
+                                {this.optionContent()}
                             </div>
                         </div>
                     </div>

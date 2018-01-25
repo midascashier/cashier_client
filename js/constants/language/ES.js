@@ -306,8 +306,10 @@ let _langTags = {
 	MY_REQUEST_TITLE: "Mis Solicitudes",
 	MY_REQUEST_VERIFY_IDENTITY: "Verificar mi identidad",
 	MY_REQUEST_UPDATE_INFORMATION: "Actualizar mi información",
-	MY_REQUEST_REPORT_PROBLEM: "Informar de un problema"
-	
+	MY_REQUEST_REPORT_PROBLEM: "Informar de un problema",
+	MY_REQUEST_VERIFY_TITLE: "Tipo de verificación",
+	MY_REQUEST_DOCS_OPTION_ID_TXT: "IDENTIFICACIÓN",
+	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "BILLETERA ELECTRÓNICA"
 };
 
 export function ES(){

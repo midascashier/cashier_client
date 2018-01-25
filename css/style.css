@@ -608,13 +608,16 @@ div[class*="col-"] > div[class*="col-"]:before {
 .errorMessage-title, .errorMessage-title i {
   font-size: 14px!important
 }
+
 .ticket-header {
   font-size: x-large;
   margin-bottom: 14px;
 }
+
 .ticket-header i {
   font-size: x-large!important
 }
+
 .ticket-body {
   line-height: 1.5;
   font-size: 14px;
@@ -648,4 +651,83 @@ div[class*="col-"] > div[class*="col-"]:before {
     display: inline-block;
     border: solid #0b97c4 1px;
     background-color: #e3e3e3;
+}
+
+#CheckIdContent{
+    float: left;
+    width: inherit;
+    display: block;
+    position: relative;
+}
+
+#switchOpt{
+    float: left;
+    display: flex;
+    width: inherit;
+    margin-top: 20px;
+    -webkit-justify-content: center;
+    -webkit-align-items: center;
+}
+
+.OptTittle{
+    float: left;
+    margin: 0 auto;
+    margin-top: -40px;
+    margin-left: 337px;
+}
+
+.switch {
+    width: 100px;
+    height: 20px;
+    margin: 5px;
+    position: relative;
+    display: inline-block;
+}
+
+.switch input {display:none;}
+
+.slider {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: .4s;
+    cursor: pointer;
+    position: absolute;
+    -webkit-transition: .4s;
+    background-color: #00d6b2;
+}
+
+.slider:before {
+    left: 4px;
+    width: 16px;
+    bottom: 2px;
+    content: "";
+    height: 16px;
+    transition: .4s;
+    position: absolute;
+    background-color: white;
+    -webkit-transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(76px);
+    -ms-transform: translateX(76px);
+    -webkit-transform: translateX(76px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
 }
