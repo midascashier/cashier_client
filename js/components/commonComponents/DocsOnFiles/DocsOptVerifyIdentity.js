@@ -1,4 +1,5 @@
 import React from 'react'
+import {DrawDropUpload} from '../files/DrawDropUpload'
 import {translate} from '../../../constants/Translate'
 
 let DocsOptVerifyIdentity = React.createClass({
@@ -20,13 +21,7 @@ let DocsOptVerifyIdentity = React.createClass({
                     <span>{translate('MY_REQUEST_DOCS_OPTION_VE_EW_TXT')}</span>
                 </div>
 
-                <div id="DrawDropUploadContent">
-                    <form id="DrawDropUpload">
-                        <input type="file" multiple/>
-                        <p>Drag your files here or click in this area.</p>
-                        <button type="submit">Upload</button>
-                    </form>
-                </div>
+                <DrawDropUpload/>
             </div>
         )
     }

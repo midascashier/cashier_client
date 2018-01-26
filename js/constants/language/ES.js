@@ -309,7 +309,10 @@ let _langTags = {
 	MY_REQUEST_REPORT_PROBLEM: "Informar de un problema",
 	MY_REQUEST_VERIFY_TITLE: "Tipo de verificación",
 	MY_REQUEST_DOCS_OPTION_ID_TXT: "IDENTIFICACIÓN",
-	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "BILLETERA ELECTRÓNICA"
+	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "BILLETERA ELECTRÓNICA",
+
+	DRAG_DROP_FILES_TXT: "Arrastra tus archivos aquí o haz clic en esta área.",
+	DRAG_DROP_UPLOAD_TXT: "Subir"
 };
 
 export function ES(){

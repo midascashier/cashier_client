@@ -309,7 +309,10 @@ let _langTags = {
 	MY_REQUEST_REPORT_PROBLEM: "Report a problem",
 	MY_REQUEST_VERIFY_TITLE: "Verification type",
 	MY_REQUEST_DOCS_OPTION_ID_TXT: "IDENTIFICATION",
-	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "ELECTRONIC WALLET"
+	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "ELECTRONIC WALLET",
+	
+	DRAG_DROP_FILES_TXT: "Drag your files here or click in this area.",
+	DRAG_DROP_UPLOAD_TXT: "Upload"
 };
 
 export function EN(){
