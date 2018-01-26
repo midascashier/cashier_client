@@ -731,3 +731,58 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+#DrawDropUploadContent{
+    float: left;
+    display: flex;
+    width: inherit;
+    height: inherit;
+    margin-top: 25px;
+    -webkit-justify-content: center;
+}
+
+#DrawDropUpload{
+    width: 500px;
+    height: 200px;
+    display: inline-block;
+    border: 2px dashed #a5a2a2;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+#DrawDropUpload p{
+    width: 100%;
+    height: 100%;
+    color: #a5a2a2;
+    text-align: center;
+    line-height: 170px;
+}
+
+#DrawDropUpload input{
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    outline: none;
+    width: inherit;
+    height: inherit;
+    position: absolute;
+}
+
+#DrawDropUpload button{
+    color: #fff;
+    border: none;
+    width: 500px;
+    height: 35px;
+    margin-left: -2px;
+    border-radius: 4px;
+    background: #2196F3;
+    transition: all .2s ease;
+    border-bottom: 3px solid #0b97c4;
+}
+
+#DrawDropUpload button:hover{
+    background: #0b97c4;
+}
+
+#DrawDropUpload button:active{
+    border:0;
+}
