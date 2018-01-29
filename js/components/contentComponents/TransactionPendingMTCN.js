@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router'
-import {Input} from '../commonComponents/Inputs'
 import Cashier from '../../constants/Cashier'
+import {Input} from '../commonComponents/Inputs'
 import {UIService} from '../../services/UIService'
 import {translate} from '../../constants/Translate'
 import {CashierStore} from '../../stores/CashierStore'
@@ -68,7 +68,7 @@ let TransactionPendingMTCN = React.createClass({
 		TransactionService.processSubmit(transaction);
 	},
 
-	render(){
+	render() {
 		let transactions = this.state.transactions;
 		let isWithdraw = UIService.getIsWithDraw();
 		let customerOpt = "DEPOSIT";
