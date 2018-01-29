@@ -1,19 +1,17 @@
-let ReaderImages = (files, element) =>{
-    // Loop through the FileList and render image files as thumbnails.
-    for (var i = 0, f; f = files[i]; i++){
-
-        // Only process image files.
+let ReaderImages = (files, element, className = null) =>{
+    for (let i = 0, f; f = files[i]; i++){
         if (!f.type.match('image.*')) {
             continue;
         }
 
-        var reader = new FileReader();
+        let reader = new FileReader();
 
-        // Closure to capture the file information.
+        //Closure to capture the file information.
         reader.onload = (function (theFile) {
             return function (e) {
-                var span = document.createElement('span');
-                span.innerHTML = ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+                let span = document.createElement('span');
+                let classElement = (className) ? className : 'readerImage';
+                span.innerHTML = ['<img class="', classElement ,'" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
                 element.insertBefore(span, null);
             };
         })(f);

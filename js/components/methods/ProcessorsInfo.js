@@ -1,12 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router'
-import { UIService } from '../../services/UIService'
-import { translate } from '../../constants/Translate'
-import { CashierStore } from '../../stores/CashierStore'
-import { CustomerService } from '../../services/CustomerService'
-import { ProcessorInfo } from '../contentComponents/ProcessorInfo'
-import { ProcessorsList } from '../contentComponents/ProcessorsList'
-import { LoadingSpinner } from '../../components/loading/LoadingSpinner'
+import {Link} from 'react-router'
+import {UIService} from '../../services/UIService'
+import {translate} from '../../constants/Translate'
+import {CashierStore} from '../../stores/CashierStore'
+import {CustomerService} from '../../services/CustomerService'
+import {ProcessorInfo} from '../contentComponents/ProcessorInfo'
+import {ProcessorsList} from '../contentComponents/ProcessorsList'
+import {LoadingSpinner} from '../../components/loading/LoadingSpinner'
 
 let ProcessorsInfo = React.createClass({
 
@@ -86,11 +86,21 @@ let ProcessorsInfo = React.createClass({
 					<Link to={`/transaction_history/`}>
 						<span>{translate('TRANSACTION_HISTORY')}</span>
 					</Link>
+
 					&nbsp;
 					&nbsp;
-					<Link to={`/requests/`}>
-						<span>{translate('METHOD_REQUESTS')}</span>
-					</Link>
+
+					{(() =>{
+						let account = UIService.getCustomerInformation();
+						if(account.username == 'MidasTP' || 'MarioMidas'){
+							return(
+								<Link to={`/requests/`}>
+									<span>{translate('METHOD_REQUESTS')}</span>
+								</Link>
+							)
+						}
+					})()}
+
 					<ProcessorsList
 						processors={processors}
 						waitLimits={this.waitLimits}
