@@ -68,19 +68,19 @@ let DrawDropUpload = React.createClass({
                 let countFls = filesList.length;
 
                 for(let i=0; i<countF; i++){
-                    let find = false;
+                    let found = false;
                     for(let j=0; j<countFls; j++){
                         if(files[i].type == filesList[j].type){
                             if(files[i].size == filesList[j].size){
                                 if(files[i].name == filesList[j].name){
-                                    find = true;
+                                    found = true;
                                     break
                                 }
                             }
                         }
                     }
 
-                    if(!find){
+                    if(!found){
                         filesList.push(files[i]);
                         filesToUpload.push(files[i]);
                     }
