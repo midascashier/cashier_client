@@ -5,8 +5,9 @@ import {translate} from '../../../constants/Translate'
 let DrawDropUpload = React.createClass({
 
     elements: {
-        dropZoneId: 'dropImagesZone',
-        thumbnails: 'DragDropThumbnails'
+        dropZoneId: 'DropImagesZone',
+        thumbnails: 'DragDropThumbnails',
+        thumbnailClass: 'DragDropThumbnail'
     },
 
     componentWillMount(){
@@ -42,7 +43,7 @@ let DrawDropUpload = React.createClass({
             let files = event.target.files;
             let thumbnails = document.getElementById(this.elements.thumbnails);
 
-            ReaderImages(files, thumbnails);
+            ReaderImages(files, thumbnails, this.elements.thumbnailClass);
         }else{
             console.log('The File APIs are not fully supported in this browser.');
         }
