@@ -110,7 +110,6 @@ let ProcessorsInfo = React.createClass({
 				<div className="col-sm-6">
 					{(() =>{
 						if(!this.state.selectedProcessor.processorId){
-							//this.restartConnection();
 							return <LoadingSpinner/>;
 						}
 
