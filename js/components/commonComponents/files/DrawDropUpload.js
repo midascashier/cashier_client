@@ -10,6 +10,16 @@ let DrawDropUpload = React.createClass({
         thumbnailClass: 'DragDropThumbnail'
     },
 
+    /**
+     * React function to set component initial state
+     */
+    getInitialState(){
+        return {files: false}
+    },
+
+    /**
+     * React method to execute initial action will mount current component
+     */
     componentWillMount(){
         let id = this.elements.dropZoneId;
 
@@ -40,23 +50,64 @@ let DrawDropUpload = React.createClass({
 
     addThumbnailsFile(event){
         if (window.File && window.FileReader && window.FileList && window.Blob){
+            let filesToUpload = [];
             let files = event.target.files;
-            let thumbnails = document.getElementById(this.elements.thumbnails);
 
-            ReaderImages(files, thumbnails, this.elements.thumbnailClass);
+            if(!this.state.files){
+                this.setState({
+                    files: files
+                });
+
+                filesToUpload = files;
+            }else{
+
+                files = Array.from(files);
+                let filesList = Array.from(this.state.files);
+
+                let countF = files.length;
+                let countFls = filesList.length;
+
+                for(let i=0; i<countF; i++){
+                    let find = false;
+                    for(let j=0; j<countFls; j++){
+                        if(files[i].type == filesList[j].type){
+                            if(files[i].size == filesList[j].size){
+                                if(files[i].name == filesList[j].name){
+                                    find = true;
+                                    break
+                                }
+                            }
+                        }
+                    }
+
+                    if(!find){
+                        filesList.push(files[i]);
+                        filesToUpload.push(files[i]);
+                    }
+                }
+
+                this.setState({
+                    files: filesList
+                });
+            }
+
+            let thumbnails = document.getElementById(this.elements.thumbnails);
+            ReaderImages(filesToUpload, thumbnails, this.elements.thumbnailClass);
         }else{
             console.log('The File APIs are not fully supported in this browser.');
         }
     },
 
     render(){
+        let disabledUpload = (this.state.files) ? '' : 'disabled';
+
         return(
             <div id='DrawDropUploadContent'>
                 <form id='DrawDropUpload'>
                     <input id={this.elements.dropZoneId} type='file' onChange={this.addThumbnailsFile.bind(this)} name='files[]' multiple/>
                     <p>{translate('DRAG_DROP_FILES_TXT')}</p>
                     <output id={this.elements.thumbnails}/>
-                    <button type='submit'>{translate('DRAG_DROP_UPLOAD_TXT')}</button>
+                    <button type='submit' disabled={disabledUpload}>{translate('DRAG_DROP_UPLOAD_TXT')}</button>
                 </form>
             </div>
         )

@@ -15,8 +15,8 @@ let ReaderImages = (files, element, className) =>{
         let reader = new FileReader();
 
         //Closure to capture the file information.
-        reader.onload = (function (theFile) {
-            return function (e) {
+        reader.onload = (function (theFile){
+            return function (e){
                 let span = document.createElement('span');
                 span.innerHTML = ['<img class="', className ,'" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
                 element.insertBefore(span, null);
