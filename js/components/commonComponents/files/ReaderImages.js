@@ -1,5 +1,5 @@
 /**
- * This method returned a html with images reader, this need files to read, html element from add and a class name to set style to thumbnails element
+ * This method returns an html with the image to read, this needs files to read, an html element to add it, and a class name to set the style element of the thumbnails
  * 
  * @param files
  * @param element
