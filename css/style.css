@@ -741,14 +741,21 @@ input:checked + .slider:before{
     display: flex;
     width: inherit;
     height: inherit;
-    margin-top: 25px;
+    margin-top: 15px;
     justify-content: center;
     -webkit-justify-content: center;
 }
 
-#DrawDropUpload{
-    width: 515px;
+#DrawDropUploadContent{
+    float: none;
+    width: 400px;
     height: 200px;
+    margin: 0 auto;
+}
+
+#DrawDropUpload{
+    width: inherit;
+    height: inherit;
     display: inline-block;
     border: 2px dashed #a5a2a2;
     background-color: rgba(255, 255, 255, 0.3);
@@ -777,9 +784,8 @@ input:checked + .slider:before{
 #DrawDropUpload button{
     color: #fff;
     border: none;
-    width: 515px;
-    height: 35px;
-    margin-left: -2px;
+    height: 30px;
+    width: inherit;
     border-radius: 4px;
     background: #2196F3;
     transition: all .2s ease;
@@ -826,4 +832,39 @@ input:checked + .slider:before{
     margin: 5px;
     height: 48px;
     border: 1px solid #a5a2a2;
+}
+
+#CheckIdVerifyOptions{
+    float: left;
+    display: flex;
+    width: inherit;
+    margin-top: 15px;
+    align-items: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
+}
+
+.input-hidden {
+    position: absolute;
+    left: -9999px;
+}
+
+input[type=radio]:checked + label>img {
+    border: 1px solid #fff;
+    box-shadow: 0 0 3px 3px #090;
+}
+
+/* Stuff after this is only to make things more pretty */
+input[type=radio] + label>img {
+    border: 1px dashed #444;
+    width: 150px;
+    height: 150px;
+    transition: 500ms all;
+}
+
+input[type=radio]:checked + label>img {
+    transform:
+            rotateZ(-10deg)
+            rotateX(10deg);
 }
