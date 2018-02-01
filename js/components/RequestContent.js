@@ -46,12 +46,12 @@ let RequestsContent = React.createClass({
         let count = optionElements.length;
 
         for(let i=0; i<count; i++){
-            optionElements[i].setAttribute('style', 'background-color:' + this.elements.style.optInitialTab);
+            optionElements[i].setAttribute('class', 'DocsOptions');
         }
 
         let id = event.target.getAttribute('id');
         let element  = document.getElementById(id);
-        element.setAttribute('style', 'background-color:'  + this.elements.style.optClickTab);
+        element.setAttribute('class', 'DocsOptions DocsOptionsClick');
 
         this.setState({
             option: id

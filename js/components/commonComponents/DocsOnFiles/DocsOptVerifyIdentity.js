@@ -39,14 +39,13 @@ let DocsOptVerifyIdentity = React.createClass({
                     if(this.state.verifyIdOptSelect){
                         let src = "../images/" + this.state.verifyIdOptSelect + ".png";
                         return(
-                            <div id="docsFilesShowOptionSelectedContent">
+                            <div id="docsFilesShowOptionSelectedContent" onClick={this.verifyIdOptionsReset}>
                                 <img
                                     src={src}
                                     id="docsFilesShowOptionSelected"
-                                    onClick={this.verifyIdOptionsReset}
                                     title={translate('DOCS_FILE_VERITY_CHANGE_OPTIONS')}
                                 />
-                                <span>{translate('DOCS_FILE_VERIFY_OPTIONS_GO_BACK')}</span>
+                                <span>{translate('DOCS_FILE_GO_BACK')}</span>
                             </div>
                         )
                     }
@@ -78,8 +77,8 @@ let DocsOptVerifyIdentity = React.createClass({
                                     className="docsFilesVerifyIdOptions"
                                     onClick={this.verifyIdOptionsChange}
                                     src="../images/driverLicenseOption.png"
-                                    alt={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
-                                    title={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
+                                    alt={translate('DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID')}
+                                    title={translate('DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID')}
                                 />
 
                                 <img
@@ -96,8 +95,8 @@ let DocsOptVerifyIdentity = React.createClass({
                                     className="docsFilesVerifyIdOptions"
                                     src="../images/idDocumentOption.png"
                                     onClick={this.verifyIdOptionsChange}
-                                    alt={translate('DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID')}
-                                    title={translate('DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID')}
+                                    alt={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
+                                    title={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
                                 />
                             </div>
                         )
@@ -114,11 +113,17 @@ let DocsOptVerifyIdentity = React.createClass({
                     }
                 })()}
 
-                <div id="DocsFileBack">
-                    <Link to={`/transaction_history/`}>
-                        <span>{translate('DOCS_FILE_GO_BACK')}</span>
-                    </Link>
-                </div>
+                {(() =>{
+                    if(!this.state.checkOption && !this.state.verifyIdOptSelect){
+                        return (
+                            <div id="DocsFileBack">
+                                <Link to={`/transaction_history/`}>
+                                    <span>{translate('DOCS_FILE_GO_BACK')}</span>
+                                </Link>
+                            </div>
+                        )
+                    }
+                })()}
             </div>
         )
     }

@@ -317,7 +317,6 @@ let _langTags = {
 	DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID: "Licencia de conducir y tarjeta de seguro social.",
 	DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID: "Documento de identificación.",
 	DOCS_FILE_VERIFY_OPTIONS_PASSPORT: "Pasaporte",
-	DOCS_FILE_VERIFY_OPTIONS_GO_BACK: "Regresar",
 	DOCS_FILE_VERITY_CHANGE_OPTIONS: "Cambiar opcion",
 	DOCS_FILE_GO_BACK: "< Regresar"
 };

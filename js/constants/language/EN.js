@@ -304,9 +304,9 @@ let _langTags = {
 	ASTROPAY_SUCCESS_DEPOSIT_BALANCE: "<div class='title'>Your {currencyAmount + ' ' + currency} deposit was successful.</div><p>Your balance is now {balance + ' ' + currency}</p><p>An email has been sent to {email} with the transaction details.</p>",
 	
 	MY_REQUEST_TITLE: "My Requests",
-	MY_REQUEST_VERIFY_IDENTITY: "Verify my identity",
+	MY_REQUEST_VERIFY_IDENTITY: "Identity Verification",
 	MY_REQUEST_UPDATE_INFORMATION: "Update my information",
-	MY_REQUEST_REPORT_PROBLEM: "Report a problem",
+	MY_REQUEST_REPORT_PROBLEM: "Report a issue",
 	MY_REQUEST_VERIFY_TITLE: "Verification type",
 	MY_REQUEST_DOCS_OPTION_ID_TXT: "ID",
 	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "E-WALLET",
@@ -317,9 +317,8 @@ let _langTags = {
 	DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID: "Driver's license and social security card.",
 	DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID: "Identification document",
 	DOCS_FILE_VERIFY_OPTIONS_PASSPORT: "Passport",
-	DOCS_FILE_VERIFY_OPTIONS_GO_BACK: "Go Back",
 	DOCS_FILE_VERITY_CHANGE_OPTIONS: "Change option",
-	DOCS_FILE_GO_BACK: "< BACK"
+	DOCS_FILE_GO_BACK: "< Back"
 };
 
 export function EN(){
