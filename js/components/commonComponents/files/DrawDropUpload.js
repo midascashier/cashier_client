@@ -24,6 +24,9 @@ let DrawDropUpload = React.createClass({
         let id = this.elements.dropZoneId;
 
         window.addEventListener('dragenter', function(e){
+            let draggableElement = document.getElementById(id);
+            draggableElement.style.zIndex = '1';
+
             if (e.target.id != id){
                 e.preventDefault();
                 e.dataTransfer.dropEffect = 'none';
@@ -32,6 +35,9 @@ let DrawDropUpload = React.createClass({
         }, false);
 
         window.addEventListener('dragover', function(e){
+            let draggableElement = document.getElementById(id);
+            draggableElement.style.zIndex = '1';
+
             if (e.target.id != id){
                 e.preventDefault();
                 e.dataTransfer.dropEffect = 'none';
@@ -40,6 +46,9 @@ let DrawDropUpload = React.createClass({
         });
 
         window.addEventListener('drop', function(e){
+            let draggableElement = document.getElementById(id);
+            draggableElement.style.zIndex = '0';
+
             if (e.target.id != id){
                 e.preventDefault();
                 e.dataTransfer.dropEffect = 'none';

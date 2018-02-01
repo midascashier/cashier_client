@@ -308,11 +308,18 @@ let _langTags = {
 	MY_REQUEST_UPDATE_INFORMATION: "Actualizar mi información",
 	MY_REQUEST_REPORT_PROBLEM: "Informar de un problema",
 	MY_REQUEST_VERIFY_TITLE: "Tipo de verificación",
-	MY_REQUEST_DOCS_OPTION_ID_TXT: "IDENTIFICACIÓN",
+	MY_REQUEST_DOCS_OPTION_ID_TXT: "ID",
 	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "BILLETERA ELECTRÓNICA",
 
-	DRAG_DROP_FILES_TXT: "Arrastra tus archivos aquí o haz clic en esta área.",
-	DRAG_DROP_UPLOAD_TXT: "Subir"
+	DRAG_DROP_FILES_TXT: "Arrastra y suelta o haz clic aquí.",
+	DRAG_DROP_UPLOAD_TXT: "Subir",
+
+	DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID: "Licencia de conducir y tarjeta de seguro social.",
+	DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID: "Documento de identificación.",
+	DOCS_FILE_VERIFY_OPTIONS_PASSPORT: "Pasaporte",
+	DOCS_FILE_VERIFY_OPTIONS_GO_BACK: "Regresar",
+	DOCS_FILE_VERITY_CHANGE_OPTIONS: "Cambiar opcion",
+	DOCS_FILE_GO_BACK: "< Regresar"
 };
 
 export function ES(){

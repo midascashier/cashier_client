@@ -8,8 +8,8 @@ let RequestsContent = React.createClass({
 
     elements: {
         style: {
-            optClickTab: '#1a8dea',
-            optInitialTab: '#0b97c4'
+            optClickTab: '#D5232F',
+            optInitialTab: '#A51419'
         },
 
         DocsOptions: 'DocsOptions',
@@ -61,26 +61,19 @@ let RequestsContent = React.createClass({
     render(){
         return(
             <div id="requestContent">
-                <div className="internal-content">
-                    <div className="row">
-                        <div className="col-sm-12">
-                            <div className="title text-center">{translate('MY_REQUEST_TITLE')}</div>
-                            <div id="requestsOptions">
-                                <div id={this.elements.DocsOptVeId} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
-                                    {translate('MY_REQUEST_VERIFY_IDENTITY')}
-                                </div>
-                                <div id={this.elements.DocsOptUpdInfo} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
-                                    {translate('MY_REQUEST_UPDATE_INFORMATION')}
-                                </div>
-                                <div id={this.elements.DocsOptRepError} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
-                                    {translate('MY_REQUEST_REPORT_PROBLEM')}
-                                </div>
-                            </div>
-                            <div id="requestOptionContent">
-                                {this.optionContent()}
-                            </div>
-                        </div>
+                <div id="requestsOptions">
+                    <div id={this.elements.DocsOptVeId} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
+                        {translate('MY_REQUEST_VERIFY_IDENTITY')}
                     </div>
+                    <div id={this.elements.DocsOptUpdInfo} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
+                        {translate('MY_REQUEST_UPDATE_INFORMATION')}
+                    </div>
+                    <div id={this.elements.DocsOptRepError} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
+                        {translate('MY_REQUEST_REPORT_PROBLEM')}
+                    </div>
+                </div>
+                <div id="requestOptionContent">
+                    {this.optionContent()}
                 </div>
             </div>
         )

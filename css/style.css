@@ -6,7 +6,7 @@ html {	overflow: hidden;}
 /*Font-face_Bebas*/
 @font-face{font-family:'BebasNeueRegular'; src: url('../fonts/bebas-neue-webfont.woff'),url('../fonts/bebas-neue-webfont.eot'); font-weight:normal; font-style:normal;}
 @font-face {font-family: 'Oswald-Light'; src: url('../fonts/Oswald-Light.woff'),url('../fonts/Oswald-Light.eot'); font-weight:normal; font-style:normal;}
-
+@font-face {font-family: 'Oswald-Medium'; src: url('../fonts/Oswald-Medium.ttf')}
 /*titles*/
 h2, h3 {font-weight:normal; line-height:normal; letter-spacing:1px;}
 h2, h3, .btn-welcome {font-family: "BebasNeueRegular", Arial, Helvetica, sans-serif; font-size:33px; text-align:center;}
@@ -627,32 +627,38 @@ div[class*="col-"] > div[class*="col-"]:before {
     float: left;
     display: flex;
     width: inherit;
-    margin-top: 20px;
+    font-size: 16pt;
+    font-family: Oswald-Medium;
 }
 
 .DocsOptions{
     float: left;
-    width: 150px;
-    height: 35px;
+    width: 170px;
+    height: 59px;
     color: white;
     display: flex;
     cursor: pointer;
     margin-left: 5px;
+    font-size: 13pt;
     align-items: center;
     justify-content: center;
-    background-color: #0b97c4;
-    border-radius: 2px 2px 0 0;
+    background-color: #A51419;
     -webkit-align-items: center;
+    border-radius: 10px 10px 0 0;
     -webkit-justify-content: center;
 }
 
+#requestContent{
+    width: 100%;
+    background-color: black;
+}
+
 #requestOptionContent{
+    height: 492px;
     width: inherit;
-    height: 408px;
-    border-radius: 2px;
+    padding-top: 30px;
     display: inline-block;
-    border: solid #0b97c4 1px;
-    background-color: #e3e3e3;
+    background-image: url(../images/docsFileBackground.svg);
 }
 
 #CheckIdContent{
@@ -660,6 +666,17 @@ div[class*="col-"] > div[class*="col-"]:before {
     width: inherit;
     display: block;
     position: relative;
+}
+
+#docsFileTXT{
+    padding: 5px;
+    width: 409px;
+    height: 122px;
+    margin: 0 auto;
+    font-size: 16pt;
+    border-radius: 12px;
+    border: solid 4px white;
+    font-family: Oswald-Medium;
 }
 
 #switchOpt{
@@ -675,9 +692,12 @@ div[class*="col-"] > div[class*="col-"]:before {
 
 .OptTittle{
     float: left;
+    color: white;
     margin: 0 auto;
-    margin-top: -40px;
-    margin-left: 337px;
+    font-size: 16pt;
+    margin-top: -36px;
+    margin-left: 427px;
+    font-family: Oswald-Medium;
 }
 
 .switch {
@@ -699,30 +719,23 @@ div[class*="col-"] > div[class*="col-"]:before {
     cursor: pointer;
     position: absolute;
     -webkit-transition: .4s;
-    background-color: #00d6b2;
+    background-color: black;
 }
 
 .slider:before{
     left: 4px;
     width: 16px;
     bottom: 2px;
-    content: "";
     height: 16px;
     transition: .4s;
+    content: "";
     position: absolute;
     background-color: white;
     -webkit-transition: .4s;
 }
 
-input:checked + .slider{
-    background-color: #2196F3;
-}
-
-input:focus + .slider{
-    box-shadow: 0 0 1px #2196F3;
-}
-
 input:checked + .slider:before{
+    content: "";
     transform: translateX(76px);
     -ms-transform: translateX(76px);
     -webkit-transform: translateX(76px);
@@ -736,29 +749,31 @@ input:checked + .slider:before{
     border-radius: 50%;
 }
 
+#DrawDropUploadElement{
+    width: 409px;
+    height: 184px;
+    margin: 0 auto;
+    margin-bottom: 35px;
+}
+
 #DrawDropUploadContent{
     float: left;
     display: flex;
     width: inherit;
     height: inherit;
-    margin-top: 15px;
+    margin-top: 25px;
+    font-size: 16pt;
     justify-content: center;
+    font-family: Oswald-Medium;
     -webkit-justify-content: center;
-}
-
-#DrawDropUploadContent{
-    float: none;
-    width: 400px;
-    height: 200px;
-    margin: 0 auto;
 }
 
 #DrawDropUpload{
     width: inherit;
     height: inherit;
     display: inline-block;
-    border: 2px dashed #a5a2a2;
-    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    border: 4px dashed #ffffff;
 }
 
 #DrawDropUpload p{
@@ -774,6 +789,7 @@ input:checked + .slider:before{
     margin: 0;
     padding: 0;
     opacity: 0;
+    z-index: 0;
     outline: none;
     width: inherit;
     cursor: pointer;
@@ -782,18 +798,25 @@ input:checked + .slider:before{
 }
 
 #DrawDropUpload button{
-    color: #fff;
+    float: none;
     border: none;
-    height: 30px;
-    width: inherit;
-    border-radius: 4px;
-    background: #2196F3;
+    height: 47px;
+    width: 140px;
+    color: black;
+    display: flex;
+    margin: 0 auto;
+    cursor: pointer;
+    font-size: 16pt;
+    border-radius: 15px;
+    background: #cccccc;
     transition: all .2s ease;
-    border-bottom: 3px solid #0b97c4;
+    justify-content: center;
+    font-family: Oswald-Medium;
+    -webkit-justify-content: center;
 }
 
 #DrawDropUpload button:hover{
-    background: #0b97c4;
+    background: #ffffff;
 }
 
 #DrawDropUpload button:active{
@@ -803,7 +826,7 @@ input:checked + .slider:before{
 #DragDropThumbnails{
     height: 70px;
     width: inherit;
-    margin-left: -2px;
+    margin-left: -4px;
     margin-top: -82px;
     max-width: inherit;
     position: absolute;
@@ -838,33 +861,47 @@ input:checked + .slider:before{
     float: left;
     display: flex;
     width: inherit;
-    margin-top: 15px;
+    margin-top: 45px;
     align-items: center;
     justify-content: center;
     -webkit-align-items: center;
     -webkit-justify-content: center;
 }
 
-.input-hidden {
+.docsFilesVerifyIdOptions{
+    width: 190px;
+    margin: 15px;
+    cursor: pointer;
+    height: inherit;
+}
+
+.docsFilesVerifyIdOptions:hover{
+    border: solid 1px white;
+}
+
+#docsFilesShowOptionSelectedContent{
+    margin: 50px;
     position: absolute;
-    left: -9999px;
 }
 
-input[type=radio]:checked + label>img {
-    border: 1px solid #fff;
-    box-shadow: 0 0 3px 3px #090;
+#docsFilesShowOptionSelected{
+    width: 50px;
+    cursor: pointer;
 }
 
-/* Stuff after this is only to make things more pretty */
-input[type=radio] + label>img {
-    border: 1px dashed #444;
-    width: 150px;
-    height: 150px;
-    transition: 500ms all;
+#docsFilesShowOptionSelected:hover{
+    border: solid 1px white;
 }
 
-input[type=radio]:checked + label>img {
-    transform:
-            rotateZ(-10deg)
-            rotateX(10deg);
+#DocsFileBack{
+    float: right;
+    margin-top: -22px;
+    margin-right: 22px;
+}
+
+#DocsFileBack a{
+    color: white;
+    font-size: 16pt;
+    text-decoration: none;
+    font-family: Oswald-Light;
 }

@@ -1,29 +1,60 @@
 import React from 'react'
+import {Link} from 'react-router'
 import {DrawDropUpload} from '../files/DrawDropUpload'
 import {translate} from '../../../constants/Translate'
 
 let DocsOptVerifyIdentity = React.createClass({
 
     getInitialState(){
-        return{check: false}
+        return{
+            checkOption: false,
+            verifyIdOptSelect: null
+        }
     },
 
     switchVerifyType(e){
-        let check = e.target.checked;
-
         this.setState({
-            check: check
+            verifyIdOptSelect: null,
+            checkOption: e.target.checked
         });
     },
 
-    verifyIdOptionsChange(){
-        let activoFijo = $('input[name="activoFijo"]:checked').val();
+    verifyIdOptionsChange(e){
+        let actualState = this.state;
+        actualState.verifyIdOptSelect = e.target.getAttribute('id');
+        this.setState(actualState);
+    },
+
+    verifyIdOptionsReset(){
+        let actualState = this.state;
+        actualState.verifyIdOptSelect = null;
+        this.setState(actualState);
     },
 
     render(){
         return(
             <div id="CheckIdContent">
-                <p className="title text-center">{translate('MY_REQUEST_VERIFY_TITLE')}</p>
+
+                {(() =>{
+                    if(this.state.verifyIdOptSelect){
+                        let src = "../images/" + this.state.verifyIdOptSelect + ".png";
+                        return(
+                            <div id="docsFilesShowOptionSelectedContent">
+                                <img
+                                    src={src}
+                                    id="docsFilesShowOptionSelected"
+                                    onClick={this.verifyIdOptionsReset}
+                                    title={translate('DOCS_FILE_VERITY_CHANGE_OPTIONS')}
+                                />
+                                <span>{translate('DOCS_FILE_VERIFY_OPTIONS_GO_BACK')}</span>
+                            </div>
+                        )
+                    }
+                })()}
+
+                <div id="docsFileTXT">
+                    
+                </div>
 
                 <div id="switchOpt">
                     <label className="switch">
@@ -39,37 +70,55 @@ let DocsOptVerifyIdentity = React.createClass({
                 </div>
 
                 {(() =>{
-                    if(!this.state.check) {
+                    if(!this.state.checkOption && !this.state.verifyIdOptSelect){
                         return (
                             <div id="CheckIdVerifyOptions">
-                                <input id="driverLicense" type="radio" name="verifyOptionsType" className="input-hidden" value="1" onChange={this.verifyIdOptionsChange}/>
-                                <label for="driverLicense">
-                                    <img src="../images/driverLicenseOption.png" alt="I'm sad"/>
-                                </label>
+                                <img
+                                    id="driverLicenseOption"
+                                    className="docsFilesVerifyIdOptions"
+                                    onClick={this.verifyIdOptionsChange}
+                                    src="../images/driverLicenseOption.png"
+                                    alt={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
+                                    title={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
+                                />
 
-                                <input id="idDocument" type="radio" name="verifyOptionsType" className="input-hidden" value="2" onChange={this.verifyIdOptionsChange}/>
-                                <label for="idDocument">
-                                    <img src="../images/idDocumentOption.png" alt="I'm happy"/>
-                                </label>
+                                <img
+                                    id="passportOption"
+                                    src="../images/passportOption.png"
+                                    onClick={this.verifyIdOptionsChange}
+                                    className="docsFilesVerifyIdOptions"
+                                    alt={translate('DOCS_FILE_VERIFY_OPTIONS_PASSPORT')}
+                                    title={translate('DOCS_FILE_VERIFY_OPTIONS_PASSPORT')}
+                                />
 
-                                <input id="passport" type="radio" name="verifyOptionsType" className="input-hidden" value="3" onChange={this.verifyIdOptionsChange}/>
-                                <label for="passport">
-                                    <img src="../images/passportOption.png" alt="I'm happy"/>
-                                </label>
+                                <img
+                                    id="idDocumentOption"
+                                    className="docsFilesVerifyIdOptions"
+                                    src="../images/idDocumentOption.png"
+                                    onClick={this.verifyIdOptionsChange}
+                                    alt={translate('DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID')}
+                                    title={translate('DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID')}
+                                />
                             </div>
                         )
                     }
                 })()}
 
                 {(() =>{
-                    if(!this.state.check || (this.state.check)) {
+                    if(this.state.checkOption || this.state.verifyIdOptSelect){
                         return(
-                            <div id="DrawDropUploadContent">
+                            <div id="DrawDropUploadElement">
                                 <DrawDropUpload/>
                             </div>
                         )
                     }
                 })()}
+
+                <div id="DocsFileBack">
+                    <Link to={`/transaction_history/`}>
+                        <span>{translate('DOCS_FILE_GO_BACK')}</span>
+                    </Link>
+                </div>
             </div>
         )
     }
