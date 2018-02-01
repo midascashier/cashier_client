@@ -906,6 +906,36 @@ class UiService {
 	getValidAddress(){
 		return CashierStore.getValidAddress()
 	}
+
+	docFilesCustomerPendingForms(){
+		let params = {
+			f: 'docFilesCustomerPendingForms',
+			customerId: UIService.getCustomerInformation().customerId
+		};
+
+		ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_FORMS_RESPONSE, params);
+	}
+
+	docFilesCustomerFormsInformation(categoryId){
+		let params = {
+			languageId: 10,
+			categoryId: categoryId,
+			f: 'docFilesCustomerFormsInformation',
+			companyId: UIService.getCompanyInformation().companyId,
+			customerId: UIService.getCustomerInformation().customerId
+		};
+
+		ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_FORMS_INFORMATION_RESPONSE, params);
+	}
+
+	/**
+	 * Get Docs on Files object
+	 * 
+	 * @returns {*}
+     */
+	getDocsFile(){
+		return CashierStore.getDocsFile();
+	}
 }
 
 export let UIService = new UiService();

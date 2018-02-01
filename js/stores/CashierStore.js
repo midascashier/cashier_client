@@ -394,6 +394,11 @@ let _CryptoTransfer = {
 	validCurrentAddress: true
 };
 
+let _DocsFile = {
+	pendingRecovery: null,
+	pendingAdditionalInfo: null
+};
+
 let CHANGE_EVENT = 'change';
 
 let CashierStore = assign({}, EventEmitter.prototype, {
@@ -812,6 +817,13 @@ let CashierStore = assign({}, EventEmitter.prototype, {
      */
 	getValidAddress(){
 		return _CryptoTransfer.validCurrentAddress
+	},
+
+	/**
+	 * Get Docs on Files object
+	 */
+	getDocsFile(){
+		return _DocsFile
 	}
 });
 
@@ -1299,6 +1311,26 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				case actions.VALIDATE_CRYPTO_ADDRESS:
 					_CryptoTransfer.validCurrentAddress = data.response.result;
 					CashierStore.emitChange();
+					break;
+
+				case actions.DOCS_FILES_GET_FORMS_RESPONSE:
+					if(data.response.result){
+						for(let key in data.response.result){
+							if(key == 4){
+								_DocsFile.pendingAdditionalInfo = true
+							}
+
+							if(key == 5 ){
+								_DocsFile.pendingRecovery = true
+							}
+						}
+
+						CashierStore.emitChange();
+					}
+					break;
+
+				case actions.DOCS_FILES_GET_FORMS_INFORMATION_RESPONSE:
+					data
 					break;
 
 				default:

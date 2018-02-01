@@ -1,5 +1,7 @@
 import React from 'react'
+import {UIService} from '../services/UIService'
 import {translate} from '../constants/Translate'
+import {CashierStore} from '../stores/CashierStore'
 import {DocsOptUpdateInfo} from '../components/commonComponents/DocsOnFiles/DocsOptUpdateInfo'
 import {DocsOptReportError} from '../components/commonComponents/DocsOnFiles/DocsOptReportError'
 import {DocsOptVerifyIdentity} from '../components/commonComponents/DocsOnFiles/DocsOptVerifyIdentity'
@@ -13,17 +15,48 @@ let RequestsContent = React.createClass({
         },
 
         DocsOptions: 'DocsOptions',
+        DocsOptRecovery : 'DocsOptRecovery',
         DocsOptUpdInfo : 'DocsOptUpdateInfo',
         DocsOptVeId : 'DocsOptVerifyIdentity',
         DocsOptRepError : 'DocsOptReportError',
-        DocsOptionsInitial: 'DocsOptions DocsOptionsClick'
+        DocsOptAdditionalInfo : 'DocsOptAdditionalInfo',
+        DocsOptionsInitial : 'DocsOptions DocsOptionsClick'
     },
 
     /**
      * React function to set component initial state
      */
     getInitialState(){
-        return {option: this.elements.DocsOptVeId}
+        return this.refreshLocalState();
+    },
+
+    /**
+     * this function sets and return object with local states
+     */
+    refreshLocalState(){
+        let docFile = UIService.getDocsFile();
+
+        return {
+            option: this.elements.DocsOptVeId,
+            recovery: docFile.pendingRecovery,
+            additionalInfo: docFile.pendingAdditionalInfo
+        }
+    },
+
+    /**
+     * this is the callback function the store calls when a state change
+     *
+     * @private
+     */
+    _onChange(){
+        this.setState(this.refreshLocalState());
+    },
+
+    /**
+     * Execute actions when component will mount
+     */
+    componentWillMount(){
+        UIService.docFilesCustomerPendingForms();
     },
 
     optionContent(){
@@ -36,8 +69,16 @@ let RequestsContent = React.createClass({
                 return <DocsOptUpdateInfo/>;
             break;
 
-            default:
+            case this.elements.DocsOptRepError:
                 return <DocsOptReportError/>;
+            break;
+
+            case this.elements.DocsOptAdditionalInfo:
+                return <DocsOptUpdateInfo/>;
+            break;
+
+            case this.elements.DocsOptRecovery:
+                return <DocsOptUpdateInfo/>;
             break;
         }
     },
@@ -72,12 +113,47 @@ let RequestsContent = React.createClass({
                     <div id={this.elements.DocsOptRepError} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
                         {translate('MY_REQUEST_REPORT_PROBLEM')}
                     </div>
+
+                    {(() =>{
+                        if(this.state.additionalInfo){
+                           return(
+                               <div id={this.elements.DocsOptAdditionalInfo} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
+                                   {translate('MY_REQUEST_REPORT_PROBLEM')}
+                               </div>
+                           )
+                        }
+                    })()}
+
+                    {(() =>{
+                        if(this.state.recovery){
+                            return(
+                                <div id={this.elements.DocsOptRecovery} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
+                                    {translate('MY_REQUEST_REPORT_PROBLEM')}
+                                </div>
+                            )
+                        }
+                    })()}
                 </div>
                 <div id="requestOptionContent">
                     {this.optionContent()}
                 </div>
             </div>
         )
+    },
+
+    /**
+     * React function to add listener to this component once is mounted
+     * here the component listen changes from the store
+     */
+    componentDidMount(){
+        CashierStore.addChangeListener(this._onChange);
+    },
+
+    /**
+     * React function to remove listener to this component once is unmounted
+     */
+    componentWillUnmount(){
+        CashierStore.removeChangeListener(this._onChange);
     }
 });
 

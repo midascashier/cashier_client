@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
+import {UIService} from '../../../services/UIService'
 import {DrawDropUpload} from '../files/DrawDropUpload'
 import {translate} from '../../../constants/Translate'
 
@@ -10,6 +11,10 @@ let DocsOptVerifyIdentity = React.createClass({
             checkOption: false,
             verifyIdOptSelect: null
         }
+    },
+
+    componentWillMount(){
+        UIService.docFilesCustomerFormsInformation(1)
     },
 
     switchVerifyType(e){
