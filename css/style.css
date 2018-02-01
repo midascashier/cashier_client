@@ -663,6 +663,7 @@ div[class*="col-"] > div[class*="col-"]:before {
 #requestOptionContent{
     height: 492px;
     width: inherit;
+    margin-top: -1px;
     padding-top: 30px;
     display: inline-block;
     background-image: url(../images/docsFileBackground.svg);

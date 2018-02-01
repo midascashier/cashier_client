@@ -109,7 +109,6 @@ let DrawDropUpload = React.createClass({
 
     render(){
         let disabledUpload = (this.state.files) ? '' : 'disabled';
-
         return(
             <div id='DrawDropUploadContent'>
                 <form id='DrawDropUpload'>

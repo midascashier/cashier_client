@@ -117,7 +117,7 @@ let DocsOptVerifyIdentity = React.createClass({
                     if(!this.state.checkOption && !this.state.verifyIdOptSelect){
                         return (
                             <div id="DocsFileBack">
-                                <Link to={`/transaction_history/`}>
+                                <Link to={`/deposit/`}>
                                     <span>{translate('DOCS_FILE_GO_BACK')}</span>
                                 </Link>
                             </div>

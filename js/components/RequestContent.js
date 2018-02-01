@@ -15,7 +15,8 @@ let RequestsContent = React.createClass({
         DocsOptions: 'DocsOptions',
         DocsOptUpdInfo : 'DocsOptUpdateInfo',
         DocsOptVeId : 'DocsOptVerifyIdentity',
-        DocsOptRepError : 'DocsOptReportError'
+        DocsOptRepError : 'DocsOptReportError',
+        DocsOptionsInitial: 'DocsOptions DocsOptionsClick'
     },
 
     /**
@@ -62,7 +63,7 @@ let RequestsContent = React.createClass({
         return(
             <div id="requestContent">
                 <div id="requestsOptions">
-                    <div id={this.elements.DocsOptVeId} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
+                    <div id={this.elements.DocsOptVeId} className={this.elements.DocsOptionsInitial} onClick={this.docsOptionsActions}>
                         {translate('MY_REQUEST_VERIFY_IDENTITY')}
                     </div>
                     <div id={this.elements.DocsOptUpdInfo} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
