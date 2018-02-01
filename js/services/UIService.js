@@ -339,21 +339,17 @@ class UiService {
 			let availablePayAccount = payAccountLimits.available;
 			if(this.getIsWithDraw()){
 				availablePayAccount = payAccountLimits.availableWithdraw;
+				minPayAccount = payAccountLimits.minAmountWithdraw;
+				maxPayAccount = payAccountLimits.maxAmountWithdraw;
 			}
 
-			minPayAccount = payAccountLimits.minAmount;
-			maxPayAccount = payAccountLimits.maxAmount;
 			remaining = availablePayAccount - totalAmount;
 			if(remaining < 0){
 				remaining = 0;
 			}
 			remaining = remaining + " " + currencyCode;
 
-			//limitError += translate('CC_LIMIT_AVAILABLE', '', payAccountLimits);
-			//limitError += translate('CC_LIMIT_BELOW_MIN', '', payAccountLimits);
-			//limitError += translate('CC_LIMIT_ABOVE_MAX', '', payAccountLimits);
-
-			if(!payAccountLimits.enabled){
+			if(!this.getIsWithDraw() && (!payAccountLimits.enabled || !payAccountLimits.enabledWithdraw)){
 				let limitRemaining = payAccountLimits.remaining + 1;
 				switch(payAccountLimits.type.toUpperCase()){
 					case 'COUNT':
@@ -372,7 +368,6 @@ class UiService {
 				}
 			}
 
-			//limitError += translate('CC_LIMIT_ABOVE_AVAILABLE', '', payAccountLimits);
 		}
 
 		limits.minPayAccount = ApplicationService.currency_format(minPayAccount) + " " + currencyCode;
@@ -694,7 +689,7 @@ class UiService {
 	 * Get crypto currencies list
 	 *
 	 * @returns {*}
-     */
+	 */
 	getCryptoCurrencies(){
 		return CashierStore.getCryptoCurrencies();
 	}
@@ -703,7 +698,7 @@ class UiService {
 	 * Load current crypto currency limits from cashier service
 	 *
 	 * @param cryptoCurrencyCode
-     */
+	 */
 	loadCurrencyLimits(cryptoCurrencyCode, minAmount, maxAmount){
 		let company = this.getCompanyInformation();
 		let customer = this.getCustomerInformation();
@@ -731,7 +726,7 @@ class UiService {
 	 * Return limits loading state
 	 *
 	 * @returns {*}
-     */
+	 */
 	getLoadingLimits(){
 		return CashierStore.getLoadingLimits()
 	}
@@ -740,7 +735,7 @@ class UiService {
 	 * Get rate from current crypto currency
 	 *
 	 * @returns {*}
-     */
+	 */
 	getCurrentCryptoRate(){
 		return CashierStore.getCurrentCryptoRate()
 	}
@@ -749,7 +744,7 @@ class UiService {
 	 * Get convertion rate from current crypto currency
 	 *
 	 * @returns {*}
-     */
+	 */
 	getCurrentCryptoConvertionRate(){
 		return CashierStore.getCurrentCryptoConvertionRate()
 	}
@@ -758,7 +753,7 @@ class UiService {
 	 * Set crypto currency symbol selected
 	 *
 	 * @param symbol
-     */
+	 */
 	setCurrentCryptoSymbol(symbol){
 		CashierStore.setCurrentCryptoSymbol(symbol)
 	}
@@ -767,7 +762,7 @@ class UiService {
 	 * Get crypto currency symbol selected
 	 *
 	 * @returns {*}
-     */
+	 */
 	getCurrentCryptoSymbol(){
 		return CashierStore.getCurrentCryptoSymbol()
 	}
@@ -776,7 +771,7 @@ class UiService {
 	 * Set crypto currency name selected
 	 *
 	 * @param name
-     */
+	 */
 	setCurrentCryptoName(name){
 		CashierStore.setCurrentCryptoName(name)
 	}
@@ -785,7 +780,7 @@ class UiService {
 	 * Get crypto currency name selected
 	 *
 	 * @returns {*}
-     */
+	 */
 	getCurrentCryptoName(){
 		return CashierStore.getCurrentCryptoName()
 	}
@@ -794,7 +789,7 @@ class UiService {
 	 * Set crypto address
 	 *
 	 * @param cryptoAddress
-     */
+	 */
 	setCryptoAddress(cryptoAddress){
 		CashierStore.setCryptoAddress(cryptoAddress)
 	}
@@ -803,7 +798,7 @@ class UiService {
 	 * Get crypto address
 	 *
 	 * @returns {*}
-     */
+	 */
 	getCryptoAddress(){
 		return CashierStore.getCryptoAddress()
 	}
@@ -812,7 +807,7 @@ class UiService {
 	 * Set crypto promo code
 	 *
 	 * @param promoCode
-     */
+	 */
 	setCryptoPromoCode(promoCode){
 		CashierStore.setCryptoPromoCode(promoCode)
 	}
@@ -821,7 +816,7 @@ class UiService {
 	 * Get crypto promo code
 	 *
 	 * @returns {*}
-     */
+	 */
 	getCryptoPromoCode(){
 		return CashierStore.getCryptoPromoCode()
 	}
@@ -830,7 +825,7 @@ class UiService {
 	 * Set crypto amount
 	 *
 	 * @param cryptoAmount
-     */
+	 */
 	setCryptoAmount(cryptoAmount){
 		CashierStore.setCryptoAmount(cryptoAmount)
 	}
@@ -839,7 +834,7 @@ class UiService {
 	 * Get crypto amount
 	 *
 	 * @returns {*}
-     */
+	 */
 	getCryptoAmount(){
 		return CashierStore.getCryptoAmount()
 	}
@@ -848,7 +843,7 @@ class UiService {
 	 * Set crypto customer amount
 	 *
 	 * @param customerAmount
-     */
+	 */
 	setCryptoCustomerAmount(customerAmount){
 		CashierStore.setCryptoCustomerAmount(customerAmount)
 	}
@@ -857,7 +852,7 @@ class UiService {
 	 * Get crypto customer amount
 	 *
 	 * @returns {*}
-     */
+	 */
 	getCryptoCustomerAmount(){
 		return CashierStore.getCryptoCustomerAmount()
 	}
@@ -867,12 +862,12 @@ class UiService {
 	 *
 	 * @param currencyCode
 	 * @returns {boolean}
-     */
+	 */
 	refundAddressRequired(currencyCode){
 		let processor = CashierStore.getProcessor();
 		let processorId = processor.processorId;
 		if(processorId == cashier.PROCESSOR_ID_CRYPTOScreen){
-			return (currencyCode != 'BTC' && currencyCode != 'LTC' && currencyCode != 'BCH')? true : false;
+			return (currencyCode != 'BTC' && currencyCode != 'LTC' && currencyCode != 'BCH') ? true : false;
 		}else{
 			return true;
 		}
@@ -883,7 +878,7 @@ class UiService {
 	 *
 	 * @param currencyCode
 	 * @param address
-     */
+	 */
 	validateCryptoAddress(currencyCode, address){
 		if(address){
 			let params = {
@@ -902,7 +897,7 @@ class UiService {
 	 * Get result if current address is valid
 	 *
 	 * @returns {*}
-     */
+	 */
 	getValidAddress(){
 		return CashierStore.getValidAddress()
 	}

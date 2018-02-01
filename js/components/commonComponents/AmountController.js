@@ -3,7 +3,7 @@ import Cashier from '../../constants/Cashier'
 import {UIService} from '../../services/UIService'
 import {translate} from '../../constants/Translate'
 import {CashierStore} from '../../stores/CashierStore'
-import  errorMsgs  from '../../constants/limitsErrorMsgs'
+import errorMsgs from '../../constants/limitsErrorMsgs'
 import {ApplicationService} from '../../services/ApplicationService'
 
 let AmountController = React.createClass({
@@ -18,12 +18,12 @@ let AmountController = React.createClass({
 	 *
 	 * @param event
 	 */
-	changeValue(event) {
+	changeValue(event){
 		let amount = event.currentTarget.value;
 		this.props.setAmount(amount);
 	},
 
-	render() {
+	render(){
 		let limits = UIService.getProcessorLimitMinMax();
 		let customer = CashierStore.getCustomer();
 		let limitsErrorMsg;
@@ -40,7 +40,7 @@ let AmountController = React.createClass({
 
 		let action;
 		let isWithDraw = UIService.getIsWithDraw();
-		if (isWithDraw){
+		if(isWithDraw){
 			action = translate('WITHDRAW');
 		}else{
 			action = translate('DEPOSIT');

@@ -714,7 +714,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Returns if the limits are loading
 	 *
 	 * @returns {boolean}
-     */
+	 */
 	getLoadingLimits(){
 		return _CryptoTransfer.loadingLimits
 	},
@@ -723,7 +723,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Return current crypto currency  rate
 	 *
 	 * @returns {number}
-     */
+	 */
 	getCurrentCryptoRate(){
 		return _CryptoTransfer.rate
 	},
@@ -732,7 +732,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Return current crypto currency  convertion rate
 	 *
 	 * @returns {number}
-     */
+	 */
 	getCurrentCryptoConvertionRate(){
 		return _CryptoTransfer.conversionRate
 	},
@@ -741,7 +741,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Set crypto currency symbol selected
 	 *
 	 * @param symbol
-     */
+	 */
 	setCurrentCryptoSymbol(symbol){
 		_CryptoTransfer.cryptoCurrencyISO = symbol
 	},
@@ -750,7 +750,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Get current crypto currency symbol
 	 *
 	 * @returns {string}
-     */
+	 */
 	getCurrentCryptoSymbol(){
 		return _CryptoTransfer.cryptoCurrencyISO
 	},
@@ -759,16 +759,16 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Set current crypto currency name
 	 *
 	 * @param name
-     */
+	 */
 	setCurrentCryptoName(name){
 		_CryptoTransfer.cryptoCurrencyName = name
 	},
 
 	/**
 	 * Get current crypto currency name
-	 * 
+	 *
 	 * @returns {string}
-     */
+	 */
 	getCurrentCryptoName(){
 		return _CryptoTransfer.cryptoCurrencyName
 	},
@@ -778,7 +778,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	getCryptoAddress(){
-		return _CryptoTransfer.cryptoAddress	
+		return _CryptoTransfer.cryptoAddress
 	},
 
 	setCryptoPromoCode(promoCode){
@@ -807,9 +807,9 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	/**
 	 * Get if current refund address is valid or not
-	 * 
+	 *
 	 * @returns {boolean}
-     */
+	 */
 	getValidAddress(){
 		return _CryptoTransfer.validCurrentAddress
 	}
@@ -1010,6 +1010,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 								payAccount.limitsData.maxAmountWithdraw = Math.floor(payAccount.limitsData.maxAmountWithdraw);
 								payAccount.limitsData.minAmount = Math.ceil(payAccount.limitsData.minAmount);
 								payAccount.limitsData.minAmountWithdraw = Math.ceil(payAccount.limitsData.minAmountWithdraw);
+								payAccount.limitsData.remaining = Math.ceil(payAccount.limitsData.remaining);
+								payAccount.limitsData.remainingWithdraw = Math.ceil(payAccount.limitsData.remainingWithdraw);
 							});
 							let payAccounts = data.response.payAccounts;
 							if(payAccounts){
