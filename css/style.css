@@ -703,15 +703,16 @@ div[class*="col-"] > div[class*="col-"]:before {
     color: white;
     margin: 0 auto;
     font-size: 16pt;
-    margin-top: -36px;
-    margin-left: 427px;
+    margin-top: 14px;
+    margin-left: 426px;
+    position: absolute;
     font-family: Oswald-Medium;
 }
 
 .switch {
+    margin: 5px;
     width: 100px;
     height: 20px;
-    margin: 5px;
     position: relative;
     display: inline-block;
 }
@@ -813,7 +814,6 @@ input:checked + .slider:before{
     color: black;
     display: flex;
     margin: 0 auto;
-    cursor: pointer;
     font-size: 16pt;
     border-radius: 15px;
     background: #cccccc;

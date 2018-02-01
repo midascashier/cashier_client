@@ -31,6 +31,10 @@ let DocsOptVerifyIdentity = React.createClass({
         this.setState(actualState);
     },
 
+    uploadCurrentFiles(e){
+        alert(e.target[0].files)
+    },
+
     render(){
         return(
             <div id="CheckIdContent">
@@ -55,17 +59,17 @@ let DocsOptVerifyIdentity = React.createClass({
                     
                 </div>
 
+                <div className="OptTittle">
+                    <span>{translate('MY_REQUEST_DOCS_OPTION_ID_TXT')}</span>
+                    <span className="switch"/>
+                    <span>{translate('MY_REQUEST_DOCS_OPTION_VE_EW_TXT')}</span>
+                </div>
+
                 <div id="switchOpt">
                     <label className="switch">
                         <input type="checkbox" onChange={this.switchVerifyType}/>
                         <span className="slider round"/>
                     </label>
-                </div>
-
-                <div className="OptTittle">
-                    <span>{translate('MY_REQUEST_DOCS_OPTION_ID_TXT')}</span>
-                    <span className="switch"/>
-                    <span>{translate('MY_REQUEST_DOCS_OPTION_VE_EW_TXT')}</span>
                 </div>
 
                 {(() =>{
@@ -107,7 +111,7 @@ let DocsOptVerifyIdentity = React.createClass({
                     if(this.state.checkOption || this.state.verifyIdOptSelect){
                         return(
                             <div id="DrawDropUploadElement">
-                                <DrawDropUpload/>
+                                <DrawDropUpload action={this.uploadCurrentFiles}/>
                             </div>
                         )
                     }

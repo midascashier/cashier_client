@@ -4,6 +4,10 @@ import {translate} from '../../../constants/Translate'
 
 let DrawDropUpload = React.createClass({
 
+    propTypes: {
+        action: React.PropTypes.func
+    },
+
     elements: {
         dropZoneId: 'DropImagesZone',
         thumbnails: 'DragDropThumbnails',
@@ -111,7 +115,7 @@ let DrawDropUpload = React.createClass({
         let disabledUpload = (this.state.files) ? '' : 'disabled';
         return(
             <div id='DrawDropUploadContent'>
-                <form id='DrawDropUpload'>
+                <form id='DrawDropUpload' onSubmit={this.props.action}>
                     <input id={this.elements.dropZoneId} type='file' onChange={this.addThumbnailsFile.bind(this)} name='files[]' multiple/>
                     <p>{translate('DRAG_DROP_FILES_TXT')}</p>
                     <output id={this.elements.thumbnails}/>
