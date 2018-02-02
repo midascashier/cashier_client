@@ -919,6 +919,12 @@ class transactionService{
 		CashierActions.setCryptoTransferTransaction(transaction);
 	};
 
+	/**
+	 * Save docs on files
+	 */
+	docsFileSave(request){
+		ConnectorServices.makeDocsFileSave(request);
+	};
 }
 
 export let TransactionService = new transactionService();

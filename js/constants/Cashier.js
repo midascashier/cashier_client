@@ -2,6 +2,8 @@
  * Created by jobando on 15-Jun-16.
  */
 export default {
+	DEBUG_ENABLED: true,
+
 	//Views
 	VIEW_DEFAULT: 'deposit',
 	VIEW_DEPOSIT: 'deposit',
@@ -66,5 +68,5 @@ export default {
 	BACKEND_WS: 'BACKEND',
 	BONUS_WS: 'BONUS',
 	
-	REQUEST_DOCS_FILE_SAVE_URL: '/cashierServices/DocsFileSave.class.php'
+	REQUEST_DOCS_FILE_SAVE_URL: 'http://newcashier.localhost:8080/cashierServices/DocsFileSave.class.php'
 }

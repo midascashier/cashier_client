@@ -130,34 +130,26 @@ class connectorServices {
 	 * @param request
      */
 	httpSimpleService(url, action, request){
-		$.post(url, request).done(function(response){
-			if(response){
-				try{
-					let dataResponse = JSON.parse(response);
-					if(dataResponse && dataResponse.state == 'expired'){
-						onResponseService.processResponse(actions.USER_MESSAGE, dataResponse);
-					}else{
-						if(dataResponse && dataResponse.state != 'ok'){
-							onResponseService.processResponse(action, dataResponse);
-						}else{
-							if(dataResponse && dataResponse.response){
-								onResponseService.processResponse(action, dataResponse);
-							}else{
-								onResponseService.processResponse(action, []);
-							}
-						}
-					}
-				}catch(e){
-					console.log(e.message);
-					console.log(response);
-					onResponseService.processResponse(actions.USER_MESSAGE, {userMessage: 'Error processing your request'});
-				}
+		request.append('XDEBUG_SESSION_START', 'ECLIPSE_DBGP');
 
-			}else{
+		$.ajax({
+			url: url,
+			type: 'post',
+			data: request,
+			processData: false,
+			contentType: false,
+			beforeSend: function(){
+
+			},
+			success: function(response){
+				let dataResponse = JSON.parse(response);
+				onResponseService.processResponse(action, dataResponse);
+			},
+			error: function(e){
 				onResponseService.processResponse(actions.USER_MESSAGE, {userMessage: 'Error processing your request'});
 			}
-		})
-	};
+		});
+	}
 }
 
 export let ConnectorServices = new connectorServices();

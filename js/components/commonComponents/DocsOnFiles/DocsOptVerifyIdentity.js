@@ -3,10 +3,14 @@ import {Link} from 'react-router'
 import {UIService} from '../../../services/UIService'
 import {DrawDropUpload} from '../files/DrawDropUpload'
 import {translate} from '../../../constants/Translate'
+import {TransactionService} from '../../../services/TransactionService'
 
 let DocsOptVerifyIdentity = React.createClass({
 
     element: {
+        formId: 8,
+        action: 'save',
+
         driverLicenseOption: {
             value: 1,
             name: 'driverLicenseOption'
@@ -55,11 +59,21 @@ let DocsOptVerifyIdentity = React.createClass({
     },
 
     uploadCurrentFiles(e){
-        alert(e.target[0].files);
+        e.preventDefault();
 
-        let request = {
-            
+        let formData = new FormData();
+
+        let files = e.target[0].files;
+        for(let key in files){
+            formData.append(key + '[]', files[key]);
         }
+
+        formData.append('countExtraFiles', 0);
+        formData.append('documentFormCustomerId', '');
+        formData.append('actionType', this.element.action);
+        formData.append('documentFormId', this.element.formId);
+
+        TransactionService.docsFileSave(formData);
     },
 
     render(){
