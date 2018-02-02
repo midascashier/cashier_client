@@ -4,7 +4,7 @@
  * @param files
  * @param element
  * @param className
- * @function removeThumbnail - execute to click any thumbnails
+ * @param removeThumbnail function  - execute to click any thumbnails
  * @constructor
  */
 let ReaderImages = (files, element, className, removeThumbnail) =>{
@@ -19,13 +19,14 @@ let ReaderImages = (files, element, className, removeThumbnail) =>{
         reader.onload = (function (theFile){
             return function (e){
                 let span = document.createElement('span');
+                span.id = theFile.name + 'Content';
                 span.innerHTML = ['<img class="', className ,'" src="', e.target.result, '" title="', escape(theFile.name), '"/>' +
                 '<span id='+ theFile.name +' class="DocsFileRemoveThumbnail">&times;</span>'].join('');
                 element.insertBefore(span, null);
 
                 let remove = document.getElementById(theFile.name);
                 remove.addEventListener("click", function(){
-                    removeThumbnail()
+                    removeThumbnail(theFile.name)
                 });
             };
         })(f);

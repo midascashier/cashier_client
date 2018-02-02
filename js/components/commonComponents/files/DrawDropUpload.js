@@ -61,8 +61,27 @@ let DrawDropUpload = React.createClass({
         });
     },
 
-    removeThumbnail(){
-        alert('testing')
+    removeThumbnail(element){
+        let thumbnails = document.getElementById(this.elements.thumbnails);
+        let thumbnail = document.getElementById(element + 'Content');
+        thumbnails.removeChild(thumbnail);
+        let updateState = [];
+        let count = this.state.files.length;
+        for(let i=0; i<count; i++){
+            if(this.state.files[i].name != element){
+                updateState.push(this.state.files[i]);
+            }else{
+                let form = document.getElementById('DrawDropUpload');
+                let formData = new FormData(form);
+                let files = formData.getAll("files[]");
+
+                formData.delete(i);
+            }
+        }
+
+        this.setState({
+            files: updateState
+        });
     },
 
     /**
