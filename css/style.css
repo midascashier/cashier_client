@@ -917,3 +917,11 @@ input:checked + .slider:before{
     text-decoration: none;
     font-family: Oswald-Light;
 }
+
+.DocsFileRemoveThumbnail{
+    cursor: pointer;
+    font-size: 30px;
+    margin-top: -6px;
+    position: absolute;
+    margin-left: -21px;
+}

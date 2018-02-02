@@ -61,6 +61,15 @@ let DrawDropUpload = React.createClass({
         });
     },
 
+    removeThumbnail(){
+        alert('testing')
+    },
+
+    /**
+     * Add thumbnails to any HTML element
+     *
+     * @param event
+     */
     addThumbnailsFile(event){
         if (window.File && window.FileReader && window.FileList && window.Blob){
             let filesToUpload = [];
@@ -105,7 +114,7 @@ let DrawDropUpload = React.createClass({
             }
 
             let thumbnails = document.getElementById(this.elements.thumbnails);
-            ReaderImages(filesToUpload, thumbnails, this.elements.thumbnailClass);
+            ReaderImages(filesToUpload, thumbnails, this.elements.thumbnailClass, this.removeThumbnail.bind(this));
         }else{
             console.log('The File APIs are not fully supported in this browser.');
         }
