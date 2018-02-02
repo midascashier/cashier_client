@@ -130,7 +130,7 @@ let RequestsContent = React.createClass({
                         if(this.state.additionalInfo){
                            return(
                                <div id={this.elements.DocsOptAdditionalInfo} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
-                                   {translate('MY_REQUEST_REPORT_PROBLEM')}
+                                   {translate('MY_REQUEST_ADDITIONAL_INFO')}
                                </div>
                            )
                         }
@@ -140,7 +140,7 @@ let RequestsContent = React.createClass({
                         if(this.state.recovery){
                             return(
                                 <div id={this.elements.DocsOptRecovery} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
-                                    {translate('MY_REQUEST_REPORT_PROBLEM')}
+                                    {translate('MY_REQUEST_RECOVERY')}
                                 </div>
                             )
                         }

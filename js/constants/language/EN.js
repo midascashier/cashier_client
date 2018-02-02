@@ -307,6 +307,8 @@ let _langTags = {
 	MY_REQUEST_VERIFY_IDENTITY: "Identity Verification",
 	MY_REQUEST_UPDATE_INFORMATION: "Update my information",
 	MY_REQUEST_REPORT_PROBLEM: "Report a issue",
+	MY_REQUEST_ADDITIONAL_INFO: "Additional information",
+	MY_REQUEST_RECOVERY: "Recovery",
 	MY_REQUEST_VERIFY_TITLE: "Verification type",
 	MY_REQUEST_DOCS_OPTION_ID_TXT: "ID",
 	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "E-WALLET",
