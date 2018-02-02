@@ -2,8 +2,10 @@ import React from 'react'
 import {UIService} from '../services/UIService'
 import {translate} from '../constants/Translate'
 import {CashierStore} from '../stores/CashierStore'
+import {DocsOptRecovery} from '../components/commonComponents/DocsOnFiles/DocsOptRecovery'
 import {DocsOptUpdateInfo} from '../components/commonComponents/DocsOnFiles/DocsOptUpdateInfo'
 import {DocsOptReportError} from '../components/commonComponents/DocsOnFiles/DocsOptReportError'
+import {DocsOptAdditionalInfo} from '../components/commonComponents/DocsOnFiles/DocsOptAdditionalInfo'
 import {DocsOptVerifyIdentity} from '../components/commonComponents/DocsOnFiles/DocsOptVerifyIdentity'
 
 let RequestsContent = React.createClass({
@@ -59,6 +61,11 @@ let RequestsContent = React.createClass({
         UIService.docFilesCustomerPendingForms();
     },
 
+    /**
+     * Selected current content from tab selected
+     * 
+     * @returns {XML}
+     */
     optionContent(){
         switch(this.state.option){
             case this.elements.DocsOptVeId:
@@ -74,15 +81,20 @@ let RequestsContent = React.createClass({
             break;
 
             case this.elements.DocsOptAdditionalInfo:
-                return <DocsOptUpdateInfo/>;
+                return <DocsOptAdditionalInfo/>;
             break;
 
             case this.elements.DocsOptRecovery:
-                return <DocsOptUpdateInfo/>;
+                return <DocsOptRecovery/>;
             break;
         }
     },
 
+    /**
+     * Execute action on click tab option
+     * 
+     * @param event
+     */
     docsOptionsActions(event){
         let optionElements = document.getElementsByClassName(this.elements.DocsOptions);
         let count = optionElements.length;
