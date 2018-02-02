@@ -1333,6 +1333,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					data
 					break;
 
+				case action.DOCS_FILE_SAVE_RESPONSE:
+					data;
+					break;
+				
 				default:
 					console.log("Store No Action: " + action);
 					break;

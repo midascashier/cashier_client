@@ -6,9 +6,27 @@ import {translate} from '../../../constants/Translate'
 
 let DocsOptVerifyIdentity = React.createClass({
 
+    element: {
+        driverLicenseOption: {
+            value: 1,
+            name: 'driverLicenseOption'
+        },
+
+        passportOption: {
+            value: 2,
+            name: 'passportOption'
+        },
+
+        idDocumentOption: {
+            value: 3,
+            name: 'idDocumentOption'
+        }
+    },
+
     getInitialState(){
         return{
             checkOption: false,
+            valueOption: false,
             verifyIdOptSelect: null
         }
     },
@@ -26,18 +44,22 @@ let DocsOptVerifyIdentity = React.createClass({
 
     verifyIdOptionsChange(e){
         let actualState = this.state;
-        actualState.verifyIdOptSelect = e.target.getAttribute('id');
+        let option = e.target.getAttribute('id');
+        actualState.verifyIdOptSelect = option;
+        actualState.valueOption = this.element[option].value;
         this.setState(actualState);
     },
 
     verifyIdOptionsReset(){
-        let actualState = this.state;
-        actualState.verifyIdOptSelect = null;
-        this.setState(actualState);
+        this.setState(this.getInitialState());
     },
 
     uploadCurrentFiles(e){
-        alert(e.target[0].files)
+        alert(e.target[0].files);
+
+        let request = {
+            
+        }
     },
 
     render(){
@@ -79,10 +101,12 @@ let DocsOptVerifyIdentity = React.createClass({
 
                 {(() =>{
                     if(!this.state.checkOption && !this.state.verifyIdOptSelect){
+                        let ele = this.element;
+
                         return (
                             <div id="CheckIdVerifyOptions">
                                 <img
-                                    id="driverLicenseOption"
+                                    id={ele.driverLicenseOption.name}
                                     className="docsFilesVerifyIdOptions"
                                     onClick={this.verifyIdOptionsChange}
                                     src="../images/driverLicenseOption.png"
@@ -91,7 +115,7 @@ let DocsOptVerifyIdentity = React.createClass({
                                 />
 
                                 <img
-                                    id="passportOption"
+                                    id={ele.passportOption.name}
                                     src="../images/passportOption.png"
                                     onClick={this.verifyIdOptionsChange}
                                     className="docsFilesVerifyIdOptions"
@@ -100,7 +124,7 @@ let DocsOptVerifyIdentity = React.createClass({
                                 />
 
                                 <img
-                                    id="idDocumentOption"
+                                    id={ele.idDocumentOption.name}
                                     className="docsFilesVerifyIdOptions"
                                     src="../images/idDocumentOption.png"
                                     onClick={this.verifyIdOptionsChange}
