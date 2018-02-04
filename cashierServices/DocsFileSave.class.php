@@ -6,7 +6,6 @@ class DocsFileSave
   public function __construct(){
     //customer info
     $inputParams = $_REQUEST;
-    $customer = ClientSessionManager::getClientCustomerData();
 
     $username = 'midasTP';
     $companyId = 101;
