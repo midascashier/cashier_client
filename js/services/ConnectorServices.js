@@ -1,7 +1,7 @@
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
-import {onResponseService} from './OnResponseService'
 import {CashierStore} from '../stores/CashierStore'
+import {onResponseService} from './OnResponseService'
 
 class connectorServices {
 
@@ -74,7 +74,7 @@ class connectorServices {
 
 	/**
 	 * Send files to Docs Files Save
-	 * 
+	 *
 	 * @param request
      */
 	makeDocsFileSave(request){
