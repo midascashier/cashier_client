@@ -27,25 +27,53 @@ let DocsOptVerifyIdentity = React.createClass({
         }
     },
 
+    /**
+     * React function to set component initial state
+     */
     getInitialState(){
         return{
+            files: false,
             checkOption: false,
             valueOption: false,
             verifyIdOptSelect: null
         }
     },
 
+    /**
+     * Execute actions when component will mount
+     */
     componentWillMount(){
         UIService.docFilesCustomerFormsInformation(1)
     },
 
-    switchVerifyType(e){
-        this.setState({
-            verifyIdOptSelect: null,
-            checkOption: e.target.checked
-        });
+    /**
+     * Set files selected to upload
+     *
+     * @param files
+     */
+    setFiles(files){
+        let actualState = this.state;
+        actualState.files = files;
+        this.setState(actualState);
     },
 
+    /**
+     * Change type ID option
+     *
+     * @param e
+     */
+    switchVerifyType(e){
+        let actualState = this.state;
+        actualState.verifyIdOptSelect = null;
+        actualState.checkOption = e.target.checked;
+        this.setState(actualState);
+    },
+
+    /**
+     * Selected option from verify ID type
+     *
+     * @param e
+     */
     verifyIdOptionsChange(e){
         let actualState = this.state;
         let option = e.target.getAttribute('id');
@@ -54,18 +82,25 @@ let DocsOptVerifyIdentity = React.createClass({
         this.setState(actualState);
     },
 
+    /**
+     * Restart states option selected
+     */
     verifyIdOptionsReset(){
         this.setState(this.getInitialState());
     },
 
+    /**
+     * Upload files selected
+     * 
+     * @param e
+     */
     uploadCurrentFiles(e){
         e.preventDefault();
-
+        let files = this.state.files;
         let formData = new FormData();
 
-        let files = e.target[0].files;
         for(let key in files){
-            formData.append(key + '[]', files[key]);
+            formData.append(key, files[key]);
         }
 
         formData.append('countExtraFiles', 0);
@@ -154,7 +189,7 @@ let DocsOptVerifyIdentity = React.createClass({
                     if(this.state.checkOption || this.state.verifyIdOptSelect){
                         return(
                             <div id="DrawDropUploadElement">
-                                <DrawDropUpload action={this.uploadCurrentFiles}/>
+                                <DrawDropUpload action={this.uploadCurrentFiles} files={this.setFiles}/>
                             </div>
                         )
                     }

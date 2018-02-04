@@ -5,6 +5,7 @@ import {translate} from '../../../constants/Translate'
 let DrawDropUpload = React.createClass({
 
     propTypes: {
+        files: React.PropTypes.func,
         action: React.PropTypes.func
     },
 
@@ -65,22 +66,17 @@ let DrawDropUpload = React.createClass({
         let thumbnails = document.getElementById(this.elements.thumbnails);
         let thumbnail = document.getElementById(element + 'Content');
         thumbnails.removeChild(thumbnail);
+
         let updateState = [];
         let count = this.state.files.length;
         for(let i=0; i<count; i++){
             if(this.state.files[i].name != element){
                 updateState.push(this.state.files[i]);
-            }else{
-                let form = document.getElementById('DrawDropUpload');
-                let formData = new FormData(form);
-                let files = formData.getAll("files[]");
-
-                formData.delete(i);
             }
         }
 
-        this.setState({
-            files: updateState
+        this.setState({files: updateState}, function afterAmountChange(){
+            this.props.files(this.state.files);
         });
     },
 
@@ -95,8 +91,8 @@ let DrawDropUpload = React.createClass({
             let files = event.target.files;
 
             if(!this.state.files){
-                this.setState({
-                    files: files
+                this.setState({files: files}, function afterAmountChange(){
+                    this.props.files(this.state.files);
                 });
 
                 filesToUpload = files;
@@ -127,8 +123,8 @@ let DrawDropUpload = React.createClass({
                     }
                 }
 
-                this.setState({
-                    files: filesList
+                this.setState({files: filesList}, function afterAmountChange(){
+                    this.props.files(this.state.files);
                 });
             }
 
