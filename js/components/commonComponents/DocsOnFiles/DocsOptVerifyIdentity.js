@@ -151,9 +151,9 @@ let DocsOptVerifyIdentity = React.createClass({
                 </div>
 
                 {(() =>{
-                    if(!this.state.checkOption && !this.state.verifyIdOptSelect){
-                        let ele = this.element;
+                    let ele = this.element;
 
+                    if(!this.state.verifyIdOptSelect){
                         return (
                             <div id="CheckIdVerifyOptions">
                                 <img
@@ -174,21 +174,27 @@ let DocsOptVerifyIdentity = React.createClass({
                                     title={translate('DOCS_FILE_VERIFY_OPTIONS_PASSPORT')}
                                 />
 
-                                <img
-                                    id={ele.idDocumentOption.name}
-                                    className="docsFilesVerifyIdOptions"
-                                    src="../images/idDocumentOption.png"
-                                    onClick={this.verifyIdOptionsChange}
-                                    alt={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
-                                    title={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
-                                />
+                                {(() =>{
+                                    if(!this.state.checkOption){
+                                        return(
+                                            <img
+                                                id={ele.idDocumentOption.name}
+                                                className="docsFilesVerifyIdOptions"
+                                                src="../images/idDocumentOption.png"
+                                                onClick={this.verifyIdOptionsChange}
+                                                alt={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
+                                                title={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
+                                            />
+                                        )
+                                    }
+                                })()}
                             </div>
                         )
                     }
                 })()}
 
                 {(() =>{
-                    if(this.state.checkOption || this.state.verifyIdOptSelect){
+                    if(this.state.verifyIdOptSelect){
                         return(
                             <div id="DrawDropUploadElement">
                                 <DrawDropUpload action={this.uploadCurrentFiles} files={this.setFiles}/>
@@ -198,7 +204,7 @@ let DocsOptVerifyIdentity = React.createClass({
                 })()}
 
                 {(() =>{
-                    if(!this.state.checkOption && !this.state.verifyIdOptSelect){
+                    if(!this.state.verifyIdOptSelect){
                         return (
                             <div id="DocsFileBack">
                                 <Link to={`/deposit/`}>
