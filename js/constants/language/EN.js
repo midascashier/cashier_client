@@ -149,7 +149,7 @@ let _langTags = {
 	BITCOIN_INSTRUCTIONS_TIME: "Prompty complete your transaction",
 	BITCOIN_INSTRUCTIONS_TIME_INFO1: "This BTC transaction price is only valid for",
 	BITCOIN_INSTRUCTIONS_TIME_INFO2: "minutes. After that, the transaction price will change, and you may receive a different amount than expected.",
-	BITCOIN_INSTRUCTIONS_PROCESS_INSIDE: "BitCoin withdrawals were separated within 24 hours, but normally they are processed ASAP.",
+	BITCOIN_INSTRUCTIONS_PROCESS_INSIDE: "BitCoin withdrawals will be processed within 24 hours, but are usually processed as soon as possible.",
 	BITCOIN_ADDRESS: "Bitcoin Address",
 	CREDIT_CARD: "Card",
 	CREDIT_CARD_SELECT: "Credit Card",
