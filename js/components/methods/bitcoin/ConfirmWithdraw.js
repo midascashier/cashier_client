@@ -74,7 +74,6 @@ let BitCoinConfirmWithdraw = React.createClass({
 												</div>
 												<div className="infoCol text-justify">
 													<p>{translate('BITCOIN_INSTRUCTIONS_PROCESS_INSIDE')}</p>
-													hour.
 												</div>
 											</div>
 

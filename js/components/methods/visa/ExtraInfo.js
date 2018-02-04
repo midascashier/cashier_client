@@ -11,6 +11,7 @@ let ExtraInfo = React.createClass({
 		ssn: React.PropTypes.node,
 		dobDay: React.PropTypes.node,
 		dobYear: React.PropTypes.node,
+		country: React.PropTypes.node,
 		dobMonth: React.PropTypes.node,
 		changeValue: React.PropTypes.func
 	},
@@ -44,7 +45,11 @@ let ExtraInfo = React.createClass({
 		return(
 			<div id="visaExtraInfo">
 				{(() =>{
-					let country = CashierStore.getSelectedCountry();
+					let country = this.props.country;
+					if(!country){
+						country = CashierStore.getSelectedCountry();
+					}
+
 					if(country == cashier.USA_COUNTRY_CODE){
 						return(
 							<div className="form-group">
