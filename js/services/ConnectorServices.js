@@ -72,6 +72,11 @@ class connectorServices {
 		this.httpService(cashier.BONUS_WS, action, request)
 	};
 
+	/**
+	 * Send files to Docs Files Save
+	 * 
+	 * @param request
+     */
 	makeDocsFileSave(request){
 		let url = cashier.REQUEST_DOCS_FILE_SAVE_URL;
 		let action = actions.DOCS_FILE_SAVE_RESPONSE;
