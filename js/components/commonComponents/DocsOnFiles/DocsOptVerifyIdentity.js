@@ -100,7 +100,9 @@ let DocsOptVerifyIdentity = React.createClass({
         let formData = new FormData();
 
         for(let key in files){
-            formData.append(key, files[key]);
+            if(files.hasOwnProperty(key)){
+                formData.append(key, files[key]);
+            }
         }
 
         formData.append('countExtraFiles', 0);
