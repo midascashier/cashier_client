@@ -96,12 +96,17 @@ let DocsOptVerifyIdentity = React.createClass({
      */
     uploadCurrentFiles(e){
         e.preventDefault();
+        let elementInformation = {};
         let files = this.state.files;
         let formData = new FormData();
 
+        elementInformation['fileType'] = this.state.valueOption;
+        elementInformation['value'] = e.target[0].value;
+        formData.append('input[23]', JSON.stringify(elementInformation));
+
         for(let key in files){
             if(files.hasOwnProperty(key)){
-                formData.append(key, files[key]);
+                formData.append('23[]', files[key]);
             }
         }
 

@@ -8,11 +8,23 @@ class DocsFileSave
     $inputParams = $_REQUEST;
     $customer = ClientSessionManager::getClientCustomerData();
 
-    $username = $customer->getUsername();
-    $companyId = $customer->getCompanyId();
-    $customerId = $customer->getCustomerId();
+    $username = 'midasTP';
+    $companyId = 101;
+    $customerId = 137;
 
+    $file = array();
     $files = $_FILES;
+
+    foreach($files as $keys){
+      foreach ($keys as $name => $values)
+        foreach($values as $key => $value){
+          $file[$name][$key] = $value;
+        }
+    }
+
+    $files = array();
+    $files[23] = $file;
+
     $documentManager = new DocumentManager();
     $result = $documentManager->saveDocument($inputParams, $files, $companyId, $customerId, $username);
     $returnMsjTag = ($result) ? 'DOCFILE_SENT_FORM' : 'DOCFILE_ERROR_SENT_FORM';
