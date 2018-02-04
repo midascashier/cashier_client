@@ -176,11 +176,13 @@ let DocsOptVerifyIdentity = React.createClass({
 
                                 {(() =>{
                                     if(!this.state.checkOption){
+                                        let src = "../images/"+ this.element.idDocumentOption.name +".png";
+
                                         return(
                                             <img
+                                                src={src}
                                                 id={ele.idDocumentOption.name}
                                                 className="docsFilesVerifyIdOptions"
-                                                src="../images/idDocumentOption.png"
                                                 onClick={this.verifyIdOptionsChange}
                                                 alt={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
                                                 title={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
