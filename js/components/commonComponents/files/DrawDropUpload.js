@@ -75,7 +75,7 @@ let DrawDropUpload = React.createClass({
             }
         }
 
-        this.setState({files: updateState}, function afterAmountChange(){
+        this.setState({files: updateState}, function afterFileChange(){
             this.props.files(this.state.files);
         });
     },
@@ -91,7 +91,7 @@ let DrawDropUpload = React.createClass({
             let files = event.target.files;
 
             if(!this.state.files){
-                this.setState({files: files}, function afterAmountChange(){
+                this.setState({files: files}, function afterFileChange(){
                     this.props.files(this.state.files);
                 });
 
@@ -123,7 +123,7 @@ let DrawDropUpload = React.createClass({
                     }
                 }
 
-                this.setState({files: filesList}, function afterAmountChange(){
+                this.setState({files: filesList}, function afterFileChange(){
                     this.props.files(this.state.files);
                 });
             }
