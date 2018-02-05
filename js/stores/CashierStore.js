@@ -834,6 +834,13 @@ let CashierStore = assign({}, EventEmitter.prototype, {
      */
 	getDocsUploadResponse(){
 		return _DocsFile.responseUpload
+	},
+
+	/**
+	 * Reset response wait
+	 */
+	docsResetResponseUpload(){
+		_DocsFile.responseUpload = false
 	}
 });
 

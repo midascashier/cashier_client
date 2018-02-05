@@ -73,6 +73,12 @@ let DrawDropUpload = React.createClass({
         });
     },
 
+    /**
+     * Validate form files rules
+     * 
+     * @param files
+     * @returns {Array}
+     */
     validateFilesToUpload(files){
         let validFiles = [];
         let errorMsg = false;
@@ -80,7 +86,7 @@ let DrawDropUpload = React.createClass({
         for(let key in files){
             if(this.elements.rules.FILE_ACCEPTED_TYPES.indexOf(files[key].types) == -1){
                 if(files[key].size){
-                    this.elements.totalSize += files[key].size;
+                    this.elements.totalSize = this.elements.totalSize + files[key].size;
                     if(this.elements.totalSize < this.elements.rules.MAX_FILE_SIZE){
                         if(this.elements.maxInputFiles < this.elements.rules.MAX_INPUT_FILES){
                             ++this.elements.maxInputFiles;
@@ -102,6 +108,11 @@ let DrawDropUpload = React.createClass({
         return validFiles;
     },
 
+    /**
+     * Remove a file selected
+     * 
+     * @param element
+     */
     removeThumbnail(element){
         let thumbnails = document.getElementById(this.elements.thumbnails);
         let thumbnail = document.getElementById(element + 'Content');
@@ -114,7 +125,7 @@ let DrawDropUpload = React.createClass({
                 updateState.push(this.state.files[i]);
             }else{
                 --this.elements.maxInputFiles;
-                this.elements.totalSize -= this.state.files[i].size;
+                this.elements.totalSize = this.elements.totalSize - this.state.files[i].size;
             }
         }
 
@@ -130,6 +141,7 @@ let DrawDropUpload = React.createClass({
      */
     addThumbnailsFile(event){
         if (window.File && window.FileReader && window.FileList && window.Blob){
+            let filesToLoad = [];
             let filesToUpload = [];
             let files = event.target.files;
 
@@ -142,7 +154,7 @@ let DrawDropUpload = React.createClass({
                 filesToUpload = files;
             }else{
 
-                files = this.validateFilesToUpload(files);
+                files = Array.from(files);
                 let filesList = Array.from(this.state.files);
 
                 let countF = files.length;
@@ -162,12 +174,14 @@ let DrawDropUpload = React.createClass({
                     }
 
                     if(!found){
-                        filesList.push(files[i]);
-                        filesToUpload.push(files[i]);
+                        filesToLoad.push(files[i]);
                     }
                 }
 
-                this.setState({errorMsg: files['error'], files: filesList}, function afterFileChange(){
+                filesToUpload = this.validateFilesToUpload(filesToLoad);
+                filesList = filesList.concat(filesToUpload);
+
+                this.setState({errorMsg: filesToUpload['error'], files: filesList}, function afterFileChange(){
                     this.props.files(this.state.files);
                 });
             }
@@ -183,7 +197,6 @@ let DrawDropUpload = React.createClass({
         let disabledUpload = (this.state.files.length) ? '' : 'disabled';
         return(
             <div id='DrawDropUploadContent'>
-
                 {(() =>{
                     if(this.state.errorMsg){
                         return(
@@ -193,7 +206,6 @@ let DrawDropUpload = React.createClass({
                 })()}
 
                 <form id='DrawDropUpload' onSubmit={this.props.action}>
-
                     <input id={this.elements.dropZoneId} type='file' onChange={this.addThumbnailsFile.bind(this)} name='files[]' multiple/>
                     <p>{translate('DRAG_DROP_FILES_TXT')}</p>
                     <output id={this.elements.thumbnails}/>

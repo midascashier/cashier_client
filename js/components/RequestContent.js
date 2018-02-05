@@ -74,23 +74,23 @@ let RequestsContent = React.createClass({
             switch(this.state.option){
                 case this.elements.DocsOptVeId:
                     return <DocsOptVerifyIdentity/>;
-                    break;
+                break;
 
                 case this.elements.DocsOptUpdInfo:
                     return <DocsOptUpdateInfo/>;
-                    break;
+                break;
 
                 case this.elements.DocsOptRepError:
                     return <DocsOptReportError/>;
-                    break;
+                break;
 
                 case this.elements.DocsOptAdditionalInfo:
                     return <DocsOptAdditionalInfo/>;
-                    break;
+                break;
 
                 case this.elements.DocsOptRecovery:
                     return <DocsOptRecovery/>;
-                    break;
+                break;
             }
         }else{
             if(this.state.responseUpload == 'success'){
@@ -111,6 +111,8 @@ let RequestsContent = React.createClass({
      * @param event
      */
     docsOptionsActions(event){
+        UIService.docsResetResponseUpload();
+
         let optionElements = document.getElementsByClassName(this.elements.DocsOptions);
         let count = optionElements.length;
 
@@ -122,9 +124,10 @@ let RequestsContent = React.createClass({
         let element  = document.getElementById(id);
         element.setAttribute('class', 'DocsOptions DocsOptionsClick');
 
-        this.setState({
-            option: id
-        });
+        let actualState = this.state;
+        actualState.option = id;
+        actualState.responseUpload = UIService.getDocsUploadResponse();
+        this.setState(actualState);
     },
 
     render(){

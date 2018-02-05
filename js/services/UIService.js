@@ -945,6 +945,13 @@ class UiService {
 	getDocsUploadResponse(){
 		return CashierStore.getDocsUploadResponse()
 	}
+
+	/**
+	 * Reset response wait
+	 */
+	docsResetResponseUpload(){
+		CashierStore.docsResetResponseUpload()
+	}
 }
 
 export let UIService = new UiService();

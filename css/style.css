@@ -816,8 +816,8 @@ input:checked + .slider:before{
 #DrawDropUpload{
     width: inherit;
     height: inherit;
-    display: inline-block;
     border-radius: 12px;
+    display: inline-block;
     border: 4px dashed #ffffff;
 }
 
@@ -920,6 +920,7 @@ input:checked + .slider:before{
 }
 
 .docsFilesVerifyIdOptions:hover{
+    border-radius: 12px;
     border: solid 1px white;
 }
 
@@ -937,10 +938,6 @@ input:checked + .slider:before{
     cursor: pointer;
 }
 
-#docsFilesShowOptionSelected:hover{
-    border: solid 1px white;
-}
-
 #DocsFileBack{
     float: right;
     margin-top: -22px;
@@ -955,6 +952,7 @@ input:checked + .slider:before{
 }
 
 .DocsFileRemoveThumbnail{
+    color: white;
     cursor: pointer;
     font-size: 30px;
     margin-top: -6px;
