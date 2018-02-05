@@ -10,6 +10,14 @@ let DrawDropUpload = React.createClass({
     },
 
     elements: {
+        rules: {
+            MAX_INPUT_FILES: 5,
+            MAX_FILE_SIZE: '4194304',
+            FILE_ACCEPTED_TYPES: ['image/jpeg', 'image/jpg', 'image/png']
+        },
+
+        totalSize: 0,
+        maxInputFiles: 0,
         dropZoneId: 'DropImagesZone',
         thumbnails: 'DragDropThumbnails',
         thumbnailClass: 'DragDropThumbnail'
@@ -19,7 +27,10 @@ let DrawDropUpload = React.createClass({
      * React function to set component initial state
      */
     getInitialState(){
-        return {files: false}
+        return {
+            files: false,
+            errorMsg: false
+        }
     },
 
     /**
@@ -62,6 +73,35 @@ let DrawDropUpload = React.createClass({
         });
     },
 
+    validateFilesToUpload(files){
+        let validFiles = [];
+        let errorMsg = false;
+
+        for(let key in files){
+            if(this.elements.rules.FILE_ACCEPTED_TYPES.indexOf(files[key].types) == -1){
+                if(files[key].size){
+                    this.elements.totalSize += files[key].size;
+                    if(this.elements.totalSize < this.elements.rules.MAX_FILE_SIZE){
+                        if(this.elements.maxInputFiles < this.elements.rules.MAX_INPUT_FILES){
+                            ++this.elements.maxInputFiles;
+                            validFiles.push(files[key]);
+                        }else{
+                            errorMsg = 'Max number files, '+ files[key].name + ' no accept';
+                        }
+                    }else{
+                        errorMsg = 'Max size files, '+ files[key].name + ' no accept';
+                    }
+                }
+            }else{
+                errorMsg = 'Type file for '+ files[key].name + ' no accept';
+            }
+        }
+
+        validFiles['error'] = errorMsg;
+
+        return validFiles;
+    },
+
     removeThumbnail(element){
         let thumbnails = document.getElementById(this.elements.thumbnails);
         let thumbnail = document.getElementById(element + 'Content');
@@ -72,10 +112,13 @@ let DrawDropUpload = React.createClass({
         for(let i=0; i<count; i++){
             if(this.state.files[i].name != element){
                 updateState.push(this.state.files[i]);
+            }else{
+                --this.elements.maxInputFiles;
+                this.elements.totalSize -= this.state.files[i].size;
             }
         }
 
-        this.setState({files: updateState}, function afterFileChange(){
+        this.setState({errorMsg: false, files: updateState}, function afterFileChange(){
             this.props.files(this.state.files);
         });
     },
@@ -91,14 +134,15 @@ let DrawDropUpload = React.createClass({
             let files = event.target.files;
 
             if(!this.state.files){
-                this.setState({files: files}, function afterFileChange(){
+                files = this.validateFilesToUpload(files);
+                this.setState({errorMsg: files['error'], files: files}, function afterFileChange(){
                     this.props.files(this.state.files);
                 });
 
                 filesToUpload = files;
             }else{
 
-                files = Array.from(files);
+                files = this.validateFilesToUpload(files);
                 let filesList = Array.from(this.state.files);
 
                 let countF = files.length;
@@ -123,7 +167,7 @@ let DrawDropUpload = React.createClass({
                     }
                 }
 
-                this.setState({files: filesList}, function afterFileChange(){
+                this.setState({errorMsg: files['error'], files: filesList}, function afterFileChange(){
                     this.props.files(this.state.files);
                 });
             }
@@ -139,7 +183,17 @@ let DrawDropUpload = React.createClass({
         let disabledUpload = (this.state.files.length) ? '' : 'disabled';
         return(
             <div id='DrawDropUploadContent'>
+
+                {(() =>{
+                    if(this.state.errorMsg){
+                        return(
+                            <span id="DrawDropErrorMsg">{this.state.errorMsg}</span>
+                        )
+                    }
+                })()}
+
                 <form id='DrawDropUpload' onSubmit={this.props.action}>
+
                     <input id={this.elements.dropZoneId} type='file' onChange={this.addThumbnailsFile.bind(this)} name='files[]' multiple/>
                     <p>{translate('DRAG_DROP_FILES_TXT')}</p>
                     <output id={this.elements.thumbnails}/>
