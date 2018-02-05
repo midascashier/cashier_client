@@ -4,7 +4,9 @@ import {translate} from '../constants/Translate'
 import {CashierStore} from '../stores/CashierStore'
 import {DocsOptRecovery} from '../components/commonComponents/DocsOnFiles/DocsOptRecovery'
 import {DocsOptUpdateInfo} from '../components/commonComponents/DocsOnFiles/DocsOptUpdateInfo'
+import {DocsUploadErrorResponse} from './commonComponents/DocsOnFiles/DocsUploadErrorResponse'
 import {DocsOptReportError} from '../components/commonComponents/DocsOnFiles/DocsOptReportError'
+import {DocsUploadSuccessResponse} from './commonComponents/DocsOnFiles/DocsUploadSuccessResponse'
 import {DocsOptAdditionalInfo} from '../components/commonComponents/DocsOnFiles/DocsOptAdditionalInfo'
 import {DocsOptVerifyIdentity} from '../components/commonComponents/DocsOnFiles/DocsOptVerifyIdentity'
 
@@ -41,7 +43,8 @@ let RequestsContent = React.createClass({
         return {
             option: this.elements.DocsOptVeId,
             recovery: docFile.pendingRecovery,
-            additionalInfo: docFile.pendingAdditionalInfo
+            additionalInfo: docFile.pendingAdditionalInfo,
+            responseUpload: UIService.getDocsUploadResponse()
         }
     },
 
@@ -67,26 +70,38 @@ let RequestsContent = React.createClass({
      * @returns {XML}
      */
     optionContent(){
-        switch(this.state.option){
-            case this.elements.DocsOptVeId:
-                return <DocsOptVerifyIdentity/>;
-            break;
+        if(!this.state.responseUpload){
+            switch(this.state.option){
+                case this.elements.DocsOptVeId:
+                    return <DocsOptVerifyIdentity/>;
+                    break;
 
-            case this.elements.DocsOptUpdInfo:
-                return <DocsOptUpdateInfo/>;
-            break;
+                case this.elements.DocsOptUpdInfo:
+                    return <DocsOptUpdateInfo/>;
+                    break;
 
-            case this.elements.DocsOptRepError:
-                return <DocsOptReportError/>;
-            break;
+                case this.elements.DocsOptRepError:
+                    return <DocsOptReportError/>;
+                    break;
 
-            case this.elements.DocsOptAdditionalInfo:
-                return <DocsOptAdditionalInfo/>;
-            break;
+                case this.elements.DocsOptAdditionalInfo:
+                    return <DocsOptAdditionalInfo/>;
+                    break;
 
-            case this.elements.DocsOptRecovery:
-                return <DocsOptRecovery/>;
-            break;
+                case this.elements.DocsOptRecovery:
+                    return <DocsOptRecovery/>;
+                    break;
+            }
+        }else{
+            if(this.state.responseUpload == 'success'){
+                return(
+                    <DocsUploadSuccessResponse/>
+                )
+            }
+
+            return(
+                <DocsUploadErrorResponse/>
+            )
         }
     },
 

@@ -322,6 +322,7 @@ let _langTags = {
 	DOCS_FILE_VERITY_CHANGE_OPTIONS: "Cambiar opcion",
 	DOCS_FILE_GO_BACK: "< Regresar",
 
+	DOCS_FILE_UPLOAD_ERROR_RESPONSE: 'Error al cargar',
 	DOCS_FILE_UPLOAD_SUCCESS_RESPONSE: '¡Carga exitosa!',
 	DOCS_FILE_UPLOAD_SUCCESS_NOTIFIED_: 'Se te notificará sobre el estado de este proceso'
 };

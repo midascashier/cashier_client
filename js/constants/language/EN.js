@@ -321,8 +321,9 @@ let _langTags = {
 	DOCS_FILE_VERIFY_OPTIONS_PASSPORT: "Passport",
 	DOCS_FILE_VERITY_CHANGE_OPTIONS: "Change option",
 	DOCS_FILE_GO_BACK: "< Back",
-	
-	DOCS_FILE_UPLOAD_SUCCESS_RESPONSE: 'Success up load!',
+
+	DOCS_FILE_UPLOAD_ERROR_RESPONSE: 'Error to upload',
+	DOCS_FILE_UPLOAD_SUCCESS_RESPONSE: 'Successful upload!',
 	DOCS_FILE_UPLOAD_SUCCESS_NOTIFIED_: 'You`ll be notified about the status of this process'
 };
 

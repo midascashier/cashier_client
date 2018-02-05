@@ -4,8 +4,6 @@ import {UIService} from '../../../services/UIService'
 import {DrawDropUpload} from '../files/DrawDropUpload'
 import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
-import {DocsUploadErrorResponse} from './DocsUploadErrorResponse'
-import {DocsUploadSuccessResponse} from './DocsUploadSuccessResponse'
 import {TransactionService} from '../../../services/TransactionService'
 
 let DocsOptVerifyIdentity = React.createClass({
@@ -38,8 +36,7 @@ let DocsOptVerifyIdentity = React.createClass({
             files: false,
             checkOption: false,
             valueOption: false,
-            verifyIdOptSelect: null,
-            responseUpload: UIService.getDocsUploadResponse()
+            verifyIdOptSelect: null
         }
     },
 
@@ -142,18 +139,6 @@ let DocsOptVerifyIdentity = React.createClass({
     },
 
     render(){
-        if(this.state.responseUpload){
-            if(this.state.responseUpload == 'success'){
-                return(
-                    <DocsUploadSuccessResponse/>
-                )
-            }
-
-            return(
-                <DocsUploadErrorResponse/>
-            )
-        }
-
         return(
             <div id="CheckIdContent">
 
