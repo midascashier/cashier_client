@@ -320,7 +320,10 @@ let _langTags = {
 	DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID: "Identification document",
 	DOCS_FILE_VERIFY_OPTIONS_PASSPORT: "Passport",
 	DOCS_FILE_VERITY_CHANGE_OPTIONS: "Change option",
-	DOCS_FILE_GO_BACK: "< Back"
+	DOCS_FILE_GO_BACK: "< Back",
+	
+	DOCS_FILE_UPLOAD_SUCCESS_RESPONSE: 'Success up load!',
+	DOCS_FILE_UPLOAD_SUCCESS_NOTIFIED_: 'You`ll be notified about the status of this process'
 };
 
 export function EN(){

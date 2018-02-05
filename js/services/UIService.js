@@ -936,6 +936,15 @@ class UiService {
 	getDocsFile(){
 		return CashierStore.getDocsFile();
 	}
+
+	/**
+	 * Get response to upload file
+	 *
+	 * @returns {boolean}
+	 */
+	getDocsUploadResponse(){
+		return CashierStore.getDocsUploadResponse()
+	}
 }
 
 export let UIService = new UiService();

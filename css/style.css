@@ -758,6 +758,33 @@ input:checked + .slider:before{
     border-radius: 50%;
 }
 
+#DocsUploadSuccessResponse{
+    float: none;
+    width: 250px;
+    color: white;
+    margin: 0 auto;
+    height: inherit;
+    font-size: 16pt;
+    margin-top: -55px;
+    font-family: Oswald-Medium;
+}
+
+#DocsUploadSuccessResponse img{
+    float: none;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    margin: 0 auto;
+    margin-top: 150px;
+}
+
+#DocsUploadSuccessResponse p{
+    width: 100%;
+    float: none;
+    height: 50px;
+    text-align: center;
+}
+
 #DrawDropUploadElement{
     width: 409px;
     height: 184px;

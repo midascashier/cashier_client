@@ -396,6 +396,7 @@ let _CryptoTransfer = {
 
 let _DocsFile = {
 	pendingRecovery: null,
+	responseUpload : false,
 	pendingAdditionalInfo: null
 };
 
@@ -824,6 +825,15 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getDocsFile(){
 		return _DocsFile
+	},
+
+	/**
+	 * Get response to upload file 
+	 * 
+	 * @returns {boolean}
+     */
+	getDocsUploadResponse(){
+		return _DocsFile.responseUpload
 	}
 });
 
@@ -1333,8 +1343,14 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					data
 					break;
 
-				case action.DOCS_FILE_SAVE_RESPONSE:
-					data;
+				case actions.DOCS_FILE_SAVE_RESPONSE:
+					if(data.result){
+						_DocsFile.responseUpload = 'success'
+					}else{
+						_DocsFile.responseUpload = 'error'
+					}
+
+					CashierStore.emitChange();
 					break;
 				
 				default:

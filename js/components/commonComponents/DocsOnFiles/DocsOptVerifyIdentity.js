@@ -3,6 +3,9 @@ import {Link} from 'react-router'
 import {UIService} from '../../../services/UIService'
 import {DrawDropUpload} from '../files/DrawDropUpload'
 import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {DocsUploadErrorResponse} from './DocsUploadErrorResponse'
+import {DocsUploadSuccessResponse} from './DocsUploadSuccessResponse'
 import {TransactionService} from '../../../services/TransactionService'
 
 let DocsOptVerifyIdentity = React.createClass({
@@ -35,8 +38,28 @@ let DocsOptVerifyIdentity = React.createClass({
             files: false,
             checkOption: false,
             valueOption: false,
-            verifyIdOptSelect: null
+            verifyIdOptSelect: null,
+            responseUpload: UIService.getDocsUploadResponse()
         }
+    },
+
+    /**
+     * this function sets and return object with local states
+     */
+    refreshLocalState(){
+        let actualState = this.state;
+        actualState.responseUpload = UIService.getDocsUploadResponse();
+
+        return actualState
+    },
+
+    /**
+     * this is the callback function the store calls when a state change
+     *
+     * @private
+     */
+    _onChange(){
+        this.setState(this.getInitialState());
     },
 
     /**
@@ -119,6 +142,18 @@ let DocsOptVerifyIdentity = React.createClass({
     },
 
     render(){
+        if(this.state.responseUpload){
+            if(this.state.responseUpload == 'success'){
+                return(
+                    <DocsUploadSuccessResponse/>
+                )
+            }
+
+            return(
+                <DocsUploadErrorResponse/>
+            )
+        }
+
         return(
             <div id="CheckIdContent">
 
@@ -223,6 +258,21 @@ let DocsOptVerifyIdentity = React.createClass({
                 })()}
             </div>
         )
+    },
+
+    /**
+     * React function to add listener to this component once is mounted
+     * here the component listen changes from the store
+     */
+    componentDidMount(){
+        CashierStore.addChangeListener(this._onChange);
+    },
+
+    /**
+     * React function to remove listener to this component once is unmounted
+     */
+    componentWillUnmount(){
+        CashierStore.removeChangeListener(this._onChange);
     }
 });
 

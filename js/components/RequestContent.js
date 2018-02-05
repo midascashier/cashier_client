@@ -16,7 +16,7 @@ let RequestsContent = React.createClass({
             optInitialTab: '#A51419'
         },
 
-        DocsOptions: 'DocsOptions',
+        DocsOptions : 'DocsOptions',
         DocsOptRecovery : 'DocsOptRecovery',
         DocsOptUpdInfo : 'DocsOptUpdateInfo',
         DocsOptVeId : 'DocsOptVerifyIdentity',
