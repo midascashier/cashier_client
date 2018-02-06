@@ -6,7 +6,8 @@ let DrawDropUpload = React.createClass({
 
     propTypes: {
         files: React.PropTypes.func,
-        action: React.PropTypes.func
+        action: React.PropTypes.func,
+        multiple: React.PropTypes.bool
     },
 
     elements: {
@@ -144,49 +145,60 @@ let DrawDropUpload = React.createClass({
             let filesToLoad = [];
             let filesToUpload = [];
             let files = event.target.files;
+            let thumbnails = document.getElementById(this.elements.thumbnails);
 
-            if(!this.state.files){
-                files = this.validateFilesToUpload(files);
-                this.setState({errorMsg: files['error'], files: files}, function afterFileChange(){
-                    this.props.files(this.state.files);
-                });
+            if((this.props.multiple)){
+                if(!this.state.files){
+                    files = this.validateFilesToUpload(files);
+                    this.setState({errorMsg: files['error'], files: files}, function afterFileChange(){
+                        this.props.files(this.state.files);
+                    });
 
-                filesToUpload = files;
-            }else{
+                    filesToUpload = files;
+                }else{
 
-                files = Array.from(files);
-                let filesList = Array.from(this.state.files);
+                    files = Array.from(files);
+                    let filesList = Array.from(this.state.files);
 
-                let countF = files.length;
-                let countFls = filesList.length;
+                    let countF = files.length;
+                    let countFls = filesList.length;
 
-                for(let i=0; i<countF; i++){
-                    let found = false;
-                    for(let j=0; j<countFls; j++){
-                        if(files[i].type == filesList[j].type){
-                            if(files[i].size == filesList[j].size){
-                                if(files[i].name == filesList[j].name){
-                                    found = true;
-                                    break
+                    for(let i=0; i<countF; i++){
+                        let found = false;
+                        for(let j=0; j<countFls; j++){
+                            if(files[i].type == filesList[j].type){
+                                if(files[i].size == filesList[j].size){
+                                    if(files[i].name == filesList[j].name){
+                                        found = true;
+                                        break
+                                    }
                                 }
                             }
                         }
+
+                        if(!found){
+                            filesToLoad.push(files[i]);
+                        }
                     }
 
-                    if(!found){
-                        filesToLoad.push(files[i]);
-                    }
+                    filesToUpload = this.validateFilesToUpload(filesToLoad);
+                    filesList = filesList.concat(filesToUpload);
+
+                    this.setState({errorMsg: filesToUpload['error'], files: filesList}, function afterFileChange(){
+                        this.props.files(this.state.files);
+                    });
+                }
+            }else{
+                if(thumbnails.lastChild){
+                    thumbnails.removeChild(thumbnails.lastChild);
                 }
 
-                filesToUpload = this.validateFilesToUpload(filesToLoad);
-                filesList = filesList.concat(filesToUpload);
-
-                this.setState({errorMsg: filesToUpload['error'], files: filesList}, function afterFileChange(){
+                filesToUpload = this.validateFilesToUpload(files);
+                this.setState({errorMsg: filesToUpload['error'], files: filesToUpload}, function afterFileChange(){
                     this.props.files(this.state.files);
                 });
             }
 
-            let thumbnails = document.getElementById(this.elements.thumbnails);
             ReaderImages(filesToUpload, thumbnails, this.elements.thumbnailClass, this.removeThumbnail.bind(this));
         }else{
             console.log('The File APIs are not fully supported in this browser.');
@@ -194,6 +206,7 @@ let DrawDropUpload = React.createClass({
     },
 
     render(){
+        let multiple = (this.props.multiple) ? 'multiple' : '';
         let disabledUpload = (this.state.files.length) ? '' : 'disabled';
         return(
             <div id='DrawDropUploadContent'>
@@ -206,7 +219,7 @@ let DrawDropUpload = React.createClass({
                 })()}
 
                 <form id='DrawDropUpload' onSubmit={this.props.action}>
-                    <input id={this.elements.dropZoneId} type='file' onChange={this.addThumbnailsFile.bind(this)} name='files[]' multiple/>
+                    <input id={this.elements.dropZoneId} type='file' onChange={this.addThumbnailsFile.bind(this)} name='files[]' multiple={multiple}/>
                     <p>{translate('DRAG_DROP_FILES_TXT')}</p>
                     <output id={this.elements.thumbnails}/>
                     <button type='submit' disabled={disabledUpload}>{translate('DRAG_DROP_UPLOAD_TXT')}</button>
