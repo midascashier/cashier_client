@@ -962,10 +962,11 @@ input:checked + .slider:before{
 
 #DocsFileCustomerFormsContent{
     width: 90%;
+    color: white;
+    padding: 10px;
     margin: 0 auto;
     height: inherit;
     overflow-y: scroll;
-    background-color: white;
 }
 
 .docsFileCustomerFormsRow{
@@ -983,12 +984,44 @@ input:checked + .slider:before{
     margin-left: 20px;
 }
 
+#DocsFileCustomerFormsHeader{
+    position: fixed;
+    margin-top: -30px;
+    background-color: #D5232F;
+    border-bottom: 1px solid white;
+}
+
+.grid-global-container{
+    margin-top: 20px;
+}
+
 .grid-container{
-    width: 100%;
+    margin-bottom: 10px;
     display: inline-grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: 200px 250px 200px 200px;;
 }
 
 .grid-item{
     text-align: center;
+}
+
+.grid-container input{
+    width: 80px;
+    margin: 0 auto;
+    border-radius: 7px;
+    background-color: #9c8d8d;
+}
+
+#DocsFileCustomerFormsContent::-webkit-scrollbar{
+    width: 10px;
+}
+
+#DocsFileCustomerFormsContent::-webkit-scrollbar-track{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px ;
+}
+
+#DocsFileCustomerFormsContent::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: rgba(0,0,0,1);
 }

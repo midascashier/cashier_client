@@ -25,7 +25,13 @@ let DocsVerifyIDCustomerForms = React.createClass({
     render(){
         return (
             <div id="DocsFileCustomerFormsContent">
-                <div className="grid-gloabal-container">
+                <div id="DocsFileCustomerFormsHeader" className="grid-container">
+                    <span className="grid-item">Document</span>
+                    <span className="grid-item">Created Date</span>
+                    <span className="grid-item">Status</span>
+                    <span className="grid-item">Action</span>
+                </div>
+                <div className="grid-global-container">
                     {this.props.forms.map(this.genDocumentRegisters)}
                 </div>
             </div>
