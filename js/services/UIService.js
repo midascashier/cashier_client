@@ -917,6 +917,29 @@ class UiService {
 	}
 
 	docFilesCustomerFormsInformation(categoryId){
+		let action;
+		switch(categoryId){
+			case cashier.DOCS_FILE_CATEGORY_KYC:
+				action = actions.DOCS_FILES_GET_KYC_FORMS_INFORMATION_RESPONSE;
+			break;
+
+			case cashier.DOCS_FILE_CATEGORY_ACCOUNT:
+				action = actions.DOCS_FILES_GET_KYC_FORMS_INFORMATION_RESPONSE;
+			break;
+
+			case cashier.DOCS_FILE_CATEGORY_ISSUE:
+				action = actions.DOCS_FILES_GET_KYC_FORMS_INFORMATION_RESPONSE;
+			break;
+
+			case cashier.DOCS_FILE_CATEGORY_VERIFICATION:
+				action = actions.DOCS_FILES_GET_KYC_FORMS_INFORMATION_RESPONSE;
+			break;
+
+			case cashier.DOCS_FILE_CATEGORY_RECOVERY:
+				action = actions.DOCS_FILES_GET_KYC_FORMS_INFORMATION_RESPONSE;
+			break;
+		}
+
 		let params = {
 			languageId: 10,
 			categoryId: categoryId,
@@ -925,7 +948,7 @@ class UiService {
 			customerId: UIService.getCustomerInformation().customerId
 		};
 
-		ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_FORMS_INFORMATION_RESPONSE, params);
+		ConnectorServices.makeCashierRequest(action, params);
 	}
 
 	/**

@@ -1,9 +1,11 @@
 import React from 'react'
 import {Link} from 'react-router'
+import Cashier from '../../../constants/Cashier'
 import {UIService} from '../../../services/UIService'
 import {DrawDropUpload} from '../files/DrawDropUpload'
 import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
+import {DocsVerifyIDCustomerForms} from './DocsVerifyIDCustomerForms'
 import {TransactionService} from '../../../services/TransactionService'
 
 let DocsOptVerifyIdentity = React.createClass({
@@ -63,7 +65,7 @@ let DocsOptVerifyIdentity = React.createClass({
      * Execute actions when component will mount
      */
     componentWillMount(){
-        UIService.docFilesCustomerFormsInformation(1)
+        UIService.docFilesCustomerFormsInformation(Cashier.DOCS_FILE_CATEGORY_KYC)
     },
 
     /**
@@ -139,6 +141,11 @@ let DocsOptVerifyIdentity = React.createClass({
     },
 
     render(){
+        let docs = UIService.getDocsFile();
+        if(docs.forms.KYC.customerForms){
+            return <DocsVerifyIDCustomerForms forms={docs.forms.KYC.customerForms}/>
+        }
+
         return(
             <div id="CheckIdContent">
 

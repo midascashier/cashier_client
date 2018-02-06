@@ -324,7 +324,22 @@ let _langTags = {
 
 	DOCS_FILE_UPLOAD_ERROR_RESPONSE: 'Error to upload',
 	DOCS_FILE_UPLOAD_SUCCESS_RESPONSE: 'Successful upload!',
-	DOCS_FILE_UPLOAD_SUCCESS_NOTIFIED_: 'You`ll be notified about the status of this process'
+	DOCS_FILE_UPLOAD_SUCCESS_NOTIFIED_: 'You`ll be notified about the status of this process',
+
+	DOCS_FILE_STATUS_1 : 'SENT',
+	DOCS_FILE_STATUS_2 : 'REVIEW',
+	DOCS_FILE_STATUS_3 : 'PENDING',
+	DOCS_FILE_STATUS_4 : 'REJECTED',
+	DOCS_FILE_STATUS_5 : 'APPROVED',
+
+	DOCFILE_FORM_KYC_ID_TITLE : 'Identification',
+	DOCFILE_FORM_UPDATEINFO_TITLE : 'Update account information',
+	DOCFILE_FORM_ISSUE_TITLE : 'Credit card new issue',
+	DOCFILE_FORM_KYC_CARD_TITLE : 'Card verification',
+	DOCFILE_FORM_KYC_EWALLET_TITLE : 'Ewallet verification',
+	DOCFILE_FORM_RECOVERY_TITLE : 'Recovery',
+	DOCFILE_FORM_VERIFICATION_TITLE : 'Additional verification',
+	DOCFILE_FORM_PROOF_TITLE : 'Proof of address'
 };
 
 export function EN(){

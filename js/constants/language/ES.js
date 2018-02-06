@@ -324,7 +324,13 @@ let _langTags = {
 
 	DOCS_FILE_UPLOAD_ERROR_RESPONSE: 'Error al cargar',
 	DOCS_FILE_UPLOAD_SUCCESS_RESPONSE: '¡Carga exitosa!',
-	DOCS_FILE_UPLOAD_SUCCESS_NOTIFIED_: 'Se te notificará sobre el estado de este proceso'
+	DOCS_FILE_UPLOAD_SUCCESS_NOTIFIED_: 'Se te notificará sobre el estado de este proceso',
+
+	DOCS_FILE_STATUS_1 : 'ENVIADO',
+	DOCS_FILE_STATUS_2 : 'EN REVISION',
+	DOCS_FILE_STATUS_3 : 'PENDIENTE',
+	DOCS_FILE_STATUS_4 : 'RECHAZADO',
+	DOCS_FILE_STATUS_5 : 'APROVADO'
 };
 
 export function ES(){

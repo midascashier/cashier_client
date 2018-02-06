@@ -959,3 +959,36 @@ input:checked + .slider:before{
     position: absolute;
     margin-left: -21px;
 }
+
+#DocsFileCustomerFormsContent{
+    width: 90%;
+    margin: 0 auto;
+    height: inherit;
+    overflow-y: scroll;
+    background-color: white;
+}
+
+.docsFileCustomerFormsRow{
+    float: none;
+    background-color: beige;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
+}
+
+.docsFileCustomerFormsRow span{
+    margin-left: 20px;
+}
+
+.grid-container{
+    width: 100%;
+    display: inline-grid;
+    grid-template-columns: auto auto auto auto;
+}
+
+.grid-item{
+    text-align: center;
+}

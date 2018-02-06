@@ -397,7 +397,15 @@ let _CryptoTransfer = {
 let _DocsFile = {
 	pendingRecovery: null,
 	responseUpload : false,
-	pendingAdditionalInfo: null
+	pendingAdditionalInfo: null,
+
+	forms: {
+		KYC : {
+			forms : {},
+			kycIDApproved : null,
+			customerForms : false
+		}
+	}
 };
 
 let CHANGE_EVENT = 'change';
@@ -1346,8 +1354,19 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					}
 					break;
 
-				case actions.DOCS_FILES_GET_FORMS_INFORMATION_RESPONSE:
-					data
+				case actions.DOCS_FILES_GET_KYC_FORMS_INFORMATION_RESPONSE:
+					if(data.state == 'ok'){
+						if(data.response.result){
+							if(data.response.result.customerForms.length){
+								_DocsFile.forms.KYC.customerForms = data.response.result.customerForms
+							}
+
+							_DocsFile.forms.KYC.forms = data.response.result.forms;
+							_DocsFile.forms.KYC.kycIDApproved = data.response.result.kycIDApproved;
+						}
+
+						CashierStore.emitChange();
+					}
 					break;
 
 				case actions.DOCS_FILE_SAVE_RESPONSE:
