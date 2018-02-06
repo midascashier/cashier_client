@@ -863,7 +863,11 @@ class UiService {
 	 * @param currencyCode
 	 * @returns {boolean}
 	 */
-	refundAddressRequired(currencyCode){
+	cryptoAddressRequired(currencyCode){
+		if(this.getIsWithDraw()){
+			return true;
+		}
+
 		let processor = CashierStore.getProcessor();
 		let processorId = processor.processorId;
 		if(processorId == cashier.PROCESSOR_ID_CRYPTOScreen){

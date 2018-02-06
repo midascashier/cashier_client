@@ -289,8 +289,8 @@ let _langTags = {
 	CRYPTO_INSTRUCTIONS_ADDRESS_INFO: "Please include any Miners Fee your {cryptoCurrency} wallet charges.",
 	CRYPTO_MONERO_MESSAGE: "If you enter a Monero refund address, DO NOT use an address from an exchange or shared wallet that requires a payment ID. Only use a refund address from a wallet you control, which doesn\'t require a payment ID.",
 	CRYPTO_EXPIRED_SESSION_MSG: 'Your session has expired due to inactivity. Please login again to continue using our cashier.',
-	CRYPTO_INSTRUCTIONS_PROCESS_INSIDE: "Crypto Transfer withdraws will be process inside 24 hours, but are typically processed within anhour.",
-	CRYPTO_WITHDRAWS_INSIDE: "Crypto Transfer withdraws will be process inside 24 hours, but are typically processed within an hour.",
+	CRYPTO_INSTRUCTIONS_PROCESS_INSIDE: "Crypto Transfer withdrawals will be processed within 24 hours, but are usually processed as soon as possible.",
+	CRYPTO_WITHDRAWS_INSIDE: "Crypto Transfer withdrawals will be processed within 24 hours, but are usually processed as soon as possible.",
 
 	//resources
 	CC_LIMIT_ERROR_COUNT: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle red"></i><strong>{displayName}</strong> - <span>The credit card selected has reached its maximum number of transactions allowed. Please select another credit card</span></div>',
