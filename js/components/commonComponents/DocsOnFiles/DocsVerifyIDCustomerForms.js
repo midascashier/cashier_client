@@ -1,5 +1,4 @@
 import React from 'react'
-import {Fragment} from 'react'
 import {translate} from '../../../constants/Translate'
 
 let DocsVerifyIDCustomerForms = React.createClass({
@@ -14,19 +13,21 @@ let DocsVerifyIDCustomerForms = React.createClass({
 
     genDocumentRegisters(element){
         return (
-            <Fragment>
+            <div className="grid-container">
                 <span className="grid-item">{translate(element.TagTitle)}</span>
                 <span className="grid-item">{translate(element.DateCreated)}</span>
                 <span className="grid-item">{translate('DOCS_FILE_STATUS_' + element.caDocumentStatus_Id)}</span>
                 <input type="button" value="Boton" className="grid-item" onClick={this.editRequest}/>
-            </Fragment>
+            </div>
         )
     },
 
     render(){
         return (
-            <div className="grid-container">
-                {this.props.forms.map(this.genDocumentRegisters)}
+            <div id="DocsFileCustomerFormsContent">
+                <div className="grid-gloabal-container">
+                    {this.props.forms.map(this.genDocumentRegisters)}
+                </div>
             </div>
         )
     }
