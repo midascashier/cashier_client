@@ -1,11 +1,8 @@
 import React from 'react'
-import {Link} from 'react-router'
-import Cashier from '../../../constants/Cashier'
 import {UIService} from '../../../services/UIService'
 import {DrawDropUpload} from '../files/DrawDropUpload'
 import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
-import {LoadingSpinner} from '../../loading/LoadingSpinner'
 import {DocsVerifyIDCustomerForms} from './DocsVerifyIDCustomerForms'
 import {TransactionService} from '../../../services/TransactionService'
 
@@ -37,20 +34,11 @@ let DocsOptVerifyIdentity = React.createClass({
     getInitialState(){
         return{
             files: false,
+            addDocument: false,
             checkOption: false,
             valueOption: false,
             verifyIdOptSelect: null
         }
-    },
-
-    /**
-     * this function sets and return object with local states
-     */
-    refreshLocalState(){
-        let actualState = this.state;
-        actualState.responseUpload = UIService.getDocsUploadResponse();
-
-        return actualState
     },
 
     /**
@@ -60,13 +48,6 @@ let DocsOptVerifyIdentity = React.createClass({
      */
     _onChange(){
         this.setState(this.getInitialState());
-    },
-
-    /**
-     * Execute actions when component will mount
-     */
-    componentWillMount(){
-        UIService.docFilesCustomerFormsInformation(Cashier.DOCS_FILE_CATEGORY_KYC)
     },
 
     /**
@@ -113,6 +94,15 @@ let DocsOptVerifyIdentity = React.createClass({
     },
 
     /**
+     * Add new document
+     */
+    addDocument(){
+        let actualState = this.state;
+        actualState.addDocument = true;
+        this.setState(actualState);
+    },
+
+    /**
      * Upload files selected
      * 
      * @param e
@@ -145,13 +135,23 @@ let DocsOptVerifyIdentity = React.createClass({
         let docs = UIService.getDocsFile();
 
         if(docs.readyPending){
-            if(docs.forms.KYC.customerForms){
-                return <DocsVerifyIDCustomerForms forms={docs.forms.KYC.customerForms}/>
+            let switchVal;
+            if(docs.forms.KYC.kycIDApproved && !this.state.checkOption){
+                let actualState = this.state;
+                actualState.checkOption = docs.forms.KYC.kycIDApproved;
+                this.setState(actualState);
+                switchVal = docs.forms.KYC.kycIDApproved;
+            }else{
+                switchVal = this.state.checkOption
+            }
+
+            let disabledSwitch = (docs.forms.KYC.kycIDApproved) ? 'disabled' : '';
+            if(docs.forms.KYC.customerForms && !this.state.addDocument){
+                return <DocsVerifyIDCustomerForms forms={docs.forms.KYC.customerForms} addDocument={this.addDocument}/>
             }
 
             return(
                 <div id="CheckIdContent">
-
                     {(() =>{
                         if(this.state.verifyIdOptSelect){
                             let src = "../images/" + this.state.verifyIdOptSelect + ".png";
@@ -169,7 +169,7 @@ let DocsOptVerifyIdentity = React.createClass({
                     })()}
 
                     <div id="docsFileTXT">
-
+                        {translate('DOCS_FILE_VERIFY_IMPORTANT_TXT')}
                     </div>
 
                     <div className="OptTittle">
@@ -180,7 +180,7 @@ let DocsOptVerifyIdentity = React.createClass({
 
                     <div id="switchOpt">
                         <label className="switch">
-                            <input type="checkbox" onChange={this.switchVerifyType}/>
+                            <input type="checkbox" onChange={this.switchVerifyType} disabled={disabledSwitch} checked={switchVal}/>
                             <span className="slider round"/>
                         </label>
                     </div>
@@ -231,23 +231,11 @@ let DocsOptVerifyIdentity = React.createClass({
                             )
                         }
                     })()}
-
-                    {(() =>{
-                        if(!this.state.verifyIdOptSelect){
-                            return (
-                                <div id="DocsFileBack">
-                                    <Link to={`/deposit/`}>
-                                        <span>{translate('DOCS_FILE_GO_BACK')}</span>
-                                    </Link>
-                                </div>
-                            )
-                        }
-                    })()}
                 </div>
             )
         }
 
-        return <LoadingSpinner/>
+        return <div className="loader"></div>
     },
 
     /**

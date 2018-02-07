@@ -403,7 +403,7 @@ let _DocsFile = {
 	forms: {
 		KYC : {
 			forms : {},
-			kycIDApproved : null,
+			kycIDApproved : false,
 			customerForms : false
 		}
 	}

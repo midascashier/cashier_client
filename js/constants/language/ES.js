@@ -316,11 +316,15 @@ let _langTags = {
 	DRAG_DROP_FILES_TXT: "Arrastra y suelta o haz clic aquí.",
 	DRAG_DROP_UPLOAD_TXT: "Subir",
 
+	DOCS_FILE_VERIFY_IMPORTANT_TXT: 'Cargue solo imágenes, los cuatro bordes de la identificación o pasaporte deben estar visibles en la imagen y la información debe estar clara, si es posible evite usar el flash.',
+	DOCS_FILE_VERITY_ADD_DOCUMENT: 'Nuevo Documento',
 	DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID: "Licencia de conducir y tarjeta de seguro social.",
 	DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID: "Documento de identificación.",
 	DOCS_FILE_VERIFY_OPTIONS_PASSPORT: "Pasaporte",
 	DOCS_FILE_VERITY_CHANGE_OPTIONS: "Cambiar opcion",
+	DOCS_FILE_GO_HOME: "< Inicio",
 	DOCS_FILE_GO_BACK: "< Regresar",
+	DOCS_FILE_EDIT_BTN: 'Editar',
 
 	DOCS_FILE_UPLOAD_ERROR_RESPONSE: 'Error al cargar',
 	DOCS_FILE_UPLOAD_SUCCESS_RESPONSE: '¡Carga exitosa!',
@@ -330,7 +334,20 @@ let _langTags = {
 	DOCS_FILE_STATUS_2 : 'EN REVISION',
 	DOCS_FILE_STATUS_3 : 'PENDIENTE',
 	DOCS_FILE_STATUS_4 : 'RECHAZADO',
-	DOCS_FILE_STATUS_5 : 'APROVADO'
+	DOCS_FILE_STATUS_5 : 'APROVADO',
+
+	DOCFILE_FORM_KYC_TABLE_DOCUMENT: 'Documento',
+	DOCFILE_FORM_KYC_TABLE_CREATED_DATE: 'Fecha de creación',
+	DOCFILE_FORM_KYC_TABLE_STATUS: 'Estado',
+	DOCFILE_FORM_KYC_TABLE_ACTION: 'Acción',
+	DOCFILE_FORM_KYC_ID_TITLE : 'Identificación',
+	DOCFILE_FORM_UPDATEINFO_TITLE : 'Actualizar información de la cuenta',
+	DOCFILE_FORM_ISSUE_TITLE : 'Nuevo problema con la tarjeta de crédito',
+	DOCFILE_FORM_KYC_CARD_TITLE : 'Verificación de tarjeta',
+	DOCFILE_FORM_KYC_EWALLET_TITLE : 'Verificación de billetera electronica',
+	DOCFILE_FORM_RECOVERY_TITLE : 'Recuperación',
+	DOCFILE_FORM_VERIFICATION_TITLE : 'Verificación adicional',
+	DOCFILE_FORM_PROOF_TITLE : 'Prueba de domicilio'
 };
 
 export function ES(){

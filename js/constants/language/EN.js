@@ -316,12 +316,16 @@ let _langTags = {
 	DRAG_DROP_FILES_TXT: "Drag and drop or click here.",
 	DRAG_DROP_UPLOAD_TXT: "Upload",
 
+	DOCS_FILE_VERIFY_IMPORTANT_TXT: 'Please upload pictures only, four edges of the ID or Passport have to be visible in the picture and the information must be clear so avoid using flash.',
 	DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID: "Driver's license and social security card.",
 	DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID: "Identification document",
 	DOCS_FILE_VERIFY_OPTIONS_PASSPORT: "Passport",
 	DOCS_FILE_VERITY_CHANGE_OPTIONS: "Change option",
 	DOCS_FILE_GO_BACK: "< Back",
+	DOCS_FILE_GO_HOME: "< Home",
+	DOCS_FILE_EDIT_BTN: 'Edit',
 
+	DOCS_FILE_VERITY_ADD_DOCUMENT: 'Add Document',
 	DOCS_FILE_UPLOAD_ERROR_RESPONSE: 'Error to upload',
 	DOCS_FILE_UPLOAD_SUCCESS_RESPONSE: 'Successful upload!',
 	DOCS_FILE_UPLOAD_SUCCESS_NOTIFIED_: 'You`ll be notified about the status of this process',
@@ -332,6 +336,10 @@ let _langTags = {
 	DOCS_FILE_STATUS_4 : 'REJECTED',
 	DOCS_FILE_STATUS_5 : 'APPROVED',
 
+	DOCFILE_FORM_KYC_TABLE_DOCUMENT: 'Document',
+	DOCFILE_FORM_KYC_TABLE_CREATED_DATE: 'Created date',
+	DOCFILE_FORM_KYC_TABLE_STATUS: 'Status',
+	DOCFILE_FORM_KYC_TABLE_ACTION: 'Action',
 	DOCFILE_FORM_KYC_ID_TITLE : 'Identification',
 	DOCFILE_FORM_UPDATEINFO_TITLE : 'Update account information',
 	DOCFILE_FORM_ISSUE_TITLE : 'Credit card new issue',

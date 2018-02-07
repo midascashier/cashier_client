@@ -1,4 +1,6 @@
 import React from 'react'
+import {Link} from 'react-router'
+import Cashier from '../constants/Cashier'
 import {UIService} from '../services/UIService'
 import {translate} from '../constants/Translate'
 import {CashierStore} from '../stores/CashierStore'
@@ -62,6 +64,7 @@ let RequestsContent = React.createClass({
      */
     componentWillMount(){
         UIService.docFilesCustomerPendingForms();
+        UIService.docFilesCustomerFormsInformation(Cashier.DOCS_FILE_CATEGORY_KYC)
     },
 
     /**
@@ -163,6 +166,12 @@ let RequestsContent = React.createClass({
                             )
                         }
                     })()}
+
+                    <div id="DocsFileBack">
+                        <Link to={`/deposit/`}>
+                            <span>{translate('DOCS_FILE_GO_HOME')}</span>
+                        </Link>
+                    </div>
                 </div>
                 <div id="requestOptionContent">
                     {this.optionContent()}
