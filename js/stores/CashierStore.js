@@ -395,6 +395,7 @@ let _CryptoTransfer = {
 };
 
 let _DocsFile = {
+	readyPending: false,
 	pendingRecovery: null,
 	responseUpload : false,
 	pendingAdditionalInfo: null,
@@ -849,6 +850,13 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	docsResetResponseUpload(){
 		_DocsFile.responseUpload = false
+	},
+
+	/**
+	 * Wait pending actions
+	 */
+	docsFileWaitPending(){
+		_DocsFile.readyPending = false;
 	}
 });
 
@@ -1364,6 +1372,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 							_DocsFile.forms.KYC.forms = data.response.result.forms;
 							_DocsFile.forms.KYC.kycIDApproved = data.response.result.kycIDApproved;
 						}
+
+						_DocsFile.readyPending = true;
 
 						CashierStore.emitChange();
 					}

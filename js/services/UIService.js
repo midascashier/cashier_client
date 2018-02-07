@@ -948,6 +948,7 @@ class UiService {
 			customerId: UIService.getCustomerInformation().customerId
 		};
 
+		CashierStore.docsFileWaitPending();
 		ConnectorServices.makeCashierRequest(action, params);
 	}
 

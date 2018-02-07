@@ -5,6 +5,7 @@ import {UIService} from '../../../services/UIService'
 import {DrawDropUpload} from '../files/DrawDropUpload'
 import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
+import {LoadingSpinner} from '../../loading/LoadingSpinner'
 import {DocsVerifyIDCustomerForms} from './DocsVerifyIDCustomerForms'
 import {TransactionService} from '../../../services/TransactionService'
 
@@ -142,106 +143,111 @@ let DocsOptVerifyIdentity = React.createClass({
 
     render(){
         let docs = UIService.getDocsFile();
-        if(docs.forms.KYC.customerForms){
-            return <DocsVerifyIDCustomerForms forms={docs.forms.KYC.customerForms}/>
+
+        if(docs.readyPending){
+            if(docs.forms.KYC.customerForms){
+                return <DocsVerifyIDCustomerForms forms={docs.forms.KYC.customerForms}/>
+            }
+
+            return(
+                <div id="CheckIdContent">
+
+                    {(() =>{
+                        if(this.state.verifyIdOptSelect){
+                            let src = "../images/" + this.state.verifyIdOptSelect + ".png";
+                            return(
+                                <div id="docsFilesShowOptionSelectedContent" onClick={this.verifyIdOptionsReset}>
+                                    <img
+                                        src={src}
+                                        id="docsFilesShowOptionSelected"
+                                        title={translate('DOCS_FILE_VERITY_CHANGE_OPTIONS')}
+                                    />
+                                    <span>{translate('DOCS_FILE_GO_BACK')}</span>
+                                </div>
+                            )
+                        }
+                    })()}
+
+                    <div id="docsFileTXT">
+
+                    </div>
+
+                    <div className="OptTittle">
+                        <span>{translate('MY_REQUEST_DOCS_OPTION_ID_TXT')}</span>
+                        <span className="switch"/>
+                        <span>{translate('MY_REQUEST_DOCS_OPTION_VE_EW_TXT')}</span>
+                    </div>
+
+                    <div id="switchOpt">
+                        <label className="switch">
+                            <input type="checkbox" onChange={this.switchVerifyType}/>
+                            <span className="slider round"/>
+                        </label>
+                    </div>
+
+                    {(() =>{
+                        let ele = this.element;
+                        let src = "../images/"+ this.element.idDocumentOption.name +".png";
+                        if(!this.state.verifyIdOptSelect && !this.state.checkOption){
+                            return (
+                                <div id="CheckIdVerifyOptions">
+                                    <img
+                                        id={ele.driverLicenseOption.name}
+                                        className="docsFilesVerifyIdOptions"
+                                        onClick={this.verifyIdOptionsChange}
+                                        src="../images/driverLicenseOption.png"
+                                        alt={translate('DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID')}
+                                        title={translate('DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID')}
+                                    />
+
+                                    <img
+                                        id={ele.passportOption.name}
+                                        src="../images/passportOption.png"
+                                        onClick={this.verifyIdOptionsChange}
+                                        className="docsFilesVerifyIdOptions"
+                                        alt={translate('DOCS_FILE_VERIFY_OPTIONS_PASSPORT')}
+                                        title={translate('DOCS_FILE_VERIFY_OPTIONS_PASSPORT')}
+                                    />
+
+                                    <img
+                                        src={src}
+                                        id={ele.idDocumentOption.name}
+                                        className="docsFilesVerifyIdOptions"
+                                        onClick={this.verifyIdOptionsChange}
+                                        alt={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
+                                        title={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
+                                    />
+                                </div>
+                            )
+                        }
+                    })()}
+
+                    {(() =>{
+                        if(this.state.verifyIdOptSelect || this.state.checkOption){
+                            return(
+                                <div id="DrawDropUploadElement">
+                                    <DrawDropUpload action={this.uploadCurrentFiles} files={this.setFiles} multiple="true"/>
+                                </div>
+                            )
+                        }
+                    })()}
+
+                    {(() =>{
+                        if(!this.state.verifyIdOptSelect){
+                            return (
+                                <div id="DocsFileBack">
+                                    <Link to={`/deposit/`}>
+                                        <span>{translate('DOCS_FILE_GO_BACK')}</span>
+                                    </Link>
+                                </div>
+                            )
+                        }
+                    })()}
+                </div>
+            )
         }
 
-        return(
-            <div id="CheckIdContent">
-
-                {(() =>{
-                    if(this.state.verifyIdOptSelect){
-                        let src = "../images/" + this.state.verifyIdOptSelect + ".png";
-                        return(
-                            <div id="docsFilesShowOptionSelectedContent" onClick={this.verifyIdOptionsReset}>
-                                <img
-                                    src={src}
-                                    id="docsFilesShowOptionSelected"
-                                    title={translate('DOCS_FILE_VERITY_CHANGE_OPTIONS')}
-                                />
-                                <span>{translate('DOCS_FILE_GO_BACK')}</span>
-                            </div>
-                        )
-                    }
-                })()}
-
-                <div id="docsFileTXT">
-                    
-                </div>
-
-                <div className="OptTittle">
-                    <span>{translate('MY_REQUEST_DOCS_OPTION_ID_TXT')}</span>
-                    <span className="switch"/>
-                    <span>{translate('MY_REQUEST_DOCS_OPTION_VE_EW_TXT')}</span>
-                </div>
-
-                <div id="switchOpt">
-                    <label className="switch">
-                        <input type="checkbox" onChange={this.switchVerifyType}/>
-                        <span className="slider round"/>
-                    </label>
-                </div>
-
-                {(() =>{
-                    let ele = this.element;
-                    let src = "../images/"+ this.element.idDocumentOption.name +".png";
-                    if(!this.state.verifyIdOptSelect && !this.state.checkOption){
-                        return (
-                            <div id="CheckIdVerifyOptions">
-                                <img
-                                    id={ele.driverLicenseOption.name}
-                                    className="docsFilesVerifyIdOptions"
-                                    onClick={this.verifyIdOptionsChange}
-                                    src="../images/driverLicenseOption.png"
-                                    alt={translate('DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID')}
-                                    title={translate('DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID')}
-                                />
-
-                                <img
-                                    id={ele.passportOption.name}
-                                    src="../images/passportOption.png"
-                                    onClick={this.verifyIdOptionsChange}
-                                    className="docsFilesVerifyIdOptions"
-                                    alt={translate('DOCS_FILE_VERIFY_OPTIONS_PASSPORT')}
-                                    title={translate('DOCS_FILE_VERIFY_OPTIONS_PASSPORT')}
-                                />
-
-                                <img
-                                    src={src}
-                                    id={ele.idDocumentOption.name}
-                                    className="docsFilesVerifyIdOptions"
-                                    onClick={this.verifyIdOptionsChange}
-                                    alt={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
-                                    title={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
-                                />
-                            </div>
-                        )
-                    }
-                })()}
-
-                {(() =>{
-                    if(this.state.verifyIdOptSelect || this.state.checkOption){
-                        return(
-                            <div id="DrawDropUploadElement">
-                                <DrawDropUpload action={this.uploadCurrentFiles} files={this.setFiles} multiple="true"/>
-                            </div>
-                        )
-                    }
-                })()}
-
-                {(() =>{
-                    if(!this.state.verifyIdOptSelect){
-                        return (
-                            <div id="DocsFileBack">
-                                <Link to={`/deposit/`}>
-                                    <span>{translate('DOCS_FILE_GO_BACK')}</span>
-                                </Link>
-                            </div>
-                        )
-                    }
-                })()}
-            </div>
-        )
+        return <LoadingSpinner/>
     },
 
     /**

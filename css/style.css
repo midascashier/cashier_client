@@ -623,6 +623,12 @@ div[class*="col-"] > div[class*="col-"]:before {
   font-size: 14px;
 }
 
+#requestContent{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
 #requestsOptions{
     float: left;
     display: flex;
@@ -653,11 +659,6 @@ div[class*="col-"] > div[class*="col-"]:before {
     height: 59px;
     margin-top: 0;
     background-color: #D5232F;
-}
-
-#requestContent{
-    width: 100%;
-    background-color: black;
 }
 
 #requestOptionContent{
@@ -886,10 +887,12 @@ input:checked + .slider:before{
 #DragDropThumbnails::-webkit-scrollbar{
     height: 7px;
 }
+
 #DragDropThumbnails::-webkit-scrollbar-track{
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,1);
 }
+
 #DragDropThumbnails::-webkit-scrollbar-thumb{
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,1);
@@ -964,8 +967,8 @@ input:checked + .slider:before{
     width: 90%;
     color: white;
     padding: 10px;
+    height: 455px;
     margin: 0 auto;
-    height: inherit;
     overflow-y: scroll;
 }
 
