@@ -288,8 +288,8 @@ let _langTags = {
 	CRYPTO_INSTRUCTIONS_ADDRESS_INFO: "Por favor incluya el cargo del minero en {cryptoCurrency} cargos de billetera.",
 	CRYPTO_MONERO_MESSAGE : "Si ingresa una dirección de reembolso de Monero, NO use una dirección de un intercambio o una billetera compartida que requiera una identificación de pago. Solo use una dirección de reembolso de una billetera que controle, que no requiere una identificación de pago.",
 	CRYPTO_EXPIRED_SESSION_MSG : 'Su sesión ha expirado debido a inactividad. Por favor, vuelva a iniciar sesión para continuar usando nuestro cajero.',
-	CRYPTO_INSTRUCTIONS_PROCESS_INSIDE: "Las retiradas de Crypto Transfer se procesarán dentro de las 24 horas, pero normalmente se procesan dentro de una hora.",
-	CRYPTO_WITHDRAWS_INSIDE: "Los retiros de Crypto Transfer se procesarán dentro de las próximas 24 horas, pero normalmente se procesan en una hora.",
+	CRYPTO_INSTRUCTIONS_PROCESS_INSIDE: "Los retiros de Crypto Transfer se procesarán dentro de las 24 horas, pero generalmente se procesan lo antes posible.",
+	CRYPTO_WITHDRAWS_INSIDE: "Los retiros de Crypto Transfer se procesarán dentro de las 24 horas, pero generalmente se procesan lo antes posible.",
 
 	//resources
 	CC_LIMIT_ERROR_COUNT: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i><strong>{displayName}</strong> - <span>La tarjeta seleccionada ha alcanzado el máximo número de transacciones permitido por nosotros. Por favor intente otra tarjeta</span></div>',

@@ -114,7 +114,7 @@ let InfoMethod = React.createClass({
 		this.setState({checkIn: true});
 		let processor = UIService.getProcessorId();
 		let currencyISO = this.props.cryptoCurrencyISO;
-		let needCryptoAddress = UIService.refundAddressRequired(currencyISO);
+		let needCryptoAddress = UIService.cryptoAddressRequired(currencyISO);
 		if(needCryptoAddress || processor == Cashier.PROCESSOR_ID_CRYPTO_TRANSFER){
 			this.props.checkCryptoAddress((valid) =>{
 				if(valid){
@@ -143,7 +143,7 @@ let InfoMethod = React.createClass({
 			}
 		}else{
 			let processor = UIService.getProcessorId();
-			let needCryptoAddress = UIService.refundAddressRequired(this.props.getSymbol());
+			let needCryptoAddress = UIService.cryptoAddressRequired(this.props.getSymbol());
 			if(limitsCheck && (this.props.cryptoAddress || (!needCryptoAddress && processor != Cashier.PROCESSOR_ID_CRYPTO_TRANSFER))){
 				isNextDisabled = "";
 			}

@@ -227,10 +227,8 @@ let AskInfo = React.createClass({
 	 * @param event
 	 */
 	changeCryptoAddress(event){
-		let symbol = this.props.getSymbol();
 		let cryptoAddress = event.target.value;
 		this.props.setCryptoAddress(cryptoAddress);
-		//UIService.validateCryptoAddress(symbol, cryptoAddress);
 	},
 
 	/**
@@ -333,7 +331,7 @@ let AskInfo = React.createClass({
 
 						{(() =>{
 							let symbol = this.props.getSymbol();
-							let needAddress = UIService.refundAddressRequired(symbol);
+							let needAddress = UIService.cryptoAddressRequired(symbol);
 							if(needAddress){
 								return(
 									<div id="cryptoAddressContainer">
