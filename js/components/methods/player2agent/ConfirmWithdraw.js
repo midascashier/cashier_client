@@ -5,7 +5,7 @@ import { UIService } from '../../../services/UIService'
 import { TransactionService } from '../../../services/TransactionService'
 import { ApplicationService } from '../../../services/ApplicationService'
 
-let AgentTransferConfirmWithdraw = React.createClass({
+let Player2AgentConfirmWithdraw = React.createClass({
 
 	/**
 	 * React function to set component initial state
@@ -149,4 +149,4 @@ let AgentTransferConfirmWithdraw = React.createClass({
 	}
 });
 
-module.exports.BitCoinConfirmWithdraw = AgentTransferConfirmWithdraw;
+module.exports.Player2AgentConfirmWithdraw = Player2AgentConfirmWithdraw;

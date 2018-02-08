@@ -313,9 +313,11 @@ let _langTags = {
 	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "BILLETERA ELECTRÓNICA",
 
 	DRAG_DROP_FILES_TXT: "Arrastra tus archivos aquí o haz clic en esta área.",
-	DRAG_DROP_UPLOAD_TXT: "Subir"
+	DRAG_DROP_UPLOAD_TXT: "Subir",
+
+	AGENT_TRANSFER_USER_ACCOUNT: "Cuenta de usuario"
 };
 
 export function ES(){
 	return _langTags;
-};
+}

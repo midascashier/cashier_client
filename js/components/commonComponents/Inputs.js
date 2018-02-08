@@ -7,7 +7,10 @@ let Input = React.createClass({
 
 	propTypes: {
 		value: React.PropTypes.node,
-		onChange: React.PropTypes.func
+		onChange: React.PropTypes.func,
+		inputAddon: React.PropTypes.string,
+		addonBtn: React.PropTypes.string,
+		addonClick: React.PropTypes.func
 	},
 
 	/**
@@ -147,8 +150,12 @@ let Input = React.createClass({
 			disabled = true;
 		}
 
+		let inputAddon = this.props.inputAddon;
+		let addonBtn = this.props.addonBtn;
+		let addonClick = this.props.addonClick;
+
 		return (
-			<div id={this.props.id + "InputContent"}>
+			<div id={this.props.id + "InputContent"} className={inputAddon || addonBtn ? 'input-group' : ''}>
 				{(() =>{
 					if(!disabled){
 						return(
@@ -165,7 +172,7 @@ let Input = React.createClass({
 								data-isValid={this.state.isValid}
 								data-isRequired={require}
 								data-validation={this.props.validate}
-							/>		
+							/>
 						)
 					}
 
@@ -198,6 +205,23 @@ let Input = React.createClass({
 								<i className="fa fa-thumbs-o-down red"></i>
 								<span>{this.state.errorMessage}</span>
 							</div>
+						)
+					}
+				})()}
+				{(()=> {
+					if(inputAddon) {
+						return (
+							<span className="input-group-addon">
+								{inputAddon}
+							</span>
+						)
+					} else if(addonBtn) {
+						return (
+							<span className="input-group-btn">
+								<button className="btn btn-default" onClick={addonClick}>
+									<i className={"fa " + addonBtn}/>
+								</button>
+							</span>
 						)
 					}
 				})()}

@@ -901,6 +901,39 @@ class UiService {
 	getValidAddress(){
 		return CashierStore.getValidAddress()
 	}
+
+	/**
+	 * Store the player account which is going to be accredited
+	 * @param account
+	 */
+	setPlayerAccount(account) {
+		CashierStore.setPlayerAccount(account);
+	}
+
+	/**
+	 * Retrieve from the storage the account to be accredited
+	 * @return {*}
+	 */
+	getPlayerAccount() {
+		return CashierStore.getPlayerAccount();
+	}
+
+	/**
+	 *
+	 * @param {string} account
+	 * @returns boolean
+	 */
+	accountExists(account) {
+		if(!account)
+			return false;
+
+		ConnectorServices.makeCashierRequest(actions.VALIDATE_ACCOUNT, {
+			account: account,
+			f: 'validateAccount'
+		});
+
+		this.setPlayerAccount(account);
+	}
 }
 
 export let UIService = new UiService();

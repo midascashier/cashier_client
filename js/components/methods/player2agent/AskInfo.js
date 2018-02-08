@@ -2,8 +2,6 @@ import React from 'react'
 import {Input} from '../../commonComponents/Inputs'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
-import {PromoCode} from '../../commonComponents/PromoCode'
-import {FeeController} from '../../commonComponents/FeeController'
 import {AmountController} from '../../commonComponents/AmountController'
 
 let AskInfo = React.createClass({
@@ -18,10 +16,14 @@ let AskInfo = React.createClass({
 		btcAmount: React.PropTypes.node,
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
-		bitcoinAddress: React.PropTypes.string,
+		account: React.PropTypes.string,
 		transaction: React.PropTypes.object,
 		setPromoCode: React.PropTypes.func,
 		promoCode: React.PropTypes.string
+	},
+
+	performSearch() {
+		Tr
 	},
 
 	render(){
@@ -31,7 +33,7 @@ let AskInfo = React.createClass({
 		let limitsCheck = this.props.limitsCheck;
 		let feeCashValue = this.props.feeCashValue;
 		let feeCheck = this.props.feeCheck;
-		let bitcoinAddress = this.props.bitcoinAddress;
+		let account = this.props.account;
 		let setPromoCode = this.props.setPromoCode;
 		let promoCode = this.props.promoCode;
 
@@ -50,43 +52,26 @@ let AskInfo = React.createClass({
 							<div className="row">
 								<div className="col-sm-12">
 									<div className="form-horizontal">
-										{(() =>{
-											if(isWithDraw){
-												return (
-													<div className="form-group">
-														<label className="col-sm-4 control-label">{translate('BITCOIN_ADDRESS', 'BitCoin Address')}:</label>
-														<div className="col-sm-8">
-															<Input type="text" id="bitcoinAddress" name="bitcoinAddress" ref="bitcoinAddress" validate="isBitCoinAddress" onChange={this.props.changeValue} value={bitcoinAddress}/>
-														</div>
-													</div>
-												)
-											}
-										})()}
+										<div className="form-group">
+											<label className="col-sm-4 control-label">{translate('AGENT_TRANSFER_USER_ACCOUNT', 'User account')}:</label>
+											<div className="col-sm-8">
+												<Input
+													type="text"
+													id="account"
+													name="account"
+													ref="account"
+													validate="isBitCoinAddress"
+													onChange={this.props.changeValue}
+													value={account}
+													addonBtn="fa-search"
+													addonClick={this.performSearch}
+												/>
+											</div>
+										</div>
 
 										<div className="form-group">
 											<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 										</div>
-
-										{(() =>{
-											if(!isWithDraw){
-												return (
-													<div>
-														<div className="form-group">
-															<label className="col-sm-4 control-label">BTC ~</label>
-															<div className="col-sm-8">
-																<Input className="form-control" type="number" id="btcAmount" name="btcAmount" ref="btcAmount" validate="isNumber" onChange={this.props.setBTCAmount} value={btcAmount}/>
-															</div>
-														</div>
-														<div className="form-group">
-															<PromoCode setPromoCode={setPromoCode} promoCode={promoCode}/>
-														</div>
-														<div className="form-group">
-															<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
-														</div>
-													</div>
-												);
-											}
-										})()}
 									</div>
 								</div>
 							</div>

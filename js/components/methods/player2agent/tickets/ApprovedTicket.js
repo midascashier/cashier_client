@@ -3,7 +3,7 @@ import { UIService } from '../../../../services/UIService'
 import { translate } from '../../../../constants/Translate'
 import { CashierStore } from '../../../../stores/CashierStore'
 
-let AgentTransferApprovedTicket = React.createClass({
+let Player2AgentApprovedTicket = React.createClass({
 
 	/**
 	 * initialize the state
@@ -90,4 +90,4 @@ let AgentTransferApprovedTicket = React.createClass({
 	}
 });
 
-module.exports.AstroPayApprovedTicket = AgentTransferApprovedTicket;
+module.exports.Player2AgentApprovedTicket = Player2AgentApprovedTicket;

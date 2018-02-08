@@ -313,7 +313,9 @@ let _langTags = {
 	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "ELECTRONIC WALLET",
 	
 	DRAG_DROP_FILES_TXT: "Drag your files here or click in this area.",
-	DRAG_DROP_UPLOAD_TXT: "Upload"
+	DRAG_DROP_UPLOAD_TXT: "Upload",
+
+	AGENT_TRANSFER_USER_ACCOUNT: "User account"
 };
 
 export function EN(){

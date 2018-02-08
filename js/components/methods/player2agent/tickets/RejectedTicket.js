@@ -3,7 +3,7 @@ import { UIService } from '../../../../services/UIService'
 import { CashierStore } from '../../../../stores/CashierStore'
 import { ApplicationService } from '../../../../services/ApplicationService'
 
-let AgentTransferRejectedTicket = React.createClass({
+let Player2AgentRejectedTicket = React.createClass({
 
 	/**
 	 * initialize the state
@@ -131,4 +131,4 @@ let AgentTransferRejectedTicket = React.createClass({
 	}
 });
 
-module.exports.AstroPayRejectedTicket = AgentTransferRejectedTicket;
+module.exports.Player2AgentRejectedTicket = Player2AgentRejectedTicket;

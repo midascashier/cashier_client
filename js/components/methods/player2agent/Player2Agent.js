@@ -5,7 +5,7 @@ import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
 
-let AgentTransfer = React.createClass({
+let Player2Agent = React.createClass({
 
 	propTypes: {
 		setAmount: React.PropTypes.func,
@@ -79,11 +79,10 @@ let AgentTransfer = React.createClass({
 	},
 
 	render(){
-		console.log('testing');
 		return (
 			<div id="agentTransfer">
 				<div className="col-sm-6">
-					<AgentTransfer
+					<AskInfo
 						amount={this.props.amount}
 						btcAmount={this.props.btcAmount}
 						setBTCAmount={this.props.setBTCAmount}
@@ -137,4 +136,4 @@ let AgentTransfer = React.createClass({
 	}
 });
 
-module.exports.AgentTransfer = AgentTransfer;
+module.exports.Player2Agent = Player2Agent;

@@ -293,7 +293,7 @@ let _payAccounts = [];
 /**
  * Stores information of the transaction
  *
- * @type {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cryptoAddress: string, currencyName: string, currencySymbol: string, BTCConversionAmount: string, cleanTransaction(): void}}
+ * @type {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cryptoAddress: string, currencyName: string, currencySymbol: string, BTCConversionAmount: string, cleanTransaction: Function}}
  * @private
  */
 let _transaction = {
@@ -350,7 +350,7 @@ let _transaction = {
 /**
  * Stores transaction result
  *
- * @type {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, status: string, details: Array, data: null, cleanTransaction(): void}}
+ * @type {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, status: string, details: Array, data: null, cleanTransaction: Function}}
  * @private
  */
 let _transactionResponse = {
@@ -393,6 +393,12 @@ let _CryptoTransfer = {
 	cryptoCurrencyName: '',
 	validCurrentAddress: true
 };
+
+
+let _Player2Agent = {
+	account: '',
+	name: ''
+}
 
 let CHANGE_EVENT = 'change';
 

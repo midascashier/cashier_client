@@ -82,19 +82,19 @@ class connectorServices {
 	httpService(module, action, request){
 
 		let application = CashierStore.getApplication();
-		request = Object.assign('', application, request);
+		Object.assign(request, application);
 
-		let httpRequest = Object.assign(request, {ws: module});
+		let httpRequest = Object.assign({}, request, {ws: module});
 		let url = cashier.REQUEST_PROXY;
 
 		$.post(url, httpRequest).done(function(response){
 			if(response){
 				try{
 					let dataResponse = JSON.parse(response);
-					if(dataResponse && dataResponse.state == 'expired'){
+					if(dataResponse && dataResponse.state === 'expired'){
 						onResponseService.processResponse(actions.USER_MESSAGE, dataResponse);
 					}else{
-						if(dataResponse && dataResponse.state != 'ok'){
+						if(dataResponse && dataResponse.state !== 'ok'){
 							onResponseService.processResponse(action, dataResponse);
 						}else{
 							if(dataResponse && dataResponse.response){
