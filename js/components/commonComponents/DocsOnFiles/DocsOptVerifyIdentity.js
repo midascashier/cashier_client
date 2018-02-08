@@ -1,4 +1,5 @@
 import React from 'react'
+import Cashier from '../../../constants/Cashier'
 import {UIService} from '../../../services/UIService'
 import {DrawDropUpload} from '../files/DrawDropUpload'
 import {translate} from '../../../constants/Translate'
@@ -32,13 +33,23 @@ let DocsOptVerifyIdentity = React.createClass({
      * React function to set component initial state
      */
     getInitialState(){
+        let docFile = UIService.getDocsFile();
+
         return{
             files: false,
             addDocument: false,
             checkOption: false,
             valueOption: false,
-            verifyIdOptSelect: null
+            verifyIdOptSelect: null,
+            forms: docFile.forms.KYC.forms
         }
+    },
+
+    /**
+     * Execute actions when component will mount
+     */
+    componentWillMount(){
+        UIService.docFilesCustomerFormsInformation(Cashier.DOCS_FILE_CATEGORY_KYC)
     },
 
     /**

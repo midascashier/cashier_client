@@ -43,6 +43,7 @@ let RequestsContent = React.createClass({
         let docFile = UIService.getDocsFile();
 
         return {
+            forms: docFile.forms.KYC.forms,
             option: this.elements.DocsOptVeId,
             recovery: docFile.pendingRecovery,
             additionalInfo: docFile.pendingAdditionalInfo,
@@ -140,6 +141,7 @@ let RequestsContent = React.createClass({
                     <div id={this.elements.DocsOptVeId} className={this.elements.DocsOptionsInitial} onClick={this.docsOptionsActions}>
                         {translate('MY_REQUEST_VERIFY_IDENTITY')}
                     </div>
+
                     <div id={this.elements.DocsOptUpdInfo} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
                         {translate('MY_REQUEST_UPDATE_INFORMATION')}
                     </div>
