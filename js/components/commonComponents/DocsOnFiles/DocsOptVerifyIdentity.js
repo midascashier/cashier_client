@@ -9,26 +9,6 @@ import {TransactionService} from '../../../services/TransactionService'
 
 let DocsOptVerifyIdentity = React.createClass({
 
-    element: {
-        formId: 8,
-        action: 'save',
-
-        driverLicenseOption: {
-            value: 1,
-            name: 'driverLicenseOption'
-        },
-
-        passportOption: {
-            value: 2,
-            name: 'passportOption'
-        },
-
-        idDocumentOption: {
-            value: 3,
-            name: 'idDocumentOption'
-        }
-    },
-
     /**
      * React function to set component initial state
      */
@@ -40,16 +20,9 @@ let DocsOptVerifyIdentity = React.createClass({
             addDocument: false,
             checkOption: false,
             valueOption: false,
-            verifyIdOptSelect: null,
-            forms: docFile.forms.KYC.forms
+            forms: docFile.forms,
+            verifyIdOptSelect: null
         }
-    },
-
-    /**
-     * Execute actions when component will mount
-     */
-    componentWillMount(){
-        UIService.docFilesCustomerFormsInformation(Cashier.DOCS_FILE_CATEGORY_KYC)
     },
 
     /**
@@ -143,110 +116,106 @@ let DocsOptVerifyIdentity = React.createClass({
     },
 
     render(){
+        let switchVal;
         let docs = UIService.getDocsFile();
 
-        if(docs.readyPending){
-            let switchVal;
-            if(docs.forms.KYC.kycIDApproved && !this.state.checkOption){
-                let actualState = this.state;
-                actualState.checkOption = docs.forms.KYC.kycIDApproved;
-                this.setState(actualState);
-                switchVal = docs.forms.KYC.kycIDApproved;
-            }else{
-                switchVal = this.state.checkOption
-            }
-
-            let disabledSwitch = (docs.forms.KYC.kycIDApproved) ? 'disabled' : '';
-            if(docs.forms.KYC.customerForms && !this.state.addDocument){
-                return <DocsVerifyIDCustomerForms forms={docs.forms.KYC.customerForms} addDocument={this.addDocument}/>
-            }
-
-            return(
-                <div id="CheckIdContent">
-                    {(() =>{
-                        if(this.state.verifyIdOptSelect){
-                            let src = "../images/" + this.state.verifyIdOptSelect + ".png";
-                            return(
-                                <div id="docsFilesShowOptionSelectedContent" onClick={this.verifyIdOptionsReset}>
-                                    <img
-                                        src={src}
-                                        id="docsFilesShowOptionSelected"
-                                        title={translate('DOCS_FILE_VERITY_CHANGE_OPTIONS')}
-                                    />
-                                    <span>{translate('DOCS_FILE_GO_BACK')}</span>
-                                </div>
-                            )
-                        }
-                    })()}
-
-                    <div id="docsFileTXT">
-                        {translate('DOCS_FILE_VERIFY_IMPORTANT_TXT')}
-                    </div>
-
-                    <div className="OptTittle">
-                        <span>{translate('MY_REQUEST_DOCS_OPTION_ID_TXT')}</span>
-                        <span className="switch"/>
-                        <span>{translate('MY_REQUEST_DOCS_OPTION_VE_EW_TXT')}</span>
-                    </div>
-
-                    <div id="switchOpt">
-                        <label className="switch">
-                            <input type="checkbox" onChange={this.switchVerifyType} disabled={disabledSwitch} checked={switchVal}/>
-                            <span className="slider round"/>
-                        </label>
-                    </div>
-
-                    {(() =>{
-                        let ele = this.element;
-                        let src = "../images/"+ this.element.idDocumentOption.name +".png";
-                        if(!this.state.verifyIdOptSelect && !this.state.checkOption){
-                            return (
-                                <div id="CheckIdVerifyOptions">
-                                    <img
-                                        id={ele.driverLicenseOption.name}
-                                        className="docsFilesVerifyIdOptions"
-                                        onClick={this.verifyIdOptionsChange}
-                                        src="../images/driverLicenseOption.png"
-                                        alt={translate('DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID')}
-                                        title={translate('DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID')}
-                                    />
-
-                                    <img
-                                        id={ele.passportOption.name}
-                                        src="../images/passportOption.png"
-                                        onClick={this.verifyIdOptionsChange}
-                                        className="docsFilesVerifyIdOptions"
-                                        alt={translate('DOCS_FILE_VERIFY_OPTIONS_PASSPORT')}
-                                        title={translate('DOCS_FILE_VERIFY_OPTIONS_PASSPORT')}
-                                    />
-
-                                    <img
-                                        src={src}
-                                        id={ele.idDocumentOption.name}
-                                        className="docsFilesVerifyIdOptions"
-                                        onClick={this.verifyIdOptionsChange}
-                                        alt={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
-                                        title={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
-                                    />
-                                </div>
-                            )
-                        }
-                    })()}
-
-                    {(() =>{
-                        if(this.state.verifyIdOptSelect || this.state.checkOption){
-                            return(
-                                <div id="DrawDropUploadElement">
-                                    <DrawDropUpload action={this.uploadCurrentFiles} files={this.setFiles} multiple="true"/>
-                                </div>
-                            )
-                        }
-                    })()}
-                </div>
-            )
+        if(docs.kycIDApproved && !this.state.checkOption){
+            let actualState = this.state;
+            actualState.checkOption = docs.kycIDApproved;
+            this.setState(actualState);
+            switchVal = docs.kycIDApproved;
+        }else{
+            switchVal = this.state.checkOption
         }
 
-        return <div className="loader"></div>
+        let disabledSwitch = (docs.kycIDApproved) ? 'disabled' : '';
+        if(docs.customerForms && !this.state.addDocument){
+            return <DocsVerifyIDCustomerForms forms={docs.customerForms} addDocument={this.addDocument}/>
+        }
+
+        return(
+            <div id="CheckIdContent">
+                {(() =>{
+                    if(this.state.verifyIdOptSelect){
+                        let src = "../images/" + this.state.verifyIdOptSelect + ".png";
+                        return(
+                            <div id="docsFilesShowOptionSelectedContent" onClick={this.verifyIdOptionsReset}>
+                                <img
+                                    src={src}
+                                    id="docsFilesShowOptionSelected"
+                                    title={translate('DOCS_FILE_VERITY_CHANGE_OPTIONS')}
+                                />
+                                <span>{translate('DOCS_FILE_GO_BACK')}</span>
+                            </div>
+                        )
+                    }
+                })()}
+
+                <div id="docsFileTXT">
+                    {translate('DOCS_FILE_VERIFY_IMPORTANT_TXT')}
+                </div>
+
+                <div className="OptTittle">
+                    <span>{translate('MY_REQUEST_DOCS_OPTION_ID_TXT')}</span>
+                    <span className="switch"/>
+                    <span>{translate('MY_REQUEST_DOCS_OPTION_VE_EW_TXT')}</span>
+                </div>
+
+                <div id="switchOpt">
+                    <label className="switch">
+                        <input type="checkbox" onChange={this.switchVerifyType} disabled={disabledSwitch} checked={switchVal}/>
+                        <span className="slider round"/>
+                    </label>
+                </div>
+
+                {(() =>{
+                    let ele = this.element;
+                    let src = "../images/"+ this.element.idDocumentOption.name +".png";
+                    if(!this.state.verifyIdOptSelect && !this.state.checkOption){
+                        return (
+                            <div id="CheckIdVerifyOptions">
+                                <img
+                                    id={ele.driverLicenseOption.name}
+                                    className="docsFilesVerifyIdOptions"
+                                    onClick={this.verifyIdOptionsChange}
+                                    src="../images/driverLicenseOption.png"
+                                    alt={translate('DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID')}
+                                    title={translate('DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID')}
+                                />
+
+                                <img
+                                    id={ele.passportOption.name}
+                                    src="../images/passportOption.png"
+                                    onClick={this.verifyIdOptionsChange}
+                                    className="docsFilesVerifyIdOptions"
+                                    alt={translate('DOCS_FILE_VERIFY_OPTIONS_PASSPORT')}
+                                    title={translate('DOCS_FILE_VERIFY_OPTIONS_PASSPORT')}
+                                />
+
+                                <img
+                                    src={src}
+                                    id={ele.idDocumentOption.name}
+                                    className="docsFilesVerifyIdOptions"
+                                    onClick={this.verifyIdOptionsChange}
+                                    alt={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
+                                    title={translate('DOCS_FILE_VERIFY_OPTIONS_DOCUMENT_ID')}
+                                />
+                            </div>
+                        )
+                    }
+                })()}
+
+                {(() =>{
+                    if(this.state.verifyIdOptSelect || this.state.checkOption){
+                        return(
+                            <div id="DrawDropUploadElement">
+                                <DrawDropUpload action={this.uploadCurrentFiles} files={this.setFiles} multiple="true"/>
+                            </div>
+                        )
+                    }
+                })()}
+            </div>
+        )
     },
 
     /**

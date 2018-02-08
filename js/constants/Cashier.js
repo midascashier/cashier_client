@@ -76,6 +76,14 @@ export default {
 	DOCS_FILE_CATEGORY_VERIFICATION : 4,
 	DOCS_FILE_CATEGORY_RECOVERY : 5,
 
+	DOCS_ID_CATEGORIES : {
+		DocsOptVerifyIdentity : 1,
+		DocsOptUpdateInfo : 2,
+		DocsOptReportError : 3,
+		DocsOptAdditionalInfo : 4,
+		DocsOptRecovery : 5
+	},
+
 	DOCS_FILE_STATUS_SENT : 1,
 	DOCS_FILE_STATUS_REVIEW : 2,
 	DOCS_FILE_STATUS_PENDING : 3,

@@ -907,6 +907,9 @@ class UiService {
 		return CashierStore.getValidAddress()
 	}
 
+	/**
+	 * Call pending form from customers
+	 */
 	docFilesCustomerPendingForms(){
 		let params = {
 			f: 'docFilesCustomerPendingForms',
@@ -916,29 +919,13 @@ class UiService {
 		ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_FORMS_RESPONSE, params);
 	}
 
+	/**
+	 * Call form information from customer
+	 *
+	 * @param categoryId
+     */
 	docFilesCustomerFormsInformation(categoryId){
-		let action;
-		switch(categoryId){
-			case cashier.DOCS_FILE_CATEGORY_KYC:
-				action = actions.DOCS_FILES_GET_KYC_FORMS_INFORMATION_RESPONSE;
-			break;
-
-			case cashier.DOCS_FILE_CATEGORY_ACCOUNT:
-				action = actions.DOCS_FILES_GET_KYC_FORMS_INFORMATION_RESPONSE;
-			break;
-
-			case cashier.DOCS_FILE_CATEGORY_ISSUE:
-				action = actions.DOCS_FILES_GET_KYC_FORMS_INFORMATION_RESPONSE;
-			break;
-
-			case cashier.DOCS_FILE_CATEGORY_VERIFICATION:
-				action = actions.DOCS_FILES_GET_KYC_FORMS_INFORMATION_RESPONSE;
-			break;
-
-			case cashier.DOCS_FILE_CATEGORY_RECOVERY:
-				action = actions.DOCS_FILES_GET_KYC_FORMS_INFORMATION_RESPONSE;
-			break;
-		}
+		categoryId = cashier.DOCS_ID_CATEGORIES[categoryId];
 
 		let params = {
 			languageId: 10,
@@ -949,7 +936,7 @@ class UiService {
 		};
 
 		CashierStore.docsFileWaitPending();
-		ConnectorServices.makeCashierRequest(action, params);
+		ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_KYC_FORMS_INFORMATION_RESPONSE, params);
 	}
 
 	/**

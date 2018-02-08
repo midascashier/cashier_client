@@ -5,10 +5,9 @@ import {UIService} from '../services/UIService'
 import {translate} from '../constants/Translate'
 import {CashierStore} from '../stores/CashierStore'
 import {DocsOptRecovery} from '../components/commonComponents/DocsOnFiles/DocsOptRecovery'
+import {DocsFormRequestContent} from './commonComponents/DocsOnFiles/DocsFormRequestContent'
 import {DocsOptUpdateInfo} from '../components/commonComponents/DocsOnFiles/DocsOptUpdateInfo'
-import {DocsUploadErrorResponse} from './commonComponents/DocsOnFiles/DocsUploadErrorResponse'
 import {DocsOptReportError} from '../components/commonComponents/DocsOnFiles/DocsOptReportError'
-import {DocsUploadSuccessResponse} from './commonComponents/DocsOnFiles/DocsUploadSuccessResponse'
 import {DocsOptAdditionalInfo} from '../components/commonComponents/DocsOnFiles/DocsOptAdditionalInfo'
 import {DocsOptVerifyIdentity} from '../components/commonComponents/DocsOnFiles/DocsOptVerifyIdentity'
 
@@ -33,22 +32,28 @@ let RequestsContent = React.createClass({
      * React function to set component initial state
      */
     getInitialState(){
-        return this.refreshLocalState();
-    },
-
-    /**
-     * this function sets and return object with local states
-     */
-    refreshLocalState(){
         let docFile = UIService.getDocsFile();
 
         return {
-            forms: docFile.forms.KYC.forms,
+            forms: docFile.forms,
             option: this.elements.DocsOptVeId,
             recovery: docFile.pendingRecovery,
+            kycIDApproved: docFile.kycIDApproved,
             additionalInfo: docFile.pendingAdditionalInfo,
             responseUpload: UIService.getDocsUploadResponse()
         }
+    },
+
+    /**
+     * Refresh local state
+     * 
+     * @returns {*|{forms, option, recovery, kycIDApproved, additionalInfo, responseUpload}}
+     */
+    refreshLocalState(){
+        let refreshState = this.getInitialState();
+        refreshState.option = this.state.option;
+
+        return refreshState
     },
 
     /**
@@ -65,48 +70,7 @@ let RequestsContent = React.createClass({
      */
     componentWillMount(){
         UIService.docFilesCustomerPendingForms();
-        UIService.docFilesCustomerFormsInformation(Cashier.DOCS_FILE_CATEGORY_KYC)
-    },
-
-    /**
-     * Selected current content from tab selected
-     * 
-     * @returns {XML}
-     */
-    optionContent(){
-        if(!this.state.responseUpload){
-            switch(this.state.option){
-                case this.elements.DocsOptVeId:
-                    return <DocsOptVerifyIdentity/>;
-                break;
-
-                case this.elements.DocsOptUpdInfo:
-                    return <DocsOptUpdateInfo/>;
-                break;
-
-                case this.elements.DocsOptRepError:
-                    return <DocsOptReportError/>;
-                break;
-
-                case this.elements.DocsOptAdditionalInfo:
-                    return <DocsOptAdditionalInfo/>;
-                break;
-
-                case this.elements.DocsOptRecovery:
-                    return <DocsOptRecovery/>;
-                break;
-            }
-        }else{
-            if(this.state.responseUpload == 'success'){
-                return(
-                    <DocsUploadSuccessResponse/>
-                )
-            }
-
-            return(
-                <DocsUploadErrorResponse/>
-            )
-        }
+        UIService.docFilesCustomerFormsInformation(this.state.option)
     },
 
     /**
@@ -132,15 +96,22 @@ let RequestsContent = React.createClass({
         actualState.option = id;
         actualState.responseUpload = UIService.getDocsUploadResponse();
         this.setState(actualState);
+        UIService.docFilesCustomerFormsInformation(id);
     },
 
     render(){
         return(
             <div id="requestContent">
                 <div id="requestsOptions">
-                    <div id={this.elements.DocsOptVeId} className={this.elements.DocsOptionsInitial} onClick={this.docsOptionsActions}>
-                        {translate('MY_REQUEST_VERIFY_IDENTITY')}
-                    </div>
+                    {(() =>{
+                        if(true){//TODO no form e-WALLET CALLED !this.state.kycIDApproved && !this.state.forms
+                            return(
+                                <div id={this.elements.DocsOptVeId} className={this.elements.DocsOptionsInitial} onClick={this.docsOptionsActions}>
+                                    {translate('MY_REQUEST_VERIFY_IDENTITY')}
+                                </div>
+                            )
+                        }
+                    })()}
 
                     <div id={this.elements.DocsOptUpdInfo} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
                         {translate('MY_REQUEST_UPDATE_INFORMATION')}
@@ -176,7 +147,7 @@ let RequestsContent = React.createClass({
                     </div>
                 </div>
                 <div id="requestOptionContent">
-                    {this.optionContent()}
+                    <DocsFormRequestContent content={this.state.option}/>
                 </div>
             </div>
         )

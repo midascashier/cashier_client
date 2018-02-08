@@ -400,13 +400,9 @@ let _DocsFile = {
 	responseUpload : false,
 	pendingAdditionalInfo: null,
 
-	forms: {
-		KYC : {
-			forms : {},
-			kycIDApproved : false,
-			customerForms : false
-		}
-	}
+	forms: {},
+	kycIDApproved : false,
+	customerForms : false
 };
 
 let CHANGE_EVENT = 'change';
@@ -1366,11 +1362,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					if(data.state == 'ok'){
 						if(data.response.result){
 							if(data.response.result.customerForms.length){
-								_DocsFile.forms.KYC.customerForms = data.response.result.customerForms
+								_DocsFile.customerForms = data.response.result.customerForms
 							}
 
-							_DocsFile.forms.KYC.forms = data.response.result.forms;
-							_DocsFile.forms.KYC.kycIDApproved = data.response.result.kycIDApproved;
+							_DocsFile.forms = data.response.result.forms;
+							_DocsFile.kycIDApproved = data.response.result.kycIDApproved;
 						}
 
 						_DocsFile.readyPending = true;
