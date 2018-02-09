@@ -224,6 +224,19 @@ class applicationService {
 		}
 		return true;
 	}
+
+	/**
+	 * Convert string to camel case format
+	 *
+	 * @param str
+	 * @returns {string|XML}
+     */
+	toCamelCase(str) {
+		return str
+			.replace(/\s(.)/g, function($1) { return $1.toUpperCase(); })
+			.replace(/\s/g, '')
+			.replace(/^(.)/, function($1) { return $1.toLowerCase(); });
+	}
 }
 
 export let ApplicationService = new applicationService();

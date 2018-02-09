@@ -1,16 +1,12 @@
 import React from 'react'
-import Cashier from '../../../constants/Cashier'
 import {DocsOptRecovery} from './DocsOptRecovery'
 import {UIService} from '../../../services/UIService'
 import {DocsOptUpdateInfo} from './DocsOptUpdateInfo'
+import {translate} from '../../../constants/Translate'
 import {DocsOptReportError} from './DocsOptReportError'
 import {DocsOptAdditionalInfo} from './DocsOptAdditionalInfo'
 import {DocsOptVerifyIdentity} from './DocsOptVerifyIdentity'
-import {DrawDropUpload} from '../files/DrawDropUpload'
-import {translate} from '../../../constants/Translate'
-import {CashierStore} from '../../../stores/CashierStore'
-import {DocsVerifyIDCustomerForms} from './DocsVerifyIDCustomerForms'
-import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
 
 let DocsFormRequestContent = React.createClass({
 
@@ -26,46 +22,36 @@ let DocsFormRequestContent = React.createClass({
         DocsOptVerifyIdentity
     },
 
-    elements: {
-        Label: '',
-        Required: '',
-        caDocumentFormInput_Id: 0,
-        caDocumentFormInputType_Id: 0,
-
-        types: {}
-    },
-
-    form: {
-        TagTitle: '',
-        TagDescription: '',
-        caDocumentForm_Id: 0,
-        caDocumentCategory_Id: 0,
-        elements: {}
-    },
-
+    /**
+     * Build and set current elements forms
+     *
+     * @returns {{}}
+     */
     currentElements(){
         let docs = UIService.getDocsFile();
 
-        let options = {};
-        for(let form in docs.forms){
-            let element = {
-                TagTitle: '',
-                TagDescription: '',
-                caDocumentForm_Id: '',
-                caDocumentCategory_Id: '',
-                elements: {}
-            };
+        let formOptions = {};
+        let options = docs.forms;
 
-            element.TagTitle = docs.forms[form].TagTitle;
-            element.TagDescription = docs.forms[form].TagDescription;
-            element.caDocumentForm_Id = docs.forms[form].caDocumentForm_Id;
-            element.caDocumentCategory_Id = docs.forms[form].caDocumentCategory_Id;
-            element.elements = docs.forms[form].fields;
+        for(let option in options){
+            let form = {};
+            let currentOpt = options[option];
+            let category = translate(currentOpt.TagTitle);
 
-            options[form] = element;
+            form[category] = {};
+            form[category]['elements'] = {};
+            form[category]['DocumentForm_Id'] = {};
+            form[category]['DocumentForm_Id'] = currentOpt.caDocumentForm_Id;
+
+            for(let element in currentOpt.fields){
+                form[category]['elements'][element] = currentOpt.fields[element];
+                form[category]['elements'][element].file = currentOpt.fields[element].file.types;
+            }
+
+            formOptions[ApplicationService.toCamelCase(category)] = form[category];
         }
 
-        return options;
+        return formOptions;
     },
 
     render(){

@@ -8,10 +8,19 @@ let DocsVerifyIDCustomerForms = React.createClass({
         forms : React.PropTypes.object
     },
 
+    /**
+     * Edit current request selected
+     */
     editRequest(){
         alert('Edit')
     },
 
+    /**
+     * Generate table with files send
+     * 
+     * @param element
+     * @returns {XML}
+     */
     genDocumentRegisters(element){
         return (
             <div className="grid-container">
