@@ -43,7 +43,7 @@ let CryptoScreenConfirmWithdraw = React.createClass({
 			amount: transaction.amount,
 			payAccountId: transaction.payAccountId,
 			promoCode: transaction.promoCode,
-			cryptoAddress: transaction.cryptoAddress,
+			refundAddress: transaction.cryptoAddress,
 			currencyName: transaction.currencyName,
 			currencySymbol: transaction.currencySymbol,
 			BTCConversionAmount: transaction.BTCConversionAmount
