@@ -1,9 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router'
-import Cashier from '../constants/Cashier'
 import {UIService} from '../services/UIService'
 import {translate} from '../constants/Translate'
 import {CashierStore} from '../stores/CashierStore'
+import {ApplicationService} from '../services/ApplicationService'
 import {DocsOptRecovery} from '../components/commonComponents/DocsOnFiles/DocsOptRecovery'
 import {DocsFormRequestContent} from './commonComponents/DocsOnFiles/DocsFormRequestContent'
 import {DocsOptUpdateInfo} from '../components/commonComponents/DocsOnFiles/DocsOptUpdateInfo'
@@ -35,12 +35,12 @@ let RequestsContent = React.createClass({
         let docFile = UIService.getDocsFile();
 
         return {
-            forms: docFile.forms,
             option: this.elements.DocsOptVeId,
             recovery: docFile.pendingRecovery,
             kycIDApproved: docFile.kycIDApproved,
             additionalInfo: docFile.pendingAdditionalInfo,
-            responseUpload: UIService.getDocsUploadResponse()
+            responseUpload: UIService.getDocsUploadResponse(),
+            forms: this.customerFormsInformation(docFile.forms)
         }
     },
 
@@ -71,6 +71,38 @@ let RequestsContent = React.createClass({
     componentWillMount(){
         UIService.docFilesCustomerPendingForms();
         UIService.docFilesCustomerFormsInformation(this.state.option)
+    },
+
+    /**
+     * Build and set current elements forms
+     *
+     * @returns {{}}
+     */
+    customerFormsInformation(options){
+        if(_.size(options)){
+            let formOptions = {};
+            for(let option in options){
+                let form = {};
+                let currentOpt = options[option];
+                let category = translate(currentOpt.TagTitle);
+
+                form[category] = {};
+                form[category]['elements'] = {};
+                form[category]['DocumentForm_Id'] = {};
+                form[category]['DocumentForm_Id'] = currentOpt.caDocumentForm_Id;
+
+                for(let element in currentOpt.fields){
+                    form[category]['elements'][element] = currentOpt.fields[element];
+                    form[category]['elements'][element].file = currentOpt.fields[element].file.types;
+                }
+
+                formOptions[ApplicationService.toCamelCase(category)] = form[category];
+            }
+
+            return formOptions;
+        }
+
+        return false;
     },
 
     /**
@@ -147,7 +179,7 @@ let RequestsContent = React.createClass({
                     </div>
                 </div>
                 <div id="requestOptionContent">
-                    <DocsFormRequestContent content={this.state.option}/>
+                    <DocsFormRequestContent content={this.state.option} elements={this.state.forms}/>
                 </div>
             </div>
         )
