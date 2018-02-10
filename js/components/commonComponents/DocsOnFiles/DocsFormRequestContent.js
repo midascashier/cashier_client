@@ -7,7 +7,6 @@ import {DocsOptAdditionalInfo} from './DocsOptAdditionalInfo'
 import {DocsOptVerifyIdentity} from './DocsOptVerifyIdentity'
 
 let DocsFormRequestContent = React.createClass({
-
     propsType: {
         content: React.PropTypes.node
     },
