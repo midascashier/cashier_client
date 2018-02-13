@@ -201,7 +201,6 @@ let RequestsContent = React.createClass({
         actualState.option = id;
         actualState.responseUpload = UIService.getDocsUploadResponse();
         this.setState(actualState);
-        UIService.docFilesCustomerFormsInformation(id);
     },
 
     render(){
