@@ -290,6 +290,7 @@ let _langTags = {
 	CRYPTO_EXPIRED_SESSION_MSG : 'Su sesión ha expirado debido a inactividad. Por favor, vuelva a iniciar sesión para continuar usando nuestro cajero.',
 	CRYPTO_INSTRUCTIONS_PROCESS_INSIDE: "Los retiros de Crypto Transfer se procesarán dentro de las 24 horas, pero generalmente se procesan lo antes posible.",
 	CRYPTO_WITHDRAWS_INSIDE: "Los retiros de Crypto Transfer se procesarán dentro de las 24 horas, pero generalmente se procesan lo antes posible.",
+	CRYPTO_PROCESS_VALIDATION_ERROR: "Algo salió mal con su solicitud. Por favor inténtalo de nuevo",
 
 	//resources
 	CC_LIMIT_ERROR_COUNT: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i><strong>{displayName}</strong> - <span>La tarjeta seleccionada ha alcanzado el máximo número de transacciones permitido por nosotros. Por favor intente otra tarjeta</span></div>',

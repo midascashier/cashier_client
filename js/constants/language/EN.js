@@ -291,6 +291,7 @@ let _langTags = {
 	CRYPTO_EXPIRED_SESSION_MSG: 'Your session has expired due to inactivity. Please login again to continue using our cashier.',
 	CRYPTO_INSTRUCTIONS_PROCESS_INSIDE: "Crypto Transfer withdrawals will be processed within 24 hours, but are usually processed as soon as possible.",
 	CRYPTO_WITHDRAWS_INSIDE: "Crypto Transfer withdrawals will be processed within 24 hours, but are usually processed as soon as possible.",
+	CRYPTO_PROCESS_VALIDATION_ERROR: "Something went wrong with your request. Please try again",
 
 	//resources
 	CC_LIMIT_ERROR_COUNT: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle red"></i><strong>{displayName}</strong> - <span>The credit card selected has reached its maximum number of transactions allowed. Please select another credit card</span></div>',

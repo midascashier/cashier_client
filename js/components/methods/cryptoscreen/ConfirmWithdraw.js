@@ -2,6 +2,7 @@ import React from 'react'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
+import {CashierActions} from '../../../actions/CashierActions'
 import {TransactionService} from '../../../services/TransactionService'
 
 let CryptoScreenConfirmWithdraw = React.createClass({
@@ -43,13 +44,19 @@ let CryptoScreenConfirmWithdraw = React.createClass({
 			amount: transaction.amount,
 			payAccountId: transaction.payAccountId,
 			promoCode: transaction.promoCode,
+			refundAddress: transaction.cryptoAddress,
 			cryptoAddress: transaction.cryptoAddress,
 			currencyName: transaction.currencyName,
 			currencySymbol: transaction.currencySymbol,
 			BTCConversionAmount: transaction.BTCConversionAmount
 		};
 
-		TransactionService.processCryptoTransfer(dynamicParams, 'ticket');
+		if(!transaction.currencyName || !transaction.currencySymbol){
+			CashierActions.showUserMessage(translate('CRYPTO_PROCESS_VALIDATION_ERROR', 'ERROR'));
+		}else{
+			TransactionService.processCryptoTransfer(dynamicParams, 'ticket');
+		}
+
 	},
 
 	/**

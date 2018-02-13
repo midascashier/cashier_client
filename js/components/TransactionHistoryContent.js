@@ -79,9 +79,6 @@ let TransactionHistoryContent = React.createClass({
 											<span>{translate('TRANSACTION_STATUS_PENDING')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PENDING')}
 										</li>
 										<li>
-											<span>{translate('TRANSACTION_STATUS_DEFERRED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PENDING')}
-										</li>
-										<li>
 											<span>{translate('TRANSACTION_STATUS_PROCESSING')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PROCESSING')}
 										</li>
 										<li>
