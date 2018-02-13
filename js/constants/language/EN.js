@@ -315,7 +315,11 @@ let _langTags = {
 	DRAG_DROP_FILES_TXT: "Drag your files here or click in this area.",
 	DRAG_DROP_UPLOAD_TXT: "Upload",
 
-	AGENT_TRANSFER_USER_ACCOUNT: "User account"
+	AGENT_TRANSFER_USER_ACCOUNT: "User account",
+	AGENT_TRANSFER_FEE_PAYMENT: "Pay the fees with",
+	AGENT_TRANSFER_FEE_PAYMENT_CASH: "Cash",
+	AGENT_TRANSFER_FEE_PAYMENT_BETPOINTS: "BetPoints",
+	AGENT_TRANSFER_INVALID_USER_ACCOUNT: "Please verify the user account exists"
 };
 
 export function EN(){

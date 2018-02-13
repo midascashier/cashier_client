@@ -394,10 +394,17 @@ let _CryptoTransfer = {
 	validCurrentAddress: true
 };
 
-
+/**
+ * Contains information related with the user who is going to be accredited by agent
+ * @type {{account: string, name: string, feePaymentMethod: string, waitForValidation: boolean}}
+ * @private
+ */
 let _Player2Agent = {
+	ready : false,
 	account: '',
-	name: ''
+	name: '',
+	feePaymentMethod : '',
+	waitForValidation: false
 }
 
 let CHANGE_EVENT = 'change';
@@ -431,6 +438,19 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getCurrentPayAccount: () =>{
 		return _payAccount;
+	},
+
+	/**
+	 * returns the information of the account to be accredited
+	 *
+	 * @return {{account: string, name: string, feePaymentMethod: string}}
+	 */
+	getPlayerAccount: () => {
+		return _Player2Agent.name && _Player2Agent.name.length > 0 ? _Player2Agent : null;
+	},
+
+	setPlayerAccount: (account) => {
+		_Player2Agent.account = account;
 	},
 
 	/**
@@ -656,6 +676,14 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	waitLimits(){
 		_processor.waitLimits = true;
+	},
+
+	getWaitForValidation() {
+		return _Player2Agent.waitForValidation;
+	},
+
+	waitForValidation() {
+		_Player2Agent.waitForValidation = true;
 	},
 
 	/**
@@ -1309,6 +1337,16 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					CashierStore.emitChange();
 					break;
 
+				case actions.SET_PLAYER_ACCOUNT:
+					Object.assign(_Player2Agent, data);
+					CashierStore.emitChange();
+					break;
+
+				case actions.VALIDATE_ACCOUNT:
+					Object.assign(_Player2Agent, data);
+					_processor.waitLimits = false;
+					CashierStore.emitChange();
+					break;
 				default:
 					console.log("Store No Action: " + action);
 					break;

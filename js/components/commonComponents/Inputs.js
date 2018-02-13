@@ -7,10 +7,7 @@ let Input = React.createClass({
 
 	propTypes: {
 		value: React.PropTypes.node,
-		onChange: React.PropTypes.func,
-		inputAddon: React.PropTypes.string,
-		addonBtn: React.PropTypes.string,
-		addonClick: React.PropTypes.func
+		onChange: React.PropTypes.func
 	},
 
 	/**
@@ -41,9 +38,9 @@ let Input = React.createClass({
 	validateData(e){
 		let isValid;
 		let validate;
-		if(this.props.validate == 'rgxValidate'){
+		if(this.props.validate === 'rgxValidate'){
 			let rgx = '';
-			if(this.props.id == 'zip'){
+			if(this.props.id === 'zip'){
 				let compare = UIService.getCountrySelected();
 				rgx = UIService.getCurrentZipCodeRgx(compare);
 			}
@@ -124,8 +121,9 @@ let Input = React.createClass({
 	 * @param e
 	 */
 	changeHandler(e) {
-		let isValid;
+		let isValid = true;
 		let value = e.target.value;
+
 		if(typeof this.props.onChange === 'function'){
 			if(this.props.validate){
 				isValid = this.validateData(value);
@@ -141,40 +139,24 @@ let Input = React.createClass({
 
 	render(){
 		let require = 0;
-		if(typeof this.props.require != "undefined"){
+		if(typeof this.props.require !== "undefined"){
 			require = 1;
 		}
 
 		let disabled = false;
-		if(typeof this.props.disabled != "undefined"){
+		if(typeof this.props.disabled !== "undefined"){
 			disabled = true;
 		}
 
-		let inputAddon = this.props.inputAddon;
-		let addonBtn = this.props.addonBtn;
-		let addonClick = this.props.addonClick;
-
 		return (
-			<div id={this.props.id + "InputContent"} className={inputAddon || addonBtn ? 'input-group' : ''}>
+			<div id={this.props.id + "InputContent"}>
 				{(() =>{
-					if(!disabled){
-						return(
-							<input
-								className="form-control"
-								type={this.props.type || 'text'}
-								name={this.props.name}
-								onBlur={this.handleBlur}
-								onFocus={this.handleFocus}
-								id={this.props.id}
-								placeholder={this.props.placeholder || ''}
-								onChange={this.changeHandler}
-								value={this.props.value}
-								data-isValid={this.state.isValid}
-								data-isRequired={require}
-								data-validation={this.props.validate}
-							/>
-						)
-					}
+					let props = disabled ? {
+						disabled: true
+					} : {
+						onBlur: this.handleBlur,
+						onFocus: this.handleFocus
+					};
 
 					return(
 						<input
@@ -182,7 +164,7 @@ let Input = React.createClass({
 							type={this.props.type || 'text'}
 							name={this.props.name}
 							id={this.props.id}
-							disabled
+							{...props}
 							placeholder={this.props.placeholder || ''}
 							onChange={this.changeHandler}
 							value={this.props.value}
@@ -202,26 +184,9 @@ let Input = React.createClass({
 					if(validate && !isValid && value){
 						return (
 							<div className="alert alert-danger" role="alert">
-								<i className="fa fa-thumbs-o-down red"></i>
+								<i className="fa fa-thumbs-o-down red"/>
 								<span>{this.state.errorMessage}</span>
 							</div>
-						)
-					}
-				})()}
-				{(()=> {
-					if(inputAddon) {
-						return (
-							<span className="input-group-addon">
-								{inputAddon}
-							</span>
-						)
-					} else if(addonBtn) {
-						return (
-							<span className="input-group-btn">
-								<button className="btn btn-default" onClick={addonClick}>
-									<i className={"fa " + addonBtn}/>
-								</button>
-							</span>
 						)
 					}
 				})()}

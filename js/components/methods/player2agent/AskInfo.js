@@ -1,47 +1,33 @@
 import React from 'react'
 import {Input} from '../../commonComponents/Inputs'
-import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {AmountController} from '../../commonComponents/AmountController'
+import {FeeController} from '../../commonComponents/FeeController'
 
 let AskInfo = React.createClass({
 
 	propTypes: {
-		transactionAmount: React.PropTypes.func,
 		setAmount: React.PropTypes.func,
-		changeValue: React.PropTypes.func,
-		setBTCAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.string,
-		amount: React.PropTypes.node,
-		btcAmount: React.PropTypes.node,
+
+		account: React.PropTypes.string,
+		amount: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
-		account: React.PropTypes.string,
-		transaction: React.PropTypes.object,
-		setPromoCode: React.PropTypes.func,
-		promoCode: React.PropTypes.string
-	},
 
-	performSearch() {
-		Tr
+		accountChange: React.PropTypes.func
 	},
 
 	render(){
 		let setAmount = this.props.setAmount;
-		let amount = this.props.amount;
-		let btcAmount = this.props.btcAmount;
 		let limitsCheck = this.props.limitsCheck;
-		let feeCashValue = this.props.feeCashValue;
-		let feeCheck = this.props.feeCheck;
 		let account = this.props.account;
-		let setPromoCode = this.props.setPromoCode;
-		let promoCode = this.props.promoCode;
+		let feeCheck = this.props.feeCheck;
+		let feeCashValue = this.props.feeCashValue;
+		let amount = this.props.amount;
 
-		let isWithDraw = UIService.getIsWithDraw();
-		let title = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
-		if(isWithDraw){
-			title = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information')
-		}
+		const title = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information')
+		let isInvalid = !this.state.waitForValidation && this.state.playerAccount;
 
 		return (
 			<div id="btcAskInfo" className="box">
@@ -55,22 +41,29 @@ let AskInfo = React.createClass({
 										<div className="form-group">
 											<label className="col-sm-4 control-label">{translate('AGENT_TRANSFER_USER_ACCOUNT', 'User account')}:</label>
 											<div className="col-sm-8">
-												<Input
-													type="text"
-													id="account"
-													name="account"
-													ref="account"
-													validate="isBitCoinAddress"
-													onChange={this.props.changeValue}
-													value={account}
-													addonBtn="fa-search"
-													addonClick={this.performSearch}
-												/>
+												<div className={"form-control " + isInvalid ? "has-error" : null}>
+													<input type="test" id="account" name="account" ref="account" value={account} onChange={this.props.accountChange}/>
+													{(() => {
+														if(isInvalid) {
+															return (
+																<div className="alert alert-danger" role="alert">
+																	<i className="fa fa-thumbs-o-down red"/>
+																	<span>{translate('AGENT_TRANSFER_INVALID_USER_ACCOUNT')}</span>
+																</div>
+															)
+														}
+													})()}
+												</div>
+												{/*<Input type="text" validate="invalid-account" id="account" name="account" ref="account" value={account} onChange={this.props.accountChange}/>*/}
 											</div>
 										</div>
 
 										<div className="form-group">
 											<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
+										</div>
+
+										<div className="form-group">
+											<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
 										</div>
 									</div>
 								</div>

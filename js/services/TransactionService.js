@@ -86,7 +86,6 @@ class transactionService{
 		let company = CashierStore.getCompany();
 		let customer = CashierStore.getCustomer();
 		let processor = CashierStore.getProcessor();
-
 		if (processorID || processor.processorId){
 			let data = {
 				module: "limits",
@@ -919,6 +918,13 @@ class transactionService{
 		CashierActions.setCryptoTransferTransaction(transaction);
 	};
 
+	/**
+	 * Sets player account to be accredited by Agent Transfer
+	 * @param {string} account
+	 */
+	setPlayerAccount(account) {
+		CashierActions.setPlayerAccount(account);
+	}
 }
 
 export let TransactionService = new transactionService();

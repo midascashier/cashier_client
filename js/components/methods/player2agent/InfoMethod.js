@@ -1,9 +1,10 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
-import { translate } from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {translate} from '../../../constants/Translate'
 import Cashier from '../../../constants/Cashier'
-import { TransactionService } from '../../../services/TransactionService'
-import { UIService } from '../../../services/UIService'
+import {TransactionService} from '../../../services/TransactionService'
+import {UIService} from '../../../services/UIService'
+import {LoadingSpinner} from '../../loading/LoadingSpinner'
 
 let InfoMethod = React.createClass({
 
@@ -12,7 +13,9 @@ let InfoMethod = React.createClass({
 		limitsCheck: React.PropTypes.string,
 		feeCheck: React.PropTypes.number,
 		feeCashValue: React.PropTypes.number,
-		allowContinueToConfirm: React.PropTypes.bool
+		allowContinueToConfirm: React.PropTypes.bool,
+		account: React.PropTypes.string,
+		waitForValidation: React.PropTypes.func
 	},
 
 	/**
@@ -33,7 +36,9 @@ let InfoMethod = React.createClass({
 		return {
 			processor: CashierStore.getProcessor(),
 			currentPayAccount: CashierStore.getCurrentPayAccount(),
-			transaction: CashierStore.getTransaction()
+			transaction: CashierStore.getTransaction(),
+			waitForValidation: false,
+			playerAccount: UIService.getPlayerAccount()
 		}
 	},
 
@@ -56,41 +61,43 @@ let InfoMethod = React.createClass({
 	/**
 	 * this function sends deposit info to cashier
 	 */
-	continueTransaction(){
-		let isWithDraw = UIService.getIsWithDraw();
+	continueTransaction() {
 		TransactionService.setAmount(this.props.amount);
-		TransactionService.setBitcoinAddress(this.props.bitcoinAddress);
+
+		TransactionService.setPlayerAccount(this.props.account);
 		TransactionService.setFeeAmount(this.props.feeCashValue);
-		if(isWithDraw){
-			UIService.confirmTransaction();
-		}else{
-			//process the deposit
-			let customer = UIService.getCustomerInformation();
-			TransactionService.processBTC({ account: customer.username }, 'instructions');
-		}
+
+		UIService.accountExists(this.props.account);
+
+		let currentState = this.state;
+		currentState.waitForValidation = true;
+		this.setState(currentState);
 	},
 
-	render(){
+	render() {
 		let limitsCheck = false;
-
-		if(this.props.limitsCheck == Cashier.LIMIT_NO_ERRORS){
+		if(this.state.playerAccount){
+			console.log(this.state.playerAccount);
+			//UIService.confirmTransaction();
+		}
+		if(this.props.limitsCheck === Cashier.LIMIT_NO_ERRORS){
 			limitsCheck = true;
 		}
-		
+
 		let feeCheck = this.props.feeCheck;
 		let isWithDraw = UIService.getIsWithDraw();
 		let allowContinueToConfirm = true;
-		
-		if(isWithDraw){
+
+		if(isWithDraw) {
 			allowContinueToConfirm = this.props.allowContinueToConfirm;
 		}
-		
+
 		let processorDisplayName = UIService.getProcessorDisplayName().toUpperCase();
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
-		
+
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
 			processorName: processorDisplayName,
 			transactionType: transactionType
@@ -108,7 +115,7 @@ let InfoMethod = React.createClass({
 		}
 
 		return (
-			<div id="InfoMethodBitCoin">
+			<div id="InfoMethodPlayer2Agent">
 				<div className="col-sm-12">
 					<div className="title">{title}</div>
 					<div className="table-responsive">
@@ -131,9 +138,19 @@ let InfoMethod = React.createClass({
 					</div>
 					<div className="row mod-btns">
 						<div className="col-sm-6">
-							<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
-								{translate('PROCESSING_BUTTON_NEXT', 'Next')}
-							</button>
+							{(() => {
+								if(this.state.waitForValidation) {
+									return (
+										<LoadingSpinner/>
+									);
+								} else{
+									return (
+										<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
+											{translate('PROCESSING_BUTTON_NEXT', 'Next')}
+										</button>
+									);
+								}
+							})()}
 							<p><a onClick={this.setFirstStep}>{translate('USE_DIFFERENT_METHOD')}.</a></p>
 						</div>
 						<div className="col-sm-6">

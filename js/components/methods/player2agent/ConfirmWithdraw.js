@@ -59,6 +59,7 @@ let Player2AgentConfirmWithdraw = React.createClass({
 	render(){
 		let originPath = UIService.getOriginPath();
 		let transaction = this.state.transaction;
+		console.log(transaction);
 		return (
 			<div id="confirmBitCoinWithdraw" className="internal-content">
 				<div className="row">
@@ -90,8 +91,8 @@ let Player2AgentConfirmWithdraw = React.createClass({
 													<table className="table table-striped">
 														<tbody>
 														<tr>
-															<td>{translate('BITCOIN_ADDRESS', 'Address')}</td>
-															<td><span>{transaction.bitcoinAddress}</span></td>
+															<td>{translate('AGENT_TRANSFER_USER_ACCOUNT', 'User account')}</td>
+															<td><span>{transaction.account}</span></td>
 														</tr>
 														<tr>
 															<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>

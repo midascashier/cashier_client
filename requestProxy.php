@@ -61,6 +61,7 @@ class requestProxy
           }
         }else{
           $response = json_encode(array('userMessage' => "Error processing your request"));
+          $this->log(">>>[Request: $url returned a empty result]");
         }
 
         if(DEBUG_ENABLED){

@@ -923,6 +923,7 @@ class UiService {
 	}
 
 	/**
+	 * Perform a http request to determine if written account is an existing one
 	 *
 	 * @param {string} account
 	 * @returns boolean
@@ -937,6 +938,10 @@ class UiService {
 		});
 
 		this.setPlayerAccount(account);
+	}
+
+	getPlayerAccount() {
+		return CashierStore.getPlayerAccount();
 	}
 }
 

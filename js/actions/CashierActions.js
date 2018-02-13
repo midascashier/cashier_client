@@ -199,6 +199,20 @@ let CashierActions = {
 			action: actions.SET_EDITCC,
 			data: { editMode: editMode }
 		});
+	},
+
+	setPlayerAccount: (account) => {
+		CashierDispatcher.dispatch({
+			action: actions.SET_PLAYER_ACCOUNT,
+			data: {account: account}
+		});
+	},
+
+	accountExists: (account) => {
+		CashierDispatcher.dispatch({
+			action: actions.VALIDATE_ACCOUNT,
+			data: account
+		})
 	}
 };
 

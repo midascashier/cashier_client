@@ -315,7 +315,11 @@ let _langTags = {
 	DRAG_DROP_FILES_TXT: "Arrastra tus archivos aquí o haz clic en esta área.",
 	DRAG_DROP_UPLOAD_TXT: "Subir",
 
-	AGENT_TRANSFER_USER_ACCOUNT: "Cuenta de usuario"
+	AGENT_TRANSFER_USER_ACCOUNT: "Cuenta de usuario",
+	AGENT_TRANSFER_FEE_PAYMENT: "Pague le costo de envío con",
+	AGENT_TRANSFER_FEE_PAYMENT_CASH: "Efectivo",
+	AGENT_TRANSFER_FEE_PAYMENT_BETPOINTS: "BetPoints",
+	AGENT_TRANSFER_INVALID_USER_ACCOUNT: "Verifique que la cuenta exista"
 };
 
 export function ES(){

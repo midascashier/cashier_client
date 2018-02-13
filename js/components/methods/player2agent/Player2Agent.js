@@ -1,6 +1,5 @@
 import React from 'react'
 import {CashierStore} from '../../../stores/CashierStore'
-import {ApplicationService} from '../../../services/ApplicationService'
 import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
@@ -8,15 +7,12 @@ import {InfoMethod} from './InfoMethod'
 let Player2Agent = React.createClass({
 
 	propTypes: {
+		amount: React.PropTypes.string,
 		setAmount: React.PropTypes.func,
-		setBTCAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.string,
-		amount: React.PropTypes.node,
-		btcAmount: React.PropTypes.node,
+		account: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number,
-		feeCheck: React.PropTypes.number,
-		setPromoCode: React.PropTypes.func,
-		promoCode: React.PropTypes.string
+		feeCheck: React.PropTypes.number
 	},
 
 	/**
@@ -30,10 +26,11 @@ let Player2Agent = React.createClass({
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState() {
-		let bitcoinAddress = "";
+		let account = "";
 		if(this.state){
-			if(this.state.info.bitcoinAddress != ""){
-				bitcoinAddress = this.state.info.bitcoinAddress;
+			if(this.state.info.account !== ""){
+				account = this.state.info.account;
+				this.props.account = account;
 			}
 		}
 
@@ -48,7 +45,7 @@ let Player2Agent = React.createClass({
 			info: {
 				selectedProcessor: CashierStore.getProcessor(),
 				transaction: CashierStore.getTransaction(),
-				bitcoinAddress: bitcoinAddress,
+				account: account,
 				allowContinueToConfirm: allowContinueToConfirm
 			}
 		}
@@ -71,8 +68,8 @@ let Player2Agent = React.createClass({
 	 */
 	changeValue(e, state) {
 		let actualState = this.state.info;
-		actualState.bitcoinAddress = e;
-		actualState.allowContinueToConfirm = state;
+		actualState.account = e;
+		actualState.allowContinueToConfirm = state || state !== undefined;
 		this.setState({
 			info: actualState
 		})
@@ -84,23 +81,16 @@ let Player2Agent = React.createClass({
 				<div className="col-sm-6">
 					<AskInfo
 						amount={this.props.amount}
-						btcAmount={this.props.btcAmount}
-						setBTCAmount={this.props.setBTCAmount}
 						setAmount={this.props.setAmount}
 						limitsCheck={this.props.limitsCheck}
+						accountChange={this.changeValue}
 						feeCashValue={this.props.feeCashValue}
 						feeCheck={this.props.feeCheck}
-						changeValue={this.changeValue}
-						bitcoinAddress={this.state.info.bitcoinAddress}
 						allowContinueToConfirm={this.state.info.allowContinueToConfirm}
-						transaction={this.state.info.transaction}
-						setPromoCode={this.props.setPromoCode}
-						promoCode={this.props.promoCode}
 					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
-
 						if(!this.state.info.selectedProcessor.processorId){
 							return <LoadingSpinner/>;
 						}
@@ -110,8 +100,8 @@ let Player2Agent = React.createClass({
 								amount={this.props.amount}
 								limitsCheck={this.props.limitsCheck}
 								feeCashValue={this.props.feeCashValue}
-								feeCheck={this.props.feeCheck} bitcoinAddress={this.state.info.bitcoinAddress}
 								allowContinueToConfirm={this.state.info.allowContinueToConfirm}
+								account={this.props.account}
 							/>
 						)
 					})()}
