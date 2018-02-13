@@ -213,7 +213,7 @@ let RequestsContent = React.createClass({
                     </div>
                 </div>
                 <div id="requestOptionContent">
-                    <DocsFormRequestContent content={this.state.option} elements={this.state.forms}/>
+                    <DocsFormRequestContent option={this.state.option}/>
                 </div>
             </div>
         )
