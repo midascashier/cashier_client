@@ -395,14 +395,24 @@ let _CryptoTransfer = {
 };
 
 let _DocsFile = {
-	readyPending: false,
-	pendingRecovery: null,
+	categoriesList : {},
 	responseUpload : false,
-	pendingAdditionalInfo: null,
+	pendingRecovery : false,
+	currentOptionSelected : '',
+	pendingAdditionalInfo : false,
+	currentFormInputsCategories : {},
 
-	forms: {},
+	forms : {},
 	kycIDApproved : false,
-	customerForms : false
+	customerForms : false,
+
+	readyPendingInfo: false,
+	readyCategories : false,
+	pendingInputsCategory : true,
+	pendingCustomerFormInfo : true,
+	readyPending(){
+		return (this.readyCategories && this.readyPendingInfo && !this.pendingCustomerFormInfo && !this.pendingInputsCategory);
+	}
 };
 
 let CHANGE_EVENT = 'change';
@@ -833,6 +843,15 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
+	 * New option selected
+	 *
+	 * @param option
+     */
+	setDocsCurrentOption(option){
+		_DocsFile.currentOptionSelected = option
+	},
+
+	/**
 	 * Get response to upload file 
 	 * 
 	 * @returns {boolean}
@@ -845,14 +864,55 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Reset response wait
 	 */
 	docsResetResponseUpload(){
-		_DocsFile.responseUpload = false
+		_DocsFile.responseUpload = false;
+		_DocsFile.pendingInputsCategory = true;
+		_DocsFile.pendingCustomerFormInfo = true;
 	},
 
 	/**
-	 * Wait pending actions
+	 * Wait Ready Pending Info
 	 */
-	docsFileWaitPending(){
-		_DocsFile.readyPending = false;
+	docsFileWaitReadyPendingInfo(){
+		_DocsFile.readyPendingInfo = false;
+	},
+
+	/**
+	 * Wait Ready Categories
+	 */
+	docsFileWaitReadyCategories(){
+		_DocsFile.readyCategories = false;
+	},
+
+	/**
+	 * Check if customer info be pending
+	 *
+	 * @returns {boolean}
+	 */
+	docsFilePendingInputsCategory(){
+		return _DocsFile.pendingInputsCategory
+	},
+
+	/**
+	 * Wait Ready Inputs Category
+	 */
+	docsFileWaitReadyInputsCategory(){
+		_DocsFile.pendingInputsCategory = false;
+	},
+
+	/**
+	 * Check if customer info be pending
+	 *
+	 * @returns {boolean}
+     */
+	docsFilePendingCustomerFormInfo(){
+		return _DocsFile.pendingCustomerFormInfo
+	},
+
+	/**
+	 * Wait Ready Customer Form Info
+	 */
+	docsFileWaitReadyCustomerFormInfo(){
+		_DocsFile.pendingCustomerFormInfo = false;
 	}
 });
 
@@ -1342,6 +1402,22 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					CashierStore.emitChange();
 					break;
 
+				case actions.DOCS_FILES_GET_FORMS_CATEGORIES_RESPONSE:
+					if(data.response.result){
+						_DocsFile.categoriesList = data.response.result;
+					}
+
+					_DocsFile.readyCategories = true;
+				break;
+
+				case actions.DOCS_FILES_GET_FORMS_INPUTS_CATEGORIES_RESPONSE:
+					if(data.response.result){
+						_DocsFile.currentFormInputsCategories = data.response.result;
+					}
+
+					_DocsFile.pendingInputsCategory = false;
+				break;
+
 				case actions.DOCS_FILES_GET_FORMS_RESPONSE:
 					if(data.response.result){
 						for(let key in data.response.result){
@@ -1356,24 +1432,30 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 						CashierStore.emitChange();
 					}
-					break;
+
+					_DocsFile.readyPendingInfo = true;
+				break;
 
 				case actions.DOCS_FILES_GET_KYC_FORMS_INFORMATION_RESPONSE:
 					if(data.state == 'ok'){
 						if(data.response.result){
 							if(data.response.result.customerForms.length){
-								_DocsFile.customerForms = data.response.result.customerForms
+								let customerForms = {};
+								customerForms[_DocsFile.currentOptionSelected] = data.response.result.customerForms;
+								_DocsFile.customerForms = customerForms
 							}
 
-							_DocsFile.forms = data.response.result.forms;
+							let form = {};
+							form[_DocsFile.currentOptionSelected] = data.response.result.forms;
+							_DocsFile.forms = form;
 							_DocsFile.kycIDApproved = data.response.result.kycIDApproved;
 						}
 
-						_DocsFile.readyPending = true;
+						_DocsFile.pendingCustomerFormInfo = false;
 
 						CashierStore.emitChange();
 					}
-					break;
+				break;
 
 				case actions.DOCS_FILE_SAVE_RESPONSE:
 					if(data.result){
@@ -1383,8 +1465,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					}
 
 					CashierStore.emitChange();
-					break;
-				
+				break;
+
 				default:
 					console.log("Store No Action: " + action);
 					break;
