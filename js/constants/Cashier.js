@@ -67,32 +67,6 @@ export default {
 	CASHIER_WS: 'CASHIER',
 	BACKEND_WS: 'BACKEND',
 	BONUS_WS: 'BONUS',
-	
-	REQUEST_DOCS_FILE_SAVE_URL: 'http://newcashier.localhost:8080/cashierServices/DocsFileSave.class.php',
 
-	DOCS_FILE_CATEGORY_KYC : 1,
-	DOCS_FILE_CATEGORY_ACCOUNT : 2,
-	DOCS_FILE_CATEGORY_ISSUE : 3,
-	DOCS_FILE_CATEGORY_VERIFICATION : 4,
-	DOCS_FILE_CATEGORY_RECOVERY : 5,
-
-	DOCS_ID_CATEGORIES : {
-		DocsOptVerifyIdentity : 1,
-		DocsOptUpdateInfo : 2,
-		DocsOptReportError : 3,
-		DocsOptAdditionalInfo : 4,
-		DocsOptRecovery : 5
-	},
-
-	DOCS_FILE_INPUT_TYPE_FILE : 1,
-	DOCS_FILE_INPUT_TYPE_TEXT : 2,
-	DOCS_FILE_INPUT_TYPE_SELECT : 3,
-	DOCS_FILE_INPUT_TYPE_CC_LIST : 4,
-	DOCS_FILE_INPUT_TYPE_EWALLET_LIST : 5,
-
-	DOCS_FILE_STATUS_SENT : 1,
-	DOCS_FILE_STATUS_REVIEW : 2,
-	DOCS_FILE_STATUS_PENDING : 3,
-	DOCS_FILE_STATUS_REJECTED : 4,
-	DOCS_FILE_STATUS_APPROVED : 5
+	REQUEST_DOCS_FILE_SAVE_URL: 'http://newcashier.localhost:8080/cashierServices/DocsFileSave.class.php'
 }
