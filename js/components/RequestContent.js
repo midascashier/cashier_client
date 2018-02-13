@@ -41,6 +41,10 @@ let RequestsContent = React.createClass({
             initialTab = (initialTab) ? this.elements.options[0].Name : false;
         }
 
+        if(initialTab){
+            UIService.setDocsCurrentOption(initialTab);            
+        }
+
         return {
             option : initialTab
         }
