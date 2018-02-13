@@ -4,28 +4,22 @@ import {UIService} from '../services/UIService'
 import {translate} from '../constants/Translate'
 import {CashierStore} from '../stores/CashierStore'
 import {ApplicationService} from '../services/ApplicationService'
-import {DocsOptRecovery} from '../components/commonComponents/DocsOnFiles/DocsOptRecovery'
+import {DocsFileRules} from './commonComponents/DocsOnFiles/DocsFileRules'
 import {DocsFormRequestContent} from './commonComponents/DocsOnFiles/DocsFormRequestContent'
-import {DocsOptUpdateInfo} from '../components/commonComponents/DocsOnFiles/DocsOptUpdateInfo'
-import {DocsOptReportError} from '../components/commonComponents/DocsOnFiles/DocsOptReportError'
-import {DocsOptAdditionalInfo} from '../components/commonComponents/DocsOnFiles/DocsOptAdditionalInfo'
-import {DocsOptVerifyIdentity} from '../components/commonComponents/DocsOnFiles/DocsOptVerifyIdentity'
 
 let RequestsContent = React.createClass({
 
-    elements: {
-        style: {
-            optClickTab: '#D5232F',
-            optInitialTab: '#A51419'
+    elements : {
+        options : [],
+
+        style : {
+            optClickTab : '#D5232F',
+            optInitialTab : '#A51419'
         },
 
-        DocsOptions : 'DocsOptions',
-        DocsOptRecovery : 'DocsOptRecovery',
-        DocsOptUpdInfo : 'DocsOptUpdateInfo',
-        DocsOptVeId : 'DocsOptVerifyIdentity',
-        DocsOptRepError : 'DocsOptReportError',
-        DocsOptAdditionalInfo : 'DocsOptAdditionalInfo',
-        DocsOptionsInitial : 'DocsOptions DocsOptionsClick'
+        //Class elements in use
+        DOCS_OPTIONS : 'DocsOptions',
+        DOCS_OPTIONS_INITIAL : 'DocsOptions DocsOptionsClick'
     },
 
     /**
@@ -33,27 +27,23 @@ let RequestsContent = React.createClass({
      */
     getInitialState(){
         let docFile = UIService.getDocsFile();
+        this.buildCategoriesList(docFile.categoriesList);
+
+        let initialTab;
+        if(this.state){
+            if(this.state.hasOwnProperty('option')){
+                if(this.state.option){
+                    initialTab = this.state.option
+                }
+            }
+        }else{
+            initialTab = (this.elements.options[0]);
+            initialTab = (initialTab) ? this.elements.options[0].Name : false;
+        }
 
         return {
-            option: this.elements.DocsOptVeId,
-            recovery: docFile.pendingRecovery,
-            kycIDApproved: docFile.kycIDApproved,
-            additionalInfo: docFile.pendingAdditionalInfo,
-            responseUpload: UIService.getDocsUploadResponse(),
-            forms: this.customerFormsInformation(docFile.forms)
+            option : initialTab
         }
-    },
-
-    /**
-     * Refresh local state
-     * 
-     * @returns {*|{forms, option, recovery, kycIDApproved, additionalInfo, responseUpload}}
-     */
-    refreshLocalState(){
-        let refreshState = this.getInitialState();
-        refreshState.option = this.state.option;
-
-        return refreshState
     },
 
     /**
@@ -62,15 +52,86 @@ let RequestsContent = React.createClass({
      * @private
      */
     _onChange(){
-        this.setState(this.refreshLocalState());
+        this.setState(this.getInitialState());
     },
 
     /**
      * Execute actions when component will mount
      */
     componentWillMount(){
-        UIService.docFilesCustomerPendingForms();
-        UIService.docFilesCustomerFormsInformation(this.state.option)
+        UIService.docFilesCategories();
+        //UIService.docFilesCustomerPendingForms();
+        //UIService.docFilesCustomerFormsInformation(this.state.option)
+    },
+
+    /**
+     * Build categories request
+     *
+     * @param categoriesList
+     */
+    buildCategoriesList(categoriesList){
+        if(_.size(categoriesList)){
+            for(let category in categoriesList){
+                if(categoriesList.hasOwnProperty(category)){
+                    let tap = {
+                        Name : '',
+                        caDocumentCategory_Id : ''
+                    };
+
+                    tap.Name = ApplicationService.toCamelCase(categoriesList[category].Name);
+                    tap.caDocumentCategory_Id = categoriesList[category].caDocumentCategory_Id;
+
+                    let found = false;
+                    for(let option in this.elements.options){
+                        if(this.elements.options.hasOwnProperty(option)){
+                            if(tap.Name == this.elements.options[option].Name){
+                                found = true;
+                                break
+                            }
+                        }
+                    }
+
+                    if(!found){
+                        this.elements.options.push(tap);
+                    }
+                }
+            }
+        }
+    },
+
+    /**
+     * Check if the tab is printed
+     *
+     * @param categoryId
+     * @returns {*}
+     */
+    checkRules(categoryId){
+        if(DocsFileRules.hasOwnProperty(categoryId)){
+            return DocsFileRules.print(categoryId)
+        }
+
+        return false
+    },
+
+    /**
+     * Build tab text
+     *
+     * @param option
+     * @returns {XML}
+     */
+    buildTap(option){
+        if(this.state.option){
+            if(this.checkRules(option.caDocumentCategory_Id)){
+                let tabTXT = translate(option.Name);
+                let className = (this.state.option == option.Name) ? this.elements.DOCS_OPTIONS_INITIAL : this.elements.DOCS_OPTIONS;
+
+                return(
+                    <div id={option.Name} className={className} onClick={this.docsOptionsActions}>
+                        {tabTXT}
+                    </div>
+                )
+            }
+        }
     },
 
     /**
@@ -82,21 +143,28 @@ let RequestsContent = React.createClass({
         if(_.size(options)){
             let formOptions = {};
             for(let option in options){
-                let form = {};
-                let currentOpt = options[option];
-                let category = translate(currentOpt.TagTitle);
+                if(options.hasOwnProperty(option)){
+                    let form = {};
+                    let currentOpt = options[option];
+                    let category = translate(currentOpt.TagTitle);
 
-                form[category] = {};
-                form[category]['elements'] = {};
-                form[category]['DocumentForm_Id'] = {};
-                form[category]['DocumentForm_Id'] = currentOpt.caDocumentForm_Id;
+                    form[category] = {};
+                    form[category]['elements'] = {};
+                    form[category]['DocumentForm_Id'] = {};
+                    form[category]['DocumentForm_Id'] = currentOpt.caDocumentForm_Id;
 
-                for(let element in currentOpt.fields){
-                    form[category]['elements'][element] = currentOpt.fields[element];
-                    form[category]['elements'][element].file = currentOpt.fields[element].file.types;
+                    for(let element in currentOpt.fields){
+                        if(currentOpt.fields.hasOwnProperty(element)){
+                            form[category]['elements'][element] = currentOpt.fields[element];
+
+                            if(currentOpt.fields[element].file.hasOwnProperty('types')){
+                                form[category]['elements'][element].file = currentOpt.fields[element].file.types;
+                            }
+                        }
+                    }
+
+                    formOptions[ApplicationService.toCamelCase(category)] = form[category];   
                 }
-
-                formOptions[ApplicationService.toCamelCase(category)] = form[category];
             }
 
             return formOptions;
@@ -113,7 +181,7 @@ let RequestsContent = React.createClass({
     docsOptionsActions(event){
         UIService.docsResetResponseUpload();
 
-        let optionElements = document.getElementsByClassName(this.elements.DocsOptions);
+        let optionElements = document.getElementsByClassName(this.elements.DOCS_OPTIONS);
         let count = optionElements.length;
 
         for(let i=0; i<count; i++){
@@ -135,42 +203,7 @@ let RequestsContent = React.createClass({
         return(
             <div id="requestContent">
                 <div id="requestsOptions">
-                    {(() =>{
-                        if(true){//TODO no form e-WALLET CALLED !this.state.kycIDApproved && !this.state.forms
-                            return(
-                                <div id={this.elements.DocsOptVeId} className={this.elements.DocsOptionsInitial} onClick={this.docsOptionsActions}>
-                                    {translate('MY_REQUEST_VERIFY_IDENTITY')}
-                                </div>
-                            )
-                        }
-                    })()}
-
-                    <div id={this.elements.DocsOptUpdInfo} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
-                        {translate('MY_REQUEST_UPDATE_INFORMATION')}
-                    </div>
-                    <div id={this.elements.DocsOptRepError} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
-                        {translate('MY_REQUEST_REPORT_PROBLEM')}
-                    </div>
-
-                    {(() =>{
-                        if(this.state.additionalInfo){
-                           return(
-                               <div id={this.elements.DocsOptAdditionalInfo} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
-                                   {translate('MY_REQUEST_ADDITIONAL_INFO')}
-                               </div>
-                           )
-                        }
-                    })()}
-
-                    {(() =>{
-                        if(this.state.recovery){
-                            return(
-                                <div id={this.elements.DocsOptRecovery} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
-                                    {translate('MY_REQUEST_RECOVERY')}
-                                </div>
-                            )
-                        }
-                    })()}
+                    {this.elements.options.map(this.buildTap)}
 
                     <div id="DocsFileBack">
                         <Link to={`/deposit/`}>
