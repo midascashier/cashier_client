@@ -60,8 +60,7 @@ let RequestsContent = React.createClass({
      */
     componentWillMount(){
         UIService.docFilesCategories();
-        //UIService.docFilesCustomerPendingForms();
-        //UIService.docFilesCustomerFormsInformation(this.state.option)
+        UIService.docFilesCustomerPendingForms();
     },
 
     /**
@@ -106,8 +105,10 @@ let RequestsContent = React.createClass({
      * @returns {*}
      */
     checkRules(categoryId){
+        let docFile = UIService.getDocsFile();
+
         if(DocsFileRules.hasOwnProperty(categoryId)){
-            return DocsFileRules.print(categoryId)
+            return DocsFileRules.print(categoryId, docFile)
         }
 
         return false
