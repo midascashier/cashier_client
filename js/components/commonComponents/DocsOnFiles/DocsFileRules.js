@@ -1,5 +1,5 @@
 /**
- * The rules validate with _DocsFile storage values
+ * Rules are validated with storage values ​​_DocsFile
  *
  * @type {{1: {name: string, rules: boolean}, 2: {name: string, rules: boolean}, 3: {name: string, rules: boolean}, 4: {name: string, rules: {pendingAdditionalInfo: boolean}}, 5: {name: string, rules: {pendingRecovery: boolean}}, print: (function(*=, *): *)}}
  */
