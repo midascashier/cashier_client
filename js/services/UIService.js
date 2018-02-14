@@ -933,7 +933,7 @@ class UiService {
 			customerId: UIService.getCustomerInformation().customerId
 		};
 
-		CashierStore.docFilesCustomerPendingFormsReady();
+		CashierStore.docFilesCustomerPendingFormsWait();
 		ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_CUSTOMER_PENDING_FORMS_RESPONSE, params);
 	}
 
