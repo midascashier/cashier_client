@@ -973,7 +973,7 @@ class UiService {
 		let categoryId = UIService.getDocsFileCategoryId(category);
 		let pendingInfo = CashierStore.docsFilePendingCustomerFormInfo();
 
-		if(pendingInfo){
+		if(pendingInfo && category){
 			let params = {
 				languageId: 10,
 				categoryId: categoryId,
@@ -999,9 +999,9 @@ class UiService {
 
 		for(let category in categories){
 			if(categories.hasOwnProperty(category)){
-				if(categories[category].Name.toLowerCase() == categoryName){
+				if(ApplicationService.toCamelCase(categories[category].Name) == categoryName){
 					return categories[category].caDocumentCategory_Id
-				}	
+				}
 			}
 		}
 
