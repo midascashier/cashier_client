@@ -915,7 +915,7 @@ class UiService {
 	setDocsCurrentOption(options){
 		CashierStore.setDocsCurrentOption(options)
 	}
-	
+
 	/**
 	 * Get docs files categories list
 	 */
@@ -925,10 +925,46 @@ class UiService {
 	}
 
 	/**
-	 * Get docs files inputs category
-	 * 
+	 * Call pending form from customers
+	 */
+	docFilesCustomerPendingForms(){
+		let params = {
+			f: 'docFilesCustomerPendingForms',
+			customerId: UIService.getCustomerInformation().customerId
+		};
+
+		CashierStore.docFilesCustomerPendingFormsReady();
+		ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_CUSTOMER_PENDING_FORMS_RESPONSE, params);
+	}
+
+	/**
+	 * Call form information from customer
+	 *
 	 * @param category
-     */
+	 */
+	docFilesCustomerFormsInformation(category){
+		let categoryId = UIService.getDocsFileCategoryId(category);
+		let pendingInfo = CashierStore.docsFilePendingCustomerFormInfo();
+
+		if(pendingInfo && category){
+			let params = {
+				languageId: 10,
+				categoryId: categoryId,
+				f: 'docFilesCustomerFormsInformation',
+				companyId: UIService.getCompanyInformation().companyId,
+				customerId: UIService.getCustomerInformation().customerId
+			};
+
+			CashierStore.docFilesCustomerPendingFormInfoWait();
+			ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_CUSTOMER_FORMS_INFORMATION_RESPONSE, params);
+		}
+	}
+
+	/**
+	 * Get docs files inputs category
+	 *
+	 * @param category
+	 */
 	docFilesFormInputsCategories(category){
 		let docs = UIService.getDocsFile();
 		if(docs.forms.hasOwnProperty(category)){
@@ -943,47 +979,12 @@ class UiService {
 							formId: forms[form].caDocumentForm_Id
 						};
 
-						CashierStore.docsFileWaitReadyInputsCategory();
 						ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_FORMS_INPUTS_CATEGORIES_RESPONSE, params);
 					}
 				}
+
+				CashierStore.docsFileInputsCategoryWait();
 			}
-		}
-	}
-
-	/**
-	 * Call pending form from customers
-	 */
-	docFilesCustomerPendingForms(){
-		let params = {
-			f: 'docFilesCustomerPendingForms',
-			customerId: UIService.getCustomerInformation().customerId
-		};
-
-		CashierStore.docsFileWaitReadyPendingInfo();
-		ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_FORMS_RESPONSE, params);
-	}
-
-	/**
-	 * Call form information from customer
-	 *
-	 * @param category
-     */
-	docFilesCustomerFormsInformation(category){
-		let categoryId = UIService.getDocsFileCategoryId(category);
-		let pendingInfo = CashierStore.docsFilePendingCustomerFormInfo();
-
-		if(pendingInfo && category){
-			let params = {
-				languageId: 10,
-				categoryId: categoryId,
-				f: 'docFilesCustomerFormsInformation',
-				companyId: UIService.getCompanyInformation().companyId,
-				customerId: UIService.getCustomerInformation().customerId
-			};
-
-			CashierStore.docsFileWaitReadyCustomerFormInfo();
-			ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_KYC_FORMS_INFORMATION_RESPONSE, params);
 		}
 	}
 
