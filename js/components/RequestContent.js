@@ -23,6 +23,14 @@ let RequestsContent = React.createClass({
     },
 
     /**
+     * Execute actions when component will mount
+     */
+    componentWillMount(){
+        UIService.docFilesCategories();
+        UIService.docFilesCustomerPendingForms();
+    },
+
+    /**
      * React function to set component initial state
      */
     getInitialState(){
@@ -32,14 +40,6 @@ let RequestsContent = React.createClass({
         return {
             option : this.currentTabSelected()
         }
-    },
-
-    /**
-     * Execute actions when component will mount
-     */
-    componentWillMount(){
-        UIService.docFilesCategories();
-        UIService.docFilesCustomerPendingForms();
     },
 
     /**
@@ -122,9 +122,8 @@ let RequestsContent = React.createClass({
      * @returns {*}
      */
     checkRules(categoryId){
-        let docFile = UIService.getDocsFile();
-
         if(DocsFileRules.hasOwnProperty(categoryId)){
+            let docFile = UIService.getDocsFile();
             return DocsFileRules.print(categoryId, docFile)
         }
 
@@ -150,45 +149,6 @@ let RequestsContent = React.createClass({
                 )
             }
         }
-    },
-
-    /**
-     * Build and set current elements forms
-     *
-     * @returns {{}}
-     */
-    customerFormsInformation(options){
-        if(_.size(options)){
-            let formOptions = {};
-            for(let option in options){
-                if(options.hasOwnProperty(option)){
-                    let form = {};
-                    let currentOpt = options[option];
-                    let category = translate(currentOpt.TagTitle);
-
-                    form[category] = {};
-                    form[category]['elements'] = {};
-                    form[category]['DocumentForm_Id'] = {};
-                    form[category]['DocumentForm_Id'] = currentOpt.caDocumentForm_Id;
-
-                    for(let element in currentOpt.fields){
-                        if(currentOpt.fields.hasOwnProperty(element)){
-                            form[category]['elements'][element] = currentOpt.fields[element];
-
-                            if(currentOpt.fields[element].file.hasOwnProperty('types')){
-                                form[category]['elements'][element].file = currentOpt.fields[element].file.types;
-                            }
-                        }
-                    }
-
-                    formOptions[ApplicationService.toCamelCase(category)] = form[category];   
-                }
-            }
-
-            return formOptions;
-        }
-
-        return false;
     },
 
     /**
