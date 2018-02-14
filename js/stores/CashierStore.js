@@ -406,12 +406,12 @@ let _DocsFile = {
 	kycIDApproved : false,
 	customerForms : false,
 
-	readyPendingInfo: false,
 	readyCategories : false,
+	customerPendingForms: false,
 	pendingInputsCategory : true,
 	pendingCustomerFormInfo : true,
 	readyPending(){
-		return (this.readyCategories && this.readyPendingInfo && !this.pendingCustomerFormInfo && !this.pendingInputsCategory);
+		return (this.readyCategories && this.customerPendingForms && !this.pendingCustomerFormInfo && !this.pendingInputsCategory);
 	}
 };
 
@@ -867,20 +867,16 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		_DocsFile.responseUpload = false;
 		_DocsFile.pendingInputsCategory = true;
 		_DocsFile.pendingCustomerFormInfo = true;
+
+		_DocsFile.forms = {};
+		_DocsFile.currentFormInputsCategories = [];
 	},
 
 	/**
 	 * Wait Ready Pending Info
 	 */
-	docsFileWaitReadyPendingInfo(){
-		_DocsFile.readyPendingInfo = false;
-	},
-
-	/**
-	 * Wait Ready Categories
-	 */
-	docsFileWaitReadyCategories(){
-		_DocsFile.readyCategories = false;
+	docFilesCustomerPendingFormsWait(){
+		_DocsFile.customerPendingForms = false;
 	},
 
 	/**
@@ -895,7 +891,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * Wait Ready Inputs Category
 	 */
-	docsFileWaitReadyInputsCategory(){
+	docsFileInputsCategoryWait(){
 		_DocsFile.pendingInputsCategory = false;
 	},
 
@@ -911,7 +907,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * Wait Ready Customer Form Info
 	 */
-	docsFileWaitReadyCustomerFormInfo(){
+	docFilesCustomerPendingFormInfoWait(){
 		_DocsFile.pendingCustomerFormInfo = false;
 	}
 });
@@ -1408,43 +1404,34 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					}
 
 					_DocsFile.readyCategories = true;
+					CashierStore.emitChange();
 				break;
 
-				case actions.DOCS_FILES_GET_FORMS_INPUTS_CATEGORIES_RESPONSE:
-					if(data.response.result){
-						let form = {};
-						form = data.response.result;
-						_DocsFile.currentFormInputsCategories.push(form);
-					}
-
-					_DocsFile.pendingInputsCategory = false;
-				break;
-
-				case actions.DOCS_FILES_GET_FORMS_RESPONSE:
+				case actions.DOCS_FILES_GET_CUSTOMER_PENDING_FORMS_RESPONSE:
 					if(data.response.result){
 						for(let key in data.response.result){
 							if(key == 4){
 								_DocsFile.pendingAdditionalInfo = true
 							}
 
-							if(key == 5 ){
+							if(key == 5){
 								_DocsFile.pendingRecovery = true
 							}
 						}
-
-						CashierStore.emitChange();
 					}
 
-					_DocsFile.readyPendingInfo = true;
+					_DocsFile.customerPendingForms = true;
 				break;
 
-				case actions.DOCS_FILES_GET_KYC_FORMS_INFORMATION_RESPONSE:
+				case actions.DOCS_FILES_GET_CUSTOMER_FORMS_INFORMATION_RESPONSE:
 					if(data.state == 'ok'){
 						if(data.response.result){
 							if(data.response.result.customerForms.length){
 								let customerForms = {};
 								customerForms[_DocsFile.currentOptionSelected] = data.response.result.customerForms;
 								_DocsFile.customerForms = customerForms
+							}else{
+								_DocsFile.customerForms = [];
 							}
 
 							let form = {};
@@ -1454,9 +1441,26 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 						}
 
 						_DocsFile.pendingCustomerFormInfo = false;
-
 						CashierStore.emitChange();
 					}
+				break;
+
+				case actions.DOCS_FILES_GET_FORMS_INPUTS_CATEGORIES_RESPONSE:
+					if(data.response.result){
+						let form = {};
+						form = data.response.result;
+						let categories = _DocsFile.currentFormInputsCategories;
+
+						if(!categories[_DocsFile.currentOptionSelected]){
+							categories[_DocsFile.currentOptionSelected] = [];
+						}
+
+						categories[_DocsFile.currentOptionSelected].push(form);
+						_DocsFile.currentFormInputsCategories = categories;
+					}
+
+					_DocsFile.pendingInputsCategory = false;
+					CashierStore.emitChange();
 				break;
 
 				case actions.DOCS_FILE_SAVE_RESPONSE:
