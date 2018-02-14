@@ -927,19 +927,27 @@ class UiService {
 	/**
 	 * Get docs files inputs category
 	 * 
-	 * @param formId
+	 * @param category
      */
-	docFilesFormInputsCategories(formId){
-		let pendingInfo = CashierStore.docsFilePendingInputsCategory();
+	docFilesFormInputsCategories(category){
+		let docs = UIService.getDocsFile();
+		if(docs.forms.hasOwnProperty(category)){
+			let forms = docs.forms[category];
+			let pendingInfo = CashierStore.docsFilePendingInputsCategory();
 
-		if(pendingInfo){
-			let params = {
-				formId: formId,
-				f: 'docFilesFormInputsCategories'
-			};
+			if(pendingInfo){
+				for(let form in forms){
+					if(forms.hasOwnProperty(form)){
+						let params = {
+							f: 'docFilesFormInputsCategories',
+							formId: forms[form].caDocumentForm_Id
+						};
 
-			CashierStore.docsFileWaitReadyInputsCategory();
-			ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_FORMS_INPUTS_CATEGORIES_RESPONSE, params);	
+						CashierStore.docsFileWaitReadyInputsCategory();
+						ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_FORMS_INPUTS_CATEGORIES_RESPONSE, params);
+					}
+				}
+			}
 		}
 	}
 
