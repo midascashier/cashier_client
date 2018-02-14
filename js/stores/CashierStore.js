@@ -400,7 +400,7 @@ let _DocsFile = {
 	pendingRecovery : false,
 	currentOptionSelected : '',
 	pendingAdditionalInfo : false,
-	currentFormInputsCategories : {},
+	currentFormInputsCategories : [],
 
 	forms : {},
 	kycIDApproved : false,
@@ -1412,7 +1412,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 				case actions.DOCS_FILES_GET_FORMS_INPUTS_CATEGORIES_RESPONSE:
 					if(data.response.result){
-						_DocsFile.currentFormInputsCategories = data.response.result;
+						let form = {};
+						form = data.response.result;
+						_DocsFile.currentFormInputsCategories.push(form);
 					}
 
 					_DocsFile.pendingInputsCategory = false;
