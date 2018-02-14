@@ -16,7 +16,9 @@ let DocsFormRequestContent = React.createClass({
         let docs = UIService.getDocsFile();
         if(!docs.forms.hasOwnProperty(this.props.option)){
             UIService.docFilesCustomerFormsInformation(this.props.option);
-        }else{
+        }
+
+        if(!docs.currentFormInputsCategories.hasOwnProperty(this.props.option)){
             UIService.docFilesFormInputsCategories(this.props.option);
         }
 
