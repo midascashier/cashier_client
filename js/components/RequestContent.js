@@ -212,6 +212,7 @@ let RequestsContent = React.createClass({
 
         let actualState = this.state;
         actualState.option = id;
+        UIService.setDocsCurrentOption(id);
         actualState.responseUpload = UIService.getDocsUploadResponse();
         this.setState(actualState);
     },
