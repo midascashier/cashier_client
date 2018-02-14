@@ -14,18 +14,18 @@ let DocsFormRequestContent = React.createClass({
 
     render(){
         let docs = UIService.getDocsFile();
-        if(!docs.forms.hasOwnProperty(this.props.option) && this.props.option){
+        if(!docs.forms.hasOwnProperty(this.props.option)){
             UIService.docFilesCustomerFormsInformation(this.props.option);
         }else{
             UIService.docFilesFormInputsCategories(this.props.option);
         }
 
         if(docs.readyPending()){
-            let prefixComponent = 'docs file opt ' + this.props.option;
-            let componentName = ApplicationService.toCamelCase(prefixComponent);
+            let prefixComponent = 'docs file opt';//Standard name for dynamic call to the component of the selected option
+            let componentName = ApplicationService.toCamelCase(prefixComponent);//docsFileOpt + NameOption
 
-            let Component = this.rendering[componentName];
-            return <Component elements={this.props.option}/>
+            let Component = this.rendering[componentName + capitalize(this.props.option, true)];
+            return <Component/>
         }
 
         return <div className="loader"></div>
