@@ -1,29 +1,31 @@
 import React from 'react'
-import {DocsOptRecovery} from './DocsOptRecovery'
 import {UIService} from '../../../services/UIService'
-import {DocsOptUpdateInfo} from './DocsOptUpdateInfo'
-import {DocsOptReportError} from './DocsOptReportError'
-import {DocsOptAdditionalInfo} from './DocsOptAdditionalInfo'
-import {DocsOptVerifyIdentity} from './DocsOptVerifyIdentity'
+import {docsFileOptKyc} from './options/docsFileOptKyc'
+import {ApplicationService} from '../../../services/ApplicationService'
 
 let DocsFormRequestContent = React.createClass({
-    propsType: {
-        content: React.PropTypes.node
+    propsType : {
+        option : React.PropTypes.node
     },
 
-    rendering: {
-        DocsOptRecovery,
-        DocsOptUpdateInfo,
-        DocsOptReportError,
-        DocsOptAdditionalInfo,
-        DocsOptVerifyIdentity
+    rendering : {
+        docsFileOptKyc : docsFileOptKyc
     },
 
     render(){
         let docs = UIService.getDocsFile();
-        if(docs.readyPending){
-            let Component = this.rendering[this.props.content];
-            return <Component elements={this.props.elements}/>
+        if(!docs.forms.hasOwnProperty(this.props.option) && this.props.option){
+            UIService.docFilesCustomerFormsInformation(this.props.option);
+        }else{
+            UIService.docFilesFormInputsCategories(this.props.option);
+        }
+
+        if(docs.readyPending()){
+            let prefixComponent = 'docs file opt ' + this.props.option;
+            let componentName = ApplicationService.toCamelCase(prefixComponent);
+
+            let Component = this.rendering[componentName];
+            return <Component elements={this.props.option}/>
         }
 
         return <div className="loader"></div>
