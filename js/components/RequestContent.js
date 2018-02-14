@@ -42,7 +42,7 @@ let RequestsContent = React.createClass({
         }
 
         if(initialTab){
-            UIService.setDocsCurrentOption(initialTab);            
+            UIService.setDocsCurrentOption(initialTab);
         }
 
         return {
@@ -99,6 +99,10 @@ let RequestsContent = React.createClass({
                     }
                 }
             }
+
+            let actualState = this.state;
+            actualState.option  = this.elements.options[0].Name;
+            this.setState(actualState);
         }
     },
 
