@@ -29,6 +29,32 @@ let RequestsContent = React.createClass({
         let docFile = UIService.getDocsFile();
         this.buildCategoriesList(docFile.categoriesList);
 
+        return {
+            option : this.currentTabSelected()
+        }
+    },
+
+    /**
+     * Execute actions when component will mount
+     */
+    componentWillMount(){
+        UIService.docFilesCategories();
+        UIService.docFilesCustomerPendingForms();
+    },
+
+    /**
+     * this is the callback function the store calls when a state change
+     *
+     * @private
+     */
+    _onChange(){
+        this.setState(this.getInitialState());
+    },
+
+    /**
+     * Check and set current tab selected
+     */
+    currentTabSelected(){
         let initialTab;
         if(this.state){
             if(this.state.hasOwnProperty('option')){
@@ -45,26 +71,7 @@ let RequestsContent = React.createClass({
             UIService.setDocsCurrentOption(initialTab);
         }
 
-        return {
-            option : initialTab
-        }
-    },
-
-    /**
-     * this is the callback function the store calls when a state change
-     *
-     * @private
-     */
-    _onChange(){
-        this.setState(this.getInitialState());
-    },
-
-    /**
-     * Execute actions when component will mount
-     */
-    componentWillMount(){
-        UIService.docFilesCategories();
-        UIService.docFilesCustomerPendingForms();
+        return initialTab
     },
 
     /**
@@ -76,18 +83,18 @@ let RequestsContent = React.createClass({
         if(_.size(categoriesList)){
             for(let category in categoriesList){
                 if(categoriesList.hasOwnProperty(category)){
-                    let tap = {
+                    let tab = {
                         Name : '',
                         caDocumentCategory_Id : ''
                     };
 
-                    tap.Name = ApplicationService.toCamelCase(categoriesList[category].Name);
-                    tap.caDocumentCategory_Id = categoriesList[category].caDocumentCategory_Id;
+                    tab.Name = ApplicationService.toCamelCase(categoriesList[category].Name);
+                    tab.caDocumentCategory_Id = categoriesList[category].caDocumentCategory_Id;
 
                     let found = false;
                     for(let option in this.elements.options){
                         if(this.elements.options.hasOwnProperty(option)){
-                            if(tap.Name == this.elements.options[option].Name){
+                            if(tab.Name == this.elements.options[option].Name){
                                 found = true;
                                 break
                             }
@@ -95,14 +102,16 @@ let RequestsContent = React.createClass({
                     }
 
                     if(!found){
-                        this.elements.options.push(tap);
+                        this.elements.options.push(tab);
                     }
                 }
             }
 
-            let actualState = this.state;
-            actualState.option  = this.elements.options[0].Name;
-            this.setState(actualState);
+            if(!this.currentTabSelected()){
+                let actualState = this.state;
+                actualState.option  = this.elements.options[0].Name;
+                this.setState(actualState);
+            }
         }
     },
 
@@ -128,7 +137,7 @@ let RequestsContent = React.createClass({
      * @param option
      * @returns {XML}
      */
-    buildTap(option){
+    buildTab(option){
         if(this.state.option){
             if(this.checkRules(option.caDocumentCategory_Id)){
                 let tabTXT = translate(option.Name);
@@ -211,7 +220,7 @@ let RequestsContent = React.createClass({
         return(
             <div id="requestContent">
                 <div id="requestsOptions">
-                    {this.elements.options.map(this.buildTap)}
+                    {this.elements.options.map(this.buildTab)}
 
                     <div id="DocsFileBack">
                         <Link to={`/deposit/`}>
