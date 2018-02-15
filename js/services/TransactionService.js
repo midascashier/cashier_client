@@ -463,6 +463,7 @@ class transactionService{
 		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
 
+		let isWithdraw = CashierStore.getIsWithdraw();
 		let transaction = CashierStore.getTransaction();
 		let processorSelected = CashierStore.getProcessor();
 
@@ -474,6 +475,7 @@ class transactionService{
 			promoCode: transaction.promoCode,
 			authUniqueId: transaction.randomTuid,
 			processorId: processorSelected.processorId,
+			isWithdraw: isWithdraw,
 			dynamicParams: dynamicParams
 		};
 
