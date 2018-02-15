@@ -1,4 +1,5 @@
 import React from 'react'
+import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 
 let DocsVerifyIDCustomerForms = React.createClass({
@@ -33,6 +34,7 @@ let DocsVerifyIDCustomerForms = React.createClass({
     },
 
     render(){
+        let docs = UIService.getDocsFile();
         return (
             <div id="DocsFileCustomerFormsContent">
                 <div className="docsFileBackOptId" onClick={this.props.addDocument}>
@@ -45,7 +47,7 @@ let DocsVerifyIDCustomerForms = React.createClass({
                     <span className="grid-item">{translate('DOCFILE_FORM_KYC_TABLE_ACTION')}</span>
                 </div>
                 <div className="grid-global-container">
-                    {this.props.forms.map(this.genDocumentRegisters)}
+                    {this.props.forms[docs.currentOptionSelected].map(this.genDocumentRegisters)}
                 </div>
             </div>
         )
