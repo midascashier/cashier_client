@@ -15,6 +15,18 @@ let Player2Agent = React.createClass({
 		feeCheck: React.PropTypes.number
 	},
 
+	customProps: {
+		invalidAccount: false
+	},
+
+	/**
+	 * check if an account is invalid
+	 * @param state
+	 */
+	invalidAccount(state) {
+		this.customProps.invalidAccount = state;
+	},
+
 	/**
 	 * React function to set component initial state
 	 */
@@ -28,7 +40,7 @@ let Player2Agent = React.createClass({
 	refreshLocalState() {
 		let account = "";
 		if(this.state){
-			if(this.state.info.account !== ""){
+			if(this.state.info.account !== "") {
 				account = this.state.info.account;
 				this.props.account = account;
 			}
@@ -61,7 +73,7 @@ let Player2Agent = React.createClass({
 	},
 
 	/**
-	 * Set local state for bitcoin Address and if is allow to continue
+	 * Set local state for accountTo and if is allow to continue
 	 *
 	 * @param e
 	 * @param state
@@ -81,12 +93,14 @@ let Player2Agent = React.createClass({
 				<div className="col-sm-6">
 					<AskInfo
 						amount={this.props.amount}
+						account={this.state.info.account}
 						setAmount={this.props.setAmount}
 						limitsCheck={this.props.limitsCheck}
 						accountChange={this.changeValue}
 						feeCashValue={this.props.feeCashValue}
 						feeCheck={this.props.feeCheck}
 						allowContinueToConfirm={this.state.info.allowContinueToConfirm}
+						invalidAccount={this.customProps.invalidAccount}
 					/>
 				</div>
 				<div className="col-sm-6">
@@ -94,14 +108,14 @@ let Player2Agent = React.createClass({
 						if(!this.state.info.selectedProcessor.processorId){
 							return <LoadingSpinner/>;
 						}
-
 						return(
 							<InfoMethod
 								amount={this.props.amount}
 								limitsCheck={this.props.limitsCheck}
 								feeCashValue={this.props.feeCashValue}
 								allowContinueToConfirm={this.state.info.allowContinueToConfirm}
-								account={this.props.account}
+								account={this.state.info.account}
+								invalidAccount={this.invalidAccount}
 							/>
 						)
 					})()}

@@ -931,17 +931,27 @@ class UiService {
 	accountExists(account) {
 		if(!account)
 			return false;
+		CashierStore.setAccountConsultingStatus(true);
 
-		ConnectorServices.makeCashierRequest(actions.VALIDATE_ACCOUNT, {
-			account: account,
-			f: 'validateAccount'
-		});
+		let params = {
+			accountTo: account,
+			processorId: CashierStore.getProcessorId(),
+			f: 'validateTransferAccount'
+		};
 
-		this.setPlayerAccount(account);
+		ConnectorServices.makeCashierRequest(actions.VALIDATE_ACCOUNT, params);
 	}
 
 	getPlayerAccount() {
 		return CashierStore.getPlayerAccount();
+	}
+
+	accountConsulted() {
+		return CashierStore.getAccountConsultingStatus()
+	}
+
+	cleanPlayerAccount() {
+		return CashierStore.cleanPlayerAccount();
 	}
 }
 

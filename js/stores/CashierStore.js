@@ -396,15 +396,21 @@ let _CryptoTransfer = {
 
 /**
  * Contains information related with the user who is going to be accredited by agent
- * @type {{account: string, name: string, feePaymentMethod: string, waitForValidation: boolean}}
+ *
+ * @type {{account: string, name: string, feePaymentMethod: string, waitForValidation: boolean, consulted: boolean, transfer: {usernameFrom: string, usernameTo: string, fullnameTo: string}}}
  * @private
  */
 let _Player2Agent = {
-	ready : false,
 	account: '',
 	name: '',
 	feePaymentMethod : '',
-	waitForValidation: false
+	waitForValidation: false,
+	consulted: false,
+	transfer: {
+		usernameFrom: "",
+		usernameTo: "",
+		fullnameTo: ""
+	}
 }
 
 let CHANGE_EVENT = 'change';
@@ -446,11 +452,27 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * @return {{account: string, name: string, feePaymentMethod: string}}
 	 */
 	getPlayerAccount: () => {
-		return _Player2Agent.name && _Player2Agent.name.length > 0 ? _Player2Agent : null;
+		return _Player2Agent.transfer.fullnameTo && _Player2Agent.transfer.fullnameTo.length > 0 ? _Player2Agent : null;
 	},
 
 	setPlayerAccount: (account) => {
 		_Player2Agent.account = account;
+	},
+
+	getAccountConsultingStatus: () => {
+		return _Player2Agent.consulted
+	},
+
+	setAccountConsultingStatus: (status) => {
+		_Player2Agent.consulted = status
+	},
+
+	cleanPlayerAccount: () => {
+		Object.assign(_Player2Agent.transfer, {
+			fullnameTo: '',
+			usernameFrom: '',
+			usernameTo: ''
+		});
 	},
 
 	/**
@@ -502,6 +524,9 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return (_payAccounts[_processor['processorId']]);
 	},
 
+	getProcessorId: () => {
+		return _processor['processorId'];
+	},
 	/**
 	 * get current language
 	 *
@@ -1343,7 +1368,15 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					break;
 
 				case actions.VALIDATE_ACCOUNT:
-					Object.assign(_Player2Agent, data);
+					if(!Array.isArray(data) && data.hasOwnProperty('response') && data.response.hasOwnProperty('transfer')) {
+						Object.assign(_Player2Agent.transfer, data.response.transfer);
+					} else {
+						Object.assign(_Player2Agent.transfer, {
+							fullnameTo: '',
+							usernameFrom: '',
+							usernameTo: ''
+						});
+					}
 					_processor.waitLimits = false;
 					CashierStore.emitChange();
 					break;

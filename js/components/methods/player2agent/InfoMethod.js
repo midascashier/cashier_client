@@ -15,7 +15,8 @@ let InfoMethod = React.createClass({
 		feeCashValue: React.PropTypes.number,
 		allowContinueToConfirm: React.PropTypes.bool,
 		account: React.PropTypes.string,
-		waitForValidation: React.PropTypes.func
+		waitForValidation: React.PropTypes.func,
+		invalidAccount: React.PropTypes.func
 	},
 
 	/**
@@ -62,6 +63,7 @@ let InfoMethod = React.createClass({
 	 * this function sends deposit info to cashier
 	 */
 	continueTransaction() {
+		this.props.invalidAccount(false);
 		TransactionService.setAmount(this.props.amount);
 
 		TransactionService.setPlayerAccount(this.props.account);
@@ -77,20 +79,18 @@ let InfoMethod = React.createClass({
 	render() {
 		let limitsCheck = false;
 		if(this.state.playerAccount){
-			console.log(this.state.playerAccount);
-			//UIService.confirmTransaction();
+			setTimeout(() => UIService.confirmTransaction(), 500);
 		}
+		if(!this.state.playerAccount && !this.state.waitForValidation && UIService.accountConsulted()) {
+			this.props.invalidAccount(true);
+		}
+
 		if(this.props.limitsCheck === Cashier.LIMIT_NO_ERRORS){
 			limitsCheck = true;
 		}
 
-		let feeCheck = this.props.feeCheck;
-		let isWithDraw = UIService.getIsWithDraw();
 		let allowContinueToConfirm = true;
 
-		if(isWithDraw) {
-			allowContinueToConfirm = this.props.allowContinueToConfirm;
-		}
 
 		let processorDisplayName = UIService.getProcessorDisplayName().toUpperCase();
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
@@ -104,14 +104,9 @@ let InfoMethod = React.createClass({
 		});
 
 		let isNextDisabled = "disabled";
-		if(isWithDraw){
-			if(limitsCheck && !feeCheck && allowContinueToConfirm){
-				isNextDisabled = "";
-			}
-		}else{
-			if(limitsCheck && allowContinueToConfirm){
-				isNextDisabled = "";
-			}
+
+		if(limitsCheck && allowContinueToConfirm){
+			isNextDisabled = "";
 		}
 
 		return (

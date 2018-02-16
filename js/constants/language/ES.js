@@ -320,7 +320,10 @@ let _langTags = {
 	AGENT_TRANSFER_FEE_PAYMENT: "Pague le costo de envío con",
 	AGENT_TRANSFER_FEE_PAYMENT_CASH: "Efectivo",
 	AGENT_TRANSFER_FEE_PAYMENT_BETPOINTS: "BetPoints",
-	AGENT_TRANSFER_INVALID_USER_ACCOUNT: "Verifique que la cuenta exista"
+	AGENT_TRANSFER_INVALID_USER_ACCOUNT: "Verifique que la cuenta exista",
+	AGENT_TRANSFER_ACCOUNT_FROM: "Transferir desde",
+	AGENT_TRANSFER_ACCOUNT_TO_USERNAME: "Cuenta destino",
+	AGENT_TRANSFER_ACCOUNT_TO_FULLNAME: "Nombre"
 };
 
 export function ES(){

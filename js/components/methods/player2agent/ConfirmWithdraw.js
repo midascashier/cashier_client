@@ -1,9 +1,9 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
-import { translate } from '../../../constants/Translate'
-import { UIService } from '../../../services/UIService'
-import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
+import {CashierStore} from '../../../stores/CashierStore'
+import {translate} from '../../../constants/Translate'
+import {UIService} from '../../../services/UIService'
+import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
 
 let Player2AgentConfirmWithdraw = React.createClass({
 
@@ -20,7 +20,8 @@ let Player2AgentConfirmWithdraw = React.createClass({
 	refreshLocalState() {
 		return {
 			transaction: CashierStore.getTransaction(),
-			payAccount: CashierStore.getCurrentPayAccount()
+			payAccount: CashierStore.getCurrentPayAccount(),
+			playerAccount: UIService.getPlayerAccount()
 		}
 	},
 
@@ -46,6 +47,7 @@ let Player2AgentConfirmWithdraw = React.createClass({
 	 * Sends customer to previous step and start transaction
 	 */
 	editWithdraw(){
+		UIService.cleanPlayerAccount();
 		UIService.startTransaction();
 	},
 
@@ -59,7 +61,8 @@ let Player2AgentConfirmWithdraw = React.createClass({
 	render(){
 		let originPath = UIService.getOriginPath();
 		let transaction = this.state.transaction;
-		console.log(transaction);
+		let playerAccount = this.state.playerAccount;
+
 		return (
 			<div id="confirmBitCoinWithdraw" className="internal-content">
 				<div className="row">
@@ -90,18 +93,26 @@ let Player2AgentConfirmWithdraw = React.createClass({
 												<div className="table-responsive">
 													<table className="table table-striped">
 														<tbody>
-														<tr>
-															<td>{translate('AGENT_TRANSFER_USER_ACCOUNT', 'User account')}</td>
-															<td><span>{transaction.account}</span></td>
-														</tr>
-														<tr>
-															<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
-															<td><span>{ApplicationService.currency_format(transaction.amount)}</span></td>
-														</tr>
-														<tr>
-															<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
-															<td><span>{ApplicationService.currency_format(transaction.fee)}</span></td>
-														</tr>
+															<tr>
+																<td>{translate('AGENT_TRANSFER_ACCOUNT_FROM', 'Account From')}</td>
+																<td><span>{playerAccount.transfer.usernameFrom}</span></td>
+															</tr>
+															<tr>
+																<td>{translate('AGENT_TRANSFER_ACCOUNT_TO_USERNAME', 'Account To')}</td>
+																<td><span>{playerAccount.transfer.usernameTo}</span></td>
+															</tr>
+															<tr>
+																<td>{translate('AGENT_TRANSFER_ACCOUNT_TO_FULLNAME', 'Name')}</td>
+																<td><span>{playerAccount.transfer.fullnameTo}</span></td>
+															</tr>
+															<tr>
+																<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
+																<td><span>{ApplicationService.currency_format(transaction.amount)}</span></td>
+															</tr>
+															<tr>
+																<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
+																<td><span>{ApplicationService.currency_format(transaction.fee)}</span></td>
+															</tr>
 														</tbody>
 													</table>
 												</div>

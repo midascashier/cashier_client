@@ -15,7 +15,8 @@ let AskInfo = React.createClass({
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
 
-		accountChange: React.PropTypes.func
+		accountChange: React.PropTypes.func,
+		invalidAccount: React.PropTypes.bool
 	},
 
 	render(){
@@ -27,7 +28,11 @@ let AskInfo = React.createClass({
 		let amount = this.props.amount;
 
 		const title = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information')
-		let isInvalid = !this.state.waitForValidation && this.state.playerAccount;
+
+		let validations = {
+			AGENT_TRANSFER_INVALID_USER_ACCOUNT: this.props.invalidAccount
+		}
+
 
 		return (
 			<div id="btcAskInfo" className="box">
@@ -41,20 +46,7 @@ let AskInfo = React.createClass({
 										<div className="form-group">
 											<label className="col-sm-4 control-label">{translate('AGENT_TRANSFER_USER_ACCOUNT', 'User account')}:</label>
 											<div className="col-sm-8">
-												<div className={"form-control " + isInvalid ? "has-error" : null}>
-													<input type="test" id="account" name="account" ref="account" value={account} onChange={this.props.accountChange}/>
-													{(() => {
-														if(isInvalid) {
-															return (
-																<div className="alert alert-danger" role="alert">
-																	<i className="fa fa-thumbs-o-down red"/>
-																	<span>{translate('AGENT_TRANSFER_INVALID_USER_ACCOUNT')}</span>
-																</div>
-															)
-														}
-													})()}
-												</div>
-												{/*<Input type="text" validate="invalid-account" id="account" name="account" ref="account" value={account} onChange={this.props.accountChange}/>*/}
+												<Input type="text" customValidations={validations} id="account" name="account" ref="account" value={account} onChange={this.props.accountChange}/>
 											</div>
 										</div>
 
