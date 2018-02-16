@@ -1,14 +1,13 @@
 import React from 'react'
-import Cashier from '../../../constants/Cashier'
-import {UIService} from '../../../services/UIService'
-import {DrawDropUpload} from '../files/DrawDropUpload'
-import {translate} from '../../../constants/Translate'
-import {CashierStore} from '../../../stores/CashierStore'
-import {DocsVerifyIDCustomerForms} from './DocsVerifyIDCustomerForms'
-import {TransactionService} from '../../../services/TransactionService'
+import {UIService} from '../../../../services/UIService'
+import {DrawDropUpload} from '../../files/DrawDropUpload'
+import {translate} from '../../../../constants/Translate'
+import {CashierStore} from '../../../../stores/CashierStore'
+import {DocsVerifyIDCustomerForms} from './../DocsVerifyIDCustomerForms'
+import {TransactionService} from '../../../../services/TransactionService'
+import {DocsFileGenerateInputsType} from './../DocsFileGenerateInputsType'
 
-let DocsOptVerifyIdentity = React.createClass({
-
+let docsFileOptKyc = React.createClass({
     /**
      * React function to set component initial state
      */
@@ -88,7 +87,7 @@ let DocsOptVerifyIdentity = React.createClass({
 
     /**
      * Upload files selected
-     * 
+     *
      * @param e
      */
     uploadCurrentFiles(e){
@@ -234,4 +233,4 @@ let DocsOptVerifyIdentity = React.createClass({
     }
 });
 
-module.exports.DocsOptVerifyIdentity = DocsOptVerifyIdentity;
+module.exports.docsFileOptKyc = docsFileOptKyc;

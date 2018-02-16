@@ -157,7 +157,7 @@ let RequestsContent = React.createClass({
      * @param event
      */
     docsOptionsActions(event){
-        UIService.docsResetResponseUpload();
+        UIService.docsFileReset();
 
         let optionElements = document.getElementsByClassName(this.elements.DOCS_OPTIONS);
         let count = optionElements.length;

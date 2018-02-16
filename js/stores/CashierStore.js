@@ -403,6 +403,7 @@ let _DocsFile = {
 	currentFormInputsCategories : [],
 
 	forms : {},
+	formSelectedId: false,
 	kycIDApproved : false,
 	customerForms : false,
 
@@ -863,12 +864,13 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * Reset response wait
 	 */
-	docsResetResponseUpload(){
+	docsFileReset(){
 		_DocsFile.responseUpload = false;
 		_DocsFile.pendingInputsCategory = true;
 		_DocsFile.pendingCustomerFormInfo = true;
 
 		_DocsFile.forms = {};
+		_DocsFile.formSelectedId = false;
 		_DocsFile.currentFormInputsCategories = [];
 	},
 
@@ -909,6 +911,24 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	docFilesCustomerPendingFormInfoWait(){
 		_DocsFile.pendingCustomerFormInfo = false;
+	},
+
+	/**
+	 * Get formSelectedId
+	 *
+	 * @returns {boolean}
+     */
+	docFilesGetFormSelectedId(){
+		return _DocsFile.formSelectedId
+	},
+
+	/**
+	 * Set formSelectedId
+	 *
+	 * @returns {boolean}
+	 */
+	docFilesSetFormSelectedId(id){
+		_DocsFile.formSelectedId = id
 	}
 });
 

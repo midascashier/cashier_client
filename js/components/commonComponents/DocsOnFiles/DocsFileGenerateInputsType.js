@@ -1,9 +1,19 @@
 import React from 'react'
+import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 
 let DocsFileGenerateInputsType = React.createClass({
     propType : {
+        twoOptions : React.PropTypes.bool,
         optionInfo : React.PropTypes.node
+    },
+
+    inputsType : {
+        file : '1',
+        text : '2',
+        selected : '3',
+        ccList : '4',
+        eWalletList : '5'
     },
 
     /**
@@ -14,9 +24,9 @@ let DocsFileGenerateInputsType = React.createClass({
     verifyIdOptionsChange(e){
         let actualState = this.state;
         let option = e.target.getAttribute('id');
-        actualState.verifyIdOptSelect = option;
-        actualState.valueOption = this.element[option].value;
+        actualState.idOptSelect = option;
         this.setState(actualState);
+        UIService.docsFileSetOptionIdSelected(option);
     },
 
     /**
@@ -35,20 +45,66 @@ let DocsFileGenerateInputsType = React.createClass({
                 alt={translate('DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID')}
                 title={translate('DOCS_FILE_VERIFY_OPTIONS_DRIVER_ID')}
             />
-        )
+        );
+    },
+
+    printInputs(element){
+        switch(element.caDocumentFormInputType_Id){
+            case this.inputsType.file:
+
+            break;
+
+            case this.inputsType.text:
+                return <input type="text" placeholder={element.label}/>
+            break;
+
+            case this.inputsType.selected:
+                return(
+                    <select>
+                        {element.map(function (option, value) {
+                            return <option>{value}</option>
+                        })}
+                    </select>
+                );
+            break;
+
+            case this.inputsType.ccList:
+                return(
+                    <select>
+                        {element.map(function (option, value) {
+                            return <option>{value}</option>
+                        })}
+                    </select>
+                );
+            break;
+
+            case this.inputsType.eWalletList:
+                return(
+                    <select>
+                        {element.map(function (option, value) {
+                            return <option>{value}</option>
+                        })}
+                    </select>
+                );
+            break;
+        }
     },
 
     render(){
-        if(this.props.optionInfo.fields.length){
-            return(
-                <div id="CheckIdVerifyOptions">
-                    {this.props.optionInfo.fields.map(this.generateOptions)}
-                </div>   
-            )
-        }
-
         return(
-            <p>test</p>
+            <div>
+                {(() =>{
+                    if(this.props.twoOptions){
+                        return(
+                            <div id="CheckIdVerifyOptions">
+                                {this.props.optionInfo.map(this.generateOptions)}
+                            </div>
+                        )
+                    }
+                })()}
+
+                {this.props.optionInfo.map(this.printInputs)}
+            </div>
         )
     }
 });

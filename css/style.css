@@ -670,7 +670,7 @@ div[class*="col-"] > div[class*="col-"]:before {
     background-image: url(../images/docsFileBackground.svg);
 }
 
-#CheckIdContent{
+#docsFilesFormContent{
     float: left;
     width: inherit;
     display: block;
@@ -916,14 +916,14 @@ input:checked + .slider:before{
     -webkit-justify-content: center;
 }
 
-.docsFilesVerifyIdOptions{
+.docsFilesOptions{
     width: 190px;
     margin: 15px;
     cursor: pointer;
     height: inherit;
 }
 
-.docsFilesVerifyIdOptions:hover{
+.docsFilesOptions:hover{
     border-radius: 12px;
     border: solid 1px white;
 }

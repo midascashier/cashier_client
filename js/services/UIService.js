@@ -938,6 +938,24 @@ class UiService {
 	}
 
 	/**
+	 * Get form selected id
+	 *
+	 * @returns {*|boolean}
+     */
+	docFilesGetFormSelectedId(){
+		return CashierStore.docFilesGetFormSelectedId()			
+	}
+
+	/**
+	 * Set form selected id
+	 *
+	 * @param id
+     */
+	docFilesSetFormSelectedId(id){
+		CashierStore.docFilesSetFormSelectedId(id)
+	}
+
+	/**
 	 * Call form information from customer
 	 *
 	 * @param category
@@ -948,7 +966,7 @@ class UiService {
 
 		if(pendingInfo && category){
 			let params = {
-				languageId: 10,
+				languageId: 11,
 				categoryId: categoryId,
 				f: 'docFilesCustomerFormsInformation',
 				companyId: UIService.getCompanyInformation().companyId,
@@ -1030,8 +1048,8 @@ class UiService {
 	/**
 	 * Reset response wait
 	 */
-	docsResetResponseUpload(){
-		CashierStore.docsResetResponseUpload()
+	docsFileReset(){
+		CashierStore.docsFileReset()
 	}
 }
 
