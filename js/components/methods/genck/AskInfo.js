@@ -165,6 +165,9 @@ let AskInfo = React.createClass({
 												<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 											</div>
 											{withdrawFee}
+											<div className="from-group">
+												<p className="col-md-12 justifyContent"><span><strong>{translate('PROCESSING_WITHDRAW_IMPORTANT_NOTE')}: </strong></span>{translate('PROCESSING_WITHDRAW_IMPORTANT_NOTE_MESSAGE')}</p>
+											</div>
 										</div>
 									)
 								})()}
