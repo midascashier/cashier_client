@@ -139,12 +139,15 @@ let RequestsContent = React.createClass({
     buildTab(option){
         if(this.state.option){
             if(this.checkRules(option.caDocumentCategory_Id)){
-                let tabTXT = translate(option.Name);
+                let prefixAdd = 'DOCS_FILE_TAB_';
+                let tabTXT = capitalize(option.Name.toUpperCase());
+                let tabName = prefixAdd + tabTXT;
+
                 let className = (this.state.option == option.Name) ? this.elements.DOCS_OPTIONS_INITIAL : this.elements.DOCS_OPTIONS;
 
                 return(
                     <div id={option.Name} className={className} onClick={this.docsOptionsActions}>
-                        {tabTXT}
+                        {translate(tabName)}
                     </div>
                 )
             }

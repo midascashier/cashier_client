@@ -102,7 +102,7 @@ let DocsFormRequestContent = React.createClass({
      * Add new document
      */
     addDocument(){
-        let actualState = this.getInitialState();
+        let actualState = this.state;
         actualState.newDocument = true;
         this.setState(actualState);
     },
@@ -191,15 +191,15 @@ let DocsFormRequestContent = React.createClass({
         }
 
         if(docs.readyPending()){
-            if(docs.customerForms && !this.state.newDocument){
-                return <DocsVerifyIDCustomerForms forms={docs.customerForms} addDocument={this.addDocument}/>
-            }
-
             this.resetOption();
             let form = this.getCurrentForm();
             let twoOptions = (_.size(docs.forms[this.props.option]) == 2);
             if(UIService.docFilesGetFormSelectedId() === false){
                 this.selectedIdForm()
+            }
+
+            if(docs.customerForms[this.props.option] && !this.state.newDocument){
+                return <DocsVerifyIDCustomerForms forms={docs.customerForms} addDocument={this.addDocument}/>
             }
 
             return(

@@ -68,7 +68,7 @@ let DocsFileGenerateInputsType = React.createClass({
                 className="docsFilesOptions"
                 alt={translate(element.label)}
                 title={translate(element.label)}
-                src={"../images/"+ prefixAdd + imgName +".png"}
+                src={"../images/"+ prefixAdd + imgName +".svg"}
             />
         );
     },
@@ -90,16 +90,19 @@ let DocsFileGenerateInputsType = React.createClass({
             break;
 
             case this.inputsType.text:
-                return (<input type="text" placeholder={element.label}/>);
+                return (<input type="text" placeholder={translate(element.label)}/>);
             break;
 
             case this.inputsType.selected:
                 return (
-                    <select>
-                        {element.options.map(function (val) {
-                            return <option id={val.caDocumentFormInputOption_Id} value={val.caDocumentFormInputOption_Id}>{translate(val.OptionValueCode)}</option>
-                        })}
-                    </select>
+                    <div>
+                        <span>{translate(element.label)}</span>
+                        <select>
+                            {element.options.map(function (val) {
+                                return <option id={val.caDocumentFormInputOption_Id} value={val.caDocumentFormInputOption_Id}>{translate(val.OptionValueCode)}</option>
+                            })}
+                        </select>
+                    </div>
                 );
             break;
 
