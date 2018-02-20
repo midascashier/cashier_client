@@ -1,7 +1,9 @@
 import React from 'react'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
+import {TransactionService} from '../../../services/TransactionService'
 import {DocsFileGenerateInputsType} from './DocsFileGenerateInputsType'
+import {DocsVerifyIDCustomerForms} from '../../../components/commonComponents/DocsOnFiles/DocsVerifyIDCustomerForms'
 
 let DocsFormRequestContent = React.createClass({
 
@@ -14,8 +16,64 @@ let DocsFormRequestContent = React.createClass({
      */
     getInitialState(){
         return {
-            checkOption: false
+            switchForm : false,
+            idOptSelect : null,
+            checkOption : false,
+            newDocument : false,
+            option : this.props.option
         }
+    },
+
+    /**
+     * Return current actual form state
+     *
+     * @returns {*}
+     */
+    getActualState(){
+        return this.state;
+    },
+
+    /**
+     * Update actual state form params
+     */
+    updateActualState(updateState){
+        this.setState(updateState);
+    },
+
+    /**
+     * Reset to initials form values
+     */
+    resetOption(){
+        if(this.state.option != this.props.option){
+            this.setState(this.getInitialState())
+        }
+    },
+
+    /**
+     * Form action request
+     */
+    action(e){
+        e.preventDefault();
+        let elementInformation = {};
+        let files = this.state.files;
+        let formData = new FormData();
+
+        elementInformation['fileType'] = this.state.valueOption;
+        elementInformation['value'] = e.target[0].value;
+        formData.append('input[23]', JSON.stringify(elementInformation));
+
+        for(let key in files){
+            if(files.hasOwnProperty(key)){
+                formData.append('23[]', files[key]);
+            }
+        }
+
+        formData.append('documentFormCustomerId', '');
+        formData.append('countExtraFiles', files.length);
+        formData.append('actionType', this.element.action);
+        formData.append('documentFormId', this.element.formId);
+
+        TransactionService.docsFileSave(formData);
     },
 
     /**
@@ -36,8 +94,17 @@ let DocsFormRequestContent = React.createClass({
     /**
      * Restart states option selected
      */
-    verifyIdOptionsReset(){
+    optionReset(){
         this.setState(this.getInitialState());
+    },
+
+    /**
+     * Add new document
+     */
+    addDocument(){
+        let actualState = this.getInitialState();
+        actualState.newDocument = true;
+        this.setState(actualState);
     },
 
     /**
@@ -48,60 +115,69 @@ let DocsFormRequestContent = React.createClass({
     switchVerifyType(e){
         this.selectedIdForm();
 
-        let actualState = this.state;
-        actualState.checkOption = e.target.checked;
+        let actualState = this.getInitialState();
+        actualState.switchForm = e.target.checked;
         this.setState(actualState);
+    },
+
+    /**
+     * Get current form to option selected
+     * 
+     * @returns {*}
+     */
+    getCurrentForm(){
+        let docs = UIService.getDocsFile();
+        let forms = docs.forms[this.props.option];
+        for(let current in forms){
+            if(forms.hasOwnProperty(current)){
+                if(forms[current].caDocumentForm_Id == docs.formSelectedId){
+                    return forms[current]
+                }
+            }
+        }
     },
 
     /**
      * Generate Form options
      *
-     * @param currentForm
      * @returns {XML}
      */
-    generateForm(currentForm){
-        let inputs = [];
+    generateForm(field){
         let docs = UIService.getDocsFile();
-        let form = docs.forms[this.props.option][currentForm];
-        let twoOptions = (_.size(docs.forms[this.props.option]) == 2);
 
-        for(let option in form.fields){
-            if(form.fields.hasOwnProperty(option)){
-                let input = {
-                    files: [],
-                    options: [],
-                    label : form.fields[option].Label,
-                    Required : form.fields[option].Required,
-                    caDocumentFormInput_Id : form.fields[option].caDocumentFormInput_Id,
-                    caDocumentFormInputType_Id : form.fields[option].caDocumentFormInputType_Id
-                };
+        if(docs.formSelectedId){
+            let input = {
+                files: [],
+                options: [],
+                label : field.Label,
+                Required : field.Required,
+                caDocumentFormInput_Id : field.caDocumentFormInput_Id,
+                caDocumentFormInputType_Id : field.caDocumentFormInputType_Id
+            };
 
-                if(form.fields[option].file.hasOwnProperty('types')){
-                    for(let field in form.fields[option].file.types){
-                        if(form.fields[option].file.types.hasOwnProperty(field)){
-                            let file = form.fields[option].file.types[field];
+            if(field.file.hasOwnProperty('types')){
+                for(let fieldType in field.file.types){
+                    if(field.file.types.hasOwnProperty(fieldType)){
+                        let file = field.file.types[fieldType];
 
-                            let fileInfo = {
-                                label : file.Description,
-                                fileTypeId : file.caCustomerFileType_Id
-                            };
+                        let fileInfo = {
+                            label : file.Description,
+                            fileTypeId : file.caCustomerFileType_Id
+                        };
 
-                            input.files.push(fileInfo);
-                        }
+                        input.files.push(fileInfo);
                     }
                 }
-
-                if(form.fields[option].hasOwnProperty('options')){
-                    if(form.fields[option].options.length){
-                        input.options = form.fields[option].options
-                    }
-                }
-
-                inputs.push(input)
             }
-        }
 
-        return <DocsFileGenerateInputsType optionInfo={inputs} twoOptions={twoOptions}/>
+            if(field.hasOwnProperty('options')){
+                if(field.options.length){
+                    input.options = field.options
+                }
+            }
+
+            return <DocsFileGenerateInputsType optionInfo={input} state={this.getActualState} updateState={this.updateActualState}/>
+        }
     },
 
     render(){
@@ -115,6 +191,12 @@ let DocsFormRequestContent = React.createClass({
         }
 
         if(docs.readyPending()){
+            if(docs.customerForms && !this.state.newDocument){
+                return <DocsVerifyIDCustomerForms forms={docs.customerForms} addDocument={this.addDocument}/>
+            }
+
+            this.resetOption();
+            let form = this.getCurrentForm();
             let twoOptions = (_.size(docs.forms[this.props.option]) == 2);
             if(UIService.docFilesGetFormSelectedId() === false){
                 this.selectedIdForm()
@@ -122,6 +204,23 @@ let DocsFormRequestContent = React.createClass({
 
             return(
                 <div id="docsFilesFormContent">
+                    {(() =>{
+                        if(this.state.checkOption){
+                            let element = document.getElementById(this.state.idOptSelect);
+                            let src = element.getAttribute('src');
+                            return(
+                                <div id="docsFilesShowOptionSelectedContent" onClick={this.optionReset}>
+                                    <img
+                                        src={src}
+                                        id="docsFilesShowOptionSelected"
+                                        title={translate('DOCS_FILE_VERITY_CHANGE_OPTIONS')}
+                                    />
+                                    <span>{translate('DOCS_FILE_GO_BACK')}</span>
+                                </div>
+                            )
+                        }
+                    })()}
+
                     <div id="docsFileTXT">
                         {translate('DOCS_FILE_VERIFY_IMPORTANT_TXT')}
                     </div>
@@ -151,7 +250,17 @@ let DocsFormRequestContent = React.createClass({
                         }
                     })()}
 
-                    {Object.keys(docs.forms[this.props.option]).map(this.generateForm)}
+                    <div id="docsFilesOptionContent">
+                        <form onSubmit={this.action}>
+                            {form.fields.map(this.generateForm)}
+
+                            {(() =>{
+                                if(this.state.checkOption){
+                                    return <button type='submit'>{translate('DRAG_DROP_UPLOAD_TXT')}</button>
+                                }
+                            })()}
+                        </form>
+                    </div>
                 </div>
             )
         }

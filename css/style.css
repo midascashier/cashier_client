@@ -760,6 +760,10 @@ input:checked + .slider:before{
     border-radius: 50%;
 }
 
+#docsFileForm{
+    width: inherit;
+}
+
 #DocsUploadSuccessResponse{
     display: flex;
     color: white;
@@ -844,7 +848,7 @@ input:checked + .slider:before{
     position: absolute;
 }
 
-#DrawDropUpload button{
+#docsFilesOptionContent button{
     float: none;
     border: none;
     height: 47px;
@@ -861,17 +865,17 @@ input:checked + .slider:before{
     -webkit-justify-content: center;
 }
 
-#DrawDropUpload button:hover{
+#docsFilesOptionContent button:hover{
     background: #ffffff;
 }
 
-#DrawDropUpload button:active{
+#docsFilesOptionContent button:active{
     border:0;
 }
 
 #DragDropThumbnails{
     height: 70px;
-    width: inherit;
+    width: inherit !important;
     margin-left: -4px;
     margin-top: -82px;
     max-width: inherit;
@@ -905,15 +909,31 @@ input:checked + .slider:before{
     border: 1px solid #a5a2a2;
 }
 
-#CheckIdVerifyOptions{
+#docsFilesOptionContent{
     float: left;
+    height: 300px;
+    width: inherit;
+    margin: 0 auto;
+    margin-top: 15px;
+    overflow-y: auto;
+}
+
+.docsFilesField{
     display: flex;
     width: inherit;
-    margin-top: 45px;
     align-items: center;
     justify-content: center;
     -webkit-align-items: center;
     -webkit-justify-content: center;
+}
+
+.docsFilesField input, select{
+    margin: 7px;
+    width: 300px;
+    height: 30px;
+    box-shadow: 0;
+    text-align: center;
+    border-radius: 3px;
 }
 
 .docsFilesOptions{

@@ -85,22 +85,24 @@ let DrawDropUpload = React.createClass({
         let errorMsg = false;
 
         for(let key in files){
-            if(this.elements.rules.FILE_ACCEPTED_TYPES.indexOf(files[key].types) == -1){
-                if(files[key].size){
-                    this.elements.totalSize = this.elements.totalSize + files[key].size;
-                    if(this.elements.totalSize < this.elements.rules.MAX_FILE_SIZE){
-                        if(this.elements.maxInputFiles < this.elements.rules.MAX_INPUT_FILES){
-                            ++this.elements.maxInputFiles;
-                            validFiles.push(files[key]);
+            if(files.hasOwnProperty(key)){
+                if(this.elements.rules.FILE_ACCEPTED_TYPES.indexOf(files[key].types) == -1){
+                    if(files[key].size){
+                        this.elements.totalSize = this.elements.totalSize + files[key].size;
+                        if(this.elements.totalSize < this.elements.rules.MAX_FILE_SIZE){
+                            if(this.elements.maxInputFiles < this.elements.rules.MAX_INPUT_FILES){
+                                ++this.elements.maxInputFiles;
+                                validFiles.push(files[key]);
+                            }else{
+                                errorMsg = 'Max number files, '+ files[key].name + ' no accept';
+                            }
                         }else{
-                            errorMsg = 'Max number files, '+ files[key].name + ' no accept';
+                            errorMsg = 'Max size files, '+ files[key].name + ' no accept';
                         }
-                    }else{
-                        errorMsg = 'Max size files, '+ files[key].name + ' no accept';
                     }
-                }
-            }else{
-                errorMsg = 'Type file for '+ files[key].name + ' no accept';
+                }else{
+                    errorMsg = 'Type file for '+ files[key].name + ' no accept';
+                }   
             }
         }
 
@@ -207,7 +209,6 @@ let DrawDropUpload = React.createClass({
 
     render(){
         let multiple = (this.props.multiple) ? 'multiple' : '';
-        let disabledUpload = (this.state.files.length) ? '' : 'disabled';
         return(
             <div id='DrawDropUploadContent'>
                 {(() =>{
@@ -218,12 +219,11 @@ let DrawDropUpload = React.createClass({
                     }
                 })()}
 
-                <form id='DrawDropUpload' onSubmit={this.props.action}>
+                <div id='DrawDropUpload'>
                     <input id={this.elements.dropZoneId} type='file' onChange={this.addThumbnailsFile.bind(this)} name='files[]' multiple={multiple}/>
                     <p>{translate('DRAG_DROP_FILES_TXT')}</p>
                     <output id={this.elements.thumbnails}/>
-                    <button type='submit' disabled={disabledUpload}>{translate('DRAG_DROP_UPLOAD_TXT')}</button>
-                </form>
+                </div>
             </div>
         )
     }

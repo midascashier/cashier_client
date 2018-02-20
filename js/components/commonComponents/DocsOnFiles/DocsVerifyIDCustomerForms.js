@@ -5,8 +5,8 @@ import {translate} from '../../../constants/Translate'
 let DocsVerifyIDCustomerForms = React.createClass({
 
     propTypes: {
-        addDocument: React.PropTypes.bool,
-        forms : React.PropTypes.object
+        forms : React.PropTypes.object,
+        addDocument: React.PropTypes.func
     },
 
     /**
