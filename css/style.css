@@ -706,7 +706,7 @@ div[class*="col-"] > div[class*="col-"]:before {
     margin: 0 auto;
     font-size: 16pt;
     margin-top: 14px;
-    margin-left: 426px;
+    margin-left: 377px;
     position: absolute;
     font-family: Oswald-Medium;
 }
@@ -762,6 +762,8 @@ input:checked + .slider:before{
 
 #docsFileForm{
     width: 100%;
+    height: 270px;
+    overflow-y: auto;
     margin-top: 15px;
     text-align: center;
     display: inline-block;
@@ -852,8 +854,6 @@ input:checked + .slider:before{
 }
 
 #docsFileButtonContent{
-    width: 50%;
-    float: left;
     margin-top: 50px;
 }
 
@@ -893,20 +893,6 @@ input:checked + .slider:before{
     display:inline-block;
 }
 
-#DragDropThumbnails::-webkit-scrollbar{
-    height: 7px;
-}
-
-#DragDropThumbnails::-webkit-scrollbar-track{
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,1);
-}
-
-#DragDropThumbnails::-webkit-scrollbar-thumb{
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,1);
-}
-
 .DragDropThumbnail{
     margin: 5px;
     height: 48px;
@@ -929,15 +915,17 @@ input:checked + .slider:before{
 }
 
 .docsFilesInputContent{
-    width: 50%;
-    float: left;
-    margin-top: 50px;
+    color: white;
+    font-size: 14pt;
+    margin-top: 15px;
+    font-family: "Oswald-Medium";
 }
 
-.docsFilesField input, select{
+.docsFileInputText input, select{
     margin: 7px;
     width: 300px;
     height: 30px;
+    color: black;
     box-shadow: 0;
     text-align: center;
     border-radius: 3px;
@@ -1043,16 +1031,16 @@ input:checked + .slider:before{
     background-color: #9c8d8d;
 }
 
-#DocsFileCustomerFormsContent::-webkit-scrollbar{
+#docsFileForm::-webkit-scrollbar{
     width: 10px;
 }
 
-#DocsFileCustomerFormsContent::-webkit-scrollbar-track{
+#docsFileForm::-webkit-scrollbar-track{
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px ;
 }
 
-#DocsFileCustomerFormsContent::-webkit-scrollbar-thumb{
+#docsFileForm::-webkit-scrollbar-thumb{
     border-radius: 10px;
     background-color: rgba(0,0,0,1);
 }

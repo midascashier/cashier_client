@@ -362,17 +362,19 @@ let _langTags = {
 	DOCFILE_FORM_KYC_TABLE_CREATED_DATE: 'Created date',
 	DOCFILE_FORM_KYC_TABLE_STATUS: 'Status',
 	DOCFILE_FORM_KYC_TABLE_ACTION: 'Action',
-	DOCFILE_FORM_KYC_ID_TITLE : 'Identification',
+	DOCFILE_FORM_KYC_ID_TITLE : 'ID',
 	DOCFILE_FORM_UPDATEINFO_TITLE : 'Update account information',
 	DOCFILE_FORM_ISSUE_TITLE : 'Credit card new issue',
 	DOCFILE_FORM_KYC_CARD_TITLE : 'Card verification',
-	DOCFILE_FORM_KYC_EWALLET_TITLE : 'Ewallet verification',
+	DOCFILE_FORM_KYC_EWALLET_TITLE : 'E-wallet',
 	DOCFILE_FORM_RECOVERY_TITLE : 'Recovery',
 	DOCFILE_FORM_VERIFICATION_TITLE : 'Additional verification',
 	DOCFILE_FORM_PROOF_TITLE : 'Proof of address',
 
 	DOCFILE_FORM_LABEL_FILE_EWALLET : 'Photo of your e-wallet',
-	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Public service receipt'
+	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Public service receipt',
+
+	DOCS_FILE_TAB_VERIFICATIONREQUIRED : "Additional Information",
 };
 
 export function EN(){

@@ -229,11 +229,15 @@ let DocsFormRequestContent = React.createClass({
 
                                 {(() =>{
                                     if(twoOptions){
+                                        let key = Object.keys(docs.forms[this.props.option]);
+                                        let optionOne = docs.forms[this.props.option][key[0]].TagTitle;
+                                        let optionTwo = docs.forms[this.props.option][key[1]].TagTitle;
+
                                         return(
                                             <div className="OptTittle">
-                                                <span>{translate('MY_REQUEST_DOCS_OPTION_ID_TXT')}</span>
+                                                <span>{translate(optionOne)}</span>
                                                 <span className="switch"/>
-                                                <span>{translate('MY_REQUEST_DOCS_OPTION_VE_EW_TXT')}</span>
+                                                <span>{translate(optionTwo)}</span>
                                             </div>
                                         )
                                     }
