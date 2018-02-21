@@ -761,7 +761,10 @@ input:checked + .slider:before{
 }
 
 #docsFileForm{
-    width: inherit;
+    width: 100%;
+    margin-top: 15px;
+    text-align: center;
+    display: inline-block;
 }
 
 #DocsUploadSuccessResponse{
@@ -849,8 +852,9 @@ input:checked + .slider:before{
 }
 
 #docsFileButtonContent{
-    margin-top: 135px;
-    position: absolute;
+    width: 50%;
+    float: left;
+    margin-top: 50px;
 }
 
 #docsFileButtonContent button{
@@ -910,7 +914,12 @@ input:checked + .slider:before{
 }
 
 #docsFileFormContent{
-    color: white;
+    width: inherit;
+    display: inline-block;
+}
+
+.docsFilesOptionsContent{
+    width: 100%;
     display: flex;
     text-align: center;
     align-items: center;
@@ -919,16 +928,10 @@ input:checked + .slider:before{
     -webkit-justify-content: center;
 }
 
-#docsFilesOptionContent{
+.docsFilesInputContent{
+    width: 50%;
     float: left;
-    height: 300px;
-    width: inherit;
-    margin: 0 auto;
-    margin-top: 15px;
-}
-
-.docsFilesField{
-    float: left;
+    margin-top: 50px;
 }
 
 .docsFilesField input, select{

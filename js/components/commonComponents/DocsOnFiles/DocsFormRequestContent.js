@@ -253,8 +253,8 @@ let DocsFormRequestContent = React.createClass({
                                     }
                                 })()}
 
-                                <div id="docsFilesOptionContent">
-                                    <form id="docsFileFormContent" onSubmit={this.action}>
+                                <div id="docsFileFormContent">
+                                    <form id="docsFileForm" onSubmit={this.action}>
                                         {form.fields.map(this.generateForm)}
 
                                         {(() =>{
