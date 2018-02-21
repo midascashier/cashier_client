@@ -56,7 +56,7 @@ let _langTags = {
 	TRANSACTION_HISTORY_STATUS_DEFERRED: "Pending verify information.",
 	TRANSACTION_HISTORY_STATUS_PROCESSING: "Tu transacción se encuentra en proceso de ser acreditada o pagada.",
 	TRANSACTION_HISTORY_STATUS_PRE_APPROVE: "A la espera de comprobar la información.",
-	TRANSACTION_HISTORY_STATUS_APPROVED: "Tu transacción fue aprobada. EL credito o pago se estará realizando pronto.",
+	TRANSACTION_HISTORY_STATUS_APPROVED: "Tu transacción ha sido aprobada y será acreditada o pagada lo antes posible.",
 	TRANSACTION_HISTORY_STATUS_REJECTED: "Por favor verifique la información.",
 	TRANSACTION_HISTORY_STATUS_CANCELLED: "Tu transacción fue cancelada, por favor revisa tu correo electrónico para más detalles.",
 	TRANSACTION_HISTORY_STATUS_FAILED: "Por favor contactenos para más información.",

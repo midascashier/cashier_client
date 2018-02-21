@@ -55,7 +55,7 @@ let _langTags = {
 	TRANSACTION_HISTORY_STATUS_PENDING: "Your transaction is in queue to be reviewed.",
 	TRANSACTION_HISTORY_STATUS_DEFERRED: "Pending verify information.",
 	TRANSACTION_HISTORY_STATUS_PROCESSING: "Your transaction is in the process of being credited or paid.",
-	TRANSACTION_HISTORY_STATUS_PRE_APPROVE: "The transaction has been approved and will be paid out as soon as possible.",
+	TRANSACTION_HISTORY_STATUS_PRE_APPROVE: "The transaction has been approved and will be credited or paid out as soon as possible.",
 	TRANSACTION_HISTORY_STATUS_APPROVED: "Transaction has been completed successfully.",
 	TRANSACTION_HISTORY_STATUS_REJECTED: "Rejected by the issuer.",
 	TRANSACTION_HISTORY_STATUS_CANCELLED: "Your transaction has been cancelled, and we’ve sent you an email referencing the reason.",
