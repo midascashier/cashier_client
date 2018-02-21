@@ -81,15 +81,21 @@ let DocsFileGenerateInputsType = React.createClass({
         switch(element.caDocumentFormInputType_Id){
             case this.inputsType.file:
                 return(
-                    <div id="DrawDropUploadElement">
+                    <div className="docsFileInputDrawDrop">
                         <span>{translate(element.label)}</span>
-                        <DrawDropUpload action={this.uploadCurrentFiles} files={this.setFiles} multiple="true"/>
+                        <div id="DrawDropUploadElement">
+                            <DrawDropUpload action={this.uploadCurrentFiles} files={this.setFiles} multiple="true"/>
+                        </div>
                     </div>
                 );
             break;
 
             case this.inputsType.text:
-                return (<input type="text" placeholder={translate(element.label)}/>);
+                return (
+                    <div className="docsFileInputText">
+                        <input type="text" placeholder={translate(element.label)}/>
+                    </div>
+                );
             break;
 
             case this.inputsType.selected:
@@ -135,24 +141,27 @@ let DocsFileGenerateInputsType = React.createClass({
      */
     printInputs(element){
         let state = this.props.state();
+        let className = (state.checkOption) ? 'docsFilesInputContent' : 'docsFilesOptionsContent';
 
-        return (
-            <div className="docsFilesField">
-                {(() =>{
-                    if(this.props.optionInfo.hasOwnProperty('files')){
-                        if(this.props.optionInfo.files.length && !state.checkOption){
-                            return element.files.map(this.generateOptions)
-                        }
-                    }
-                })()}
+        if(this.props.optionInfo.hasOwnProperty('files')){
+            if(this.props.optionInfo.files.length && !state.checkOption){
+                return(
+                    <div className={className}>
+                        {element.files.map(this.generateOptions)}
+                    </div>
+                )
+            }
+        }
 
-                {(() =>{
-                    if(state.checkOption){
-                        return this.generateInputs(element)
-                    }
-                })()}
-            </div>
-        )
+        if(state.checkOption){
+            return (
+                <div className={className}>
+                    {this.generateInputs(element)}
+                </div>
+            )
+        }
+
+        return (null);
     },
 
     render(){
