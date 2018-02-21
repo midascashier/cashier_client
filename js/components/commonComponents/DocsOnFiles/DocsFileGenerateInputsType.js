@@ -81,11 +81,8 @@ let DocsFileGenerateInputsType = React.createClass({
         switch(element.caDocumentFormInputType_Id){
             case this.inputsType.file:
                 return(
-                    <div className="docsFileInputDrawDrop">
-                        <span>{translate(element.label)}</span>
-                        <div id="DrawDropUploadElement">
-                            <DrawDropUpload action={this.uploadCurrentFiles} files={this.setFiles} multiple="true"/>
-                        </div>
+                    <div id="DrawDropUploadElement">
+                        <DrawDropUpload action={this.uploadCurrentFiles} files={this.setFiles} multiple="true"/>
                     </div>
                 );
             break;

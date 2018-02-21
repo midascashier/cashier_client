@@ -223,9 +223,15 @@ let DocsFormRequestContent = React.createClass({
                                     }
                                 })()}
 
-                                <div id="docsFileTXT">
-                                    {translate('DOCS_FILE_VERIFY_IMPORTANT_TXT')}
-                                </div>
+                                {(() =>{
+                                    if(!this.state.checkOption){
+                                        return(
+                                            <div id="docsFileTXT">
+                                                {translate('DOCS_FILE_VERIFY_IMPORTANT_TXT')}
+                                            </div>
+                                        )
+                                    }
+                                })()}
 
                                 {(() =>{
                                     if(twoOptions){
