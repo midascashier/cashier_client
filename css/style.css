@@ -685,12 +685,26 @@ div[class*="col-"] > div[class*="col-"]:before {
 
 #docsFileForm{
     width: 100%;
-    max-height: 460px;
+    display: flex;
     overflow-y: auto;
-    margin-top: 15px;
+    margin-top: 40px;
+    max-height: 440px;
     text-align: center;
-    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
 }
+
+.docsFilesOptionsContent{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
+}
+
 
 #docsFileTXT{
     padding: 5px;
@@ -849,6 +863,7 @@ input:checked + .slider:before{
     width: inherit;
     height: inherit;
     font-size: 16pt;
+    position: relative;
     justify-content: center;
     font-family: Oswald-Medium;
     -webkit-justify-content: center;
@@ -909,18 +924,6 @@ input:checked + .slider:before{
     border: 1px solid #a5a2a2;
 }
 
-
-
-.docsFilesOptionsContent{
-    width: 100%;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    -webkit-align-items: center;
-    -webkit-justify-content: center;
-}
-
 .docsFileInputText input, select{
     margin: 7px;
     width: 300px;
@@ -945,14 +948,21 @@ input:checked + .slider:before{
 #docsFilesShowOptionSelectedContent{
     margin: 50px;
     color: white;
+    display: block;
     font-size: 16pt;
     cursor: pointer;
     position: absolute;
     font-family: Oswald-Light;
 }
 
+#docsFilesShowOptionSelectedContent span{
+    float: left;
+    clear: both;
+}
+
 #docsFilesShowOptionSelected{
-    width: 50px;
+    float: left;
+    width: 135px;
     cursor: pointer;
 }
 

@@ -370,9 +370,12 @@ let _langTags = {
 	DOCFILE_FORM_RECOVERY_TITLE : 'Recuperación',
 	DOCFILE_FORM_VERIFICATION_TITLE : 'Verificación adicional',
 	DOCFILE_FORM_PROOF_TITLE : 'Prueba de domicilio',
+	DOCFILE_FORM_OPTION_FIX_NAME : 'Corregir nombre',
 
 	DOCFILE_FORM_LABEL_FILE_EWALLET : 'Foto de su billetera electrónica',
-	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Recibo de servicio público'
+	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Recibo de servicio público',
+
+	DOCS_FILE_TAB_VERIFICATIONREQUIRED : "Información Adicional"
 };
 
 export function ES(){

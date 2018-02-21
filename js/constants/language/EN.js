@@ -370,11 +370,12 @@ let _langTags = {
 	DOCFILE_FORM_RECOVERY_TITLE : 'Recovery',
 	DOCFILE_FORM_VERIFICATION_TITLE : 'Additional verification',
 	DOCFILE_FORM_PROOF_TITLE : 'Proof of address',
+	DOCFILE_FORM_OPTION_FIX_NAME : 'Fix name',
 
 	DOCFILE_FORM_LABEL_FILE_EWALLET : 'Photo of your e-wallet',
 	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Public service receipt',
 
-	DOCS_FILE_TAB_VERIFICATIONREQUIRED : "Additional Information",
+	DOCS_FILE_TAB_VERIFICATIONREQUIRED : "Additional Information"
 };
 
 export function EN(){

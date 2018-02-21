@@ -87,6 +87,9 @@ let DocsFormRequestContent = React.createClass({
      * Restart states option selected
      */
     optionReset(){
+        let form = document.getElementById('docsFileForm');
+        form.style.display = 'flex';
+
         let state = this.getInitialState();
         state.switchForm = this.state.switchForm;
         this.setState(state);
@@ -108,6 +111,8 @@ let DocsFormRequestContent = React.createClass({
      */
     switchFormType(e){
         this.selectedIdForm();
+        let form = document.getElementById('docsFileForm');
+        form.style.display = 'flex';
 
         let actualState = this.getInitialState();
         actualState.newDocument = true;
