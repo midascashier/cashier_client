@@ -41,26 +41,18 @@ let DocsFormRequestContent = React.createClass({
     },
 
     /**
-     * Reset to initials form values
-     */
-    resetOption(){
-        if(this.state.option != this.props.option){
-            this.setState(this.getInitialState())
-        }
-    },
-
-    /**
      * Form action request
      */
     action(e){
         e.preventDefault();
+        let docs = UIService.getDocsFile();
         let elementInformation = {};
         let files = this.state.files;
         let formData = new FormData();
 
         elementInformation['fileType'] = this.state.valueOption;
         elementInformation['value'] = e.target[0].value;
-        formData.append('input[23]', JSON.stringify(elementInformation));
+        formData.append('input[' + '' + ']', JSON.stringify(elementInformation));
 
         for(let key in files){
             if(files.hasOwnProperty(key)){
@@ -95,7 +87,9 @@ let DocsFormRequestContent = React.createClass({
      * Restart states option selected
      */
     optionReset(){
-        this.setState(this.getInitialState());
+        let state = this.getInitialState();
+        state.switchForm = this.state.switchForm;
+        this.setState(state);
     },
 
     /**
@@ -108,33 +102,38 @@ let DocsFormRequestContent = React.createClass({
     },
 
     /**
-     * Change type ID option
+     * Change type ID form
      *
      * @param e
      */
-    switchVerifyType(e){
+    switchFormType(e){
         this.selectedIdForm();
 
         let actualState = this.getInitialState();
+        actualState.newDocument = true;
         actualState.switchForm = e.target.checked;
         this.setState(actualState);
     },
 
     /**
      * Get current form to option selected
-     * 
+     *
      * @returns {*}
      */
     getCurrentForm(){
         let docs = UIService.getDocsFile();
-        let forms = docs.forms[this.props.option];
-        for(let current in forms){
-            if(forms.hasOwnProperty(current)){
-                if(forms[current].caDocumentForm_Id == docs.formSelectedId){
-                    return forms[current]
+        if(docs.forms.hasOwnProperty(this.props.option)){
+            let forms = docs.forms[this.props.option];
+            for(let current in forms){
+                if(forms.hasOwnProperty(current)){
+                    if(forms[current].caDocumentForm_Id == docs.formSelectedId){
+                        return forms[current]
+                    }
                 }
             }
         }
+
+        return false
     },
 
     /**
@@ -144,7 +143,6 @@ let DocsFormRequestContent = React.createClass({
      */
     generateForm(field){
         let docs = UIService.getDocsFile();
-
         if(docs.formSelectedId){
             let input = {
                 files: [],
@@ -191,78 +189,86 @@ let DocsFormRequestContent = React.createClass({
         }
 
         if(docs.readyPending()){
-            this.resetOption();
-            let form = this.getCurrentForm();
-            let twoOptions = (_.size(docs.forms[this.props.option]) == 2);
-            if(UIService.docFilesGetFormSelectedId() === false){
-                this.selectedIdForm()
+            if(this.state.option != this.props.option){
+                this.setState(this.getInitialState())
+            }else{
+                let twoOptions = (_.size(docs.forms[this.props.option]) == 2);
+                if(UIService.docFilesGetFormSelectedId() === false){
+                    this.selectedIdForm()
+                }
+
+                if(docs.customerForms[this.props.option] && !this.state.newDocument){
+                    return <DocsVerifyIDCustomerForms forms={docs.customerForms} addDocument={this.addDocument}/>
+                }
+
+                let form = this.getCurrentForm();
+                if(form){
+                    if(form.hasOwnProperty('fields')){
+                        return(
+                            <div id="docsFilesFormContent">
+                                {(() =>{
+                                    if(this.state.checkOption){
+                                        let element = document.getElementById(this.state.idOptSelect);
+                                        let src = element.getAttribute('src');
+                                        return(
+                                            <div id="docsFilesShowOptionSelectedContent" onClick={this.optionReset}>
+                                                <img
+                                                    src={src}
+                                                    id="docsFilesShowOptionSelected"
+                                                    title={translate('DOCS_FILE_VERITY_CHANGE_OPTIONS')}
+                                                />
+                                                <span>{translate('DOCS_FILE_GO_BACK')}</span>
+                                            </div>
+                                        )
+                                    }
+                                })()}
+
+                                <div id="docsFileTXT">
+                                    {translate('DOCS_FILE_VERIFY_IMPORTANT_TXT')}
+                                </div>
+
+                                {(() =>{
+                                    if(twoOptions){
+                                        return(
+                                            <div className="OptTittle">
+                                                <span>{translate('MY_REQUEST_DOCS_OPTION_ID_TXT')}</span>
+                                                <span className="switch"/>
+                                                <span>{translate('MY_REQUEST_DOCS_OPTION_VE_EW_TXT')}</span>
+                                            </div>
+                                        )
+                                    }
+                                })()}
+
+                                {(() =>{
+                                    if(twoOptions){
+                                        let checked = this.state.switchForm;
+                                        return(
+                                            <div id="switchOpt">
+                                                <label className="switch">
+                                                    <input type="checkbox" onChange={this.switchFormType} checked={checked}/>
+                                                    <span className="slider round"/>
+                                                </label>
+                                            </div>
+                                        )
+                                    }
+                                })()}
+
+                                <div id="docsFilesOptionContent">
+                                    <form id="docsFileFormContent" onSubmit={this.action}>
+                                        {form.fields.map(this.generateForm)}
+
+                                        {(() =>{
+                                            if(this.state.checkOption){
+                                                return <div id="docsFileButtonContent"><button type='submit'>{translate('DRAG_DROP_UPLOAD_TXT')}</button></div>
+                                            }
+                                        })()}
+                                    </form>
+                                </div>
+                            </div>
+                        )
+                    }
+                }
             }
-
-            if(docs.customerForms[this.props.option] && !this.state.newDocument){
-                return <DocsVerifyIDCustomerForms forms={docs.customerForms} addDocument={this.addDocument}/>
-            }
-
-            return(
-                <div id="docsFilesFormContent">
-                    {(() =>{
-                        if(this.state.checkOption){
-                            let element = document.getElementById(this.state.idOptSelect);
-                            let src = element.getAttribute('src');
-                            return(
-                                <div id="docsFilesShowOptionSelectedContent" onClick={this.optionReset}>
-                                    <img
-                                        src={src}
-                                        id="docsFilesShowOptionSelected"
-                                        title={translate('DOCS_FILE_VERITY_CHANGE_OPTIONS')}
-                                    />
-                                    <span>{translate('DOCS_FILE_GO_BACK')}</span>
-                                </div>
-                            )
-                        }
-                    })()}
-
-                    <div id="docsFileTXT">
-                        {translate('DOCS_FILE_VERIFY_IMPORTANT_TXT')}
-                    </div>
-
-                    {(() =>{
-                        if(twoOptions){
-                            return(
-                                <div className="OptTittle">
-                                    <span>{translate('MY_REQUEST_DOCS_OPTION_ID_TXT')}</span>
-                                    <span className="switch"/>
-                                    <span>{translate('MY_REQUEST_DOCS_OPTION_VE_EW_TXT')}</span>
-                                </div>
-                            )
-                        }
-                    })()}
-
-                    {(() =>{
-                        if(twoOptions){
-                            return(
-                                <div id="switchOpt">
-                                    <label className="switch">
-                                        <input type="checkbox" onChange={this.switchVerifyType}/>
-                                        <span className="slider round"/>
-                                    </label>
-                                </div>
-                            )
-                        }
-                    })()}
-
-                    <div id="docsFilesOptionContent">
-                        <form onSubmit={this.action}>
-                            {form.fields.map(this.generateForm)}
-
-                            {(() =>{
-                                if(this.state.checkOption){
-                                    return <button type='submit'>{translate('DRAG_DROP_UPLOAD_TXT')}</button>
-                                }
-                            })()}
-                        </form>
-                    </div>
-                </div>
-            )
         }
 
         return <div className="loader"></div>

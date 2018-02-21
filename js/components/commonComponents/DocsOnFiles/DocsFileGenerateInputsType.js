@@ -1,5 +1,4 @@
 import React from 'react'
-import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {DrawDropUpload} from '../../../components/commonComponents/files/DrawDropUpload'
 
@@ -47,7 +46,6 @@ let DocsFileGenerateInputsType = React.createClass({
         actualState.checkOption = true;
         actualState.idOptSelect = option;
         this.props.updateState(actualState);
-        UIService.docsFileSetOptionIdSelected(option);
     },
 
     /**
@@ -84,6 +82,7 @@ let DocsFileGenerateInputsType = React.createClass({
             case this.inputsType.file:
                 return(
                     <div id="DrawDropUploadElement">
+                        <span>{translate(element.label)}</span>
                         <DrawDropUpload action={this.uploadCurrentFiles} files={this.setFiles} multiple="true"/>
                     </div>
                 );
@@ -130,7 +129,7 @@ let DocsFileGenerateInputsType = React.createClass({
 
     /**
      * Print current inputs list
-     * 
+     *
      * @param element
      * @returns {XML}
      */

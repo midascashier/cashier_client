@@ -848,21 +848,21 @@ input:checked + .slider:before{
     position: absolute;
 }
 
-#docsFilesOptionContent button{
-    float: none;
+#docsFileButtonContent{
+    margin-top: 135px;
+    position: absolute;
+}
+
+#docsFileButtonContent button{
     border: none;
     height: 47px;
     width: 140px;
     color: black;
-    display: flex;
-    margin: 0 auto;
     font-size: 16pt;
     border-radius: 15px;
     background: #cccccc;
     transition: all .2s ease;
-    justify-content: center;
     font-family: Oswald-Medium;
-    -webkit-justify-content: center;
 }
 
 #docsFilesOptionContent button:hover{
@@ -875,12 +875,12 @@ input:checked + .slider:before{
 
 #DragDropThumbnails{
     height: 70px;
-    width: inherit !important;
+    width: inherit;
+    overflow-x: auto;
     margin-left: -4px;
     margin-top: -82px;
     max-width: inherit;
     position: absolute;
-    overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
 }
@@ -909,22 +909,26 @@ input:checked + .slider:before{
     border: 1px solid #a5a2a2;
 }
 
+#docsFileFormContent{
+    color: white;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
+}
+
 #docsFilesOptionContent{
     float: left;
     height: 300px;
     width: inherit;
     margin: 0 auto;
     margin-top: 15px;
-    overflow-y: auto;
 }
 
 .docsFilesField{
-    display: flex;
-    width: inherit;
-    align-items: center;
-    justify-content: center;
-    -webkit-align-items: center;
-    -webkit-justify-content: center;
+    float: left;
 }
 
 .docsFilesField input, select{

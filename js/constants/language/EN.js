@@ -317,6 +317,7 @@ let _langTags = {
 	DRAG_DROP_UPLOAD_TXT: "Upload",
 
 	DOCS_FILE_VERIFY_IMPORTANT_TXT: 'Please upload pictures only, four edges of the ID or Passport have to be visible in the picture and the information must be clear so avoid using flash.',
+	DOCFILE_FORM_LABEL_FILE_ID: "Send the current file for the identification process.",
 	BD_TEXT_TYPE_LICENCE: "Driver's license and social security card.",
 	BD_TEXT_TYPE_ID: "Identification document",
 	BD_TEXT_TYPE_PASSPORT: "Passport",
@@ -368,7 +369,10 @@ let _langTags = {
 	DOCFILE_FORM_KYC_EWALLET_TITLE : 'Ewallet verification',
 	DOCFILE_FORM_RECOVERY_TITLE : 'Recovery',
 	DOCFILE_FORM_VERIFICATION_TITLE : 'Additional verification',
-	DOCFILE_FORM_PROOF_TITLE : 'Proof of address'
+	DOCFILE_FORM_PROOF_TITLE : 'Proof of address',
+
+	DOCFILE_FORM_LABEL_FILE_EWALLET : 'Photo of your e-wallet',
+	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Public service receipt'
 };
 
 export function EN(){

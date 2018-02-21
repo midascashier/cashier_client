@@ -318,6 +318,7 @@ let _langTags = {
 
 	DOCS_FILE_VERIFY_IMPORTANT_TXT: 'Cargue solo imágenes, los cuatro bordes de la identificación o pasaporte deben estar visibles en la imagen y la información debe estar clara, si es posible evite usar el flash.',
 	DOCS_FILE_VERITY_ADD_DOCUMENT: 'Nuevo Documento',
+	DOCFILE_FORM_LABEL_FILE_ID: "Envíe el archivo correspondiente para el proceso de identificación.",
 	BD_TEXT_TYPE_LICENCE: "Licencia de conducir y tarjeta de seguro social.",
 	BD_TEXT_TYPE_ID: "Documento de identificación.",
 	BD_TEXT_TYPE_PASSPORT: "Pasaporte",
@@ -368,7 +369,10 @@ let _langTags = {
 	DOCFILE_FORM_KYC_EWALLET_TITLE : 'Verificación de billetera electronica',
 	DOCFILE_FORM_RECOVERY_TITLE : 'Recuperación',
 	DOCFILE_FORM_VERIFICATION_TITLE : 'Verificación adicional',
-	DOCFILE_FORM_PROOF_TITLE : 'Prueba de domicilio'
+	DOCFILE_FORM_PROOF_TITLE : 'Prueba de domicilio',
+
+	DOCFILE_FORM_LABEL_FILE_EWALLET : 'Foto de su billetera electrónica',
+	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Recibo de servicio público'
 };
 
 export function ES(){
