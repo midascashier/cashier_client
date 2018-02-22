@@ -7,3 +7,4 @@ build/
 /config/phpConfig.php
 package-lock.json
 poker-client.txt
+login_error_*
