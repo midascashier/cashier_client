@@ -33,6 +33,16 @@ class connectorServices {
 	};
 
 	/**
+	 * Execute a request to cashier
+	 *
+	 * @param request: any
+	 * @returns {Promise<any>}
+	 */
+	makeCashierRequestAsync(request) {
+		return this.httpServiceAsync(cashier.CASHIER_WS, request);
+	}
+
+	/**
 	 * send message to the customer
 	 *
 	 * @param action
@@ -115,6 +125,57 @@ class connectorServices {
 			}
 		})
 	};
+
+	/**
+	 * Http post service that returns a Promise instead of using flux
+	 *
+	 * @param module: string
+	 * @param request: any
+	 * @returns {Promise<any>}
+	 */
+	httpServiceAsync(module, request) {
+		let application = CashierStore.getApplication();
+		Object.assign(request, application);
+
+		let httpRequest = Object.assign({}, request, {ws: module});
+		let url = cashier.REQUEST_PROXY;
+		return new Promise(((resolve, reject) => {
+			$.post(url, httpRequest).done(function(response){
+				if(response){
+					try{
+						let dataResponse = JSON.parse(response);
+
+						if(dataResponse && dataResponse.state === 'expired') {
+							onResponseService.processResponse(actions.USER_MESSAGE, dataResponse);
+							reject(dataResponse);
+						} else if (dataResponse && dataResponse.state !== 'ok') {
+							//if(dataResponse && dataResponse.state !== 'ok'){
+							resolve(dataResponse);
+							//onResponseService.processResponse(action, dataResponse);
+						} else if (dataResponse && dataResponse.response) {
+							//if(dataResponse && dataResponse.response){
+							resolve(dataResponse);
+							//onResponseService.processResponse(action, dataResponse);
+						} else {
+							resolve([]);
+							//onResponseService.processResponse(action, []);
+						}
+						/*}
+					}*/
+					}catch(e){
+						console.log(e.message);
+						console.log(response);
+						reject(response);
+						onResponseService.processResponse(actions.USER_MESSAGE, {userMessage: 'Error processing your request'});
+					}
+
+				}else{
+					reject({ userMessage: 'Error processing your request' });
+					onResponseService.processResponse(actions.USER_MESSAGE, {userMessage: 'Error processing your request'});
+				}
+			});
+		}))
+	}
 
 }
 

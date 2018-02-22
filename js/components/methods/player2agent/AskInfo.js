@@ -31,8 +31,9 @@ let AskInfo = React.createClass({
 
 		let validations = {
 			AGENT_TRANSFER_INVALID_USER_ACCOUNT: this.props.invalidAccount
-		}
+		};
 
+		//console.log(validations);
 
 		return (
 			<div id="btcAskInfo" className="box">

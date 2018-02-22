@@ -907,14 +907,6 @@ class UiService {
 	}
 
 	/**
-	 * Store the player account which is going to be accredited
-	 * @param account
-	 */
-	setPlayerAccount(account) {
-		CashierStore.setPlayerAccount(account);
-	}
-
-	/**
 	 * Retrieve from the storage the account to be accredited
 	 * @return {*}
 	 */
@@ -926,32 +918,75 @@ class UiService {
 	 * Perform a http request to determine if written account is an existing one
 	 *
 	 * @param {string} account
-	 * @returns boolean
+	 * @returns Promise<any>
 	 */
 	accountExists(account) {
-		if(!account)
-			return false;
-		CashierStore.setAccountConsultingStatus(true);
+		return new Promise(((resolve, reject) => {
+			if(!account)
+				return reject(new Error('account is empty'));
 
-		let params = {
-			accountTo: account,
-			processorId: CashierStore.getProcessorId(),
-			f: 'validateTransferAccount'
-		};
+			let params = {
+				accountTo: account,
+				processorId: CashierStore.getProcessorId(),
+				f: 'validateTransferAccount'
+			};
 
-		ConnectorServices.makeCashierRequest(actions.VALIDATE_ACCOUNT, params);
+			ConnectorServices.makeCashierRequestAsync(params)
+				.then(data => {
+					if (data && data.hasOwnProperty('response')) {
+						if(data.response.hasOwnProperty('transfer')) {
+							CashierStore.setPlayerAccount(data.response);
+							resolve(true);
+						} else if (data.response.hasOwnProperty('success')) {
+							resolve(data.response.success);
+						} else {
+							throw new Error('unable to process your request');
+						}
+					} else {
+						throw new Error('unable to process your request');
+					}
+				});
+		}));
 	}
 
+	/**
+	 * Get the transferLinkId associated to the agent 2 player transaction
+	 *
+	 * @returns {Promise<any>}
+	 */
+	getTransferLink() {
+		const processor = CashierStore.getProcessorId();
+
+		const request = {
+			f: 'checkTransferLink',
+			processorId: processor
+		};
+
+		let playerAccount = CashierStore.getPlayerAccount();
+		return ConnectorServices.makeCashierRequestAsync(request)
+			.then(data => {
+				if(data && data.hasOwnProperty('response') && data.response.hasOwnProperty('transferLinkId')){
+					playerAccount.transfer.link = data.response.transferLinkId;
+					CashierStore.setPlayerAccount(playerAccount);
+				} else{
+					throw new Error('unable to process your request');
+				}
+			});
+	};
+
+	/**
+	 * returns the actual information of a agent transfer transaction
+	 * @returns {*|{account: string, name: string, feePaymentMethod: string}}
+	 */
 	getPlayerAccount() {
 		return CashierStore.getPlayerAccount();
 	}
 
-	accountConsulted() {
-		return CashierStore.getAccountConsultingStatus()
-	}
-
+	/**
+	 * cleans the information associated with the current agent transfer transaction
+	 */
 	cleanPlayerAccount() {
-		return CashierStore.cleanPlayerAccount();
+		CashierStore.cleanPlayerAccount();
 	}
 }
 

@@ -397,7 +397,7 @@ let _CryptoTransfer = {
 /**
  * Contains information related with the user who is going to be accredited by agent
  *
- * @type {{account: string, name: string, feePaymentMethod: string, waitForValidation: boolean, consulted: boolean, transfer: {usernameFrom: string, usernameTo: string, fullnameTo: string}}}
+ * @type {{account: string, name: string, feePaymentMethod: string, waitForValidation: boolean, consulted: boolean, transfer: {usernameFrom: string, usernameTo: string, fullnameTo: string, link: string}}}
  * @private
  */
 let _Player2Agent = {
@@ -409,7 +409,8 @@ let _Player2Agent = {
 	transfer: {
 		usernameFrom: "",
 		usernameTo: "",
-		fullnameTo: ""
+		fullnameTo: "",
+		link: ""
 	}
 }
 
@@ -455,16 +456,12 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return _Player2Agent.transfer.fullnameTo && _Player2Agent.transfer.fullnameTo.length > 0 ? _Player2Agent : null;
 	},
 
+	/**
+	 * Sets the player2agent information
+	 * @param account: _Player2Agent
+	 */
 	setPlayerAccount: (account) => {
-		_Player2Agent.account = account;
-	},
-
-	getAccountConsultingStatus: () => {
-		return _Player2Agent.consulted
-	},
-
-	setAccountConsultingStatus: (status) => {
-		_Player2Agent.consulted = status
+		_Player2Agent = account;
 	},
 
 	cleanPlayerAccount: () => {
@@ -1378,6 +1375,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 						});
 					}
 					_processor.waitLimits = false;
+					CashierStore.emitChange();
+					break;
+				case actions.GET_TRANSFER_LINK:
+					if(data && data.hasOwnProperty('response') && data.response.hasOwnProperty('transferLinkId'))
+						_Player2Agent.transfer.link = data.response.transferLinkId
 					CashierStore.emitChange();
 					break;
 				default:

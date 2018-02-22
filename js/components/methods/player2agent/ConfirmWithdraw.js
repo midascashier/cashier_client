@@ -39,8 +39,9 @@ let Player2AgentConfirmWithdraw = React.createClass({
 	 *
 	 */
 	processTransaction(){
-		let transaction = this.state.transaction;
-		TransactionService.processBTC({ account: transaction.bitcoinAddress }, 'ticket');
+		let transfer = this.state.playerAccount.transfer;
+		UIService.getTransferLink()
+			.then(() => TransactionService.processAgentTransfer('ticket'));
 	},
 
 	/**
@@ -80,7 +81,6 @@ let Player2AgentConfirmWithdraw = React.createClass({
 													<p>{translate('BITCOIN_INSTRUCTIONS_PROCESS_INSIDE')}</p>
 												</div>
 											</div>
-
 										</div>
 									</div>
 								</div>

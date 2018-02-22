@@ -484,6 +484,39 @@ class transactionService{
 	};
 
 	/**
+	 * Send to process a Agent2Player transaction
+	 * @param params
+	 * @param nextStep
+	 */
+	processAgentTransfer(params, nextStep) {
+		const transaction = CashierStore.getTransaction();
+		const processor = CashierStore.getProcessorId();
+		const playerAccount = CashierStore.getPlayerAccount();
+		const account = CashierStore.getCurrentPayAccount();
+
+		let request = {
+			f: 'processTransfer',
+			payAccountId: account.payAccountId,
+			authHash: transaction.hash,
+			amount: transaction.amount,
+			authUniqueId: transaction.randomTuid,
+			processorId: processor,
+			isWithdraw: true,
+			dynamicParams: params,
+			promoCode: transaction.promoCode,
+			feeType: transaction.feeType.toUpperCase(),
+			currencyFee: transaction.fee,
+			feeBP: 0,
+			transferLink: playerAccount.transfer.link
+		};
+
+		Object.assign(request, this.getProxyRequest());
+		UIService.processTransaction(nextStep);
+		ConnectorServices.makeProcessRequest(actions.PROCESS_RESPONSE, request);
+		CashierStore.cleanPlayerAccount();
+	};
+
+	/**
 	 * update payAccount with transaction info
 	 */
 	updatePayAccount(payAccountEdit = null){

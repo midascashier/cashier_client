@@ -25,6 +25,9 @@ let Player2Agent = React.createClass({
 	 */
 	invalidAccount(state) {
 		this.customProps.invalidAccount = state;
+		let currentState = this.state;
+		currentState.invalidAccount = state;
+		this.setState(currentState);
 	},
 
 	/**
@@ -58,6 +61,7 @@ let Player2Agent = React.createClass({
 				selectedProcessor: CashierStore.getProcessor(),
 				transaction: CashierStore.getTransaction(),
 				account: account,
+				invalidAccount: this.customProps.invalidAccount,
 				allowContinueToConfirm: allowContinueToConfirm
 			}
 		}
@@ -100,7 +104,7 @@ let Player2Agent = React.createClass({
 						feeCashValue={this.props.feeCashValue}
 						feeCheck={this.props.feeCheck}
 						allowContinueToConfirm={this.state.info.allowContinueToConfirm}
-						invalidAccount={this.customProps.invalidAccount}
+						invalidAccount={this.state.invalidAccount}
 					/>
 				</div>
 				<div className="col-sm-6">

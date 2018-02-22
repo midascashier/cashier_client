@@ -68,22 +68,30 @@ let InfoMethod = React.createClass({
 
 		TransactionService.setPlayerAccount(this.props.account);
 		TransactionService.setFeeAmount(this.props.feeCashValue);
-
-		UIService.accountExists(this.props.account);
-
 		let currentState = this.state;
+
+		UIService.accountExists(this.props.account)
+			.then(exists => {
+				if(exists){
+					this.props.invalidAccount(false);
+					UIService.confirmTransaction();
+				} else{
+					this.props.invalidAccount(true);
+				}
+
+				currentState.waitForValidation = false;
+				this.setState(currentState);
+			})
+			.catch(() => {
+				this.props.invalidAccount(true);
+			});
+
 		currentState.waitForValidation = true;
 		this.setState(currentState);
 	},
 
 	render() {
 		let limitsCheck = false;
-		if(this.state.playerAccount){
-			setTimeout(() => UIService.confirmTransaction(), 500);
-		}
-		if(!this.state.playerAccount && !this.state.waitForValidation && UIService.accountConsulted()) {
-			this.props.invalidAccount(true);
-		}
 
 		if(this.props.limitsCheck === Cashier.LIMIT_NO_ERRORS){
 			limitsCheck = true;
