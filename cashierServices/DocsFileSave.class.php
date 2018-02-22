@@ -4,12 +4,10 @@ require_once 'system/Startup.class.php';
 class DocsFileSave
 {
   public function __construct(){
-    //customer info
     $inputParams = $_REQUEST;
-
-    $username = 'midasTP';
-    $companyId = 101;
-    $customerId = 137;
+    $username = $inputParams['userName'];
+    $companyId = $inputParams['companyId'];
+    $customerId = $inputParams['customerId'];
 
     $file = array();
     $files = $_FILES;
@@ -22,7 +20,7 @@ class DocsFileSave
     }
 
     $files = array();
-    $files[23] = $file;
+    $files[key($_FILES)] = $file;
 
     $documentManager = new DocumentManager();
     $result = $documentManager->saveDocument($inputParams, $files, $companyId, $customerId, $username);

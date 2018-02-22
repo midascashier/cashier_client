@@ -4,8 +4,8 @@ import {UIService} from '../services/UIService'
 import {translate} from '../constants/Translate'
 import {CashierStore} from '../stores/CashierStore'
 import {ApplicationService} from '../services/ApplicationService'
-import {DocsFileRules} from './commonComponents/DocsOnFiles/DocsFileRules'
-import {DocsFormRequestContent} from './commonComponents/DocsOnFiles/DocsFormRequestContent'
+import {DocsFileRules} from './commonComponents/docsOnFiles/DocsFileRules'
+import {DocsFormRequestContent} from './commonComponents/docsOnFiles/DocsFormRequestContent'
 
 let RequestsContent = React.createClass({
 
@@ -170,7 +170,7 @@ let RequestsContent = React.createClass({
         }
 
         let id = event.target.getAttribute('id');
-        let element  = document.getElementById(id);
+        let element = document.getElementById(id);
         element.setAttribute('class', 'DocsOptions DocsOptionsClick');
 
         let actualState = this.state;

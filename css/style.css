@@ -1014,7 +1014,6 @@ input:checked + .slider:before{
 
 #DocsFileCustomerFormsHeader{
     position: fixed;
-    margin-top: -30px;
     background-color: #D5232F;
     border-bottom: 1px solid white;
 }

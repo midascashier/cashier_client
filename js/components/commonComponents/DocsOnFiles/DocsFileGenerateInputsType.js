@@ -30,9 +30,9 @@ let DocsFileGenerateInputsType = React.createClass({
      * @param files
      */
     setFiles(files){
-        let actualState = this.state;
+        let actualState = this.props.state();
         actualState.files = files;
-        this.setState(actualState);
+        this.props.updateState(actualState);
     },
 
     /**
@@ -84,7 +84,12 @@ let DocsFileGenerateInputsType = React.createClass({
             case this.inputsType.file:
                 return(
                     <div id="DrawDropUploadElement">
-                        <DrawDropUpload action={this.uploadCurrentFiles} files={this.setFiles} multiple="true"/>
+                        <DrawDropUpload
+                            multiple="true"
+                            files={this.setFiles}
+                            action={this.uploadCurrentFiles}
+                            inputId={element.caDocumentFormInput_Id}
+                        />
                     </div>
                 );
             break;
@@ -92,7 +97,7 @@ let DocsFileGenerateInputsType = React.createClass({
             case this.inputsType.text:
                 return (
                     <div className="docsFileInputText">
-                        <input type="text" placeholder={translate(element.label)}/>
+                        <input id={element.caDocumentFormInput_Id} type="text" placeholder={translate(element.label)}/>
                     </div>
                 );
             break;
@@ -101,7 +106,7 @@ let DocsFileGenerateInputsType = React.createClass({
                 return (
                     <div>
                         <span>{translate(element.label)}</span>
-                        <select>
+                        <select id={element.caDocumentFormInput_Id}>
                             {element.options.map(function (val) {
                                 return <option id={val.caDocumentFormInputOption_Id} value={val.caDocumentFormInputOption_Id}>{translate(val.OptionValueCode)}</option>
                             })}
@@ -112,7 +117,7 @@ let DocsFileGenerateInputsType = React.createClass({
 
             case this.inputsType.ccList:
                 return (
-                    <select>
+                    <select id={element.caDocumentFormInput_Id}>
                         {element.options.map(function (val) {
                             return <option id={val.caDocumentFormInputOption_Id} value={val.caDocumentFormInputOption_Id}>{translate(val.OptionValueCode)}</option>
                         })}
@@ -122,7 +127,7 @@ let DocsFileGenerateInputsType = React.createClass({
 
             case this.inputsType.eWalletList:
                 return (
-                    <select>
+                    <select id={element.caDocumentFormInput_Id}>
                         {element.options.map(function (val) {
                             return <option id={val.caDocumentFormInputOption_Id} value={val.caDocumentFormInputOption_Id}>{translate(val.OptionValueCode)}</option>
                         })}
