@@ -12,8 +12,9 @@ let DocsVerifyIDCustomerForms = React.createClass({
     /**
      * Edit current request selected
      */
-    editRequest(){
-        alert('Edit')
+    editRequest(e){
+        let customerFormId = e.currentTarget.id;
+        this.props.addDocument(customerFormId);
     },
 
     /**
@@ -28,7 +29,7 @@ let DocsVerifyIDCustomerForms = React.createClass({
                 <span className="grid-item">{translate(element.TagTitle)}</span>
                 <span className="grid-item">{translate(element.DateCreated)}</span>
                 <span className="grid-item">{translate('DOCS_FILE_STATUS_' + element.caDocumentStatus_Id)}</span>
-                <input type="button" value={translate('DOCS_FILE_EDIT_BTN')} className="grid-item" onClick={this.editRequest}/>
+                <input id={element.caDocumentFormCustomer_Id} type="button" value={translate('DOCS_FILE_EDIT_BTN')} className="grid-item" onClick={this.editRequest}/>
             </div>
         )
     },
@@ -37,7 +38,7 @@ let DocsVerifyIDCustomerForms = React.createClass({
         let docs = UIService.getDocsFile();
         return (
             <div id="DocsFileCustomerFormsContent">
-                <div className="docsFileBackOptId" onClick={this.props.addDocument}>
+                <div className="docsFileBackOptId" onClick={this.editRequest}>
                     {translate('DOCS_FILE_VERITY_ADD_DOCUMENT')}
                 </div>
                 <div id="DocsFileCustomerFormsHeader" className="grid-container">

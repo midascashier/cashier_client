@@ -1051,6 +1051,49 @@ class UiService {
 	docsFileReset(){
 		CashierStore.docsFileReset()
 	}
+
+	/**
+	 * Get current form to option selected
+	 *
+	 * @returns {*}
+     */
+	docsFileGetCurrentForm(){
+		let docs = UIService.getDocsFile();
+		if(docs.forms.hasOwnProperty(docs.currentOptionSelected)){
+			let forms = docs.forms[docs.currentOptionSelected];
+			for(let current in forms){
+				if(forms.hasOwnProperty(current)){
+					if(forms[current].caDocumentForm_Id == docs.formSelectedId){
+						return forms[current]
+					}
+				}
+			}
+		}
+
+		return false
+	}
+
+	/**
+	 * Get current customer form request to option selected
+	 *
+	 * @param customerFormId
+	 * @returns {*}
+     */
+	docsFileGetCustomerDocumentForm(customerFormId){
+		let docs = UIService.getDocsFile();
+		if(docs.customerForms.hasOwnProperty(docs.currentOptionSelected)){
+			let customerForms = docs.customerForms[docs.currentOptionSelected];
+			for(let current in customerForms){
+				if(customerForms.hasOwnProperty(current)){
+					if(customerForms[current].caDocumentFormCustomer_Id == customerFormId){
+						return customerForms[current]
+					}
+				}
+			}
+		}
+
+		return false
+	}
 }
 
 export let UIService = new UiService();
