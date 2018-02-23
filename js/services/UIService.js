@@ -1094,6 +1094,58 @@ class UiService {
 
 		return false
 	}
+
+	/**
+	 * Get current file option element selected
+	 * 
+	 * @param optionId
+	 * @returns {*}
+     */
+	docsFileGetCurrentFormElement(optionId){
+		let form = UIService.docsFileGetCurrentForm();
+		if(form.hasOwnProperty('fields')){
+			for(let field in form.fields){
+				if(form.fields.hasOwnProperty(field)){
+					if(form.fields[field].hasOwnProperty('file')){
+						if(form.fields[field].file.hasOwnProperty('types')){
+							for(let type in form.fields[field].file.types){
+								if(form.fields[field].file.types.hasOwnProperty(type)){
+									if(form.fields[field].file.types[type].caCustomerFileType_Id == optionId){
+										return form.fields[field].file.types[type]
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return false
+	}
+
+	/**
+	 * Get source img to current option file selected
+	 *
+	 * @param element
+	 * @returns {*}
+     */
+	docsFileGetSrcImg(element){
+		let prefixAdd = 'docsFileOption';
+
+		let label;
+		if(element.hasOwnProperty('label')){
+			label = element.label.replace('BD_TEXT_TYPE_', '');
+		}else{
+			if(element.hasOwnProperty('Description')){
+				label = element.Description.replace('BD_TEXT_TYPE_', '');
+			}
+		}
+
+		let imgName = capitalize(label.toLowerCase());
+
+		return "../images/" + prefixAdd + imgName +".svg"
+	}
 }
 
 export let UIService = new UiService();
