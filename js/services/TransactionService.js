@@ -485,10 +485,9 @@ class transactionService{
 
 	/**
 	 * Send to process a Agent2Player transaction
-	 * @param params
 	 * @param nextStep
 	 */
-	processAgentTransfer(params, nextStep) {
+	processAgentTransfer(nextStep) {
 		const transaction = CashierStore.getTransaction();
 		const processor = CashierStore.getProcessorId();
 		const playerAccount = CashierStore.getPlayerAccount();
@@ -502,12 +501,13 @@ class transactionService{
 			authUniqueId: transaction.randomTuid,
 			processorId: processor,
 			isWithdraw: true,
-			dynamicParams: params,
+			//dynamicParams: {}, not needed
 			promoCode: transaction.promoCode,
 			feeType: transaction.feeType.toUpperCase(),
 			currencyFee: transaction.fee,
 			feeBP: 0,
-			transferLink: playerAccount.transfer.link
+			transferLink: playerAccount.transfer.link,
+			isCashier: 1
 		};
 
 		Object.assign(request, this.getProxyRequest());

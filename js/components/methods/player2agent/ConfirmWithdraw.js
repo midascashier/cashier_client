@@ -39,7 +39,6 @@ let Player2AgentConfirmWithdraw = React.createClass({
 	 *
 	 */
 	processTransaction(){
-		let transfer = this.state.playerAccount.transfer;
 		UIService.getTransferLink()
 			.then(() => TransactionService.processAgentTransfer('ticket'));
 	},
