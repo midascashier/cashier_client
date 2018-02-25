@@ -664,7 +664,7 @@ div[class*="col-"] > div[class*="col-"]:before {
 #requestOptionContent{
     height: 492px;
     width: inherit;
-    padding-top: 5px;
+    padding-top: 15px;
     display: inline-block;
     background-image: url(../images/docsFileBackground.svg);
 }

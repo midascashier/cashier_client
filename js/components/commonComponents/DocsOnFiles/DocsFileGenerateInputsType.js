@@ -1,4 +1,5 @@
 import React from 'react'
+import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {DrawDropUpload} from '../../../components/commonComponents/files/DrawDropUpload'
 
@@ -6,7 +7,9 @@ let DocsFileGenerateInputsType = React.createClass({
     propType : {
         state : React.PropTypes.func,
         optionInfo : React.PropTypes.node,
-        updateState : React.PropTypes.func
+        updateState : React.PropTypes.func,
+        switchAction : React.PropTypes.func,
+        optionsSwitch : React.PropTypes.object
     },
 
     inputsType : {
@@ -57,18 +60,16 @@ let DocsFileGenerateInputsType = React.createClass({
      * @returns {XML}
      */
     generateOptions(element){
-        let prefixAdd = 'docsFileOption';
-        let currentElement = element.label.replace('BD_TEXT_TYPE_', '');
-        let imgName = capitalize(currentElement.toLowerCase());
+        let src = UIService.docsFileGetSrcImg(element);
 
-        return(
+            return(
             <img
                 id={element.fileTypeId}
                 onClick={this.optionAction}
                 className="docsFilesOptions"
                 alt={translate(element.label)}
                 title={translate(element.label)}
-                src={"../images/"+ prefixAdd + imgName +".svg"}
+                src={src}
             />
         );
     },
@@ -104,7 +105,7 @@ let DocsFileGenerateInputsType = React.createClass({
 
             case this.inputsType.selected:
                 return (
-                    <div>
+                    <div className="docsFileInputSelected">
                         <span>{translate(element.label)}</span>
                         <select id={element.caDocumentFormInput_Id}>
                             {element.options.map(function (val) {
@@ -170,6 +171,21 @@ let DocsFileGenerateInputsType = React.createClass({
 
     render(){
         return this.printInputs(this.props.optionInfo)
+    },
+
+    /**
+     * Execute actions when this component did mount
+     */
+    componentDidMount(){
+        let state = this.props.state();
+        if(state.customerFormId){
+            let customerForm = UIService.docsFileGetCustomerDocumentForm(state.customerFormId, state.option);
+
+            if(this.props.optionsSwitch.hasOwnProperty(customerForm.caDocumentForm_Id)){
+                let checked = this.props.optionsSwitch[customerForm.caDocumentForm_Id];
+                this.props.switchAction(null, checked);
+            }
+        }
     }
 });
 

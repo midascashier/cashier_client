@@ -6,6 +6,7 @@ import {CashierStore} from '../stores/CashierStore'
 import {ApplicationService} from '../services/ApplicationService'
 import {DocsFileRules} from './commonComponents/docsOnFiles/DocsFileRules'
 import {DocsFormRequestContent} from './commonComponents/docsOnFiles/DocsFormRequestContent'
+import {DocsUploadSuccessResponse} from './commonComponents/docsOnFiles/DocsUploadSuccessResponse'
 
 let RequestsContent = React.createClass({
 
@@ -38,7 +39,8 @@ let RequestsContent = React.createClass({
         this.buildCategoriesList(docFile.categoriesList);
 
         return {
-            option : this.currentTabSelected()
+            option : this.currentTabSelected(),
+            responseUpload : docFile.responseUpload
         }
     },
 
@@ -181,6 +183,9 @@ let RequestsContent = React.createClass({
     },
 
     render(){
+        let optionContent = (this.state.responseUpload) ? <DocsUploadSuccessResponse responseType={this.state.responseUpload}/>
+            : <DocsFormRequestContent option={this.state.option}/>;
+
         return(
             <div id="requestContent">
                 <div id="requestsOptions">
@@ -193,7 +198,7 @@ let RequestsContent = React.createClass({
                     </div>
                 </div>
                 <div id="requestOptionContent">
-                    <DocsFormRequestContent option={this.state.option}/>
+                    {optionContent}
                 </div>
             </div>
         )
