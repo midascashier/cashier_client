@@ -24,6 +24,7 @@ let DocsFormRequestContent = React.createClass({
             checkOption : false,
             newDocument : false,
             customerFormId : '',
+            sendingFile : false,
             option : this.props.option
         }
     },
@@ -87,6 +88,10 @@ let DocsFormRequestContent = React.createClass({
         formData.append('customerId', customer.customerId);
         formData.append('documentFormId', docs.formSelectedId);
         formData.append('documentFormCustomerId', this.state.customerFormId);
+
+        let actualState = this.state;
+        actualState.sendingFile = true;
+        this.setState(actualState);
 
         TransactionService.docsFileSave(formData);
     },
@@ -258,7 +263,7 @@ let DocsFormRequestContent = React.createClass({
             UIService.docFilesFormInputsCategories(this.props.option);
         }
 
-        if(docs.readyPending()){
+        if(docs.readyPending() && !this.state.sendingFile){
             if(this.state.option != this.props.option){
                 this.setState(this.getInitialState())
             }else{
