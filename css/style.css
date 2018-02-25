@@ -687,8 +687,8 @@ div[class*="col-"] > div[class*="col-"]:before {
     width: 100%;
     display: flex;
     overflow-y: auto;
-    margin-top: 40px;
-    max-height: 440px;
+    margin-top: 10px;
+    max-height: 470px;
     text-align: center;
     align-items: center;
     justify-content: center;
@@ -799,7 +799,7 @@ input:checked + .slider:before{
 #docsFileButtonContent{
     float: right;
     width: inherit;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 #docsFileButtonContent button{
@@ -931,6 +931,11 @@ input:checked + .slider:before{
     color: black;
     box-shadow: 0;
     border-radius: 3px;
+}
+
+.docsFileInputSelected{
+    margin: 0 auto;
+    width: 315px;
 }
 
 .docsFilesOptions{
@@ -1078,6 +1083,13 @@ input:checked + .slider:before{
     margin-left: -40px;
     position: absolute;
     background-color: black;
+}
+
+.docsFileReasonsFileRejected{
+    color: white;
+    font-size: 14pt;
+    margin-top: 10px;
+    font-family: Oswald-Medium;
 }
 
 .docsFileLoader {

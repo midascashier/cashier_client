@@ -307,6 +307,8 @@ let _langTags = {
 	DOCS_FILE_TAB_KYC: "Verificar mi identidad",
 	DOCS_FILE_TAB_UPDATEACCOUNTINFO: "Actualizar mi información",
 	DOCS_FILE_TAB_CCISSUES: "Informar de un problema",
+	DOCS_FILE_TAB_RECOVERY: 'Recuperación',
+	DOCS_FILE_REJECTED_REASONS_TITLE: 'Razones de rechazo',
 	MY_REQUEST_ADDITIONAL_INFO: "Informacion adicional",
 	MY_REQUEST_RECOVERY: "Recuperar",
 	MY_REQUEST_VERIFY_TITLE: "Tipo de verificación",
@@ -371,6 +373,7 @@ let _langTags = {
 	DOCFILE_FORM_VERIFICATION_TITLE : 'Verificación adicional',
 	DOCFILE_FORM_PROOF_TITLE : 'Prueba de domicilio',
 	DOCFILE_FORM_OPTION_FIX_NAME : 'Corregir nombre',
+	DOCFILE_FORM_PENDING_DEPOSIT_TITLE: 'Deposito pendiente',
 
 	DOCFILE_FORM_LABEL_FILE_EWALLET : 'Foto de su billetera electrónica',
 	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Recibo de servicio público',

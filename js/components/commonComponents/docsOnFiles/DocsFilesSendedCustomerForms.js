@@ -24,12 +24,14 @@ let DocsVerifyIDCustomerForms = React.createClass({
      * @returns {XML}
      */
     genDocumentRegisters(element){
+        let actionBTN = (element.caDocumentStatus_Id == 4) ? <input id={element.caDocumentFormCustomer_Id} type="button" value={translate('DOCS_FILE_EDIT_BTN')} className="grid-item" onClick={this.editRequest}/> : <span className="grid-item">-- --</span>;
+
         return (
             <div className="grid-container">
                 <span className="grid-item">{translate(element.TagTitle)}</span>
                 <span className="grid-item">{translate(element.DateCreated)}</span>
                 <span className="grid-item">{translate('DOCS_FILE_STATUS_' + element.caDocumentStatus_Id)}</span>
-                <input id={element.caDocumentFormCustomer_Id} type="button" value={translate('DOCS_FILE_EDIT_BTN')} className="grid-item" onClick={this.editRequest}/>
+                {actionBTN}
             </div>
         )
     },

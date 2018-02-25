@@ -3,7 +3,8 @@ require_once 'system/Startup.class.php';
 
 class DocsFileSave
 {
-  public function __construct(){
+  public function __construct()
+  {
     $inputParams = $_REQUEST;
     $username = $inputParams['userName'];
     $companyId = $inputParams['companyId'];
@@ -12,11 +13,12 @@ class DocsFileSave
     $file = array();
     $files = $_FILES;
 
-    foreach($files as $keys){
-      foreach ($keys as $name => $values)
-        foreach($values as $key => $value){
+    foreach ($files as $keys){
+      foreach ($keys as $name => $values){
+        foreach ($values as $key => $value){
           $file[$name][$key] = $value;
         }
+      }
     }
 
     $files = array();
