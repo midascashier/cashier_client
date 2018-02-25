@@ -705,13 +705,13 @@ div[class*="col-"] > div[class*="col-"]:before {
     -webkit-justify-content: center;
 }
 
-
 #docsFileTXT{
     padding: 5px;
-    width: 409px;
-    height: 122px;
     color: white;
+    width: 409px;
+    height: 105px;
     margin: 0 auto;
+    margin-top: 10px;
     font-size: 15pt;
     border-radius: 12px;
     border: solid 4px white;
