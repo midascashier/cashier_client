@@ -662,10 +662,10 @@ div[class*="col-"] > div[class*="col-"]:before {
 }
 
 #requestOptionContent{
-    height: 492px;
+    height: 478px;
     width: inherit;
-    padding-top: 15px;
     display: inline-block;
+    background-size: cover;
     background-image: url(../images/docsFileBackground.svg);
 }
 
@@ -688,7 +688,7 @@ div[class*="col-"] > div[class*="col-"]:before {
     display: flex;
     overflow-y: auto;
     margin-top: 10px;
-    max-height: 470px;
+    max-height: 465px;
     text-align: center;
     align-items: center;
     justify-content: center;
@@ -823,8 +823,9 @@ input:checked + .slider:before{
 }
 
 #DocsUploadSuccessResponse{
-    display: flex;
     color: white;
+    display: flex;
+    padding-top: 15px;
     align-items: center;
     justify-content: center;
     font-family: Oswald-Light;
