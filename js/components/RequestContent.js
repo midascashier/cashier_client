@@ -35,12 +35,12 @@ let RequestsContent = React.createClass({
      * React function to set component initial state
      */
     getInitialState(){
-        let docFile = UIService.getDocsFile();
-        this.buildCategoriesList(docFile.categoriesList);
+        let docs = UIService.getDocsFile();
+        this.buildCategoriesList(docs.categoriesList);
 
         return {
             option : this.currentTabSelected(),
-            responseUpload : docFile.responseUpload
+            responseUpload : docs.responseUpload
         }
     },
 
@@ -162,24 +162,27 @@ let RequestsContent = React.createClass({
      * @param event
      */
     docsOptionsActions(event){
-        UIService.docsFileReset();
+        let docs = UIService.getDocsFile();
+        if(docs.readyPending()){
+            UIService.docsFileReset();
 
-        let optionElements = document.getElementsByClassName(this.elements.DOCS_OPTIONS);
-        let count = optionElements.length;
+            let optionElements = document.getElementsByClassName(this.elements.DOCS_OPTIONS);
+            let count = optionElements.length;
 
-        for(let i=0; i<count; i++){
-            optionElements[i].setAttribute('class', 'DocsOptions');
+            for(let i=0; i<count; i++){
+                optionElements[i].setAttribute('class', 'DocsOptions');
+            }
+
+            let id = event.target.getAttribute('id');
+            let element = document.getElementById(id);
+            element.setAttribute('class', 'DocsOptions DocsOptionsClick');
+
+            let actualState = this.state;
+            actualState.option = id;
+            UIService.setDocsCurrentOption(id);
+            actualState.responseUpload = UIService.getDocsUploadResponse();
+            this.setState(actualState);
         }
-
-        let id = event.target.getAttribute('id');
-        let element = document.getElementById(id);
-        element.setAttribute('class', 'DocsOptions DocsOptionsClick');
-
-        let actualState = this.state;
-        actualState.option = id;
-        UIService.setDocsCurrentOption(id);
-        actualState.responseUpload = UIService.getDocsUploadResponse();
-        this.setState(actualState);
     },
 
     render(){

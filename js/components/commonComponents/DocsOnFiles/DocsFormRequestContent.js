@@ -128,6 +128,7 @@ let DocsFormRequestContent = React.createClass({
      */
     addDocument(customerFormId){
         let actualState = this.state;
+
         actualState.newDocument = true;
         actualState.customerFormId = customerFormId;
 
@@ -142,7 +143,7 @@ let DocsFormRequestContent = React.createClass({
      */
     switchFormType(e, force){
         let switchForm;
-        let actualState = this.getInitialState();
+        let actualState = this.getActualState();
         let form = document.getElementById('docsFileForm');
 
         if(force){
@@ -150,8 +151,8 @@ let DocsFormRequestContent = React.createClass({
 
             switchForm = force;
             form.style.display = 'block';
-            actualState.checkOption = true;
-            actualState.idOptSelect = customerForm.caDocumentCategory_Id;
+            actualState.idOptSelect = null;
+            actualState.checkOption = false;
             UIService.docFilesSetFormSelectedId(customerForm.caDocumentForm_Id);
         }else{
             this.selectedIdForm();

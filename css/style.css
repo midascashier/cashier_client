@@ -655,6 +655,24 @@ div[class*="col-"] > div[class*="col-"]:before {
     -webkit-justify-content: center;
 }
 
+.DocsOptionsBlock{
+    float: left;
+    width: 170px;
+    height: 50px;
+    color: white;
+    display: flex;
+    cursor: pointer;
+    margin-top: 9px;
+    font-size: 13pt;
+    margin-left: 5px;
+    align-items: center;
+    justify-content: center;
+    background-color: #0e1926;
+    -webkit-align-items: center;
+    border-radius: 10px 10px 0 0;
+    -webkit-justify-content: center;
+}
+
 .DocsOptionsClick{
     height: 59px;
     margin-top: 0;
