@@ -7,7 +7,7 @@ let DocsUploadSuccessResponse = React.createClass({
     },
 
     render(){
-        if(this.props.responseType){
+        if(this.props.responseType == 'success'){
             return(
                 <div id="DocsUploadSuccessResponse">
                     <img src="/images/check1.svg"/>
