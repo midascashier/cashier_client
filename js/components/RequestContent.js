@@ -183,7 +183,8 @@ let RequestsContent = React.createClass({
     },
 
     render(){
-        let optionContent = (this.state.responseUpload) ? <DocsUploadSuccessResponse responseType={this.state.responseUpload}/>
+        let optionContent = (this.state.responseUpload)
+            ? <DocsUploadSuccessResponse responseType={this.state.responseUpload}/>
             : <DocsFormRequestContent option={this.state.option}/>;
 
         return(
