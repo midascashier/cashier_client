@@ -123,9 +123,6 @@ let DocsFormRequestContent = React.createClass({
      * Restart states option selected
      */
     optionReset(){
-        let form = document.getElementById('docsFileForm');
-        form.style.display = 'flex';
-
         let state = this.getInitialState();
         state.switchForm = this.state.switchForm;
         this.setState(state);
@@ -152,7 +149,8 @@ let DocsFormRequestContent = React.createClass({
     switchFormType(e, force){
         let switchForm;
         let actualState;
-        let form = document.getElementById('docsFileForm');
+        let docs =UIService.getDocsFile();
+        docs.currentStep = 1;
 
         if(!e){
             if(force !== null){
@@ -307,7 +305,7 @@ let DocsFormRequestContent = React.createClass({
                         return(
                             <div id="docsFilesFormContent">
                                 {(() =>{
-                                    if(this.state.checkOption){
+                                    if(this.state.idOptSelect){
                                         let element = UIService.docsFileGetCurrentFormElement(this.state.idOptSelect);
                                         let src = UIService.docsFileGetSrcImg(element);
 
@@ -373,7 +371,7 @@ let DocsFormRequestContent = React.createClass({
                                         {form.fields.map(this.generateForm)}
 
                                         {(() =>{
-                                            if(this.state.checkOption && this.state.customerFormId){
+                                            if(this.state.idOptSelect && this.state.customerFormId){
                                                 let reasons = this.getCurrentReasonsRejected(this.state.customerFormId);
                                                 return(
                                                     <div className="docsFileReasonsFileRejected">

@@ -62,14 +62,14 @@ let DocsFileGenerateInputsType = React.createClass({
     generateOptions(element){
         let src = UIService.docsFileGetSrcImg(element);
 
-            return(
+        return(
             <img
+                src={src}
                 id={element.fileTypeId}
                 onClick={this.optionAction}
                 className="docsFilesOptions"
                 alt={translate(element.label)}
                 title={translate(element.label)}
-                src={src}
             />
         );
     },
@@ -146,20 +146,27 @@ let DocsFileGenerateInputsType = React.createClass({
      */
     printInputs(element){
         let state = this.props.state();
+        let docs = UIService.getDocsFile();
         let className = (state.checkOption) ? 'docsFilesInputContent' : 'docsFilesOptionsContent';
 
         if(this.props.optionInfo.hasOwnProperty('files')){
-            if(this.props.optionInfo.files.length && !state.checkOption){
-                return(
-                    <div className={className}>
-                        {element.files.map(this.generateOptions)}
-                    </div>
-                )
+            if(this.props.optionInfo.files.length){
+                if(!state.checkOption){
+                    if(element.step == docs.currentStep){
+                        return(
+                            <div className={className}>
+                                {element.files.map(this.generateOptions)}
+                            </div>
+                        )
+                    }
+                }
             }
         }
 
-        if(state.checkOption){
-            return (
+        if(element.step == docs.currentStep){
+            state.checkOption = true;
+
+            return(
                 <div className={className}>
                     {this.generateInputs(element)}
                 </div>
@@ -186,6 +193,8 @@ let DocsFileGenerateInputsType = React.createClass({
                 this.props.switchAction(null, checked);
             }
         }
+
+        this.props.updateState(state)
     }
 });
 
