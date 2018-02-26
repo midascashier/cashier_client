@@ -57,6 +57,7 @@ let DocsFormRequestContent = React.createClass({
         if(docs.currentStep < docs.step){
             docs.step = 0;
             ++docs.currentStep;
+            actualState.idOptSelect = null;
             actualState.checkOption = false;
         }else{
             let inputs = e.currentTarget;
