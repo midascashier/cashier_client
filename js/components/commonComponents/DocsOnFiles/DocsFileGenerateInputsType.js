@@ -44,8 +44,6 @@ let DocsFileGenerateInputsType = React.createClass({
      * @param e
      */
     optionAction(e){
-        let form = document.getElementById('docsFileForm');
-        form.style.display = 'block';
         let actualState = this.props.state();
         let option = e.target.getAttribute('id');
         actualState.checkOption = true;
