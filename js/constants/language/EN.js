@@ -307,7 +307,7 @@ let _langTags = {
 	DOCS_FILE_TAB_KYC: "Identity Verification",
 	DOCS_FILE_TAB_UPDATEACCOUNTINFO: "Update my information",
 	DOCS_FILE_TAB_CCISSUES: "Report an issue",
-	DOCS_FILE_TAB_RECOVERY: 'Recuperación',
+	DOCS_FILE_TAB_RECOVERY: 'Recovery',
 	DOCS_FILE_NEXT_STEP: 'Next',
 	DOCS_FILE_REJECTED_REASONS_TITLE: 'Rejected reasons',
 	MY_REQUEST_ADDITIONAL_INFO: "Additional information",
@@ -321,7 +321,7 @@ let _langTags = {
 
 	DOCS_FILE_VERIFY_IMPORTANT_TXT: 'Please upload pictures only, four edges of the ID or Passport have to be visible in the picture and the information must be clear so avoid using flash.',
 	DOCFILE_FORM_LABEL_FILE_ID: "Send the current file for the identification process.",
-	BD_TEXT_TYPE_LICENCE: "Driver's license and social security card.",
+	BD_TEXT_TYPE_LICENCE2: "Driver's license.",
 	BD_TEXT_TYPE_ID: "Identification document",
 	BD_TEXT_TYPE_PASSPORT: "Passport",
 	BD_TEXT_TYPE_EWALLET: "E-Wallet",

@@ -90,8 +90,9 @@ let DocsFormRequestContent = React.createClass({
             }
 
             let customer = UIService.getCustomerInformation();
+            let action = (this.state.customerFormId) ? 'edit' : 'save';
 
-            formData.append('actionType', 'save');
+            formData.append('actionType', action);
             formData.append('userName', customer.username);
             formData.append('companyId', customer.companyId);
             formData.append('customerId', customer.customerId);
