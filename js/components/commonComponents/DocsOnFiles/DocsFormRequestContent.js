@@ -339,7 +339,7 @@ let DocsFormRequestContent = React.createClass({
                                 })()}
 
                                 {(() =>{
-                                    if(twoOptions){
+                                    if(twoOptions && !this.state.idOptSelect){
                                         let key = Object.keys(docs.forms[this.props.option]);
                                         let forms = docs.forms[this.props.option];
                                         this.optionsSwitch[forms[key[0]].caDocumentForm_Id] = false;
@@ -358,7 +358,7 @@ let DocsFormRequestContent = React.createClass({
                                 })()}
 
                                 {(() =>{
-                                    if(twoOptions){
+                                    if(twoOptions && !this.state.idOptSelect){
                                         let checked = this.state.switchForm;
 
                                         return(
