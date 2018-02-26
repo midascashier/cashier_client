@@ -143,23 +143,26 @@ let DocsFormRequestContent = React.createClass({
      */
     switchFormType(e, force){
         let switchForm;
-        let actualState = this.getActualState();
+        let actualState;
         let form = document.getElementById('docsFileForm');
 
-        if(force){
-            let customerForm = UIService.docsFileGetCustomerDocumentForm(this.state.customerFormId, this.state.option);
+        if(!e){
+            if(force !== null){
+                let customerForm = UIService.docsFileGetCustomerDocumentForm(this.state.customerFormId, this.state.option);
 
-            switchForm = force;
-            form.style.display = 'block';
-            actualState.idOptSelect = null;
-            actualState.checkOption = false;
-            UIService.docFilesSetFormSelectedId(customerForm.caDocumentForm_Id);
+                actualState  = this.getActualState();
+                switchForm = force;
+                actualState.idOptSelect = null;
+                actualState.checkOption = false;
+                UIService.docFilesSetFormSelectedId(customerForm.caDocumentForm_Id);
+            }
         }else{
             this.selectedIdForm();
-            form.style.display = 'flex';
+            actualState  = this.getInitialState();
             switchForm = e.target.checked;
         }
 
+        form.style.display = 'flex';
         actualState.newDocument = true;
         actualState.switchForm = switchForm;
         this.setState(actualState);
