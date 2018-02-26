@@ -698,6 +698,7 @@ div[class*="col-"] > div[class*="col-"]:before {
 #docsFileFormContent{
     display: flex;
     width: inherit;
+    height: inherit;
     align-items: center;
     justify-content: center;
     -webkit-align-items: center;

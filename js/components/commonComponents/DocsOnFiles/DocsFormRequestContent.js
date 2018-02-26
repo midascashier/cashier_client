@@ -299,6 +299,11 @@ let DocsFormRequestContent = React.createClass({
                     return <DocsVerifyIDCustomerForms forms={docs.customerForms} addDocument={this.addDocument}/>
                 }
 
+                let height = (this.state.checkOption) ? 'inherit' : 'auto';
+                let contentStyle = {
+                    height : height
+                };
+
                 let form = UIService.docsFileGetCurrentForm();
                 if(form){
                     if(form.hasOwnProperty('fields')){
@@ -366,7 +371,7 @@ let DocsFormRequestContent = React.createClass({
                                     }
                                 })()}
 
-                                <div id="docsFileFormContent">
+                                <div id="docsFileFormContent" style={contentStyle}>
                                     <form id="docsFileForm" onSubmit={this.action}>
                                         {form.fields.map(this.generateForm)}
 
