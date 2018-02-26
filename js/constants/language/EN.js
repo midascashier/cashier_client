@@ -308,6 +308,7 @@ let _langTags = {
 	DOCS_FILE_TAB_UPDATEACCOUNTINFO: "Update my information",
 	DOCS_FILE_TAB_CCISSUES: "Report an issue",
 	DOCS_FILE_TAB_RECOVERY: 'Recuperación',
+	DOCS_FILE_NEXT_STEP: 'Next',
 	DOCS_FILE_REJECTED_REASONS_TITLE: 'Rejected reasons',
 	MY_REQUEST_ADDITIONAL_INFO: "Additional information",
 	MY_REQUEST_RECOVERY: "Recovery",

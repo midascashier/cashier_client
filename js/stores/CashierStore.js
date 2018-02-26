@@ -395,6 +395,8 @@ let _CryptoTransfer = {
 };
 
 let _DocsFile = {
+	step : 0,
+	currentStep : 1,
 	categoriesList : {},
 	responseUpload : false,
 	pendingRecovery : false,
@@ -865,6 +867,8 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Reset response wait
 	 */
 	docsFileReset(){
+		_DocsFile.step = 0;
+		_DocsFile.currentStep = 1;
 		_DocsFile.responseUpload = false;
 		_DocsFile.pendingInputsCategory = true;
 		_DocsFile.pendingCustomerFormInfo = true;

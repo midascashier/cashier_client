@@ -50,50 +50,58 @@ let DocsFormRequestContent = React.createClass({
      */
     action(e){
         e.preventDefault();
-        let inputs = e.currentTarget;
-        let formData = new FormData();
-        for(let input in inputs){
-            if(inputs.hasOwnProperty(input)){
-                let elementInformation = {
-                    value : null
-                };
 
-                if(inputs[input].type == 'file'){
-                    let files = this.state.files;
-                    for(let key in files){
-                        if(files.hasOwnProperty(key)){
-                            formData.append(inputs[input].id + '[]', files[key]);
+        let actualState = this.state;
+        let docs = UIService.getDocsFile();
+
+        if(docs.currentStep < docs.step){
+            docs.step = 0;
+            ++docs.currentStep;
+            actualState.checkOption = false;
+        }else{
+            let inputs = e.currentTarget;
+            let formData = new FormData();
+            for(let input in inputs){
+                if(inputs.hasOwnProperty(input)){
+                    let elementInformation = {
+                        value : null
+                    };
+
+                    if(inputs[input].type == 'file'){
+                        let files = this.state.files;
+                        for(let key in files){
+                            if(files.hasOwnProperty(key)){
+                                formData.append(inputs[input].id + '[]', files[key]);
+                            }
                         }
-                    }
 
-                    formData.append('countExtraFiles', files.length);
-                    elementInformation['value'] = inputs[input].value;
-                    elementInformation['fileType'] = this.state.idOptSelect;
-                    formData.append('input[' + inputs[input].id + ']', JSON.stringify(elementInformation));
-                }else{
-                    if(inputs[input].type == 'text' || inputs[input].type == 'select-one'){
-                        elementInformation.value = inputs[input].value;
+                        formData.append('countExtraFiles', files.length);
+                        elementInformation['value'] = inputs[input].value;
+                        elementInformation['fileType'] = this.state.idOptSelect;
                         formData.append('input[' + inputs[input].id + ']', JSON.stringify(elementInformation));
+                    }else{
+                        if(inputs[input].type == 'text' || inputs[input].type == 'select-one'){
+                            elementInformation.value = inputs[input].value;
+                            formData.append('input[' + inputs[input].id + ']', JSON.stringify(elementInformation));
+                        }
                     }
                 }
             }
+
+            let customer = UIService.getCustomerInformation();
+
+            formData.append('actionType', 'save');
+            formData.append('userName', customer.username);
+            formData.append('companyId', customer.companyId);
+            formData.append('customerId', customer.customerId);
+            formData.append('documentFormId', docs.formSelectedId);
+            formData.append('documentFormCustomerId', this.state.customerFormId);
+
+            actualState.sendingFile = true;
+            TransactionService.docsFileSave(formData);
         }
 
-        let docs = UIService.getDocsFile();
-        let customer = UIService.getCustomerInformation();
-
-        formData.append('actionType', 'save');
-        formData.append('userName', customer.username);
-        formData.append('companyId', customer.companyId);
-        formData.append('customerId', customer.customerId);
-        formData.append('documentFormId', docs.formSelectedId);
-        formData.append('documentFormCustomerId', this.state.customerFormId);
-
-        let actualState = this.state;
-        actualState.sendingFile = true;
         this.setState(actualState);
-
-        TransactionService.docsFileSave(formData);
     },
 
     /**
@@ -162,7 +170,6 @@ let DocsFormRequestContent = React.createClass({
             switchForm = e.target.checked;
         }
 
-        form.style.display = 'flex';
         actualState.newDocument = true;
         actualState.switchForm = switchForm;
         this.setState(actualState);
@@ -175,34 +182,47 @@ let DocsFormRequestContent = React.createClass({
      */
     generateForm(field){
         let docs = UIService.getDocsFile();
+
         if(docs.formSelectedId){
             let input = {
                 files: [],
                 options: [],
+                step : null,
                 label : field.Label,
                 Required : field.Required,
                 caDocumentFormInput_Id : field.caDocumentFormInput_Id,
                 caDocumentFormInputType_Id : field.caDocumentFormInputType_Id
             };
 
-            if(field.file.hasOwnProperty('types')){
-                for(let fieldType in field.file.types){
-                    if(field.file.types.hasOwnProperty(fieldType)){
-                        let file = field.file.types[fieldType];
-
-                        let fileInfo = {
-                            label : file.Description,
-                            fileTypeId : file.caCustomerFileType_Id
-                        };
-
-                        input.files.push(fileInfo);
-                    }
-                }
-            }
-
             if(field.hasOwnProperty('options')){
                 if(field.options.length){
                     input.options = field.options
+                }
+            }
+
+            if(field.file.hasOwnProperty('types')){
+                if(field.file.types.length){
+                    for(let fieldType in field.file.types){
+                        if(field.file.types.hasOwnProperty(fieldType)){
+                            let file = field.file.types[fieldType];
+
+                            let fileInfo = {
+                                label : file.Description,
+                                fileTypeId : file.caCustomerFileType_Id
+                            };
+
+                            input.files.push(fileInfo);
+                        }
+                    }
+
+                    ++docs.step;
+                    input.step = docs.step;
+                }else{
+                    if(docs.step === 0){
+                        docs.step = 1;
+                    }
+
+                    input.step = docs.step;
                 }
             }
 
@@ -271,6 +291,7 @@ let DocsFormRequestContent = React.createClass({
             if(this.state.option != this.props.option){
                 this.setState(this.getInitialState())
             }else{
+                docs.step = 0;
                 let twoOptions = (_.size(docs.forms[this.props.option]) == 2);
                 if(UIService.docFilesGetFormSelectedId() === false){
                     this.selectedIdForm()
@@ -365,7 +386,9 @@ let DocsFormRequestContent = React.createClass({
 
                                         {(() =>{
                                             if(this.state.checkOption){
-                                                return <div id="docsFileButtonContent"><button type='submit'>{translate('DRAG_DROP_UPLOAD_TXT')}</button></div>
+                                                let docs = UIService.getDocsFile();
+                                                let bntTXT = (docs.currentStep < docs.step) ? 'DOCS_FILE_NEXT_STEP' : 'DRAG_DROP_UPLOAD_TXT';
+                                                return <div id="docsFileButtonContent"><button type='submit'>{translate(bntTXT)}</button></div>
                                             }
                                         })()}
                                     </form>
