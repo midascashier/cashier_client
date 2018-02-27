@@ -25,6 +25,7 @@ let DocsFormRequestContent = React.createClass({
             newDocument : false,
             customerFormId : '',
             sendingFile : false,
+            beforeElements : [],
             option : this.props.option
         }
     },
@@ -52,16 +53,51 @@ let DocsFormRequestContent = React.createClass({
         e.preventDefault();
 
         let actualState = this.state;
+        let inputs = e.currentTarget;
+        let formData = new FormData();
         let docs = UIService.getDocsFile();
 
         if(docs.currentStep < docs.step){
             docs.step = 0;
             ++docs.currentStep;
-            actualState.idOptSelect = null;
+            let fileInsert = {};
             actualState.checkOption = false;
+            for(let input in inputs){
+                if(inputs.hasOwnProperty(input)){
+                    let elementInformation = {
+                        value : null
+                    };
+
+                    if(inputs[input].type == 'file'){
+                        let files = this.state.files;
+                        fileInsert[inputs[input].id] = [];
+                        if(inputs[input].type == 'file'){
+                            for(let key in files){
+                                if(files.hasOwnProperty(key)){
+                                    fileInsert[inputs[input].id ].push(files[key]);
+                                }
+                            }
+                        }
+
+                        fileInsert['countExtraFiles'] = files.length;
+                        elementInformation['value'] = inputs[input].value;
+                        elementInformation['fileType'] = this.state.idOptSelect;
+                        fileInsert['input[' + inputs[input].id + ']'] = JSON.stringify(elementInformation);
+                    }else{
+                        if(inputs[input].type == 'text' || inputs[input].type == 'select-one'){
+                            let fileInsert = {};
+
+                            elementInformation.value = inputs[input].value;
+                            fileInsert['input[' + inputs[input].id + ']'] = JSON.stringify(elementInformation);
+                        }
+                    }
+                }
+            }
+
+            actualState.idOptSelect = null;
+            actualState.beforeElements.push(fileInsert)
         }else{
-            let inputs = e.currentTarget;
-            let formData = new FormData();
+            let countExtraFiles = 0;
             for(let input in inputs){
                 if(inputs.hasOwnProperty(input)){
                     let elementInformation = {
@@ -76,7 +112,7 @@ let DocsFormRequestContent = React.createClass({
                             }
                         }
 
-                        formData.append('countExtraFiles', files.length);
+                        countExtraFiles = files.length;
                         elementInformation['value'] = inputs[input].value;
                         elementInformation['fileType'] = this.state.idOptSelect;
                         formData.append('input[' + inputs[input].id + ']', JSON.stringify(elementInformation));
@@ -92,10 +128,37 @@ let DocsFormRequestContent = React.createClass({
             let customer = UIService.getCustomerInformation();
             let action = (this.state.customerFormId) ? 'edit' : 'save';
 
+            if(this.state.beforeElements.length){
+                for(let element in this.state.beforeElements){
+                    if(this.state.beforeElements.hasOwnProperty(element)){
+                        let newsElements = Object.keys(this.state.beforeElements[element]);
+
+                        for(let newInput in newsElements){
+                            if(newsElements.hasOwnProperty(newInput)){
+                                if(newsElements[newInput] != 'countExtraFiles'){
+                                    if(!newsElements[newInput].includes('input')){
+                                        for(let current in this.state.beforeElements[element][newsElements[newInput]]){
+                                            if(this.state.beforeElements[element][newsElements[newInput]].hasOwnProperty(current)){
+                                                formData.append(newsElements[newInput] + '[]', this.state.beforeElements[element][newsElements[newInput]][current]);
+                                            }
+                                        }
+                                    }else{
+                                        formData.append(newsElements[newInput], this.state.beforeElements[element][newsElements[newInput]]);
+                                    }
+                                }else{
+                                    countExtraFiles += this.state.beforeElements[element][newsElements[newInput]];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             formData.append('actionType', action);
             formData.append('userName', customer.username);
             formData.append('companyId', customer.companyId);
             formData.append('customerId', customer.customerId);
+            formData.append('countExtraFiles', countExtraFiles);
             formData.append('documentFormId', docs.formSelectedId);
             formData.append('documentFormCustomerId', this.state.customerFormId);
 

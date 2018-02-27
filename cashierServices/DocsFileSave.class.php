@@ -13,16 +13,13 @@ class DocsFileSave
     $file = array();
     $files = $_FILES;
 
-    foreach ($files as $keys){
+    foreach ($files as $idFile => $keys){
       foreach ($keys as $name => $values){
         foreach ($values as $key => $value){
-          $file[$name][$key] = $value;
+          $file[$idFile][$name][$key] = $value;
         }
       }
     }
-
-    $files = array();
-    $files[key($_FILES)] = $file;
 
     $documentManager = new DocumentManager();
     $result = $documentManager->saveDocument($inputParams, $files, $companyId, $customerId, $username);
