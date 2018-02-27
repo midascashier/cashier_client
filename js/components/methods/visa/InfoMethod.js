@@ -178,7 +178,7 @@ let InfoMethod = React.createClass({
 									</tr>
 									<tr className="red">
 										{(() =>{
-											if(!validateExtra.check){
+											if(payAccountInfo.payAccountId && !validateExtra.check){
 												return (
 													<td colSpan="2">
 														<i className="fa fa-exclamation-circle"></i>
