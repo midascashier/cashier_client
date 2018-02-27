@@ -85,8 +85,6 @@ let DocsFormRequestContent = React.createClass({
                         fileInsert['input[' + inputs[input].id + ']'] = JSON.stringify(elementInformation);
                     }else{
                         if(inputs[input].type == 'text' || inputs[input].type == 'select-one'){
-                            let fileInsert = {};
-
                             elementInformation.value = inputs[input].value;
                             fileInsert['input[' + inputs[input].id + ']'] = JSON.stringify(elementInformation);
                         }
