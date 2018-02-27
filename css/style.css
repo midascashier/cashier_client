@@ -1131,9 +1131,9 @@ input:checked + .slider:before{
     border: 16px solid rgba(255, 255, 255, 0.4);
 }
 
-.loader,
-.loader:before,
-.loader:after {
+.prettyLoader,
+.prettyLoader:before,
+.prettyLoader:after {
     background: #ffffff;
     -webkit-animation: load1 1s infinite ease-in-out;
     animation: load1 1s infinite ease-in-out;
@@ -1141,7 +1141,7 @@ input:checked + .slider:before{
     height: 4em;
 }
 
-.loader {
+.prettyLoader {
     color: #ffffff;
     text-indent: -9999em;
     margin: 88px auto;
@@ -1154,20 +1154,20 @@ input:checked + .slider:before{
     animation-delay: -0.16s;
 }
 
-.loader:before,
-.loader:after {
+.prettyLoader:before,
+.prettyLoader:after {
     position: absolute;
     top: 0;
     content: '';
 }
 
-.loader:before {
+.prettyLoader:before {
     left: -1.5em;
     -webkit-animation-delay: -0.32s;
     animation-delay: -0.32s;
 }
 
-.loader:after {
+.prettyLoader:after {
     left: 1.5em;
 }
 @-webkit-keyframes load1 {
