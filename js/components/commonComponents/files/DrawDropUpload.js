@@ -8,7 +8,8 @@ let DrawDropUpload = React.createClass({
         files: React.PropTypes.func,
         action: React.PropTypes.func,
         inputId : React.PropTypes.node,
-        multiple: React.PropTypes.bool
+        multiple: React.PropTypes.bool,
+        required : React.PropTypes.bool
     },
 
     elements: {
@@ -209,6 +210,7 @@ let DrawDropUpload = React.createClass({
     },
 
     render(){
+        let required = (this.props.required) ? 'requires' : '';
         let multiple = (this.props.multiple) ? 'multiple' : '';
         let inputId = (this.props.inputId) ? this.props.inputId : this.elements.dropZoneId;
 
@@ -223,7 +225,7 @@ let DrawDropUpload = React.createClass({
                 })()}
 
                 <div id='DrawDropUpload'>
-                    <input id={inputId} className={this.elements.dropZoneId} type='file' onChange={this.addThumbnailsFile.bind(this)} name='files[]' multiple={multiple}/>
+                    <input id={inputId} className={this.elements.dropZoneId} type='file' onChange={this.addThumbnailsFile.bind(this)} name='files[]' multiple={multiple} required={required}/>
                     <p>{translate('DRAG_DROP_FILES_TXT')}</p>
                     <output id={this.elements.thumbnails}/>
                 </div>

@@ -14,13 +14,6 @@ let DocsFormRequestContent = React.createClass({
     optionsSwitch : {},
 
     /**
-     * Set action with update
-     */
-    componentWillReceiveProps(){
-        this.setState(this.getInitialState())
-    },
-
-    /**
      * React function to set component initial state
      */
     getInitialState(){
@@ -461,7 +454,7 @@ let DocsFormRequestContent = React.createClass({
                                             if(this.state.checkOption){
                                                 let docs = UIService.getDocsFile();
                                                 let bntTXT = (docs.currentStep < docs.step) ? 'DOCS_FILE_NEXT_STEP' : 'DRAG_DROP_UPLOAD_TXT';
-                                                return <div id="docsFileButtonContent"><button type='submit'>{translate(bntTXT)}</button></div>
+                                                return <div id="docsFileButtonContent"><button type='submit' formnovalidate>{translate(bntTXT)}</button></div>
                                             }
                                         })()}
                                     </form>

@@ -79,11 +79,13 @@ let DocsFileGenerateInputsType = React.createClass({
      * @returns {XML}
      */
     generateInputs(element){
+        let req = (element.Required == '1') ? 'required' : '';
         switch(element.caDocumentFormInputType_Id){
             case this.inputsType.file:
                 return(
                     <div id="DrawDropUploadElement">
                         <DrawDropUpload
+                            required={req}
                             multiple="true"
                             files={this.setFiles}
                             action={this.uploadCurrentFiles}
@@ -96,7 +98,7 @@ let DocsFileGenerateInputsType = React.createClass({
             case this.inputsType.text:
                 return (
                     <div className="docsFileInputText">
-                        <input id={element.caDocumentFormInput_Id} type="text" placeholder={translate(element.label)}/>
+                        <input id={element.caDocumentFormInput_Id} type="text" placeholder={translate(element.label)} required={req}/>
                     </div>
                 );
             break;
@@ -105,7 +107,7 @@ let DocsFileGenerateInputsType = React.createClass({
                 return (
                     <div className="docsFileInputSelected">
                         <span>{translate(element.label)}</span>
-                        <select id={element.caDocumentFormInput_Id}>
+                        <select id={element.caDocumentFormInput_Id} required={req}>
                             {element.options.map(function (val) {
                                 return <option id={val.caDocumentFormInputOption_Id} value={val.caDocumentFormInputOption_Id}>{translate(val.OptionValueCode)}</option>
                             })}
