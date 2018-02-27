@@ -39,13 +39,13 @@ let DrawDropUpload = React.createClass({
      * React method to execute initial action will mount current component
      */
     componentWillMount(){
-        let id = this.elements.dropZoneId;
+        let className = this.elements.dropZoneId;
 
         window.addEventListener('dragenter', function(e){
-            let draggableElement = document.getElementById(id);
-            draggableElement.style.zIndex = '1';
+            let draggableElement = document.getElementsByClassName(className);
+            draggableElement[0].style.zIndex = '1';
 
-            if (e.target.id != id){
+            if (e.target.className != className){
                 e.preventDefault();
                 e.dataTransfer.dropEffect = 'none';
                 e.dataTransfer.effectAllowed = 'none';
@@ -53,10 +53,10 @@ let DrawDropUpload = React.createClass({
         }, false);
 
         window.addEventListener('dragover', function(e){
-            let draggableElement = document.getElementById(id);
-            draggableElement.style.zIndex = '1';
+            let draggableElement = document.getElementsByClassName(className);
+            draggableElement[0].style.zIndex = '1';
 
-            if (e.target.id != id){
+            if (e.target.className != className){
                 e.preventDefault();
                 e.dataTransfer.dropEffect = 'none';
                 e.dataTransfer.effectAllowed = 'none';
@@ -64,10 +64,10 @@ let DrawDropUpload = React.createClass({
         });
 
         window.addEventListener('drop', function(e){
-            let draggableElement = document.getElementById(id);
-            draggableElement.style.zIndex = '0';
+            let draggableElement = document.getElementsByClassName(className);
+            draggableElement[0].style.zIndex = '0';
 
-            if (e.target.id != id){
+            if (e.target.className != className){
                 e.preventDefault();
                 e.dataTransfer.dropEffect = 'none';
                 e.dataTransfer.effectAllowed = 'none';
@@ -223,7 +223,7 @@ let DrawDropUpload = React.createClass({
                 })()}
 
                 <div id='DrawDropUpload'>
-                    <input id={inputId} type='file' onChange={this.addThumbnailsFile.bind(this)} name='files[]' multiple={multiple}/>
+                    <input id={inputId} className={this.elements.dropZoneId} type='file' onChange={this.addThumbnailsFile.bind(this)} name='files[]' multiple={multiple}/>
                     <p>{translate('DRAG_DROP_FILES_TXT')}</p>
                     <output id={this.elements.thumbnails}/>
                 </div>
