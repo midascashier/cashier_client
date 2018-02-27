@@ -327,7 +327,9 @@ let _langTags = {
 	BD_TEXT_TYPE_PASSPORT: "Pasaporte",
 	BD_TEXT_TYPE_EWALLET: "Monedero electrónico",
 	BD_TEXT_TYPE_UTILITY_BILL: "Factura de servicios públicos",
+	BD_TEXT_TYPE_UTILITY: "Factura de servicios públicos",
 	BD_TEXT_TYPE_BANK: "Extracto de cuenta",
+	BD_TEXT_TYPE_ID_SELFIE: "Selfie",
 
 	DOCFILE_FORM_LABEL_UPDATE_INFO_REASON: "Seleccione el dato a actualizar",
 	DOCFILE_FORM_OPTION_EMAIL: "Correo electrónico",

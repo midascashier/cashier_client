@@ -751,7 +751,7 @@ div[class*="col-"] > div[class*="col-"]:before {
     -webkit-justify-content: center;
 }
 
-.OptTittle{
+#docsFileOptTittle{
     float: left;
     color: white;
     margin: 0 auto;
@@ -1019,7 +1019,6 @@ input:checked + .slider:before{
 #DocsFileCustomerFormsContent{
     width: 90%;
     color: white;
-    padding: 10px;
     height: 455px;
     margin: 0 auto;
     overflow-y: auto;
@@ -1106,7 +1105,7 @@ input:checked + .slider:before{
     margin-top: 395px;
     border-radius: 7px;
     text-align: center;
-    margin-left: 831px;
+    margin-left: 785px;
     position: absolute;
     background-color: #cccccc;
     font-family: Oswald-Medium;

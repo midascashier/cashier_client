@@ -14,6 +14,13 @@ let DocsFormRequestContent = React.createClass({
     optionsSwitch : {},
 
     /**
+     * Set action with update
+     */
+    componentWillReceiveProps(){
+        this.setState(this.getInitialState())
+    },
+
+    /**
      * React function to set component initial state
      */
     getInitialState(){
@@ -410,7 +417,7 @@ let DocsFormRequestContent = React.createClass({
                                         let optionTwo = docs.forms[this.props.option][key[1]].TagTitle;
 
                                         return(
-                                            <div className="OptTittle">
+                                            <div id="docsFileOptTittle">
                                                 <span>{translate(optionOne)}</span>
                                                 <span className="switch"/>
                                                 <span>{translate(optionTwo)}</span>
@@ -467,6 +474,23 @@ let DocsFormRequestContent = React.createClass({
         }
 
         return <div className="loader"></div>
+    },
+
+    /**
+     *
+     */
+    componentDidUpdate(){
+        let x = document.getElementById("docsFileOptTittle");
+        if(x){
+            x = x.firstChild;
+
+            let middleElement = 50;
+            let middleScreen = 499;
+            let leftElement = x.offsetWidth;
+            let margin = middleScreen - middleElement - leftElement - 5;
+
+            $('#docsFileOptTittle').css('margin-left', margin);
+        }
     }
 });
 
