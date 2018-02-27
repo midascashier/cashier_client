@@ -11,7 +11,9 @@ let Skrill_1tap = React.createClass({
 		limitsCheck: React.PropTypes.string,
 		amount: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number,
-		feeCheck: React.PropTypes.number
+		feeCheck: React.PropTypes.number,
+		promoCode: React.PropTypes.string,
+		setPromoCode: React.PropTypes.func
 	},
 
 	/**
@@ -85,6 +87,8 @@ let Skrill_1tap = React.createClass({
 						feeCheck={this.props.feeCheck}
 						changeValue = {this.changeValue}
 						account = {this.state.info.account}
+						setPromoCode={this.props.setPromoCode}
+						promoCode={this.props.promoCode}
 					/>
 				</div>
 				<div className="col-sm-6">

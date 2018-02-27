@@ -2,6 +2,7 @@ import React from 'react'
 import {Input} from '../../commonComponents/Inputs'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
+import {PromoCode} from '../../commonComponents/PromoCode'
 import {FeeController} from '../../commonComponents/FeeController'
 import {AmountController} from '../../commonComponents/AmountController'
 
@@ -14,7 +15,9 @@ let AskInfo = React.createClass({
 		amount: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
-		account: React.PropTypes.node
+		account: React.PropTypes.node,
+		setPromoCode: React.PropTypes.func,
+		promoCode: React.PropTypes.string
 	},
 
 	/**
@@ -47,6 +50,8 @@ let AskInfo = React.createClass({
 		let feeCashValue = this.props.feeCashValue;
 		let feeCheck = this.props.feeCheck;
 		let account = this.props.account;
+		let setPromoCode = this.props.setPromoCode;
+		let promoCode = this.props.promoCode;
 
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
 
@@ -79,6 +84,12 @@ let AskInfo = React.createClass({
 												return(
 													<div className="form-group">
 														<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
+													</div>
+												)
+											}else{
+												return (
+													<div className="form-group">
+														<PromoCode setPromoCode={this.props.setPromoCode} promoCode={this.props.promoCode}/>
 													</div>
 												)
 											}

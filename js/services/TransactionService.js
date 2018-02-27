@@ -363,7 +363,7 @@ class transactionService{
 		let application = CashierStore.getApplication();
 		let transaction = CashierStore.getTransaction();
 
-		var req = {
+		let req = {
 			lang: application.lang,
 			createdBy: 10093, //TODO: temporary
 			alsid: application.sid,
@@ -493,7 +493,7 @@ class transactionService{
 		let payAccountSelected = CashierStore.getCurrentPayAccount();
 		let customer = CashierStore.getCustomer();
 		let processor = CashierStore.getProcessor();
-		let payAccount = {};
+		let payAccount = Object.assign({}, payAccountSelected);
 
 		if(!payAccountEdit){
 			payAccount = {

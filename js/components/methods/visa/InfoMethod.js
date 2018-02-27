@@ -176,6 +176,18 @@ let InfoMethod = React.createClass({
 											}
 										})()}
 									</tr>
+									<tr className="red">
+										{(() =>{
+											if(!validateExtra.check){
+												return (
+													<td colSpan="2">
+														<i className="fa fa-exclamation-circle"></i>
+														<span>{validateExtra.message}</span>
+													</td>
+												)
+											}
+										})()}
+									</tr>
 									<tr>
 										{(() =>{
 											if(payAccountInfo.errorLimitMessage){

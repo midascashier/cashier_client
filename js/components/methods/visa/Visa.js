@@ -14,7 +14,9 @@ let Visa = React.createClass({
 	propTypes: {
 		setAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.string,
-		amount: React.PropTypes.string
+		amount: React.PropTypes.string,
+		promoCode: React.PropTypes.string,
+		setPromoCode: React.PropTypes.func
 	},
 
 	/**
@@ -126,6 +128,8 @@ let Visa = React.createClass({
 						payAccount={this.state.payAccount}
 						limitsCheck={this.props.limitsCheck}
 						changeValue={this.changeValue}
+						setPromoCode={this.props.setPromoCode}
+						promoCode={this.props.promoCode}
 					/>
 				</div>
 				<div className="col-sm-6">

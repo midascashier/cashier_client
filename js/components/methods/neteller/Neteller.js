@@ -12,7 +12,9 @@ let Neteller = React.createClass({
 		limitsCheck: React.PropTypes.string,
 		amount: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number,
-		feeCheck: React.PropTypes.number
+		feeCheck: React.PropTypes.number,
+		promoCode: React.PropTypes.string,
+		setPromoCode: React.PropTypes.func
 	},
 
 	/**
@@ -64,6 +66,8 @@ let Neteller = React.createClass({
 						feeCashValue={this.props.feeCashValue}
 						feeCheck={this.props.feeCheck}
 						limitsCheck={this.props.limitsCheck}
+						setPromoCode={this.props.setPromoCode}
+						promoCode={this.props.promoCode}
 					/>
 				</div>
 

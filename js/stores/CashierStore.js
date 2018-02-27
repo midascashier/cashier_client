@@ -293,7 +293,7 @@ let _payAccounts = [];
 /**
  * Stores information of the transaction
  *
- * @type {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cryptoAddress: string, currencyName: string, currencySymbol: string, BTCConversionAmount: string, cleanTransaction(): void}}
+ * @type {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cryptoAddress: string, currencyName: string, currencySymbol: string, BTCConversionAmount: string, cleanTransaction: (())}}
  * @private
  */
 let _transaction = {
@@ -612,7 +612,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * get transaction
 	 *
-	 * @returns {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cleanTransaction}}
+	 * @returns {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cryptoAddress: string, currencyName: string, currencySymbol: string, BTCConversionAmount: string, cleanTransaction, (): void}}
 	 */
 	getTransaction: () =>{
 		return _transaction;
@@ -1220,6 +1220,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					break;
 
 				case actions.SELECT_PROCESSOR:
+					//do some work before start the transaction
+					_transactionResponse.userMessage = '';
+					_transaction.cleanTransaction();
+
 					_UI.processorId = data.processorId;
 					_UI.currentProcessorSteps = data.processorSteps;
 					if(!_UI.currentStep){
