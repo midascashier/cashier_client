@@ -528,7 +528,10 @@ let DocsFormRequestContent = React.createClass({
      * Execute actions when rendered component
      */
     componentDidUpdate(){
+        let docs = UIService.getDocsFile();
         let x = document.getElementById("docsFileOptTittle");
+        let twoOptions = (_.size(docs.forms[this.props.option]) == 2);
+
         if(x){
             x = x.firstChild;
             let middleElement = 50;
@@ -537,6 +540,13 @@ let DocsFormRequestContent = React.createClass({
             let margin = middleScreen - middleElement - leftElement - 5;
 
             $('#docsFileOptTittle').css('margin-left', margin);
+        }
+
+        if(twoOptions && !this.state.idOptSelect){
+            let docsTxtElement = document.getElementById('docsFileTXT');
+            if(docsTxtElement){
+                docsTxtElement.style.marginTop = '60px';
+            }
         }
     }
 });
