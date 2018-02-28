@@ -3,7 +3,7 @@ import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {TransactionService} from '../../../services/TransactionService'
 import {DocsFileGenerateInputsType} from './DocsFileGenerateInputsType'
-import {DocsVerifyIDCustomerForms} from './DocsFilesSendedCustomerForms'
+import {DocsFilesSendedCustomerForms} from './DocsFilesSendedCustomerForms'
 
 let DocsFormRequestContent = React.createClass({
 
@@ -170,7 +170,7 @@ let DocsFormRequestContent = React.createClass({
     /**
      * Set selected option expected
      */
-    selectedIdForm(){
+    switchSelectedIdForm(){
         let docs = UIService.getDocsFile();
         for(let option in docs.forms[this.props.option]){
             if(docs.forms[this.props.option].hasOwnProperty(option)){
@@ -180,6 +180,13 @@ let DocsFormRequestContent = React.createClass({
                 }
             }
         }
+    },
+
+    /**
+     * Selected specific form id
+     */
+    selectedIdForm(formId){
+        UIService.docFilesSetFormSelectedId(formId); 
     },
 
     /**
@@ -212,7 +219,7 @@ let DocsFormRequestContent = React.createClass({
     switchFormType(e, force){
         let switchForm;
         let actualState;
-        let docs =UIService.getDocsFile();
+        let docs = UIService.getDocsFile();
         docs.currentStep = 1;
 
         if(!e){
@@ -226,7 +233,7 @@ let DocsFormRequestContent = React.createClass({
                 UIService.docFilesSetFormSelectedId(customerForm.caDocumentForm_Id);
             }
         }else{
-            this.selectedIdForm();
+            this.switchSelectedIdForm();
             actualState  = this.getInitialState();
             switchForm = e.target.checked;
         }
@@ -234,6 +241,44 @@ let DocsFormRequestContent = React.createClass({
         actualState.newDocument = true;
         actualState.switchForm = switchForm;
         this.setState(actualState);
+    },
+
+    /**
+     * Change form type selected
+     * 
+     * @param e
+     */
+    changeFormSelected(e){
+        let docs = UIService.getDocsFile();
+        let actualState  = this.getInitialState();
+
+        docs.currentStep = 1;
+        let id = e.target.id;
+        this.selectedIdForm(id);
+        actualState.newDocument = true;
+
+        this.setState(actualState);
+    },
+
+    /**
+     * Print multi or one options
+     *
+     * @param element
+     */
+    multiOption(element){
+        let css;
+        let docs = UIService.getDocsFile();
+        let changeFormSelected = function(){};
+        if(docs.forms[this.props.option].length > 1){
+            css = {cursor : 'pointer'};
+            changeFormSelected = this.changeFormSelected;
+        }
+
+        if(element.caDocumentForm_Id == docs.formSelectedId){
+            return <span style={css} id={element.caDocumentForm_Id } className="docsFileMultiOptSelected" onClick={changeFormSelected}>{translate(element.TagTitle)}</span>
+        }else{
+            return <span style={css} id={element.caDocumentForm_Id } onClick={changeFormSelected}>{translate(element.TagTitle)}</span>
+        }
     },
 
     /**
@@ -254,6 +299,12 @@ let DocsFormRequestContent = React.createClass({
                 caDocumentFormInput_Id : field.caDocumentFormInput_Id,
                 caDocumentFormInputType_Id : field.caDocumentFormInputType_Id
             };
+
+            if(field.hasOwnProperty('cc')){
+                if(field.cc.length){
+                    input.options = field.cc
+                }
+            }
 
             if(field.hasOwnProperty('options')){
                 if(field.options.length){
@@ -355,17 +406,15 @@ let DocsFormRequestContent = React.createClass({
                 docs.step = 0;
                 let twoOptions = (_.size(docs.forms[this.props.option]) == 2);
                 if(UIService.docFilesGetFormSelectedId() === false){
-                    this.selectedIdForm()
+                    this.switchSelectedIdForm()
                 }
 
                 if(docs.customerForms[this.props.option] && !this.state.newDocument){
-                    return <DocsVerifyIDCustomerForms forms={docs.customerForms} addDocument={this.addDocument}/>
+                    return <DocsFilesSendedCustomerForms forms={docs.customerForms} addDocument={this.addDocument}/>
                 }
 
                 let height = (this.state.checkOption) ? 'inherit' : 'auto';
-                let contentStyle = {
-                    height : height
-                };
+                let contentStyle = {height : height};
 
                 let form = UIService.docsFileGetCurrentForm();
                 if(form){
@@ -391,16 +440,6 @@ let DocsFormRequestContent = React.createClass({
                                 })()}
 
                                 {(() =>{
-                                    if(!this.state.checkOption){
-                                        return(
-                                            <div id="docsFileTXT">
-                                                {translate('DOCS_FILE_VERIFY_IMPORTANT_TXT')}
-                                            </div>
-                                        )
-                                    }
-                                })()}
-
-                                {(() =>{
                                     if(twoOptions && !this.state.idOptSelect){
                                         let key = Object.keys(docs.forms[this.props.option]);
                                         let forms = docs.forms[this.props.option];
@@ -416,6 +455,12 @@ let DocsFormRequestContent = React.createClass({
                                                 <span>{translate(optionTwo)}</span>
                                             </div>
                                         )
+                                    }else{
+                                        if(!this.state.idOptSelect){
+                                            return(
+                                                <div className="docsFileOptsTittles">{docs.forms[this.props.option].map(this.multiOption)}</div>
+                                            )
+                                        }
                                     }
                                 })()}
 
@@ -429,6 +474,16 @@ let DocsFormRequestContent = React.createClass({
                                                     <input type="checkbox" onChange={this.switchFormType} checked={checked}/>
                                                     <span className="slider round"/>
                                                 </label>
+                                            </div>
+                                        )
+                                    }
+                                })()}
+
+                                {(() =>{
+                                    if(!this.state.checkOption){
+                                        return(
+                                            <div id="docsFileTXT">
+                                                {translate('DOCS_FILE_VERIFY_IMPORTANT_TXT')}
                                             </div>
                                         )
                                     }
@@ -470,13 +525,12 @@ let DocsFormRequestContent = React.createClass({
     },
 
     /**
-     *
+     * Execute actions when rendered component
      */
     componentDidUpdate(){
         let x = document.getElementById("docsFileOptTittle");
         if(x){
             x = x.firstChild;
-
             let middleElement = 50;
             let middleScreen = 499;
             let leftElement = x.offsetWidth;

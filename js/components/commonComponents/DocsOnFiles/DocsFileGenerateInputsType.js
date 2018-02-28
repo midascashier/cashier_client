@@ -88,7 +88,6 @@ let DocsFileGenerateInputsType = React.createClass({
                             required={req}
                             multiple="true"
                             files={this.setFiles}
-                            action={this.uploadCurrentFiles}
                             inputId={element.caDocumentFormInput_Id}
                         />
                     </div>
@@ -117,13 +116,18 @@ let DocsFileGenerateInputsType = React.createClass({
             break;
 
             case this.inputsType.ccList:
-                return (
-                    <select id={element.caDocumentFormInput_Id}>
-                        {element.options.map(function (val) {
-                            return <option id={val.caDocumentFormInputOption_Id} value={val.caDocumentFormInputOption_Id}>{translate(val.OptionValueCode)}</option>
-                        })}
-                    </select>
-                );
+                if(element.hasOwnProperty('cc')){
+                    return (
+                        <div className="docsFileInputSelected">
+                            <span>{translate(element.label)}</span>
+                            <select id={element.caDocumentFormInput_Id} required={req}>
+                                {element.cc.map(function (val) {
+                                    return <option id={val.caPayAccount_Id} value={val.caPayAccount_Id}>{val.CardholderName + '(' + val.Account + ')'}</option>
+                                })}
+                            </select>
+                        </div>
+                    );
+                }
             break;
 
             case this.inputsType.eWalletList:
@@ -153,6 +157,15 @@ let DocsFileGenerateInputsType = React.createClass({
             if(this.props.optionInfo.files.length){
                 if(!state.checkOption){
                     if(element.step == docs.currentStep){
+                        if(element.files.length == 1){
+                            if(element.files.hasOwnProperty(0)){
+                                element.files[0] = {
+                                    label: element.label,
+                                    fileTypeId : element.files[0].fileTypeId
+                                };
+                            }
+                        }
+
                         return(
                             <div className={className}>
                                 {element.files.map(this.generateOptions)}

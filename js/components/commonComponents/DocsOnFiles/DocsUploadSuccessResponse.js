@@ -10,7 +10,7 @@ let DocsUploadSuccessResponse = React.createClass({
         if(this.props.responseType == 'success'){
             return(
                 <div id="DocsUploadSuccessResponse">
-                    <img src="/images/check1.svg"/>
+                    <img src="/images/docsOnFiles/check1.svg"/>
                     <span>{translate('DOCS_FILE_UPLOAD_SUCCESS_RESPONSE')}</span>
                     <p>{translate('DOCS_FILE_UPLOAD_SUCCESS_NOTIFIED_')}</p>
                 </div>
@@ -19,7 +19,7 @@ let DocsUploadSuccessResponse = React.createClass({
 
         return(
             <div id="DocsUploadSuccessResponse">
-                <img src="/images/check2.svg"/>
+                <img src="/images/docsOnFiles/check2.svg"/>
                 <span>{translate('DOCS_FILE_UPLOAD_ERROR_RESPONSE')}</span>
                 <p>{translate('DOCS_FILE_UPLOAD_SUCCESS_NOTIFIED_')}</p>
             </div>

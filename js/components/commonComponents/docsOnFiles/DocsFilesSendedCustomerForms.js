@@ -2,7 +2,7 @@ import React from 'react'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 
-let DocsVerifyIDCustomerForms = React.createClass({
+let DocsFilesSendedCustomerForms = React.createClass({
 
     propTypes: {
         forms : React.PropTypes.object,
@@ -57,4 +57,4 @@ let DocsVerifyIDCustomerForms = React.createClass({
     }
 });
 
-module.exports.DocsVerifyIDCustomerForms = DocsVerifyIDCustomerForms;
+module.exports.DocsFilesSendedCustomerForms = DocsFilesSendedCustomerForms;

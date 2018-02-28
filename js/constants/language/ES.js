@@ -315,7 +315,7 @@ let _langTags = {
 	MY_REQUEST_VERIFY_TITLE: "Tipo de verificación",
 	MY_REQUEST_DOCS_OPTION_ID_TXT: "ID",
 	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "BILLETERA ELECTRÓNICA",
-
+	DOCFILE_FORM_LABEL_FILE_BANK_STATEMENT : 'Deposito pending',
 	DRAG_DROP_FILES_TXT: "Arrastra y suelta o haz clic aquí.",
 	DRAG_DROP_UPLOAD_TXT: "Subir",
 
@@ -377,7 +377,7 @@ let _langTags = {
 	DOCFILE_FORM_PROOF_TITLE : 'Prueba de domicilio',
 	DOCFILE_FORM_OPTION_FIX_NAME : 'Corregir nombre',
 	DOCFILE_FORM_PENDING_DEPOSIT_TITLE: 'Deposito pendiente',
-
+	DOCFILE_FORM_LABEL_FILE_BANK_STATEMENT : 'Depósito pendiente',
 	DOCFILE_FORM_LABEL_FILE_EWALLET : 'Foto de su billetera electrónica',
 	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Recibo de servicio público',
 

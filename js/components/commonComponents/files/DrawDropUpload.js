@@ -6,7 +6,6 @@ let DrawDropUpload = React.createClass({
 
     propTypes: {
         files: React.PropTypes.func,
-        action: React.PropTypes.func,
         inputId : React.PropTypes.node,
         multiple: React.PropTypes.bool,
         required : React.PropTypes.bool
@@ -135,6 +134,10 @@ let DrawDropUpload = React.createClass({
         }
 
         this.setState({errorMsg: false, files: updateState}, function afterFileChange(){
+            if(!this.state.files.length){
+                thumbnails.style.zIndex = -1;
+            }
+
             this.props.files(this.state.files);
         });
     },
@@ -203,6 +206,7 @@ let DrawDropUpload = React.createClass({
                 });
             }
 
+            thumbnails.style.zIndex = 1;
             ReaderImages(filesToUpload, thumbnails, this.elements.thumbnailClass, this.removeThumbnail.bind(this));
         }else{
             console.log('The File APIs are not fully supported in this browser.');

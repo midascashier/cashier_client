@@ -930,8 +930,6 @@ input:checked + .slider:before{
 
 #DragDropThumbnails{
     z-index: -1;
-    height: 60px;
-    width: inherit;
     margin-top: -80px;
     overflow-x: auto;
     position: absolute;
@@ -992,6 +990,7 @@ input:checked + .slider:before{
 .docsFilesOptions{
     width: 190px;
     margin: 15px;
+    padding: 5px;
     cursor: pointer;
     height: inherit;
 }
