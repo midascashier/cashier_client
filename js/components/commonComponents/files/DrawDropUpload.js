@@ -235,6 +235,14 @@ let DrawDropUpload = React.createClass({
                 </div>
             </div>
         )
+    },
+
+    /**
+     * Action executes when component will un mount
+     */
+    componentWillUnmount(){
+        this.elements.totalSize = 0;
+        this.elements.maxInputFiles = 0;
     }
 });
 
