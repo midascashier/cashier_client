@@ -684,7 +684,7 @@ div[class*="col-"] > div[class*="col-"]:before {
     width: inherit;
     display: inline-block;
     background-size: cover;
-    background-image: url(../images/docsFileBackground.svg);
+    background-image: url(../images/docsOnFiles/docsFileBackground.svg);
 }
 
 #docsFilesFormContent{
@@ -929,6 +929,7 @@ input:checked + .slider:before{
 }
 
 #DragDropThumbnails{
+    z-index: -1;
     height: 60px;
     width: inherit;
     margin-top: -80px;
@@ -957,8 +958,35 @@ input:checked + .slider:before{
 }
 
 .docsFileInputSelected{
-    margin: 0 auto;
     width: 315px;
+    margin: 0 auto;
+}
+
+.docsFileOptsTittles{
+    font-size: 16pt;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.docsFileOptsTittles span{
+    margin: 15px;
+    width: 285px;
+    height: 40px;
+    margin-top: 0;
+    color: #d5232f;
+    font-size: 25px;
+    margin-bottom: 0;
+    text-align: center;
+    border-radius: 12px;
+    display: inline-block;
+    box-sizing: content-box;
+    background-color: white;
+    font-family: Oswald-Medium;
+}
+
+.docsFileMultiOptSelected{
+    border: 2px solid #d5232f;
+    box-shadow: 0 0 0 3px white;
 }
 
 .docsFilesOptions{

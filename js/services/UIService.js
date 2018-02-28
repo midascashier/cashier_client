@@ -1144,7 +1144,7 @@ class UiService {
 
 		let imgName = capitalize(label.toLowerCase());
 
-		return "../images/" + prefixAdd + imgName +".svg"
+		return "../images/docsOnFiles/" + prefixAdd + imgName +".svg"
 	}
 }
 
