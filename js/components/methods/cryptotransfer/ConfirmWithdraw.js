@@ -1,8 +1,9 @@
 import React from 'react'
-import { UIService } from '../../../services/UIService'
-import { translate } from '../../../constants/Translate'
-import { CashierStore } from '../../../stores/CashierStore'
-import { TransactionService } from '../../../services/TransactionService'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierActions} from '../../../actions/CashierActions'
+import {CashierStore} from '../../../stores/CashierStore'
+import {TransactionService} from '../../../services/TransactionService'
 
 let CryptoTransferConfirmWithdraw = React.createClass({
 
@@ -44,12 +45,17 @@ let CryptoTransferConfirmWithdraw = React.createClass({
 			payAccountId: transaction.payAccountId,
 			promoCode: transaction.promoCode,
 			cryptoAddress: transaction.cryptoAddress,
+			refundAddress: transaction.cryptoAddress,
 			currencyName: transaction.currencyName,
 			currencySymbol: transaction.currencySymbol,
 			BTCConversionAmount: transaction.BTCConversionAmount
 		};
 
-		TransactionService.processCryptoTransfer(dynamicParams, 'ticket');
+		if(!transaction.currencyName || !transaction.currencySymbol){
+			CashierActions.showUserMessage(translate('CRYPTO_PROCESS_VALIDATION_ERROR', 'ERROR'));
+		}else{
+			TransactionService.processCryptoTransfer(dynamicParams, 'ticket');
+		}
 	},
 
 	/**
@@ -105,14 +111,14 @@ let CryptoTransferConfirmWithdraw = React.createClass({
 												<div className="table-responsive">
 													<table className="table table-striped">
 														<tbody>
-															<tr>
-																<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
-																<td><span>{transaction.amount + ' ' + limits.currencyCode}</span></td>
-															</tr>
-															<tr>
-																<td>{translate('CRYPTO_DEPOSIT_ADDRESS', 'Address')}</td>
-																<td><span>{transaction.cryptoAddress}</span></td>
-															</tr>
+														<tr>
+															<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
+															<td><span>{transaction.amount + ' ' + limits.currencyCode}</span></td>
+														</tr>
+														<tr>
+															<td>{translate('CRYPTO_DEPOSIT_ADDRESS', 'Address')}</td>
+															<td><span>{transaction.cryptoAddress}</span></td>
+														</tr>
 														</tbody>
 													</table>
 												</div>

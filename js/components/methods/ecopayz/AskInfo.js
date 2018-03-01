@@ -3,6 +3,7 @@ import {Register} from './Register'
 import  cashier  from '../../../constants/Cashier'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
+import {PromoCode} from '../../commonComponents/PromoCode'
 import {CustomerService} from '../../../services/CustomerService'
 import {FeeController} from '../../commonComponents/FeeController'
 import {AmountController} from '../../commonComponents/AmountController'
@@ -10,13 +11,15 @@ import {PayAccountDropDown} from '../../commonComponents/payaccount/PayAccountDr
 
 let AskInfo = React.createClass({
 
-	propTypes:{
+	propTypes: {
 		transactionAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number,
 		feeCheck: React.PropTypes.number,
 		amount: React.PropTypes.string,
-		payAccount: React.PropTypes.node
+		payAccount: React.PropTypes.node,
+		promoCode: React.PropTypes.string,
+		setPromoCode: React.PropTypes.func
 	},
 
 	componentWillMount(){
@@ -29,7 +32,7 @@ let AskInfo = React.createClass({
 	 * Pass props on to son
 	 *
 	 * @returns {*}
-     */
+	 */
 	getProps(){
 		return this.props
 	},
@@ -73,23 +76,30 @@ let AskInfo = React.createClass({
 						<div className="col-sm-12">
 							<div className="form-horizontal">
 								<div>
-									{((()=>{
+									{((() =>{
 
 										if(payAccountDisplayName == cashier.NO_RESPONSE || payAccountId == 0){
 											return <Register/>
 										}
 
-										return(
+										return (
 											<div>
-												<PayAccountDropDown
-													info={payAccount}
-													amount={this.props.amount}
-													setAmount={this.props.setAmount}
-												/>
+												<PayAccountDropDown info={payAccount} amount={this.props.amount} setAmount={this.props.setAmount}/>
 
 												<div className="form-group">
 													<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 												</div>
+
+												{(() =>{
+													if(!isWithDraw){
+														return (
+															<div className="form-group">
+																<PromoCode setPromoCode={this.props.setPromoCode} promoCode={this.props.promoCode}/>
+															</div>
+														);
+													}
+												})()}
+
 												{withdrawFee}
 											</div>
 										);

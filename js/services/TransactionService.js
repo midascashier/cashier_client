@@ -363,7 +363,7 @@ class transactionService{
 		let application = CashierStore.getApplication();
 		let transaction = CashierStore.getTransaction();
 
-		var req = {
+		let req = {
 			lang: application.lang,
 			createdBy: 10093, //TODO: temporary
 			alsid: application.sid,
@@ -463,6 +463,7 @@ class transactionService{
 		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
 
+		let isWithdraw = CashierStore.getIsWithdraw();
 		let transaction = CashierStore.getTransaction();
 		let processorSelected = CashierStore.getProcessor();
 
@@ -474,6 +475,7 @@ class transactionService{
 			promoCode: transaction.promoCode,
 			authUniqueId: transaction.randomTuid,
 			processorId: processorSelected.processorId,
+			isWithdraw: isWithdraw,
 			dynamicParams: dynamicParams
 		};
 
@@ -491,7 +493,7 @@ class transactionService{
 		let payAccountSelected = CashierStore.getCurrentPayAccount();
 		let customer = CashierStore.getCustomer();
 		let processor = CashierStore.getProcessor();
-		let payAccount = {};
+		let payAccount = Object.assign({}, payAccountSelected);
 
 		if(!payAccountEdit){
 			payAccount = {

@@ -1,20 +1,22 @@
 import React from 'react'
-import { Link } from 'react-router'
-import { CashierStore } from '../../../stores/CashierStore'
-import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
-import { translate } from '../../../constants/Translate'
-import { AskInfo } from './AskInfo'
-import { InfoMethod } from './InfoMethod'
-import { TransactionService } from '../../../services/TransactionService'
-import { UIService } from '../../../services/UIService'
-import { ApplicationService } from '../../../services/ApplicationService'
+import {Link} from 'react-router'
+import {CashierStore} from '../../../stores/CashierStore'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
+import {translate} from '../../../constants/Translate'
+import {AskInfo} from './AskInfo'
+import {InfoMethod} from './InfoMethod'
+import {TransactionService} from '../../../services/TransactionService'
+import {UIService} from '../../../services/UIService'
+import {ApplicationService} from '../../../services/ApplicationService'
 
 let Visa = React.createClass({
 
 	propTypes: {
 		setAmount: React.PropTypes.func,
 		limitsCheck: React.PropTypes.string,
-		amount: React.PropTypes.string
+		amount: React.PropTypes.string,
+		promoCode: React.PropTypes.string,
+		setPromoCode: React.PropTypes.func
 	},
 
 	/**
@@ -28,7 +30,7 @@ let Visa = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			selectedProcessor: CashierStore.getProcessor(),
 			payAccount: TransactionService.getCurrentPayAccount(),
@@ -41,7 +43,7 @@ let Visa = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -49,7 +51,7 @@ let Visa = React.createClass({
 	 * set local state with transaction amount
 	 */
 	transactionAmount(amount){
-		this.setState({ amount: Number(amount) });
+		this.setState({amount: Number(amount)});
 	},
 
 	/**
@@ -58,8 +60,8 @@ let Visa = React.createClass({
 	 * @param propertyName
 	 * @param property
 	 * @param isSelectComponent
-     * @param event
-     */
+	 * @param event
+	 */
 	changeValue(propertyName, property = null, isSelectComponent = 0, event){
 		let actualState = this.state;
 		let value = event;
@@ -70,12 +72,25 @@ let Visa = React.createClass({
 		}
 
 		if(property){
-			if (property.indexOf(".") != -1)
-			{
+			if(property.indexOf(".") != -1){
 				let properties = property.split(".");
 				actualState[properties[0]][properties[1]][propertyName] = value;
 			}else{
 				actualState[property][propertyName] = value;
+
+				if(actualState['payAccount']){
+					switch(propertyName){
+						case 'ssn':
+						case 'dobDay':
+						case 'dobMonth':
+						case 'dobYear':
+							if(actualState['payAccount'].extra){
+								actualState['payAccount'].extra[propertyName] = value;
+							}
+						default:
+							//do nothing
+					}
+				}
 			}
 		}else{
 			actualState[propertyName] = value;
@@ -100,7 +115,7 @@ let Visa = React.createClass({
 		}
 	},
 
-	render() {
+	render(){
 		return (
 			<div id="visa">
 				<div className="col-sm-6">
@@ -113,14 +128,16 @@ let Visa = React.createClass({
 						payAccount={this.state.payAccount}
 						limitsCheck={this.props.limitsCheck}
 						changeValue={this.changeValue}
+						setPromoCode={this.props.setPromoCode}
+						promoCode={this.props.promoCode}
 					/>
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
 						if(!this.state.selectedProcessor.processorId){
-							return <LoadingSpinner />;
+							return <LoadingSpinner/>;
 						}else{
-							return(
+							return (
 								<InfoMethod
 									amount={this.props.amount}
 									limitsCheck={this.props.limitsCheck}
@@ -138,14 +155,14 @@ let Visa = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

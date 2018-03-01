@@ -75,26 +75,23 @@ let TransactionHistoryContent = React.createClass({
 
 								<div className="col-sm-4">
 									<ul className="list-group">
-										<li>
+										<li >
 											<span>{translate('TRANSACTION_STATUS_PENDING')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PENDING')}
 										</li>
-										<li>
-											<span>{translate('TRANSACTION_STATUS_PROCESSING')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PROCESSING')}
-										</li>
-										<li>
+										<li >
 											<span>{translate('TRANSACTION_STATUS_PRE_APPROVE')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PRE_APPROVE')}
 										</li>
-										<li>
+										<li >
+											<span>{translate('TRANSACTION_STATUS_PROCESSING')}: </span>{translate('TRANSACTION_HISTORY_STATUS_PROCESSING')}
+										</li>
+										<li >
 											<span>{translate('TRANSACTION_STATUS_APPROVED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_APPROVED')}
 										</li>
-										<li>
-											<span>{translate('TRANSACTION_STATUS_REJECTED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_REJECTED')}
-										</li>
-										<li>
+										<li >
 											<span>{translate('TRANSACTION_STATUS_CANCELLED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_CANCELLED')}
 										</li>
-										<li>
-											<span>{translate('TRANSACTION_STATUS_FAILED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_FAILED')}
+										<li >
+											<span>{translate('TRANSACTION_STATUS_REJECTED_AND_FAILED')}: </span>{translate('TRANSACTION_HISTORY_STATUS_REJECTED_AND_FAILED')}
 										</li>
 									</ul>
 
