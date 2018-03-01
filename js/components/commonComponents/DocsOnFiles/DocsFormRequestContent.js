@@ -215,14 +215,17 @@ let DocsFormRequestContent = React.createClass({
      * Select customer form
      */
     formCustomerSelect(){
+        let docs = UIService.getDocsFile();
         let actualState  = this.getActualState();
         let customerForm = UIService.docsFileGetCustomerDocumentForm(actualState.customerFormId, actualState.option);
 
         actualState.idOptSelect = null;
         actualState.checkOption = false;
 
-        this.setState(actualState);
-        UIService.docFilesSetFormSelectedId(customerForm.caDocumentForm_Id);
+        if(customerForm.caDocumentForm_Id != docs.formSelectedId){
+            this.setState(actualState);
+            UIService.docFilesSetFormSelectedId(customerForm.caDocumentForm_Id);
+        }
     },
 
     /**
