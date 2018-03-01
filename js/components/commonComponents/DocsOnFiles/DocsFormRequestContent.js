@@ -571,13 +571,6 @@ let DocsFormRequestContent = React.createClass({
                 docsTxtElement.style.marginTop = '60px';
             }
         }
-    },
-
-    /**
-     * Action execute when component will un mount
-     */
-    componentWillUnmount(){
-        UIService.docsFileReset()
     }
 });
 
