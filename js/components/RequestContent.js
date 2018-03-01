@@ -220,6 +220,7 @@ let RequestsContent = React.createClass({
      * React function to remove listener to this component once is unmounted
      */
     componentWillUnmount(){
+        UIService.docsFileReset();
         CashierStore.removeChangeListener(this._onChange);
     }
 });
