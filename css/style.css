@@ -698,6 +698,7 @@ div[class*="col-"] > div[class*="col-"]:before {
 #docsFileFormContent{
     display: flex;
     width: inherit;
+    max-height: 408px;
     height: inherit;
     align-items: center;
     justify-content: center;
@@ -709,7 +710,7 @@ div[class*="col-"] > div[class*="col-"]:before {
     width: 100%;
     overflow-y: auto;
     margin-top: 10px;
-    max-height: 465px;
+    max-height: 408px;
     text-align: center;
     align-items: center;
     display: inline-block;

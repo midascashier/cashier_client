@@ -331,7 +331,7 @@ let _langTags = {
 	BD_TEXT_TYPE_BANK: "Extracto de cuenta",
 	BD_TEXT_TYPE_ID_SELFIE: "Selfie",
 
-	DOCFILE_FORM_LABEL_UPDATE_INFO_REASON: "Seleccione el dato a actualizar",
+	DOCFILE_FORM_LABEL_UPDATE_INFO_REASON: "Seleccione el campo a actualizar",
 	DOCFILE_FORM_OPTION_EMAIL: "Correo electrónico",
 	DOCFILE_FORM_OPTION_PHONE: "Telephone",
 	DOCFILE_FORM_OPTION_ADDRESS: "Domicilio",

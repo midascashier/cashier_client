@@ -331,7 +331,7 @@ let _langTags = {
 	BD_TEXT_TYPE_BANK: "Bank statement",
 	BD_TEXT_TYPE_ID_SELFIE: "Selfie",
 
-	DOCFILE_FORM_LABEL_UPDATE_INFO_REASON: "Select the data to update",
+	DOCFILE_FORM_LABEL_UPDATE_INFO_REASON: "Select the field to update",
 	DOCFILE_FORM_OPTION_EMAIL: "Email",
 	DOCFILE_FORM_OPTION_PHONE: "Telephone",
 	DOCFILE_FORM_OPTION_ADDRESS: "Address",
@@ -342,7 +342,7 @@ let _langTags = {
 	DOCFILE_FORM_LABEL_IDNUMBER: "Identification number",
 	DOCFILE_FORM_LABEL_EMAIL: "Email",
 	DOCFILE_FORM_LABEL_PHONE: "Phone number",
-	DOCFILE_FORM_LABEL_BANKNAME: "Name of the bank",
+	DOCFILE_FORM_LABEL_BANKNAME: "Bank name",
 	DOCFILE_FORM_LABEL_ACCOUNT_TYPE: "Account type",
 	DOCFILE_FORM_OPTION_SAVING_ACCOUNT: "Savings account",
 	DOCFILE_FORM_OPTION_CURRENT_ACCOUNT: "Current account",
