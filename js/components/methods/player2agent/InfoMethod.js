@@ -70,21 +70,29 @@ let InfoMethod = React.createClass({
 		TransactionService.setFeeAmount(this.props.feeCashValue);
 		let currentState = this.state;
 
-		UIService.accountExists(this.props.account)
-			.then(exists => {
-				if(exists){
-					this.props.invalidAccount(false);
-					UIService.confirmTransaction();
-				} else{
-					this.props.invalidAccount(true);
-				}
-
-				currentState.waitForValidation = false;
-				this.setState(currentState);
-			})
-			.catch(() => {
-				this.props.invalidAccount(true);
-			});
+		new Promise(resolve => {
+			if(!TransactionService.getCurrentPayAccount().payAccountId){
+				TransactionService.registerPayAccountAsync({
+					account: TransactionService.getCustomer().username.toUpperCase()
+				}).then(() => resolve())
+			} else {
+				resolve()
+			}
+		}).then(() => {
+			UIService.accountExists(this.props.account)
+				.then(exists => {
+					if(exists) {
+						this.props.invalidAccount(false);
+						UIService.confirmTransaction();
+					} else {
+						this.props.invalidAccount(true);
+					}
+					currentState.waitForValidation = false;
+					this.setState(currentState);
+				})
+		}).catch(() => {
+			this.props.invalidAccount(true);
+		});
 
 		currentState.waitForValidation = true;
 		this.setState(currentState);
@@ -124,18 +132,18 @@ let InfoMethod = React.createClass({
 					<div className="table-responsive">
 						<table className="table table-striped">
 							<tbody>
-								<tr>
-									<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-									<td><span>{payAccountInfo.minPayAccount}</span></td>
-								</tr>
-								<tr>
-									<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-									<td><span>{payAccountInfo.maxPayAccount}</span></td>
-								</tr>
-								<tr>
-									<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
-									<td><span>{payAccountInfo.remaining}</span></td>
-								</tr>
+							<tr>
+								<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+								<td><span>{payAccountInfo.minPayAccount}</span></td>
+							</tr>
+							<tr>
+								<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
+								<td><span>{payAccountInfo.maxPayAccount}</span></td>
+							</tr>
+							<tr>
+								<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
+								<td><span>{payAccountInfo.remaining}</span></td>
+							</tr>
 							</tbody>
 						</table>
 					</div>

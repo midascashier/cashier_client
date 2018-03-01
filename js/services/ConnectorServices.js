@@ -23,6 +23,16 @@ class connectorServices {
 	};
 
 	/**
+	 * send message to the backend
+	 *
+	 * @param request
+	 * @returns {Promise.<any>}
+	 */
+	makeBackendRequestAsync(request){
+		return this.httpServiceAsync(cashier.BACKEND_WS, request)
+	};
+
+	/**
 	 * send message to the cashier
 	 *
 	 * @param action

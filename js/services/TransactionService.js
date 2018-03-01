@@ -485,10 +485,9 @@ class transactionService{
 
 	/**
 	 * Send to process a Agent2Player transaction
-	 * @param params
 	 * @param nextStep
 	 */
-	processAgentTransfer(params, nextStep) {
+	processAgentTransfer(nextStep) {
 		const transaction = CashierStore.getTransaction();
 		const processor = CashierStore.getProcessorId();
 		const playerAccount = CashierStore.getPlayerAccount();
@@ -502,7 +501,6 @@ class transactionService{
 			authUniqueId: transaction.randomTuid,
 			processorId: processor,
 			isWithdraw: true,
-			dynamicParams: params,
 			promoCode: transaction.promoCode,
 			feeType: transaction.feeType.toUpperCase(),
 			currencyFee: transaction.fee,
@@ -874,6 +872,31 @@ class transactionService{
 	};
 
 	/**
+	 * Send info to register payAccount
+	 *
+	 * @param payAccountInfo
+	 * @returns {Promise.<any>}
+	 */
+	registerPayAccountAsync(payAccountInfo){
+		let transactionType = UIService.getIsWithDraw();
+
+		let data = {
+			f: "validatePayAccount",
+			module: 'payAccount'
+		};
+
+		let payAccount = {
+			processorIdRoot: this.getCurrentProcessor().processorId,
+			customerId: CashierStore.getCustomer().customerId,
+			transactionType: transactionType
+		};
+
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign({}, data, application, payAccount, payAccountInfo);
+		return ConnectorServices.makeBackendRequestAsync(rabbitRequest);
+	};
+
+	/**
 	 * gets customers pending transactions
 	 */
 	getPendingPayout(){
@@ -959,6 +982,14 @@ class transactionService{
 	 */
 	setPlayerAccount(account) {
 		CashierActions.setPlayerAccount(account);
+	}
+
+	/**
+	 * Returns the logged user information
+	 * @returns {*|{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: Array, load: (function(*))}}
+	 */
+	getCustomer() {
+		return CashierStore.getCustomer();
 	}
 }
 

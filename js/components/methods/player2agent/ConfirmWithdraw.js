@@ -39,7 +39,6 @@ let Player2AgentConfirmWithdraw = React.createClass({
 	 *
 	 */
 	processTransaction(){
-		let transfer = this.state.playerAccount.transfer;
 		UIService.getTransferLink()
 			.then(() => TransactionService.processAgentTransfer('ticket'));
 	},
@@ -78,7 +77,20 @@ let Player2AgentConfirmWithdraw = React.createClass({
 													{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}
 												</div>
 												<div className="infoCol text-justify">
-													<p>{translate('BITCOIN_INSTRUCTIONS_PROCESS_INSIDE')}</p>
+													<div className="col-sm-12">
+														<b>{translate('AGENT_TRANSFER_ACCOUNT_FROM', 'Account From')}: </b>
+														<span>{playerAccount.transfer.usernameFrom}</span>
+													</div>
+
+													<div className="col-sm-12">
+														<b>{translate('AGENT_TRANSFER_ACCOUNT_TO_USERNAME', 'Receiver username')}: </b>
+														<span>{playerAccount.transfer.usernameTo}</span>
+													</div>
+
+													<div className="col-sm-12">
+														<b>{translate('AGENT_TRANSFER_ACCOUNT_TO_FULLNAME', 'Receiver name')}: </b>
+														<span>{playerAccount.transfer.fullnameTo}</span>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -93,18 +105,6 @@ let Player2AgentConfirmWithdraw = React.createClass({
 												<div className="table-responsive">
 													<table className="table table-striped">
 														<tbody>
-															<tr>
-																<td>{translate('AGENT_TRANSFER_ACCOUNT_FROM', 'Account From')}</td>
-																<td><span>{playerAccount.transfer.usernameFrom}</span></td>
-															</tr>
-															<tr>
-																<td>{translate('AGENT_TRANSFER_ACCOUNT_TO_USERNAME', 'Account To')}</td>
-																<td><span>{playerAccount.transfer.usernameTo}</span></td>
-															</tr>
-															<tr>
-																<td>{translate('AGENT_TRANSFER_ACCOUNT_TO_FULLNAME', 'Name')}</td>
-																<td><span>{playerAccount.transfer.fullnameTo}</span></td>
-															</tr>
 															<tr>
 																<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
 																<td><span>{ApplicationService.currency_format(transaction.amount)}</span></td>
