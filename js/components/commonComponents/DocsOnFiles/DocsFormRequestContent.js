@@ -2,6 +2,7 @@ import React from 'react'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
 import {DocsFileGenerateInputsType} from './DocsFileGenerateInputsType'
 import {DocsFilesSendedCustomerForms} from './DocsFilesSendedCustomerForms'
 
@@ -211,6 +212,20 @@ let DocsFormRequestContent = React.createClass({
     },
 
     /**
+     * Select customer form
+     */
+    formCustomerSelect(){
+        let actualState  = this.getActualState();
+        let customerForm = UIService.docsFileGetCustomerDocumentForm(actualState.customerFormId, actualState.option);
+
+        actualState.idOptSelect = null;
+        actualState.checkOption = false;
+
+        this.setState(actualState);
+        UIService.docFilesSetFormSelectedId(customerForm.caDocumentForm_Id);
+    },
+
+    /**
      * Change type ID form
      * 
      * @param e
@@ -224,13 +239,9 @@ let DocsFormRequestContent = React.createClass({
 
         if(!e){
             if(force !== null){
-                let customerForm = UIService.docsFileGetCustomerDocumentForm(this.state.customerFormId, this.state.option);
-
-                actualState  = this.getActualState();
-                switchForm = force;
-                actualState.idOptSelect = null;
-                actualState.checkOption = false;
-                UIService.docFilesSetFormSelectedId(customerForm.caDocumentForm_Id);
+                if(this.state.customerFormId){
+                    this.formCustomerSelect()
+                }
             }
         }else{
             this.switchSelectedIdForm();
@@ -257,6 +268,10 @@ let DocsFormRequestContent = React.createClass({
         this.selectedIdForm(id);
         actualState.newDocument = true;
 
+        if(this.state.customerFormId){
+            this.formCustomerSelect()
+        }
+
         this.setState(actualState);
     },
 
@@ -272,6 +287,10 @@ let DocsFormRequestContent = React.createClass({
         if(docs.forms[this.props.option].length > 1){
             css = {cursor : 'pointer'};
             changeFormSelected = this.changeFormSelected;
+        }
+
+        if(this.state.customerFormId){
+            this.formCustomerSelect()
         }
 
         if(element.caDocumentForm_Id == docs.formSelectedId){
@@ -457,8 +476,13 @@ let DocsFormRequestContent = React.createClass({
                                         )
                                     }else{
                                         if(!this.state.idOptSelect){
+                                            let currentForm = docs.forms[this.props.option];
+                                            if(typeof currentForm == 'object'){
+                                                currentForm = ApplicationService.objectToArray(currentForm)
+                                            }
+
                                             return(
-                                                <div className="docsFileOptsTittles">{docs.forms[this.props.option].map(this.multiOption)}</div>
+                                                <div className="docsFileOptsTittles">{currentForm.map(this.multiOption)}</div>
                                             )
                                         }
                                     }

@@ -267,6 +267,17 @@ class applicationService {
 
 		return str;
 	}
+
+	/**
+	 * Convert object to array format
+	 *
+	 * @returns {Array}
+     */
+	objectToArray(obj){
+		return Object.keys(obj).map(function(key){
+			return obj[key];
+		})
+	}
 }
 
 export let ApplicationService = new applicationService();
