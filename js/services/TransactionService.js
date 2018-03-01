@@ -505,7 +505,8 @@ class transactionService{
 			feeType: transaction.feeType.toUpperCase(),
 			currencyFee: transaction.fee,
 			feeBP: 0,
-			transferLink: playerAccount.transfer.link
+			transferLink: playerAccount.transfer.link,
+			isCashier: 1
 		};
 
 		Object.assign(request, this.getProxyRequest());
