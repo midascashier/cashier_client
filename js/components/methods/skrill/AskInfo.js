@@ -44,8 +44,6 @@ let AskInfo = React.createClass({
 		let payAccount = this.props.payAccount;
 		let payAccountId = payAccount.payAccountId;
 		let payAccountDisplayName = payAccount.displayName;
-		let setPromoCode = this.props.setPromoCode;
-		let promoCode = this.props.promoCode;
 
 		let isWithDraw = UIService.getIsWithDraw();
 		let proccesingTitle = translate('PROCESSING_DEPOSIT_INFORMATION_TITLE', 'Please Enter the Information');
@@ -63,14 +61,6 @@ let AskInfo = React.createClass({
 							<div className="form-horizontal">
 
 								{(() =>{
-									if(!isWithDraw){
-										promoCode = (
-											<div className="form-group">
-												<PromoCode setPromoCode={setPromoCode} promoCode={promoCode}/>
-											</div>
-										);
-									}
-
 									if(payAccountDisplayName == cashier.NO_RESPONSE || payAccountId == 0){
 										return <Register/>
 									}
@@ -85,10 +75,20 @@ let AskInfo = React.createClass({
 											<div className="form-group">
 												<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 											</div>
-											{promoCode}
 										</div>
 									)
 								})()}
+
+								{(() =>{
+									if(!isWithDraw){
+										return (
+											<div className="form-group">
+												<PromoCode setPromoCode={this.props.setPromoCode} promoCode={this.props.promoCode}/>
+											</div>
+										);
+									}
+								})()}
+
 							</div>
 						</div>
 					</div>

@@ -12,7 +12,9 @@ let Ecopayz = React.createClass({
 		limitsCheck: React.PropTypes.string,
 		amount: React.PropTypes.string,
 		feeCashValue: React.PropTypes.number,
-		feeCheck: React.PropTypes.number
+		feeCheck: React.PropTypes.number,
+		promoCode: React.PropTypes.string,
+		setPromoCode: React.PropTypes.func
 	},
 
 	/**
@@ -67,7 +69,7 @@ let Ecopayz = React.createClass({
 
 	render() {
 		return (
-			<div id="genck">
+			<div id="ecopayz">
 				<div className="col-sm-6">
 					<AskInfo
 						amount={this.props.amount}
@@ -77,6 +79,8 @@ let Ecopayz = React.createClass({
 						feeCashValue={this.props.feeCashValue}
 						feeCheck={this.props.feeCheck}
 						changeValue = {this.changeValue}
+						setPromoCode={this.props.setPromoCode}
+						promoCode={this.props.promoCode}
 					/>
 				</div>
 				<div className="col-sm-6">

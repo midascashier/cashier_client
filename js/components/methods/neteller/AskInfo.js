@@ -4,6 +4,7 @@ import cashier from '../../../constants/Cashier'
 import {Input} from '../../commonComponents/Inputs'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
+import {PromoCode} from '../../commonComponents/PromoCode'
 import {LoadingSpinner} from '../../loading/LoadingSpinner'
 import {FeeController} from '../../commonComponents/FeeController'
 import {AmountController} from '../../commonComponents/AmountController'
@@ -19,7 +20,9 @@ let AskInfo = React.createClass({
 		feeCheck: React.PropTypes.number,
 		password: React.PropTypes.string,
 		amount: React.PropTypes.string,
-		payAccount: React.PropTypes.object
+		payAccount: React.PropTypes.object,
+		setPromoCode: React.PropTypes.func,
+		promoCode: React.PropTypes.string
 	},
 
 	/**
@@ -75,13 +78,23 @@ let AskInfo = React.createClass({
 						<label className="col-sm-4 control-label">{translate('NETELLER_SECURE', '2FA or Secure ID')}:</label>
 						<div className="col-sm-8">
 							<Input type="password" value={password} onChange={netellerPassword} validate="password"
-								   require/>
+										 require/>
 						</div>
 					</div>
 
 					<div className="form-group">
 						<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 					</div>
+
+					{(() =>{
+						if(!isWithDraw){
+							return (
+								<div className="form-group">
+									<PromoCode setPromoCode={this.props.setPromoCode} promoCode={this.props.promoCode}/>
+								</div>
+							);
+						}
+					})()}
 
 					{withdrawFee}
 				</div>

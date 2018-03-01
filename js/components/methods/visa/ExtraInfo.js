@@ -24,25 +24,25 @@ let ExtraInfo = React.createClass({
 		let dobDay = this.props.dobDay;
 		let dobYear = this.props.dobYear;
 		let dobMonth = this.props.dobMonth;
-		let allowYear = new Date().getFullYear()-17;
+		let allowYear = new Date().getFullYear() - 17;
 
-		selectDays.push(UIService.renderOption({ label: '' }, ''));
-		selectYears.push(UIService.renderOption({ label: '' }, ''));
-		selectMonths.push(UIService.renderOption({ label: '' }, ''));
+		selectDays.push(UIService.renderOption({label: ''}, ''));
+		selectYears.push(UIService.renderOption({label: ''}, ''));
+		selectMonths.push(UIService.renderOption({label: ''}, ''));
 
 		for(let i = 1; i < 32; i++){
 			i = ('0' + i).slice(-2);
-			selectDays.push(UIService.renderOption({ label: i }, i));
+			selectDays.push(UIService.renderOption({label: i}, i));
 		}
 		for(let i = 1; i < 13; i++){
 			i = ('0' + i).slice(-2);
-			selectMonths.push(UIService.renderOption({ label: i }, i));
+			selectMonths.push(UIService.renderOption({label: i}, i));
 		}
 		for(let i = 1940; i < allowYear; i++){
-			selectYears.push(UIService.renderOption({ label: i }, i));
+			selectYears.push(UIService.renderOption({label: i}, i));
 		}
 
-		return(
+		return (
 			<div id="visaExtraInfo">
 				{(() =>{
 					let country = this.props.country;
@@ -51,7 +51,7 @@ let ExtraInfo = React.createClass({
 					}
 
 					if(country == cashier.USA_COUNTRY_CODE){
-						return(
+						return (
 							<div className="form-group">
 								<label className="col-sm-4 control-label">{translate('CREDIT_CARD_SSN')}:</label>
 								<div className="col-sm-4">
@@ -64,7 +64,7 @@ let ExtraInfo = React.createClass({
 										maxlength="4"
 										validate="isSSN"
 										autoComplete="off"
-										onChange={this.props.changeValue.bind(null,'ssn', 'transaction', 0)}
+										onChange={this.props.changeValue.bind(null, 'ssn', 'transaction', 0)}
 										require
 									/>
 								</div>
@@ -83,7 +83,7 @@ let ExtraInfo = React.createClass({
 							value={dobMonth}
 							className="form-control"
 							data-validation='isNumber'
-							onChange={this.props.changeValue.bind(null,'dobMonth', 'transaction', 1)}
+							onChange={this.props.changeValue.bind(null, 'dobMonth', 'transaction', 1)}
 							data-isRequired
 						>
 							{selectMonths}
@@ -98,7 +98,7 @@ let ExtraInfo = React.createClass({
 							data-isRequired
 							className="form-control"
 							data-validation='isNumber'
-							onChange={this.props.changeValue.bind(null,'dobDay', 'transaction', 1)}
+							onChange={this.props.changeValue.bind(null, 'dobDay', 'transaction', 1)}
 						>
 							{selectDays}
 						</select>
@@ -112,7 +112,7 @@ let ExtraInfo = React.createClass({
 							data-isRequired
 							className="form-control"
 							data-validation='isNumber'
-							onChange={this.props.changeValue.bind(null,'dobYear', 'transaction', 1)}
+							onChange={this.props.changeValue.bind(null, 'dobYear', 'transaction', 1)}
 						>
 							{selectYears}
 						</select>
