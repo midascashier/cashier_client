@@ -310,6 +310,7 @@ let _langTags = {
 	DOCS_FILE_TAB_RECOVERY: 'Recovery',
 	DOCS_FILE_NEXT_STEP: 'Next',
 	DOCFILE_FORM_LABEL_FILE_BANK_STATEMENT : 'Pending Deposit',
+	DOCFILE_FORM_LABEL_FILE_BANK_STATEMENT2 : 'Pending Deposit',
 	DOCS_FILE_REJECTED_REASONS_TITLE: 'Rejected reasons',
 	MY_REQUEST_ADDITIONAL_INFO: "Additional information",
 	MY_REQUEST_RECOVERY: "Recovery",
@@ -317,6 +318,16 @@ let _langTags = {
 	MY_REQUEST_DOCS_OPTION_ID_TXT: "ID",
 	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "E-WALLET",
 
+	DOCFILE_FORM_LABEL_ISSUE_REASON: 'Issue reason',
+	DOCFILE_FORM_LABEL_FILE_ID_SELFIE: 'Selfie',
+	DOCFILE_FORM_LABEL_FILE_CARD_FRONT: 'Front side',
+	DOCFILE_FORM_LABEL_FILE_CARD_BACK: 'Rear side',
+	DOCFILE_FORM_LABEL_FILE_ID_3RD: 'Third party identification',
+
+	DOCFILE_FORM_OPTION_DUPLICATE_CHARGE: 'Duplicate charge',
+	DOCFILE_FORM_OPTION_REJECTED_BANK: 'Payment rejected but processed by the bank',
+	DOCFILE_FORM_OPTION_OVERCHARGE: 'Surcharges in the operation',
+	
 	DRAG_DROP_FILES_TXT: "Drag and drop or click here.",
 	DRAG_DROP_UPLOAD_TXT: "Upload",
 

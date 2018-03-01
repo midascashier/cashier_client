@@ -315,9 +315,18 @@ let _langTags = {
 	MY_REQUEST_VERIFY_TITLE: "Tipo de verificación",
 	MY_REQUEST_DOCS_OPTION_ID_TXT: "ID",
 	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "BILLETERA ELECTRÓNICA",
-	DOCFILE_FORM_LABEL_FILE_BANK_STATEMENT : 'Deposito pending',
 	DRAG_DROP_FILES_TXT: "Arrastra y suelta o haz clic aquí.",
 	DRAG_DROP_UPLOAD_TXT: "Subir",
+
+	DOCFILE_FORM_LABEL_ISSUE_REASON: 'Razón de rechazo',
+	DOCFILE_FORM_LABEL_FILE_ID_SELFIE: 'Selfi',
+	DOCFILE_FORM_LABEL_FILE_CARD_FRONT: 'Lado frontal',
+	DOCFILE_FORM_LABEL_FILE_CARD_BACK: 'Lado trasero',
+	DOCFILE_FORM_LABEL_FILE_ID_3RD: 'Identificación de tercero',
+
+	DOCFILE_FORM_OPTION_DUPLICATE_CHARGE: 'Cargo duplicado',
+	DOCFILE_FORM_OPTION_REJECTED_BANK: 'Pago rechazado pero procesado por el banco',
+	DOCFILE_FORM_OPTION_OVERCHARGE: 'Sobrecargos en la operación',
 
 	DOCS_FILE_VERIFY_IMPORTANT_TXT: 'Cargue solo imágenes, los cuatro bordes de la identificación o pasaporte deben estar visibles en la imagen y la información debe estar clara, si es posible evite usar el flash.',
 	DOCS_FILE_VERITY_ADD_DOCUMENT: 'Nuevo Documento',
@@ -329,7 +338,6 @@ let _langTags = {
 	BD_TEXT_TYPE_UTILITY_BILL: "Factura de servicios públicos",
 	BD_TEXT_TYPE_UTILITY: "Factura de servicios públicos",
 	BD_TEXT_TYPE_BANK: "Extracto de cuenta",
-	BD_TEXT_TYPE_ID_SELFIE: "Selfie",
 
 	DOCFILE_FORM_LABEL_UPDATE_INFO_REASON: "Seleccione el campo a actualizar",
 	DOCFILE_FORM_OPTION_EMAIL: "Correo electrónico",
@@ -347,6 +355,9 @@ let _langTags = {
 	DOCFILE_FORM_OPTION_SAVING_ACCOUNT: "Cuenta de ahorros",
 	DOCFILE_FORM_OPTION_CURRENT_ACCOUNT: "Cuenta corriente",
 	DOCFILE_FORM_LABEL_ACCOUNT_NO: "Número de cuenta",
+	BD_TEXT_TYPE_ID_SELFIE: "Selfi",
+	BD_TEXT_TYPE_CARD: 'Haz una foto de tu tarjeta',
+	BD_TEXT_TYPE_3RD_ID: 'Identificación de tercero',
 
 	DOCS_FILE_VERITY_CHANGE_OPTIONS: "Cambiar opcion",
 	DOCS_FILE_GO_HOME: "< Inicio",
@@ -378,6 +389,7 @@ let _langTags = {
 	DOCFILE_FORM_OPTION_FIX_NAME : 'Corregir nombre',
 	DOCFILE_FORM_PENDING_DEPOSIT_TITLE: 'Deposito pendiente',
 	DOCFILE_FORM_LABEL_FILE_BANK_STATEMENT : 'Depósito pendiente',
+	DOCFILE_FORM_LABEL_FILE_BANK_STATEMENT2: 'Depósito pendiente',
 	DOCFILE_FORM_LABEL_FILE_EWALLET : 'Foto de su billetera electrónica',
 	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Recibo de servicio público',
 
