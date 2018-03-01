@@ -271,10 +271,6 @@ let DocsFormRequestContent = React.createClass({
         this.selectedIdForm(id);
         actualState.newDocument = true;
 
-        if(this.state.customerFormId){
-            this.formCustomerSelect()
-        }
-
         this.setState(actualState);
     },
 
@@ -575,6 +571,13 @@ let DocsFormRequestContent = React.createClass({
                 docsTxtElement.style.marginTop = '60px';
             }
         }
+    },
+
+    /**
+     * Action execute when component will un mount
+     */
+    componentWillUnmount(){
+        UIService.docsFileReset()
     }
 });
 
