@@ -64,10 +64,10 @@ export default {
 	CRYPTO_API_GET_MARKET: 'marketinfo/',
 	CRYPTO_API_VALIDATE_ADDRESS: 'validateAddress/',
 
-	REQUEST_PROXY: '/requestProxy.php',
+	BONUS_WS: 'BONUS',
 	CASHIER_WS: 'CASHIER',
 	BACKEND_WS: 'BACKEND',
-	BONUS_WS: 'BONUS',
 
-	REQUEST_DOCS_FILE_SAVE_URL: 'http://newcashier.localhost:8080/cashierServices/DocsFileSave.class.php'
+	REQUEST_PROXY: '/requestProxy.php',
+	REQUEST_DOCS_FILE_SAVE_URL: '/cashierServices/DocsFileSave.class.php'
 }
