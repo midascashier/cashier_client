@@ -69,5 +69,5 @@ export default {
 	BACKEND_WS: 'BACKEND',
 
 	REQUEST_PROXY: '/requestProxy.php',
-	REQUEST_DOCS_FILE_SAVE_URL: '/cashierServices/DocsFileSave.class.php'
+	REQUEST_DOCS_FILE_SAVE: '/cashierServices/DocsFileSave.class.php'
 }

@@ -78,7 +78,7 @@ class connectorServices {
 	 * @param request
      */
 	makeDocsFileSave(request){
-		let url = cashier.REQUEST_DOCS_FILE_SAVE_URL;
+		let url = cashier.REQUEST_DOCS_FILE_SAVE;
 		let action = actions.DOCS_FILE_SAVE_RESPONSE;
 		this.httpSimpleService(url, action, request);
 	};
@@ -135,8 +135,6 @@ class connectorServices {
 	 * @param request
      */
 	httpSimpleService(url, action, request){
-		request.append('XDEBUG_SESSION_START', 'ECLIPSE_DBGP');
-
 		$.ajax({
 			url: url,
 			type: 'post',
