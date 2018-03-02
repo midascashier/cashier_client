@@ -2,6 +2,9 @@
 require_once('config/phpConfig.php');
 session_start();
 
+/**
+ * @author Mario Vargas Ugalde
+ */
 class ClientRedirect{
 
   /**
