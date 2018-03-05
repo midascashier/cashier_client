@@ -180,7 +180,8 @@ let RequestsContent = React.createClass({
      * @param event
      */
     docsOptionsActions(event){
-        if(this.readyInitialPending()){
+        let docs = UIService.getDocsFile();
+        if(docs.readyPending()){
             UIService.docsFileReset();
 
             let optionElements = document.getElementsByClassName(this.elements.DOCS_OPTIONS);
