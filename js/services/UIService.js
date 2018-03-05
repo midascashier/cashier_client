@@ -1145,6 +1145,19 @@ class UiService {
 
 		return "../images/docsOnFiles/" + prefixAdd + imgName +".svg"
 	}
+
+	/**
+	 * Get if KYC form is approved
+	 */
+	docsFileCheckApprovedKYC(){
+		let params = {
+			f: 'checkApprovedKYC',
+			customerId: UIService.getCustomerInformation().customerId
+		};
+
+		CashierStore.docFilesCustomerPendingFormsWait();
+		ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_CUSTOMER_KYC_IS_APPROVE, params);
+	}
 }
 
 export let UIService = new UiService();

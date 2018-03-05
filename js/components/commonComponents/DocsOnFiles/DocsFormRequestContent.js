@@ -1,4 +1,5 @@
 import React from 'react'
+import {DocsFileRules}  from './DocsFileRules'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {TransactionService} from '../../../services/TransactionService'
@@ -175,9 +176,12 @@ let DocsFormRequestContent = React.createClass({
         let docs = UIService.getDocsFile();
         for(let option in docs.forms[this.props.option]){
             if(docs.forms[this.props.option].hasOwnProperty(option)){
-                if(docs.forms[this.props.option][option].caDocumentForm_Id != UIService.docFilesGetFormSelectedId()){
-                    UIService.docFilesSetFormSelectedId(docs.forms[this.props.option][option].caDocumentForm_Id);
-                    break
+                let categoryId = docs.forms[this.props.option][option].caDocumentCategory_Id;
+                if(DocsFileRules.checkRules(categoryId, docs)){
+                    if(docs.forms[this.props.option][option].caDocumentForm_Id != UIService.docFilesGetFormSelectedId()){
+                        UIService.docFilesSetFormSelectedId(docs.forms[this.props.option][option].caDocumentForm_Id);
+                        break
+                    }
                 }
             }
         }

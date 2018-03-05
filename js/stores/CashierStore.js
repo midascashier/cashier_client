@@ -410,7 +410,8 @@ let _DocsFile = {
 	customerForms : false,
 
 	readyCategories : false,
-	customerPendingForms: false,
+	pendingKycIDApproved : true,
+	customerPendingForms : false,
 	pendingInputsCategory : true,
 	pendingCustomerFormInfo : true,
 	readyPending(){
@@ -1436,6 +1437,15 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_DocsFile.readyCategories = true;
 					CashierStore.emitChange();
 				break;
+
+				case actions.DOCS_FILES_GET_CUSTOMER_KYC_IS_APPROVE:
+					if(data.response.result){
+						_DocsFile.pendingKycIDApproved = false;
+						if(data.response.result.hasOwnProperty('kycIDApproved')){
+							_DocsFile.kycIDApproved = data.response.result.kycIDApproved;
+						}
+					}
+					break;
 
 				case actions.DOCS_FILES_GET_CUSTOMER_PENDING_FORMS_RESPONSE:
 					if(data.response.result){

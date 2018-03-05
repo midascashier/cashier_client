@@ -28,6 +28,7 @@ let RequestsContent = React.createClass({
      */
     componentWillMount(){
         UIService.docFilesCategories();
+        UIService.docsFileCheckApprovedKYC();
         UIService.docFilesCustomerPendingForms();
     },
 
@@ -35,8 +36,12 @@ let RequestsContent = React.createClass({
      * React function to set component initial state
      */
     getInitialState(){
+        this.elements.options = [];
         let docs = UIService.getDocsFile();
-        this.buildCategoriesList(docs.categoriesList);
+
+        if(_.size(docs.categoriesList) && docs.customerPendingForms && !docs.pendingKycIDApproved) {
+            this.buildCategoriesList(docs.categoriesList);
+        }
 
         return {
             option : this.currentTabSelected(),
@@ -61,7 +66,9 @@ let RequestsContent = React.createClass({
         if(this.state){
             if(this.state.hasOwnProperty('option')){
                 if(this.state.option){
-                    initialTab = this.state.option
+                    if(this.state.option == this.elements.options[0].Name){
+                        initialTab = this.state.option
+                    }
                 }
             }
         }else{
@@ -104,7 +111,10 @@ let RequestsContent = React.createClass({
                     }
 
                     if(!found){
-                        this.elements.options.push(tab);
+                        let docs = UIService.getDocsFile();
+                        if(DocsFileRules.checkRules(tab.caDocumentCategory_Id, docs)){
+                            this.elements.options.push(tab);
+                        }
                     }
                 }
             }
@@ -186,26 +196,31 @@ let RequestsContent = React.createClass({
     },
 
     render(){
-        let optionContent = (this.state.responseUpload)
-            ? <DocsUploadSuccessResponse responseType={this.state.responseUpload}/>
-            : <DocsFormRequestContent option={this.state.option}/>;
+        let docs = UIService.getDocsFile();
+        if(_.size(docs.categoriesList) && docs.customerPendingForms && !docs.pendingKycIDApproved){
+            let optionContent = (this.state.responseUpload)
+                ? <DocsUploadSuccessResponse responseType={this.state.responseUpload}/>
+                : <DocsFormRequestContent option={this.state.option}/>;
 
-        return(
-            <div id="requestContent">
-                <div id="requestsOptions">
-                    {this.elements.options.map(this.buildTab)}
+            return(
+                <div id="requestContent">
+                    <div id="requestsOptions">
+                        {this.elements.options.map(this.buildTab)}
 
-                    <div id="DocsFileBack">
-                        <Link to={`/deposit/`}>
-                            <span>{translate('DOCS_FILE_GO_HOME')}</span>
-                        </Link>
+                        <div id="DocsFileBack">
+                            <Link to={`/deposit/`}>
+                                <span>{translate('DOCS_FILE_GO_HOME')}</span>
+                            </Link>
+                        </div>
+                    </div>
+                    <div id="requestOptionContent">
+                        {optionContent}
                     </div>
                 </div>
-                <div id="requestOptionContent">
-                    {optionContent}
-                </div>
-            </div>
-        )
+            )
+        }
+
+        return <div className="prettyLoader"></div>
     },
 
     /**

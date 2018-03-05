@@ -60,6 +60,10 @@ let DocsFileRules = {
                         }else{
                             result = false
                         }
+
+                        if(!result){
+                            break
+                        }
                     }
                 }else{
                     return false
@@ -67,6 +71,21 @@ let DocsFileRules = {
             }
 
             return result
+        }
+
+        return false
+    },
+
+    /**
+     * Check if the tab is printed
+     *
+     * @param categoryId
+     * @param docFile
+     * @returns {*}
+     */
+    checkRules(categoryId, docFile){
+        if(this.hasOwnProperty(categoryId)){
+            return this.print(categoryId, docFile)
         }
 
         return false
