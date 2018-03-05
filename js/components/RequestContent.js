@@ -39,7 +39,7 @@ let RequestsContent = React.createClass({
         this.elements.options = [];
         let docs = UIService.getDocsFile();
 
-        if(_.size(docs.categoriesList) && docs.customerPendingForms && !docs.pendingKycIDApproved) {
+        if(this.readyInitialPending()) {
             this.buildCategoriesList(docs.categoriesList);
         }
 
@@ -59,6 +59,16 @@ let RequestsContent = React.createClass({
     },
 
     /**
+     * Get if initials pending are ready
+     *
+     * @returns {number|boolean}
+     */
+    readyInitialPending(){
+        let docs = UIService.getDocsFile();
+        return _.size(docs.categoriesList) && docs.customerPendingForms && !docs.pendingKycIDApproved
+    },
+
+    /**
      * Check and set current tab selected
      */
     currentTabSelected(){
@@ -66,9 +76,7 @@ let RequestsContent = React.createClass({
         if(this.state){
             if(this.state.hasOwnProperty('option')){
                 if(this.state.option){
-                    if(this.state.option == this.elements.options[0].Name){
-                        initialTab = this.state.option
-                    }
+                    initialTab = this.state.option
                 }
             }
         }else{
@@ -172,8 +180,7 @@ let RequestsContent = React.createClass({
      * @param event
      */
     docsOptionsActions(event){
-        let docs = UIService.getDocsFile();
-        if(docs.readyPending()){
+        if(this.readyInitialPending()){
             UIService.docsFileReset();
 
             let optionElements = document.getElementsByClassName(this.elements.DOCS_OPTIONS);
@@ -196,8 +203,7 @@ let RequestsContent = React.createClass({
     },
 
     render(){
-        let docs = UIService.getDocsFile();
-        if(_.size(docs.categoriesList) && docs.customerPendingForms && !docs.pendingKycIDApproved){
+        if(this.readyInitialPending){
             let optionContent = (this.state.responseUpload)
                 ? <DocsUploadSuccessResponse responseType={this.state.responseUpload}/>
                 : <DocsFormRequestContent option={this.state.option}/>;
