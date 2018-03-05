@@ -1151,7 +1151,7 @@ class UiService {
 	 */
 	docsFileCheckApprovedKYC(){
 		let params = {
-			f: 'checkApprovedKYC',
+			f: 'docsFileCheckApprovedKYC',
 			customerId: UIService.getCustomerInformation().customerId
 		};
 
