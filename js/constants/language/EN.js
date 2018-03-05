@@ -317,6 +317,7 @@ let _langTags = {
 	DOCS_FILE_TAB_CCISSUES: "Report an issue",
 	DOCS_FILE_TAB_RECOVERY: 'Recovery',
 	DOCS_FILE_NEXT_STEP: 'Next',
+	BD_TEXT_TYPE_3RD_ID: 'Third party identification',
 	DOCFILE_FORM_LABEL_FILE_BANK_STATEMENT : 'Pending Deposit',
 	DOCFILE_FORM_LABEL_FILE_BANK_STATEMENT2 : 'Pending Deposit',
 	DOCS_FILE_REJECTED_REASONS_TITLE: 'Rejected reasons',
@@ -330,6 +331,7 @@ let _langTags = {
 	DOCFILE_FORM_LABEL_FILE_ID_SELFIE: 'Selfie',
 	DOCFILE_FORM_LABEL_FILE_CARD_FRONT: 'Front side',
 	DOCFILE_FORM_LABEL_FILE_CARD_BACK: 'Rear side',
+	BD_TEXT_TYPE_CARD: 'Take a picture of your card',
 	DOCFILE_FORM_LABEL_FILE_ID_3RD: 'Third party identification',
 
 	DOCFILE_FORM_OPTION_DUPLICATE_CHARGE: 'Duplicate charge',
@@ -362,6 +364,7 @@ let _langTags = {
 	DOCFILE_FORM_LABEL_EMAIL: "Email",
 	DOCFILE_FORM_LABEL_PHONE: "Phone number",
 	DOCFILE_FORM_LABEL_BANKNAME: "Bank name",
+	DOCFILE_FORM_LABEL_CC_LIST: "Select your card",
 	DOCFILE_FORM_LABEL_ACCOUNT_TYPE: "Account type",
 	DOCFILE_FORM_OPTION_SAVING_ACCOUNT: "Savings account",
 	DOCFILE_FORM_OPTION_CURRENT_ACCOUNT: "Current account",

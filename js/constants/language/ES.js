@@ -329,7 +329,7 @@ let _langTags = {
 	DOCFILE_FORM_LABEL_FILE_CARD_FRONT: 'Lado frontal',
 	DOCFILE_FORM_LABEL_FILE_CARD_BACK: 'Lado trasero',
 	DOCFILE_FORM_LABEL_FILE_ID_3RD: 'Identificación de tercero',
-
+	DOCFILE_FORM_LABEL_CC_LIST: "Seleccione su tarjeta",
 	DOCFILE_FORM_OPTION_DUPLICATE_CHARGE: 'Cargo duplicado',
 	DOCFILE_FORM_OPTION_REJECTED_BANK: 'Pago rechazado pero procesado por el banco',
 	DOCFILE_FORM_OPTION_OVERCHARGE: 'Sobrecargos en la operación',

@@ -176,12 +176,9 @@ let DocsFormRequestContent = React.createClass({
         let docs = UIService.getDocsFile();
         for(let option in docs.forms[this.props.option]){
             if(docs.forms[this.props.option].hasOwnProperty(option)){
-                let categoryId = docs.forms[this.props.option][option].caDocumentCategory_Id;
-                if(DocsFileRules.checkRules(categoryId, docs)){
-                    if(docs.forms[this.props.option][option].caDocumentForm_Id != UIService.docFilesGetFormSelectedId()){
-                        UIService.docFilesSetFormSelectedId(docs.forms[this.props.option][option].caDocumentForm_Id);
-                        break
-                    }
+                if(docs.forms[this.props.option][option].caDocumentForm_Id != UIService.docFilesGetFormSelectedId()){
+                    UIService.docFilesSetFormSelectedId(docs.forms[this.props.option][option].caDocumentForm_Id);
+                    break
                 }
             }
         }
@@ -313,6 +310,7 @@ let DocsFormRequestContent = React.createClass({
 
         if(docs.formSelectedId){
             let input = {
+                cc: [],
                 files: [],
                 options: [],
                 step : null,
@@ -324,7 +322,7 @@ let DocsFormRequestContent = React.createClass({
 
             if(field.hasOwnProperty('cc')){
                 if(field.cc.length){
-                    input.options = field.cc
+                    input.cc = field.cc
                 }
             }
 
