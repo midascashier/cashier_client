@@ -63,7 +63,6 @@ let DocsFormRequestContent = React.createClass({
             docs.step = 0;
             ++docs.currentStep;
             let fileInsert = {};
-            actualState.checkOption = false;
             for(let input in inputs){
                 if(inputs.hasOwnProperty(input)){
                     let elementInformation = {
@@ -221,8 +220,6 @@ let DocsFormRequestContent = React.createClass({
         let customerForm = UIService.docsFileGetCustomerDocumentForm(actualState.customerFormId, actualState.option);
 
         actualState.idOptSelect = null;
-        actualState.checkOption = false;
-
         if(customerForm.caDocumentForm_Id != docs.formSelectedId){
             this.setState(actualState);
             UIService.docFilesSetFormSelectedId(customerForm.caDocumentForm_Id);
