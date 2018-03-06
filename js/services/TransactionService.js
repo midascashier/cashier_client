@@ -992,6 +992,12 @@ class transactionService{
 	getCustomer() {
 		return CashierStore.getCustomer();
 	}
+	/**
+	 * Save docs on files
+	 */
+	docsFileSave(request){
+		ConnectorServices.makeDocsFileSave(request);
+	};
 }
 
 export let TransactionService = new transactionService();

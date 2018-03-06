@@ -1,89 +1,249 @@
 import React from 'react'
+import {Link} from 'react-router'
+import {UIService} from '../services/UIService'
 import {translate} from '../constants/Translate'
-import {DocsOptUpdateInfo} from '../components/commonComponents/DocsOnFiles/DocsOptUpdateInfo'
-import {DocsOptReportError} from '../components/commonComponents/DocsOnFiles/DocsOptReportError'
-import {DocsOptVerifyIdentity} from '../components/commonComponents/DocsOnFiles/DocsOptVerifyIdentity'
+import {CashierStore} from '../stores/CashierStore'
+import {ApplicationService} from '../services/ApplicationService'
+import {DocsFileRules} from './commonComponents/docsOnFiles/DocsFileRules'
+import {DocsFormRequestContent} from './commonComponents/docsOnFiles/DocsFormRequestContent'
+import {DocsUploadSuccessResponse} from './commonComponents/docsOnFiles/DocsUploadSuccessResponse'
 
 let RequestsContent = React.createClass({
 
-    elements: {
-        style: {
-            optClickTab: '#1a8dea',
-            optInitialTab: '#0b97c4'
+    elements : {
+        options : [],
+
+        style : {
+            optClickTab : '#D5232F',
+            optInitialTab : '#A51419'
         },
 
-        DocsOptions: 'DocsOptions',
-        DocsOptUpdInfo : 'DocsOptUpdateInfo',
-        DocsOptVeId : 'DocsOptVerifyIdentity',
-        DocsOptRepError : 'DocsOptReportError'
+        //Class elements in use
+        DOCS_OPTIONS : 'DocsOptions',
+        DOCS_OPTIONS_INITIAL : 'DocsOptions DocsOptionsClick'
+    },
+
+    /**
+     * Execute actions when component will mount
+     */
+    componentWillMount(){
+        UIService.docFilesCategories();
+        UIService.docsFileCheckApprovedKYC();
+        UIService.docFilesCustomerPendingForms();
     },
 
     /**
      * React function to set component initial state
      */
     getInitialState(){
-        return {option: this.elements.DocsOptVeId}
-    },
+        this.elements.options = [];
+        let docs = UIService.getDocsFile();
 
-    optionContent(){
-        switch(this.state.option){
-            case this.elements.DocsOptVeId:
-                return <DocsOptVerifyIdentity/>;
-            break;
+        if(this.readyInitialPending()) {
+            this.buildCategoriesList(docs.categoriesList);
+        }
 
-            case this.elements.DocsOptUpdInfo:
-                return <DocsOptUpdateInfo/>;
-            break;
-
-            default:
-                return <DocsOptReportError/>;
-            break;
+        return {
+            option : this.currentTabSelected(),
+            responseUpload : docs.responseUpload
         }
     },
 
+    /**
+     * this is the callback function the store calls when a state change
+     *
+     * @private
+     */
+    _onChange(){
+        this.setState(this.getInitialState());
+    },
+
+    /**
+     * Get if initials pending are ready
+     *
+     * @returns {number|boolean}
+     */
+    readyInitialPending(){
+        let docs = UIService.getDocsFile();
+        return _.size(docs.categoriesList) && docs.customerPendingForms && !docs.pendingKycIDApproved
+    },
+
+    /**
+     * Check and set current tab selected
+     */
+    currentTabSelected(){
+        let initialTab;
+        if(this.state){
+            if(this.state.hasOwnProperty('option')){
+                if(this.state.option){
+                    initialTab = this.state.option
+                }
+            }
+        }else{
+            initialTab = (this.elements.options[0]);
+            initialTab = (initialTab) ? this.elements.options[0].Name : false;
+        }
+
+        if(initialTab){
+            UIService.setDocsCurrentOption(initialTab);
+        }
+
+        return initialTab
+    },
+
+    /**
+     * Build categories request
+     *
+     * @param categoriesList
+     */
+    buildCategoriesList(categoriesList){
+        if(_.size(categoriesList)){
+            for(let category in categoriesList){
+                if(categoriesList.hasOwnProperty(category)){
+                    let tab = {
+                        Name : '',
+                        caDocumentCategory_Id : ''
+                    };
+
+                    tab.Name = ApplicationService.toCamelCase(categoriesList[category].Name);
+                    tab.caDocumentCategory_Id = categoriesList[category].caDocumentCategory_Id;
+
+                    let found = false;
+                    for(let option in this.elements.options){
+                        if(this.elements.options.hasOwnProperty(option)){
+                            if(tab.Name == this.elements.options[option].Name){
+                                found = true;
+                                break
+                            }
+                        }
+                    }
+
+                    if(!found){
+                        let docs = UIService.getDocsFile();
+                        if(DocsFileRules.checkRules(tab.caDocumentCategory_Id, docs)){
+                            this.elements.options.push(tab);
+                        }
+                    }
+                }
+            }
+
+            if(!this.currentTabSelected()){
+                let actualState = this.state;
+                actualState.option  = this.elements.options[0].Name;
+                this.setState(actualState);
+            }
+        }
+    },
+
+    /**
+     * Check if the tab is printed
+     *
+     * @param categoryId
+     * @returns {*}
+     */
+    checkRules(categoryId){
+        if(DocsFileRules.hasOwnProperty(categoryId)){
+            let docFile = UIService.getDocsFile();
+            return DocsFileRules.print(categoryId, docFile)
+        }
+
+        return false
+    },
+
+    /**
+     * Build tab text
+     *
+     * @param option
+     * @returns {XML}
+     */
+    buildTab(option){
+        if(this.state.option){
+            if(this.checkRules(option.caDocumentCategory_Id)){
+                let prefixAdd = 'DOCS_FILE_TAB_';
+                let tabTXT = capitalize(option.Name.toUpperCase());
+                let tabName = prefixAdd + tabTXT;
+
+                let className = (this.state.option == option.Name) ? this.elements.DOCS_OPTIONS_INITIAL : this.elements.DOCS_OPTIONS;
+
+                return(
+                    <div id={option.Name} className={className} onClick={this.docsOptionsActions}>
+                        {translate(tabName)}
+                    </div>
+                )
+            }
+        }
+    },
+
+    /**
+     * Execute action on click tab option
+     * 
+     * @param event
+     */
     docsOptionsActions(event){
-        let optionElements = document.getElementsByClassName(this.elements.DocsOptions);
-        let count = optionElements.length;
+        let docs = UIService.getDocsFile();
+        if(docs.readyPending()){
+            UIService.docsFileReset();
 
-        for(let i=0; i<count; i++){
-            optionElements[i].setAttribute('style', 'background-color:' + this.elements.style.optInitialTab);
+            let optionElements = document.getElementsByClassName(this.elements.DOCS_OPTIONS);
+            let count = optionElements.length;
+
+            for(let i=0; i<count; i++){
+                optionElements[i].setAttribute('class', 'DocsOptions');
+            }
+
+            let id = event.target.getAttribute('id');
+            let element = document.getElementById(id);
+            element.setAttribute('class', 'DocsOptions DocsOptionsClick');
+
+            let actualState = this.state;
+            actualState.option = id;
+            UIService.setDocsCurrentOption(id);
+            actualState.responseUpload = UIService.getDocsUploadResponse();
+            this.setState(actualState);
         }
-
-        let id = event.target.getAttribute('id');
-        let element  = document.getElementById(id);
-        element.setAttribute('style', 'background-color:'  + this.elements.style.optClickTab);
-
-        this.setState({
-            option: id
-        });
     },
 
     render(){
-        return(
-            <div id="requestContent">
-                <div className="internal-content">
-                    <div className="row">
-                        <div className="col-sm-12">
-                            <div className="title text-center">{translate('MY_REQUEST_TITLE')}</div>
-                            <div id="requestsOptions">
-                                <div id={this.elements.DocsOptVeId} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
-                                    {translate('MY_REQUEST_VERIFY_IDENTITY')}
-                                </div>
-                                <div id={this.elements.DocsOptUpdInfo} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
-                                    {translate('MY_REQUEST_UPDATE_INFORMATION')}
-                                </div>
-                                <div id={this.elements.DocsOptRepError} className={this.elements.DocsOptions} onClick={this.docsOptionsActions}>
-                                    {translate('MY_REQUEST_REPORT_PROBLEM')}
-                                </div>
-                            </div>
-                            <div id="requestOptionContent">
-                                {this.optionContent()}
-                            </div>
+        if(this.readyInitialPending){
+            let optionContent = (this.state.responseUpload)
+                ? <DocsUploadSuccessResponse responseType={this.state.responseUpload}/>
+                : <DocsFormRequestContent option={this.state.option}/>;
+
+            return(
+                <div id="requestContent">
+                    <div id="requestsOptions">
+                        {this.elements.options.map(this.buildTab)}
+
+                        <div id="DocsFileBack">
+                            <Link to={`/deposit/`}>
+                                <span>{translate('DOCS_FILE_GO_HOME')}</span>
+                            </Link>
                         </div>
                     </div>
+                    <div id="requestOptionContent">
+                        {optionContent}
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
+
+        return <div className="prettyLoader"></div>
+    },
+
+    /**
+     * React function to add listener to this component once is mounted
+     * here the component listen changes from the store
+     */
+    componentDidMount(){
+        CashierStore.addChangeListener(this._onChange);
+    },
+
+    /**
+     * React function to remove listener to this component once is unmounted
+     */
+    componentWillUnmount(){
+        UIService.docsFileReset();
+        CashierStore.removeChangeListener(this._onChange);
     }
 });
 

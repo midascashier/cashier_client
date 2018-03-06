@@ -985,8 +985,261 @@ class UiService {
 	/**
 	 * cleans the information associated with the current agent transfer transaction
 	 */
-	cleanPlayerAccount() {
+	cleanPlayerAccount(){
 		CashierStore.cleanPlayerAccount();
+	}
+	/**
+	 * Set current option selected in docs files
+	 *
+	 * @param options
+	 */
+	setDocsCurrentOption(options){
+		CashierStore.setDocsCurrentOption(options)
+	}
+
+	/**
+	 * Get docs files categories list
+	 */
+	docFilesCategories(){
+		let params = {f: 'docFilesCategories'};
+		ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_FORMS_CATEGORIES_RESPONSE, params);
+	}
+
+	/**
+	 * Call pending form from customers
+	 */
+	docFilesCustomerPendingForms(){
+		let params = {
+			f: 'docFilesCustomerPendingForms',
+			customerId: UIService.getCustomerInformation().customerId
+		};
+
+		CashierStore.docFilesCustomerPendingFormsWait();
+		ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_CUSTOMER_PENDING_FORMS_RESPONSE, params);
+	}
+
+	/**
+	 * Get form selected id
+	 *
+	 * @returns {*|boolean}
+	 */
+	docFilesGetFormSelectedId(){
+		return CashierStore.docFilesGetFormSelectedId()
+	}
+
+	/**
+	 * Set form selected id
+	 *
+	 * @param id
+	 */
+	docFilesSetFormSelectedId(id){
+		CashierStore.docFilesSetFormSelectedId(id)
+	}
+
+	/**
+	 * Call form information from customer
+	 *
+	 * @param category
+	 */
+	docFilesCustomerFormsInformation(category){
+		let categoryId = UIService.getDocsFileCategoryId(category);
+		let pendingInfo = CashierStore.docsFilePendingCustomerFormInfo();
+
+		if(pendingInfo && category){
+			let params = {
+				languageId: 11,
+				categoryId: categoryId,
+				f: 'docFilesCustomerFormsInformation',
+				companyId: UIService.getCompanyInformation().companyId,
+				customerId: UIService.getCustomerInformation().customerId
+			};
+
+			CashierStore.docFilesCustomerPendingFormInfoWait();
+			ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_CUSTOMER_FORMS_INFORMATION_RESPONSE, params);
+		}
+	}
+
+	/**
+	 * Get docs files inputs category
+	 *
+	 * @param category
+	 */
+	docFilesFormInputsCategories(category){
+		let docs = UIService.getDocsFile();
+		if(docs.forms.hasOwnProperty(category)){
+			let forms = docs.forms[category];
+			let pendingInfo = CashierStore.docsFilePendingInputsCategory();
+
+			if(pendingInfo){
+				for(let form in forms){
+					if(forms.hasOwnProperty(form)){
+						let params = {
+							f: 'docFilesFormInputsCategories',
+							formId: forms[form].caDocumentForm_Id
+						};
+
+						ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_FORMS_INPUTS_CATEGORIES_RESPONSE, params);
+					}
+				}
+
+				CashierStore.docsFileInputsCategoryWait();
+			}
+		}
+	}
+
+	/**
+	 * Get id category
+	 *
+	 * @param categoryName
+	 * @returns {*}
+	 */
+	getDocsFileCategoryId(categoryName){
+		let docs = UIService.getDocsFile();
+		let categories = docs.categoriesList;
+
+		for(let category in categories){
+			if(categories.hasOwnProperty(category)){
+				if(ApplicationService.toCamelCase(categories[category].Name) == categoryName){
+					return categories[category].caDocumentCategory_Id
+				}
+			}
+		}
+
+		return false
+	}
+
+	/**
+	 * Get Docs on Files object
+	 *
+	 * @returns {*}
+	 */
+	getDocsFile(){
+		return CashierStore.getDocsFile();
+	}
+
+	/**
+	 * Get response to upload file
+	 *
+	 * @returns {boolean}
+	 */
+	getDocsUploadResponse(){
+		return CashierStore.getDocsUploadResponse()
+	}
+
+	/**
+	 * Reset response wait
+	 */
+	docsFileReset(){
+		CashierStore.docsFileReset()
+	}
+
+	/**
+	 * Get current form to option selected
+	 *
+	 * @returns {*}
+	 */
+	docsFileGetCurrentForm(){
+		let docs = UIService.getDocsFile();
+		if(docs.forms.hasOwnProperty(docs.currentOptionSelected)){
+			let forms = docs.forms[docs.currentOptionSelected];
+			for(let current in forms){
+				if(forms.hasOwnProperty(current)){
+					if(forms[current].caDocumentForm_Id == docs.formSelectedId){
+						return forms[current]
+					}
+				}
+			}
+		}
+
+		return false
+	}
+
+	/**
+	 * Get current customer form request to option selected
+	 *
+	 * @param customerFormId
+	 * @returns {*}
+	 */
+	docsFileGetCustomerDocumentForm(customerFormId){
+		let docs = UIService.getDocsFile();
+		if(docs.customerForms.hasOwnProperty(docs.currentOptionSelected)){
+			let customerForms = docs.customerForms[docs.currentOptionSelected];
+			for(let current in customerForms){
+				if(customerForms.hasOwnProperty(current)){
+					if(customerForms[current].caDocumentFormCustomer_Id == customerFormId){
+						return customerForms[current]
+					}
+				}
+			}
+		}
+
+		return false
+	}
+
+	/**
+	 * Get current file option element selected
+	 *
+	 * @param optionId
+	 * @returns {*}
+	 */
+	docsFileGetCurrentFormElement(optionId){
+		let form = UIService.docsFileGetCurrentForm();
+		if(form.hasOwnProperty('fields')){
+			for(let field in form.fields){
+				if(form.fields.hasOwnProperty(field)){
+					if(form.fields[field].hasOwnProperty('file')){
+						if(form.fields[field].file.hasOwnProperty('types')){
+							for(let type in form.fields[field].file.types){
+								if(form.fields[field].file.types.hasOwnProperty(type)){
+									if(form.fields[field].file.types[type].caCustomerFileType_Id == optionId){
+										return form.fields[field].file.types[type]
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return false
+	}
+
+	/**
+	 * Get source img to current option file selected
+	 *
+	 * @param element
+	 * @returns {*}
+	 */
+	docsFileGetSrcImg(element){
+		let prefixAdd = 'docsFileOption';
+
+		let label;
+		if(element.hasOwnProperty('label')){
+			label = element.label.replace('BD_TEXT_TYPE_', '');
+		}else{
+			if(element.hasOwnProperty('Description')){
+				label = element.Description.replace('BD_TEXT_TYPE_', '');
+			}
+		}
+
+		let imgName = capitalize(label.toLowerCase());
+
+		return "../images/docsOnFiles/" + prefixAdd + imgName +".svg"
+	}
+
+	/**
+	 * Get if KYC form is approved
+	 */
+	docsFileCheckApprovedKYC(){
+		let params = {
+			f: 'docsFileCheckApprovedKYC',
+			customerId: UIService.getCustomerInformation().customerId
+		};
+
+		CashierStore.docFilesCustomerPendingFormsWait();
+		ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_CUSTOMER_KYC_IS_APPROVE, params);
+	>>>>>>> 62c31a1446a2cf3e77c7926e656c149b0623bdd3
 	}
 }
 

@@ -1,6 +1,9 @@
 <?php
 require_once('config/phpConfig.php');
 
+/**
+ * Mario Vargas Ugalde
+ */
 class requestProxy
 {
   function __construct()

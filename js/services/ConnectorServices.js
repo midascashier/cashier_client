@@ -1,7 +1,7 @@
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
-import {onResponseService} from './OnResponseService'
 import {CashierStore} from '../stores/CashierStore'
+import {onResponseService} from './OnResponseService'
 
 class connectorServices {
 
@@ -93,6 +93,17 @@ class connectorServices {
 	};
 
 	/**
+	 * Send files to Docs Files Save
+	 *
+	 * @param request
+     */
+	makeDocsFileSave(request){
+		let url = cashier.REQUEST_DOCS_FILE_SAVE;
+		let action = actions.DOCS_FILE_SAVE_RESPONSE;
+		this.httpSimpleService(url, action, request);
+	};
+
+	/**
 	 * post service http
 	 *
 	 * @param module
@@ -180,6 +191,32 @@ class connectorServices {
 		}))
 	}
 
+	/**
+	 * Simple http service
+	 *
+	 * @param url
+	 * @param action
+	 * @param request
+   */
+	httpSimpleService(url, action, request){
+		$.ajax({
+			url: url,
+			type: 'post',
+			data: request,
+			processData: false,
+			contentType: false,
+			beforeSend: function(){
+
+			},
+			success: function(response){
+				let dataResponse = JSON.parse(response);
+				onResponseService.processResponse(action, dataResponse);
+			},
+			error: function(e){
+				onResponseService.processResponse(actions.USER_MESSAGE, {userMessage: 'Error processing your request'});
+			}
+		});
+	}
 }
 
 export let ConnectorServices = new connectorServices();

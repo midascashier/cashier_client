@@ -2,6 +2,8 @@
  * Created by jobando on 15-Jun-16.
  */
 export default {
+	DEBUG_ENABLED: true,
+
 	//Views
 	VIEW_DEFAULT: 'deposit',
 	VIEW_DEPOSIT: 'deposit',
@@ -62,8 +64,10 @@ export default {
 	CRYPTO_API_GET_MARKET: 'marketinfo/',
 	CRYPTO_API_VALIDATE_ADDRESS: 'validateAddress/',
 
-	REQUEST_PROXY: '/requestProxy.php',
+	BONUS_WS: 'BONUS',
 	CASHIER_WS: 'CASHIER',
 	BACKEND_WS: 'BACKEND',
-	BONUS_WS: 'BONUS'
+
+	REQUEST_PROXY: '/requestProxy.php',
+	REQUEST_DOCS_FILE_SAVE: '/cashierServices/DocsFileSave.class.php'
 }

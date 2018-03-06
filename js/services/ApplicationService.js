@@ -224,6 +224,60 @@ class applicationService {
 		}
 		return true;
 	}
+
+	/**
+	 * Convert string to camelCase format
+	 *
+	 * @param str
+	 * @returns {string|XML}
+     */
+	toCamelCase(str){
+		let build =  str.match(/\s/g);
+		str = str.toLowerCase();
+		if(build){
+			return str
+				.replace(/\s(.)/g, function($1) { return $1.toUpperCase(); })
+				.replace(/\s/g, '')
+				.replace(/^(.)/, function($1) { return $1.toLowerCase(); });
+		}
+
+		return str;
+	}
+
+	/**
+	 * Convert string to snake_case format
+	 * 
+	 * @param string
+	 * @returns {*}
+     */
+	toSnakeCase(string){
+		let upperChars = string.match(/([A-Z])/g);
+		if (! upperChars) {
+			return this;
+		}
+
+		let str;
+		for (var i = 0, n = upperChars.length; i < n; i++) {
+			str = string.replace(new RegExp(upperChars[i]), '_' + upperChars[i].toLowerCase());
+		}
+
+		if (str.slice(0, 1) === '_') {
+			str = str.slice(1);
+		}
+
+		return str;
+	}
+
+	/**
+	 * Convert object to array format
+	 *
+	 * @returns {Array}
+     */
+	objectToArray(obj){
+		return Object.keys(obj).map(function(key){
+			return obj[key];
+		})
+	}
 }
 
 export let ApplicationService = new applicationService();

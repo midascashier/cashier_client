@@ -10,7 +10,7 @@ import {CashierStore} from '../../../stores/CashierStore'
 import {PromoCode} from '../../commonComponents/PromoCode'
 import {LoadingSpinner} from '../../loading/LoadingSpinner'
 import {AmountController} from '../../commonComponents/AmountController'
-import {PayAccountDropDown} from '../../../components/commonComponents/payaccount/PayAccountDropDown'
+import {PayAccountDropDown} from '../../commonComponents/payaccount/PayAccountDropDown'
 
 let AskInfo = React.createClass({
 

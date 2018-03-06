@@ -414,6 +414,31 @@ let _Player2Agent = {
 	}
 }
 
+let _DocsFile = {
+	step : 0,
+	currentStep : 1,
+	categoriesList : {},
+	responseUpload : false,
+	pendingRecovery : false,
+	currentOptionSelected : '',
+	pendingAdditionalInfo : false,
+	currentFormInputsCategories : [],
+
+	forms : {},
+	formSelectedId: false,
+	kycIDApproved : false,
+	customerForms : false,
+
+	readyCategories : false,
+	pendingKycIDApproved : true,
+	customerPendingForms : false,
+	pendingInputsCategory : true,
+	pendingCustomerFormInfo : true,
+	readyPending(){
+		return (this.readyCategories && this.customerPendingForms && !this.pendingCustomerFormInfo && !this.pendingInputsCategory);
+	}
+};
+
 let CHANGE_EVENT = 'change';
 
 let CashierStore = assign({}, EventEmitter.prototype, {
@@ -868,6 +893,103 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getValidAddress(){
 		return _CryptoTransfer.validCurrentAddress
+	},
+
+	/**
+	 * Get Docs on Files object
+	 */
+	getDocsFile(){
+		return _DocsFile
+	},
+
+	/**
+	 * New option selected
+	 *
+	 * @param option
+	 */
+	setDocsCurrentOption(option){
+		_DocsFile.currentOptionSelected = option
+	},
+
+	/**
+	 * Get response to upload file
+	 *
+	 * @returns {boolean}
+	 */
+	getDocsUploadResponse(){
+		return _DocsFile.responseUpload
+	},
+
+	/**
+	 * Reset response wait
+	 */
+	docsFileReset(){
+		_DocsFile.step = 0;
+		_DocsFile.currentStep = 1;
+		_DocsFile.responseUpload = false;
+		_DocsFile.pendingInputsCategory = true;
+		_DocsFile.pendingCustomerFormInfo = true;
+
+		_DocsFile.forms = {};
+		_DocsFile.formSelectedId = false;
+		_DocsFile.currentFormInputsCategories = [];
+	},
+
+	/**
+	 * Wait Ready Pending Info
+	 */
+	docFilesCustomerPendingFormsWait(){
+		_DocsFile.customerPendingForms = false;
+	},
+
+	/**
+	 * Check if customer info be pending
+	 *
+	 * @returns {boolean}
+	 */
+	docsFilePendingInputsCategory(){
+		return _DocsFile.pendingInputsCategory
+	},
+
+	/**
+	 * Wait Ready Inputs Category
+	 */
+	docsFileInputsCategoryWait(){
+		_DocsFile.pendingInputsCategory = false;
+	},
+
+	/**
+	 * Check if customer info be pending
+	 *
+	 * @returns {boolean}
+	 */
+	docsFilePendingCustomerFormInfo(){
+		return _DocsFile.pendingCustomerFormInfo
+	},
+
+	/**
+	 * Wait Ready Customer Form Info
+	 */
+	docFilesCustomerPendingFormInfoWait(){
+		_DocsFile.pendingCustomerFormInfo = false;
+	},
+
+	/**
+	 * Get formSelectedId
+	 *
+	 * @returns {boolean}
+	 */
+	docFilesGetFormSelectedId(){
+		return _DocsFile.formSelectedId
+	},
+
+	/**
+	 * Set formSelectedId
+	 *
+	 * @returns {boolean}
+	 */
+	docFilesSetFormSelectedId(id){
+		_DocsFile.formSelectedId = id
 	}
 });
 
@@ -1363,6 +1485,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					CashierStore.emitChange();
 					break;
 
+
 				case actions.SET_PLAYER_ACCOUNT:
 					Object.assign(_Player2Agent, data);
 					CashierStore.emitChange();
@@ -1381,9 +1504,94 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_processor.waitLimits = false;
 					CashierStore.emitChange();
 					break;
+
 				case actions.GET_TRANSFER_LINK:
 					if(data && data.hasOwnProperty('response') && data.response.hasOwnProperty('transferLinkId'))
 						_Player2Agent.transfer.link = data.response.transferLinkId
+					CashierStore.emitChange();
+					break;
+
+				case actions.DOCS_FILES_GET_FORMS_CATEGORIES_RESPONSE:
+					if(data.response.result){
+						_DocsFile.categoriesList = data.response.result;
+					}
+
+					_DocsFile.readyCategories = true;
+					CashierStore.emitChange();
+					break;
+
+				case actions.DOCS_FILES_GET_CUSTOMER_KYC_IS_APPROVE:
+					if(data.response.result){
+						_DocsFile.pendingKycIDApproved = false;
+						if(data.response.result.hasOwnProperty('kycIDApproved')){
+							_DocsFile.kycIDApproved = data.response.result.kycIDApproved;
+						}
+					}
+					break;
+
+				case actions.DOCS_FILES_GET_CUSTOMER_PENDING_FORMS_RESPONSE:
+					if(data.response.result){
+						for(let key in data.response.result){
+							if(key == 4){
+								_DocsFile.pendingAdditionalInfo = true
+							}
+
+							if(key == 5){
+								_DocsFile.pendingRecovery = true
+							}
+						}
+					}
+
+					_DocsFile.customerPendingForms = true;
+					break;
+
+				case actions.DOCS_FILES_GET_CUSTOMER_FORMS_INFORMATION_RESPONSE:
+					if(data.state == 'ok'){
+						if(data.response.result){
+							if(data.response.result.customerForms.length){
+								let customerForms = {};
+								customerForms[_DocsFile.currentOptionSelected] = data.response.result.customerForms;
+								_DocsFile.customerForms = customerForms
+							}else{
+								_DocsFile.customerForms = [];
+							}
+
+							let form = {};
+							form[_DocsFile.currentOptionSelected] = data.response.result.forms;
+							_DocsFile.forms = form;
+							_DocsFile.kycIDApproved = data.response.result.kycIDApproved;
+						}
+
+						_DocsFile.pendingCustomerFormInfo = false;
+						CashierStore.emitChange();
+					}
+					break;
+
+				case actions.DOCS_FILES_GET_FORMS_INPUTS_CATEGORIES_RESPONSE:
+					if(data.response.result){
+						let form = {};
+						form = data.response.result;
+						let categories = _DocsFile.currentFormInputsCategories;
+
+						if(!categories[_DocsFile.currentOptionSelected]){
+							categories[_DocsFile.currentOptionSelected] = [];
+						}
+
+						categories[_DocsFile.currentOptionSelected].push(form);
+						_DocsFile.currentFormInputsCategories = categories;
+					}
+
+					_DocsFile.pendingInputsCategory = false;
+					CashierStore.emitChange();
+					break;
+
+				case actions.DOCS_FILE_SAVE_RESPONSE:
+					if(data.result){
+						_DocsFile.responseUpload = 'success'
+					}else{
+						_DocsFile.responseUpload = 'error'
+					}
+
 					CashierStore.emitChange();
 					break;
 				default:

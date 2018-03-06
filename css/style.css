@@ -6,7 +6,7 @@ html {	overflow: hidden;}
 /*Font-face_Bebas*/
 @font-face{font-family:'BebasNeueRegular'; src: url('../fonts/bebas-neue-webfont.woff'),url('../fonts/bebas-neue-webfont.eot'); font-weight:normal; font-style:normal;}
 @font-face {font-family: 'Oswald-Light'; src: url('../fonts/Oswald-Light.woff'),url('../fonts/Oswald-Light.eot'); font-weight:normal; font-style:normal;}
-
+@font-face {font-family: 'Oswald-Medium'; src: url('../fonts/Oswald-Medium.ttf')}
 /*titles*/
 h2, h3 {font-weight:normal; line-height:normal; letter-spacing:1px;}
 h2, h3, .btn-welcome {font-family: "BebasNeueRegular", Arial, Helvetica, sans-serif; font-size:33px; text-align:center;}
@@ -162,7 +162,7 @@ body {background:#EEE; font-family:'Segoe UI', Arial, sans-serif; color:#777; fo
 .box{min-height:250px;}
 .box, table { margin-top:4px; margin-bottom:8px!important; }
 .box .title {background:#1d1d1d; color:#FFF; font-size:18px; margin-bottom:0;}
-.box .infoCol p{ text-align: ; margin:6px 0 6px;}
+.box .infoCol p{ text-align: justify; margin:6px 0 6px;}
 .box .infoCol .editLink{border:1px solid red; margin-bottom:10px;}
 
 
@@ -604,7 +604,7 @@ div[class*="col-"] > div[class*="col-"]:before {
 
 #methodInfo{
     display: none;
-    text-align: ;
+    text-align: justify;
 }
 
 .errorMessage-title, .errorMessage-title i {
@@ -625,43 +625,122 @@ div[class*="col-"] > div[class*="col-"]:before {
   font-size: 14px;
 }
 
+#requestContent{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
 #requestsOptions{
     float: left;
-    display: flex;
     width: inherit;
-    margin-top: 20px;
+    font-size: 16pt;
+    display: inline-block;
+    font-family: Oswald-Medium;
 }
 
 .DocsOptions{
     float: left;
-    width: 150px;
-    height: 35px;
+    width: 170px;
+    height: 50px;
     color: white;
     display: flex;
     cursor: pointer;
+    margin-top: 9px;
+    font-size: 13pt;
     margin-left: 5px;
     align-items: center;
-    -content: center;
-    background-color: #0b97c4;
-    border-radius: 2px 2px 0 0;
+    justify-content: center;
+    background-color: #A51419;
     -webkit-align-items: center;
-    -webkit--content: center;
+    border-radius: 10px 10px 0 0;
+    -webkit-justify-content: center;
+}
+
+.DocsOptionsBlock{
+    float: left;
+    width: 170px;
+    height: 50px;
+    color: white;
+    display: flex;
+    cursor: pointer;
+    margin-top: 9px;
+    font-size: 13pt;
+    margin-left: 5px;
+    align-items: center;
+    justify-content: center;
+    background-color: #0e1926;
+    -webkit-align-items: center;
+    border-radius: 10px 10px 0 0;
+    -webkit-justify-content: center;
+}
+
+.DocsOptionsClick{
+    height: 59px;
+    margin-top: 0;
+    background-color: #D5232F;
 }
 
 #requestOptionContent{
+    height: 478px;
     width: inherit;
-    height: 408px;
-    border-radius: 2px;
     display: inline-block;
-    border: solid #0b97c4 1px;
-    background-color: #e3e3e3;
+    background-size: cover;
+    background-image: url(../images/docsOnFiles/docsFileBackground.svg);
 }
 
-#CheckIdContent{
+#docsFilesFormContent{
     float: left;
     width: inherit;
+    height: inherit;
     display: block;
     position: relative;
+}
+
+#docsFileFormContent{
+    display: flex;
+    width: inherit;
+    max-height: 408px;
+    height: inherit;
+    align-items: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
+}
+
+#docsFileForm{
+    width: 100%;
+    overflow-y: auto;
+    margin-top: 10px;
+    max-height: 408px;
+    text-align: center;
+    align-items: center;
+    display: inline-block;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
+}
+
+.docsFilesOptionsContent{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
+}
+
+#docsFileTXT{
+    padding: 5px;
+    color: white;
+    width: 409px;
+    height: 105px;
+    margin: 0 auto;
+    margin-top: 10px;
+    font-size: 15pt;
+    border-radius: 12px;
+    border: solid 4px white;
+    font-family: Oswald-Medium;
 }
 
 #switchOpt{
@@ -670,22 +749,26 @@ div[class*="col-"] > div[class*="col-"]:before {
     width: inherit;
     margin-top: 20px;
     align-items: center;
-    -content: center;
+    justify-content: center;
     -webkit-align-items: center;
-    -webkit--content: center;
+    -webkit-justify-content: center;
 }
 
-.OptTittle{
+#docsFileOptTittle{
     float: left;
+    color: white;
     margin: 0 auto;
-    margin-top: -40px;
-    margin-left: 337px;
+    font-size: 16pt;
+    margin-top: 14px;
+    margin-left: 377px;
+    position: absolute;
+    font-family: Oswald-Medium;
 }
 
 .switch {
+    margin: 5px;
     width: 100px;
     height: 20px;
-    margin: 5px;
     position: relative;
     display: inline-block;
 }
@@ -701,30 +784,23 @@ div[class*="col-"] > div[class*="col-"]:before {
     cursor: pointer;
     position: absolute;
     -webkit-transition: .4s;
-    background-color: #00d6b2;
+    background-color: black;
 }
 
 .slider:before{
     left: 4px;
     width: 16px;
     bottom: 2px;
-    content: "";
     height: 16px;
     transition: .4s;
+    content: "";
     position: absolute;
     background-color: white;
     -webkit-transition: .4s;
 }
 
-input:checked + .slider{
-    background-color: #2196F3;
-}
-
-input:focus + .slider{
-    box-shadow: 0 0 1px #2196F3;
-}
-
 input:checked + .slider:before{
+    content: "";
     transform: translateX(76px);
     -ms-transform: translateX(76px);
     -webkit-transform: translateX(76px);
@@ -738,37 +814,116 @@ input:checked + .slider:before{
     border-radius: 50%;
 }
 
+.docsFilesInputContent{
+    color: white;
+    font-size: 14pt;
+    margin-top: 10px;
+    font-family: "Oswald-Medium";
+}
+
+#docsFileButtonContent{
+    float: right;
+    width: inherit;
+    margin-top: 10px;
+}
+
+#docsFileButtonContent button{
+    border: none;
+    height: 47px;
+    width: 140px;
+    color: black;
+    font-size: 16pt;
+    border-radius: 15px;
+    background: #cccccc;
+    transition: all .2s ease;
+    font-family: Oswald-Medium;
+}
+
+#docsFilesOptionContent button:hover{
+    background: #ffffff;
+}
+
+#docsFilesOptionContent button:active{
+    border:0;
+}
+
+#DocsUploadSuccessResponse{
+    color: white;
+    display: flex;
+    padding-top: 15px;
+    align-items: center;
+    justify-content: center;
+    font-family: Oswald-Light;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
+}
+
+#DocsUploadSuccessResponse img{
+    height: 200px;
+    margin-top: 200px;
+    position: absolute;
+}
+
+#DocsUploadSuccessResponse span{
+    font-size: 30pt;
+    margin-top: 320px;
+    position: absolute;
+}
+
+#DocsUploadSuccessResponse p{
+    font-size: 20pt;
+    margin-top: 380px;
+    position: absolute;
+}
+
+#DrawDropUploadElement{
+    width: 409px;
+    height: 145px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
 #DrawDropUploadContent{
     float: left;
     display: flex;
     width: inherit;
     height: inherit;
-    margin-top: 25px;
-    -content: center;
-    -webkit--content: center;
+    font-size: 16pt;
+    position: relative;
+    justify-content: center;
+    font-family: Oswald-Medium;
+    -webkit-justify-content: center;
+}
+
+#DrawDropErrorMsg{
+    color: white;
+    font-size: 16pt;
+    margin-top: 15px;
+    position: absolute;
+    font-family: Oswald-Medium;
 }
 
 #DrawDropUpload{
-    width: 515px;
-    height: 200px;
-    display: inline-block;
-    border: 2px dashed #a5a2a2;
-    background-color: rgba(255, 255, 255, 0.3);
+    display: block;
+    width: inherit;
+    height: inherit;
+    border-radius: 12px;
+    border: 4px dashed #ffffff;
 }
 
 #DrawDropUpload p{
     width: 100%;
     height: 100%;
     color: #a5a2a2;
-    font-size: 20px;
-    text-align: center;
-    line-height: 130px;
+    font-size: 21px;
+    line-height: 125px;
 }
 
 #DrawDropUpload input{
     margin: 0;
     padding: 0;
     opacity: 0;
+    z-index: 0;
     outline: none;
     width: inherit;
     cursor: pointer;
@@ -776,52 +931,16 @@ input:checked + .slider:before{
     position: absolute;
 }
 
-#DrawDropUpload button{
-    color: #fff;
-    border: none;
-    width: 515px;
-    height: 35px;
-    margin-left: -2px;
-    border-radius: 4px;
-    background: #2196F3;
-    transition: all .2s ease;
-    border-bottom: 3px solid #0b97c4;
-}
-
-#DrawDropUpload button:hover{
-    background: #0b97c4;
-}
-
-#DrawDropUpload button:active{
-    border:0;
-}
-
 #DragDropThumbnails{
-    height: 70px;
-    width: inherit;
-    margin-left: -2px;
-    margin-top: -82px;
-    max-width: inherit;
+    z-index: -1;
+    margin-top: -80px;
+    overflow-x: auto;
     position: absolute;
-    overflow-x: scroll;
     overflow-y: hidden;
-    white-space: nowrap;
 }
 
 #DragDropThumbnails span{
     display:inline-block;
-}
-
-#DragDropThumbnails::-webkit-scrollbar{
-    height: 7px;
-}
-#DragDropThumbnails::-webkit-scrollbar-track{
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
-#DragDropThumbnails::-webkit-scrollbar-thumb{
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 
 .DragDropThumbnail{
@@ -829,7 +948,279 @@ input:checked + .slider:before{
     height: 48px;
     border: 1px solid #a5a2a2;
 }
-.justifyContent
- {
-   text-align: justify;
- }
+
+.docsFileInputText input, select{
+    margin: 7px;
+    width: 300px;
+    height: 30px;
+    color: black;
+    box-shadow: 0;
+    border-radius: 3px;
+}
+
+.docsFileInputSelected{
+    width: 315px;
+    margin: 0 auto;
+}
+
+.docsFileOptsTittles{
+    font-size: 16pt;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.docsFileOptsTittles span{
+    margin: 15px;
+    width: 285px;
+    height: 40px;
+    margin-top: 0;
+    color: #d5232f;
+    font-size: 25px;
+    margin-bottom: 0;
+    text-align: center;
+    border-radius: 12px;
+    display: inline-block;
+    box-sizing: content-box;
+    background-color: white;
+    font-family: Oswald-Medium;
+}
+
+.docsFileMultiOptSelected{
+    border: 2px solid #d5232f;
+    box-shadow: 0 0 0 3px white;
+}
+
+.docsFilesOptions{
+    width: 190px;
+    margin: 15px;
+    padding: 5px;
+    cursor: pointer;
+    height: inherit;
+}
+
+.docsFilesOptions:hover{
+    border-radius: 12px;
+    border: solid 1px white;
+}
+
+#docsFilesShowOptionSelectedContent{
+    margin: 50px;
+    color: white;
+    display: block;
+    font-size: 16pt;
+    cursor: pointer;
+    position: absolute;
+    font-family: Oswald-Light;
+}
+
+#docsFilesShowOptionSelectedContent span{
+    float: left;
+    clear: both;
+}
+
+#docsFilesShowOptionSelected{
+    float: left;
+    width: 135px;
+    cursor: pointer;
+}
+
+#DocsFileBack{
+    float: right;
+    margin-top: 15px;
+    margin-right: 35px;
+}
+
+#DocsFileBack a{
+    color: white;
+    font-size: 16pt;
+    text-decoration: none;
+    font-family: Oswald-Light;
+}
+
+.DocsFileRemoveThumbnail{
+    color: white;
+    cursor: pointer;
+    font-size: 30px;
+    margin-top: -6px;
+    position: absolute;
+    margin-left: -21px;
+}
+
+#DocsFileCustomerFormsContent{
+    width: 90%;
+    color: white;
+    height: 455px;
+    margin: 0 auto;
+    overflow-y: auto;
+}
+
+.docsFileCustomerFormsRow{
+    float: none;
+    background-color: beige;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
+}
+
+.docsFileCustomerFormsRow span{
+    margin-left: 20px;
+}
+
+#DocsFileCustomerFormsHeader{
+    position: fixed;
+    background-color: #D5232F;
+    border-bottom: 1px solid white;
+}
+
+.grid-global-container{
+    margin-top: 20px;
+}
+
+.grid-container{
+    margin-bottom: 10px;
+    display: inline-grid;
+    grid-template-columns: 200px 250px 200px 200px;;
+}
+
+.grid-item{
+    text-align: center;
+}
+
+.grid-container input{
+    width: 80px;
+    color: black;
+    margin: 0 auto;
+    border-radius: 7px;
+    background-color: #cccccc;
+    font-family: Oswald-Medium;
+}
+
+#docsFileForm::-webkit-scrollbar{
+    width: 10px;
+}
+
+#docsFileForm::-webkit-scrollbar-track{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px ;
+}
+
+#docsFileForm::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: rgba(0,0,0,1);
+}
+
+#DocsFileCustomerFormsContent::-webkit-scrollbar{
+    width: 10px;
+}
+
+#DocsFileCustomerFormsContent::-webkit-scrollbar-track{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px ;
+}
+
+#DocsFileCustomerFormsContent::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: rgba(0,0,0,1);
+}
+
+.docsFileBackOptId{
+    width: 85px;
+    height: 50px;
+    color: black;
+    font-size: 12pt;
+    cursor: pointer;
+    margin-top: 395px;
+    border-radius: 7px;
+    text-align: center;
+    margin-left: 785px;
+    position: absolute;
+    background-color: #cccccc;
+    font-family: Oswald-Medium;
+}
+
+.docsFileReasonsFileRejected{
+    color: white;
+    font-size: 14pt;
+    margin-top: 10px;
+    font-family: Oswald-Medium;
+}
+
+.docsFileLoader {
+    float: none;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    margin-top: 150px;
+    border-radius: 90%;
+    border-top: 16px solid #a51419;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 1.5s linear infinite;
+    border: 16px solid rgba(255, 255, 255, 0.4);
+}
+
+.prettyLoader,
+.prettyLoader:before,
+.prettyLoader:after {
+    background: #ffffff;
+    -webkit-animation: load1 1s infinite ease-in-out;
+    animation: load1 1s infinite ease-in-out;
+    width: 1em;
+    height: 4em;
+}
+
+.prettyLoader {
+    color: #ffffff;
+    text-indent: -9999em;
+    margin: 88px auto;
+    position: relative;
+    font-size: 11px;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+.prettyLoader:before,
+.prettyLoader:after {
+    position: absolute;
+    top: 0;
+    content: '';
+}
+
+.prettyLoader:before {
+    left: -1.5em;
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+
+.prettyLoader:after {
+    left: 1.5em;
+}
+@-webkit-keyframes load1 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 0;
+        height: 4em;
+    }
+    40% {
+        box-shadow: 0 -2em;
+        height: 5em;
+    }
+}
+@keyframes load1 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 0;
+        height: 4em;
+    }
+    40% {
+        box-shadow: 0 -2em;
+        height: 5em;
+    }
+}

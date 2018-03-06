@@ -313,15 +313,35 @@ let _langTags = {
 
 	TICKET_SUCCESS_DEPOSIT: "<div class='title'>Your {currencyAmount} {currency} deposit was successful.</div><p>Your balance is now {balance} {currency}</p><p>An email has been sent to {email} with the transaction details.</p>",
 	TICKET_SUCCESS_WITHDRAW: "<div class='title'>Your {currencyAmount} {currency} withdraw was successful.</div><p>Your balance is now {balance} {currency}</p><p>An email has been sent to {email} with the transaction details.</p>",
-	
+
 	MY_REQUEST_TITLE: "My Requests",
-	MY_REQUEST_VERIFY_IDENTITY: "Verify my identity",
-	MY_REQUEST_UPDATE_INFORMATION: "Update my information",
-	MY_REQUEST_REPORT_PROBLEM: "Report a problem",
+	DOCS_FILE_TAB_KYC: "Identity Verification",
+	DOCS_FILE_TAB_UPDATEACCOUNTINFO: "Update my information",
+	DOCS_FILE_TAB_CCISSUES: "Report an issue",
+	DOCS_FILE_TAB_RECOVERY: 'Recovery',
+	DOCS_FILE_NEXT_STEP: 'Next',
+	BD_TEXT_TYPE_3RD_ID: 'Third party identification',
+	DOCFILE_FORM_LABEL_FILE_BANK_STATEMENT : 'Pending Deposit',
+	DOCFILE_FORM_LABEL_FILE_BANK_STATEMENT2 : 'Pending Deposit',
+	DOCS_FILE_REJECTED_REASONS_TITLE: 'Rejected reasons',
+	MY_REQUEST_ADDITIONAL_INFO: "Additional information",
+	MY_REQUEST_RECOVERY: "Recovery",
 	MY_REQUEST_VERIFY_TITLE: "Verification type",
-	MY_REQUEST_DOCS_OPTION_ID_TXT: "IDENTIFICATION",
-	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "ELECTRONIC WALLET",
-	
+	MY_REQUEST_DOCS_OPTION_ID_TXT: "ID",
+	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "E-WALLET",
+
+	DOCFILE_FORM_LABEL_ISSUE_REASON: 'Issue reason',
+	DOCFILE_FORM_LABEL_FILE_ID_SELFIE: 'Selfie',
+	DOCFILE_FORM_LABEL_FILE_CARD_FRONT: 'Front side',
+	DOCFILE_FORM_LABEL_FILE_CARD_BACK: 'Rear side',
+	BD_TEXT_TYPE_CARD: 'Take a picture of your card',
+	DOCFILE_FORM_LABEL_FILE_ID_3RD: 'Third party identification',
+
+	DOCFILE_FORM_OPTION_DUPLICATE_CHARGE: 'Duplicate charge',
+	DOCFILE_FORM_OPTION_REJECTED_BANK: 'Payment rejected but processed by the bank',
+	DOCFILE_FORM_OPTION_OVERCHARGE: 'Surcharges in the operation',
+
+
 	DRAG_DROP_FILES_TXT: "Drag your files here or click in this area.",
 	DRAG_DROP_UPLOAD_TXT: "Upload",
 
@@ -332,7 +352,73 @@ let _langTags = {
 	AGENT_TRANSFER_INVALID_USER_ACCOUNT: "Please verify the user account exists",
 	AGENT_TRANSFER_ACCOUNT_FROM: "Sender",
 	AGENT_TRANSFER_ACCOUNT_TO_USERNAME: "Receiver username",
-	AGENT_TRANSFER_ACCOUNT_TO_FULLNAME: "Receiver name"
+	AGENT_TRANSFER_ACCOUNT_TO_FULLNAME: "Receiver name",
+
+	DOCS_FILE_VERIFY_IMPORTANT_TXT: 'Please upload pictures only, four edges of the ID or Passport have to be visible in the picture and the information must be clear so avoid using flash.',
+	DOCFILE_FORM_LABEL_FILE_ID: "Send the current file for the identification process.",
+	BD_TEXT_TYPE_LICENCE2: "Driver's license.",
+	BD_TEXT_TYPE_ID: "Identification document",
+	BD_TEXT_TYPE_PASSPORT: "Passport",
+	BD_TEXT_TYPE_EWALLET: "E-Wallet",
+	BD_TEXT_TYPE_UTILITY_BILL: "Utility bill",
+	BD_TEXT_TYPE_UTILITY: "Utility bill",
+	BD_TEXT_TYPE_BANK: "Bank statement",
+	BD_TEXT_TYPE_ID_SELFIE: "Selfie",
+
+	DOCFILE_FORM_LABEL_UPDATE_INFO_REASON: "Select the field to update",
+	DOCFILE_FORM_OPTION_EMAIL: "Email",
+	DOCFILE_FORM_OPTION_PHONE: "Telephone",
+	DOCFILE_FORM_OPTION_ADDRESS: "Address",
+
+	DOCFILE_FORM_LABEL_UPDATE_INFO_VALUE: "Enter the value",
+
+	DOCFILE_FORM_LABEL_NAME: "Full name",
+	DOCFILE_FORM_LABEL_IDNUMBER: "Identification number",
+	DOCFILE_FORM_LABEL_EMAIL: "Email",
+	DOCFILE_FORM_LABEL_PHONE: "Phone number",
+	DOCFILE_FORM_LABEL_BANKNAME: "Bank name",
+	DOCFILE_FORM_LABEL_CC_LIST: "Select your card",
+	DOCFILE_FORM_LABEL_ACCOUNT_TYPE: "Account type",
+	DOCFILE_FORM_OPTION_SAVING_ACCOUNT: "Savings account",
+	DOCFILE_FORM_OPTION_CURRENT_ACCOUNT: "Current account",
+	DOCFILE_FORM_LABEL_ACCOUNT_NO: "Account number",
+
+	DOCS_FILE_VERITY_CHANGE_OPTIONS: "Change option",
+	DOCS_FILE_GO_BACK: "< Back",
+	DOCS_FILE_GO_HOME: "< Home",
+	DOCS_FILE_EDIT_BTN: 'Edit',
+
+	DOCS_FILE_VERITY_ADD_DOCUMENT: 'Add Document',
+	DOCS_FILE_UPLOAD_ERROR_RESPONSE: 'Error to upload',
+	DOCS_FILE_UPLOAD_SUCCESS_RESPONSE: 'Successful upload!',
+	DOCS_FILE_UPLOAD_SUCCESS_NOTIFIED_: 'You`ll be notified about the status of this process',
+
+	DOCS_FILE_STATUS_1 : 'SENT',
+	DOCS_FILE_STATUS_2 : 'REVIEW',
+	DOCS_FILE_STATUS_3 : 'PENDING',
+	DOCS_FILE_STATUS_4 : 'REJECTED',
+	DOCS_FILE_STATUS_5 : 'APPROVED',
+
+	DOCFILE_FORM_KYC_TABLE_DOCUMENT: 'Document',
+	DOCFILE_FORM_KYC_TABLE_CREATED_DATE: 'Created date',
+	DOCFILE_FORM_KYC_TABLE_STATUS: 'Status',
+	DOCFILE_FORM_KYC_TABLE_ACTION: 'Action',
+	DOCFILE_FORM_KYC_ID_TITLE : 'ID',
+	DOCFILE_FORM_UPDATEINFO_TITLE : 'Update account information',
+	DOCFILE_FORM_ISSUE_TITLE : 'Credit card new issue',
+	DOCFILE_FORM_KYC_CARD_TITLE : 'Card verification',
+	DOCFILE_FORM_KYC_EWALLET_TITLE : 'E-wallet',
+	DOCFILE_FORM_RECOVERY_TITLE : 'Pending Deposit',
+	DOCFILE_FORM_VERIFICATION_TITLE : 'Additional verification',
+	DOCFILE_FORM_PROOF_TITLE : 'Proof of address',
+	DOCFILE_FORM_OPTION_FIX_NAME : 'Fix name',
+	DOCFILE_FORM_PENDING_DEPOSIT_TITLE: 'Pending deposit',
+
+	DOCFILE_FORM_LABEL_FILE_EWALLET : 'Photo of your e-wallet',
+	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Public service receipt',
+
+	DOCS_FILE_TAB_VERIFICATIONREQUIRED : "Additional Information"
+
 };
 
 export function EN(){
