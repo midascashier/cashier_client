@@ -59,10 +59,10 @@ let Player2AgentApprovedTicket = React.createClass({
 			currencyAmount: currencyAmount
 		};
 
-		let content = translate('ASTROPAY_SUCCESS_DEPOSIT_BALANCE', '', tags);
+		let content = translate('TICKET_SUCCESS_WITHDRAW', '', tags);
 
 		return (
-			<div className="internal-content" id="astroPayApprovedTicket">
+			<div className="internal-content" id="agentTransferApprovedTicket">
 				<div className="row">
 					<div className="col-sm-6">
 						<div className="box">

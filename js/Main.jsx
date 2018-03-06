@@ -334,6 +334,7 @@ let routes = (
 				<Route path="player2agent/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={Player2AgentApprovedTicket}/>
 					<Route path="rejected/" component={Player2AgentRejectedTicket}/>
+					<Route path="deferred/" component={DeferredTicket}/>
 				</Route>
 			</Route>
 		</Route>
