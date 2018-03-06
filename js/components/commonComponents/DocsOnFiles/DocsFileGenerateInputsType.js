@@ -166,6 +166,8 @@ let DocsFileGenerateInputsType = React.createClass({
                             }
                         }
 
+                        state.checkOption = false;
+
                         return(
                             <div className={className}>
                                 {element.files.map(this.generateOptions)}
@@ -173,12 +175,12 @@ let DocsFileGenerateInputsType = React.createClass({
                         )
                     }
                 }
+            }else{
+                state.checkOption = true;
             }
         }
 
         if(element.step == docs.currentStep){
-            state.checkOption = true;
-
             return(
                 <div className={className}>
                     {this.generateInputs(element)}
@@ -186,7 +188,7 @@ let DocsFileGenerateInputsType = React.createClass({
             )
         }
 
-        return (null);
+        return <span/>;
     },
 
     render(){
@@ -208,6 +210,14 @@ let DocsFileGenerateInputsType = React.createClass({
         }
 
         this.props.updateState(state)
+    },
+
+    /**
+     * Force update when this component not did mount
+     */
+    componentDidUpdate(){
+        let state = this.props.state();
+        this.props.updateState(state);
     }
 });
 
