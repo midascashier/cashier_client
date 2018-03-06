@@ -159,19 +159,12 @@ class connectorServices {
 							onResponseService.processResponse(actions.USER_MESSAGE, dataResponse);
 							reject(dataResponse);
 						} else if (dataResponse && dataResponse.state !== 'ok') {
-							//if(dataResponse && dataResponse.state !== 'ok'){
 							resolve(dataResponse);
-							//onResponseService.processResponse(action, dataResponse);
 						} else if (dataResponse && dataResponse.response) {
-							//if(dataResponse && dataResponse.response){
 							resolve(dataResponse);
-							//onResponseService.processResponse(action, dataResponse);
 						} else {
 							resolve([]);
-							//onResponseService.processResponse(action, []);
 						}
-						/*}
-					}*/
 					}catch(e){
 						console.log(e.message);
 						console.log(response);
