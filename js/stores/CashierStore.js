@@ -398,6 +398,7 @@ let _DocsFile = {
 	step : 0,
 	currentStep : 1,
 	categoriesList : {},
+	checkOption : false,
 	responseUpload : false,
 	pendingRecovery : false,
 	currentOptionSelected : '',
@@ -870,6 +871,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	docsFileReset(){
 		_DocsFile.step = 0;
 		_DocsFile.currentStep = 1;
+		_DocsFile.checkOption = false;
 		_DocsFile.responseUpload = false;
 		_DocsFile.pendingInputsCategory = true;
 		_DocsFile.pendingCustomerFormInfo = true;

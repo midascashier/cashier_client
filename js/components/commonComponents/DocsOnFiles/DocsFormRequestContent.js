@@ -165,6 +165,7 @@ let DocsFormRequestContent = React.createClass({
             TransactionService.docsFileSave(formData);
         }
 
+        docs.checkOption = false;
         this.setState(actualState);
     },
 
@@ -187,13 +188,16 @@ let DocsFormRequestContent = React.createClass({
      * Selected specific form id
      */
     selectedIdForm(formId){
-        UIService.docFilesSetFormSelectedId(formId); 
+        UIService.docFilesSetFormSelectedId(formId);
     },
 
     /**
      * Restart states option selected
      */
     optionReset(){
+        let docs = UIService.getDocsFile();
+
+        docs.checkOption = false;
         let state = this.getInitialState();
         state.switchForm = this.state.switchForm;
         this.setState(state);
@@ -228,7 +232,7 @@ let DocsFormRequestContent = React.createClass({
 
     /**
      * Change type ID form
-     * 
+     *
      * @param e
      * @param force
      */
@@ -257,7 +261,7 @@ let DocsFormRequestContent = React.createClass({
 
     /**
      * Change form type selected
-     * 
+     *
      * @param e
      */
     changeFormSelected(e){
@@ -267,6 +271,7 @@ let DocsFormRequestContent = React.createClass({
         docs.currentStep = 1;
         let id = e.target.id;
         this.selectedIdForm(id);
+        docs.checkOption = false;
         actualState.newDocument = true;
 
         this.setState(actualState);
@@ -430,10 +435,10 @@ let DocsFormRequestContent = React.createClass({
                     return <DocsFilesSendedCustomerForms forms={docs.customerForms} addDocument={this.addDocument}/>
                 }
 
-                let height = (this.state.checkOption) ? 'inherit' : 'auto';
+                let height = (docs.checkOption) ? 'inherit' : 'auto';
                 let contentStyle = {height : height};
 
-                let form = UIService.docsFileGetCurrentForm();
+                let form = UIService.docsFileGetCurrentForm(this.state.customerFormId, this.state.option);
                 if(form){
                     if(form.hasOwnProperty('fields')){
                         return(
@@ -502,7 +507,7 @@ let DocsFormRequestContent = React.createClass({
                                 })()}
 
                                 {(() =>{
-                                    if(!this.state.checkOption){
+                                    if(!docs.checkOption){
                                         return(
                                             <div id="docsFileTXT">
                                                 {translate('DOCS_FILE_VERIFY_IMPORTANT_TXT')}
@@ -528,7 +533,7 @@ let DocsFormRequestContent = React.createClass({
                                         })()}
 
                                         {(() =>{
-                                            if(this.state.checkOption){
+                                            if(docs.checkOption){
                                                 let docs = UIService.getDocsFile();
                                                 let bntTXT = (docs.currentStep < docs.step) ? 'DOCS_FILE_NEXT_STEP' : 'DRAG_DROP_UPLOAD_TXT';
                                                 return <div id="docsFileButtonContent"><button type='submit' formnovalidate>{translate(bntTXT)}</button></div>
@@ -568,6 +573,18 @@ let DocsFormRequestContent = React.createClass({
             let docsTxtElement = document.getElementById('docsFileTXT');
             if(docsTxtElement){
                 docsTxtElement.style.marginTop = '60px';
+            }
+        }
+
+        let formElement = document.getElementById('docsFileForm');
+        if(formElement){
+            let button = document.getElementById('docsFileButtonContent');
+
+            let fileElement = formElement.getElementsByTagName('file');
+            let inputsElement = formElement.getElementsByTagName('input');
+            let selectElement = formElement.getElementsByTagName('select');
+            if((fileElement.length || inputsElement.length || selectElement.length) && !button){
+                this.forceUpdate()
             }
         }
     }

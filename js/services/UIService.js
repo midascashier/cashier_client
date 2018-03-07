@@ -1056,8 +1056,16 @@ class UiService {
 	 *
 	 * @returns {*}
      */
-	docsFileGetCurrentForm(){
+	docsFileGetCurrentForm(customerFormId, option){
 		let docs = UIService.getDocsFile();
+
+		if(customerFormId){
+			let customerForm = UIService.docsFileGetCustomerDocumentForm(customerFormId, option);
+			if(customerForm.caDocumentForm_Id != docs.formSelectedId){
+				UIService.docFilesSetFormSelectedId(customerForm.caDocumentForm_Id);
+			}
+		}
+
 		if(docs.forms.hasOwnProperty(docs.currentOptionSelected)){
 			let forms = docs.forms[docs.currentOptionSelected];
 			for(let current in forms){
