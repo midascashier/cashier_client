@@ -130,7 +130,7 @@ let DocsFileGenerateInputsType = React.createClass({
                             <span>{translate(element.label)}</span>
                             <select id={element.caDocumentFormInput_Id} required={req}>
                                 {element.cc.map(function (val) {
-                                    return <option id={val.caPayAccount_Id} value={val.caPayAccount_Id}>{val.CardholderName + '(' + val.Account + ')'}</option>
+                                    return <option id={val.caPayAccount_Id} value={val.CardholderName + '(' + val.Account + ')'}>{val.CardholderName + '(' + val.Account + ')'}</option>
                                 })}
                             </select>
                         </div>
