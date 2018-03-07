@@ -238,7 +238,7 @@ let DocsFormRequestContent = React.createClass({
      */
     switchFormType(e, force){
         let switchForm;
-        let actualState;
+        let actualState = this.getInitialState();;
         let docs = UIService.getDocsFile();
         docs.currentStep = 1;
 
@@ -250,7 +250,6 @@ let DocsFormRequestContent = React.createClass({
             }
         }else{
             this.switchSelectedIdForm();
-            actualState  = this.getInitialState();
             switchForm = e.target.checked;
         }
 

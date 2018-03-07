@@ -206,6 +206,7 @@ let DocsFileGenerateInputsType = React.createClass({
      * Execute actions when this component did mount
      */
     componentDidUpdate(){
+        let docs = UIService.getDocsFile();
         let state = this.props.state();
         if(state.customerFormId){
             let customerForm = UIService.docsFileGetCustomerDocumentForm(state.customerFormId, state.option);
@@ -213,6 +214,14 @@ let DocsFileGenerateInputsType = React.createClass({
             if(this.props.optionsSwitch.hasOwnProperty(customerForm.caDocumentForm_Id)){
                 let checked = this.props.optionsSwitch[customerForm.caDocumentForm_Id];
                 this.props.switchAction(null, checked);
+            }
+        }
+
+        let twoOptions = (_.size(docs.forms[state.option]) == 2);
+        if(twoOptions && !this.state.idOptSelect){
+            let docsTxtElement = document.getElementById('docsFileTXT');
+            if(docsTxtElement){
+                docsTxtElement.style.marginTop = '60px';
             }
         }
     }
