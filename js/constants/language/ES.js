@@ -362,7 +362,7 @@ let _langTags = {
 	DOCFILE_FORM_OPTION_CURRENT_ACCOUNT: "Cuenta corriente",
 	DOCFILE_FORM_LABEL_ACCOUNT_NO: "Número de cuenta",
 	BD_TEXT_TYPE_ID_SELFIE: "Selfi",
-	BD_TEXT_TYPE_CARD: 'Haz una foto de tu tarjeta',
+	BD_TEXT_TYPE_CARD: 'Tome una foto de su tarjeta en el lado correspondiente',
 	BD_TEXT_TYPE_3RD_ID: 'Identificación de tercero',
 
 	DOCS_FILE_VERITY_CHANGE_OPTIONS: "Cambiar opcion",

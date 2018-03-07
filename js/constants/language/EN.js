@@ -331,7 +331,7 @@ let _langTags = {
 	DOCFILE_FORM_LABEL_FILE_ID_SELFIE: 'Selfie',
 	DOCFILE_FORM_LABEL_FILE_CARD_FRONT: 'Front side',
 	DOCFILE_FORM_LABEL_FILE_CARD_BACK: 'Rear side',
-	BD_TEXT_TYPE_CARD: 'Take a picture of your card',
+	BD_TEXT_TYPE_CARD: 'Take a picture of your card on the corresponding side',
 	DOCFILE_FORM_LABEL_FILE_ID_3RD: 'Third party identification',
 
 	DOCFILE_FORM_OPTION_DUPLICATE_CHARGE: 'Duplicate charge',
