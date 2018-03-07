@@ -87,7 +87,6 @@ import {CryptoScreenTicketPending} from './components/methods/cryptoscreen/ticke
 import {Player2Agent} from './components/methods/player2agent/Player2Agent'
 import {Player2AgentConfirmWithdraw} from './components/methods/player2agent/ConfirmWithdraw'
 import {Player2AgentApprovedTicket} from './components/methods/player2agent/tickets/ApprovedTicket'
-import {Player2AgentRejectedTicket} from './components/methods/player2agent/tickets/RejectedTicket'
 /**
  * Common components
  */
@@ -333,7 +332,7 @@ let routes = (
 				<Route path="player2agent/confirm/" component={Player2AgentConfirmWithdraw}/>
 				<Route path="player2agent/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={Player2AgentApprovedTicket}/>
-					<Route path="rejected/" component={Player2AgentRejectedTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
 					<Route path="deferred/" component={DeferredTicket}/>
 				</Route>
 			</Route>

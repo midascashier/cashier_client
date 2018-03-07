@@ -1239,7 +1239,6 @@ class UiService {
 
 		CashierStore.docFilesCustomerPendingFormsWait();
 		ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_CUSTOMER_KYC_IS_APPROVE, params);
-	>>>>>>> 62c31a1446a2cf3e77c7926e656c149b0623bdd3
 	}
 }
 
