@@ -211,9 +211,11 @@ let DocsFileGenerateInputsType = React.createClass({
         if(state.customerFormId){
             let customerForm = UIService.docsFileGetCustomerDocumentForm(state.customerFormId, state.option);
 
-            if(this.props.optionsSwitch.hasOwnProperty(customerForm.caDocumentForm_Id)){
+            if(this.props.optionsSwitch.hasOwnProperty(customerForm.caDocumentForm_Id) && this.props.optionsSwitch.reset){
                 let checked = this.props.optionsSwitch[customerForm.caDocumentForm_Id];
                 this.props.switchAction(null, checked);
+
+                this.props.optionsSwitch.reset = false;
             }
         }
 
