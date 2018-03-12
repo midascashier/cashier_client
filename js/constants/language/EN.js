@@ -340,6 +340,9 @@ let _langTags = {
 	
 	DRAG_DROP_FILES_TXT: "Drag and drop or click here.",
 	DRAG_DROP_UPLOAD_TXT: "Upload",
+	DRAG_DROP_ERROR_MAX_FILE: "Maximum 5 files, {fileName} not accepted.",
+	DRAG_DROP_ERROR_MAX_SIZE: "Maximum total file size, {fileName} not accepted",
+	DRAG_DROP_ERROR_FILE_TYPE: "File type, {fileName} not accepted.",
 
 	DOCS_FILE_VERIFY_IMPORTANT_TXT: 'Please upload pictures only, four edges of the ID or Passport have to be visible in the picture and the information must be clear so avoid using flash.',
 	DOCFILE_FORM_LABEL_FILE_ID: "Send the current file for the identification process.",
@@ -354,7 +357,7 @@ let _langTags = {
 
 	DOCFILE_FORM_LABEL_UPDATE_INFO_REASON: "Select the field to update",
 	DOCFILE_FORM_OPTION_EMAIL: "Email",
-	DOCFILE_FORM_OPTION_PHONE: "Telephone",
+	DOCFILE_FORM_OPTION_PHONE: "Phone",
 	DOCFILE_FORM_OPTION_ADDRESS: "Address",
 
 	DOCFILE_FORM_LABEL_UPDATE_INFO_VALUE: "Enter the value",

@@ -323,6 +323,9 @@ let _langTags = {
 	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "BILLETERA ELECTRÓNICA",
 	DRAG_DROP_FILES_TXT: "Arrastra y suelta o haz clic aquí.",
 	DRAG_DROP_UPLOAD_TXT: "Subir",
+	DRAG_DROP_ERROR_MAX_FILE: "Máximo 5 archivos, {fileName} no aceptado.",
+	DRAG_DROP_ERROR_MAX_SIZE: "Maximum size 5 mb, {fileName} not accepted",
+	DRAG_DROP_ERROR_FILE_TYPE: "Tipo de archivo, {fileName} no aceptado",
 
 	DOCFILE_FORM_LABEL_ISSUE_REASON: 'Razón de rechazo',
 	DOCFILE_FORM_LABEL_FILE_ID_SELFIE: 'Selfi',
