@@ -43,7 +43,15 @@ let RequestsContent = React.createClass({
             this.buildCategoriesList(docs.categoriesList);
         }
 
+        let reset = false;
+        if(this.hasOwnProperty('state')){
+            if(this.state){
+                reset = this.state.resetOption
+            }
+        }
+
         return {
+            resetOption : reset,
             option : this.currentTabSelected(),
             responseUpload : docs.responseUpload
         }
@@ -56,6 +64,15 @@ let RequestsContent = React.createClass({
      */
     _onChange(){
         this.setState(this.getInitialState());
+    },
+
+    /**
+     * change to turn off reset option
+     */
+    turnOffResetOption(){
+        let actualState = this.state;
+        actualState.resetOption = false;
+        this.setState(actualState);
     },
 
     /**
@@ -196,6 +213,7 @@ let RequestsContent = React.createClass({
             element.setAttribute('class', 'DocsOptions DocsOptionsClick');
 
             let actualState = this.state;
+            actualState.resetOption = (id == actualState.option);
             actualState.option = id;
             UIService.setDocsCurrentOption(id);
             actualState.responseUpload = UIService.getDocsUploadResponse();
@@ -207,7 +225,7 @@ let RequestsContent = React.createClass({
         if(this.readyInitialPending){
             let optionContent = (this.state.responseUpload)
                 ? <DocsUploadSuccessResponse responseType={this.state.responseUpload}/>
-                : <DocsFormRequestContent option={this.state.option}/>;
+                : <DocsFormRequestContent option={this.state.option} resetOption={this.state.resetOption} turnOffResetOption={this.turnOffResetOption}/>;
 
             return(
                 <div id="requestContent">
