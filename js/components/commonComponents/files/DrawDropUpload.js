@@ -87,7 +87,7 @@ let DrawDropUpload = React.createClass({
 
         for(let key in files){
             if(files.hasOwnProperty(key)){
-                if(this.elements.rules.FILE_ACCEPTED_TYPES.indexOf(files[key].types) == -1){
+                if(this.elements.rules.FILE_ACCEPTED_TYPES.indexOf(files[key].type) != -1){
                     if(files[key].size){
                         this.elements.totalSize = this.elements.totalSize + files[key].size;
                         if(this.elements.totalSize < this.elements.rules.MAX_FILE_SIZE){
