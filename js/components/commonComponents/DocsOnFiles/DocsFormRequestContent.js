@@ -31,6 +31,7 @@ let DocsFormRequestContent = React.createClass({
             customerFormId : '',
             sendingFile : false,
             beforeElements : [],
+            inputIdSelected : null,
             option : this.props.option
         }
     },
@@ -211,7 +212,9 @@ let DocsFormRequestContent = React.createClass({
      */
     addDocument(customerFormId){
         let actualState = this.state;
+        let docs =UIService.getDocsFile();
 
+        docs.currentStep = 1;
         actualState.newDocument = true;
         this.optionsSwitch.reset = true;
         actualState.customerFormId = customerFormId;
@@ -407,8 +410,10 @@ let DocsFormRequestContent = React.createClass({
                         let files = values[value].files;
                         for(let file in files){
                             if(files.hasOwnProperty(file)){
-                                if(files[file].hasOwnProperty('reasons')){
-                                    return values[value].files[file].reasons;
+                                if(values[value].caDocumentFormInput_Id == this.state.inputIdSelected){
+                                    if(files[file].hasOwnProperty('reasons')){
+                                        return values[value].files[file].reasons;
+                                    }
                                 }
                             }
                         }
@@ -536,12 +541,15 @@ let DocsFormRequestContent = React.createClass({
                                         {(() =>{
                                             if(this.state.idOptSelect && this.state.customerFormId){
                                                 let reasons = this.getCurrentReasonsRejected(this.state.customerFormId);
-                                                return(
-                                                    <div className="docsFileReasonsFileRejected">
-                                                        <p>{translate('DOCS_FILE_REJECTED_REASONS_TITLE')}</p>
-                                                        {reasons.map(this.reasonsFileRejected)}
-                                                    </div>
-                                                )
+
+                                                if(reasons){
+                                                    return(
+                                                        <div className="docsFileReasonsFileRejected">
+                                                            <p>{translate('DOCS_FILE_REJECTED_REASONS_TITLE')}</p>
+                                                            {reasons.map(this.reasonsFileRejected)}
+                                                        </div>
+                                                    )
+                                                }
                                             }
                                         })()}
 

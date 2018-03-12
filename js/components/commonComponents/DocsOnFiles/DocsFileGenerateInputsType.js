@@ -90,6 +90,12 @@ let DocsFileGenerateInputsType = React.createClass({
 
         switch(element.caDocumentFormInputType_Id){
             case this.inputsType.file:
+                let actualState = this.props.state();
+                if(actualState.inputIdSelected != element.caDocumentFormInput_Id){
+                    actualState.inputIdSelected = element.caDocumentFormInput_Id;
+                    this.props.updateState(actualState);
+                }
+
                 input =(
                     <div id="DrawDropUploadElement">
                         <DrawDropUpload
