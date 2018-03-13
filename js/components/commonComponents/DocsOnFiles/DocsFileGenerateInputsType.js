@@ -174,7 +174,7 @@ let DocsFileGenerateInputsType = React.createClass({
                             type="text"
                             value={value}
                             required={req}
-                            onChange={this.editValue}
+                            onInput={this.editValue}
                             id={element.caDocumentFormInput_Id}
                             placeholder={translate(element.label)}
                         />
