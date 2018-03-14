@@ -23,11 +23,7 @@ let DocsFormRequestContent = React.createClass({
      */
     getInitialState(){
         return {
-            editObj : {
-                input : null,
-                value : null
-            },
-
+            editObj : [],
             files : false,
             editMode : false,
             switchForm : false,

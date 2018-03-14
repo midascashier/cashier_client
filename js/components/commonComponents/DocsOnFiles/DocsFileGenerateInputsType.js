@@ -48,12 +48,13 @@ let DocsFileGenerateInputsType = React.createClass({
         let value = e.target.value;
         let actualState = this.state;
 
-        actualState.editObj = {
+        let current = {
             input: id,
             value: value
         };
 
         actualState.editMode = true;
+        actualState.editObj.push(current);
         this.props.updateState(actualState)
     },
 
@@ -126,8 +127,8 @@ let DocsFileGenerateInputsType = React.createClass({
         let value = null;
         let values = null;
         if(state.customerFormId){
-            if(state.editMode && state.editObj.input == element.caDocumentFormInput_Id){
-                value = state.editObj.value
+            if(state.editMode){
+                values = state.editObj;
             }else{
                 for(let currentValues in docs.customerForms[docs.currentOptionSelected]){
                     if(docs.customerForms[docs.currentOptionSelected].hasOwnProperty(currentValues)){
@@ -138,9 +139,9 @@ let DocsFileGenerateInputsType = React.createClass({
                         }
                     }
                 }
-
-                value = this.getInputValue(values, element.caDocumentFormInput_Id);
             }
+
+            value = this.getInputValue(values, element.caDocumentFormInput_Id);
         }
 
         if(!docs.checkOption){
