@@ -334,7 +334,7 @@ let _langTags = {
 	DOCFILE_FORM_LABEL_FILE_ID_SELFIE: 'Selfie',
 	DOCFILE_FORM_LABEL_FILE_CARD_FRONT: 'Front side',
 	DOCFILE_FORM_LABEL_FILE_CARD_BACK: 'Rear side',
-	BD_TEXT_TYPE_CARD: 'Take a picture of your card',
+	BD_TEXT_TYPE_CARD: 'Take a picture of your card on the corresponding side',
 	DOCFILE_FORM_LABEL_FILE_ID_3RD: 'Third party identification',
 
 	DOCFILE_FORM_OPTION_DUPLICATE_CHARGE: 'Duplicate charge',
@@ -344,6 +344,9 @@ let _langTags = {
 
 	DRAG_DROP_FILES_TXT: "Drag your files here or click in this area.",
 	DRAG_DROP_UPLOAD_TXT: "Upload",
+	DRAG_DROP_ERROR_MAX_FILE: "Maximum 5 files, {fileName} not accepted.",
+	DRAG_DROP_ERROR_MAX_SIZE: "Maximum total file size, {fileName} not accepted",
+	DRAG_DROP_ERROR_FILE_TYPE: "File type, {fileName} not accepted.",
 
 	AGENT_TRANSFER_USER_ACCOUNT: "User account",
 	AGENT_TRANSFER_FEE_PAYMENT: "Pay the fees with",
@@ -367,7 +370,7 @@ let _langTags = {
 
 	DOCFILE_FORM_LABEL_UPDATE_INFO_REASON: "Select the field to update",
 	DOCFILE_FORM_OPTION_EMAIL: "Email",
-	DOCFILE_FORM_OPTION_PHONE: "Telephone",
+	DOCFILE_FORM_OPTION_PHONE: "Phone",
 	DOCFILE_FORM_OPTION_ADDRESS: "Address",
 
 	DOCFILE_FORM_LABEL_UPDATE_INFO_VALUE: "Enter the value",

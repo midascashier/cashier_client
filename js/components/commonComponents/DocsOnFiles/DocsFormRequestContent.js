@@ -1,5 +1,4 @@
 import React from 'react'
-import {DocsFileRules}  from './DocsFileRules'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {TransactionService} from '../../../services/TransactionService'
@@ -10,17 +9,23 @@ import {DocsFilesSendedCustomerForms} from './DocsFilesSendedCustomerForms'
 let DocsFormRequestContent = React.createClass({
 
     propsType : {
-        option : React.PropTypes.node
+        option : React.PropTypes.node,
+        resetOption : React.PropTypes.bool,
+        turnOffResetOption : React.PropTypes.func
     },
 
-    optionsSwitch : {},
+    optionsSwitch : {
+        reset : true
+    },
 
     /**
      * React function to set component initial state
      */
     getInitialState(){
         return {
+            editObj : [],
             files : false,
+            editMode : false,
             switchForm : false,
             idOptSelect : null,
             checkOption : false,
@@ -28,6 +33,7 @@ let DocsFormRequestContent = React.createClass({
             customerFormId : '',
             sendingFile : false,
             beforeElements : [],
+            inputIdSelected : null,
             option : this.props.option
         }
     },
@@ -165,6 +171,7 @@ let DocsFormRequestContent = React.createClass({
             TransactionService.docsFileSave(formData);
         }
 
+        docs.checkOption = false;
         this.setState(actualState);
     },
 
@@ -187,13 +194,16 @@ let DocsFormRequestContent = React.createClass({
      * Selected specific form id
      */
     selectedIdForm(formId){
-        UIService.docFilesSetFormSelectedId(formId); 
+        UIService.docFilesSetFormSelectedId(formId);
     },
 
     /**
      * Restart states option selected
      */
     optionReset(){
+        let docs = UIService.getDocsFile();
+
+        docs.checkOption = false;
         let state = this.getInitialState();
         state.switchForm = this.state.switchForm;
         this.setState(state);
@@ -204,8 +214,11 @@ let DocsFormRequestContent = React.createClass({
      */
     addDocument(customerFormId){
         let actualState = this.state;
+        let docs =UIService.getDocsFile();
 
+        docs.currentStep = 1;
         actualState.newDocument = true;
+        this.optionsSwitch.reset = true;
         actualState.customerFormId = customerFormId;
 
         this.setState(actualState);
@@ -219,7 +232,10 @@ let DocsFormRequestContent = React.createClass({
         let actualState  = this.getActualState();
         let customerForm = UIService.docsFileGetCustomerDocumentForm(actualState.customerFormId, actualState.option);
 
-        actualState.idOptSelect = null;
+        if(!actualState.customerFormId){
+            actualState.idOptSelect = null;
+        }
+
         if(customerForm.caDocumentForm_Id != docs.formSelectedId){
             this.setState(actualState);
             UIService.docFilesSetFormSelectedId(customerForm.caDocumentForm_Id);
@@ -228,36 +244,38 @@ let DocsFormRequestContent = React.createClass({
 
     /**
      * Change type ID form
-     * 
+     *
      * @param e
      * @param force
      */
     switchFormType(e, force){
         let switchForm;
-        let actualState;
+        this.optionsSwitch.reset = true;
+        let actualState = this.getInitialState();
+        actualState.idOptSelect = this.state.idOptSelect;
         let docs = UIService.getDocsFile();
         docs.currentStep = 1;
 
         if(!e){
             if(force !== null){
                 if(this.state.customerFormId){
-                    this.formCustomerSelect()
+                    this.formCustomerSelect();
                 }
             }
         }else{
             this.switchSelectedIdForm();
-            actualState  = this.getInitialState();
             switchForm = e.target.checked;
+            actualState.switchForm = switchForm;
         }
 
+        actualState.customerFormId = this.state.customerFormId;
         actualState.newDocument = true;
-        actualState.switchForm = switchForm;
         this.setState(actualState);
     },
 
     /**
      * Change form type selected
-     * 
+     *
      * @param e
      */
     changeFormSelected(e){
@@ -267,6 +285,7 @@ let DocsFormRequestContent = React.createClass({
         docs.currentStep = 1;
         let id = e.target.id;
         this.selectedIdForm(id);
+        docs.checkOption = false;
         actualState.newDocument = true;
 
         this.setState(actualState);
@@ -393,8 +412,10 @@ let DocsFormRequestContent = React.createClass({
                         let files = values[value].files;
                         for(let file in files){
                             if(files.hasOwnProperty(file)){
-                                if(files[file].hasOwnProperty('reasons')){
-                                    return values[value].files[file].reasons;
+                                if(values[value].caDocumentFormInput_Id == this.state.inputIdSelected){
+                                    if(files[file].hasOwnProperty('reasons')){
+                                        return values[value].files[file].reasons;
+                                    }
                                 }
                             }
                         }
@@ -417,8 +438,12 @@ let DocsFormRequestContent = React.createClass({
         }
 
         if(docs.readyPending() && !this.state.sendingFile){
-            if(this.state.option != this.props.option){
-                this.setState(this.getInitialState())
+            if(this.state.option != this.props.option || this.props.resetOption){
+                let actualState = this.getInitialState();
+                actualState.customerFormId = this.state.customerFormId;
+                this.setState(actualState);
+
+                this.props.turnOffResetOption()
             }else{
                 docs.step = 0;
                 let twoOptions = (_.size(docs.forms[this.props.option]) == 2);
@@ -430,10 +455,10 @@ let DocsFormRequestContent = React.createClass({
                     return <DocsFilesSendedCustomerForms forms={docs.customerForms} addDocument={this.addDocument}/>
                 }
 
-                let height = (this.state.checkOption) ? 'inherit' : 'auto';
+                let height = (docs.checkOption) ? 'inherit' : 'auto';
                 let contentStyle = {height : height};
 
-                let form = UIService.docsFileGetCurrentForm();
+                let form = UIService.docsFileGetCurrentForm(this.state.customerFormId, this.state.option);
                 if(form){
                     if(form.hasOwnProperty('fields')){
                         return(
@@ -502,7 +527,7 @@ let DocsFormRequestContent = React.createClass({
                                 })()}
 
                                 {(() =>{
-                                    if(!this.state.checkOption){
+                                    if(!docs.checkOption){
                                         return(
                                             <div id="docsFileTXT">
                                                 {translate('DOCS_FILE_VERIFY_IMPORTANT_TXT')}
@@ -518,17 +543,20 @@ let DocsFormRequestContent = React.createClass({
                                         {(() =>{
                                             if(this.state.idOptSelect && this.state.customerFormId){
                                                 let reasons = this.getCurrentReasonsRejected(this.state.customerFormId);
-                                                return(
-                                                    <div className="docsFileReasonsFileRejected">
-                                                        <p>{translate('DOCS_FILE_REJECTED_REASONS_TITLE')}</p>
-                                                        {reasons.map(this.reasonsFileRejected)}
-                                                    </div>
-                                                )
+
+                                                if(reasons){
+                                                    return(
+                                                        <div className="docsFileReasonsFileRejected">
+                                                            <p>{translate('DOCS_FILE_REJECTED_REASONS_TITLE')}</p>
+                                                            {reasons.map(this.reasonsFileRejected)}
+                                                        </div>
+                                                    )
+                                                }
                                             }
                                         })()}
 
                                         {(() =>{
-                                            if(this.state.checkOption){
+                                            if(docs.checkOption){
                                                 let docs = UIService.getDocsFile();
                                                 let bntTXT = (docs.currentStep < docs.step) ? 'DOCS_FILE_NEXT_STEP' : 'DRAG_DROP_UPLOAD_TXT';
                                                 return <div id="docsFileButtonContent"><button type='submit' formnovalidate>{translate(bntTXT)}</button></div>
@@ -568,6 +596,18 @@ let DocsFormRequestContent = React.createClass({
             let docsTxtElement = document.getElementById('docsFileTXT');
             if(docsTxtElement){
                 docsTxtElement.style.marginTop = '60px';
+            }
+        }
+
+        let formElement = document.getElementById('docsFileForm');
+        if(formElement){
+            let button = document.getElementById('docsFileButtonContent');
+
+            let fileElement = formElement.getElementsByTagName('file');
+            let inputsElement = formElement.getElementsByTagName('input');
+            let selectElement = formElement.getElementsByTagName('select');
+            if((fileElement.length || inputsElement.length || selectElement.length) && !button){
+                this.forceUpdate()
             }
         }
     }

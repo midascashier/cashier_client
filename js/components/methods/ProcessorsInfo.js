@@ -92,7 +92,7 @@ let ProcessorsInfo = React.createClass({
 
 					{(() =>{
 						let account = UIService.getCustomerInformation();
-						if(account.username == 'MidasTP' || account.username == 'MarioMidas'){
+						if(account.username == 'MidasTP' || account.username == 'MarioMidas' || account.username == 'MidasACR'){
 							return(
 								<Link to={`/requests/`}>
 									<span>{translate('METHOD_REQUESTS')}</span>

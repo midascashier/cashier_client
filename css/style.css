@@ -721,7 +721,7 @@ div[class*="col-"] > div[class*="col-"]:before {
     -webkit-justify-content: center;
 }
 
-.docsFilesOptionsContent{
+#docsFilesOptionsContent{
     display: flex;
     text-align: center;
     align-items: center;
@@ -814,7 +814,7 @@ input:checked + .slider:before{
     border-radius: 50%;
 }
 
-.docsFilesInputContent{
+#docsFilesInputContent{
     color: white;
     font-size: 14pt;
     margin-top: 10px;

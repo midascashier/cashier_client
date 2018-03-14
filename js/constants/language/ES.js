@@ -325,6 +325,11 @@ let _langTags = {
 	MY_REQUEST_DOCS_OPTION_ID_TXT: "ID",
 	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "BILLETERA ELECTRÓNICA",
 
+	DRAG_DROP_ERROR_MAX_FILE: "Máximo 5 archivos, {fileName} no aceptado.",
+	DRAG_DROP_ERROR_MAX_SIZE: "Maximum size 5 mb, {fileName} not accepted",
+	DRAG_DROP_ERROR_FILE_TYPE: "Tipo de archivo, {fileName} no aceptado",
+
+
 	DRAG_DROP_FILES_TXT: "Arrastra tus archivos aquí o haz clic en esta área.",
 	DRAG_DROP_UPLOAD_TXT: "Subir",
 	DOCFILE_FORM_LABEL_ISSUE_REASON: 'Razón de rechazo',
@@ -365,7 +370,7 @@ let _langTags = {
 	DOCFILE_FORM_OPTION_CURRENT_ACCOUNT: "Cuenta corriente",
 	DOCFILE_FORM_LABEL_ACCOUNT_NO: "Número de cuenta",
 	BD_TEXT_TYPE_ID_SELFIE: "Selfi",
-	BD_TEXT_TYPE_CARD: 'Haz una foto de tu tarjeta',
+	BD_TEXT_TYPE_CARD: 'Tome una foto de su tarjeta en el lado correspondiente',
 	BD_TEXT_TYPE_3RD_ID: 'Identificación de tercero',
 
 	DOCS_FILE_VERITY_CHANGE_OPTIONS: "Cambiar opcion",

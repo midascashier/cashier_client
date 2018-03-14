@@ -87,7 +87,7 @@ let DrawDropUpload = React.createClass({
 
         for(let key in files){
             if(files.hasOwnProperty(key)){
-                if(this.elements.rules.FILE_ACCEPTED_TYPES.indexOf(files[key].types) == -1){
+                if(this.elements.rules.FILE_ACCEPTED_TYPES.indexOf(files[key].type) != -1){
                     if(files[key].size){
                         this.elements.totalSize = this.elements.totalSize + files[key].size;
                         if(this.elements.totalSize < this.elements.rules.MAX_FILE_SIZE){
@@ -95,14 +95,14 @@ let DrawDropUpload = React.createClass({
                                 ++this.elements.maxInputFiles;
                                 validFiles.push(files[key]);
                             }else{
-                                errorMsg = 'Max number files, '+ files[key].name + ' no accept';
+                                errorMsg = translate('DRAG_DROP_ERROR_MAX_FILE', '', {fileName: files[key].name});
                             }
                         }else{
-                            errorMsg = 'Max size files, '+ files[key].name + ' no accept';
+                            errorMsg = translate('DRAG_DROP_ERROR_MAX_SIZE', '', {fileName: files[key].name});
                         }
                     }
                 }else{
-                    errorMsg = 'Type file for '+ files[key].name + ' no accept';
+                    errorMsg = translate('DRAG_DROP_ERROR_FILE_TYPE', '', {fileName: files[key].name});
                 }   
             }
         }

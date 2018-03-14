@@ -39,15 +39,36 @@ let DocsFileGenerateInputsType = React.createClass({
     },
 
     /**
+     * Edit input set value
+     * 
+     * @param e
+     */
+    editValue(e){
+        let id = e.target.id;
+        let value = e.target.value;
+        let actualState = this.state;
+
+        let current = {
+            input: id,
+            value: value
+        };
+
+        actualState.editMode = true;
+        actualState.editObj.push(current);
+        this.props.updateState(actualState)
+    },
+
+    /**
      * Selected option from verify ID type
      *
      * @param e
      */
     optionAction(e){
+        let docs = UIService.getDocsFile();
         let actualState = this.props.state();
-        let option = e.target.getAttribute('id');
-        actualState.checkOption = true;
-        actualState.idOptSelect = option;
+
+        docs.checkOption = true;
+        actualState.idOptSelect = e.target.getAttribute('id');
         this.props.updateState(actualState);
     },
 
@@ -73,16 +94,69 @@ let DocsFileGenerateInputsType = React.createClass({
     },
 
     /**
+     * Get current value for input id
+     *
+     * @param values
+     * @param inputId
+     * @returns {*}
+     */
+    getInputValue(values, inputId){
+        for(let input in values){
+            if(values.hasOwnProperty(input)){
+                if(values[input].caDocumentFormInput_Id == inputId){
+                    return values[input].FormValue
+                }
+            }
+        }
+
+        return null
+    },
+
+    /**
      * Generate current inputs form
      * 
      * @param element
      * @returns {XML}
      */
     generateInputs(element){
+        let input;
+        let state = this.props.state();
+        let docs = UIService.getDocsFile();
         let req = (element.Required == '1') ? 'required' : '';
+
+        let value = null;
+        let values = null;
+        if(state.customerFormId){
+            if(state.editMode){
+                values = state.editObj;
+            }else{
+                for(let currentValues in docs.customerForms[docs.currentOptionSelected]){
+                    if(docs.customerForms[docs.currentOptionSelected].hasOwnProperty(currentValues)){
+                        let current = docs.customerForms[docs.currentOptionSelected][currentValues];
+                        if(current.caDocumentFormCustomer_Id == state.customerFormId){
+                            values = docs.customerForms[docs.currentOptionSelected][currentValues].values;
+                            break
+                        }
+                    }
+                }
+            }
+
+            value = this.getInputValue(values, element.caDocumentFormInput_Id);
+        }
+
+        if(!docs.checkOption){
+            docs.checkOption = true;
+        }
+
         switch(element.caDocumentFormInputType_Id){
             case this.inputsType.file:
-                return(
+                let actualState = this.props.state();
+                if(actualState.inputIdSelected != element.caDocumentFormInput_Id){
+                    actualState.inputIdSelected = element.caDocumentFormInput_Id;
+                    this.props.updateState(actualState);
+                }
+
+                input =(
                     <div id="DrawDropUploadElement">
                         <DrawDropUpload
                             required={req}
@@ -95,20 +169,32 @@ let DocsFileGenerateInputsType = React.createClass({
             break;
 
             case this.inputsType.text:
-                return (
+                input = (
                     <div className="docsFileInputText">
-                        <input id={element.caDocumentFormInput_Id} type="text" placeholder={translate(element.label)} required={req}/>
+                        <input
+                            type="text"
+                            value={value}
+                            required={req}
+                            onInput={this.editValue}
+                            id={element.caDocumentFormInput_Id}
+                            placeholder={translate(element.label)}
+                        />
                     </div>
                 );
             break;
 
             case this.inputsType.selected:
-                return (
+                input = (
                     <div className="docsFileInputSelected">
                         <span>{translate(element.label)}</span>
                         <select id={element.caDocumentFormInput_Id} required={req}>
-                            {element.options.map(function (val) {
-                                return <option id={val.caDocumentFormInputOption_Id} value={val.caDocumentFormInputOption_Id}>{translate(val.OptionValueCode)}</option>
+                            {element.options.map(function (val){
+                                let selected = (val.caDocumentFormInputOption_Id == value) ? 'selected' : false;
+                                return(
+                                    <option id={val.caDocumentFormInputOption_Id} value={val.caDocumentFormInputOption_Id} selected={selected}>
+                                        {translate(val.OptionValueCode)}
+                                    </option>
+                                )
                             })}
                         </select>
                     </div>
@@ -117,12 +203,16 @@ let DocsFileGenerateInputsType = React.createClass({
 
             case this.inputsType.ccList:
                 if(element.hasOwnProperty('cc')){
-                    return (
+                    input = (
                         <div className="docsFileInputSelected">
                             <span>{translate(element.label)}</span>
                             <select id={element.caDocumentFormInput_Id} required={req}>
                                 {element.cc.map(function (val) {
-                                    return <option id={val.caPayAccount_Id} value={val.caPayAccount_Id}>{val.CardholderName + '(' + val.Account + ')'}</option>
+                                    return(
+                                        <option id={val.caPayAccount_Id} value={val.CardholderName + '(' + val.Account + ')'}>
+                                            {val.CardholderName + '(' + val.Account + ')'}
+                                        </option>
+                                    )
                                 })}
                             </select>
                         </div>
@@ -130,16 +220,10 @@ let DocsFileGenerateInputsType = React.createClass({
                 }
             break;
 
-            case this.inputsType.eWalletList:
-                return (
-                    <select id={element.caDocumentFormInput_Id}>
-                        {element.options.map(function (val) {
-                            return <option id={val.caDocumentFormInputOption_Id} value={val.caDocumentFormInputOption_Id}>{translate(val.OptionValueCode)}</option>
-                        })}
-                    </select>
-                );
-            break
+            default: input = (null)
         }
+
+        return input
     },
 
     /**
@@ -149,13 +233,12 @@ let DocsFileGenerateInputsType = React.createClass({
      * @returns {XML}
      */
     printInputs(element){
-        let state = this.props.state();
         let docs = UIService.getDocsFile();
-        let className = (state.checkOption) ? 'docsFilesInputContent' : 'docsFilesOptionsContent';
+        let id = (docs.checkOption) ? 'docsFilesInputContent' : 'docsFilesOptionsContent';
 
         if(this.props.optionInfo.hasOwnProperty('files')){
             if(this.props.optionInfo.files.length){
-                if(!state.checkOption){
+                if(!docs.checkOption){
                     if(element.step == docs.currentStep){
                         if(element.files.length == 1){
                             if(element.files.hasOwnProperty(0)){
@@ -166,23 +249,19 @@ let DocsFileGenerateInputsType = React.createClass({
                             }
                         }
 
-                        state.checkOption = false;
-
                         return(
-                            <div className={className}>
+                            <div id={id}>
                                 {element.files.map(this.generateOptions)}
                             </div>
                         )
                     }
                 }
-            }else{
-                state.checkOption = true;
             }
         }
 
         if(element.step == docs.currentStep){
             return(
-                <div className={className}>
+                <div id={id}>
                     {this.generateInputs(element)}
                 </div>
             )
@@ -198,26 +277,27 @@ let DocsFileGenerateInputsType = React.createClass({
     /**
      * Execute actions when this component did mount
      */
-    componentDidMount(){
+    componentDidUpdate(){
+        let docs = UIService.getDocsFile();
         let state = this.props.state();
         if(state.customerFormId){
             let customerForm = UIService.docsFileGetCustomerDocumentForm(state.customerFormId, state.option);
 
-            if(this.props.optionsSwitch.hasOwnProperty(customerForm.caDocumentForm_Id)){
+            if(this.props.optionsSwitch.hasOwnProperty(customerForm.caDocumentForm_Id) && this.props.optionsSwitch.reset){
                 let checked = this.props.optionsSwitch[customerForm.caDocumentForm_Id];
                 this.props.switchAction(null, checked);
+
+                this.props.optionsSwitch.reset = false;
             }
         }
 
-        this.props.updateState(state)
-    },
-
-    /**
-     * Force update when this component not did mount
-     */
-    componentDidUpdate(){
-        let state = this.props.state();
-        this.props.updateState(state);
+        let twoOptions = (_.size(docs.forms[state.option]) == 2);
+        if(twoOptions && !this.state.idOptSelect){
+            let docsTxtElement = document.getElementById('docsFileTXT');
+            if(docsTxtElement){
+                docsTxtElement.style.marginTop = '60px';
+            }
+        }
     }
 });
 
