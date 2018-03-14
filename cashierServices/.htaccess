@@ -1,5 +1,0 @@
-php_value include_path ".;E:\desarrollo\source\cashier"
-
-php_flag short_open_tag on
-php_flag display_errors on
-php_value error_reporting 6135
