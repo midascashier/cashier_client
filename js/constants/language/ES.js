@@ -307,7 +307,10 @@ let _langTags = {
 	CC_LIMIT_ABOVE_MAX: '<div class="alert alert-danger" role="alert"><i class="fa fa-ban"></i><span>Our maximum deposit amount is {maxAmount} {currencyCode}</span></div>',
 	CC_LIMIT_ABOVE_AVAILABLE: '<div class="alert alert-info" role="alert"><i class="fa fa-ban"></i><strong>{displayName}</strong> - <span>The maximum amount available for this card is {available} {currencyCode}</span></div>',
 
-	ASTROPAY_SUCCESS_DEPOSIT_BALANCE: "<div class='title'>Tu depósito de{currencyAmount + ' ' + currency} fue exitoso.</div><p>Su saldo ahora es {balance + ' ' + currency}</p><p> Se ha enviado un correo electrónico a {email} con los detalles de la transacción.</p>",
+	ASTROPAY_SUCCESS_DEPOSIT_BALANCE: "<div class='title'>Tu depósito de {currencyAmount} {currency} fue exitoso.</div><p>Su saldo ahora es {balance} {currency}</p><p> Se ha enviado un correo electrónico a {email} con los detalles de la transacción.</p>",
+
+	TICKET_SUCCESS_DEPOSIT: "<div class='title'>Tu depósito de {currencyAmount} {currency} fue exitoso.</div><p>Su saldo ahora es {balance} {currency}</p><p> Se ha enviado un correo electrónico a {email} con los detalles de la transacción.</p>",
+	TICKET_SUCCESS_WITHDRAW: "<div class='title'>Tu retiro de {currencyAmount} {currency} fue exitoso.</div><p>Su saldo ahora es {balance} {currency}</p><p> Se ha enviado un correo electrónico a {email} con los detalles de la transacción.</p>",
 
 	MY_REQUEST_TITLE: "Mis Solicitudes",
 	DOCS_FILE_TAB_KYC: "Verificar mi identidad",
@@ -321,12 +324,14 @@ let _langTags = {
 	MY_REQUEST_VERIFY_TITLE: "Tipo de verificación",
 	MY_REQUEST_DOCS_OPTION_ID_TXT: "ID",
 	MY_REQUEST_DOCS_OPTION_VE_EW_TXT: "BILLETERA ELECTRÓNICA",
-	DRAG_DROP_FILES_TXT: "Arrastra y suelta o haz clic aquí.",
-	DRAG_DROP_UPLOAD_TXT: "Subir",
+
 	DRAG_DROP_ERROR_MAX_FILE: "Máximo 5 archivos, {fileName} no aceptado.",
 	DRAG_DROP_ERROR_MAX_SIZE: "Maximum size 5 mb, {fileName} not accepted",
 	DRAG_DROP_ERROR_FILE_TYPE: "Tipo de archivo, {fileName} no aceptado",
 
+
+	DRAG_DROP_FILES_TXT: "Arrastra tus archivos aquí o haz clic en esta área.",
+	DRAG_DROP_UPLOAD_TXT: "Subir",
 	DOCFILE_FORM_LABEL_ISSUE_REASON: 'Razón de rechazo',
 	DOCFILE_FORM_LABEL_FILE_ID_SELFIE: 'Selfi',
 	DOCFILE_FORM_LABEL_FILE_CARD_FRONT: 'Lado frontal',
@@ -402,9 +407,19 @@ let _langTags = {
 	DOCFILE_FORM_LABEL_FILE_EWALLET : 'Foto de su billetera electrónica',
 	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Recibo de servicio público',
 
-	DOCS_FILE_TAB_VERIFICATIONREQUIRED : "Información Adicional"
+	DOCS_FILE_TAB_VERIFICATIONREQUIRED : "Información Adicional",
+
+	AGENT_TRANSFER_USER_ACCOUNT: "Cuenta de usuario",
+	AGENT_TRANSFER_FEE_PAYMENT: "Pague le costo de envío con",
+	AGENT_TRANSFER_FEE_PAYMENT_CASH: "Efectivo",
+	AGENT_TRANSFER_FEE_PAYMENT_BETPOINTS: "BetPoints",
+	AGENT_TRANSFER_INVALID_USER_ACCOUNT: "Verifique que la cuenta exista",
+	AGENT_TRANSFER_ACCOUNT_FROM: "Transferir desde",
+	AGENT_TRANSFER_ACCOUNT_TO_USERNAME: "Cuenta destino",
+	AGENT_TRANSFER_ACCOUNT_TO_FULLNAME: "Nombre"
+
 };
 
 export function ES(){
 	return _langTags;
-};
+}

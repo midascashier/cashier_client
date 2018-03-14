@@ -124,6 +124,12 @@ settings[Cashier.PROCESSOR_ID_CRYPTOScreen][WITHDRAW_STEPS] = ["selectMethod", "
 settings[Cashier.PROCESSOR_ID_CRYPTOScreen][SETTING_ROUTE] = 'cryptoscreen/';
 settings[Cashier.PROCESSOR_ID_CRYPTOScreen][REGISTER_ACCOUNTS_ALLOW] = 0;
 
+settings[Cashier.PROCESSOR_ID_AGENT_TRANSFER] = [];
+settings[Cashier.PROCESSOR_ID_AGENT_TRANSFER][LIMITS_VALIDATION_VERSION] = "lite";
+settings[Cashier.PROCESSOR_ID_AGENT_TRANSFER][WITHDRAW_STEPS] = ["selectMethod", "askInfo", "confirm"];
+settings[Cashier.PROCESSOR_ID_AGENT_TRANSFER][SETTING_ROUTE] = 'player2agent/';
+settings[Cashier.PROCESSOR_ID_AGENT_TRANSFER][REGISTER_ACCOUNTS_ALLOW] = 0;
+
 export default {
 	settings: settings,
 	SETTING_ROUTE: SETTING_ROUTE,

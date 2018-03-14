@@ -63,6 +63,7 @@ select + select {margin-top:15px;}
 .form-group label + input[type*="number"] {/*width: 300px!important;*/ margin: 0 auto;}
 .form-group{ margin-bottom:10px;}
 .form-control { height:28px; padding:3px; font-size:13px;}
+.input-group .input-group-btn button, .input-group .input-group-addon {height: 28px; font-size: 12px;}
 label{ font-size:13px;}
 div>p{/* margin-top:5px;*/}
 /*2btns*/
@@ -209,6 +210,7 @@ div#header .alert {margin: 10px 10px 5px;}
 .modules .box .method .btcscreen{ background-image:url(../images/processors/814.png);}
 .modules .box .method .moneygram{ background-image:url(../images/processors/16.png);}
 .modules .box .method .westernunion{ background-image:url(../images/processors/6.png);}
+.modules .box .method .player2agent{ background-image:url(../images/processors/18.png);}
 .modules .box .method .ria{ background-image:url(../images/processors/26.png);}
 .modules .box .method .neteller_new{ background-image:url(../images/processors/333.png);}
 .modules .box .method .debitcards{ background-image:url(../images/processors/30200.png);}

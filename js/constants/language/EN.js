@@ -309,7 +309,10 @@ let _langTags = {
 	CC_LIMIT_ABOVE_MAX: '<div class="alert alert-danger" role="alert"><i class="fa fa-ban"></i><span>Our maximum deposit amount is {maxAmount} {currencyCode}</span></div>',
 	CC_LIMIT_ABOVE_AVAILABLE: '<div class="alert alert-info" role="alert"><i class="fa fa-ban"></i><strong>{displayName}</strong> - <span>The maximum amount available for this card is {available} {currencyCode}</span></div>',
 
-	ASTROPAY_SUCCESS_DEPOSIT_BALANCE: "<div class='title'>Your {currencyAmount + ' ' + currency} deposit was successful.</div><p>Your balance is now {balance + ' ' + currency}</p><p>An email has been sent to {email} with the transaction details.</p>",
+	ASTROPAY_SUCCESS_DEPOSIT_BALANCE: "<div class='title'>Your {currencyAmount} {currency} deposit was successful.</div><p>Your balance is now {balance} {currency}</p><p>An email has been sent to {email} with the transaction details.</p>",
+
+	TICKET_SUCCESS_DEPOSIT: "<div class='title'>Your {currencyAmount} {currency} deposit was successful.</div><p>Your balance is now {balance} {currency}</p><p>An email has been sent to {email} with the transaction details.</p>",
+	TICKET_SUCCESS_WITHDRAW: "<div class='title'>Your {currencyAmount} {currency} withdraw was successful.</div><p>Your balance is now {balance} {currency}</p><p>An email has been sent to {email} with the transaction details.</p>",
 
 	MY_REQUEST_TITLE: "My Requests",
 	DOCS_FILE_TAB_KYC: "Identity Verification",
@@ -337,12 +340,22 @@ let _langTags = {
 	DOCFILE_FORM_OPTION_DUPLICATE_CHARGE: 'Duplicate charge',
 	DOCFILE_FORM_OPTION_REJECTED_BANK: 'Payment rejected but processed by the bank',
 	DOCFILE_FORM_OPTION_OVERCHARGE: 'Surcharges in the operation',
-	
-	DRAG_DROP_FILES_TXT: "Drag and drop or click here.",
+
+
+	DRAG_DROP_FILES_TXT: "Drag your files here or click in this area.",
 	DRAG_DROP_UPLOAD_TXT: "Upload",
 	DRAG_DROP_ERROR_MAX_FILE: "Maximum 5 files, {fileName} not accepted.",
 	DRAG_DROP_ERROR_MAX_SIZE: "Maximum total file size, {fileName} not accepted",
 	DRAG_DROP_ERROR_FILE_TYPE: "File type, {fileName} not accepted.",
+
+	AGENT_TRANSFER_USER_ACCOUNT: "User account",
+	AGENT_TRANSFER_FEE_PAYMENT: "Pay the fees with",
+	AGENT_TRANSFER_FEE_PAYMENT_CASH: "Cash",
+	AGENT_TRANSFER_FEE_PAYMENT_BETPOINTS: "BetPoints",
+	AGENT_TRANSFER_INVALID_USER_ACCOUNT: "Please verify the user account exists",
+	AGENT_TRANSFER_ACCOUNT_FROM: "Sender",
+	AGENT_TRANSFER_ACCOUNT_TO_USERNAME: "Receiver username",
+	AGENT_TRANSFER_ACCOUNT_TO_FULLNAME: "Receiver name",
 
 	DOCS_FILE_VERIFY_IMPORTANT_TXT: 'Please upload pictures only, four edges of the ID or Passport have to be visible in the picture and the information must be clear so avoid using flash.',
 	DOCFILE_FORM_LABEL_FILE_ID: "Send the current file for the identification process.",
@@ -408,6 +421,7 @@ let _langTags = {
 	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Public service receipt',
 
 	DOCS_FILE_TAB_VERIFICATIONREQUIRED : "Additional Information"
+
 };
 
 export function EN(){

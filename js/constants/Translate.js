@@ -29,8 +29,8 @@ export function translate(key, defaultText = '', tags = {}){
 	content = (content) ? content : key;
 
 	//replace tags
-	Object.keys(tags).map(function(key){
-		content = content.replace('{' + key + '}', tags[key]);
+	Object.keys(tags).map((key) => {
+		content = content.replace(new RegExp(`\{${key}\}`, 'g'), tags[key]);
 	});
 
 	return content;

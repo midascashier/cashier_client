@@ -4,56 +4,48 @@ import {render} from 'react-dom'
 import {Client} from './components/Client'
 import {Welcome} from './components/Welcome'
 import {Content} from './components/Content'
-import {Router, Route, IndexRoute, browserHistory} from 'react-router'
+import {browserHistory, IndexRoute, Route, Router} from 'react-router'
 import {LoadingTicket} from './components/methodTickets/LoadingTicket'
 import {RejectedTicket} from './components/methodTickets/RejectedTicket'
 import {ApprovedTicket} from './components/methodTickets/ApprovedTicket'
 import {DeferredTicket} from './components/methodTickets/DeferredTicket'
-
 /**
  * Neteller set of components to create routes
  */
 import {Neteller} from './components/methods/neteller/Neteller'
 import {NetellerConfirmWithdraw} from './components/methods/neteller/ConfirmWithdraw'
-
 /**
  * Skrill set of components to create routes
  */
 import {Skrill} from './components/methods/skrill/Skrill'
 import {SkrillConfirmWithdraw} from './components/methods/skrill/ConfirmWithdraw'
 import {SkrillTicketPending} from './components/methods/skrill/tickets/PendingTicket'
-
 /**
  * DebitCards set of components to create routes
  */
 import {DebitCards} from './components/methods/debitcards/DebitCards'
 import {DebitCardConfirmWithdraw} from './components/methods/debitcards/ConfirmWithdraw'
-
 /**
  * EcoPayz set of components to create routes
  */
 import {Ecopayz} from './components/methods/ecopayz/Ecopayz'
 import {EcoConfirmWithdraw} from './components/methods/ecopayz/ConfirmWithdraw'
 import {EcopayzTicketPending} from './components/methods/ecopayz/tickets/PendingTicket'
-
 /**
  * skrill_1tap set of components to create routes
  */
 import {Skrill_1tap} from './components/methods/skrill_1tap/Skrill_1tap'
-
 /**
  * genck set of components to create routes
  */
 import {Genck} from './components/methods/genck/genck'
 import {CKConfirmWithdraw} from './components/methods/genck/ConfirmWithdraw'
-
 /**
  * Bitcoin set of components to create routes
  */
 import {BitCoin} from './components/methods/bitcoin/Bitcoin'
 import {BitCoinConfirmWithdraw} from './components/methods/bitcoin/ConfirmWithdraw'
 import {BitCoinTicketPending} from './components/methods/bitcoin/tickets/PendingTicket'
-
 /**
  * Visa set of components to create routes
  */
@@ -64,14 +56,12 @@ import {VisaRejectedTicket} from './components/methods/visa/tickets/RejectedTick
 import {VisaRejectBankTicket} from './components/methods/visa/tickets/RejectBankTicket'
 import {VisaRejectAmountTicket} from './components/methods/visa/tickets/RejectAmountTicket'
 import {VisaRejectCardTicket} from './components/methods/visa/tickets/RejectCardTicket'
-
 /**
  * Astropay set of components to create routes
  */
 import {Astropay} from './components/methods/astropay/Astropay'
 import {AstroPayRejectedTicket} from './components/methods/astropay/tickets/RejectedTicket'
 import {AstroPayApprovedTicket} from './components/methods/astropay/tickets/ApprovedTicket'
-
 /**
  * Person2Person set of components to create routes
  */
@@ -79,21 +69,24 @@ import {Person2Person} from './components/methods/person2person/Person2Person'
 import {P2PConfirmWithdraw} from './components/methods/person2person/ConfirmWithdraw'
 import {P2PTicketPending} from './components/methods/person2person/tickets/InstructionsTicket'
 import {P2PTicketProcessing} from './components/methods/person2person/tickets/ProcessingTicket'
-
 /**
  * Crypto Transfer
  */
 import {CryptoTransfer} from './components/methods/cryptotransfer/CryptoTransfer'
 import {CryptoTransferConfirmWithdraw} from './components/methods/cryptotransfer/ConfirmWithdraw'
 import {CryptoTransferTicketPending} from './components/methods/cryptotransfer/tickets/PendingTicket'
-
 /**
  * Crypto Screen
  */
 import {CryptoScreen} from './components/methods/cryptoscreen/CryptoScreen'
 import {CryptoScreenConfirmWithdraw} from './components/methods/cryptoscreen/ConfirmWithdraw'
 import {CryptoScreenTicketPending} from './components/methods/cryptoscreen/tickets/PendingTicket'
-
+/**
+ * Agent Transfer
+ */
+import {Player2Agent} from './components/methods/player2agent/Player2Agent'
+import {Player2AgentConfirmWithdraw} from './components/methods/player2agent/ConfirmWithdraw'
+import {Player2AgentApprovedTicket} from './components/methods/player2agent/tickets/ApprovedTicket'
 /**
  * Common components
  */
@@ -102,6 +95,8 @@ import {TransactionHistoryContent} from './components/TransactionHistoryContent'
 import {RequestsContent} from './components/RequestContent'
 import {PendingControlNumber} from './components/PendingMTCNContent'
 import RouterContainer from './services/RouterContainer'
+
+//method
 
 /**
  * initialize GA account and basic page view
@@ -329,6 +324,14 @@ let routes = (
 				<Route path="cryptoscreen/confirm/" component={CryptoScreenConfirmWithdraw}/>
 				<Route path="cryptoscreen/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
+					<Route path="rejected/" component={RejectedTicket}/>
+					<Route path="deferred/" component={DeferredTicket}/>
+				</Route>
+
+				<Route path="player2agent/" component={Player2Agent}/>
+				<Route path="player2agent/confirm/" component={Player2AgentConfirmWithdraw}/>
+				<Route path="player2agent/ticket/" component={LoadingTicket}>
+					<Route path="approved/" component={Player2AgentApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 					<Route path="deferred/" component={DeferredTicket}/>
 				</Route>

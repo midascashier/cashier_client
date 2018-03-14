@@ -293,7 +293,7 @@ let _payAccounts = [];
 /**
  * Stores information of the transaction
  *
- * @type {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cryptoAddress: string, currencyName: string, currencySymbol: string, BTCConversionAmount: string, cleanTransaction: (())}}
+ * @type {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cryptoAddress: string, currencyName: string, currencySymbol: string, BTCConversionAmount: string, cleanTransaction: Function}}
  * @private
  */
 let _transaction = {
@@ -350,7 +350,7 @@ let _transaction = {
 /**
  * Stores transaction result
  *
- * @type {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, status: string, details: Array, data: null, cleanTransaction(): void}}
+ * @type {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, status: string, details: Array, data: null, cleanTransaction: Function}}
  * @private
  */
 let _transactionResponse = {
@@ -393,6 +393,26 @@ let _CryptoTransfer = {
 	cryptoCurrencyName: '',
 	validCurrentAddress: true
 };
+
+/**
+ * Contains information related with the user who is going to be accredited by agent
+ *
+ * @type {{account: string, name: string, feePaymentMethod: string, waitForValidation: boolean, consulted: boolean, transfer: {usernameFrom: string, usernameTo: string, fullnameTo: string, link: string}}}
+ * @private
+ */
+let _Player2Agent = {
+	account: '',
+	name: '',
+	feePaymentMethod : '',
+	waitForValidation: false,
+	consulted: false,
+	transfer: {
+		usernameFrom: "",
+		usernameTo: "",
+		fullnameTo: "",
+		link: ""
+	}
+}
 
 let _DocsFile = {
 	step : 0,
@@ -454,6 +474,31 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
+	 * returns the information of the account to be accredited
+	 *
+	 * @return {{account: string, name: string, feePaymentMethod: string}}
+	 */
+	getPlayerAccount: () => {
+		return _Player2Agent.transfer.fullnameTo && _Player2Agent.transfer.fullnameTo.length > 0 ? _Player2Agent : null;
+	},
+
+	/**
+	 * Sets the player2agent information
+	 * @param account: _Player2Agent
+	 */
+	setPlayerAccount: (account) => {
+		_Player2Agent = account;
+	},
+
+	cleanPlayerAccount: () => {
+		Object.assign(_Player2Agent.transfer, {
+			fullnameTo: '',
+			usernameFrom: '',
+			usernameTo: ''
+		});
+	},
+
+	/**
 	 * return current PayAccount limit data
 	 *
 	 * @returns {{available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}|_payAccount.limitsData|{available, type, remaining, enabled, enabledOn, minAmount, maxAmount, availableWithdraw, remainingWithdraw, enabledWithdraw, enabledOnWithdraw, minAmountWithdraw, maxAmountWithdraw, depositLimits, withdrawLimits, limitsPassed}|{}|*}
@@ -502,6 +547,9 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return (_payAccounts[_processor['processorId']]);
 	},
 
+	getProcessorId: () => {
+		return _processor['processorId'];
+	},
 	/**
 	 * get current language
 	 *
@@ -678,6 +726,14 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		_processor.waitLimits = true;
 	},
 
+	getWaitForValidation() {
+		return _Player2Agent.waitForValidation;
+	},
+
+	waitForValidation() {
+		_Player2Agent.waitForValidation = true;
+	},
+
 	/**
 	 * Set current country selected in any input in user interface
 	 *
@@ -851,16 +907,16 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * New option selected
 	 *
 	 * @param option
-     */
+	 */
 	setDocsCurrentOption(option){
 		_DocsFile.currentOptionSelected = option
 	},
 
 	/**
-	 * Get response to upload file 
-	 * 
+	 * Get response to upload file
+	 *
 	 * @returns {boolean}
-     */
+	 */
 	getDocsUploadResponse(){
 		return _DocsFile.responseUpload
 	},
@@ -908,7 +964,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Check if customer info be pending
 	 *
 	 * @returns {boolean}
-     */
+	 */
 	docsFilePendingCustomerFormInfo(){
 		return _DocsFile.pendingCustomerFormInfo
 	},
@@ -924,7 +980,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Get formSelectedId
 	 *
 	 * @returns {boolean}
-     */
+	 */
 	docFilesGetFormSelectedId(){
 		return _DocsFile.formSelectedId
 	},
@@ -1431,6 +1487,32 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					CashierStore.emitChange();
 					break;
 
+
+				case actions.SET_PLAYER_ACCOUNT:
+					Object.assign(_Player2Agent, data);
+					CashierStore.emitChange();
+					break;
+
+				case actions.VALIDATE_ACCOUNT:
+					if(!Array.isArray(data) && data.hasOwnProperty('response') && data.response.hasOwnProperty('transfer')) {
+						Object.assign(_Player2Agent.transfer, data.response.transfer);
+					} else {
+						Object.assign(_Player2Agent.transfer, {
+							fullnameTo: '',
+							usernameFrom: '',
+							usernameTo: ''
+						});
+					}
+					_processor.waitLimits = false;
+					CashierStore.emitChange();
+					break;
+
+				case actions.GET_TRANSFER_LINK:
+					if(data && data.hasOwnProperty('response') && data.response.hasOwnProperty('transferLinkId'))
+						_Player2Agent.transfer.link = data.response.transferLinkId
+					CashierStore.emitChange();
+					break;
+
 				case actions.DOCS_FILES_GET_FORMS_CATEGORIES_RESPONSE:
 					if(data.response.result){
 						_DocsFile.categoriesList = data.response.result;
@@ -1438,7 +1520,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 					_DocsFile.readyCategories = true;
 					CashierStore.emitChange();
-				break;
+					break;
 
 				case actions.DOCS_FILES_GET_CUSTOMER_KYC_IS_APPROVE:
 					if(data.response.result){
@@ -1463,7 +1545,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					}
 
 					_DocsFile.customerPendingForms = true;
-				break;
+					break;
 
 				case actions.DOCS_FILES_GET_CUSTOMER_FORMS_INFORMATION_RESPONSE:
 					if(data.state == 'ok'){
@@ -1485,7 +1567,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 						_DocsFile.pendingCustomerFormInfo = false;
 						CashierStore.emitChange();
 					}
-				break;
+					break;
 
 				case actions.DOCS_FILES_GET_FORMS_INPUTS_CATEGORIES_RESPONSE:
 					if(data.response.result){
@@ -1503,7 +1585,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 					_DocsFile.pendingInputsCategory = false;
 					CashierStore.emitChange();
-				break;
+					break;
 
 				case actions.DOCS_FILE_SAVE_RESPONSE:
 					if(data.result){
@@ -1513,8 +1595,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					}
 
 					CashierStore.emitChange();
-				break;
-
+					break;
 				default:
 					console.log("Store No Action: " + action);
 					break;

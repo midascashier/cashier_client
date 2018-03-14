@@ -907,10 +907,92 @@ class UiService {
 	}
 
 	/**
+	 * Retrieve from the storage the account to be accredited
+	 * @return {*}
+	 */
+	getPlayerAccount() {
+		return CashierStore.getPlayerAccount();
+	}
+
+	/**
+	 * Perform a http request to determine if written account is an existing one
+	 *
+	 * @param {string} account
+	 * @returns Promise<any>
+	 */
+	accountExists(account) {
+		return new Promise(((resolve, reject) => {
+			if(!account)
+				return reject(new Error('account is empty'));
+
+			let params = {
+				accountTo: account,
+				processorId: CashierStore.getProcessorId(),
+				f: 'validateTransferAccount'
+			};
+
+			ConnectorServices.makeCashierRequestAsync(params)
+				.then(data => {
+					if (data && data.hasOwnProperty('response')) {
+						if(data.response.hasOwnProperty('transfer')) {
+							CashierStore.setPlayerAccount(data.response);
+							resolve(true);
+						} else if (data.response.hasOwnProperty('success')) {
+							resolve(data.response.success);
+						} else {
+							throw new Error('unable to process your request');
+						}
+					} else {
+						throw new Error('unable to process your request');
+					}
+				});
+		}));
+	}
+
+	/**
+	 * Get the transferLinkId associated to the agent 2 player transaction
+	 *
+	 * @returns {Promise<any>}
+	 */
+	getTransferLink() {
+		const processor = CashierStore.getProcessorId();
+
+		const request = {
+			f: 'checkTransferLink',
+			processorId: processor
+		};
+
+		let playerAccount = CashierStore.getPlayerAccount();
+		return ConnectorServices.makeCashierRequestAsync(request)
+			.then(data => {
+				if(data && data.hasOwnProperty('response') && data.response.hasOwnProperty('transferLinkId')){
+					playerAccount.transfer.link = data.response.transferLinkId;
+					CashierStore.setPlayerAccount(playerAccount);
+				} else{
+					throw new Error('unable to process your request');
+				}
+			});
+	};
+
+	/**
+	 * returns the actual information of a agent transfer transaction
+	 * @returns {*|{account: string, name: string, feePaymentMethod: string}}
+	 */
+	getPlayerAccount() {
+		return CashierStore.getPlayerAccount();
+	}
+
+	/**
+	 * cleans the information associated with the current agent transfer transaction
+	 */
+	cleanPlayerAccount(){
+		CashierStore.cleanPlayerAccount();
+	}
+	/**
 	 * Set current option selected in docs files
-	 * 
+	 *
 	 * @param options
-     */
+	 */
 	setDocsCurrentOption(options){
 		CashierStore.setDocsCurrentOption(options)
 	}
@@ -940,16 +1022,16 @@ class UiService {
 	 * Get form selected id
 	 *
 	 * @returns {*|boolean}
-     */
+	 */
 	docFilesGetFormSelectedId(){
-		return CashierStore.docFilesGetFormSelectedId()			
+		return CashierStore.docFilesGetFormSelectedId()
 	}
 
 	/**
 	 * Set form selected id
 	 *
 	 * @param id
-     */
+	 */
 	docFilesSetFormSelectedId(id){
 		CashierStore.docFilesSetFormSelectedId(id)
 	}
@@ -1006,11 +1088,11 @@ class UiService {
 	}
 
 	/**
-	 * Get id category 
-	 * 
+	 * Get id category
+	 *
 	 * @param categoryName
 	 * @returns {*}
-     */
+	 */
 	getDocsFileCategoryId(categoryName){
 		let docs = UIService.getDocsFile();
 		let categories = docs.categoriesList;
@@ -1025,12 +1107,12 @@ class UiService {
 
 		return false
 	}
-	
+
 	/**
 	 * Get Docs on Files object
-	 * 
+	 *
 	 * @returns {*}
-     */
+	 */
 	getDocsFile(){
 		return CashierStore.getDocsFile();
 	}
@@ -1055,8 +1137,8 @@ class UiService {
 	 * Get current form to option selected
 	 *
 	 * @returns {*}
-     */
-	docsFileGetCurrentForm(customerFormId, option){
+	 */
+	docsFileGetCurrentForm(customerFormId, option) {
 		let docs = UIService.getDocsFile();
 
 		if(customerFormId){
@@ -1085,7 +1167,7 @@ class UiService {
 	 *
 	 * @param customerFormId
 	 * @returns {*}
-     */
+	 */
 	docsFileGetCustomerDocumentForm(customerFormId){
 		let docs = UIService.getDocsFile();
 		if(docs.customerForms.hasOwnProperty(docs.currentOptionSelected)){
@@ -1104,10 +1186,10 @@ class UiService {
 
 	/**
 	 * Get current file option element selected
-	 * 
+	 *
 	 * @param optionId
 	 * @returns {*}
-     */
+	 */
 	docsFileGetCurrentFormElement(optionId){
 		let form = UIService.docsFileGetCurrentForm();
 		if(form.hasOwnProperty('fields')){
@@ -1136,7 +1218,7 @@ class UiService {
 	 *
 	 * @param element
 	 * @returns {*}
-     */
+	 */
 	docsFileGetSrcImg(element){
 		let prefixAdd = 'docsFileOption';
 

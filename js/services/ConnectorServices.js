@@ -23,6 +23,16 @@ class connectorServices {
 	};
 
 	/**
+	 * send message to the backend
+	 *
+	 * @param request
+	 * @returns {Promise.<any>}
+	 */
+	makeBackendRequestAsync(request){
+		return this.httpServiceAsync(cashier.BACKEND_WS, request)
+	};
+
+	/**
 	 * send message to the cashier
 	 *
 	 * @param action
@@ -31,6 +41,16 @@ class connectorServices {
 	makeCashierRequest(action, request){
 		this.httpService(cashier.CASHIER_WS, action, request)
 	};
+
+	/**
+	 * Execute a request to cashier
+	 *
+	 * @param request: any
+	 * @returns {Promise<any>}
+	 */
+	makeCashierRequestAsync(request) {
+		return this.httpServiceAsync(cashier.CASHIER_WS, request);
+	}
 
 	/**
 	 * send message to the customer
@@ -93,19 +113,19 @@ class connectorServices {
 	httpService(module, action, request){
 
 		let application = CashierStore.getApplication();
-		request = Object.assign('', application, request);
+		Object.assign(request, application);
 
-		let httpRequest = Object.assign(request, {ws: module});
+		let httpRequest = Object.assign({}, request, {ws: module});
 		let url = cashier.REQUEST_PROXY;
 
 		$.post(url, httpRequest).done(function(response){
 			if(response){
 				try{
 					let dataResponse = JSON.parse(response);
-					if(dataResponse && dataResponse.state == 'expired'){
+					if(dataResponse && dataResponse.state === 'expired'){
 						onResponseService.processResponse(actions.USER_MESSAGE, dataResponse);
 					}else{
-						if(dataResponse && dataResponse.state != 'ok'){
+						if(dataResponse && dataResponse.state !== 'ok'){
 							onResponseService.processResponse(action, dataResponse);
 						}else{
 							if(dataResponse && dataResponse.response){
@@ -128,12 +148,56 @@ class connectorServices {
 	};
 
 	/**
+	 * Http post service that returns a Promise instead of using flux
+	 *
+	 * @param module: string
+	 * @param request: any
+	 * @returns {Promise<any>}
+	 */
+	httpServiceAsync(module, request) {
+		let application = CashierStore.getApplication();
+		Object.assign(request, application);
+
+		let httpRequest = Object.assign({}, request, {ws: module});
+		let url = cashier.REQUEST_PROXY;
+		return new Promise(((resolve, reject) => {
+			$.post(url, httpRequest).done(function(response){
+				if(response){
+					try{
+						let dataResponse = JSON.parse(response);
+
+						if(dataResponse && dataResponse.state === 'expired') {
+							onResponseService.processResponse(actions.USER_MESSAGE, dataResponse);
+							reject(dataResponse);
+						} else if (dataResponse && dataResponse.state !== 'ok') {
+							resolve(dataResponse);
+						} else if (dataResponse && dataResponse.response) {
+							resolve(dataResponse);
+						} else {
+							resolve([]);
+						}
+					}catch(e){
+						console.log(e.message);
+						console.log(response);
+						reject(response);
+						onResponseService.processResponse(actions.USER_MESSAGE, {userMessage: 'Error processing your request'});
+					}
+
+				}else{
+					reject({ userMessage: 'Error processing your request' });
+					onResponseService.processResponse(actions.USER_MESSAGE, {userMessage: 'Error processing your request'});
+				}
+			});
+		}))
+	}
+
+	/**
 	 * Simple http service
 	 *
 	 * @param url
 	 * @param action
 	 * @param request
-     */
+   */
 	httpSimpleService(url, action, request){
 		$.ajax({
 			url: url,
