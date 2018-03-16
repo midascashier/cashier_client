@@ -300,7 +300,7 @@ let DocsFormRequestContent = React.createClass({
         let css;
         let docs = UIService.getDocsFile();
         let changeFormSelected = function(){};
-        if(docs.forms[this.props.option].length > 1){
+        if(docs.forms[this.props.option].length > 1 && !this.state.customerFormId){
             css = {cursor : 'pointer'};
             changeFormSelected = this.changeFormSelected;
         }
@@ -516,7 +516,17 @@ let DocsFormRequestContent = React.createClass({
 
                                 {(() =>{
                                     if(twoOptions && !this.state.idOptSelect){
-                                        let checked = this.state.switchForm;
+
+                                        let checked;
+                                        if(!this.state.customerFormId){
+                                            checked = this.state.switchForm;
+                                        }else{
+                                            let customerForm = UIService.docsFileGetCustomerDocumentForm(this.state.customerFormId, this.state.option);
+                                            if(this.optionsSwitch.hasOwnProperty(customerForm.caDocumentForm_Id) && this.optionsSwitch.reset){
+                                                checked = this.optionsSwitch[customerForm.caDocumentForm_Id];
+                                                this.optionsSwitch.reset = false;
+                                            }
+                                        }
 
                                         return(
                                             <div id="switchOpt">
