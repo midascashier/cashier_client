@@ -206,6 +206,10 @@ let DocsFormRequestContent = React.createClass({
         docs.checkOption = false;
         let state = this.getInitialState();
         state.switchForm = this.state.switchForm;
+
+        let key = Object.keys(docs.forms[this.props.option]);
+        UIService.docFilesSetFormSelectedId(docs.forms[this.props.option][key[0]].caDocumentForm_Id);
+
         this.setState(state);
     },
 
@@ -214,7 +218,7 @@ let DocsFormRequestContent = React.createClass({
      */
     addDocument(customerFormId){
         let actualState = this.state;
-        let docs =UIService.getDocsFile();
+        let docs = UIService.getDocsFile();
 
         docs.currentStep = 1;
         actualState.newDocument = true;
