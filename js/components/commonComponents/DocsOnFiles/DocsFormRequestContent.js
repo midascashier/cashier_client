@@ -440,9 +440,12 @@ let DocsFormRequestContent = React.createClass({
         if(docs.readyPending() && !this.state.sendingFile){
             if(this.state.option != this.props.option || this.props.resetOption){
                 let actualState = this.getInitialState();
-                actualState.customerFormId = this.state.customerFormId;
-                this.setState(actualState);
 
+                if(this.props.resetOption){
+                    actualState.customerFormId = this.state.customerFormId;
+                }
+
+                this.setState(actualState);
                 this.props.turnOffResetOption()
             }else{
                 docs.step = 0;
