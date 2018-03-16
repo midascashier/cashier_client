@@ -391,7 +391,7 @@ let DocsFormRequestContent = React.createClass({
      */
     reasonsFileRejected(reasons){
         return(
-            <p>{translate(reasons.TextTranslatiON)}</p>
+            <p>{translate(reasons.TextTranslation)}</p>
         )
     },
 
