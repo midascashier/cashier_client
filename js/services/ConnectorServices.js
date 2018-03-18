@@ -112,8 +112,10 @@ class connectorServices {
 	 */
 	httpService(module, action, request){
 
-		let application = CashierStore.getApplication();
-		Object.assign(request, application);
+		if(action != actions.CHANGE_STATUS_RESPONSE){
+			let application = CashierStore.getApplication();
+			Object.assign(request, application);
+		}
 
 		let httpRequest = Object.assign({}, request, {ws: module});
 		let url = cashier.REQUEST_PROXY;

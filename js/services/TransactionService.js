@@ -364,7 +364,7 @@ class transactionService{
 
 		let req = {
 			lang: application.lang,
-			createdBy: 10093, //TODO: temporary
+			createdBy: cashier.ONLINE_BE_USER_ID,
 			alsid: application.sid,
 			sid: application.sid,
 			tuid: application.tuid,

@@ -54,7 +54,10 @@ export default {
 	NO_RESPONSE: "No Response",
 	USA_COUNTRY_CODE: "US",
 	CAN_COUNTRY_CODE: "CA",
-	ONLINE_BE_USER_ID: 1,
+	/**
+	 * id for online user
+	 */
+	ONLINE_BE_USER_ID: 10093,
 
 	SECOND_FACTOR_MAX_ATTEMPTS_REACHED: "MAX_ATTEMPTS_REACHED",
 
