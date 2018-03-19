@@ -633,6 +633,7 @@ div[class*="col-"] > div[class*="col-"]:before {
 
 #requestsOptions{
     float: left;
+    min-height: 59px;
     width: inherit;
     font-size: 16pt;
     display: inline-block;
