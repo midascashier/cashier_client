@@ -3,7 +3,7 @@ import cashier from '../constants/Cashier'
 import {CashierStore} from '../stores/CashierStore'
 import {onResponseService} from './OnResponseService'
 
-class connectorServices {
+class connectorServices{
 
 	/**
 	 * ConnectorServices constructor
@@ -156,7 +156,7 @@ class connectorServices {
 	 * @param request: any
 	 * @returns {Promise<any>}
 	 */
-	httpServiceAsync(module, request) {
+	httpServiceAsync(module, request){
 		let application = CashierStore.getApplication();
 		Object.assign(request, application);
 
@@ -168,14 +168,14 @@ class connectorServices {
 					try{
 						let dataResponse = JSON.parse(response);
 
-						if(dataResponse && dataResponse.state === 'expired') {
+						if(dataResponse && dataResponse.state === 'expired'){
 							onResponseService.processResponse(actions.USER_MESSAGE, dataResponse);
 							reject(dataResponse);
-						} else if (dataResponse && dataResponse.state !== 'ok') {
+						}else if(dataResponse && dataResponse.state !== 'ok'){
 							resolve(dataResponse);
-						} else if (dataResponse && dataResponse.response) {
+						}else if(dataResponse && dataResponse.response){
 							resolve(dataResponse);
-						} else {
+						}else{
 							resolve([]);
 						}
 					}catch(e){
@@ -186,7 +186,7 @@ class connectorServices {
 					}
 
 				}else{
-					reject({ userMessage: 'Error processing your request' });
+					reject({userMessage: 'Error processing your request'});
 					onResponseService.processResponse(actions.USER_MESSAGE, {userMessage: 'Error processing your request'});
 				}
 			});
@@ -207,9 +207,6 @@ class connectorServices {
 			data: request,
 			processData: false,
 			contentType: false,
-			beforeSend: function(){
-
-			},
 			success: function(response){
 				let dataResponse = JSON.parse(response);
 				onResponseService.processResponse(action, dataResponse);

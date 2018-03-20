@@ -884,17 +884,21 @@ class UiService {
 	 * @param address
 	 */
 	validateCryptoAddress(currencyCode, address){
-		if(address){
-			let params = {
+		return new Promise(((response) => {
+			let request = {
 				address: address,
 				f: 'validateAddress',
 				currencyCode: currencyCode
 			};
 
-			ConnectorServices.makeCashierRequest(actions.VALIDATE_CRYPTO_ADDRESS, params);
-		}
-
-		this.setCryptoAddress(address);
+			ConnectorServices.makeCashierRequestAsync(request).then(data => {
+				if(data && data.hasOwnProperty('response') && data.response.hasOwnProperty('result')){
+					response(data.response.result);
+				}else{
+					throw new Error('unable to process your request');
+				}
+			});
+		}));
 	}
 
 	/**
@@ -922,8 +926,9 @@ class UiService {
 	 */
 	accountExists(account) {
 		return new Promise(((resolve, reject) => {
-			if(!account)
+			if(!account) {
 				return reject(new Error('account is empty'));
+			}
 
 			let params = {
 				accountTo: account,
@@ -931,21 +936,20 @@ class UiService {
 				f: 'validateTransferAccount'
 			};
 
-			ConnectorServices.makeCashierRequestAsync(params)
-				.then(data => {
-					if (data && data.hasOwnProperty('response')) {
-						if(data.response.hasOwnProperty('transfer')) {
-							CashierStore.setPlayerAccount(data.response);
-							resolve(true);
-						} else if (data.response.hasOwnProperty('success')) {
-							resolve(data.response.success);
-						} else {
-							throw new Error('unable to process your request');
-						}
-					} else {
+			ConnectorServices.makeCashierRequestAsync(params).then(data => {
+				if(data && data.hasOwnProperty('response')){
+					if(data.response.hasOwnProperty('transfer')){
+						CashierStore.setPlayerAccount(data.response);
+						resolve(true);
+					}else if(data.response.hasOwnProperty('success')){
+						resolve(data.response.success);
+					}else{
 						throw new Error('unable to process your request');
 					}
-				});
+				}else{
+					throw new Error('unable to process your request');
+				}
+			});
 		}));
 	}
 
@@ -963,22 +967,21 @@ class UiService {
 		};
 
 		let playerAccount = CashierStore.getPlayerAccount();
-		return ConnectorServices.makeCashierRequestAsync(request)
-			.then(data => {
-				if(data && data.hasOwnProperty('response') && data.response.hasOwnProperty('transferLinkId')){
-					playerAccount.transfer.link = data.response.transferLinkId;
-					CashierStore.setPlayerAccount(playerAccount);
-				} else{
-					throw new Error('unable to process your request');
-				}
-			});
+		return ConnectorServices.makeCashierRequestAsync(request).then(data => {
+			if(data && data.hasOwnProperty('response') && data.response.hasOwnProperty('transferLinkId')){
+				playerAccount.transfer.link = data.response.transferLinkId;
+				CashierStore.setPlayerAccount(playerAccount);
+			}else{
+				throw new Error('unable to process your request');
+			}
+		});
 	};
 
 	/**
 	 * returns the actual information of a agent transfer transaction
 	 * @returns {*|{account: string, name: string, feePaymentMethod: string}}
 	 */
-	getPlayerAccount() {
+	getPlayerAccount(){
 		return CashierStore.getPlayerAccount();
 	}
 
@@ -1138,7 +1141,7 @@ class UiService {
 	 *
 	 * @returns {*}
 	 */
-	docsFileGetCurrentForm(customerFormId, option) {
+	docsFileGetCurrentForm(customerFormId, option){
 		let docs = UIService.getDocsFile();
 
 		if(customerFormId){

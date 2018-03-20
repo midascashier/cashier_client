@@ -101,16 +101,13 @@ let CryptoScreen = React.createClass({
 	 * Check is crypto address is valid
 	 */
 	checkCryptoAddress(callback){
-		let symbol = document.getElementById('symbolValue');
 		let address = this.state.info.cryptoAddress;
+		let currencyCode = document.getElementById('symbolValue');
 
-		let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_VALIDATE_ADDRESS + address + '/' + symbol.innerHTML;
-		fetch(url, {method: 'GET'}).then((response) => {
-			return response.json();
-		}).then((isValid) => {
-			callback(isValid.isvalid);
-		}).catch((err) => {
-			console.error(err);
+		UIService.validateCryptoAddress(currencyCode.innerHTML, address).then(response => {
+			if(typeof response != 'undefined' && response != null){
+				callback(response);
+			}
 		});
 	},
 

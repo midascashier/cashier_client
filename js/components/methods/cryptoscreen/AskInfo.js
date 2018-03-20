@@ -1,7 +1,6 @@
 import React from 'react'
 import {FAQ} from './FAQ'
 import {Amount} from './Amount'
-import Cashier from '../../../constants/Cashier'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
