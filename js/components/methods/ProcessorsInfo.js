@@ -91,8 +91,22 @@ let ProcessorsInfo = React.createClass({
 					&nbsp;
 
 					{(() =>{
+						let accounts = [
+							'MidasTP',
+							'MarioMidas',
+							'MidasACR',
+							'jasonfxt',
+							'Miss Cantina',
+							'Kennycr',
+							'ACR Guayo08',
+							'ACR twofactoauth',
+							'ACR CamilleSurf',
+							'TP tptech18',
+							'ACR natilla.cr'
+						];
+
 						let account = UIService.getCustomerInformation();
-						if(account.username == 'MidasTP' || account.username == 'MarioMidas' || account.username == 'MidasACR'){
+						if(accounts.indexOf(account.username) != -1){
 							return(
 								<Link to={`/requests/`}>
 									<span>{translate('METHOD_REQUESTS')}</span>
