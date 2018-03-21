@@ -169,10 +169,11 @@ class connectorServices{
 						let dataResponse = JSON.parse(response);
 
 						if(dataResponse && dataResponse.state === 'expired'){
-							onResponseService.processResponse(actions.USER_MESSAGE, dataResponse);
+							onResponseService.processResponse(actions.USER_MESSAGE, dataResponse.userMessage);
 							reject(dataResponse);
 						}else if(dataResponse && dataResponse.state !== 'ok'){
-							resolve(dataResponse);
+							onResponseService.processResponse(actions.USER_MESSAGE, {userMessage: dataResponse.userMessage});
+							reject(dataResponse.userMessage);
 						}else if(dataResponse && dataResponse.response){
 							resolve(dataResponse);
 						}else{
