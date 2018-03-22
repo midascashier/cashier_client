@@ -95,7 +95,7 @@ let ProcessorsInfo = React.createClass({
 							'MidasTP',
 							'MarioMidas',
 							'MidasACR',
-							'Jasonfx',
+							'Jasonfxt',
 							'MissCantina',
 							'Kennycr',
 							'Guayo08',
