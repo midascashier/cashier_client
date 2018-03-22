@@ -205,14 +205,12 @@ let Register = React.createClass({
 
 		if(processor.processorId == cashier.PROCESSOR_ID_VISA){
 			ccValidation = "isVisa";
-		}else{
-			if(processor.processorId == cashier.PROCESSOR_ID_MC){
-				ccValidation = "isMC";
-			}else{
-				if (processor.processorId == cashier.PROCESSOR_ID_AMEX){
-					cvvValidation = "isCVV4";
-				}
-			}
+		}else if(processor.processorId == cashier.PROCESSOR_ID_MC){
+			ccValidation = "isMC";
+		}else if(processor.processorId == cashier.PROCESSOR_ID_AMEX){
+			cvvValidation = "isCVV4";
+		}else if(processor.processorId == cashier.PROCESSOR_ID_JCB){
+			cvvValidation = "isCVV";
 		}
 
 		let country = this.state.payAccount.country;
