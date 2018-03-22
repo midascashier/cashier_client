@@ -95,14 +95,16 @@ let ProcessorsInfo = React.createClass({
 							'MidasTP',
 							'MarioMidas',
 							'MidasACR',
-							'Jasonfxt',
-							'Miss Cantina',
+							'Jasonfx',
+							'MissCantina',
 							'Kennycr',
-							'ACR Guayo08',
-							'ACR twofactoauth',
-							'ACR CamilleSurf',
-							'TP tptech18',
-							'ACR natilla.cr'
+							'Guayo08',
+							'twofactoauth',
+							'CamilleSurf',
+							'tptech18',
+							'Natilla.Cr',
+							'bcp-mangos!!',
+							'acr2015'
 						];
 
 						let account = UIService.getCustomerInformation();
