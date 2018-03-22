@@ -68,6 +68,12 @@ settings[Cashier.PROCESSOR_ID_AMEX][DEPOSIT_STEPS] = ["selectMethod", "askInfo",
 settings[Cashier.PROCESSOR_ID_AMEX][SETTING_ROUTE] = 'amex/';
 settings[Cashier.PROCESSOR_ID_AMEX][REGISTER_ACCOUNTS_ALLOW] = 1;
 
+settings[Cashier.PROCESSOR_ID_JCB] = [];
+settings[Cashier.PROCESSOR_ID_JCB][LIMITS_VALIDATION_VERSION] = "full";
+settings[Cashier.PROCESSOR_ID_JCB][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "confirm"];
+settings[Cashier.PROCESSOR_ID_JCB][SETTING_ROUTE] = 'jcb/';
+settings[Cashier.PROCESSOR_ID_JCB][REGISTER_ACCOUNTS_ALLOW] = 1;
+
 settings[Cashier.PROCESSOR_ID_MONEYGRAM] = [];
 settings[Cashier.PROCESSOR_ID_MONEYGRAM][LIMITS_VALIDATION_VERSION] = "lite";
 settings[Cashier.PROCESSOR_ID_MONEYGRAM][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "instructions"];
