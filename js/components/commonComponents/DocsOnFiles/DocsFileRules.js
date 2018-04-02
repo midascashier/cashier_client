@@ -16,7 +16,7 @@ let DocsFileRules = {
 
     2 : {
         name : 'updateAccountInfo',
-        rules : true
+        rules : false
     },
 
     3 : {

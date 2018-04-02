@@ -117,7 +117,7 @@ let ProcessorsInfo = React.createClass({
 						if(accounts.indexOf(account.username) != -1){
 							return(
 								<Link to={`/requests/`}>
-									<span>{translate('METHOD_REQUESTS')}</span>
+									<span><b>{translate('METHOD_REQUESTS')}</b></span>
 								</Link>
 							)
 						}
