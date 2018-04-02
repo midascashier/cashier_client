@@ -67,7 +67,7 @@ let Player2AgentApprovedTicket = React.createClass({
 					<div className="col-sm-6">
 						<div className="box">
 							<a href="" target="_blank">
-								<img className="img-responsive banner" src={originPath + '/images/ad.jpg'} alt=""/>
+								<img className="img-responsive banner" src={originPath + '/images/promo.jpg'} alt=""/>
 							</a>
 						</div>
 					</div>

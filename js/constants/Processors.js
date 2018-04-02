@@ -56,7 +56,6 @@ settings[Cashier.PROCESSOR_ID_ASTROPAY][DEPOSIT_STEPS] = ["selectMethod", "askIn
 settings[Cashier.PROCESSOR_ID_ASTROPAY][SETTING_ROUTE] = 'pp_apcc/';
 settings[Cashier.PROCESSOR_ID_ASTROPAY][REGISTER_ACCOUNTS_ALLOW] = 1;
 
-
 settings[Cashier.PROCESSOR_ID_MC] = [];
 settings[Cashier.PROCESSOR_ID_MC][LIMITS_VALIDATION_VERSION] = "full";
 settings[Cashier.PROCESSOR_ID_MC][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "confirm"];
@@ -69,13 +68,18 @@ settings[Cashier.PROCESSOR_ID_AMEX][DEPOSIT_STEPS] = ["selectMethod", "askInfo",
 settings[Cashier.PROCESSOR_ID_AMEX][SETTING_ROUTE] = 'amex/';
 settings[Cashier.PROCESSOR_ID_AMEX][REGISTER_ACCOUNTS_ALLOW] = 1;
 
+settings[Cashier.PROCESSOR_ID_JCB] = [];
+settings[Cashier.PROCESSOR_ID_JCB][LIMITS_VALIDATION_VERSION] = "full";
+settings[Cashier.PROCESSOR_ID_JCB][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "confirm"];
+settings[Cashier.PROCESSOR_ID_JCB][SETTING_ROUTE] = 'jcb/';
+settings[Cashier.PROCESSOR_ID_JCB][REGISTER_ACCOUNTS_ALLOW] = 1;
+
 settings[Cashier.PROCESSOR_ID_MONEYGRAM] = [];
 settings[Cashier.PROCESSOR_ID_MONEYGRAM][LIMITS_VALIDATION_VERSION] = "lite";
 settings[Cashier.PROCESSOR_ID_MONEYGRAM][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "instructions"];
 settings[Cashier.PROCESSOR_ID_MONEYGRAM][WITHDRAW_STEPS] = ["selectMethod", "askInfo", "confirm"];
 settings[Cashier.PROCESSOR_ID_MONEYGRAM][SETTING_ROUTE] = 'moneygram/';
 settings[Cashier.PROCESSOR_ID_MONEYGRAM][REGISTER_ACCOUNTS_ALLOW] = 1;
-
 
 settings[Cashier.PROCESSOR_ID_WU] = [];
 settings[Cashier.PROCESSOR_ID_WU][LIMITS_VALIDATION_VERSION] = "lite";
@@ -123,13 +127,13 @@ settings[Cashier.PROCESSOR_ID_CRYPTOScreen][DEPOSIT_STEPS] = ["selectMethod", "a
 settings[Cashier.PROCESSOR_ID_CRYPTOScreen][WITHDRAW_STEPS] = ["selectMethod", "askInfo"];
 settings[Cashier.PROCESSOR_ID_CRYPTOScreen][SETTING_ROUTE] = 'cryptoscreen/';
 settings[Cashier.PROCESSOR_ID_CRYPTOScreen][REGISTER_ACCOUNTS_ALLOW] = 0;
-/* @todo temporally
+
 settings[Cashier.PROCESSOR_ID_AGENT_TRANSFER] = [];
 settings[Cashier.PROCESSOR_ID_AGENT_TRANSFER][LIMITS_VALIDATION_VERSION] = "lite";
 settings[Cashier.PROCESSOR_ID_AGENT_TRANSFER][WITHDRAW_STEPS] = ["selectMethod", "askInfo", "confirm"];
 settings[Cashier.PROCESSOR_ID_AGENT_TRANSFER][SETTING_ROUTE] = 'player2agent/';
 settings[Cashier.PROCESSOR_ID_AGENT_TRANSFER][REGISTER_ACCOUNTS_ALLOW] = 0;
-*/
+
 export default {
 	settings: settings,
 	SETTING_ROUTE: SETTING_ROUTE,

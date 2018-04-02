@@ -204,6 +204,16 @@ let routes = (
 					<Route path="rejected/invalidCard/" component={VisaRejectCardTicket}/>
 				</Route>
 
+				<Route path="jcb/" component={Visa}/>
+				<Route path="jcb/confirm/" component={VisaConfirm}/>
+				<Route path="jcb/ticket/" component={LoadingTicket}>
+					<Route path="approved/" component={VisaApprovedTicket}/>
+					<Route path="rejected/" component={VisaRejectedTicket}/>
+					<Route path="rejected/blockByBank/" component={VisaRejectBankTicket}/>
+					<Route path="rejected/invalidAmount/" component={VisaRejectAmountTicket}/>
+					<Route path="rejected/invalidCard/" component={VisaRejectCardTicket}/>
+				</Route>
+
 				<Route path="moneygram/" component={Person2Person}/>
 				<Route path="moneygram/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={P2PTicketPending}/>
