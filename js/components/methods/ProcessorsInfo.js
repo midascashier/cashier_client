@@ -104,7 +104,13 @@ let ProcessorsInfo = React.createClass({
 							'tptech18',
 							'Natilla.Cr',
 							'bcp-mangos!!',
-							'acr2015'
+							'acr2015',
+							'chipflip5',
+							'Tatii92',
+							'eso0402',
+							'Roachthekid',
+							'gracie87',
+							'csolis61'
 						];
 
 						let account = UIService.getCustomerInformation();
