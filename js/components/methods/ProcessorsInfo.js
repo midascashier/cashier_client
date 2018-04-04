@@ -111,7 +111,9 @@ let ProcessorsInfo = React.createClass({
 							'Roachthekid',
 							'gracie87',
 							'csolis61',
-							'Gabrod'
+							'Gabrod',
+							'CrazyCatMan',
+							'Davimon'
 						];
 
 						let account = UIService.getCustomerInformation();
