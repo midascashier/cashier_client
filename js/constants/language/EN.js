@@ -358,6 +358,7 @@ let _langTags = {
 	AGENT_TRANSFER_ACCOUNT_TO_FULLNAME: "Receiver name",
 
 	DOCS_FILE_VERIFY_IMPORTANT_TXT: 'Please upload pictures only, four edges of the ID or Passport have to be visible in the picture and the information must be clear so avoid using flash.',
+	DOCS_FILE_SELECT_DOCUMENT_TYPE: 'Select document type.',
 	DOCFILE_FORM_LABEL_FILE_ID: "Send the current file for the identification process.",
 	BD_TEXT_TYPE_LICENCE2: "Driver's license.",
 	BD_TEXT_TYPE_ID: "Identification document",

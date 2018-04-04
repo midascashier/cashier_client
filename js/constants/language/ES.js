@@ -343,6 +343,7 @@ let _langTags = {
 	DOCFILE_FORM_OPTION_OVERCHARGE: 'Sobrecargos en la operación',
 
 	DOCS_FILE_VERIFY_IMPORTANT_TXT: 'Cargue solo imágenes, los cuatro bordes de la identificación o pasaporte deben estar visibles en la imagen y la información debe estar clara, si es posible evite usar el flash.',
+	DOCS_FILE_SELECT_DOCUMENT_TYPE: 'Seleccione el tipo de documento.',
 	DOCS_FILE_VERITY_ADD_DOCUMENT: 'Nuevo Documento',
 	DOCFILE_FORM_LABEL_FILE_ID: "Envíe el archivo correspondiente para el proceso de identificación.",
 	BD_TEXT_TYPE_LICENCE2: "Licencia de conducir.",

@@ -653,7 +653,7 @@ div[class*="col-"] > div[class*="col-"]:before {
     margin-left: 5px;
     align-items: center;
     justify-content: center;
-    background-color: #A51419;
+    background-color: #5e5e5e;
     -webkit-align-items: center;
     border-radius: 10px 10px 0 0;
     -webkit-justify-content: center;
@@ -680,7 +680,7 @@ div[class*="col-"] > div[class*="col-"]:before {
 .DocsOptionsClick{
     height: 59px;
     margin-top: 0;
-    background-color: #D5232F;
+    background-color: #1a1a1a;
 }
 
 #requestOptionContent{
@@ -742,6 +742,15 @@ div[class*="col-"] > div[class*="col-"]:before {
     font-size: 15pt;
     border-radius: 12px;
     border: solid 4px white;
+    font-family: Oswald-Medium;
+}
+
+#docsFileDocumentTypeTXT{
+    color: white;
+    margin: 0 auto;
+    font-size: 15pt;
+    margin-top: 10px;
+    text-align: center;
     font-family: Oswald-Medium;
 }
 
@@ -976,7 +985,7 @@ input:checked + .slider:before{
     width: 285px;
     height: 40px;
     margin-top: 0;
-    color: #d5232f;
+    color: #5e5e5e;
     font-size: 25px;
     margin-bottom: 0;
     text-align: center;
@@ -988,7 +997,7 @@ input:checked + .slider:before{
 }
 
 .docsFileMultiOptSelected{
-    border: 2px solid #d5232f;
+    border: 2px solid #5e5e5e;
     box-shadow: 0 0 0 3px white;
 }
 
@@ -1073,7 +1082,7 @@ input:checked + .slider:before{
 
 #DocsFileCustomerFormsHeader{
     position: fixed;
-    background-color: #D5232F;
+    background-color: #5e5e5e;
     border-bottom: 1px solid white;
 }
 
@@ -1157,7 +1166,7 @@ input:checked + .slider:before{
     display: flex;
     margin-top: 150px;
     border-radius: 90%;
-    border-top: 16px solid #a51419;
+    border-top: 16px solid #5e5e5e;
     -webkit-animation: spin 2s linear infinite;
     animation: spin 1.5s linear infinite;
     border: 16px solid rgba(255, 255, 255, 0.4);

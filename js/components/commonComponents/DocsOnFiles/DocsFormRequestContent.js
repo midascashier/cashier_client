@@ -553,6 +553,16 @@ let DocsFormRequestContent = React.createClass({
                                     }
                                 })()}
 
+                                {(() =>{
+                                    if(!docs.checkOption){
+                                        return(
+                                            <div id="docsFileDocumentTypeTXT">
+                                                {translate('DOCS_FILE_SELECT_DOCUMENT_TYPE')}
+                                            </div>
+                                        )
+                                    }
+                                })()}
+
                                 <div id="docsFileFormContent" style={contentStyle}>
                                     <form id="docsFileForm" onSubmit={this.action}>
                                         {form.fields.map(this.generateForm)}
