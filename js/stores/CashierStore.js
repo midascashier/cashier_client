@@ -1487,7 +1487,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					CashierStore.emitChange();
 					break;
 
-
 				case actions.SET_PLAYER_ACCOUNT:
 					Object.assign(_Player2Agent, data);
 					CashierStore.emitChange();

@@ -1,14 +1,14 @@
 import React from 'react'
 import cashier from '../constants/Cashier'
 import actions from '../constants/Actions'
-import ProcessorSettings from '../constants/Processors'
 import RouterContainer from './RouterContainer'
+import {translate} from '../constants/Translate'
 import {CashierStore} from '../stores/CashierStore'
-import {CashierActions} from '../actions/CashierActions'
+import {ConnectorServices} from './ConnectorServices'
 import {TransactionService} from './TransactionService'
 import {ApplicationService} from './ApplicationService'
-import {ConnectorServices} from './ConnectorServices'
-import {translate} from '../constants/Translate'
+import ProcessorSettings from '../constants/Processors'
+import {CashierActions} from '../actions/CashierActions'
 
 class UiService {
 
@@ -698,16 +698,20 @@ class UiService {
 	 * Load current crypto currency limits from cashier service
 	 *
 	 * @param cryptoCurrencyCode
-	 */
-	loadCurrencyLimits(cryptoCurrencyCode, minAmount, maxAmount){
+	 * @param processorId
+	 * @param minAmount
+	 * @param maxAmount
+     */
+	loadCurrencyLimits(cryptoCurrencyCode, processorId, minAmount, maxAmount){
 		let company = this.getCompanyInformation();
 		let customer = this.getCustomerInformation();
 
 		let params = {
-			companyId: company.companyId,
-			f: 'getCryptoTransferLimits',
 			lowerLimit: minAmount,
 			upperLimit: maxAmount,
+			processorId: processorId,
+			companyId: company.companyId,
+			f: 'getCryptoTransferLimits',
 			currencyCode: cryptoCurrencyCode,
 			customerCurrency: customer.currency
 		};
@@ -860,21 +864,18 @@ class UiService {
 	/**
 	 * Return if is required refund address
 	 *
-	 * @param currencyCode
+	 * @param name
 	 * @returns {boolean}
-	 */
-	cryptoAddressRequired(currencyCode){
+     */
+	cryptoAddressRequired(name){
 		if(this.getIsWithDraw()){
 			return true;
 		}
 
-		let processor = CashierStore.getProcessor();
-		let processorId = processor.processorId;
-		if(processorId == cashier.PROCESSOR_ID_CRYPTOScreen){
-			return (currencyCode != 'BTC' && currencyCode != 'LTC' && currencyCode != 'BCH') ? true : false;
-		}else{
-			return true;
-		}
+		name = name.toLowerCase().split(' ').join('');
+		let needAddress = $('#' + name + 'NeedRefundAddress').val();
+
+		return (needAddress === 'true');
 	}
 
 	/**
@@ -882,12 +883,15 @@ class UiService {
 	 *
 	 * @param currencyCode
 	 * @param address
-	 */
-	validateCryptoAddress(currencyCode, address){
+	 * @param processorId
+     * @returns {*}
+     */
+	validateCryptoAddress(currencyCode, address, processorId){
 		return new Promise(((response) => {
 			let request = {
 				address: address,
 				f: 'validateAddress',
+				processorId: processorId,
 				currencyCode: currencyCode
 			};
 

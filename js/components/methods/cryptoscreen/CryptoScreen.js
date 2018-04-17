@@ -50,9 +50,24 @@ let CryptoScreen = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
+	/**
+	 * Get symbol currency name
+	 *
+	 * @returns {*}
+     */
 	getSymbol(){
 		let symbol = this.state.info;
 		return symbol.cryptoCurrencyISO;
+	},
+
+	/**
+	 * Get name currency
+	 * 
+	 * @returns {*}
+     */
+	getName(){
+		let name = this.state.info;
+		return name.cryptoCurrencyName;
 	},
 
 	/**
@@ -103,8 +118,10 @@ let CryptoScreen = React.createClass({
 	checkCryptoAddress(callback){
 		let address = this.state.info.cryptoAddress;
 		let currencyCode = document.getElementById('symbolValue');
+		let name = this.getName().toLowerCase().split(' ').join('');
+		let processorId = $('#' + name + 'ProcessorId').val();
 
-		UIService.validateCryptoAddress(currencyCode.innerHTML, address).then(response => {
+		UIService.validateCryptoAddress(currencyCode.innerHTML, address, processorId).then(response => {
 			if(typeof response != 'undefined' && response != null){
 				callback(response);
 			}
@@ -249,6 +266,7 @@ let CryptoScreen = React.createClass({
 
 						return(
 							<AskInfo
+								getName={this.getName}
 								getSymbol={this.getSymbol}
 								rate={this.state.info.rate}
 								limits={this.state.info.limits}
@@ -286,6 +304,7 @@ let CryptoScreen = React.createClass({
 
 						return(
 							<InfoMethod
+								getName={this.getName}
 								getSymbol={this.getSymbol}
 								rate={this.state.info.rate}
 								limits={this.state.info.limits}

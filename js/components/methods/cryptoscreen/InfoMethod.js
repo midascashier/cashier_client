@@ -10,6 +10,7 @@ let InfoMethod = React.createClass({
 
 	propTypes: {
 		rate: React.PropTypes.number,
+		getName: React.PropTypes.func,
 		limits: React.PropTypes.object,
 		promoCode: React.PropTypes.node,
 		getSymbol: React.PropTypes.func,
@@ -112,9 +113,9 @@ let InfoMethod = React.createClass({
 	 */
 	continueTransaction(){
 		this.setState({checkIn: true});
+		let name = this.props.getName();
 		let processor = UIService.getProcessorId();
-		let currencyISO = this.props.cryptoCurrencyISO;
-		let needCryptoAddress = UIService.cryptoAddressRequired(currencyISO);
+		let needCryptoAddress = UIService.cryptoAddressRequired(name);
 		if(needCryptoAddress || processor == Cashier.PROCESSOR_ID_CRYPTO_TRANSFER){
 			this.props.checkCryptoAddress((valid) =>{
 				if(valid){
@@ -143,7 +144,8 @@ let InfoMethod = React.createClass({
 			}
 		}else{
 			let processor = UIService.getProcessorId();
-			let needCryptoAddress = UIService.cryptoAddressRequired(this.props.getSymbol());
+			let name = this.props.getName();
+			let needCryptoAddress = UIService.cryptoAddressRequired(name);
 			if(limitsCheck && (this.props.cryptoAddress || (!needCryptoAddress && processor != Cashier.PROCESSOR_ID_CRYPTO_TRANSFER))){
 				isNextDisabled = "";
 			}

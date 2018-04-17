@@ -1,6 +1,7 @@
 import React from 'react'
 import {FAQ} from './FAQ'
 import {Amount} from './Amount'
+import Cashier from '../../../constants/Cashier'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
@@ -10,6 +11,7 @@ let AskInfo = React.createClass({
 
 	propTypes: {
 		rate: React.PropTypes.number,
+		getName: React.PropTypes.func,
 		limits: React.PropTypes.object,
 		getSymbol: React.PropTypes.func,
 		setLimits: React.PropTypes.func,
@@ -34,7 +36,8 @@ let AskInfo = React.createClass({
 
 	cryptoScreen: {
 		currencyLimits: '',
-		processorLimits: ''
+		processorLimits: '',
+		imgPath: 'htmlTemplates/mainTemplate/common/img/coins/{symbol}.png'
 	},
 
 	/**
@@ -92,7 +95,8 @@ let AskInfo = React.createClass({
 		let img = $('#' + symbolSelect + ' img').attr('src');
 		let symbolName = $('#' + symbolSelect + 'Name').text();
 		let symbolValue = $('#' + symbolSelect + 'Symbol').val();
-		UIService.loadCurrencyLimits(symbolValue, limits.minAmount, limits.maxAmount);
+		let processorId = $('#' + symbolSelect + 'ProcessorId').val();
+		UIService.loadCurrencyLimits(symbolValue, processorId, limits.minAmount, limits.maxAmount);
 
 		if(symbolSelect == 'monero'){
 			this.moneroActions();
@@ -143,15 +147,17 @@ let AskInfo = React.createClass({
 	 * @param currency
 	 * @returns {XML}
 	 */
-	currencyAvailableContent(currency) {
-		let id = (currency.status == 'available') ? currency.name.toLowerCase().split(' ').join('') : '';
+	currencyAvailableContent(currency){
+		let id = currency.name.toLowerCase().split(' ').join('');
+		let path = Cashier.REQUEST_CLIENT_CONTENT + this.cryptoScreen.imgPath.replace('{symbol}', currency.symbol);
+
 		return(
 			<div id={id} className={'cryptoTransferCurrency'} onClick={this.currencyActions.bind(this)}>
-				<img src={currency.image} alt={currency.name}/>
+				<img src={path} alt={currency.name}/>
 				<span id={id + 'Name'} className="currentName">{currency.name}</span>
 				<input type='hidden' id={id + 'Symbol'} value={currency.symbol}/>
-				<input type='hidden' id={id + 'Status'} value={currency.status}/>
-				<input type='hidden' id={id + 'ImgSmall'} value={currency.imageSmall}/>
+				<input type='hidden' id={id + 'ProcessorId'} value={currency.processorId}/>
+				<input type='hidden' id={id + 'NeedRefundAddress'} value={currency.refundAddress}/>
 			</div>
 		)
 	},
@@ -162,16 +168,15 @@ let AskInfo = React.createClass({
 	 * @param currency
 	 * @returns {XML}
 	 */
-	currencyUnavailableContent(currency) {
-		let id = (currency.status == 'available') ? currency.name.toLowerCase().split(' ').join('') : '';
+	currencyUnavailableContent(currency){
+		let path = Cashier.REQUEST_CLIENT_CONTENT + this.cryptoScreen.imgPath.replace('{symbol}', currency.symbol);
+
 		return(
-			<div id={id} className={'cryptoTransferCurrency unavailableCurrency'} onClick={this.currencyActions.bind(this)}>
-				<img src={currency.image} alt={currency.name}/>
+			<div className={'cryptoTransferCurrency unavailableCurrency'}>
+				<img src={path} alt={currency.name}/>
 				<span className="unavailableName">{translate('CRYPTO_UNAVAILABLE_TXT', 'Temporarily disabled')}</span>
-				<span id={id + 'Name'} className="currentName">{currency.name}</span>
-				<input type='hidden' id={id + 'Symbol'} value={currency.symbol}/>
-				<input type='hidden' id={id + 'Status'} value={currency.status}/>
-				<input type='hidden' id={id + 'ImgSmall'} value={currency.imageSmall}/>
+				<span className="currentName">{currency.name}</span>
+				<input type='hidden' value={currency.symbol}/>
 			</div>
 		)
 	},
@@ -211,9 +216,9 @@ let AskInfo = React.createClass({
 	 *
 	 * @param event
 	 */
-	searchCurrency(event) {
+	searchCurrency(event){
 		let txtSearch = event.target.value.toLowerCase();
-		if(txtSearch == '') {
+		if(txtSearch == ''){
 			$('.cryptoTransferCurrency').show();
 		}else{
 			$('.cryptoTransferCurrency').show().not('[id ^= "' + txtSearch + '"]').hide().filter('[id = "' + txtSearch + '"]').show();
@@ -329,8 +334,8 @@ let AskInfo = React.createClass({
 						})()}
 
 						{(() =>{
-							let symbol = this.props.getSymbol();
-							let needAddress = UIService.cryptoAddressRequired(symbol);
+							let name = this.props.getName();
+							let needAddress = UIService.cryptoAddressRequired(name);
 							if(needAddress){
 								return(
 									<div id="cryptoAddressContainer">

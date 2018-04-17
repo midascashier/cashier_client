@@ -55,17 +55,15 @@ export default {
 	NO_RESPONSE: "No Response",
 	USA_COUNTRY_CODE: "US",
 	CAN_COUNTRY_CODE: "CA",
-	/**
-	 * id for online user
-	 */
+
 	ONLINE_BE_USER_ID: 10093,
 
 	SECOND_FACTOR_MAX_ATTEMPTS_REACHED: "MAX_ATTEMPTS_REACHED",
 
-	CRYPTO_API_URL: 'https://shapeshift.io/',
 	CRYPTO_API_GET_RATE: 'rate/',
 	CRYPTO_API_GET_COINS: 'getcoins/',
 	CRYPTO_API_GET_MARKET: 'marketinfo/',
+	CRYPTO_API_URL: 'https://shapeshift.io/',
 	CRYPTO_API_VALIDATE_ADDRESS: 'validateAddress/',
 
 	BONUS_WS: 'BONUS',
@@ -73,5 +71,6 @@ export default {
 	BACKEND_WS: 'BACKEND',
 
 	REQUEST_PROXY: '/requestProxy.php',
+	REQUEST_CLIENT_CONTENT: 'http://cashier.client.localhost:8080/',
 	REQUEST_DOCS_FILE_SAVE: '/cashierServices/DocsFileSave.class.php'
 }
