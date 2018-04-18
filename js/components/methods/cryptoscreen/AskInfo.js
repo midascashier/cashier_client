@@ -37,7 +37,7 @@ let AskInfo = React.createClass({
 	cryptoScreen: {
 		currencyLimits: '',
 		processorLimits: '',
-		imgPath: 'htmlTemplates/mainTemplate/common/img/coins/{symbol}.png'
+		imgPath: '/htmlTemplates/mainTemplate/common/img/coins/{symbol}.png'
 	},
 
 	/**
