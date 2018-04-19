@@ -4,6 +4,8 @@ import {ApplicationService} from '../../../services/ApplicationService'
 import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
+import {UIService} from '../../../services/UIService'
+import {TransactionService} from '../../../services/TransactionService'
 
 let BitCoin = React.createClass({
 
@@ -30,7 +32,7 @@ let BitCoin = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let bitcoinAddress = "";
 		if(this.state){
 			if(this.state.info.bitcoinAddress != ""){
@@ -51,7 +53,9 @@ let BitCoin = React.createClass({
 				transaction: CashierStore.getTransaction(),
 				bitcoinAddress: bitcoinAddress,
 				allowContinueToConfirm: allowContinueToConfirm
-			}
+			},
+			customer: CashierStore.getCustomer(),
+			imgLang: CashierStore.getLanguage()
 		}
 	},
 
@@ -60,7 +64,7 @@ let BitCoin = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -70,7 +74,7 @@ let BitCoin = React.createClass({
 	 * @param e
 	 * @param state
 	 */
-	changeValue(e, state) {
+	changeValue(e, state){
 		let actualState = this.state.info;
 		actualState.bitcoinAddress = e;
 		actualState.allowContinueToConfirm = state;
@@ -79,9 +83,37 @@ let BitCoin = React.createClass({
 		})
 	},
 
+	/**
+	 * return the processor list
+	 *
+	 * @returns {Array}
+	 */
+	getProcessors(){
+		return UIService.getIsWithDraw() ? this.state.customer.withdrawProcessors : this.state.customer.depositProcessors;
+	},
+
+	goToCryptoTransfer(){
+		UIService.selectProcessor(830);
+		TransactionService.startTransaction();
+	},
+
 	render(){
-		return (
-			<div id="bitCoin">
+		const processors = this.getProcessors();
+		const imgLang = this.state.imgLang;
+		const isCryptoTransferActive = processors.find(processor => +processor.caProcessor_Id === 830);
+
+		const redirectImgComponent = (
+			<div className="col-sm-12" style={{textAlign: 'center'}}>
+				<img
+					style={{paddingTop: '5%', cursor: 'pointer'}}
+					src={`/images/weHaveMoved/We-have-moved-${imgLang}_V2.jpg`}
+					onClick={this.goToCryptoTransfer}
+				/>
+			</div>
+		);
+
+		const formComponent = (
+			<div>
 				<div className="col-sm-6">
 					<AskInfo
 						amount={this.props.amount}
@@ -101,12 +133,11 @@ let BitCoin = React.createClass({
 				</div>
 				<div className="col-sm-6">
 					{(() =>{
-
 						if(!this.state.info.selectedProcessor.processorId){
 							return <LoadingSpinner/>;
 						}
 
-						return(
+						return (
 							<InfoMethod
 								amount={this.props.amount}
 								limitsCheck={this.props.limitsCheck}
@@ -118,6 +149,12 @@ let BitCoin = React.createClass({
 					})()}
 				</div>
 			</div>
+		);
+
+		return (
+			<div id="bitCoin">
+				{isCryptoTransferActive ? redirectImgComponent : formComponent}
+			</div>
 		)
 	},
 
@@ -125,14 +162,14 @@ let BitCoin = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });
