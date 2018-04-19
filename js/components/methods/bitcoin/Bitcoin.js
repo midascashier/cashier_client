@@ -106,7 +106,7 @@ let BitCoin = React.createClass({
 			<div className="col-sm-12" style={{textAlign: 'center'}}>
 				<img
 					style={{paddingTop: '5%', cursor: 'pointer'}}
-					src={`/images/weHaveMoved/We-have-moved-${imgLang}_V2.jpg`}
+					src={`/images/weHaveMoved/we-have-moved-${imgLang}.jpg`}
 					onClick={this.goToCryptoTransfer}
 				/>
 			</div>
