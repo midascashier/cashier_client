@@ -71,6 +71,6 @@ export default {
 	BACKEND_WS: 'BACKEND',
 
 	REQUEST_PROXY: '/requestProxy.php',
-	REQUEST_CLIENT_CONTENT: 'http://cashier-client:8080',
+	REQUEST_CLIENT_CONTENT: 'https://de.secureprivate.com',
 	REQUEST_DOCS_FILE_SAVE: '/cashierServices/DocsFileSave.class.php'
 }
