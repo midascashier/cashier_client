@@ -887,10 +887,14 @@ class UiService {
      * @returns {*}
      */
 	validateCryptoAddress(currencyCode, address, processorId){
+		let company = UIService.getCompanyInformation();
+		let companyId = company.companyId;
+
 		return new Promise(((response) => {
 			let request = {
 				address: address,
 				f: 'validateAddress',
+				companyId: companyId,
 				processorId: processorId,
 				currencyCode: currencyCode
 			};
