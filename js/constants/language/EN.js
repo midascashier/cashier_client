@@ -396,6 +396,7 @@ let _langTags = {
 	DOCS_FILE_UPLOAD_ERROR_RESPONSE: 'Error to upload',
 	DOCS_FILE_UPLOAD_SUCCESS_RESPONSE: 'Successful upload!',
 	DOCS_FILE_UPLOAD_SUCCESS_NOTIFIED_: 'You`ll be notified about the status of this process',
+	DOCS_FILE_KYC_SUCCESS_ID: 'Your verification is complete',
 
 	DOCS_FILE_STATUS_1 : 'SENT',
 	DOCS_FILE_STATUS_2 : 'REVIEW',

@@ -999,6 +999,7 @@ class UiService {
 	cleanPlayerAccount(){
 		CashierStore.cleanPlayerAccount();
 	}
+
 	/**
 	 * Set current option selected in docs files
 	 *

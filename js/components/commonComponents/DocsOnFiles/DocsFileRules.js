@@ -6,12 +6,7 @@
 let DocsFileRules = {
     1 : {
         name : 'kyc',
-        rules : {
-            kycIDApproved : false,
-            forms : {
-                kyc : 2
-            }
-        }
+        rules : true
     },
 
     2 : {
