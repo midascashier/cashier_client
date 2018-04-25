@@ -90,7 +90,11 @@ let RequestsContent = React.createClass({
      */
     currentTabSelected(){
         let initialTab;
-        if(this.state){
+        let docs = UIService.getDocsFile();
+        let categoryId = UIService.getDocsFileCategoryId(docs.currentOptionSelected);
+        let currentTab = DocsFileRules.checkRules(categoryId, docs);
+
+        if(this.state && currentTab){
             if(this.state.hasOwnProperty('option')){
                 if(this.state.option){
                     initialTab = this.state.option
@@ -99,9 +103,17 @@ let RequestsContent = React.createClass({
         }else{
             initialTab = (this.elements.options[0]);
             initialTab = (initialTab) ? this.elements.options[0].Name : false;
+            let newCategoryId = (initialTab) ? this.elements.options[0].caDocumentCategory_Id : false;
+
+            if(newCategoryId && categoryId){
+                if(newCategoryId != categoryId){
+                    document.getElementById(initialTab).click();
+                }
+            }
         }
 
         if(initialTab){
+            this.state.option = initialTab;
             UIService.setDocsCurrentOption(initialTab);
         }
 
@@ -200,6 +212,7 @@ let RequestsContent = React.createClass({
         let docs = UIService.getDocsFile();
         if(docs.readyPending()){
             UIService.docsFileReset();
+            UIService.docFilesCustomerPendingForms();
 
             let optionElements = document.getElementsByClassName(this.elements.DOCS_OPTIONS);
             let count = optionElements.length;
