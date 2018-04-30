@@ -1,3 +1,5 @@
+import {ConnectorServices} from '../../../services/ConnectorServices'
+
 /**
  * Rules are validated with storage values ​​_DocsFile
  *
@@ -16,7 +18,13 @@ let DocsFileRules = {
 
     3 : {
         name : 'ccIssues',
-        rules : true
+        rules : {
+            forms : {
+                ccIssues : {
+                    length : true
+                }
+            }
+        }
     },
 
     4 : {
@@ -34,6 +42,52 @@ let DocsFileRules = {
     },
 
     /**
+     *
+     *
+     * @param categoryId
+     * @returns {*}
+     */
+    checkFormInformation(categoryId){
+        return new Promise(((response) => {
+            let params = {
+                languageId: 11,
+                categoryId: categoryId,
+                f: 'docFilesCustomerFormsInformation',
+                companyId: 50,
+                customerId: 137
+            };
+
+            ConnectorServices.makeCashierRequestAsync(params).then(data => {
+                if(data && data.hasOwnProperty('response') && data.response.hasOwnProperty('result')){
+                    response(data.response.result);
+                }else{
+                    throw new Error('unable to process your request');
+                }
+            });
+        }));
+    },
+
+    checkObjectRule(ruleObject, doc){
+        let ruleKeys = Object.keys(ruleObject);
+
+        for(let key in ruleKeys){
+            if(ruleKeys.hasOwnProperty(key)){
+                if(doc.hasOwnProperty(ruleKeys[key])){
+                    if(typeof ruleObject[ruleKeys[key]] == 'object'){
+                        return this.checkObjectRule(ruleObject[ruleKeys[key]], doc[ruleKeys[key]]);
+                    }
+
+                    return (ruleObject[ruleKeys[key]] == doc[ruleKeys[key]])
+                }
+
+                return true
+            }
+        }
+
+        return false
+    },
+
+    /**
      * Check the schema rules and validate
      *
      * @param categoryId
@@ -41,34 +95,44 @@ let DocsFileRules = {
      * @returns {*}
      */
     print(categoryId, docs){
+        let result = false;
         if(this.hasOwnProperty(categoryId)){
-            let result = (this[categoryId].rules);
-            for(let rule in this[categoryId].rules){
-                if(result){
-                    if(this[categoryId].rules.hasOwnProperty(rule)){
+            let rules = this[categoryId].rules;
+            if(typeof rules == 'object'){
+                for(let rule in rules){
+                    if(rules.hasOwnProperty(rule)){
                         if(docs.hasOwnProperty(rule)){
-                            if(typeof docs[rule] === "object" || Array.isArray(docs[rule])){
-                                result = true
-                            }else{
-                                result = (this[categoryId].rules[rule] === docs[rule])
-                            }
-                        }else{
-                            result = false
-                        }
+                            if(typeof rules[rule] === "object"){
+                                if(_.size(docs[rule])){
+                                    switch(rule){
+                                        case 'forms':
+                                            let name = this[categoryId].name;
+                                            if(!docs[rule].hasOwnProperty(name)){
+                                                return new Promise(() => {
+                                                    this.checkFormInformation(categoryId).then($response => {
+                                                        let forms = {};
+                                                        forms[name] = $response.forms;
+                                                        return this.checkObjectRule(rules[rule], forms)
+                                                    })
+                                                })
+                                            }
+                                        break;
 
-                        if(!result){
-                            break
+                                        default:
+                                            result = this.checkObjectRule(rules[rule], docs[rule]);
+                                        break;
+                                    }
+                                }
+                            }
                         }
                     }
-                }else{
-                    return false
                 }
+            }else{
+                result = rules;
             }
-
-            return result
         }
 
-        return false
+        return result
     },
 
     /**
