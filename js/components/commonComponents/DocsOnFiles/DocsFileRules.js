@@ -42,7 +42,7 @@ let DocsFileRules = {
     },
 
     /**
-     *
+     * Check if information is required
      *
      * @param categoryId
      * @returns {*}
@@ -108,13 +108,13 @@ let DocsFileRules = {
                                         case 'forms':
                                             let name = this[categoryId].name;
                                             if(!docs[rule].hasOwnProperty(name)){
-                                                return new Promise(() => {
+                                                return new Promise(((result) => {
                                                     this.checkFormInformation(categoryId).then($response => {
                                                         let forms = {};
                                                         forms[name] = $response.forms;
-                                                        return this.checkObjectRule(rules[rule], forms)
+                                                        result(this.checkObjectRule(rules[rule], forms))
                                                     })
-                                                })
+                                                }))
                                             }
                                         break;
 
@@ -144,7 +144,15 @@ let DocsFileRules = {
      */
     checkRules(categoryId, docFile){
         if(this.hasOwnProperty(categoryId)){
-            return this.print(categoryId, docFile)
+            let result = this.print(categoryId, docFile);
+
+            if(result instanceof Promise){
+                this.print(categoryId, docFile).then(data => {
+                    result = data
+                });
+            }
+
+            return result
         }
 
         return false
