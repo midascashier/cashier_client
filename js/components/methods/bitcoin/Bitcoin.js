@@ -1,11 +1,11 @@
 import React from 'react'
-import {CashierStore} from '../../../stores/CashierStore'
-import {ApplicationService} from '../../../services/ApplicationService'
-import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
 import {UIService} from '../../../services/UIService'
+import {CashierStore} from '../../../stores/CashierStore'
 import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 
 let BitCoin = React.createClass({
 
@@ -20,6 +20,8 @@ let BitCoin = React.createClass({
 		setPromoCode: React.PropTypes.func,
 		promoCode: React.PropTypes.string
 	},
+
+	redirectOption: false,
 
 	/**
 	 * React function to set component initial state
@@ -153,7 +155,7 @@ let BitCoin = React.createClass({
 
 		return (
 			<div id="bitCoin">
-				{isCryptoTransferActive ? redirectImgComponent : formComponent}
+				{isCryptoTransferActive && this.redirectOption ? redirectImgComponent : formComponent}
 			</div>
 		)
 	},

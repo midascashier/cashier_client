@@ -465,11 +465,21 @@ let DocsFormRequestContent = React.createClass({
                 let height = (docs.checkOption) ? 'inherit' : 'auto';
                 let contentStyle = {height : height};
 
+                if(docs.currentOptionSelected == 'kyc' && docs.kycIDApproved){
+                    return(
+                        <div id="DocsUploadSuccessResponse">
+                            <img src="/images/docsOnFiles/check1.svg"/>
+                            <span>{translate('DOCS_FILE_KYC_SUCCESS_ID')}</span>
+                        </div>
+                    )
+                }
+
                 let form = UIService.docsFileGetCurrentForm(this.state.customerFormId, this.state.option);
                 if(form){
                     if(form.hasOwnProperty('fields')){
                         return(
                             <div id="docsFilesFormContent">
+
                                 {(() =>{
                                     if(this.state.idOptSelect){
                                         let element = UIService.docsFileGetCurrentFormElement(this.state.idOptSelect);
