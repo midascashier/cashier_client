@@ -67,6 +67,13 @@ let DocsFileRules = {
         }));
     },
 
+    /**
+     * Check object rule recursively
+     * 
+     * @param ruleObject
+     * @param doc
+     * @returns {*}
+     */
     checkObjectRule(ruleObject, doc){
         let ruleKeys = Object.keys(ruleObject);
 
