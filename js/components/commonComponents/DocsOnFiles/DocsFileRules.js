@@ -102,44 +102,43 @@ let DocsFileRules = {
      * @returns {*}
      */
     print(categoryId, docs){
-        let result = false;
-        if(this.hasOwnProperty(categoryId)){
-            let rules = this[categoryId].rules;
-            if(typeof rules == 'object'){
-                for(let rule in rules){
-                    if(rules.hasOwnProperty(rule)){
-                        if(docs.hasOwnProperty(rule)){
-                            if(typeof rules[rule] === "object"){
-                                if(_.size(docs[rule])){
-                                    switch(rule){
-                                        case 'forms':
-                                            let name = this[categoryId].name;
-                                            if(!docs[rule].hasOwnProperty(name)){
-                                                return new Promise(((result) => {
-                                                    this.checkFormInformation(categoryId).then($response => {
-                                                        let forms = {};
-                                                        forms[name] = $response.forms;
-                                                        result(this.checkObjectRule(rules[rule], forms))
-                                                    })
-                                                }))
-                                            }
-                                        break;
+        return new Promise(((resolve) => {
+            if(this.hasOwnProperty(categoryId)){
+                let rules = this[categoryId].rules;
+                if(typeof rules == 'object'){
+                    for(let rule in rules){
+                        if(rules.hasOwnProperty(rule)){
+                            if(docs.hasOwnProperty(rule)){
+                                if(typeof rules[rule] === "object"){
+                                    if(_.size(docs[rule])){
+                                        switch(rule){
+                                            case 'forms':
+                                                let name = this[categoryId].name;
+                                                if(!docs[rule].hasOwnProperty(name)){
+                                                    return new Promise(((result) => {
+                                                        this.checkFormInformation(categoryId).then($response => {
+                                                            let forms = {};
+                                                            forms[name] = $response.forms;
+                                                            resolve(this.checkObjectRule(rules[rule], forms))
+                                                        })
+                                                    }))
+                                                }
+                                            break;
 
-                                        default:
-                                            result = this.checkObjectRule(rules[rule], docs[rule]);
-                                        break;
+                                            default:
+                                                resolve = this.checkObjectRule(rules[rule], docs[rule]);
+                                            break;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+                }else{
+                    resolve(rules);
                 }
-            }else{
-                result = rules;
             }
-        }
-
-        return result
+        }));
     },
 
     /**
@@ -150,19 +149,11 @@ let DocsFileRules = {
      * @returns {*}
      */
     checkRules(categoryId, docFile){
-        if(this.hasOwnProperty(categoryId)){
-            let result = this.print(categoryId, docFile);
-
-            if(result instanceof Promise){
-                this.print(categoryId, docFile).then(data => {
-                    result = data
-                });
-            }
-
-            return result
-        }
-
-        return false
+        this.print(categoryId, docFile).then(data => {
+            return data
+        }).catch(error => {
+            return false
+        })
     }
 };
 
