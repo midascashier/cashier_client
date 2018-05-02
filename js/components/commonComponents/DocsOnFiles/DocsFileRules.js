@@ -149,11 +149,11 @@ let DocsFileRules = {
      * @returns {*}
      */
     checkRules(categoryId, docFile){
-        this.print(categoryId, docFile).then(data => {
-            return data
-        }).catch(error => {
-            return false
-        })
+        if(this.hasOwnProperty(categoryId)){
+            return this.print(categoryId, docFile)
+        }
+
+        return false
     }
 };
 
