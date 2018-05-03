@@ -27,7 +27,6 @@ class ClientRedirect{
     $cashierParams["ioBB"] = $_REQUEST["ioBB"];
     $cashierParams["companyId"] = COMPANY_ID_POKER;
     $cashierParams["doLogin"] = $_REQUEST["doLogin"];
-    $cashierParams["atDeviceId"] = $_REQUEST["acuit"];
     $cashierParams["remoteAddr"] = $this->customerIp();
     $cashierParams["referrer"] = $_REQUEST["referrer"];
     $cashierParams["username"] = $_REQUEST["username"];

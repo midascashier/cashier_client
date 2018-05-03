@@ -5,6 +5,7 @@ import {ConnectorServices} from './ConnectorServices'
 import {TransactionService} from './TransactionService'
 import {ApplicationService} from './ApplicationService'
 import {CashierActions} from '../actions/CashierActions'
+import {translate} from '../constants/Translate'
 
 class customerService{
 
@@ -95,10 +96,14 @@ class customerService{
 	 */
 	getDisablePayAccount(){
 		let customerId = CashierStore.getCustomer();
-		let payAccountId = CashierStore.getCurrentPayAccount();
+		let payAccount = CashierStore.getCurrentPayAccount();
+
+		if(!payAccount || !payAccount.payAccountId) {
+			return;
+		}
 		let data = {
 			f: "disableCustomerPayAccount",
-			payAccountId: payAccountId.payAccountId,
+			payAccountId: payAccount.payAccountId,
 			customerId: customerId.customerId
 		};
 		let application = CashierStore.getApplication();
