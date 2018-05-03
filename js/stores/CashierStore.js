@@ -929,6 +929,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		_DocsFile.currentStep = 1;
 		_DocsFile.checkOption = false;
 		_DocsFile.responseUpload = false;
+		_DocsFile.customerPendingForms = true;
 		_DocsFile.pendingInputsCategory = true;
 		_DocsFile.pendingCustomerFormInfo = true;
 
@@ -1531,6 +1532,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					break;
 
 				case actions.DOCS_FILES_GET_CUSTOMER_PENDING_FORMS_RESPONSE:
+					_DocsFile.pendingRecovery = false;
+					_DocsFile.pendingAdditionalInfo = false;
+
 					if(data.response.result){
 						for(let key in data.response.result){
 							if(key == 4){

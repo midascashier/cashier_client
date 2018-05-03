@@ -382,6 +382,7 @@ let _langTags = {
 	DOCS_FILE_UPLOAD_ERROR_RESPONSE: 'Error al cargar',
 	DOCS_FILE_UPLOAD_SUCCESS_RESPONSE: '¡Carga exitosa!',
 	DOCS_FILE_UPLOAD_SUCCESS_NOTIFIED_: 'Se te notificará sobre el estado de este proceso',
+	DOCS_FILE_KYC_SUCCESS_ID: 'Su verificación esta completa',
 
 	DOCS_FILE_STATUS_1 : 'ENVIADO',
 	DOCS_FILE_STATUS_2 : 'EN REVISION',
