@@ -102,43 +102,51 @@ let DocsFileRules = {
      * @returns {*}
      */
     print(categoryId, docs){
-        return new Promise(((resolve) => {
-            if(this.hasOwnProperty(categoryId)){
-                let rules = this[categoryId].rules;
-                if(typeof rules == 'object'){
-                    for(let rule in rules){
-                        if(rules.hasOwnProperty(rule)){
-                            if(docs.hasOwnProperty(rule)){
-                                if(typeof rules[rule] === "object"){
-                                    if(_.size(docs[rule])){
-                                        switch(rule){
-                                            case 'forms':
-                                                let name = this[categoryId].name;
-                                                if(!docs[rule].hasOwnProperty(name)){
-                                                    return new Promise(((result) => {
-                                                        this.checkFormInformation(categoryId).then($response => {
-                                                            let forms = {};
-                                                            forms[name] = $response.forms;
-                                                            resolve(this.checkObjectRule(rules[rule], forms))
-                                                        })
-                                                    }))
-                                                }
-                                            break;
+        let resolve = true;
+        if(this.hasOwnProperty(categoryId)){
+            let rules = this[categoryId].rules;
+            if(typeof rules == 'object'){
+                for(let rule in rules){
+                    if(rules.hasOwnProperty(rule)){
+                        if(docs.hasOwnProperty(rule)){
+                            if(typeof rules[rule] === "object"){
+                                if(_.size(docs[rule])){
+                                    switch(rule){
+                                        case 'forms':
+                                            let name = this[categoryId].name;
+                                            if(!docs[rule].hasOwnProperty(name)){
+                                                this.checkFormInformation(categoryId).then($response => {
+                                                    let forms = {};
+                                                    forms[name] = $response.forms;
+                                                    resolve = this.checkObjectRule(rules[rule], forms);
 
-                                            default:
-                                                resolve = this.checkObjectRule(rules[rule], docs[rule]);
-                                            break;
-                                        }
+                                                    if(!resolve){
+                                                        let tab = document.getElementById(this[categoryId].name);
+                                                        if(tab){
+                                                            tab.parentNode.removeChild(tab);
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                        break;
+
+                                        default:
+                                            resolve = this.checkObjectRule(rules[rule], docs[rule]);
+                                        break;
                                     }
                                 }
+                            }else{
+                                resolve = this.checkObjectRule(rules[rule], docs[rule]);
                             }
                         }
                     }
-                }else{
-                    resolve(rules);
                 }
+            }else{
+                resolve = rules;
             }
-        }));
+        }
+
+        return resolve
     },
 
     /**
