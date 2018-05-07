@@ -1,3 +1,4 @@
+import {UIService} from '../../../services/UIService'
 import {ConnectorServices} from '../../../services/ConnectorServices'
 
 /**
@@ -21,9 +22,9 @@ let DocsFileRules = {
     3 : {
         name : 'ccIssues',
         rules : {
-            forms : {
-                ccIssues : {
-                    length : true
+            forms: {
+                ccIssues: {
+                    length: true
                 }
             }
         }
@@ -50,28 +51,26 @@ let DocsFileRules = {
      * @returns {*}
      */
     checkFormInformation(categoryId){
-        if(!this.pendingInfo){
-            return new Promise(((response) => {
-                this.pendingInfo = true;
+        return new Promise(((response) => {
+            this.pendingInfo = true;
 
-                let params = {
-                    languageId: 11,
-                    categoryId: categoryId,
-                    f: 'docFilesCustomerFormsInformation',
-                    companyId: 50,
-                    customerId: 137
-                };
+            let params = {
+                languageId: 11,
+                categoryId: categoryId,
+                f: 'docFilesCustomerFormsInformation',
+                companyId: UIService.getCompanyInformation().companyId,
+                customerId: UIService.getCustomerInformation().customerId
+            };
 
-                ConnectorServices.makeCashierRequestAsync(params).then(data => {
-                    this.pendingInfo = false;
-                    if(data && data.hasOwnProperty('response') && data.response.hasOwnProperty('result')){
-                        response(data.response.result);
-                    }else{
-                        throw new Error('unable to process your request');
-                    }
-                });
-            }));
-        }
+            ConnectorServices.makeCashierRequestAsync(params).then(data => {
+                this.pendingInfo = false;
+                if(data && data.hasOwnProperty('response') && data.response.hasOwnProperty('result')){
+                    response(data.response.result);
+                }else{
+                    throw new Error('unable to process your request');
+                }
+            });
+        }));
     },
 
     /**
@@ -124,30 +123,30 @@ let DocsFileRules = {
                                                 let name = this[categoryId].name;
                                                 if(!docs[rule].hasOwnProperty(name)){
                                                     if(name){
-                                                        this.checkFormInformation(categoryId).then($response => {
-                                                            let forms = {};
-                                                            let removeElem = '';
-                                                            forms[name] = $response.forms;
-                                                            resolve = this.checkObjectRule(rules[rule], forms);
+                                                        if(!this.pendingInfo){
+                                                            this.checkFormInformation(categoryId).then($response => {
+                                                                let forms = {};
+                                                                forms[name] = $response.forms;
+                                                                resolve = this.checkObjectRule(rules[rule], forms);
 
-                                                            if(!resolve){
-                                                                let bar = document.getElementById('requestsOptions');
-                                                                let tab = document.getElementById(name);
-                                                                if(tab instanceof HTMLElement){
-                                                                    if(bar.contains(tab)){
-                                                                        tab = (removeElem) ? removeElem : tab;
-                                                                        removeElem = bar.removeChild(tab);
+                                                                if(!resolve){
+                                                                    let bar = document.getElementById('requestsOptions');
+                                                                    let tab = document.getElementById(name);
+                                                                    if(tab instanceof HTMLElement){
+                                                                        if(bar.contains(tab)){
+                                                                            bar.removeChild(tab);
+                                                                        }
                                                                     }
                                                                 }
-                                                            }
-                                                        })
+                                                            })
+                                                        }
                                                     }
                                                 }
-                                                break;
+                                            break;
 
                                             default:
                                                 resolve = this.checkObjectRule(rules[rule], docs[rule]);
-                                                break;
+                                            break;
                                         }
                                     }
                                 }else{
