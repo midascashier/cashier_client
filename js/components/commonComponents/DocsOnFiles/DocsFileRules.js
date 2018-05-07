@@ -6,6 +6,8 @@ import {ConnectorServices} from '../../../services/ConnectorServices'
  * @type {{1: {name: string, rules: boolean}, 2: {name: string, rules: boolean}, 3: {name: string, rules: boolean}, 4: {name: string, rules: {pendingAdditionalInfo: boolean}}, 5: {name: string, rules: {pendingRecovery: boolean}}, print: (function(*=, *): *)}}
  */
 let DocsFileRules = {
+    pendingInfo : false,
+
     1 : {
         name : 'kyc',
         rules : true
@@ -48,23 +50,28 @@ let DocsFileRules = {
      * @returns {*}
      */
     checkFormInformation(categoryId){
-        return new Promise(((response) => {
-            let params = {
-                languageId: 11,
-                categoryId: categoryId,
-                f: 'docFilesCustomerFormsInformation',
-                companyId: 50,
-                customerId: 137
-            };
+        if(!this.pendingInfo){
+            return new Promise(((response) => {
+                this.pendingInfo = true;
 
-            ConnectorServices.makeCashierRequestAsync(params).then(data => {
-                if(data && data.hasOwnProperty('response') && data.response.hasOwnProperty('result')){
-                    response(data.response.result);
-                }else{
-                    throw new Error('unable to process your request');
-                }
-            });
-        }));
+                let params = {
+                    languageId: 11,
+                    categoryId: categoryId,
+                    f: 'docFilesCustomerFormsInformation',
+                    companyId: 50,
+                    customerId: 137
+                };
+
+                ConnectorServices.makeCashierRequestAsync(params).then(data => {
+                    this.pendingInfo = false;
+                    if(data && data.hasOwnProperty('response') && data.response.hasOwnProperty('result')){
+                        response(data.response.result);
+                    }else{
+                        throw new Error('unable to process your request');
+                    }
+                });
+            }));
+        }
     },
 
     /**
@@ -103,49 +110,58 @@ let DocsFileRules = {
      */
     print(categoryId, docs){
         let resolve = true;
-        if(this.hasOwnProperty(categoryId)){
-            let rules = this[categoryId].rules;
-            if(typeof rules == 'object'){
-                for(let rule in rules){
-                    if(rules.hasOwnProperty(rule)){
-                        if(docs.hasOwnProperty(rule)){
-                            if(typeof rules[rule] === "object"){
-                                if(_.size(docs[rule])){
-                                    switch(rule){
-                                        case 'forms':
-                                            let name = this[categoryId].name;
-                                            if(!docs[rule].hasOwnProperty(name)){
-                                                this.checkFormInformation(categoryId).then($response => {
-                                                    let forms = {};
-                                                    forms[name] = $response.forms;
-                                                    resolve = this.checkObjectRule(rules[rule], forms);
+        try {
+            if(this.hasOwnProperty(categoryId)){
+                let rules = this[categoryId].rules;
+                if(typeof rules == 'object'){
+                    for(let rule in rules){
+                        if(rules.hasOwnProperty(rule)){
+                            if(docs.hasOwnProperty(rule)){
+                                if(typeof rules[rule] === "object"){
+                                    if(_.size(docs[rule])){
+                                        switch(rule){
+                                            case 'forms':
+                                                let name = this[categoryId].name;
+                                                if(!docs[rule].hasOwnProperty(name)){
+                                                    if(name){
+                                                        this.checkFormInformation(categoryId).then($response => {
+                                                            let forms = {};
+                                                            let removeElem = '';
+                                                            forms[name] = $response.forms;
+                                                            resolve = this.checkObjectRule(rules[rule], forms);
 
-                                                    if(!resolve){
-                                                        if(name){
-                                                            let tab = document.getElementById(name);
-                                                            if(tab instanceof HTMLElement){
-                                                                tab.parentNode.removeChild(tab);
+                                                            if(!resolve){
+                                                                let bar = document.getElementById('requestsOptions');
+                                                                let tab = document.getElementById(name);
+                                                                if(tab instanceof HTMLElement){
+                                                                    if(bar.contains(tab)){
+                                                                        tab = (removeElem) ? removeElem : tab;
+                                                                        removeElem = bar.removeChild(tab);
+                                                                    }
+                                                                }
                                                             }
-                                                        }
+                                                        })
                                                     }
-                                                })
-                                            }
-                                        break;
+                                                }
+                                                break;
 
-                                        default:
-                                            resolve = this.checkObjectRule(rules[rule], docs[rule]);
-                                        break;
+                                            default:
+                                                resolve = this.checkObjectRule(rules[rule], docs[rule]);
+                                                break;
+                                        }
                                     }
+                                }else{
+                                    resolve = this.checkObjectRule(rules[rule], docs[rule]);
                                 }
-                            }else{
-                                resolve = this.checkObjectRule(rules[rule], docs[rule]);
                             }
                         }
                     }
+                }else{
+                    resolve = rules;
                 }
-            }else{
-                resolve = rules;
             }
+        }catch(error){
+            resolve = false
         }
 
         return resolve
