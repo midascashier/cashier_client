@@ -107,12 +107,19 @@ let RequestsContent = React.createClass({
 
             if(newCategoryId && categoryId){
                 if(newCategoryId != categoryId){
-                    document.getElementById(initialTab).click();
+                    let tab = document.getElementById(initialTab);
+                    if(tab instanceof HTMLElement){
+                        tab.click();
+                    }
                 }
             }
         }
 
         if(initialTab){
+            if(this.state){
+                this.state.option = initialTab;
+            }
+
             UIService.setDocsCurrentOption(initialTab);
         }
 
