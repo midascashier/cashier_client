@@ -121,9 +121,11 @@ let DocsFileRules = {
                                                     resolve = this.checkObjectRule(rules[rule], forms);
 
                                                     if(!resolve){
-                                                        let tab = document.getElementById(this[categoryId].name);
-                                                        if(tab){
-                                                            tab.parentNode.removeChild(tab);
+                                                        if(name){
+                                                            let tab = document.getElementById(name);
+                                                            if(tab instanceof HTMLElement){
+                                                                tab.parentNode.removeChild(tab);
+                                                            }
                                                         }
                                                     }
                                                 })
