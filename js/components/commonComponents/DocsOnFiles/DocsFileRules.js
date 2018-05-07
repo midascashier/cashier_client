@@ -22,9 +22,9 @@ let DocsFileRules = {
     3 : {
         name : 'ccIssues',
         rules : {
-            forms: {
-                ccIssues: {
-                    length: true
+            forms : {
+                ccIssues : {
+                    length : true
                 }
             }
         }
