@@ -39,7 +39,7 @@ let RequestsContent = React.createClass({
         this.elements.options = [];
         let docs = UIService.getDocsFile();
 
-        if(this.readyInitialPending()) {
+        if(this.readyInitialPending()){
             this.buildCategoriesList(docs.categoriesList);
         }
 
@@ -113,7 +113,6 @@ let RequestsContent = React.createClass({
         }
 
         if(initialTab){
-            this.state.option = initialTab;
             UIService.setDocsCurrentOption(initialTab);
         }
 
