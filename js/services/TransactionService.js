@@ -898,6 +898,24 @@ class transactionService{
 	};
 
 	/**
+	 * Get a list of available links for players
+	 *
+	 * @returns {Promise<any>}
+	 */
+	getTransferLinks() {
+		const data = {
+			f: 'getTransferLinks',
+			module: 'payAccount',
+			processorId: this.getCurrentProcessor().processorId,
+		}
+
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign({}, data, application);
+		return ConnectorServices.makeCashierRequestAsync(rabbitRequest)
+			.then(resp => resp.response.links);
+	};
+
+	/**
 	 * gets customers pending transactions
 	 */
 	getPendingPayout(){

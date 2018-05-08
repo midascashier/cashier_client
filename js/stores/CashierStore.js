@@ -134,6 +134,7 @@ let _customer = {
 		this.personalInformation.stateName = data.stateName;
 		this.personalInformation.city = data.city;
 		this.personalInformation.postalCode = data.postalCode;
+		this.personalInformation.isAgent = data.isAgent;
 	}
 };
 
