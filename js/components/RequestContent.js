@@ -39,7 +39,7 @@ let RequestsContent = React.createClass({
         this.elements.options = [];
         let docs = UIService.getDocsFile();
 
-        if(this.readyInitialPending()) {
+        if(this.readyInitialPending()){
             this.buildCategoriesList(docs.categoriesList);
         }
 
@@ -107,13 +107,19 @@ let RequestsContent = React.createClass({
 
             if(newCategoryId && categoryId){
                 if(newCategoryId != categoryId){
-                    document.getElementById(initialTab).click();
+                    let tab = document.getElementById(initialTab);
+                    if(tab instanceof HTMLElement){
+                        tab.click();
+                    }
                 }
             }
         }
 
         if(initialTab){
-            this.state.option = initialTab;
+            if(this.state){
+                this.state.option = initialTab;
+            }
+
             UIService.setDocsCurrentOption(initialTab);
         }
 

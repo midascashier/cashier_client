@@ -1,3 +1,4 @@
+import {UIService} from '../../../services/UIService'
 import {ConnectorServices} from '../../../services/ConnectorServices'
 
 /**
@@ -6,6 +7,8 @@ import {ConnectorServices} from '../../../services/ConnectorServices'
  * @type {{1: {name: string, rules: boolean}, 2: {name: string, rules: boolean}, 3: {name: string, rules: boolean}, 4: {name: string, rules: {pendingAdditionalInfo: boolean}}, 5: {name: string, rules: {pendingRecovery: boolean}}, print: (function(*=, *): *)}}
  */
 let DocsFileRules = {
+    pendingInfo : false,
+
     1 : {
         name : 'kyc',
         rules : true
@@ -49,15 +52,18 @@ let DocsFileRules = {
      */
     checkFormInformation(categoryId){
         return new Promise(((response) => {
+            this.pendingInfo = true;
+
             let params = {
                 languageId: 11,
                 categoryId: categoryId,
                 f: 'docFilesCustomerFormsInformation',
-                companyId: 50,
-                customerId: 137
+                companyId: UIService.getCompanyInformation().companyId,
+                customerId: UIService.getCustomerInformation().customerId
             };
 
             ConnectorServices.makeCashierRequestAsync(params).then(data => {
+                this.pendingInfo = false;
                 if(data && data.hasOwnProperty('response') && data.response.hasOwnProperty('result')){
                     response(data.response.result);
                 }else{
@@ -102,44 +108,62 @@ let DocsFileRules = {
      * @returns {*}
      */
     print(categoryId, docs){
-        let result = false;
-        if(this.hasOwnProperty(categoryId)){
-            let rules = this[categoryId].rules;
-            if(typeof rules == 'object'){
-                for(let rule in rules){
-                    if(rules.hasOwnProperty(rule)){
-                        if(docs.hasOwnProperty(rule)){
-                            if(typeof rules[rule] === "object"){
-                                if(_.size(docs[rule])){
-                                    switch(rule){
-                                        case 'forms':
-                                            let name = this[categoryId].name;
-                                            if(!docs[rule].hasOwnProperty(name)){
-                                                return new Promise(((result) => {
-                                                    this.checkFormInformation(categoryId).then($response => {
-                                                        let forms = {};
-                                                        forms[name] = $response.forms;
-                                                        result(this.checkObjectRule(rules[rule], forms))
-                                                    })
-                                                }))
-                                            }
-                                        break;
+        let resolve = true;
+        try {
+            if(this.hasOwnProperty(categoryId)){
+                let rules = this[categoryId].rules;
+                if(typeof rules == 'object'){
+                    for(let rule in rules){
+                        if(rules.hasOwnProperty(rule)){
+                            if(docs.hasOwnProperty(rule)){
+                                if(typeof rules[rule] === "object"){
+                                    if(_.size(docs[rule])){
+                                        switch(rule){
+                                            case 'forms':
+                                                let name = this[categoryId].name;
+                                                if(!docs[rule].hasOwnProperty(name)){
+                                                    if(name){
+                                                        if(!this.pendingInfo){
+                                                            this.checkFormInformation(categoryId).then($response => {
+                                                                let forms = {};
+                                                                forms[name] = $response.forms;
+                                                                resolve = this.checkObjectRule(rules[rule], forms);
 
-                                        default:
-                                            result = this.checkObjectRule(rules[rule], docs[rule]);
-                                        break;
+                                                                if(!resolve){
+                                                                    let bar = document.getElementById('requestsOptions');
+                                                                    let tab = document.getElementById(name);
+                                                                    if(tab instanceof HTMLElement){
+                                                                        if(bar.contains(tab)){
+                                                                            bar.removeChild(tab);
+                                                                        }
+                                                                    }
+                                                                }
+                                                            })
+                                                        }
+                                                    }
+                                                }
+                                            break;
+
+                                            default:
+                                                resolve = this.checkObjectRule(rules[rule], docs[rule]);
+                                            break;
+                                        }
                                     }
+                                }else{
+                                    resolve = (rules[rule] == docs[rule]);
                                 }
                             }
                         }
                     }
+                }else{
+                    resolve = rules;
                 }
-            }else{
-                result = rules;
             }
+        }catch(error){
+            resolve = false
         }
 
-        return result
+        return resolve
     },
 
     /**
@@ -151,15 +175,7 @@ let DocsFileRules = {
      */
     checkRules(categoryId, docFile){
         if(this.hasOwnProperty(categoryId)){
-            let result = this.print(categoryId, docFile);
-
-            if(result instanceof Promise){
-                this.print(categoryId, docFile).then(data => {
-                    result = data
-                });
-            }
-
-            return result
+            return this.print(categoryId, docFile)
         }
 
         return false
