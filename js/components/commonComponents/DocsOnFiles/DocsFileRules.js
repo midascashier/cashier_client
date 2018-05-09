@@ -150,7 +150,7 @@ let DocsFileRules = {
                                         }
                                     }
                                 }else{
-                                    resolve = this.checkObjectRule(rules[rule], docs[rule]);
+                                    resolve = (rules[rule] == docs[rule]);
                                 }
                             }
                         }
