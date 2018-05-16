@@ -705,6 +705,7 @@ class UiService {
 	loadCurrencyLimits(cryptoCurrencyCode, processorId, minAmount, maxAmount){
 		let company = this.getCompanyInformation();
 		let customer = this.getCustomerInformation();
+		let isWithdraw = CashierStore.getIsWithdraw();
 
 		let params = {
 			lowerLimit: minAmount,
@@ -713,7 +714,8 @@ class UiService {
 			companyId: company.companyId,
 			f: 'getCryptoTransferLimits',
 			currencyCode: cryptoCurrencyCode,
-			customerCurrency: customer.currency
+			customerCurrency: customer.currency,
+			isWithdraw: isWithdraw
 		};
 
 		ConnectorServices.makeCashierRequest(actions.GET_CRYPTO_CURRENCY_LIMITS_RESPONSE, params);
