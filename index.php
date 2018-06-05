@@ -12,21 +12,6 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/style.css">
-
-    <!-- Hotjar Tracking Code for Cashier Poker (New) -->
-    <script>
-    (function(h,o,t,j,a,r)
-        Unknown macro: { h.hj=h.hj||function() Unknown macro}
-        ;
-        h._hjSettings={hjid:592695,hjsv:6};
-        a=o.getElementsByTagName('head')[0];
-        r=o.createElement('script');r.async=1;
-        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-        a.appendChild(r);
-        })(window,document,'
-        https://static.hotjar.com/c/hotjar-','.js?sv=
-    ');
-    </script>
   </head>
   <body>
     <div id="app"></div>
@@ -34,6 +19,7 @@
       let sid = "<?php echo $_REQUEST['sid'] ?>";
       let tuid = "<?php echo $_REQUEST['tuid'] ?>";
       let remoteAddr = "<?php echo $_REQUEST['remoteAddr'] ?>";
+      let remoteCompany = "<?php $_REQUEST['remoteCompany'] ?>";
       let xForwardedFor = "<?php echo $_REQUEST['xForwardedFor'] ?>";
       let remoteHost = "<?php echo gethostbyaddr($_SERVER['REMOTE_ADDR']) ?>";
       let loginInfo = <?php echo((count($_REQUEST)) > 0 ? json_encode($_REQUEST) : "null") ?>;
@@ -46,6 +32,7 @@
         remoteAddr: remoteAddr,
         remoteHost: remoteHost,
         remoteAddress: remoteAddr,
+        remoteCompany: remoteCompany,
         xForwardedFor: xForwardedFor,
         userAgent: navigator.userAgent,
         referrer: document.referrer || location.referrer
@@ -55,7 +42,7 @@
         let application = JSON.parse(localStorage.application);
         let ui = JSON.parse(localStorage.ui);
         let company = JSON.parse(localStorage.company);
-        loginInfo = {companyId: company.companyId, option: ui.currentView, sid: application.sid};
+        loginInfo = {companyId: company.companyId, remoteCompany: localStorage.application.remoteCompany, option: ui.currentView, sid: application.sid};
       } else {
         let localApp = localStorage.application;
         if (localApp) {

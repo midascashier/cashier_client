@@ -1,5 +1,6 @@
 <?php
 require_once('config/phpConfig.php');
+require_once 'system/Startup.class.php';
 session_start();
 
 /**
@@ -49,15 +50,20 @@ class ClientRedirect{
   private function domHTML($params){
 
     $this->loginManager($params);
-    if ($this->sid){
+    if($this->sid){
+      $customerData = TblCustomer::getInstance();
+      $customer = $customerData->getCustomerByUsername($params['companyId'], $params['username']);
+      $remoteCompany = $customer->getRemoteCompany();
+
       $content = "
         <form id='alForm' action='/' method='POST'>
           <input type='hidden' id='sid' name='sid' value={$this->sid}>
+          <input type='hidden' id='option' name='option' value={$_REQUEST['option']}>
           <input type='hidden' id='companyId' name='companyId' value={$params['companyId']}>
           <input type='hidden' id='remoteAddr' name='remoteAddr' value={$params['remoteAddr']}>
           <input type='hidden' id='remoteHost' name='remoteHost' value={$params['remoteHost']}>
           <input type='hidden' id='xForwardedFor' name='xForwardedFor' value={$params['xForwardedFor']}>
-          <input type='hidden' id='option' name='option' value={$_REQUEST['option']}>
+          <input type='hidden' id='remoteCompany' name='remoteCompany' value={$remoteCompany}>
         </form>
 
         <script>
