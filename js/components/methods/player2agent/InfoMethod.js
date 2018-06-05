@@ -71,6 +71,7 @@ let InfoMethod = React.createClass({
 		let currentState = this.state;
 
 		new Promise(resolve => {
+
 			if(!TransactionService.getCurrentPayAccount().payAccountId){
 				TransactionService.registerPayAccountAsync({
 					account: TransactionService.getCustomer().username.toUpperCase()

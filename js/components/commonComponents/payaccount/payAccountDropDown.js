@@ -53,17 +53,16 @@ let PayAccountDropDown = React.createClass({
         let editButtonDisplay;
         let info = this.props.info;
         let deleteButtonDisplay = '';
-        let payAccount = info.payAccount;
+        let payAccount = info.payAccountId;
         let isEditingCCInfo = UIService.getCCEditMode();
         let editButton = translate('PROCESSING_BUTTON_EDIT_CARD', 'Edit Card');
-
         if(!this.props.msgDeleteBtn){
             deleteButton  = translate('PROCESSING_BUTTON_DELETE_ACCOUNT', 'Delete Account');
         }else{
             deleteButton = this.props.msgDeleteBtn;
         }
 
-        if(payAccount != 0){
+        if(payAccount != null && payAccount != 0){
             deleteButtonDisplay = (
                 <button type='button' onClick={this.disablePayAccount} className='btn btn-xs btn-green'>
                     {deleteButton}

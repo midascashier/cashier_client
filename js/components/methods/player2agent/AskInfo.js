@@ -3,6 +3,8 @@ import {Input} from '../../commonComponents/Inputs'
 import {translate} from '../../../constants/Translate'
 import {AmountController} from '../../commonComponents/AmountController'
 import {FeeController} from '../../commonComponents/FeeController'
+import {CashierStore} from '../../../stores/CashierStore'
+import {TransactionService} from '../../../services/TransactionService'
 
 let AskInfo = React.createClass({
 
@@ -19,21 +21,32 @@ let AskInfo = React.createClass({
 		invalidAccount: React.PropTypes.bool
 	},
 
-	render(){
-		let setAmount = this.props.setAmount;
-		let limitsCheck = this.props.limitsCheck;
-		let account = this.props.account;
-		let feeCheck = this.props.feeCheck;
-		let feeCashValue = this.props.feeCashValue;
-		let amount = this.props.amount;
+	/**
+	 * React function to set component inital state
+	 *
+	 * @returns {*|{customer, links: string[]}}
+	 */
+	getInitialState(){
+		return {
+			customer: CashierStore.getCustomer(),
+			links: []
+		};
+	},
 
+	render(){
+		let {setAmount, limitsCheck, account, feeCheck, feeCashValue, amount} = this.props;
 		const title = translate('PROCESSING_WITHDRAW_INFORMATION_TITLE', 'Please Enter the Information')
+		const {links} = this.state;
 
 		let validations = {
 			AGENT_TRANSFER_INVALID_USER_ACCOUNT: this.props.invalidAccount
 		};
 
-		//console.log(validations);
+		const accountField = this.state.customer.personalInformation.isAgent == "1"
+			? <Input type="text" customValidations={validations} id="account" name="account" ref="account" value={account} onChange={this.props.accountChange}/>
+			: <select className="form-control" id="account" name="account" ref="account" onChange={this.props.accountChange}>
+				{links.map(link => <option key={link} value={link}>{link}</option>)}
+			</select>
 
 		return (
 			<div id="btcAskInfo" className="box">
@@ -47,7 +60,7 @@ let AskInfo = React.createClass({
 										<div className="form-group">
 											<label className="col-sm-4 control-label">{translate('AGENT_TRANSFER_USER_ACCOUNT', 'User account')}:</label>
 											<div className="col-sm-8">
-												<Input type="text" customValidations={validations} id="account" name="account" ref="account" value={account} onChange={this.props.accountChange}/>
+												{accountField}
 											</div>
 										</div>
 
@@ -66,6 +79,19 @@ let AskInfo = React.createClass({
 				</div>
 			</div>
 		)
+	},
+
+	/**
+	 * React function to load transfer links once component has been created
+	 */
+	componentDidMount(){
+		TransactionService.getTransferLinks()
+			.then(values =>{
+				this.setState({
+					links: values.map(link => link['Username_To'])
+				});
+				this.props.accountChange(values[0]['Username_To']);
+			})
 	}
 });
 
