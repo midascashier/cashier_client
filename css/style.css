@@ -987,7 +987,7 @@ input:checked + .slider:before{
     margin-top: 0;
     color: #5e5e5e;
     font-size: 25px;
-    margin-bottom: 0;
+    margin-bottom: 6px;
     text-align: center;
     border-radius: 12px;
     display: inline-block;
@@ -1003,10 +1003,10 @@ input:checked + .slider:before{
 
 .docsFilesOptions{
     width: 190px;
-    margin: 15px;
     padding: 5px;
     cursor: pointer;
     height: inherit;
+    margin-left: 5px;
 }
 
 .docsFilesOptions:hover{

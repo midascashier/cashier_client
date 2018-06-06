@@ -108,6 +108,7 @@ let DocsFileRules = {
      * @returns {*}
      */
     print(categoryId, docs){
+        let name = null;
         let resolve = true;
         try {
             if(this.hasOwnProperty(categoryId)){
@@ -120,7 +121,7 @@ let DocsFileRules = {
                                     if(_.size(docs[rule])){
                                         switch(rule){
                                             case 'forms':
-                                                let name = this[categoryId].name;
+                                                name = this[categoryId].name;
                                                 if(!docs[rule].hasOwnProperty(name)){
                                                     if(name){
                                                         if(!this.pendingInfo){

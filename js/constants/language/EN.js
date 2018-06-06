@@ -418,6 +418,9 @@ let _langTags = {
 	DOCFILE_FORM_PROOF_TITLE : 'Proof of address',
 	DOCFILE_FORM_OPTION_FIX_NAME : 'Fix name',
 	DOCFILE_FORM_PENDING_DEPOSIT_TITLE: 'Pending deposit',
+	DOCFILE_FORM_THIRD_ID_TITLE : 'Third ID',
+	DOCFILE_FORM_BANK_LETTER_TITLE : 'Bank Letter',
+	DOCFILE_FORM_LABEL_FILE_LETTER : 'Bank Letter',
 
 	DOCFILE_FORM_LABEL_FILE_EWALLET : 'Photo of your e-wallet',
 	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Public service receipt',
