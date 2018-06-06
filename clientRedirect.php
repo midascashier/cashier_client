@@ -180,6 +180,7 @@ class ClientRedirect{
       CURLOPT_SSL_VERIFYPEER => 0,
       CURLOPT_POSTFIELDS => $params,
       CURLOPT_URL => CASHIER_CONTROLLER_WS,
+      CURLOPT_CONNECTTIMEOUT => WS_CONNECT_TIMEOUT,
       CURLOPT_USERAGENT => "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)"
     ));
 
