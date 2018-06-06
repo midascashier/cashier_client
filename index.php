@@ -38,12 +38,12 @@
         referrer: document.referrer || location.referrer
       };
 
-      if (!loginInfo) {
+      if(!loginInfo){
         let application = JSON.parse(localStorage.application);
         let ui = JSON.parse(localStorage.ui);
         let company = JSON.parse(localStorage.company);
         loginInfo = {companyId: company.companyId, remoteCompany: localStorage.application.remoteCompany, option: ui.currentView, sid: application.sid};
-      } else {
+      }else{
         let localApp = localStorage.application;
         if (localApp) {
           application = JSON.parse(localApp);
