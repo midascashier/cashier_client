@@ -1,6 +1,5 @@
 <?php
 require_once('config/phpConfig.php');
-require_once 'system/Startup.class.php';
 session_start();
 
 /**
@@ -40,20 +39,22 @@ class ClientRedirect{
     $cashierParams["xForwardedFor"] = $this->customerIp();;
     $cashierParams["remoteHost"] = gethostbyaddr($_SERVER['REMOTE_ADDR']);
 
-    if (DEBUG_ENABLED){
-      $cashierParams["XDEBUG_SESSION_START"] = "ECLIPSE_DBGP";
-    }
-
     echo $this->domHTML($cashierParams);
   }
 
+  /**
+   * Render current DOM
+   *
+   * @param $params
+   * @return string
+   */
   private function domHTML($params){
-
     $this->loginManager($params);
+
     if($this->sid){
-      $customerData = TblCustomer::getInstance();
-      $customer = $customerData->getCustomerByUsername($params['companyId'], $params['username']);
-      $remoteCompany = $customer->getRemoteCompany();
+      $customerData = $this->customerInfo();
+      $customerInfo = $customerData->customerInfo;
+      $remoteCompany = $customerInfo->remoteCompany;
 
       $content = "
         <form id='alForm' action='/' method='POST'>
@@ -88,45 +89,37 @@ class ClientRedirect{
     ";
   }
 
+  /**
+   * Call login manager verification
+   *
+   * @param $params
+   */
   private function loginManager($params){
-
     $params['companyId'] = COMPANY_ID_POKER;
+    $result = $this->wsRequest($params);
 
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-      CURLOPT_POST => 1,
-      CURLOPT_RETURNTRANSFER => 1,
-      CURLOPT_SSL_VERIFYHOST => 0,
-      CURLOPT_SSL_VERIFYPEER => 0,
-      CURLOPT_POSTFIELDS => $params,
-      CURLOPT_URL => CASHIER_CONTROLLER_WS,
-      CURLOPT_USERAGENT => "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)"
-    ));
-
-    $resp = curl_exec($curl);
-    $result = json_decode($resp);
-
-    curl_close($curl);
-
-    if ($result && $result->response && $result->response->sid){
-      $this->sid = $result->response->sid;
-    }else{
-      //log in order to trace the issues on login
-      $this->sid = null;
-      //log in order to trace the issues on login
-      $logFile = "login_error_" . strtoupper($params["username"]) . ".txt";
-      $content = date('Y-m-d H:i:s') . ":\n";
-      $content .= "request: \n";
-      $strParams = json_encode($params);
-      $content .= $strParams ." \n";
-      $content .= "response: \n";
-      $content .= $resp ." \n";
-      $content .= "\n";
-      @file_put_contents($logFile, $content, FILE_APPEND);
-      //end of login trace
-    }
+    $this->sid = $result->sid;
   }
 
+  /**
+   * Get current customer info
+   *
+   * @return mixed
+   */
+  private function customerInfo()
+  {
+    $params['sid'] = $this->sid;
+    $params['f'] = 'customerInfo';
+    $params['sys_access_pass'] = ACCESS_PASSWORD;
+
+    return $this->wsRequest($params);
+  }
+
+  /**
+   * Get real customer ip
+   *
+   * @return string
+   */
   private function customerIp(){
     $clientIP = $_SERVER['HTTP_CLIENT_IP'];
     if (!$clientIP){
@@ -165,6 +158,54 @@ class ClientRedirect{
     }
 
     return $clientIP;
+  }
+
+  /**
+   * Execute WS to cashier
+   *
+   * @param $params
+   * @return mixed
+   */
+  private function wsRequest($params)
+  {
+    if(DEBUG_ENABLED){
+      $params["XDEBUG_SESSION_START"] = "ECLIPSE_DBGP";
+    }
+
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_POST => 1,
+      CURLOPT_RETURNTRANSFER => 1,
+      CURLOPT_SSL_VERIFYHOST => 0,
+      CURLOPT_SSL_VERIFYPEER => 0,
+      CURLOPT_POSTFIELDS => $params,
+      CURLOPT_URL => CASHIER_CONTROLLER_WS,
+      CURLOPT_USERAGENT => "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)"
+    ));
+
+    $resp = curl_exec($curl);
+    $result = json_decode($resp);
+    curl_close($curl);
+
+    if(!$result || !$result->response){
+      //log in order to trace the issues on login
+      $this->sid = null;
+      //log in order to trace the issues on login
+      $logFile = "login_error_" . strtoupper($params["username"]) . ".txt";
+      $content = date('Y-m-d H:i:s') . ":\n";
+      $content .= "request: \n";
+      $strParams = json_encode($params);
+      $content .= $strParams ." \n";
+      $content .= "response: \n";
+      $content .= $resp ." \n";
+      $content .= "\n";
+      @file_put_contents($logFile, $content, FILE_APPEND);
+      //end of login trace
+
+      return false;
+    }
+
+    return $result->response;
   }
 }
 
