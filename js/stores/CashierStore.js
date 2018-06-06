@@ -1,6 +1,7 @@
 let EventEmitter = require('events').EventEmitter;
 let CashierDispatcher = require('../dispatcher/CashierDispatcher');
 
+import ReactGA from 'react-ga'
 import assign from 'object-assign'
 import actions from '../constants/Actions'
 import cashier from '../constants/Cashier'
@@ -1011,6 +1012,12 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_UI.currentView = data.option;
 					_application.sid = data.sid;
 					_company.companyId = data.companyId;
+					_company.remoteCompany = data.remoteCompany;
+
+					ReactGA.set({'dimension1' : _company.remoteCompany});
+					if(_company.remoteCompany == 'AmericasCardroom'){
+						$('head').append("<!-- Hotjar Tracking Code for Cashier Poker (New) --><script>(function(h,o,t,j,a,r)Unknown macro: { h.hj=h.hj||function() Unknown macro};h._hjSettings={hjid:592695,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
+					}
 
 					if(typeof Storage !== "undefined"){
 						let application = JSON.parse(localStorage.application);
@@ -1497,7 +1504,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				case actions.VALIDATE_ACCOUNT:
 					if(!Array.isArray(data) && data.hasOwnProperty('response') && data.response.hasOwnProperty('transfer')) {
 						Object.assign(_Player2Agent.transfer, data.response.transfer);
-					} else {
+					}else{
 						Object.assign(_Player2Agent.transfer, {
 							fullnameTo: '',
 							usernameFrom: '',

@@ -19,6 +19,7 @@
       let sid = "<?php echo $_REQUEST['sid'] ?>";
       let tuid = "<?php echo $_REQUEST['tuid'] ?>";
       let remoteAddr = "<?php echo $_REQUEST['remoteAddr'] ?>";
+      let remoteCompany = "<?php $_REQUEST['remoteCompany'] ?>";
       let xForwardedFor = "<?php echo $_REQUEST['xForwardedFor'] ?>";
       let remoteHost = "<?php echo gethostbyaddr($_SERVER['REMOTE_ADDR']) ?>";
       let loginInfo = <?php echo((count($_REQUEST)) > 0 ? json_encode($_REQUEST) : "null") ?>;
@@ -31,6 +32,7 @@
         remoteAddr: remoteAddr,
         remoteHost: remoteHost,
         remoteAddress: remoteAddr,
+        remoteCompany: remoteCompany,
         xForwardedFor: xForwardedFor,
         userAgent: navigator.userAgent,
         referrer: document.referrer || location.referrer
@@ -40,7 +42,7 @@
         let application = JSON.parse(localStorage.application);
         let ui = JSON.parse(localStorage.ui);
         let company = JSON.parse(localStorage.company);
-        loginInfo = {companyId: company.companyId, option: ui.currentView, sid: application.sid};
+        loginInfo = {companyId: company.companyId, remoteCompany: localStorage.application.remoteCompany, option: ui.currentView, sid: application.sid};
       } else {
         let localApp = localStorage.application;
         if (localApp) {
