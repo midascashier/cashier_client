@@ -408,6 +408,9 @@ let _langTags = {
 	DOCFILE_FORM_LABEL_FILE_BANK_STATEMENT2: 'Depósito pendiente',
 	DOCFILE_FORM_LABEL_FILE_EWALLET : 'Foto de su billetera electrónica',
 	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Recibo de servicio público',
+	DOCFILE_FORM_THIRD_ID_TITLE : 'ID de tercero',
+	DOCFILE_FORM_BANK_LETTER_TITLE : 'Carta bancaria',
+	DOCFILE_FORM_LABEL_FILE_LETTER : 'Carta bancaria',
 
 	DOCS_FILE_TAB_VERIFICATIONREQUIRED : "Información Adicional",
 
