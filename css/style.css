@@ -974,6 +974,10 @@ input:checked + .slider:before{
     margin: 0 auto;
 }
 
+.docsFileInputSelected select{
+    color: black;
+}
+
 .docsFileOptsTittles{
     font-size: 16pt;
     margin-top: 15px;
