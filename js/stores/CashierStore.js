@@ -1015,9 +1015,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_company.remoteCompany = data.remoteCompany;
 
 					ReactGA.set({'dimension1' : _company.remoteCompany});
-					if(_company.remoteCompany == 'AmericasCardroom'){
-						//$('head').append('<script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:592695,hjsv:6};a=o.getElementsByTagName(&apos;head&apos[0];r=o.createElement(&apos;script&apos;r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,&apos;<a href="https://static.hotjar.com/c/hotjar-&apos;,&apos;.js?sv=&apos;">https://static.hotjar.com/c/hotjar-&apos;,&apos;.js?sv=&apos;</a>);</script>');
-					}
 
 					if(typeof Storage !== "undefined"){
 						let application = JSON.parse(localStorage.application);
