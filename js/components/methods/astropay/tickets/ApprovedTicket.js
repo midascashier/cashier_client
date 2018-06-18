@@ -66,8 +66,8 @@ let AstroPayApprovedTicket = React.createClass({
 				<div className="row">
 					<div className="col-sm-6">
 						<div className="box">
-							<a href="" target="_blank">
-								<img className="img-responsive banner" src={originPath + '/images/promo.jpg'} alt=""/>
+							<a>
+								<img className="img-responsive banner" src={originPath + '/images/promo1.jpg'} alt="Promo"/>
 							</a>
 						</div>
 					</div>

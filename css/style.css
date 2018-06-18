@@ -149,9 +149,6 @@ body {background:#EEE; font-family:'Segoe UI', Arial, sans-serif; color:#777; fo
 .steps div[class^="step"] p span, .two-steps div[class^="step"] p span {/*font-size:56px;*/font-size: 42px; vertical-align:sub; margin-right:10px;}
 
 /*two - steps*/
-.two-steps .step1.normal {background-image: url(../images/2steps_step1_normal.jpg);}
-.two-steps .step2.normal {background-image: url(../images/2steps_step2_normal.jpg);}
-
 .two-steps .step1.active {background-image: url(../images/2steps_step1_active.jpg);}
 .two-steps .step2.inactive {background-image: url(../images/2steps_step2_inactive.jpg);}
 .two-steps .step2.active {background-image: url(../images/2steps_step2_active.jpg);}
@@ -215,14 +212,9 @@ div#header .alert {margin: 10px 10px 5px;}
 .modules .box .method .neteller_new{ background-image:url(../images/processors/333.png);}
 .modules .box .method .debitcards{ background-image:url(../images/processors/30200.png);}
 .modules .box .method .mastercard{ background-image:url(../images/processors/11000.png);}
-.modules .box .method .verifiedbyvisa{ background-image:url(../images/processors/verified-by-visa.png);}
 .modules .box .method .genck{ background-image:url(../images/processors/70000.png);}
 .modules .box .method .crd3co{ background-image:url(../images/processors/354.png);}
-.modules .box .method .entropayvisa{ background-image:url(../images/processors/entropay-visa.png);}
-.modules .box .method .agent-transfer{ background-image:url(../images/processors/agent-transfer.png);}
 .modules .box .method .pp_apcc{ background-image:url(../images/processors/727.png);}
-.modules .box .method .transferencia-local{ background-image:url(../images/processors/transferencia-bancaria-local.png);}
-.modules .box .method .boleto{ background-image:url(../images/processors/boleto.png);}
 .modules .box .method .billpay{ background-image:url(../images/processors/36.png);}
 .modules .box .method .amex{background-image:url(../images/processors/11005.png);}
 .modules .box .method .cryptoscreen{background-image:url(../images/processors/830.png);}
@@ -244,11 +236,11 @@ div#header .alert {margin: 10px 10px 5px;}
 /*.success-page*/
 .banner {background-size:cover; width:100%;}
 .fa-4 {font-size:6em!important;}
-/*.success-message {text-align:center;}
+.success-message {text-align:center;}
 .success-message i[class^="fa fa-check"] {font-size:7em;}
 .success-message i {margin-top:8px; margin-bottom:10px}
 .success-message .title {margin-bottom:20px; font-size:30px;}
-.success-message button{margin:10px 0 10px;}*/
+.success-message button{margin:10px 0 10px;}
 
 /*rejected*/
 /*.rejected-message {line-height:2;}
