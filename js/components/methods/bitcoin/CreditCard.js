@@ -24,12 +24,20 @@ let CreditCard = React.createClass({
 
 	render() {
 
-		console.log(this.state);
+		let cards = this.state.cards;
+		let options = [];
+
+		for(let i in cards){
+			let card = cards[i];
+			options.push(<option key={card.caPayAccount_Id} value={card.caPayAccount_Id}>{card.Last4}</option>);
+		}
 
 		return (
-			<select>
-				<option>Select credit card</option>
-			</select>
+			<div className="row">
+				<div className="col-12">
+					<select className="form-control">{options}</select>
+				</div>
+			</div>
 		);
 	},
 
