@@ -292,6 +292,8 @@ let _payAccount = {
  */
 let _payAccounts = [];
 
+let _customerPayAccounts = [];
+
 /**
  * Stores information of the transaction
  *
@@ -405,7 +407,7 @@ let _CryptoTransfer = {
 let _Player2Agent = {
 	account: '',
 	name: '',
-	feePaymentMethod : '',
+	feePaymentMethod: '',
 	waitForValidation: false,
 	consulted: false,
 	transfer: {
@@ -417,26 +419,26 @@ let _Player2Agent = {
 }
 
 let _DocsFile = {
-	step : 0,
-	currentStep : 1,
-	categoriesList : {},
-	checkOption : false,
-	responseUpload : false,
-	pendingRecovery : false,
-	currentOptionSelected : '',
-	pendingAdditionalInfo : false,
-	currentFormInputsCategories : [],
+	step: 0,
+	currentStep: 1,
+	categoriesList: {},
+	checkOption: false,
+	responseUpload: false,
+	pendingRecovery: false,
+	currentOptionSelected: '',
+	pendingAdditionalInfo: false,
+	currentFormInputsCategories: [],
 
-	forms : {},
+	forms: {},
 	formSelectedId: false,
-	kycIDApproved : false,
-	customerForms : false,
+	kycIDApproved: false,
+	customerForms: false,
 
-	readyCategories : false,
-	pendingKycIDApproved : true,
-	customerPendingForms : false,
-	pendingInputsCategory : true,
-	pendingCustomerFormInfo : true,
+	readyCategories: false,
+	pendingKycIDApproved: true,
+	customerPendingForms: false,
+	pendingInputsCategory: true,
+	pendingCustomerFormInfo: true,
 	readyPending(){
 		return (this.readyCategories && this.customerPendingForms && !this.pendingCustomerFormInfo && !this.pendingInputsCategory);
 	}
@@ -480,7 +482,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @return {{account: string, name: string, feePaymentMethod: string}}
 	 */
-	getPlayerAccount: () => {
+	getPlayerAccount: () =>{
 		return _Player2Agent.transfer.fullnameTo && _Player2Agent.transfer.fullnameTo.length > 0 ? _Player2Agent : null;
 	},
 
@@ -488,11 +490,11 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Sets the player2agent information
 	 * @param account: _Player2Agent
 	 */
-	setPlayerAccount: (account) => {
+	setPlayerAccount: (account) =>{
 		_Player2Agent = account;
 	},
 
-	cleanPlayerAccount: () => {
+	cleanPlayerAccount: () =>{
 		Object.assign(_Player2Agent.transfer, {
 			fullnameTo: '',
 			usernameFrom: '',
@@ -549,7 +551,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return (_payAccounts[_processor['processorId']]);
 	},
 
-	getProcessorId: () => {
+	getProcessorId: () =>{
 		return _processor['processorId'];
 	},
 	/**
@@ -995,7 +997,12 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	docFilesSetFormSelectedId(id){
 		_DocsFile.formSelectedId = id
+	},
+
+	getCustomerPayAccounts(){
+		return _customerPayAccounts;
 	}
+
 });
 
 /**
@@ -1014,7 +1021,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_company.companyId = data.companyId;
 					_company.remoteCompany = data.remoteCompany;
 
-					ReactGA.set({'dimension1' : _company.remoteCompany});
+					ReactGA.set({'dimension1': _company.remoteCompany});
 					if(_company.remoteCompany == 'AmericasCardroom'){
 						$('head').append("<!-- Hotjar Tracking Code for Cashier ACR --><script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:592695,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
 					}
@@ -1502,7 +1509,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					break;
 
 				case actions.VALIDATE_ACCOUNT:
-					if(!Array.isArray(data) && data.hasOwnProperty('response') && data.response.hasOwnProperty('transfer')) {
+					if(!Array.isArray(data) && data.hasOwnProperty('response') && data.response.hasOwnProperty('transfer')){
 						Object.assign(_Player2Agent.transfer, data.response.transfer);
 					}else{
 						Object.assign(_Player2Agent.transfer, {
@@ -1599,6 +1606,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					break;
 
 				case actions.DOCS_FILE_SAVE_RESPONSE:
+					console.log('action');
 					if(data.result){
 						_DocsFile.responseUpload = 'success'
 					}else{
@@ -1607,6 +1615,15 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 					CashierStore.emitChange();
 					break;
+
+				case actions.GET_PAY_ACCOUNTS_CUSTOMER:
+					if(data.response){
+						console.log(data.response.cards);
+						_customerPayAccounts = data.response.cards;
+					}
+					CashierStore.emitChange();
+					break;
+
 				default:
 					console.log("Store No Action: " + action);
 					break;

@@ -1,4 +1,4 @@
-php_value include_path ".;E:\desarrollo\source\cashier"
+php_value include_path ".;D:\develop\source\cashier"
 
 php_flag short_open_tag on
 php_flag display_errors on

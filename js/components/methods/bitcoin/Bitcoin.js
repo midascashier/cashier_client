@@ -1,6 +1,7 @@
 import React from 'react'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
+import {CreditCard} from './CreditCard'
 import {UIService} from '../../../services/UIService'
 import {CashierStore} from '../../../stores/CashierStore'
 import {TransactionService} from '../../../services/TransactionService'
@@ -27,6 +28,7 @@ let BitCoin = React.createClass({
 	 * React function to set component initial state
 	 */
 	getInitialState(){
+		this.setState({buyCryptos: false});
 		ApplicationService.getCurrency("BTC");
 		return this.refreshLocalState();
 	},
@@ -99,7 +101,12 @@ let BitCoin = React.createClass({
 		TransactionService.startTransaction();
 	},
 
+	showBuyCryptos(){
+		this.setState({buyCryptos: true});
+	},
+
 	render(){
+
 		const processors = this.getProcessors();
 		const imgLang = this.state.imgLang;
 		const isCryptoTransferActive = processors.find(processor => +processor.caProcessor_Id === 830);
@@ -133,23 +140,38 @@ let BitCoin = React.createClass({
 						promoCode={this.props.promoCode}
 					/>
 				</div>
-				<div className="col-sm-6">
-					{(() =>{
-						if(!this.state.info.selectedProcessor.processorId){
-							return <LoadingSpinner/>;
-						}
 
-						return (
-							<InfoMethod
-								amount={this.props.amount}
-								limitsCheck={this.props.limitsCheck}
-								feeCashValue={this.props.feeCashValue}
-								feeCheck={this.props.feeCheck} bitcoinAddress={this.state.info.bitcoinAddress}
-								allowContinueToConfirm={this.state.info.allowContinueToConfirm}
-							/>
-						)
-					})()}
+				<div className="col-sm-6">
+					<div className="row">
+						<div className="col-12">
+							{(() =>{
+								if(!this.state.info.selectedProcessor.processorId){
+									return <LoadingSpinner/>;
+								}
+
+								if(this.state.buyCryptos == true){
+									return <CreditCard/>;
+								}
+
+								return (
+									<InfoMethod
+										amount={this.props.amount}
+										limitsCheck={this.props.limitsCheck}
+										feeCashValue={this.props.feeCashValue}
+										feeCheck={this.props.feeCheck} bitcoinAddress={this.state.info.bitcoinAddress}
+										allowContinueToConfirm={this.state.info.allowContinueToConfirm}
+									/>
+								)
+							})()}
+						</div>
+
+						<div className="col-12">
+							<button onClick={this.showBuyCryptos} className="btn btn-info btn-sm">Buy Cryptos</button>
+						</div>
+
+					</div>
 				</div>
+
 			</div>
 		);
 

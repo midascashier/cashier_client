@@ -122,6 +122,17 @@ class customerService{
 		let rabbitRequest = Object.assign(data, application);
 		ConnectorServices.makeCustomerRequest(actions.PROCESSORS_LIMIT_RULES_RESPONSE, rabbitRequest);
 	};
+
+	getCustomerPayAccounts(){
+		let data = {
+			f: "cards"
+		};
+
+		let application = CashierStore.getApplication();
+		let request = Object.assign(data, application);
+		ConnectorServices.makeCustomerRequest(actions.GET_PAY_ACCOUNTS_CUSTOMER, request);
+	}
+
 }
 
 export let CustomerService = new customerService();
