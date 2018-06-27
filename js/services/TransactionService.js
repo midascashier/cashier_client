@@ -892,12 +892,13 @@ class transactionService {
 		ConnectorServices.makeBackendRequest(actions.REGISTER_PAYACCOUNT_BITCOIN, rabbitRequest);
 	}
 
-	buyCryptos(payAccountId, amount, cryptoCurrencyCode){
+	buyCryptos(buyCryptosInfo){
+
 		let data = {
 			f: "coinDirectBuyCrypto",
-			payAccountId: payAccountId,
-			amount: amount,
-			cryptoCurrencyCode: cryptoCurrencyCode
+			payAccountId: buyCryptosInfo.payAccountId,
+			amount: buyCryptosInfo.amount,
+			cryptoCurrencyCode: buyCryptosInfo.cryptoCurrencyCode
 		};
 
 		let application = CashierStore.getApplication();

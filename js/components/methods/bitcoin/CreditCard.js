@@ -8,6 +8,7 @@ import {CreditCardRegister} from './CreditCardRegister'
 import {ApplicationService} from '../../../services/ApplicationService'
 import {TransactionService} from '../../../services/TransactionService'
 import {Input} from '../../commonComponents/Inputs'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 
 let CreditCard = React.createClass({
 
@@ -17,16 +18,29 @@ let CreditCard = React.createClass({
 	},
 
 	parameters(){
-		let registerCC = (this.state === null) ? false : this.state.showRegisterCC;
+
+		console.log();
+
+		let registerCC = false;
+		let payAccountId = 0;
+		let amount = '';
+
+		if(this.state !== null){
+			registerCC = this.state.showRegisterCC;
+			payAccountId = this.state.buyCryptos.payAccountId;
+			amount = this.state.buyCryptos.amount;
+		}
 
 		return {
 			cards: CashierStore.getCustomerPayAccounts(),
 			buyCryptos: {
-				payAccountId: 0,
-				amount: '',
+				payAccountId: payAccountId,
+				amount: amount,
 				cryptoCurrencyCode: 'BTC'
 			},
-			showRegisterCC: registerCC
+			coinDirectData: CashierStore.getCoinDirectData(),
+			showRegisterCC: registerCC,
+			loading: false
 		}
 	},
 
@@ -49,23 +63,25 @@ let CreditCard = React.createClass({
 	buyCryptos(e){
 		if(!ApplicationService.emptyInput(e)){
 
-			let payAccountId = e.target.querySelector('[name="payAccountId"]').value;
-			let amount = e.target.querySelector('[name="amount"]').value;
-			let cryptoCurrencyCode = 'BTC';
+			this.setState({loading: true});
 
-			TransactionService.buyCryptos(payAccountId, amount, cryptoCurrencyCode);
-
-			let buyCryptos = {
-				payAccountId: payAccountId,
-				amount: amount,
-				cryptoCurrencyCode: cryptoCurrencyCode
+			let buyCryptosInfo = {
+				payAccountId: e.target.querySelector('[name="payAccountId"]').value,
+				amount: e.target.querySelector('[name="amount"]').value,
+				cryptoCurrencyCode: 'BTC'
 			};
 
-			this.setState({buyCryptos: buyCryptos});
+			TransactionService.buyCryptos(buyCryptosInfo);
+
+			this.setState({buyCryptos: buyCryptosInfo});
 		}
 	},
 
 	render() {
+
+		if(this.state.loading){
+			return <LoadingSpinner/>
+		}
 
 		let cards = this.state.cards;
 
@@ -119,7 +135,6 @@ let CreditCard = React.createClass({
 														type="number"
 														id="amount"
 														name="amount"
-														ref="amount"
 														validate="isNumber"
 														require
 													/>
@@ -131,6 +146,19 @@ let CreditCard = React.createClass({
 													<button type="submit" className="btn btn-primary btn-sm">Deposit</button>
 												</div>
 											</div>
+
+											<div hidden={this.state.coinDirectData.message == ''}>
+												<div hidden={this.state.coinDirectData.success == 1} className="alert alert-danger">
+													{this.state.coinDirectData.message}
+													<div>Current balance (BTC): {this.state.coinDirectData.balance}</div>
+												</div>
+											</div>
+											<div
+												hidden={!this.state.coinDirectData.balance || this.state.coinDirectData.balance == 0}
+												className="alert alert-success">
+												Approved transaction, new balance (BTC): {this.state.coinDirectData.balance}
+											</div>
+
 										</form>
 
 									</div>

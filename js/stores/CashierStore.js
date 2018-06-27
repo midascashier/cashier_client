@@ -444,6 +444,12 @@ let _DocsFile = {
 	}
 };
 
+let _coinDirectData = {
+	success: 0,
+	balance: 0,
+	message: ''
+};
+
 let CHANGE_EVENT = 'change';
 
 let CashierStore = assign({}, EventEmitter.prototype, {
@@ -1001,6 +1007,10 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	getCustomerPayAccounts(){
 		return _customerPayAccounts;
+	},
+
+	getCoinDirectData(){
+		return _coinDirectData;
 	}
 
 });
@@ -1662,7 +1672,14 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					break;
 
 				case actions.BUY_CRYPTOS:
+					if(data.response){
+						let response = data.response.coinDirectData;
+						_coinDirectData.success = response.success;
+						_coinDirectData.balance = response.balance;
+						_coinDirectData.message = response.message;
+					}
 					console.log(data);
+					CashierStore.emitChange();
 					break;
 
 				default:
