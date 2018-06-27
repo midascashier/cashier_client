@@ -686,6 +686,17 @@ class UiService {
 	}
 
 	/**
+	 * check if buy crypto is active
+	 */
+	buyCryptoIsActive(){
+		let params = {
+			f: 'coinDirectIsActive'
+		};
+
+		ConnectorServices.makeCashierRequest(actions.IS_ACTIVE_BUY_CRYPTO, params);
+	}
+
+	/**
 	 * Get crypto currencies list
 	 *
 	 * @returns {*}

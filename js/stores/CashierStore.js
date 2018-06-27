@@ -442,6 +442,11 @@ let _DocsFile = {
 	}
 };
 
+let _BuyCrypto = {
+	isActive: false,
+	customerBalance: 0,
+}
+
 let CHANGE_EVENT = 'change';
 
 let CashierStore = assign({}, EventEmitter.prototype, {
@@ -995,6 +1000,15 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	docFilesSetFormSelectedId(id){
 		_DocsFile.formSelectedId = id
+	},
+
+	/**
+	 * check if buy crypto is active
+	 *
+	 * @return {boolean}
+	 */
+	isActiveBuyCrypto(){
+		return _BuyCrypto.isActive
 	}
 });
 
@@ -1606,6 +1620,13 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					}
 
 					CashierStore.emitChange();
+					break;
+				case actions.IS_ACTIVE_BUY_CRYPTO:
+					let response = data.response;
+					if(response) {
+						_BuyCrypto.isActive = response.isActive;
+						CashierStore.emitChange();
+					}
 					break;
 				default:
 					console.log("Store No Action: " + action);

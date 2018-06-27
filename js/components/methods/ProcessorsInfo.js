@@ -2,11 +2,13 @@ import React from 'react'
 import {Link} from 'react-router'
 import {UIService} from '../../services/UIService'
 import {translate} from '../../constants/Translate'
+import cashier from '../../constants/Cashier'
 import {CashierStore} from '../../stores/CashierStore'
 import {CustomerService} from '../../services/CustomerService'
 import {ProcessorInfo} from '../contentComponents/ProcessorInfo'
 import {ProcessorsList} from '../contentComponents/ProcessorsList'
 import {LoadingSpinner} from '../../components/loading/LoadingSpinner'
+import {ProcessorCryptoInfo} from '../contentComponents/ProcessorCryptoInfo'
 
 let ProcessorsInfo = React.createClass({
 
@@ -139,6 +141,10 @@ let ProcessorsInfo = React.createClass({
 					{(() =>{
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner/>;
+						}
+
+						if(this.state.selectedProcessor.processorId == cashier.PROCESSOR_ID_BITCOIN) {
+							return <ProcessorCryptoInfo/>
 						}
 
 						return <ProcessorInfo selectedProcessor={this.state.selectedProcessor} waitLimits={this.state.waitLimits}/>
