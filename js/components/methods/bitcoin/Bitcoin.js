@@ -102,7 +102,12 @@ let BitCoin = React.createClass({
 	},
 
 	showBuyCryptos(){
-		this.setState({buyCryptos: true});
+		if(this.state.buyCryptos){
+			this.setState({buyCryptos: false});
+		}else{
+			this.setState({buyCryptos: true});
+		}
+
 	},
 
 	render(){
@@ -143,6 +148,7 @@ let BitCoin = React.createClass({
 
 				<div className="col-sm-6">
 					<div className="row">
+
 						<div className="col-12">
 							{(() =>{
 								if(!this.state.info.selectedProcessor.processorId){
@@ -163,15 +169,14 @@ let BitCoin = React.createClass({
 									/>
 								)
 							})()}
-						</div>
 
-						<div className="col-12">
-							<button onClick={this.showBuyCryptos} className="btn btn-info btn-sm">Buy Cryptos</button>
-						</div>
+							<div className="form-group">
+								<a onClick={this.showBuyCryptos}>{(this.state.buyCryptos) ? 'Cancel' : 'Buy cryptos'}</a>
+							</div>
 
+						</div>
 					</div>
 				</div>
-
 			</div>
 		);
 

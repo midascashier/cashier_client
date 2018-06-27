@@ -1432,6 +1432,44 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				case actions.VALIDATE_PAYACCOUNT:
 					break;
 
+				case actions.REGISTER_PAYACCOUNT_BITCOIN:
+					if(data && data.state == 'ok' && data.response){
+						let payAccount = data.response.payAccount;
+						let cardType = 'VI';
+						let cardTypeDescription = 'Visa';
+						if(payAccount.processorIdRoot == cashier.PROCESSOR_ID_MC){
+							cardType = 'MC';
+							cardTypeDescription = 'Mastercard';
+						}
+						if(payAccount.processorIdRoot == cashier.PROCESSOR_ID_AMEX){
+							cardType = 'AMEX';
+							cardTypeDescription = 'American Express';
+						}
+						if(payAccount.processorIdRoot == cashier.PROCESSOR_ID_JCB){
+							cardType = 'JBC';
+							cardTypeDescription = 'JBC';
+						}
+
+						let cardNumber = payAccount.secureData.account;
+
+						let newPayAccount = {
+							caPayAccount_Id: payAccount.payAccountId,
+							DateLastUsed: '',
+							Last4: cardNumber.substr(12, 16),
+							ExpDate: payAccount.secureData.extra1 + '/' + payAccount.secureData.extra2,
+							CardholderName: payAccount.secureData.extra3,
+							CardType: cardType,
+							CardTypeDescription: cardTypeDescription,
+							Expired: 0,
+							is1Click: 0,
+							is1ClickElegible: 0,
+							caProcessor_Id_Root: payAccount.processorIdRoot
+						};
+						_customerPayAccounts.push(newPayAccount);
+						CashierStore.emitChange();
+					}
+					break;
+
 				case actions.PAYACCOUNTS_VALIDATE_SECURE_RESPONSE:
 					_payAccount.updateSuccess = 0;
 					if(data.response && data.response.updateSuccess){
@@ -1618,10 +1656,13 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 
 				case actions.GET_PAY_ACCOUNTS_CUSTOMER:
 					if(data.response){
-						console.log(data.response.cards);
 						_customerPayAccounts = data.response.cards;
 					}
 					CashierStore.emitChange();
+					break;
+
+				case actions.BUY_CRYPTOS:
+					console.log(data);
 					break;
 
 				default:

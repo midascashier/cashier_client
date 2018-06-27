@@ -7,7 +7,7 @@ import {CustomerService} from './CustomerService'
 import {CashierStore} from '../stores/CashierStore'
 import {CashierActions} from '../actions/CashierActions'
 
-class transactionService{
+class transactionService {
 
 	/**
 	 * here is where we start the transaction process
@@ -57,7 +57,7 @@ class transactionService{
 		let tuid, sid;
 
 		pendingPayouts.map((payout) =>{
-			if (journalId == payout['caJournal_Id']){
+			if(journalId == payout['caJournal_Id']){
 				sid = payout.SessionId;
 				tuid = payout.TransUniqueId;
 			}
@@ -74,7 +74,7 @@ class transactionService{
 
 		let rabbitRequest = Object.assign(data, "");
 
-		if (sid && tuid){
+		if(sid && tuid){
 			ConnectorServices.makeCashierRequest(actions.CHANGE_STATUS_RESPONSE, rabbitRequest);
 		}
 	};
@@ -86,7 +86,7 @@ class transactionService{
 		let company = CashierStore.getCompany();
 		let customer = CashierStore.getCustomer();
 		let processor = CashierStore.getProcessor();
-		if (processorID || processor.processorId){
+		if(processorID || processor.processorId){
 			let data = {
 				module: "limits",
 				companyId: company.companyId,
@@ -259,7 +259,7 @@ class transactionService{
 	/**
 	 *
 	 * @param CVV
-     */
+	 */
 	setCVV(CVV){
 		CashierActions.setCVV(CVV);
 	};
@@ -267,7 +267,7 @@ class transactionService{
 	/**
 	 *
 	 * @param fee
-     */
+	 */
 	setFeeAmount(fee){
 		CashierActions.setTransactionFeeAmount(fee);
 	};
@@ -487,7 +487,7 @@ class transactionService{
 	 * Send to process a Agent2Player transaction
 	 * @param nextStep
 	 */
-	processAgentTransfer(nextStep) {
+	processAgentTransfer(nextStep){
 		const transaction = CashierStore.getTransaction();
 		const processor = CashierStore.getProcessorId();
 		const playerAccount = CashierStore.getPlayerAccount();
@@ -828,7 +828,7 @@ class transactionService{
 		let processorClassId = processor.processorClass;
 		if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && data.response.transaction.caTransactionStatus_Id != cashier.TRANSACTION_STATUS_APPROVED && data.response.transaction.caTransaction_Id != ""){
 			this.processResponseCC();
-		} else{
+		}else{
 			this.getTransactionDetails();
 			UIService.processResponse(data);
 		}
@@ -872,6 +872,40 @@ class transactionService{
 		ConnectorServices.makeBackendRequest(actions.VALIDATE_PAYACCOUNT, rabbitRequest);
 	};
 
+	registerPayAccountBitcoin(payAccountInfo){
+		let transactionType = UIService.getIsWithDraw();
+
+		let data = {
+			f: "validatePayAccount",
+			module: 'payAccount'
+		};
+
+		let selectedProcessorId = payAccountInfo.processorId;
+
+		let payAccount = {
+			processorIdRoot: selectedProcessorId,
+			customerId: CashierStore.getCustomer().customerId,
+			transactionType: transactionType
+		};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application, payAccount, payAccountInfo);
+		ConnectorServices.makeBackendRequest(actions.REGISTER_PAYACCOUNT_BITCOIN, rabbitRequest);
+	}
+
+	buyCryptos(payAccountId, amount, cryptoCurrencyCode){
+		let data = {
+			f: "coinDirectBuyCrypto",
+			payAccountId: payAccountId,
+			amount: amount,
+			cryptoCurrencyCode: cryptoCurrencyCode
+		};
+
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+
+		ConnectorServices.makeCashierRequest(actions.BUY_CRYPTOS, rabbitRequest);
+	}
+
 	/**
 	 * Send info to register payAccount
 	 *
@@ -902,7 +936,7 @@ class transactionService{
 	 *
 	 * @returns {Promise<any>}
 	 */
-	getTransferLinks() {
+	getTransferLinks(){
 		const data = {
 			f: 'getTransferLinks',
 			module: 'payAccount',
@@ -999,7 +1033,7 @@ class transactionService{
 	 * Sets player account to be accredited by Agent Transfer
 	 * @param {string} account
 	 */
-	setPlayerAccount(account) {
+	setPlayerAccount(account){
 		CashierActions.setPlayerAccount(account);
 	}
 
@@ -1007,9 +1041,10 @@ class transactionService{
 	 * Returns the logged user information
 	 * @returns {*|{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: Array, load: (function(*))}}
 	 */
-	getCustomer() {
+	getCustomer(){
 		return CashierStore.getCustomer();
 	}
+
 	/**
 	 * Save docs on files
 	 */
