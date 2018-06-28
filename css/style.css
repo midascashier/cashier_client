@@ -1231,3 +1231,8 @@ input:checked + .slider:before{
         height: 5em;
     }
 }
+
+/** BUY CRYPTO */
+.process-crypto-info {
+    margin-top: 64px;
+}
