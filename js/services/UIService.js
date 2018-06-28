@@ -696,6 +696,15 @@ class UiService {
 		ConnectorServices.makeCashierRequest(actions.IS_ACTIVE_BUY_CRYPTO, params);
 	}
 
+	buyCryptoGetCustomerBalance(cryptoCurrencyCode){
+		let params = {
+			f: 'coinDirectGetUser',
+			cryptoCurrencyCode: cryptoCurrencyCode
+		};
+
+		ConnectorServices.makeCashierRequest(actions.GET_BALANCE_BUY_CRYPTO, params);
+	}
+
 	/**
 	 * Get crypto currencies list
 	 *

@@ -24,8 +24,14 @@ let ProcessorCryptoInfo = React.createClass({
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState(){
+		// if(CashierStore.isActiveBuyCrypto() && CashierStore.getCryptoBalance() == null) {
+		// 	UIService.buyCryptoGetCustomerBalance('BTC');
+		// }
+		// console.log(CashierStore.getCryptoBalance());
+
 		return {
-			isBuyCryptoActive: CashierStore.isActiveBuyCrypto()
+			isBuyCryptoActive: CashierStore.isActiveBuyCrypto(),
+			customerCryptoBalance:CashierStore.getCryptoBalance()
 		}
 	},
 
@@ -36,7 +42,6 @@ let ProcessorCryptoInfo = React.createClass({
 	 */
 	_onChange(){
 		this.setState(this.refreshLocalState());
-		console.log(this.state.isBuyCryptoActive);
 	},
 
 	render(){
@@ -49,7 +54,7 @@ let ProcessorCryptoInfo = React.createClass({
 								<img src="/images/buyCrypto/boton_deposit.png" alt="Deposit"></img>
 							</div>
 							{(() =>{
-								if(!this.state.isBuyCryptoActive){
+								if(this.state.isBuyCryptoActive == null){
 									return <LoadingSpinner/>;
 								}
 

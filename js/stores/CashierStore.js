@@ -443,8 +443,8 @@ let _DocsFile = {
 };
 
 let _BuyCrypto = {
-	isActive: false,
-	customerBalance: 0,
+	isActive: null,
+	customerBalance: null,
 }
 
 let CHANGE_EVENT = 'change';
@@ -1009,6 +1009,15 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	isActiveBuyCrypto(){
 		return _BuyCrypto.isActive
+	},
+
+	/**
+	 * get customer crypto balance
+	 *
+	 * @return {null}
+	 */
+	getCryptoBalance() {
+		return _BuyCrypto.customerBalance;
 	}
 });
 
@@ -1622,9 +1631,14 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					CashierStore.emitChange();
 					break;
 				case actions.IS_ACTIVE_BUY_CRYPTO:
-					let response = data.response;
-					if(response) {
-						_BuyCrypto.isActive = response.isActive;
+					if(data.response) {
+						_BuyCrypto.isActive = data.response.isActive;
+						CashierStore.emitChange();
+					}
+					break;
+				case actions.GET_BALANCE_BUY_CRYPTO:
+					if(data.response) {
+						_BuyCrypto.customerBalance = data.response.balance;
 						CashierStore.emitChange();
 					}
 					break;
