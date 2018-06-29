@@ -407,7 +407,7 @@ let _CryptoTransfer = {
 let _Player2Agent = {
 	account: '',
 	name: '',
-	feePaymentMethod : '',
+	feePaymentMethod: '',
 	waitForValidation: false,
 	consulted: false,
 	transfer: {
@@ -419,41 +419,41 @@ let _Player2Agent = {
 }
 
 let _DocsFile = {
-	step : 0,
-	currentStep : 1,
-	categoriesList : {},
-	checkOption : false,
-	responseUpload : false,
-	pendingRecovery : false,
-	currentOptionSelected : '',
-	pendingAdditionalInfo : false,
-	currentFormInputsCategories : [],
+	step: 0,
+	currentStep: 1,
+	categoriesList: {},
+	checkOption: false,
+	responseUpload: false,
+	pendingRecovery: false,
+	currentOptionSelected: '',
+	pendingAdditionalInfo: false,
+	currentFormInputsCategories: [],
 
-	forms : {},
+	forms: {},
 	formSelectedId: false,
-	kycIDApproved : false,
-	customerForms : false,
+	kycIDApproved: false,
+	customerForms: false,
 
-	readyCategories : false,
-	pendingKycIDApproved : true,
-	customerPendingForms : false,
-	pendingInputsCategory : true,
-	pendingCustomerFormInfo : true,
+	readyCategories: false,
+	pendingKycIDApproved: true,
+	customerPendingForms: false,
+	pendingInputsCategory: true,
+	pendingCustomerFormInfo: true,
 	readyPending(){
 		return (this.readyCategories && this.customerPendingForms && !this.pendingCustomerFormInfo && !this.pendingInputsCategory);
 	}
 };
 
-let _coinDirectData = {
-	success: 0,
-	balance: 0,
-	message: ''
-};
-
 let _BuyCrypto = {
 	isActive: null,
 	customerBalance: null,
-}
+	success: 0,
+	message: '',
+	rate: 0,
+	currencyCode: cashier.CRYPTO_CURRENCY_BTC,
+	minAmount:0,
+	maxAmount:0
+};
 
 let CHANGE_EVENT = 'change';
 
@@ -493,7 +493,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @return {{account: string, name: string, feePaymentMethod: string}}
 	 */
-	getPlayerAccount: () => {
+	getPlayerAccount: () =>{
 		return _Player2Agent.transfer.fullnameTo && _Player2Agent.transfer.fullnameTo.length > 0 ? _Player2Agent : null;
 	},
 
@@ -501,11 +501,11 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Sets the player2agent information
 	 * @param account: _Player2Agent
 	 */
-	setPlayerAccount: (account) => {
+	setPlayerAccount: (account) =>{
 		_Player2Agent = account;
 	},
 
-	cleanPlayerAccount: () => {
+	cleanPlayerAccount: () =>{
 		Object.assign(_Player2Agent.transfer, {
 			fullnameTo: '',
 			usernameFrom: '',
@@ -562,7 +562,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return (_payAccounts[_processor['processorId']]);
 	},
 
-	getProcessorId: () => {
+	getProcessorId: () =>{
 		return _processor['processorId'];
 	},
 	/**
@@ -1015,7 +1015,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	getCoinDirectData(){
-		return _coinDirectData;
+		return _BuyCrypto;
 	},
 
 	/**
@@ -1053,7 +1053,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_company.companyId = data.companyId;
 					_company.remoteCompany = data.remoteCompany;
 
-					ReactGA.set({'dimension1' : _company.remoteCompany});
+					ReactGA.set({'dimension1': _company.remoteCompany});
 					if(_company.remoteCompany == 'AmericasCardroom'){
 						$('head').append("<!-- Hotjar Tracking Code for Cashier ACR --><script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:592695,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
 					}
@@ -1579,7 +1579,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					break;
 
 				case actions.VALIDATE_ACCOUNT:
-					if(!Array.isArray(data) && data.hasOwnProperty('response') && data.response.hasOwnProperty('transfer')) {
+					if(!Array.isArray(data) && data.hasOwnProperty('response') && data.response.hasOwnProperty('transfer')){
 						Object.assign(_Player2Agent.transfer, data.response.transfer);
 					}else{
 						Object.assign(_Player2Agent.transfer, {
@@ -1685,13 +1685,15 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					CashierStore.emitChange();
 					break;
 				case actions.IS_ACTIVE_BUY_CRYPTO:
-					if(data.response) {
+					if(data.response){
 						_BuyCrypto.isActive = data.response.isActive;
+						_BuyCrypto.minAmount = data.response.settings.MIN_AMOUNT;
+						_BuyCrypto.maxAmount = data.response.settings.MAX_AMOUNT;
 						CashierStore.emitChange();
 					}
 					break;
 				case actions.GET_BALANCE_BUY_CRYPTO:
-					if(data.response) {
+					if(data.response){
 						_BuyCrypto.customerBalance = data.response.balance;
 						CashierStore.emitChange();
 					}
@@ -1707,14 +1709,18 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				case actions.BUY_CRYPTOS:
 					if(data.response){
 						let response = data.response.coinDirectData;
-						_coinDirectData.success = response.success;
-						_coinDirectData.balance = response.balance;
-						_coinDirectData.message = response.message;
+						_BuyCrypto.success = response.success;
+						_BuyCrypto.customerBalance = response.balance;
+						_BuyCrypto.message = response.message;
 					}
-					console.log(data);
 					CashierStore.emitChange();
 					break;
-
+				case actions.BUY_CRYPTOS_RATE:
+					if(data.response){
+						_BuyCrypto.rate = data.response.result;
+					}
+					CashierStore.emitChange();
+					break;
 				default:
 					console.log("Store No Action: " + action);
 					break;

@@ -31,7 +31,7 @@ let ProcessorCryptoInfo = React.createClass({
 
 		return {
 			isBuyCryptoActive: CashierStore.isActiveBuyCrypto(),
-			customerCryptoBalance:CashierStore.getCryptoBalance()
+			customerCryptoBalance: CashierStore.getCryptoBalance()
 		}
 	},
 
@@ -42,6 +42,10 @@ let ProcessorCryptoInfo = React.createClass({
 	 */
 	_onChange(){
 		this.setState(this.refreshLocalState());
+	},
+
+	loadBuy(){
+		UIService.changeUIState('/bitcoin/buy/');
 	},
 
 	render(){
@@ -60,7 +64,7 @@ let ProcessorCryptoInfo = React.createClass({
 
 								if(this.state.isBuyCryptoActive){
 									return <div className="col-md-4 col-md-offset-1">
-										<img src="/images/buyCrypto/boton_buy.png" alt="Buy"></img>
+										<img onClick={this.loadBuy} src="/images/buyCrypto/boton_buy.png" alt="Buy"></img>
 									</div>
 								}
 							})()}

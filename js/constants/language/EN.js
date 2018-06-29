@@ -425,7 +425,12 @@ let _langTags = {
 	DOCFILE_FORM_LABEL_FILE_EWALLET : 'Photo of your e-wallet',
 	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Public service receipt',
 
-	DOCS_FILE_TAB_VERIFICATIONREQUIRED : "Additional Information"
+	DOCS_FILE_TAB_VERIFICATIONREQUIRED : "Additional Information",
+
+	BUY_CRYPTOS_SELECTCC: "Select card",
+	BUY_CRYPTOS_LEYEND: "How much do you want to buy?",
+	BUY_CRYPTOS_REGISTERCC: "Register credit card",
+	BUY_CRYPTOS_CURRENT_BALANCE: "Current balance"
 
 };
 

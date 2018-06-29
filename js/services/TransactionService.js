@@ -907,6 +907,19 @@ class transactionService {
 		ConnectorServices.makeCashierRequest(actions.BUY_CRYPTOS, rabbitRequest);
 	}
 
+	getCryptoRate(cryptoCurrencyCode, currecyCode){
+		let data = {
+			f: "getCurrentCryptoRate",
+			currencyCode: cryptoCurrencyCode,
+			customerCurrency: currecyCode
+		};
+
+		let application = CashierStore.getApplication();
+		let request = Object.assign(data, application);
+
+		ConnectorServices.makeCashierRequest(actions.BUY_CRYPTOS_RATE, request);
+	}
+
 	/**
 	 * Send info to register payAccount
 	 *
