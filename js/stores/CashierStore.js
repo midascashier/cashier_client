@@ -446,13 +446,13 @@ let _DocsFile = {
 
 let _BuyCrypto = {
 	isActive: null,
-	customerBalance: null,
+	customerBalance: 0,
 	success: 0,
 	message: '',
 	rate: 0,
 	currencyCode: cashier.CRYPTO_CURRENCY_BTC,
-	minAmount:0,
-	maxAmount:0
+	minAmount: 0,
+	maxAmount: 0
 };
 
 let CHANGE_EVENT = 'change';
@@ -1043,7 +1043,6 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 	let action = payload.action;
 	let data = payload.data;
-
 	if(!ConnectorServices.stop){
 		try{
 			switch(action){
@@ -1465,6 +1464,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					break;
 
 				case actions.REGISTER_PAYACCOUNT_BITCOIN:
+
 					if(data && data.state == 'ok' && data.response){
 						let payAccount = data.response.payAccount;
 						let cardType = 'VI';
@@ -1693,6 +1693,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					}
 					break;
 				case actions.GET_BALANCE_BUY_CRYPTO:
+					console.log(data);
 					if(data.response){
 						_BuyCrypto.customerBalance = data.response.balance;
 						CashierStore.emitChange();
@@ -1710,7 +1711,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					if(data.response){
 						let response = data.response.coinDirectData;
 						_BuyCrypto.success = response.success;
-						_BuyCrypto.customerBalance = response.balance;
+						_BuyCrypto.customerBalance = response.balance || 0;
 						_BuyCrypto.message = response.message;
 					}
 					CashierStore.emitChange();

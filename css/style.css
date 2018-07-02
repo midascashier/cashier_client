@@ -1895,8 +1895,8 @@ input:checked + .slider:before {
 }
 
 .buy-crypto-background {
-    width: 95%;
-    height: 390px;
+    width: 98%;
+    height: 400px;
     margin: 0 auto;
     background: url('../images/buyCrypto/background.png');
     background-size: 100% 100%;
@@ -1908,17 +1908,23 @@ input:checked + .slider:before {
 }
 
 .buy-crypto-content {
-
+    width: 90%;
+    margin: 0 auto;
 }
 
 .buy-crypto-section {
     width: 295px;
-    height: 300px;
+    min-height: 300px;
     background: #b7b7b7;
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.buy-crypto-section-large {
+    width: 100%;
 }
 
 .buy-crypto-section1 {
@@ -1933,6 +1939,11 @@ input:checked + .slider:before {
     margin-top: 20px;
 }
 
+.buy-crypto-newcc .buy-crypto-form-element {
+    margin-top: 5px;
+    width: 260px;
+}
+
 .buy-crypto-form-element label,
 .buy-crypto-form-element select,
 .buy-crypto-form-element input {
@@ -1940,7 +1951,9 @@ input:checked + .slider:before {
     font-size: 15px;
 }
 
-.buy-crypto-select {
+.buy-crypto-select,
+.buy-crypto-form-element input,
+.buy-crypto-extrainfo select {
     color: #fff;
     background: #555;
     border: 1px solid #666;
@@ -1951,8 +1964,14 @@ input:checked + .slider:before {
     font-size: 16px;
 }
 
-.buy-crypto-select option {
-    border-bottom: 1px solid #fff;
+.buy-crypto-newcc .buy-crypto-select,
+.buy-crypto-newcc .buy-crypto-form-element input {
+    font-size: 13px;
+    padding: 4px 5px;
+}
+
+.buy-crypto-newcc .buy-crypto-form-element label {
+    font-size: 13px;
 }
 
 .buy-crypto-card {
@@ -1975,7 +1994,7 @@ input:checked + .slider:before {
     font-size: 30px;
     background: transparent;
     border: none;
-    border-bottom: 3px solid darkorange;
+    border-bottom: 3px solid #f7921a;
     text-align: center;
     height: 40px !important;
     padding: 0 0 0 0 !important;
@@ -2000,4 +2019,89 @@ input:checked + .slider:before {
     width: 90%;
     margin: 0 auto;
     text-align: center;
+}
+
+.buy-crypto-disabled-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: transparent;
+}
+
+.buy-crypto-cvv input {
+    width: 50px !important;
+}
+
+.buy-crypto-main-title {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.buy-crypto-col:first-child {
+    padding-right: 0 !important;
+}
+
+.buy-crypto-col:last-child {
+    padding-left: 0 !important;
+}
+
+.buy-crypto-fullname .col-sm-6:first-child, .buy-crypto-fullname .col-sm-4 {
+    padding-right: 6px;
+}
+
+.buy-crypto-fullname .col-sm-6:last-child, .buy-crypto-fullname .col-sm-8 {
+    padding-left: 0;
+}
+
+.buy-crypto-newcc #visaExtraInfo .col-sm-2 {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.buy-crypto-newcc #visaExtraInfo .col-sm-4:first-child {
+    padding-right: 0;
+}
+
+.buy-crypto-newcc #visaExtraInfo .col-sm-4:last-child {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.buy-crypto-form-element #visaExtraInfo label {
+    width: auto;
+}
+
+.buy-crypto-extrainfo {
+    overflow: hidden;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.buy-crypto-extrainfo label {
+    padding-left: 0;
+}
+
+.buy-crypto-newcc .btn-green {
+    float: right;
+    width: 130px;
+}
+
+.buy-crypto-newcc .btn-default {
+    background: #aaa;
+    border: 1px solid #999;
+    color: #000;
+    width: 100px;
+}
+
+.buy-crypto-extrainfo select {
+    font-size: 13px;
+    padding: 2px;
+}
+
+.buy-crypto-text {
+    font-size: 15px;
+    text-align: justify;
+    line-height: 28px;
 }

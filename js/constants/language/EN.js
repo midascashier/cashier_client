@@ -430,7 +430,15 @@ let _langTags = {
 	BUY_CRYPTOS_SELECTCC: "Select card",
 	BUY_CRYPTOS_LEYEND: "How much do you want to buy?",
 	BUY_CRYPTOS_REGISTERCC: "Register credit card",
-	BUY_CRYPTOS_CURRENT_BALANCE: "Current balance"
+	BUY_CRYPTOS_CURRENT_BALANCE: "Current balance",
+	BUY_CRYPTOS_TITLE_CARD: "About your card:",
+	BUY_CRYPTOS_TITLE_CARD2: "About you:",
+	BUY_CRYPTOS_BUTTON_BUY: "Buy",
+	BUY_CRYPTOS_BUTTON_SAVECC: "Save card",
+	BUY_CRYPTOS_BUTTON_RETURN: "Return",
+	BUY_CRYPTOS_TRANSACTION_APPROVED: "Transaction approved, current balance",
+	BUY_CRYPTOS_ADDCC_LEYEND: "Please add a new card",
+	BUY_CRYPTOS_ADDCC_TEXT: "In order to buy bitcoins, you must have a VISA card on file. Please add one before processing."
 
 };
 

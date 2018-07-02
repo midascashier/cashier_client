@@ -48,6 +48,7 @@ let CreditCardRegister = React.createClass({
 		let customerState = customer.personalInformation.state ? customer.personalInformation.state : states[0]['Small'];
 
 		return {
+			cardsLength: CashierStore.getCustomerPayAccounts().length,
 			displaySaveButton: true,
 			payAccount: {
 				dob: '',
@@ -80,6 +81,12 @@ let CreditCardRegister = React.createClass({
 	 * @private
 	 */
 	_onChange() {
+		let cardLength = this.state.cardsLength;
+		let current = CashierStore.getCustomerPayAccounts().length;
+		if(cardLength < current){
+			this.props.returnFromRegisterNewCC();
+		}
+
 		let displaySave = false;
 		let UI = CashierStore.getUI();
 		let payAccount = this.state.payAccount;
@@ -180,8 +187,6 @@ let CreditCardRegister = React.createClass({
 			});
 
 			TransactionService.registerPayAccountBitcoin(this.state.payAccount);
-
-			this.props.returnFromRegisterNewCC();
 		}
 	},
 
@@ -217,258 +222,298 @@ let CreditCardRegister = React.createClass({
 		}
 
 		return (
-			<div id="visaRegister">
-				<form onSubmit={this.addNewPayAccount}>
-
-					<div className="form-group">
-						<label className="col-sm-4 control-label">Card type</label>
-						<div className="col-sm-6">
-							<select
-								id="ccType"
-								name="ccType"
-								onChange={this.validateCredirCardNumber}
-								className="form-control">
-								<option key={cashier.PROCESSOR_ID_VISA} value={cashier.PROCESSOR_ID_VISA}>Visa</option>
-							</select>
-						</div>
-					</div>
-
-					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}:</label>
+			<div className="buy-crypto-background">
+				<div className="buy-crypto-content buy-crypto-newcc">
+					<form onSubmit={this.addNewPayAccount}>
 						<div className="col-sm-8">
-							<Input
-								type="text"
-								id="ccName"
-								ref="ccName"
-								validate="isText"
-								onChange={this.changeValue.bind(null, 'extra3', '', 0)} value={this.state.payAccount.extra3}
-								require
-							/>
-						</div>
-					</div>
+							<div className="buy-crypto-section buy-crypto-section-large">
 
-					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_NUMBER', 'Card Number')}:</label>
-						<div className="col-sm-8">
-							<Input
-								type="text"
-								id="creditCardNumber"
-								ref="creditCardNumber"
-								validate={ccValidation}
-								value={this.state.payAccount.account}
-								onChange={this.changeValue.bind(null, 'account', '', 0)}
-								require
-							/>
-						</div>
-					</div>
+								<div className="row">
+									<div className="col-sm-6 buy-crypto-col">
+										<div className="form-group buy-crypto-form-element">
+											<div className="buy-crypto-main-title">{translate('BUY_CRYPTOS_TITLE_CARD', 'About your card:')}</div>
+										</div>
+									</div>
+									<div className="col-sm-6 buy-crypto-col">
+										<div className="form-group buy-crypto-form-element">
+											<div className="buy-crypto-main-title">{translate('BUY_CRYPTOS_TITLE_CARD2', 'About you:')}</div>
+										</div>
+									</div>
+								</div>
 
-					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
-						<div className="col-sm-4">
-							<select
-								data-isRequired
-								id="ccExpMonth"
-								validate='isNumber'
-								className="form-control"
-								data-validation="isNumber"
-								value={this.state.payAccount.extra1}
-								onChange={this.changeValue.bind(null, 'extra1', '', 1)}
-							>
-								{ccDate.selectMonths}
-							</select>
-						</div>
-						<div className="col-sm-4">
-							<select
-								id="ccExpYear"
-								data-isRequired
-								validate='isNumber'
-								className="form-control"
-								data-validation="isNumber"
-								value={this.state.payAccount.extra2}
-								onChange={this.changeValue.bind(null, 'extra2', '', 1)}
-							>
-								{ccDate.selectYears}
-							</select>
-						</div>
-					</div>
+								<div className="row">
 
-					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_CVV', 'CVV')}:</label>
-						<div className="col-sm-4">
-							<Input
-								id="cvv"
-								ref="cvv"
-								type="text"
-								validate={cvvValidation}
-								value={this.state.payAccount.password}
-								onChange={this.changeValue.bind(null, 'password', '', 0)}
-								require
-							/>
-						</div>
-					</div>
+									<div className="col-sm-6 buy-crypto-col">
+										<div className="form-group buy-crypto-form-element">
+											<select
+												id="ccType"
+												name="ccType"
+												onChange={this.validateCredirCardNumber}
+												className="buy-crypto-select">
+												<option key={cashier.PROCESSOR_ID_VISA} value={cashier.PROCESSOR_ID_VISA}>Visa</option>
+											</select>
+										</div>
+										<div className="form-group buy-crypto-form-element">
+											<Input
+												type="text"
+												id="ccName"
+												ref="ccName"
+												validate="isText"
+												placeholder={translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}
+												title={translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}
+												onChange={this.changeValue.bind(null, 'extra3', '', 0)} value={this.state.payAccount.extra3}
+												require
+											/>
+										</div>
+										<div className="form-group buy-crypto-form-element">
+											<Input
+												type="text"
+												id="creditCardNumber"
+												ref="creditCardNumber"
+												placeholder={translate('CREDIT_CARD_NUMBER', 'Card Number')}
+												title={translate('CREDIT_CARD_NUMBER', 'Card Number')}
+												className="buy-crypto-input"
+												validate={ccValidation}
+												value={this.state.payAccount.account}
+												onChange={this.changeValue.bind(null, 'account', '', 0)}
+												require
+											/>
+										</div>
+										<div className="form-group buy-crypto-form-element buy-crypto-fullname">
+											<label>{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}</label>
+											<div className="row">
+												<div className="col-sm-4">
+													<select
+														data-isRequired
+														id="ccExpMonth"
+														validate='isNumber'
+														className="buy-crypto-select"
+														data-validation="isNumber"
+														value={this.state.payAccount.extra1}
+														onChange={this.changeValue.bind(null, 'extra1', '', 1)}
+													>
+														{ccDate.selectMonths}
+													</select>
+												</div>
+												<div className="col-sm-8">
+													<select
+														id="ccExpYear"
+														data-isRequired
+														validate='isNumber'
+														className="buy-crypto-select"
+														data-validation="isNumber"
+														value={this.state.payAccount.extra2}
+														onChange={this.changeValue.bind(null, 'extra2', '', 1)}
+													>
+														{ccDate.selectYears}
+													</select>
+												</div>
+											</div>
+										</div>
 
-					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_FIRST_NAME', 'First Name')}:</label>
-						<div className="col-sm-8">
-							<Input
-								type="text"
-								id="firstName"
-								ref="firstName"
-								name="firstName"
-								validate="isText"
-								value={this.state.payAccount.firstName}
-								onChange={this.changeValue.bind(null, 'firstName', '', 0)}
-								require
-							/>
-						</div>
-					</div>
+										<div className="form-group buy-crypto-form-element buy-crypto-cvv">
+											<Input
+												id="cvv"
+												ref="cvv"
+												type="text"
+												validate={cvvValidation}
+												value={this.state.payAccount.password}
+												placeholder={translate('CREDIT_CARD_CVV', 'CVV')}
+												title={translate('CREDIT_CARD_CVV', 'CVV')}
+												onChange={this.changeValue.bind(null, 'password', '', 0)}
+												require
+											/>
+										</div>
 
-					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_LAST_NAME', 'Last Name')}:</label>
-						<div className="col-sm-8">
-							<Input
-								type="text"
-								id="lastName"
-								ref="lastName"
-								validate="isText"
-								value={this.state.payAccount.lastName}
-								onChange={this.changeValue.bind(null, 'lastName', '', 0)}
-								require
-							/>
-						</div>
-					</div>
+									</div>
 
-					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_COUNTRY', 'Country')}:</label>
-						<div className="col-sm-8">
-							<select
-								id="country"
-								className="form-control"
-								data-validation='isString'
-								value={this.state.payAccount.country}
-								onChange={this.changeValue.bind(null, 'country', '', 1)}
-							>
-								{countriesInfo.countries}
-							</select>
-						</div>
-					</div>
+									<div className="col-sm-6 buy-crypto-col">
+										<div className="form-group buy-crypto-form-element buy-crypto-fullname">
+											<div className="row">
+												<div className="col-sm-6">
+													<Input
+														type="text"
+														id="firstName"
+														ref="firstName"
+														name="firstName"
+														validate="isText"
+														placeholder={translate('CREDIT_CARD_FIRST_NAME', 'First Name')}
+														title={translate('CREDIT_CARD_FIRST_NAME', 'First Name')}
+														value={this.state.payAccount.firstName}
+														onChange={this.changeValue.bind(null, 'firstName', '', 0)}
+														require
+													/>
+												</div>
+												<div className="col-sm-6">
+													<Input
+														type="text"
+														id="lastName"
+														ref="lastName"
+														validate="isText"
+														placeholder={translate('CREDIT_CARD_LAST_NAME', 'Last Name')}
+														title={translate('CREDIT_CARD_LAST_NAME', 'Last Name')}
+														value={this.state.payAccount.lastName}
+														onChange={this.changeValue.bind(null, 'lastName', '', 0)}
+														require
+													/>
+												</div>
+											</div>
+										</div>
 
-					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_STATE', 'State')}:</label>
-						<div className="col-sm-8">
-							<select
-								id="countryState"
-								className="form-control"
-								data-validation='isString'
-								value={this.state.payAccount.state}
-								disabled={!countriesInfo.states.length}
-								onChange={this.changeValue.bind(null, 'state', '', 1)}
-							>
-								{countriesInfo.states}
-							</select>
-						</div>
-					</div>
+										<div className="form-group buy-crypto-form-element buy-crypto-fullname">
+											<div className="row">
+												<div className="col-sm-6">
+													<select
+														id="country"
+														className="buy-crypto-select"
+														data-validation='isString'
+														placeholder={translate('CREDIT_CARD_COUNTRY', 'Country')}
+														title={translate('CREDIT_CARD_COUNTRY', 'Country')}
+														value={this.state.payAccount.country}
+														onChange={this.changeValue.bind(null, 'country', '', 1)}
+													>
+														{countriesInfo.countries}
+													</select>
+												</div>
+												<div className="col-sm-6">
+													<select
+														id="countryState"
+														className="buy-crypto-select"
+														placeholder={translate('CREDIT_CARD_STATE', 'State')}
+														title={translate('CREDIT_CARD_STATE', 'State')}
+														data-validation='isString'
+														value={this.state.payAccount.state}
+														disabled={!countriesInfo.states.length}
+														onChange={this.changeValue.bind(null, 'state', '', 1)}
+													>
+														{countriesInfo.states}
+													</select>
+												</div>
+											</div>
+										</div>
 
-					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_CITY', 'City')}:</label>
-						<div className="col-sm-8">
-							<Input
-								id="city"
-								ref="city"
-								type="text"
-								validate="isString"
-								value={this.state.payAccount.city}
-								onChange={this.changeValue.bind(null, 'city', '', 0)}
-								require
-							/>
-						</div>
-					</div>
+										<div className="form-group buy-crypto-form-element buy-crypto-fullname">
+											<div className="row">
+												<div className="col-sm-6">
+													<Input
+														id="city"
+														ref="city"
+														type="text"
+														validate="isString"
+														placeholder={translate('CREDIT_CARD_CITY', 'City')}
+														title={translate('CREDIT_CARD_CITY', 'City')}
+														value={this.state.payAccount.city}
+														onChange={this.changeValue.bind(null, 'city', '', 0)}
+														require
+													/>
+												</div>
+												<div className="col-sm-6">
+													<Input
+														id="zip"
+														ref="zip"
+														type="text"
+														placeholder={translate('CREDIT_CARD_ZIP', 'Postal Code')}
+														title={translate('CREDIT_CARD_ZIP', 'Postal Code')}
+														validate={zipValidation}
+														value={this.state.payAccount.zip}
+														onChange={this.changeValue.bind(null, 'zip', '', 0)}
+														require
+													/>
+												</div>
+											</div>
+										</div>
 
-					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_ADDRESS', 'Address')}:</label>
-						<div className="col-sm-8">
-							<Input
-								type="text"
-								id="address"
-								ref="address"
-								validate="isString"
-								value={this.state.payAccount.address1}
-								onChange={this.changeValue.bind(null, 'address1', '', 0)}
-								require
-							/>
-						</div>
-					</div>
+										<div className="form-group buy-crypto-form-element">
+											<Input
+												type="text"
+												id="address"
+												ref="address"
+												validate="isString"
+												placeholder={translate('CREDIT_CARD_ADDRESS', 'Address')}
+												title={translate('CREDIT_CARD_ADDRESS', 'Address')}
+												value={this.state.payAccount.address1}
+												onChange={this.changeValue.bind(null, 'address1', '', 0)}
+												require
+											/>
+										</div>
 
-					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_ZIP', 'Postal Code')}:</label>
-						<div className="col-sm-8">
-							<Input
-								id="zip"
-								ref="zip"
-								type="text"
-								validate={zipValidation}
-								value={this.state.payAccount.zip}
-								onChange={this.changeValue.bind(null, 'zip', '', 0)}
-								require
-							/>
-						</div>
-					</div>
+										<div className="form-group buy-crypto-form-element">
+											<Input
+												id="email"
+												ref="email"
+												type="text"
+												validate="isEmail"
+												placeholder={translate('CREDIT_CARD_EMAIL', 'Email')}
+												title={translate('CREDIT_CARD_EMAIL', 'Email')}
+												value={this.state.payAccount.email}
+												onChange={this.changeValue.bind(null, 'email', '', 0)}
+												require
+											/>
+										</div>
 
-					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_EMAIL', 'Email')}:</label>
-						<div className="col-sm-8">
-							<Input
-								id="email"
-								ref="email"
-								type="text"
-								validate="isEmail"
-								value={this.state.payAccount.email}
-								onChange={this.changeValue.bind(null, 'email', '', 0)}
-								require
-							/>
-						</div>
-					</div>
+										<div className="form-group buy-crypto-form-element">
+											<Input
+												id="phone"
+												ref="phone"
+												type="text"
+												validate="isNumber"
+												placeholder={translate('CREDIT_CARD_PHONE', 'Phone')}
+												title={translate('CREDIT_CARD_PHONE', 'Phone')}
+												value={this.state.payAccount.phone}
+												onChange={this.changeValue.bind(null, 'phone', '', 0)}
+												require
+											/>
+										</div>
 
-					<div className="form-group">
-						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_PHONE', 'Phone')}:</label>
-						<div className="col-sm-8">
-							<Input
-								id="phone"
-								ref="phone"
-								type="text"
-								validate="isNumber"
-								value={this.state.payAccount.phone}
-								onChange={this.changeValue.bind(null, 'phone', '', 0)}
-								require
-							/>
-						</div>
-					</div>
+										<div className="buy-crypto-form-element buy-crypto-extrainfo">
+											<ExtraInfo
+												changeValue={this.changeValue}
+												ssn={this.state.payAccount.ssn}
+												dobDay={this.state.payAccount.dobDay}
+												dobYear={this.state.payAccount.dobYear}
+												dobMonth={this.state.payAccount.dobMonth}
+											/>
+										</div>
 
-					<ExtraInfo
-						changeValue={this.changeValue}
-						ssn={this.state.payAccount.ssn}
-						dobDay={this.state.payAccount.dobDay}
-						dobYear={this.state.payAccount.dobYear}
-						dobMonth={this.state.payAccount.dobMonth}
-					/>
+									</div>
 
-					<div className="col-md-4 col-md-offset-4">
-						<div className="row">
-							<div className="col-sm-6">
-								{this.state.displaySaveButton ?
-									<button type='submit' className='btn btn-green'>
-										{translate('PROCESSING_BUTTON_SAVE', 'Save')}
-									</button>
-									: null}
+								</div>
+
+								<div className="row">
+									<div className="col-sm-6 buy-crypto-col">
+										<div className="buy-crypto-form-element">
+											<button type='button' onClick={this.props.returnFromRegisterNewCC} className="btn btn-default">
+												{translate('BUY_CRYPTOS_BUTTON_RETURN', 'Return')}
+											</button>
+										</div>
+									</div>
+									<div className="col-sm-6 buy-crypto-col">
+										<div className="buy-crypto-form-element">
+											{this.state.displaySaveButton ?
+												<button type="submit" className="btn btn-green">
+													{translate('BUY_CRYPTOS_BUTTON_SAVECC', 'Save card')}
+												</button>
+												: null}
+										</div>
+									</div>
+								</div>
+
 							</div>
-							<div className="col-sm-6">
-								<button type='button' onClick={this.props.returnFromRegisterNewCC} className='btn btn-green'>
-									{translate('PROCESSING_BUTTON_CANCEL', 'Save')}
-								</button>
+
+						</div>
+
+						<div className="col-sm-4" hidden={this.state.cardsLength > 0}>
+							<div className="buy-crypto-section">
+								<div className="form-group buy-crypto-form-element">
+									<div className="buy-crypto-main-title">{translate('BUY_CRYPTOS_ADDCC_LEYEND')}</div>
+									<div className="form-group buy-crypto-text">
+										{translate('BUY_CRYPTOS_ADDCC_TEXT')}
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		)
 	},

@@ -14,12 +14,20 @@ import {translate} from '../../../constants/Translate'
 let CreditCard = React.createClass({
 
 	getInitialState(){
+
 		CustomerService.getCustomerPayAccounts();
+
 		let coinDirect = CashierStore.getCoinDirectData();
+
 		let currencyCode = coinDirect.currencyCode;
+
 		if(currencyCode !== ''){
 			TransactionService.getCryptoRate(currencyCode, 'USD');
 		}
+
+		coinDirect.message = '';
+		this.setState({coinDirectData: coinDirect});
+
 		return this.parameters();
 	},
 
@@ -71,6 +79,7 @@ let CreditCard = React.createClass({
 	},
 
 	buyCryptos(e){
+
 		if(!ApplicationService.emptyInput(e)){
 
 			this.setState({loading: true});
@@ -78,7 +87,7 @@ let CreditCard = React.createClass({
 			let buyCryptosInfo = {
 				payAccountId: e.target.querySelector('[name="payAccountId"]').value,
 				amount: e.target.querySelector('[name="amount"]').value,
-				cryptoCurrencyCode: this.props.cryptoCurrency
+				cryptoCurrencyCode: this.state.coinDirectData.currencyCode
 			};
 
 			TransactionService.buyCryptos(buyCryptosInfo);
@@ -123,6 +132,7 @@ let CreditCard = React.createClass({
 			<div className="buy-crypto-background">
 
 				<div className="buy-crypto-messages">
+
 					<div hidden={this.state.coinDirectData.message == ''}>
 						<div hidden={this.state.coinDirectData.success == 1} className="alert alert-danger">
 							{this.state.coinDirectData.message}
@@ -132,7 +142,7 @@ let CreditCard = React.createClass({
 
 					<div hidden={!this.state.coinDirectData.customerBalance || this.state.coinDirectData.customerBalance == 0}
 							 className="alert alert-success">
-						Approved transaction, new balance (BTC): {this.state.coinDirectData.customerBalance}
+						{translate('BUY_CRYPTOS_TRANSACTION_APPROVED')} ({this.state.coinDirectData.currencyCode}): {this.state.coinDirectData.customerBalance}
 					</div>
 
 				</div>
@@ -177,6 +187,7 @@ let CreditCard = React.createClass({
 												validate="isNumber"
 												onChange={this.rate}
 												require
+												tabindex="2"
 											/>
 											<span>Min:${this.state.coinDirectData.minAmount}</span>
 										</div>
@@ -188,13 +199,16 @@ let CreditCard = React.createClass({
 											<div className="buy-crypto-icon-bitcoin"></div>
 										</div>
 										<div className="col-sm-10">
-											<input type="text" value="" id="ratedAmount"/>
+											<div className="buy-crypto-disabled-input"></div>
+											<input type="text" value="" disabled="disabled" id="ratedAmount"/>
 										</div>
 									</div>
 								</div>
 
 								<div className="buy-crypto-form-element">
-									<button type="submit" className="buy-crypto-btn btn btn-lg btn-success">Buy</button>
+									<button type="submit" className="buy-crypto-btn btn btn-lg btn-success">
+										{translate('BUY_CRYPTOS_BUTTON_BUY')}
+									</button>
 								</div>
 
 							</div>
@@ -205,22 +219,7 @@ let CreditCard = React.createClass({
 		);
 
 		const componentRegisterCC = (
-			<div id="visaAskInfo" className="box">
-				<div className="row">
-					<div className="col-sm-11">
-						<div className="title">{translate('BUY_CRYPTOS_REGISTERCC')}</div>
-						<div className="infoCol scroll">
-							<div className="row">
-								<div className="col-sm-12">
-									<div className="form-horizontal">
-										<CreditCardRegister returnFromRegisterNewCC={this.returnFromRegisterNewCC}/>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<CreditCardRegister returnFromRegisterNewCC={this.returnFromRegisterNewCC}/>
 		);
 
 		return (!this.state.showRegisterCC ? componentDeposit : componentRegisterCC);
