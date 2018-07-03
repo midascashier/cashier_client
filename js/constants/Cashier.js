@@ -72,5 +72,6 @@ export default {
 
 	REQUEST_PROXY: '/requestProxy.php',
 	REQUEST_CLIENT_CONTENT: 'https://de.secureprivate.com',
-	REQUEST_DOCS_FILE_SAVE: '/cashierServices/DocsFileSave.class.php'
+	REQUEST_DOCS_FILE_SAVE: '/cashierServices/DocsFileSave.class.php',
+	DEFAULT_CURRENCY: 'USD'
 }

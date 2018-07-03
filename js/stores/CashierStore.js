@@ -445,6 +445,7 @@ let _DocsFile = {
 let _BuyCrypto = {
 	isActive: null,
 	customerBalance: null,
+	processorLimits: {}
 }
 
 let CHANGE_EVENT = 'change';
@@ -1018,7 +1019,29 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getCryptoBalance() {
 		return _BuyCrypto.customerBalance;
+	},
+
+	/**
+	 * set processor limits to _BuyCrypto object
+	 * @param min
+	 * @param max
+	 * @param currency
+	 */
+	setBuyCryptoProcessorLimits(min, max, currency) {
+		_BuyCrypto.processorLimits.min = min;
+		_BuyCrypto.processorLimits.max = max;
+		_BuyCrypto.processorLimits.currencyCode = currency;
+	},
+
+	/**
+	 * get processor limits from _BuyCrypto
+	 *
+	 * @return {{}|_BuyCrypto.processorLimits}
+	 */
+	getBuyCryptoProcessorLimits() {
+		return _BuyCrypto.processorLimits;
 	}
+
 });
 
 /**
@@ -1637,8 +1660,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					}
 					break;
 				case actions.GET_BALANCE_BUY_CRYPTO:
-					if(data.response) {
-						_BuyCrypto.customerBalance = data.response.balance;
+					if(data.response.coinDirectData) {
+						_BuyCrypto.customerBalance = data.response.coinDirectData.balance;
 						CashierStore.emitChange();
 					}
 					break;

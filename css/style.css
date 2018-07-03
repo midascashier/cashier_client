@@ -1243,4 +1243,66 @@ input:checked + .slider:before{
 /** BUY CRYPTO */
 .process-crypto-info {
     margin-top: 64px;
+    display: flex;
+}
+
+.hoverContent{
+    background: rgba(183, 183, 183, 0.6);
+    padding: 10px;
+    border-radius: 4px;
+    -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    max-width: 328px;
+    width: 328px;
+    height: 119px;
+    text-align: center;
+    margin-left: 15%;
+    margin-top: 8%;
+}
+
+.crypto-background {
+    background: url("../images/buyCrypto/background_1.png") 100%;
+    height: 400px;
+}
+
+.crypto-fund-background{
+    background: url("../images/buyCrypto/background.png") 75%;
+    height: 400px;
+}
+
+.crypto-box-content{
+    width: 295px;
+    height: 297px;
+    background: rgba(183, 183, 183, 0.6);
+    border-radius: 2px;
+    margin-left: 20px;
+}
+
+.crypto-input {
+    height: 43px;
+    font-size: 16px;
+    border: none;
+    border-bottom: solid 2px #f7931a;
+    text-align: center;
+}
+
+.crypto-limits-left{
+    float: left;
+    margin-left: 50px;
+}
+
+.crypto-limits-right {
+    float: right;
+    margin-right: 21px;
+}
+
+.crypto-limits-content {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.deposit-with-available div{
+    margin-top: 10px;
 }

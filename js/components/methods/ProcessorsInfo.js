@@ -144,7 +144,7 @@ let ProcessorsInfo = React.createClass({
 						}
 
 						if(this.state.selectedProcessor.processorId == cashier.PROCESSOR_ID_BITCOIN) {
-							return <ProcessorCryptoInfo/>
+							return <ProcessorCryptoInfo selectedProcessor={this.state.selectedProcessor} waitLimits={this.state.waitLimits}/>
 						}
 
 						return <ProcessorInfo selectedProcessor={this.state.selectedProcessor} waitLimits={this.state.waitLimits}/>

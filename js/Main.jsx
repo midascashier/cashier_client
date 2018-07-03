@@ -46,6 +46,7 @@ import {CKConfirmWithdraw} from './components/methods/genck/ConfirmWithdraw'
 import {BitCoin} from './components/methods/bitcoin/Bitcoin'
 import {BitCoinConfirmWithdraw} from './components/methods/bitcoin/ConfirmWithdraw'
 import {BitCoinTicketPending} from './components/methods/bitcoin/tickets/PendingTicket'
+import {Fund} from './components/methods/bitcoin/Fund'
 /**
  * Visa set of components to create routes
  */
@@ -157,6 +158,7 @@ let routes = (
 					<Route path="pending/" component={BitCoinTicketPending}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
+				<Route path="/fund/bitcoin" component={Fund}/>
 
 				<Route path="visa/" component={Visa}/>
 				<Route path="visa/confirm/" component={VisaConfirm}/>
