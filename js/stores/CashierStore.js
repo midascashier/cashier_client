@@ -407,7 +407,7 @@ let _CryptoTransfer = {
 let _Player2Agent = {
 	account: '',
 	name: '',
-	feePaymentMethod: '',
+	feePaymentMethod : '',
 	waitForValidation: false,
 	consulted: false,
 	transfer: {
@@ -419,26 +419,26 @@ let _Player2Agent = {
 }
 
 let _DocsFile = {
-	step: 0,
-	currentStep: 1,
-	categoriesList: {},
-	checkOption: false,
-	responseUpload: false,
-	pendingRecovery: false,
-	currentOptionSelected: '',
-	pendingAdditionalInfo: false,
-	currentFormInputsCategories: [],
+	step : 0,
+	currentStep : 1,
+	categoriesList : {},
+	checkOption : false,
+	responseUpload : false,
+	pendingRecovery : false,
+	currentOptionSelected : '',
+	pendingAdditionalInfo : false,
+	currentFormInputsCategories : [],
 
-	forms: {},
+	forms : {},
 	formSelectedId: false,
-	kycIDApproved: false,
-	customerForms: false,
+	kycIDApproved : false,
+	customerForms : false,
 
-	readyCategories: false,
-	pendingKycIDApproved: true,
-	customerPendingForms: false,
-	pendingInputsCategory: true,
-	pendingCustomerFormInfo: true,
+	readyCategories : false,
+	pendingKycIDApproved : true,
+	customerPendingForms : false,
+	pendingInputsCategory : true,
+	pendingCustomerFormInfo : true,
 	readyPending(){
 		return (this.readyCategories && this.customerPendingForms && !this.pendingCustomerFormInfo && !this.pendingInputsCategory);
 	}
@@ -452,7 +452,8 @@ let _BuyCrypto = {
 	rate: 0,
 	currencyCode: cashier.CRYPTO_CURRENCY_BTC,
 	minAmount: 0,
-	maxAmount: 0
+	maxAmount: 0,
+	processorLimits: {}
 };
 
 let CHANGE_EVENT = 'change';
@@ -1034,7 +1035,29 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getCryptoBalance() {
 		return _BuyCrypto.customerBalance;
+	},
+
+	/**
+	 * set processor limits to _BuyCrypto object
+	 * @param min
+	 * @param max
+	 * @param currency
+	 */
+	setBuyCryptoProcessorLimits(min, max, currency) {
+		_BuyCrypto.processorLimits.min = min;
+		_BuyCrypto.processorLimits.max = max;
+		_BuyCrypto.processorLimits.currencyCode = currency;
+	},
+
+	/**
+	 * get processor limits from _BuyCrypto
+	 *
+	 * @return {{}|_BuyCrypto.processorLimits}
+	 */
+	getBuyCryptoProcessorLimits() {
+		return _BuyCrypto.processorLimits;
 	}
+
 });
 
 /**
@@ -1043,6 +1066,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 	let action = payload.action;
 	let data = payload.data;
+
 	if(!ConnectorServices.stop){
 		try{
 			switch(action){
@@ -1052,7 +1076,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_company.companyId = data.companyId;
 					_company.remoteCompany = data.remoteCompany;
 
-					ReactGA.set({'dimension1': _company.remoteCompany});
+					ReactGA.set({'dimension1' : _company.remoteCompany});
 					if(_company.remoteCompany == 'AmericasCardroom'){
 						$('head').append("<!-- Hotjar Tracking Code for Cashier ACR --><script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:592695,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
 					}
@@ -1685,7 +1709,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					CashierStore.emitChange();
 					break;
 				case actions.IS_ACTIVE_BUY_CRYPTO:
-					if(data.response){
+					if(data.response) {
 						_BuyCrypto.isActive = data.response.isActive;
 						_BuyCrypto.minAmount = data.response.settings.MIN_AMOUNT;
 						_BuyCrypto.maxAmount = data.response.settings.MAX_AMOUNT;
@@ -1693,9 +1717,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					}
 					break;
 				case actions.GET_BALANCE_BUY_CRYPTO:
-					console.log(data);
-					if(data.response){
-						_BuyCrypto.customerBalance = data.response.balance;
+					if(data.response.coinDirectData) {
+						_BuyCrypto.customerBalance = data.response.coinDirectData.balance;
 						CashierStore.emitChange();
 					}
 					break;

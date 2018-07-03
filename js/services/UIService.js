@@ -1282,6 +1282,26 @@ class UiService {
 		CashierStore.docFilesCustomerPendingFormsWait();
 		ConnectorServices.makeCashierRequest(actions.DOCS_FILES_GET_CUSTOMER_KYC_IS_APPROVE, params);
 	}
+
+	/**
+	 * set min, max to _BuyCrypto object
+	 *
+	 * @param min
+	 * @param max
+	 * @param currency
+	 */
+	setBuyCryptoProcessorLimits(min, max, currency){
+		CashierStore.setBuyCryptoProcessorLimits(min, max, currency);
+	}
+
+	/**
+	 * get processorLimits from _BuyCrypto object
+	 *
+	 * @return {*|{}|_BuyCrypto.processorLimits}
+	 */
+	getBuyCryptoProcessorLimits(){
+		return CashierStore.getBuyCryptoProcessorLimits();
+	}
 }
 
 export let UIService = new UiService();

@@ -47,6 +47,7 @@ import {BitCoin} from './components/methods/bitcoin/Bitcoin'
 import {BitCoinConfirmWithdraw} from './components/methods/bitcoin/ConfirmWithdraw'
 import {BitCoinTicketPending} from './components/methods/bitcoin/tickets/PendingTicket'
 import {CreditCard} from './components/methods/bitcoin/CreditCard'
+import {Fund} from './components/methods/bitcoin/Fund'
 /**
  * Visa set of components to create routes
  */
@@ -131,8 +132,6 @@ let routes = (
 			<Route path="/deposit/" component={Content}>
 				<IndexRoute component={ProcessorsInfo}/>
 
-
-
 				<Route path="neteller_new/" component={Neteller}/>
 				<Route path="neteller_new/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
@@ -164,6 +163,7 @@ let routes = (
 					<Route path="pending/" component={BitCoinTicketPending}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
+				<Route path="/fund/bitcoin" component={Fund}/>
 
 				<Route path="visa/" component={Visa}/>
 				<Route path="visa/confirm/" component={VisaConfirm}/>
