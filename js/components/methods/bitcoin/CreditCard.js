@@ -8,12 +8,14 @@ import {CreditCardRegister} from './CreditCardRegister'
 import {ApplicationService} from '../../../services/ApplicationService'
 import {TransactionService} from '../../../services/TransactionService'
 import {Input} from '../../commonComponents/Inputs'
-import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {translate} from '../../../constants/Translate'
+import {LoadingSpinner} from '../../loading/LoadingSpinner'
 
 let CreditCard = React.createClass({
 
 	getInitialState(){
+
+		this.setState({cards: null});
 
 		CustomerService.getCustomerPayAccounts();
 
@@ -51,8 +53,7 @@ let CreditCard = React.createClass({
 				cryptoCurrencyCode: this.props.cryptoCurrency
 			},
 			coinDirectData: CashierStore.getCoinDirectData(),
-			showRegisterCC: registerCC,
-			loading: false
+			showRegisterCC: registerCC
 		}
 	},
 
@@ -98,15 +99,15 @@ let CreditCard = React.createClass({
 
 	render() {
 
-		if(this.state.loading){
-			return <LoadingSpinner/>
-		}
-
-		let cards = this.state.cards;
-
 		let options = [];
 
 		let selectedCardNumber = '';
+
+		let cards = this.state.cards;
+
+		if(typeof cards == 'undefined' || !cards){
+			return <LoadingSpinner/>
+		}
 
 		if(0 < cards.length){
 			for(let i in cards){
@@ -222,7 +223,7 @@ let CreditCard = React.createClass({
 			<CreditCardRegister returnFromRegisterNewCC={this.returnFromRegisterNewCC}/>
 		);
 
-		return (!this.state.showRegisterCC ? componentDeposit : componentRegisterCC);
+		return (!this.state.showRegisterCC && options.length > 0 ? componentDeposit : componentRegisterCC);
 	},
 
 	componentDidMount(){

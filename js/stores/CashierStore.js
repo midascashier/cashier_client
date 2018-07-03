@@ -292,7 +292,7 @@ let _payAccount = {
  */
 let _payAccounts = [];
 
-let _customerPayAccounts = [];
+let _customerPayAccounts;
 
 /**
  * Stores information of the transaction
@@ -407,7 +407,7 @@ let _CryptoTransfer = {
 let _Player2Agent = {
 	account: '',
 	name: '',
-	feePaymentMethod : '',
+	feePaymentMethod: '',
 	waitForValidation: false,
 	consulted: false,
 	transfer: {
@@ -419,26 +419,26 @@ let _Player2Agent = {
 }
 
 let _DocsFile = {
-	step : 0,
-	currentStep : 1,
-	categoriesList : {},
-	checkOption : false,
-	responseUpload : false,
-	pendingRecovery : false,
-	currentOptionSelected : '',
-	pendingAdditionalInfo : false,
-	currentFormInputsCategories : [],
+	step: 0,
+	currentStep: 1,
+	categoriesList: {},
+	checkOption: false,
+	responseUpload: false,
+	pendingRecovery: false,
+	currentOptionSelected: '',
+	pendingAdditionalInfo: false,
+	currentFormInputsCategories: [],
 
-	forms : {},
+	forms: {},
 	formSelectedId: false,
-	kycIDApproved : false,
-	customerForms : false,
+	kycIDApproved: false,
+	customerForms: false,
 
-	readyCategories : false,
-	pendingKycIDApproved : true,
-	customerPendingForms : false,
-	pendingInputsCategory : true,
-	pendingCustomerFormInfo : true,
+	readyCategories: false,
+	pendingKycIDApproved: true,
+	customerPendingForms: false,
+	pendingInputsCategory: true,
+	pendingCustomerFormInfo: true,
 	readyPending(){
 		return (this.readyCategories && this.customerPendingForms && !this.pendingCustomerFormInfo && !this.pendingInputsCategory);
 	}
@@ -1076,7 +1076,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_company.companyId = data.companyId;
 					_company.remoteCompany = data.remoteCompany;
 
-					ReactGA.set({'dimension1' : _company.remoteCompany});
+					ReactGA.set({'dimension1': _company.remoteCompany});
 					if(_company.remoteCompany == 'AmericasCardroom'){
 						$('head').append("<!-- Hotjar Tracking Code for Cashier ACR --><script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:592695,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
 					}
@@ -1521,6 +1521,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 							is1ClickElegible: 0,
 							caProcessor_Id_Root: payAccount.processorIdRoot
 						};
+						_customerPayAccounts = [];
 						_customerPayAccounts.push(newPayAccount);
 						CashierStore.emitChange();
 					}
@@ -1709,7 +1710,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					CashierStore.emitChange();
 					break;
 				case actions.IS_ACTIVE_BUY_CRYPTO:
-					if(data.response) {
+					if(data.response){
 						_BuyCrypto.isActive = data.response.isActive;
 						_BuyCrypto.minAmount = data.response.settings.MIN_AMOUNT;
 						_BuyCrypto.maxAmount = data.response.settings.MAX_AMOUNT;
@@ -1717,15 +1718,17 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					}
 					break;
 				case actions.GET_BALANCE_BUY_CRYPTO:
-					if(data.response.coinDirectData) {
+					if(data.response.coinDirectData){
 						_BuyCrypto.customerBalance = data.response.coinDirectData.balance;
 						CashierStore.emitChange();
 					}
 					break;
 
 				case actions.GET_PAY_ACCOUNTS_CUSTOMER:
-					if(data.response){
+					if(data.response && data.response.cards){
 						_customerPayAccounts = data.response.cards;
+					}else{
+						_customerPayAccounts = [];
 					}
 					CashierStore.emitChange();
 					break;
