@@ -33,6 +33,14 @@ class OnResponseService {
 				TransactionService.processResponse(data);
 				break;
 
+			case actions.PROCESS_GET_ADDRESS_RESPONSE:
+				TransactionService.getCryptoAddressResponse(data);
+				break;
+
+			case actions.GET_BITCOIN_TRANSACTION_RESPONSE:
+				TransactionService.cryptoDepositWithBalance();
+				break;
+
 			case actions.GET_CREDITCARD_TRANSACTION_RESPONSE:
 				TransactionService.creditCardTransactionResponse(data);
 				break;
