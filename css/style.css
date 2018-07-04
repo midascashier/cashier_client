@@ -1327,6 +1327,10 @@ input:checked + .slider:before{
     min-height: 47px;
 }
 
+.buy-crypto-messages .alert{
+    font-size: 16px;
+}
+
 .buy-crypto-content {
     width: 90%;
     margin: 0 auto;
@@ -1420,6 +1424,10 @@ input:checked + .slider:before{
     padding: 0 0 0 0 !important;
     line-height: 0 !important;
     width: 90% !important;
+}
+
+.buy-crypto-form-number2{
+    margin-top: 10px;
 }
 
 .buy-crypto-icon-dollar {
@@ -1524,4 +1532,12 @@ input:checked + .slider:before{
     font-size: 15px;
     text-align: justify;
     line-height: 28px;
+}
+
+.buy-crypto-min{
+    float: left;
+}
+.buy-crypto-max{
+    float: right;
+    margin-right: 20px;
 }

@@ -451,8 +451,10 @@ let _BuyCrypto = {
 	message: '',
 	rate: 0,
 	currencyCode: cashier.CRYPTO_CURRENCY_BTC,
-	minAmount: 0,
-	maxAmount: 0,
+	buyLimits: {
+		minAmount: 0,
+		maxAmount: 0
+	},
 	processorLimits: {}
 };
 
@@ -1712,8 +1714,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				case actions.IS_ACTIVE_BUY_CRYPTO:
 					if(data.response){
 						_BuyCrypto.isActive = data.response.isActive;
-						_BuyCrypto.minAmount = data.response.settings.MIN_AMOUNT;
-						_BuyCrypto.maxAmount = data.response.settings.MAX_AMOUNT;
+						_BuyCrypto.buyLimits.minAmount = data.response.settings.MIN_AMOUNT;
+						_BuyCrypto.buyLimits.maxAmount = data.response.settings.MAX_AMOUNT;
 						CashierStore.emitChange();
 					}
 					break;
