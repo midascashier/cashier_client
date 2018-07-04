@@ -294,6 +294,8 @@ let _payAccounts = [];
 
 let _customerPayAccounts;
 
+let _addedPayAccountInBitCoin = false;
+
 /**
  * Stores information of the transaction
  *
@@ -1058,6 +1060,10 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getBuyCryptoProcessorLimits() {
 		return _BuyCrypto.processorLimits;
+	},
+
+	addedPayAccountInBitCoin(){
+		return _addedPayAccountInBitCoin;
 	}
 
 });
@@ -1490,42 +1496,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					break;
 
 				case actions.REGISTER_PAYACCOUNT_BITCOIN:
-
-					if(data && data.state == 'ok' && data.response){
-						let payAccount = data.response.payAccount;
-						let cardType = 'VI';
-						let cardTypeDescription = 'Visa';
-						if(payAccount.processorIdRoot == cashier.PROCESSOR_ID_MC){
-							cardType = 'MC';
-							cardTypeDescription = 'Mastercard';
-						}
-						if(payAccount.processorIdRoot == cashier.PROCESSOR_ID_AMEX){
-							cardType = 'AMEX';
-							cardTypeDescription = 'American Express';
-						}
-						if(payAccount.processorIdRoot == cashier.PROCESSOR_ID_JCB){
-							cardType = 'JBC';
-							cardTypeDescription = 'JBC';
-						}
-
-						let cardNumber = payAccount.secureData.account;
-
-						let newPayAccount = {
-							caPayAccount_Id: payAccount.payAccountId,
-							DateLastUsed: '',
-							Last4: cardNumber.substr(12, 16),
-							ExpDate: payAccount.secureData.extra1 + '/' + payAccount.secureData.extra2,
-							CardholderName: payAccount.secureData.extra3,
-							CardType: cardType,
-							CardTypeDescription: cardTypeDescription,
-							Expired: 0,
-							is1Click: 0,
-							is1ClickElegible: 0,
-							caProcessor_Id_Root: payAccount.processorIdRoot
-						};
-						_customerPayAccounts = [];
-						_customerPayAccounts.push(newPayAccount);
+					if(data && data.state == 'ok' && data.response && data.response.payAccount){
+						_addedPayAccountInBitCoin = true;
 						CashierStore.emitChange();
+					}else{
+						_addedPayAccountInBitCoin = false;
 					}
 					break;
 

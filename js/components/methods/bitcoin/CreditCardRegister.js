@@ -12,6 +12,7 @@ import {CashierStore} from '../../../stores/CashierStore'
 import {CashierActions} from '../../../actions/CashierActions'
 import {TransactionService} from '../../../services/TransactionService'
 import {ApplicationService} from '../../../services/ApplicationService'
+import {LoadingSpinner} from '../../loading/LoadingSpinner'
 
 let CreditCardRegister = React.createClass({
 
@@ -48,8 +49,9 @@ let CreditCardRegister = React.createClass({
 		let customerState = customer.personalInformation.state ? customer.personalInformation.state : states[0]['Small'];
 
 		return {
-			cardsLength: CashierStore.getCustomerPayAccounts().length,
+			loading: false,
 			displaySaveButton: true,
+			addedPayAccount: false,
 			payAccount: {
 				dob: '',
 				ssn: ssn,
@@ -81,10 +83,10 @@ let CreditCardRegister = React.createClass({
 	 * @private
 	 */
 	_onChange() {
-		let cardLength = this.state.cardsLength;
-		let current = CashierStore.getCustomerPayAccounts().length;
-		if(cardLength < current){
+
+		if(this.state.addedPayAccount){
 			this.props.returnFromRegisterNewCC();
+			return true;
 		}
 
 		let displaySave = false;
@@ -100,8 +102,11 @@ let CreditCardRegister = React.createClass({
 
 		this.setState({
 			payAccount,
-			displaySaveButton: displaySave
+			displaySaveButton: displaySave,
+			loading: false,
+			addedPayAccount: CashierStore.addedPayAccountInBitCoin()
 		});
+
 	},
 
 	/**
@@ -177,6 +182,7 @@ let CreditCardRegister = React.createClass({
 			}
 
 			actualState.displaySaveButton = false;
+			actualState.loading = true;
 			actualState.payAccount.extra1 = ('0' + actualState.payAccount.extra1).slice(-2);
 			actualState.payAccount.dobDay = ('0' + actualState.payAccount.dobDay).slice(-2);
 			actualState.payAccount.dobMonth = ('0' + actualState.payAccount.dobMonth).slice(-2);
@@ -219,6 +225,10 @@ let CreditCardRegister = React.createClass({
 		let country = this.state.payAccount.country;
 		if(country == cashier.USA_COUNTRY_CODE || country == cashier.CAN_COUNTRY_CODE){
 			zipValidation = 'rgxValidate';
+		}
+
+		if(this.state.loading){
+			return <LoadingSpinner/>
 		}
 
 		return (

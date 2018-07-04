@@ -119,20 +119,24 @@ let CreditCard = React.createClass({
 		}
 
 		if(0 < cards.length){
+
+			let selected = false;
+
 			for(let i in cards){
+
 				let card = cards[i];
 				let cardNumber = 'VI-' + card.Last4;
 				let payAccountId = card.caPayAccount_Id;
-				if(0 < this.state.buyCryptos.payAccountId){
-					if(payAccountId == this.state.buyCryptos.payAccountId){
-						selectedCardNumber = card.Last4;
-						options.push(<option selected="selected" key={payAccountId} value={payAccountId}>{cardNumber}</option>);
-					}else{
-						options.push(<option key={payAccountId} value={payAccountId}>{cardNumber}</option>);
-					}
-				}else{
-					selectedCardNumber = card.Last4;
+
+				if(payAccountId == this.state.buyCryptos.payAccountId){
 					options.push(<option selected="selected" key={payAccountId} value={payAccountId}>{cardNumber}</option>);
+					selectedCardNumber = card.Last4;
+				}else if(!selected){
+					options.push(<option selected="selected" key={payAccountId} value={payAccountId}>{cardNumber}</option>);
+					selectedCardNumber = card.Last4;
+					selected = true;
+				}else{
+					options.push(<option key={payAccountId} value={payAccountId}>{cardNumber}</option>);
 				}
 			}
 			options.push(<option key={"0"} value={"0"}>{"Add new cc"}</option>);
