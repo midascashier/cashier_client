@@ -28,6 +28,7 @@ let CreditCard = React.createClass({
 		}
 
 		coinDirect.message = '';
+		coinDirect.success = "";
 		this.setState({coinDirectData: coinDirect});
 
 		return this.parameters();
@@ -145,8 +146,22 @@ let CreditCard = React.createClass({
 		const componentDeposit = (
 			<div className="buy-crypto-background">
 				<div className="buy-crypto-content">
-
 					<div className="buy-crypto-messages">
+						{(() =>{
+							if(this.state.coinDirectData.success == "1"){
+								return <div className="alert alert-success">{translate('BUY_CRYPTOS_TRANSACTION_APPROVED')}</div>
+							}
+
+							if(this.state.coinDirectData.success == "0"){
+								return <div className="alert alert-danger">{translate('BUY_CRYPTOS_TRANSACTION_REJECTED')}: {this.state.coinDirectData.message}</div>
+							}
+
+							if(this.state.coinDirectData.success == "2"){
+								return <div className="alert alert-warning">{translate('BUY_CRYPTOS_TRANSACTION_PENDING')}: {this.state.coinDirectData.message}</div>
+							}
+
+						})()}
+
 						<div className="alert">
 							{translate('BUY_CRYPTOS_CURRENT_BALANCE')} : ({this.state.coinDirectData.currencyCode}) {this.state.coinDirectData.customerBalance}
 						</div>

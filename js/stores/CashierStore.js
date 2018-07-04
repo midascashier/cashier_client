@@ -449,7 +449,7 @@ let _DocsFile = {
 let _BuyCrypto = {
 	isActive: null,
 	customerBalance: 0,
-	success: 0,
+	success: "",
 	message: '',
 	rate: 0,
 	currencyCode: cashier.CRYPTO_CURRENCY_BTC,
@@ -1733,7 +1733,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					if(data.response){
 						let response = data.response.coinDirectData;
 						_BuyCrypto.success = response.success;
-						_BuyCrypto.customerBalance = response.balance || 0;
+						if(_BuyCrypto.success == "1"){
+							_BuyCrypto.customerBalance = response.balance;
+						}
 						_BuyCrypto.message = response.message;
 					}
 					CashierStore.emitChange();
