@@ -1307,6 +1307,10 @@ input:checked + .slider:before{
     margin-top: 10px;
 }
 
+.fund-content{
+    padding-top: 50px;
+    padding-left: 180px;
+}
 
 
 /** BUY CRYPTO ARMANDO */

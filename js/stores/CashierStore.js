@@ -453,6 +453,7 @@ let _BuyCrypto = {
 	message: '',
 	rate: 0,
 	currencyCode: cashier.CRYPTO_CURRENCY_BTC,
+	useBalance: false,
 	buyLimits: {
 		minAmount: 0,
 		maxAmount: 0
@@ -1064,8 +1065,25 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 
 	addedPayAccountInBitCoin(){
 		return _addedPayAccountInBitCoin;
-	}
+	},
 
+	/**
+	* get if the customer want to use his balance
+	*
+	* @return {boolean | _BuyCrypto.useBalance}
+	*/
+	getBuyCryptoUseBalance() {
+		return _BuyCrypto.useBalance;
+	},
+
+	/**
+	 * set if the customer wants to use his balance
+	 *
+	 * @param {boolean} useBalance
+	 */
+	setBuyCryptoUseBalance(useBalance) {
+		_BuyCrypto.useBalance = useBalance;
+	}
 });
 
 /**
@@ -1422,6 +1440,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				case actions.PROCESS_P2P_GET_NAME_RESPONSE:
 				case actions.PROCESS_P2P_SUBMIT_RESPONSE:
 				case actions.PROCESS_CC_RESPONSE:
+				case actions.PROCESS_GET_ADDRESS_RESPONSE:
 					_transactionResponse.amount = _transaction.amount;
 					_transactionResponse.fee = _transaction.fee;
 					_transactionResponse.feeType = _transaction.feeType;
@@ -1724,6 +1743,19 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 						_BuyCrypto.rate = data.response.result;
 					}
 					CashierStore.emitChange();
+					break;
+				case actions.CRYPTO_DEPOSIT_WITH_BALANCE:
+					if(data.response) {
+						if(data.response.coinDirectData) {
+							let coinDirectData = data.response.coinDirectData;
+							if(coinDirectData.success == 1 ) {
+								console.log('todo fue bien en coindirect');
+							} else {
+								console.log(coinDirectData.message);
+							}
+						}
+					}
+					console.log(data);
 					break;
 				default:
 					console.log("Store No Action: " + action);

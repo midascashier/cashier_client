@@ -455,6 +455,30 @@ class transactionService {
 	};
 
 	/**
+	 * make a crypto transaction request
+	 *
+	 * @param processorId
+	 * @param amount
+	 */
+	getCryptoAddress(processorId, amount) {
+		//clean current transaction response
+		CashierStore.getLastTransactionResponse().cleanTransaction();
+		CashierStore.setBuyCryptoUseBalance(true);
+
+		let customer = CashierStore.getCustomer();
+
+		let rabbitRequest = {
+			f: 'process',
+			processorId: processorId,
+			payAccountId: 0,
+			amount: amount,
+			dynamicParams: {account: customer.username}
+		};
+		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
+		ConnectorServices.makeProcessRequest(actions.PROCESS_GET_ADDRESS_RESPONSE, rabbitRequest);
+	}
+
+	/**
 	 * this function sends to process a transaction
 	 */
 	processCryptoTransfer(dynamicParams, nextStep){
@@ -833,6 +857,66 @@ class transactionService {
 			UIService.processResponse(data);
 		}
 	};
+
+	/**
+	 * process the get crypto Address response
+	 *
+	 * @param data
+	 */
+	getCryptoAddressResponse(data) {
+		let processorSelected = CashierStore.getProcessor();
+		let processorId = processorSelected.processorId;
+		if(data.response){
+			if(data.response.transaction){
+				let transaction = data.response.transaction;
+				if(transaction.caTransactionStatus_Id == cashier.TRANSACTION_STATUS_PENDING){
+					processorId = parseInt(processorId);
+					switch(processorId){
+						case cashier.PROCESSOR_ID_BITCOIN:
+							this.bitCoinTransaction(transaction.caTransaction_Id);
+							break;
+						case cashier.PROCESSOR_ID_CRYPTO_TRANSFER:
+							this.cryptoTransferTransaction(transaction.caTransaction_Id);
+							break;
+						case cashier.PROCESSOR_ID_CRYPTOScreen:
+							this.getCryptoTransaction(transaction.caTransaction_Id);
+							break;
+					}
+				}
+			}
+		}
+	};
+
+	/**
+	 * make a crypto deposit using coindirect balance
+	 */
+	cryptoDepositWithBalance() {
+		if(CashierStore.getBuyCryptoUseBalance()) {
+			CashierStore.setBuyCryptoUseBalance(false);
+			this.buyCryptoDepositWithBalance();
+		} else {
+			console.log('no voy a hacer nada');
+		}
+	};
+
+	/**
+	 * execute deposit with coindirect balance
+	 */
+	buyCryptoDepositWithBalance() {
+		let processor = CashierStore.getProcessor();
+		let transaction = CashierStore.getLastTransactionResponse();
+		let processorId = processor.processorId;
+		let transactionId = transaction.transactionId;
+		let data = {
+			f: "coinDirectPayment",
+			tid: transactionId,
+			processorSelected: processorId
+		};
+		let application = CashierStore.getApplication();
+		let rabbitRequest = Object.assign(data, application);
+		ConnectorServices.makeCashierRequest(actions.CRYPTO_DEPOSIT_WITH_BALANCE, rabbitRequest);
+	};
+
 
 	/**
 	 * process the transaction response
