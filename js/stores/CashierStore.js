@@ -451,9 +451,11 @@ let _BuyCrypto = {
 	message: '',
 	rate: 0,
 	currencyCode: cashier.CRYPTO_CURRENCY_BTC,
-	minAmount: 0,
-	maxAmount: 0,
 	useBalance: false,
+	buyLimits: {
+		minAmount: 0,
+		maxAmount: 0
+	},
 	processorLimits: {}
 };
 
@@ -1540,6 +1542,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 							is1ClickElegible: 0,
 							caProcessor_Id_Root: payAccount.processorIdRoot
 						};
+						_customerPayAccounts = [];
 						_customerPayAccounts.push(newPayAccount);
 						CashierStore.emitChange();
 					}
@@ -1728,23 +1731,25 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					CashierStore.emitChange();
 					break;
 				case actions.IS_ACTIVE_BUY_CRYPTO:
-					if(data.response) {
+					if(data.response){
 						_BuyCrypto.isActive = data.response.isActive;
-						_BuyCrypto.minAmount = data.response.settings.MIN_AMOUNT;
-						_BuyCrypto.maxAmount = data.response.settings.MAX_AMOUNT;
+						_BuyCrypto.buyLimits.minAmount = data.response.settings.MIN_AMOUNT;
+						_BuyCrypto.buyLimits.maxAmount = data.response.settings.MAX_AMOUNT;
 						CashierStore.emitChange();
 					}
 					break;
 				case actions.GET_BALANCE_BUY_CRYPTO:
-					if(data.response.coinDirectData) {
+					if(data.response.coinDirectData){
 						_BuyCrypto.customerBalance = data.response.coinDirectData.balance;
 						CashierStore.emitChange();
 					}
 					break;
 
 				case actions.GET_PAY_ACCOUNTS_CUSTOMER:
-					if(data.response){
+					if(data.response && data.response.cards){
 						_customerPayAccounts = data.response.cards;
+					}else{
+						_customerPayAccounts = [];
 					}
 					CashierStore.emitChange();
 					break;

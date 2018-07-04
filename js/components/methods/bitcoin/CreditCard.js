@@ -8,12 +8,14 @@ import {CreditCardRegister} from './CreditCardRegister'
 import {ApplicationService} from '../../../services/ApplicationService'
 import {TransactionService} from '../../../services/TransactionService'
 import {Input} from '../../commonComponents/Inputs'
-import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 import {translate} from '../../../constants/Translate'
+import {LoadingSpinner} from '../../loading/LoadingSpinner'
 
 let CreditCard = React.createClass({
 
 	getInitialState(){
+
+		this.setState({cards: null});
 
 		CustomerService.getCustomerPayAccounts();
 
@@ -44,6 +46,7 @@ let CreditCard = React.createClass({
 		}
 
 		return {
+			loading: false,
 			cards: CashierStore.getCustomerPayAccounts(),
 			buyCryptos: {
 				payAccountId: payAccountId,
@@ -51,8 +54,7 @@ let CreditCard = React.createClass({
 				cryptoCurrencyCode: this.props.cryptoCurrency
 			},
 			coinDirectData: CashierStore.getCoinDirectData(),
-			showRegisterCC: registerCC,
-			loading: false
+			showRegisterCC: registerCC
 		}
 	},
 
@@ -82,31 +84,39 @@ let CreditCard = React.createClass({
 
 		if(!ApplicationService.emptyInput(e)){
 
-			this.setState({loading: true});
-
 			let buyCryptosInfo = {
 				payAccountId: e.target.querySelector('[name="payAccountId"]').value,
 				amount: e.target.querySelector('[name="amount"]').value,
 				cryptoCurrencyCode: this.state.coinDirectData.currencyCode
 			};
 
-			TransactionService.buyCryptos(buyCryptosInfo);
+			let min = this.state.coinDirectData.buyLimits.minAmount;
+			let max = this.state.coinDirectData.buyLimits.maxAmount;
 
 			this.setState({buyCryptos: buyCryptosInfo});
+
+			if(min <= buyCryptosInfo.amount && buyCryptosInfo.amount <= max){
+				this.setState({loading: true});
+				TransactionService.buyCryptos(buyCryptosInfo);
+			}
 		}
 	},
 
 	render() {
 
-		if(this.state.loading){
-			return <LoadingSpinner/>
-		}
-
-		let cards = this.state.cards;
+		let currentAmount = parseInt(this.state.buyCryptos.amount) || 0;
+		let minAmount = parseInt(this.state.coinDirectData.buyLimits.minAmount);
+		let maxAmount = parseInt(this.state.coinDirectData.buyLimits.maxAmount);
 
 		let options = [];
 
 		let selectedCardNumber = '';
+
+		let cards = this.state.cards;
+
+		if(typeof cards == 'undefined' || !cards || this.state.loading){
+			return <LoadingSpinner/>
+		}
 
 		if(0 < cards.length){
 			for(let i in cards){
@@ -130,24 +140,14 @@ let CreditCard = React.createClass({
 
 		const componentDeposit = (
 			<div className="buy-crypto-background">
+				<div className="buy-crypto-content">
 
-				<div className="buy-crypto-messages">
-
-					<div hidden={this.state.coinDirectData.message == ''}>
-						<div hidden={this.state.coinDirectData.success == 1} className="alert alert-danger">
-							{this.state.coinDirectData.message}
-							<div>{translate('BUY_CRYPTOS_CURRENT_BALANCE')} ({this.state.coinDirectData.currencyCode}): {this.state.coinDirectData.customerBalance}</div>
+					<div className="buy-crypto-messages">
+						<div className="alert">
+							{translate('BUY_CRYPTOS_CURRENT_BALANCE')} : ({this.state.coinDirectData.currencyCode}) {this.state.coinDirectData.customerBalance}
 						</div>
 					</div>
 
-					<div hidden={!this.state.coinDirectData.customerBalance || this.state.coinDirectData.customerBalance == 0}
-							 className="alert alert-success">
-						{translate('BUY_CRYPTOS_TRANSACTION_APPROVED')} ({this.state.coinDirectData.currencyCode}): {this.state.coinDirectData.customerBalance}
-					</div>
-
-				</div>
-
-				<div className="buy-crypto-content">
 					<form onSubmit={this.buyCryptos}>
 						<div className="col-sm-6">
 							<div className="buy-crypto-section buy-crypto-section1">
@@ -189,11 +189,20 @@ let CreditCard = React.createClass({
 												require
 												tabindex="2"
 											/>
-											<span>Min:${this.state.coinDirectData.minAmount}</span>
+											<span className="buy-crypto-min">
+												<div className={((minAmount > currentAmount && currentAmount > 0) ? "red" : "")}>
+												Min:${this.state.coinDirectData.buyLimits.minAmount}
+												</div>
+											</span>
+											<span className="buy-crypto-max">
+												<div className={((currentAmount > maxAmount) ? "red" : "")}>
+												Max:${this.state.coinDirectData.buyLimits.minAmount}
+												</div>
+											</span>
 										</div>
 									</div>
 								</div>
-								<div className="buy-crypto-form-element buy-crypto-form-number">
+								<div className="buy-crypto-form-element buy-crypto-form-number buy-crypto-form-number2">
 									<div className="row">
 										<div className="col-sm-2">
 											<div className="buy-crypto-icon-bitcoin"></div>
@@ -222,7 +231,7 @@ let CreditCard = React.createClass({
 			<CreditCardRegister returnFromRegisterNewCC={this.returnFromRegisterNewCC}/>
 		);
 
-		return (!this.state.showRegisterCC ? componentDeposit : componentRegisterCC);
+		return (!this.state.showRegisterCC && options.length > 0 ? componentDeposit : componentRegisterCC);
 	},
 
 	componentDidMount(){
