@@ -292,7 +292,9 @@ let _payAccount = {
  */
 let _payAccounts = [];
 
-let _customerPayAccounts = [];
+let _customerPayAccounts;
+
+let _addedPayAccountInBitCoin = false;
 
 /**
  * Stores information of the transaction
@@ -407,7 +409,7 @@ let _CryptoTransfer = {
 let _Player2Agent = {
 	account: '',
 	name: '',
-	feePaymentMethod : '',
+	feePaymentMethod: '',
 	waitForValidation: false,
 	consulted: false,
 	transfer: {
@@ -419,26 +421,26 @@ let _Player2Agent = {
 }
 
 let _DocsFile = {
-	step : 0,
-	currentStep : 1,
-	categoriesList : {},
-	checkOption : false,
-	responseUpload : false,
-	pendingRecovery : false,
-	currentOptionSelected : '',
-	pendingAdditionalInfo : false,
-	currentFormInputsCategories : [],
+	step: 0,
+	currentStep: 1,
+	categoriesList: {},
+	checkOption: false,
+	responseUpload: false,
+	pendingRecovery: false,
+	currentOptionSelected: '',
+	pendingAdditionalInfo: false,
+	currentFormInputsCategories: [],
 
-	forms : {},
+	forms: {},
 	formSelectedId: false,
-	kycIDApproved : false,
-	customerForms : false,
+	kycIDApproved: false,
+	customerForms: false,
 
-	readyCategories : false,
-	pendingKycIDApproved : true,
-	customerPendingForms : false,
-	pendingInputsCategory : true,
-	pendingCustomerFormInfo : true,
+	readyCategories: false,
+	pendingKycIDApproved: true,
+	customerPendingForms: false,
+	pendingInputsCategory: true,
+	pendingCustomerFormInfo: true,
 	readyPending(){
 		return (this.readyCategories && this.customerPendingForms && !this.pendingCustomerFormInfo && !this.pendingInputsCategory);
 	}
@@ -447,7 +449,7 @@ let _DocsFile = {
 let _BuyCrypto = {
 	isActive: null,
 	customerBalance: 0,
-	success: 0,
+	success: "",
 	message: '',
 	rate: 0,
 	currencyCode: cashier.CRYPTO_CURRENCY_BTC,
@@ -1061,6 +1063,10 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return _BuyCrypto.processorLimits;
 	},
 
+	addedPayAccountInBitCoin(){
+		return _addedPayAccountInBitCoin;
+	},
+
 	/**
 	* get if the customer want to use his balance
 	*
@@ -1096,7 +1102,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_company.companyId = data.companyId;
 					_company.remoteCompany = data.remoteCompany;
 
-					ReactGA.set({'dimension1' : _company.remoteCompany});
+					ReactGA.set({'dimension1': _company.remoteCompany});
 					if(_company.remoteCompany == 'AmericasCardroom'){
 						$('head').append("<!-- Hotjar Tracking Code for Cashier ACR --><script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:592695,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
 					}
@@ -1509,42 +1515,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					break;
 
 				case actions.REGISTER_PAYACCOUNT_BITCOIN:
-
-					if(data && data.state == 'ok' && data.response){
-						let payAccount = data.response.payAccount;
-						let cardType = 'VI';
-						let cardTypeDescription = 'Visa';
-						if(payAccount.processorIdRoot == cashier.PROCESSOR_ID_MC){
-							cardType = 'MC';
-							cardTypeDescription = 'Mastercard';
-						}
-						if(payAccount.processorIdRoot == cashier.PROCESSOR_ID_AMEX){
-							cardType = 'AMEX';
-							cardTypeDescription = 'American Express';
-						}
-						if(payAccount.processorIdRoot == cashier.PROCESSOR_ID_JCB){
-							cardType = 'JBC';
-							cardTypeDescription = 'JBC';
-						}
-
-						let cardNumber = payAccount.secureData.account;
-
-						let newPayAccount = {
-							caPayAccount_Id: payAccount.payAccountId,
-							DateLastUsed: '',
-							Last4: cardNumber.substr(12, 16),
-							ExpDate: payAccount.secureData.extra1 + '/' + payAccount.secureData.extra2,
-							CardholderName: payAccount.secureData.extra3,
-							CardType: cardType,
-							CardTypeDescription: cardTypeDescription,
-							Expired: 0,
-							is1Click: 0,
-							is1ClickElegible: 0,
-							caProcessor_Id_Root: payAccount.processorIdRoot
-						};
-						_customerPayAccounts = [];
-						_customerPayAccounts.push(newPayAccount);
+					if(data && data.state == 'ok' && data.response && data.response.payAccount){
+						_addedPayAccountInBitCoin = true;
 						CashierStore.emitChange();
+					}else{
+						_addedPayAccountInBitCoin = false;
 					}
 					break;
 
@@ -1758,7 +1733,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					if(data.response){
 						let response = data.response.coinDirectData;
 						_BuyCrypto.success = response.success;
-						_BuyCrypto.customerBalance = response.balance || 0;
+						if(_BuyCrypto.success == "1"){
+							_BuyCrypto.customerBalance = response.balance;
+						}
 						_BuyCrypto.message = response.message;
 					}
 					CashierStore.emitChange();
@@ -1768,9 +1745,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 						_BuyCrypto.rate = data.response.result;
 					}
 					CashierStore.emitChange();
-					break;
-				default:
-					console.log("Store No Action: " + action);
 					break;
 				case actions.CRYPTO_DEPOSIT_WITH_BALANCE:
 					if(data.response) {
@@ -1784,6 +1758,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 						}
 					}
 					console.log(data);
+					break;
+				default:
+					console.log("Store No Action: " + action);
 					break;
 			}
 		}catch(e){
