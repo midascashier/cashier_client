@@ -1037,7 +1037,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * @return {null}
 	 */
 	getCryptoBalance() {
-		return _BuyCrypto.customerBalance;
+		return _BuyCrypto.customerBalance.toFixed(8);
 	},
 
 	/**

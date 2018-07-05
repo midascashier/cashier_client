@@ -1286,6 +1286,7 @@ input:checked + .slider:before{
     border: none;
     border-bottom: solid 2px #f7931a;
     text-align: center;
+    background: rgba(183,183,183,-0.4);
 }
 
 .crypto-limits-left{
@@ -1303,13 +1304,21 @@ input:checked + .slider:before{
     font-size: 20px;
 }
 
-.deposit-with-available div{
-    margin-top: 10px;
-}
-
 .fund-content{
     padding-top: 50px;
     padding-left: 180px;
+}
+
+.crypto-m-tittle {
+     margin-top: 50px;
+ }
+
+.crypto-m-middle {
+    margin-top: 26px;
+}
+
+.crypto-m-footer {
+    margin-top: 100px;
 }
 
 

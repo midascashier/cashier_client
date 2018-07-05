@@ -41,6 +41,10 @@ class OnResponseService {
 				TransactionService.cryptoDepositWithBalance();
 				break;
 
+			case actions.CRYPTO_DEPOSIT_WITH_BALANCE:
+				TransactionService.buyCryptoDepositWithBalanceResponse(data);
+				break;
+
 			case actions.GET_CREDITCARD_TRANSACTION_RESPONSE:
 				TransactionService.creditCardTransactionResponse(data);
 				break;
