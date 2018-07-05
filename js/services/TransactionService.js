@@ -917,6 +917,25 @@ class transactionService {
 		ConnectorServices.makeCashierRequest(actions.CRYPTO_DEPOSIT_WITH_BALANCE, rabbitRequest);
 	};
 
+	/**
+	 * unpack deposit with balance response and redirect to ticket
+	 *
+	 * @param data
+	 */
+	buyCryptoDepositWithBalanceResponse(data) {
+		if(data.response) {
+			if(data.response.coinDirectData) {
+				let coinDirectData = data.response.coinDirectData;
+				if(coinDirectData.success == 1 ) {
+					console.log('todo fue bien en coindirect');
+					UIService.changeUIState('/fund/bitcoin/ticket/approved');
+				} else {
+					console.log(coinDirectData.message);
+					UIService.changeUIState('/fund/bitcoin/ticket/rejected');
+				}
+			}
+		}
+	};
 
 	/**
 	 * process the transaction response

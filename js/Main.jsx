@@ -97,6 +97,8 @@ import {TransactionHistoryContent} from './components/TransactionHistoryContent'
 import {RequestsContent} from './components/RequestContent'
 import {PendingControlNumber} from './components/PendingMTCNContent'
 import RouterContainer from './services/RouterContainer'
+import {BitCoinTicketApproved} from './components/methods/bitcoin/tickets/ApprovedTicket'
+import {BitCoinTicketRejected} from './components/methods/bitcoin/tickets/RejectedTicket'
 
 //method
 
@@ -164,6 +166,8 @@ let routes = (
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 				<Route path="/fund/bitcoin" component={Fund}/>
+				<Route path="/fund/bitcoin/ticket/approved" component={BitCoinTicketApproved}/>
+				<Route path="/fund/bitcoin/ticket/rejected" component={BitCoinTicketRejected}/>
 
 				<Route path="visa/" component={Visa}/>
 				<Route path="visa/confirm/" component={VisaConfirm}/>

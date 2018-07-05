@@ -135,6 +135,9 @@ let ProcessorCryptoInfo = React.createClass({
 		UIService.changeUIState('/fund/bitcoin');
 	},
 
+	/**
+	 * redirect to buy action
+	 */
 	loadBuy(){
 		UIService.changeUIState('/bitcoin/buy/');
 	},
@@ -244,7 +247,7 @@ let ProcessorCryptoInfo = React.createClass({
 	 * React function to remove listener to this component once is unmounted
 	 */
 	componentWillUnmount(){
-		// CashierStore.removeChangeListener(this._onChange);
+		CashierStore.removeChangeListener(this._onChange);
 	}
 });
 

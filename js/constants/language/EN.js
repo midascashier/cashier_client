@@ -305,7 +305,7 @@ let _langTags = {
 	HOVER_DEPOSIT_OPTION: "Deposit using external wallet",
 	HOVER_DEFAULT_OPTION: 'Available <strong>{customerBalance} {cryptoCurrencyCode}</strong>',
 	TITLE_AMOUNT: 'Deposit Amount',
-	TITLE_AVAILABLE: 'Available <strong>{customerBalance} {cryptoCurrencyCode}</strong>',
+	TITLE_AVAILABLE: 'Available',
 	BTN_DEPOSIT_WITH: 'Deposit with {cryptoCurrencyName}',
 
 	//resources
