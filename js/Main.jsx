@@ -98,8 +98,8 @@ import {TransactionHistoryContent} from './components/TransactionHistoryContent'
 import {RequestsContent} from './components/RequestContent'
 import {PendingControlNumber} from './components/PendingMTCNContent'
 import RouterContainer from './services/RouterContainer'
-import {BitCoinTicketApproved} from './components/methods/bitcoin/tickets/ApprovedTicket'
-import {BitCoinTicketRejected} from './components/methods/bitcoin/tickets/RejectedTicket'
+import {CryptoTicketApproved} from './components/commonComponents/cryptos/tickets/ApprovedTicket'
+import {CryptoTicketRejected} from './components/commonComponents/cryptos/tickets/RejectedTicket'
 
 //method
 
@@ -131,8 +131,8 @@ let routes = (
 			<Route path="/crypto/" component={Content}>
 				<Route path="buy" component={BuyCrypto}/>
 				<Route path="transfer" component={TransferCrypto}/>
-				<Route path="ticket/approved" component={BitCoinTicketApproved}/>
-				<Route path="ticket/rejected" component={BitCoinTicketRejected}/>
+				<Route path="ticket/approved" component={CryptoTicketApproved}/>
+				<Route path="ticket/rejected" component={CryptoTicketRejected}/>
 			</Route>
 
 			<Route path="/deposit/" component={Content}>

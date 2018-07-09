@@ -93,14 +93,14 @@ let TransferCrypto = React.createClass({
 
 		if(amount != '') {
 			if(amount >= processorLimits.min && amount <= processorLimits.max){
-				errorMsg = 'Inssuficen crypto available';
+				errorMsg = translate('BUY_CRYPTOS_INSUFFICIENT_FOUND');
 				if(cryptoAmount <= cryptoBalance) {
 					this.setState({btnActive: false});
 					errorMsg = '';
 				}
 			}else{
 				this.setState({btnActive: true});
-				errorMsg = 'the amount is out of limits';
+				errorMsg = translate('BUY_CRYPTOS_MIN_MAX_LIMITS');
 			}
 		}
 
@@ -130,11 +130,6 @@ let TransferCrypto = React.createClass({
 		let max = processorLimits.max;
 		let currencyCode = processorLimits.currencyCode;
 
-		let titleAvailable = translate('TITLE_AVAILABLE', '', {
-			customerBalance: CashierStore.getCryptoBalance(),
-			cryptoCurrencyCode: CashierStore.getBuyCryptoCurrencyCode()
-		});
-
 		let cryptoCurrencyName = 'bitcoin';
 
 		if(this.state.loading){
@@ -147,7 +142,7 @@ let TransferCrypto = React.createClass({
 					<div className="row fund-content">
 						<div className="col-md-6 center-block text-center crypto-box-content deposit-with-available">
 							<div className="crypto-m-tittle">
-								<h2>{translate('TITLE_AMOUNT')}</h2>
+								<h2>{translate('BUY_CRYPTOS_TITLE_AMOUNT')}</h2>
 							</div>
 							<div style={{marginTop: "55px"}}>
 								<div className="col-md-2">
@@ -172,7 +167,7 @@ let TransferCrypto = React.createClass({
 						</div>
 						<div className="col-md-6 center-block text-center crypto-box-content deposit-with-available">
 							<div className="crypto-m-tittle">
-								<h2>{translate('TITLE_AVAILABLE')}</h2>
+								<h2>{translate('BUY_CRYPTOS_TITLE_AVAILABLE')}</h2>
 							</div>
 							<div>
 								<h4>{CashierStore.getCryptoBalance()} {CashierStore.getCoinDirectData().currencyCode}</h4>
@@ -186,7 +181,7 @@ let TransferCrypto = React.createClass({
 								</div>
 							</div>
 							<div className="crypto-m-footer">
-								<input type="button" onClick={this.getCryptoAddress} className="btn btn-green" disabled={this.state.btnActive} value={translate('BTN_DEPOSIT_WITH', '', {cryptoCurrencyName: cryptoCurrencyName})}/>
+								<input type="button" onClick={this.getCryptoAddress} className="btn btn-green" disabled={this.state.btnActive} value={translate('BUY_CRYPTOS_BTN_DEPOSIT_WITH', '', {cryptoCurrencyName: cryptoCurrencyName})}/>
 							</div>
 						</div>
 					</div>

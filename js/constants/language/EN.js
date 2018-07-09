@@ -299,15 +299,6 @@ let _langTags = {
 	CRYPTO_WITHDRAWS_INSIDE: "Crypto Transfer withdrawals will be processed within 24 hours, but are usually processed as soon as possible.",
 	CRYPTO_PROCESS_VALIDATION_ERROR: "Something went wrong with your request. Please try again",
 
-	// Buy Cryptos
-	HOVER_FUND_OPTION: 'With this method you will deposit using your crypto balance.<br/>Available <strong>{customerBalance} {cryptoCurrencyCode}</strong>',
-	HOVER_BUY_OPTION: 'With this method you can purchase cryptos using your credit cards (only VISA).<br/>Available <strong>{customerBalance} {cryptoCurrencyCode}</strong>',
-	HOVER_DEPOSIT_OPTION: "Deposit using external wallet",
-	HOVER_DEFAULT_OPTION: 'Available <strong>{customerBalance} {cryptoCurrencyCode}</strong>',
-	TITLE_AMOUNT: 'Deposit Amount',
-	TITLE_AVAILABLE: 'Available',
-	BTN_DEPOSIT_WITH: 'Deposit with {cryptoCurrencyName}',
-
 	//resources
 	CC_LIMIT_ERROR_COUNT: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle red"></i><strong>{displayName}</strong> - <span>The credit card selected has reached its maximum number of transactions allowed. Please select another credit card</span></div>',
 	CC_LIMIT_ERROR_COUNT_TIME_SPAN: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle red"></i><strong>{displayName}</strong> - <span>The credit card selected has reached its maximum number of transactions allowed. It will be available again in <strong>{remaining} minute(s)</strong></span></div>',
@@ -436,6 +427,7 @@ let _langTags = {
 
 	DOCS_FILE_TAB_VERIFICATIONREQUIRED : "Additional Information",
 
+	// Buy Cryptos
 	BUY_CRYPTOS_SELECTCC: "Select card",
 	BUY_CRYPTOS_SELECTCC_ADD_NEW: "Add new card",
 	BUY_CRYPTOS_LEYEND: "How much do you want to buy?",
@@ -456,7 +448,16 @@ let _langTags = {
 	BUY_CRYPTOS_FUND_AMOUNT: "Deposit Amount",
 	BUY_CRYPTOS_SEND_TO: "Send to:",
 	BUY_CRYPTOS_TIME: "Time's ticking!",
-	BUY_CRYPTOS_HURRY: "Why  the hurry?"
+	BUY_CRYPTOS_HURRY: "Why  the hurry?",
+	BUY_CRYPTOS_HOVER_FUND_OPTION: 'With this method you will deposit using your crypto balance.<br/>Available <strong>{customerBalance} {cryptoCurrencyCode}</strong>',
+	BUY_CRYPTOS_HOVER_BUY_OPTION: 'With this method you can purchase cryptos using your credit cards (only VISA).<br/>Available <strong>{customerBalance} {cryptoCurrencyCode}</strong>',
+	BUY_CRYPTOS_HOVER_DEPOSIT_OPTION: "Deposit using external wallet",
+	BUY_CRYPTOS_HOVER_DEFAULT_OPTION: 'Available <strong>{customerBalance} {cryptoCurrencyCode}</strong>',
+	BUY_CRYPTOS_TITLE_AMOUNT: 'Deposit Amount',
+	BUY_CRYPTOS_TITLE_AVAILABLE: 'Available',
+	BUY_CRYPTOS_BTN_DEPOSIT_WITH: 'Deposit with {cryptoCurrencyName}',
+	BUY_CRYPTOS_INSUFFICIENT_FOUND: 'insufficient crypto available',
+	BUY_CRYPTOS_MIN_MAX_LIMITS: 'Please enter a valid amount',
 
 };
 

@@ -166,17 +166,17 @@ let ProcessorCryptoInfo = React.createClass({
 		let customerBalance = this.state.customerCryptoBalance;
 		let cryptoCurrencyCode = 'BTC';
 
-		let translateHoverFundOption = translate('HOVER_FUND_OPTION', '', {
+		let translateHoverFundOption = translate('BUY_CRYPTOS_HOVER_FUND_OPTION', '', {
 			customerBalance: customerBalance,
 			cryptoCurrencyCode: cryptoCurrencyCode
 		});
 
-		let translateHoverBuyOption = translate('HOVER_BUY_OPTION', '', {
+		let translateHoverBuyOption = translate('BUY_CRYPTOS_HOVER_BUY_OPTION', '', {
 			customerBalance: customerBalance,
 			cryptoCurrencyCode: cryptoCurrencyCode
 		});
 
-		let translateHoverDefaultOption = translate('HOVER_DEFAULT_OPTION', '', {
+		let translateHoverDefaultOption = translate('BUY_CRYPTOS_HOVER_DEFAULT_OPTION', '', {
 			customerBalance: customerBalance,
 			cryptoCurrencyCode: cryptoCurrencyCode
 		});
@@ -218,7 +218,7 @@ let ProcessorCryptoInfo = React.createClass({
 					}else if(this.state.hover == 'depositOption'){
 						return (
 							<div className="center-block text-center hoverContent">
-								{translate('HOVER_DEPOSIT_OPTION')}
+								{translate('BUY_CRYPTOS_HOVER_DEPOSIT_OPTION')}
 							</div>
 						)
 					}

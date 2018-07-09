@@ -296,15 +296,6 @@ let _langTags = {
 	CRYPTO_WITHDRAWS_INSIDE: "Los retiros de Crypto Transfer se procesarán dentro de las 24 horas, pero generalmente se procesan lo antes posible.",
 	CRYPTO_PROCESS_VALIDATION_ERROR: "Algo salió mal con su solicitud. Por favor inténtalo de nuevo",
 
-	// Buy Cryptos
-	HOVER_FUND_OPTION: 'With this method you will deposit using your crypto balance.<br/>Available <strong>{customerBalance} {cryptoCurrencyCode}</strong>',
-	HOVER_BUY_OPTION: 'With this method you can purchase cryptos using your credit cards (only VISA).<br/>Available <strong>{customerBalance} {cryptoCurrencyCode}</strong>',
-	HOVER_DEPOSIT_OPTION: "Deposit using external wallet",
-	HOVER_DEFAULT_OPTION: 'Available <strong>{customerBalance} {cryptoCurrencyCode}</strong>',
-	TITLE_AMOUNT: 'Deposit Amount',
-	TITLE_AVAILABLE: 'Available',
-	BTN_DEPOSIT_WITH: 'Deposit with {cryptoCurrencyName}',
-
 	//resources
 	CC_LIMIT_ERROR_COUNT: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i><strong>{displayName}</strong> - <span>La tarjeta seleccionada ha alcanzado el máximo número de transacciones permitido por nosotros. Por favor intente otra tarjeta</span></div>',
 	CC_LIMIT_ERROR_COUNT_TIME_SPAN: '<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i><strong>{displayName}</strong> - <span>La tarjeta seleccionada ha alcanzado el máximo número de transacciones permitido por nosotros. Estará disponible de nuevo en: <strong>{remaining} minuto(s)</strong></span></div>',
@@ -430,7 +421,39 @@ let _langTags = {
 	AGENT_TRANSFER_INVALID_USER_ACCOUNT: "Verifique que la cuenta exista",
 	AGENT_TRANSFER_ACCOUNT_FROM: "Transferir desde",
 	AGENT_TRANSFER_ACCOUNT_TO_USERNAME: "Cuenta destino",
-	AGENT_TRANSFER_ACCOUNT_TO_FULLNAME: "Nombre"
+	AGENT_TRANSFER_ACCOUNT_TO_FULLNAME: "Nombre",
+
+	// Buy Cryptos
+	BUY_CRYPTOS_SELECTCC: "Select card",
+	BUY_CRYPTOS_SELECTCC_ADD_NEW: "Add new card",
+	BUY_CRYPTOS_LEYEND: "How much do you want to buy?",
+	BUY_CRYPTOS_REGISTERCC: "Register credit card",
+	BUY_CRYPTOS_CURRENT_BALANCE: "Current balance",
+	BUY_CRYPTOS_TITLE_CARD: "About your card:",
+	BUY_CRYPTOS_TITLE_CARD2: "About you:",
+	BUY_CRYPTOS_BUTTON_BUY: "Buy",
+	BUY_CRYPTOS_BUTTON_GETADDRESS: "Get Address",
+	BUY_CRYPTOS_BUTTON_SAVECC: "Save card",
+	BUY_CRYPTOS_BUTTON_COPY: "Copy",
+	BUY_CRYPTOS_BUTTON_RETURN: "Return",
+	BUY_CRYPTOS_TRANSACTION_APPROVED: "Transaction approved",
+	BUY_CRYPTOS_TRANSACTION_REJECTED: "Transaction rejected",
+	BUY_CRYPTOS_TRANSACTION_PENDING: "Transaction pending",
+	BUY_CRYPTOS_ADDCC_LEYEND: "Please add a new card",
+	BUY_CRYPTOS_ADDCC_TEXT: "In order to buy bitcoins, you must have a VISA card on file. Please add one before processing.",
+	BUY_CRYPTOS_FUND_AMOUNT: "Deposit Amount",
+	BUY_CRYPTOS_SEND_TO: "Send to:",
+	BUY_CRYPTOS_TIME: "Time's ticking!",
+	BUY_CRYPTOS_HURRY: "Why  the hurry?",
+	BUY_CRYPTOS_HOVER_FUND_OPTION: 'With this method you will deposit using your crypto balance.<br/>Available <strong>{customerBalance} {cryptoCurrencyCode}</strong>',
+	BUY_CRYPTOS_HOVER_BUY_OPTION: 'With this method you can purchase cryptos using your credit cards (only VISA).<br/>Available <strong>{customerBalance} {cryptoCurrencyCode}</strong>',
+	BUY_CRYPTOS_HOVER_DEPOSIT_OPTION: "Deposit using external wallet",
+	BUY_CRYPTOS_HOVER_DEFAULT_OPTION: 'Available <strong>{customerBalance} {cryptoCurrencyCode}</strong>',
+	BUY_CRYPTOS_TITLE_AMOUNT: 'Deposit Amount',
+	BUY_CRYPTOS_TITLE_AVAILABLE: 'Available',
+	BUY_CRYPTOS_BTN_DEPOSIT_WITH: 'Deposit with {cryptoCurrencyName}',
+	BUY_CRYPTOS_INSUFFICIENT_FOUND: 'insufficient crypto available',
+	BUY_CRYPTOS_MIN_MAX_LIMITS: 'Please enter a valid amount',
 
 };
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-let BitCoinTicketApproved = React.createClass({
+let CryptoTicketApproved = React.createClass({
 	render (){
 		return (
 			<div>
@@ -9,4 +9,4 @@ let BitCoinTicketApproved = React.createClass({
 		);
 	}
 });
-module.exports.BitCoinTicketApproved = BitCoinTicketApproved;
+module.exports.CryptoTicketApproved = CryptoTicketApproved;
