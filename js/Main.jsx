@@ -44,7 +44,7 @@ import {CKConfirmWithdraw} from './components/methods/genck/ConfirmWithdraw'
  * Bitcoin set of components to create routes
  */
 import {BitCoin} from './components/methods/bitcoin/Bitcoin'
-import {DepositBitCoin} from './components/commonComponents/cryptos/DepositBitCoin'
+import {DepositBitCoin} from './components/methods/bitcoin/DepositBitCoin'
 import {BitCoinConfirmWithdraw} from './components/methods/bitcoin/ConfirmWithdraw'
 import {BitCoinTicketPending} from './components/methods/bitcoin/tickets/PendingTicket'
 import {BuyCrypto} from './components/commonComponents/cryptos/BuyCrypto'

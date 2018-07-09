@@ -1,5 +1,5 @@
 import React from 'react'
-import {CreditCard} from './BuyCrypto'
+import {CreditCard} from '../../commonComponents/cryptos/BuyCrypto'
 import {UIService} from '../../../services/UIService'
 import {CashierStore} from '../../../stores/CashierStore'
 import {TransactionService} from '../../../services/TransactionService'
@@ -8,7 +8,7 @@ import {LoadingSpinner} from '../../loading/LoadingSpinner'
 import {translate} from '../../../constants/Translate'
 import Cashier from '../../../constants/Cashier'
 import errorMsgs from '../../../constants/limitsErrorMsgs'
-import {Input} from '../Inputs'
+import {Input} from '../../commonComponents/Inputs'
 import QRCode from 'qrcode.react'
 
 let DepositBitCoin = React.createClass({
