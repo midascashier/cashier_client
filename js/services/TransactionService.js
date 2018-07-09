@@ -882,8 +882,16 @@ class transactionService {
 							this.getCryptoTransaction(transaction.caTransaction_Id);
 							break;
 					}
+				} else if(transaction.caTransactionStatus_Id == cashier.TRANSACTION_STATUS_REJECTED){
+					UIService.changeUIState('/fund/bitcoin/ticket/rejected');
 				}
+			} else {
+				CashierStore.setBuyCryptoIsLoadin(false);
+				CashierStore.emitChange();
 			}
+		} else {
+			CashierStore.setBuyCryptoIsLoadin(false);
+			CashierStore.emitChange();
 		}
 	};
 
@@ -927,14 +935,13 @@ class transactionService {
 			if(data.response.coinDirectData) {
 				let coinDirectData = data.response.coinDirectData;
 				if(coinDirectData.success == 1 ) {
-					console.log('todo fue bien en coindirect');
 					UIService.changeUIState('/fund/bitcoin/ticket/approved');
 				} else {
-					console.log(coinDirectData.message);
 					UIService.changeUIState('/fund/bitcoin/ticket/rejected');
 				}
 			}
 		}
+		CashierStore.setBuyCryptoIsLoadin(false);
 	};
 
 	/**

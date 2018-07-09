@@ -181,21 +181,20 @@ let ProcessorCryptoInfo = React.createClass({
 			cryptoCurrencyCode: cryptoCurrencyCode
 		});
 
+		if(this.state.isBuyCryptoActive == null || this.state.customerCryptoBalance == null){
+			return <LoadingSpinner/>;
+		}
+
 		return (
 			<div id="processorInfo" className="crypto-background">
 				<div className="row">
 					<div className="col-sm-12">
-						{(() =>{
-							if(this.state.isBuyCryptoActive == null || this.state.customerCryptoBalance == null){
-								return <LoadingSpinner/>;
-							}
-						})()}
 						<div className="process-crypto-info">
 
 							{(() =>{
 								if(this.state.isBuyCryptoActive){
 
-									if(this.state.customerCryptoBalance >= 0){
+									if(this.state.customerCryptoBalance > 0){
 										return ([depositOption, fundOption, buyOption])
 									}
 

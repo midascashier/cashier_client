@@ -3,6 +3,7 @@ import {CashierStore} from '../../../stores/CashierStore'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {TransactionService} from '../../../services/TransactionService'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 
 let Fund = React.createClass({
 
@@ -19,7 +20,14 @@ let Fund = React.createClass({
 			TransactionService.getCryptoRate(currencyCode, 'USD');
 		}
 
-		this.state = {amount: '', cryptoAmount: '', btnActive: true, currentRate: coinDirect.rate, processorLimits: processorLimits};
+		this.state = {amount: '',
+			cryptoAmount: '',
+			btnActive: true,
+			currentRate: coinDirect.rate,
+			processorLimits: processorLimits,
+			loading: false,
+			errorMessage: ''
+		};
 		return this.refreshLocalState();
 	},
 
@@ -54,7 +62,9 @@ let Fund = React.createClass({
 			cryptoAmount: cryptoAmount,
 			btnActive: btnActive,
 			currentRate: coinDirect.rate,
-			processorLimits: processorLimits
+			loading: CashierStore.getBuyCryptoIsLoading(),
+			processorLimits: processorLimits,
+			errorMessage: ''
 		}
 	},
 
@@ -77,22 +87,32 @@ let Fund = React.createClass({
 		let cryptoAmount = amount / this.state.currentRate;
 		let processorLimits = this.state.processorLimits;
 		let cryptoBalance = CashierStore.getCryptoBalance();
+		let errorMsg = '';
 
 		cryptoAmount = cryptoAmount.toFixed(8);
 
-		if(amount >= processorLimits.min && amount <= processorLimits.max && cryptoAmount <= cryptoBalance){
-			this.setState({btnActive: false});
-		}else{
-			this.setState({btnActive: true});
+		if(amount != '') {
+			if(amount >= processorLimits.min && amount <= processorLimits.max){
+				errorMsg = 'Inssuficen crypto available';
+				if(cryptoAmount <= cryptoBalance) {
+					this.setState({btnActive: false});
+					errorMsg = '';
+				}
+			}else{
+				this.setState({btnActive: true});
+				errorMsg = 'the amount is out of limits';
+			}
 		}
 
-		this.setState({amount: amount, cryptoAmount: cryptoAmount});
+		this.setState({amount: amount, cryptoAmount: cryptoAmount, errorMessage: errorMsg});
 	},
 
 	/**
 	 * process transaction and deposit with customer balance
 	 */
 	getCryptoAddress(){
+		CashierStore.setBuyCryptoIsLoadin(true);
+		this.setState({loading: CashierStore.getBuyCryptoIsLoading()});
 		let processorSelected = CashierStore.getProcessor();
 		let processorId = processorSelected.processorId;
 		TransactionService.getCryptoAddress(processorId, this.state.amount);
@@ -111,10 +131,14 @@ let Fund = React.createClass({
 
 		let titleAvailable = translate('TITLE_AVAILABLE', '', {
 			customerBalance: CashierStore.getCryptoBalance(),
-			cryptoCurrencyCode: 'BTC'
+			cryptoCurrencyCode: CashierStore.getBuyCryptoCurrencyCode()
 		});
 
 		let cryptoCurrencyName = 'bitcoin';
+
+		if(this.state.loading){
+			return <LoadingSpinner/>;
+		}
 
 		return (
 			<div className="col-md-12">
@@ -130,6 +154,14 @@ let Fund = React.createClass({
 								</div>
 								<div className="col-md-10">
 									<input type="number" className="crypto-input" onChange={this.changeAmountValue} value={this.state.amount}/>
+									{(() =>{
+										if(this.state.errorMessage != '') {
+											return (<div className="alert alert-danger" role="alert">
+												<i className="fa fa-thumbs-o-down red"></i>
+												<strong>{this.state.errorMessage}</strong>
+											</div>);
+										}
+									})()}
 								</div>
 							</div>
 							<div className="crypto-m-footer">

@@ -454,6 +454,7 @@ let _BuyCrypto = {
 	rate: 0,
 	currencyCode: cashier.CRYPTO_CURRENCY_BTC,
 	useBalance: false,
+	isLoading: false,
 	buyLimits: {
 		minAmount: 0,
 		maxAmount: 0
@@ -1063,6 +1064,24 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return _BuyCrypto.processorLimits;
 	},
 
+	/**
+	 * set is loading buy cryptos
+	 *
+	 * @param isLoading
+	 */
+	setBuyCryptoIsLoadin(isLoading) {
+		_BuyCrypto.isLoading = isLoading;
+	},
+
+	/**
+	 * get is loading buy crypto
+	 *
+	 * @return {boolean}
+	 */
+	getBuyCryptoIsLoading() {
+		return _BuyCrypto.isLoading;
+	},
+
 	addedPayAccountInBitCoin(){
 		return _addedPayAccountInBitCoin;
 	},
@@ -1083,6 +1102,15 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	setBuyCryptoUseBalance(useBalance) {
 		_BuyCrypto.useBalance = useBalance;
+	},
+
+	/**
+	 * get crypto currency code
+	 *
+	 * @return {string|*}
+	 */
+	getBuyCryptoCurrencyCode() {
+		return _BuyCrypto.currencyCode;
 	}
 });
 
@@ -1714,9 +1742,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					}
 					break;
 				case actions.GET_BALANCE_BUY_CRYPTO:
-					if(data.response.coinDirectData){
-						_BuyCrypto.customerBalance = data.response.coinDirectData.balance;
-						CashierStore.emitChange();
+					if(data.response) {
+						if(data.response.coinDirectData && data.response.coinDirectData.success == 1){
+							_BuyCrypto.customerBalance = data.response.coinDirectData.balance;
+							CashierStore.emitChange();
+						}
 					}
 					break;
 
@@ -1745,19 +1775,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 						_BuyCrypto.rate = data.response.result;
 					}
 					CashierStore.emitChange();
-					break;
-				case actions.CRYPTO_DEPOSIT_WITH_BALANCE:
-					if(data.response) {
-						if(data.response.coinDirectData) {
-							let coinDirectData = data.response.coinDirectData;
-							if(coinDirectData.success == 1 ) {
-								console.log('todo fue bien en coindirect');
-							} else {
-								console.log(coinDirectData.message);
-							}
-						}
-					}
-					console.log(data);
 					break;
 				default:
 					console.log("Store No Action: " + action);
