@@ -4,7 +4,7 @@ import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {TransactionService} from '../../../services/TransactionService'
 
-let Fund = React.createClass({
+let TransferCrypto = React.createClass({
 
 	/**
 	 * React function to set component initial state
@@ -93,6 +93,7 @@ let Fund = React.createClass({
 	 * process transaction and deposit with customer balance
 	 */
 	getCryptoAddress(){
+		CashierStore.setBuyCryptoUseBalance(true);
 		let processorSelected = CashierStore.getProcessor();
 		let processorId = processorSelected.processorId;
 		TransactionService.getCryptoAddress(processorId, this.state.amount);
@@ -177,4 +178,4 @@ let Fund = React.createClass({
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });
-module.exports.Fund = Fund;
+module.exports.TransferCrypto = TransferCrypto;

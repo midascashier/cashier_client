@@ -463,7 +463,6 @@ class transactionService {
 	getCryptoAddress(processorId, amount) {
 		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
-		CashierStore.setBuyCryptoUseBalance(true);
 
 		let customer = CashierStore.getCustomer();
 

@@ -437,19 +437,26 @@ let _langTags = {
 	DOCS_FILE_TAB_VERIFICATIONREQUIRED : "Additional Information",
 
 	BUY_CRYPTOS_SELECTCC: "Select card",
+	BUY_CRYPTOS_SELECTCC_ADD_NEW: "Add new card",
 	BUY_CRYPTOS_LEYEND: "How much do you want to buy?",
 	BUY_CRYPTOS_REGISTERCC: "Register credit card",
 	BUY_CRYPTOS_CURRENT_BALANCE: "Current balance",
 	BUY_CRYPTOS_TITLE_CARD: "About your card:",
 	BUY_CRYPTOS_TITLE_CARD2: "About you:",
 	BUY_CRYPTOS_BUTTON_BUY: "Buy",
+	BUY_CRYPTOS_BUTTON_GETADDRESS: "Get Address",
 	BUY_CRYPTOS_BUTTON_SAVECC: "Save card",
+	BUY_CRYPTOS_BUTTON_COPY: "Copy",
 	BUY_CRYPTOS_BUTTON_RETURN: "Return",
 	BUY_CRYPTOS_TRANSACTION_APPROVED: "Transaction approved",
 	BUY_CRYPTOS_TRANSACTION_REJECTED: "Transaction rejected",
 	BUY_CRYPTOS_TRANSACTION_PENDING: "Transaction pending",
 	BUY_CRYPTOS_ADDCC_LEYEND: "Please add a new card",
-	BUY_CRYPTOS_ADDCC_TEXT: "In order to buy bitcoins, you must have a VISA card on file. Please add one before processing."
+	BUY_CRYPTOS_ADDCC_TEXT: "In order to buy bitcoins, you must have a VISA card on file. Please add one before processing.",
+	BUY_CRYPTOS_FUND_AMOUNT: "Deposit Amount",
+	BUY_CRYPTOS_SEND_TO: "Send to:",
+	BUY_CRYPTOS_TIME: "Time's ticking!",
+	BUY_CRYPTOS_HURRY: "Why  the hurry?"
 
 };
 

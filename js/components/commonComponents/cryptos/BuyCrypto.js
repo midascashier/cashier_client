@@ -7,11 +7,11 @@ import {CustomerService} from '../../../services/CustomerService'
 import {CreditCardRegister} from './CreditCardRegister'
 import {ApplicationService} from '../../../services/ApplicationService'
 import {TransactionService} from '../../../services/TransactionService'
-import {Input} from '../../commonComponents/Inputs'
+import {Input} from '../Inputs'
 import {translate} from '../../../constants/Translate'
 import {LoadingSpinner} from '../../loading/LoadingSpinner'
 
-let CreditCard = React.createClass({
+let BuyCrypto = React.createClass({
 
 	getInitialState(){
 
@@ -140,7 +140,7 @@ let CreditCard = React.createClass({
 					options.push(<option key={payAccountId} value={payAccountId}>{cardNumber}</option>);
 				}
 			}
-			options.push(<option key={"0"} value={"0"}>{"Add new cc"}</option>);
+			options.push(<option key={"0"} value={"0"}>{translate('BUY_CRYPTOS_SELECTCC_ADD_NEW')}</option>);
 		}
 
 		const componentDeposit = (
@@ -234,7 +234,7 @@ let CreditCard = React.createClass({
 								</div>
 
 								<div className="buy-crypto-form-element">
-									<button type="submit" className="buy-crypto-btn btn btn-lg btn-success">
+									<button type="submit" className="buy-crypto-btn btn btn-lg btn-green">
 										{translate('BUY_CRYPTOS_BUTTON_BUY')}
 									</button>
 								</div>
@@ -259,4 +259,4 @@ let CreditCard = React.createClass({
 
 });
 
-module.exports.CreditCard = CreditCard;
+module.exports.BuyCrypto = BuyCrypto;

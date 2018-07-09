@@ -3,9 +3,9 @@
  */
 
 import React from 'react'
-import {ExtraInfo} from '../visa/ExtraInfo'
+import {ExtraInfo} from '../../methods/visa/ExtraInfo'
 import cashier from '../../../constants/Cashier'
-import {Input} from '../../commonComponents/Inputs'
+import {Input} from '../Inputs'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
@@ -49,6 +49,7 @@ let CreditCardRegister = React.createClass({
 		let customerState = customer.personalInformation.state ? customer.personalInformation.state : states[0]['Small'];
 
 		return {
+			cardsLength: CashierStore.getCustomerPayAccounts().length,
 			loading: false,
 			displaySaveButton: true,
 			addedPayAccount: false,

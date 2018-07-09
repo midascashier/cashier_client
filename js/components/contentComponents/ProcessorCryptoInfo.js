@@ -132,14 +132,14 @@ let ProcessorCryptoInfo = React.createClass({
 	 * redirect to bitcoin fund
 	 */
 	loadFund(){
-		UIService.changeUIState('/fund/bitcoin');
+		UIService.changeUIState('/crypto/transfer/');
 	},
 
 	/**
 	 * redirect to buy action
 	 */
 	loadBuy(){
-		UIService.changeUIState('/bitcoin/buy/');
+		UIService.changeUIState('/crypto/buy/');
 	},
 
 	render(){

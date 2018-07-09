@@ -44,10 +44,11 @@ import {CKConfirmWithdraw} from './components/methods/genck/ConfirmWithdraw'
  * Bitcoin set of components to create routes
  */
 import {BitCoin} from './components/methods/bitcoin/Bitcoin'
+import {DepositBitCoin} from './components/commonComponents/cryptos/DepositBitCoin'
 import {BitCoinConfirmWithdraw} from './components/methods/bitcoin/ConfirmWithdraw'
 import {BitCoinTicketPending} from './components/methods/bitcoin/tickets/PendingTicket'
-import {CreditCard} from './components/methods/bitcoin/CreditCard'
-import {Fund} from './components/methods/bitcoin/Fund'
+import {BuyCrypto} from './components/commonComponents/cryptos/BuyCrypto'
+import {TransferCrypto} from './components/commonComponents/cryptos/TransferCrypto'
 /**
  * Visa set of components to create routes
  */
@@ -127,8 +128,11 @@ let routes = (
 			<Route path="/requests/" component={RequestsContent}/>
 			<Route path="/pendingControlNumber/" component={PendingControlNumber}/>
 
-			<Route path="/bitcoin/buy/" component={Content}>
-				<IndexRoute component={CreditCard}/>
+			<Route path="/crypto/" component={Content}>
+				<Route path="buy" component={BuyCrypto}/>
+				<Route path="transfer" component={TransferCrypto}/>
+				<Route path="ticket/approved" component={BitCoinTicketApproved}/>
+				<Route path="ticket/rejected" component={BitCoinTicketRejected}/>
 			</Route>
 
 			<Route path="/deposit/" component={Content}>
@@ -160,14 +164,11 @@ let routes = (
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
-				<Route path="bitcoin/" component={BitCoin}/>
+				<Route path="bitcoin/" component={DepositBitCoin}/>
 				<Route path="bitcoin/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={BitCoinTicketPending}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
-				<Route path="/fund/bitcoin" component={Fund}/>
-				<Route path="/fund/bitcoin/ticket/approved" component={BitCoinTicketApproved}/>
-				<Route path="/fund/bitcoin/ticket/rejected" component={BitCoinTicketRejected}/>
 
 				<Route path="visa/" component={Visa}/>
 				<Route path="visa/confirm/" component={VisaConfirm}/>

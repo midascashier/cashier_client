@@ -1,7 +1,7 @@
 import React from 'react'
 import {AskInfo} from './AskInfo'
 import {InfoMethod} from './InfoMethod'
-import {CreditCard} from './CreditCard'
+import {CreditCard} from '../../commonComponents/cryptos/BuyCrypto'
 import {UIService} from '../../../services/UIService'
 import {CashierStore} from '../../../stores/CashierStore'
 import {TransactionService} from '../../../services/TransactionService'
@@ -28,7 +28,6 @@ let BitCoin = React.createClass({
 	 * React function to set component initial state
 	 */
 	getInitialState(){
-		this.setState({buyCryptos: false});
 		ApplicationService.getCurrency("BTC");
 		return this.refreshLocalState();
 	},
@@ -101,15 +100,6 @@ let BitCoin = React.createClass({
 		TransactionService.startTransaction();
 	},
 
-	showBuyCryptos(){
-		if(this.state.buyCryptos){
-			this.setState({buyCryptos: false});
-		}else{
-			this.setState({buyCryptos: true});
-		}
-
-	},
-
 	render(){
 
 		const processors = this.getProcessors();
@@ -155,10 +145,6 @@ let BitCoin = React.createClass({
 									return <LoadingSpinner/>;
 								}
 
-								if(this.state.buyCryptos == true){
-									return <CreditCard/>;
-								}
-
 								return (
 									<InfoMethod
 										amount={this.props.amount}
@@ -169,10 +155,6 @@ let BitCoin = React.createClass({
 									/>
 								)
 							})()}
-
-							<div className="form-group">
-								<a onClick={this.showBuyCryptos}>{(this.state.buyCryptos) ? 'Cancel' : 'Buy cryptos'}</a>
-							</div>
 
 						</div>
 					</div>
