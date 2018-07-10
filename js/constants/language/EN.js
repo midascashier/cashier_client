@@ -464,7 +464,9 @@ let _langTags = {
 	BUY_CRYPTOS_TOOLTIP_CRONO: "This BTC transaction price is only valid for 15:00 minutes. After that, the transaction price will change, and you may receive a different amount than expected. Your funds should be available within 30 minutes of making the transfer from your wallet.",
 	BUY_CRYPTOS_TRY_AGAIN: "Try Again",
 	BUY_CRYPTOS_ERROR_TEXT: "Something went wrong, we’ve taken note of this, in the mean-time, please click “try again” to generate a new address and QR code.",
-	BUY_CRYPTOS_PROMOCODE: "Enter a promo code (optional)"
+	BUY_CRYPTOS_PROMOCODE: "Enter a promo code (optional)",
+	BUY_CRYPTO_MIN_LIMIT: "Please increase the amount and try again",
+	BUY_CRYPTO_MAX_LIMIT: "Please decrease the amount and try again"
 
 };
 

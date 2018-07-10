@@ -55,7 +55,8 @@ let BuyCrypto = React.createClass({
 				cryptoCurrencyCode: this.props.cryptoCurrency
 			},
 			coinDirectData: CashierStore.getCoinDirectData(),
-			showRegisterCC: registerCC
+			showRegisterCC: registerCC,
+			startBuy: false
 		}
 	},
 
@@ -91,12 +92,13 @@ let BuyCrypto = React.createClass({
 				cryptoCurrencyCode: this.state.coinDirectData.currencyCode
 			};
 
-			let min = this.state.coinDirectData.buyLimits.minAmount;
-			let max = this.state.coinDirectData.buyLimits.maxAmount;
+			let min = parseInt(this.state.coinDirectData.buyLimits.minAmount);
+			let max = parseInt(this.state.coinDirectData.buyLimits.maxAmount);
+			let amount = parseInt(buyCryptosInfo.amount);
 
-			this.setState({buyCryptos: buyCryptosInfo});
+			this.setState({buyCryptos: buyCryptosInfo, startBuy: true});
 
-			if(min <= buyCryptosInfo.amount && buyCryptosInfo.amount <= max){
+			if(min <= amount && amount <= max){
 				this.setState({loading: true});
 				TransactionService.buyCryptos(buyCryptosInfo);
 			}
@@ -209,15 +211,35 @@ let BuyCrypto = React.createClass({
 												tabindex="2"
 											/>
 											<span className="buy-crypto-min">
-												<div className={((minAmount > currentAmount && currentAmount > 0) ? "red" : "")}>
+												<div>
 												Min:${this.state.coinDirectData.buyLimits.minAmount}
 												</div>
 											</span>
 											<span className="buy-crypto-max">
-												<div className={((currentAmount > maxAmount) ? "red" : "")}>
+												<div>
 												Max:${this.state.coinDirectData.buyLimits.minAmount}
 												</div>
 											</span>
+
+											{(() =>{
+												if(this.state.startBuy && currentAmount < minAmount){
+													return (
+														<div className="alert alert-danger buy-crypto-limit-alert" role="alert">
+															<i className="fa fa-thumbs-o-down red"></i>
+															<strong>{translate('BUY_CRYPTO_MIN_LIMIT')}</strong>
+														</div>
+													);
+												}
+												if(this.state.startBuy && maxAmount < currentAmount){
+													return (
+														<div className="alert alert-danger buy-crypto-limit-alert" role="alert">
+															<i className="fa fa-thumbs-o-down red"></i>
+															<strong>{translate('BUY_CRYPTO_MAX_LIMIT')}</strong>
+														</div>
+													);
+												}
+											})()}
+
 										</div>
 									</div>
 								</div>
