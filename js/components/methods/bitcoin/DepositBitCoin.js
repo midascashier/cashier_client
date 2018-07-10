@@ -13,6 +13,8 @@ import QRCode from 'qrcode.react'
 
 let DepositBitCoin = React.createClass({
 
+	cronoStarted: false,
+
 	propTypes: {
 		setAmount: React.PropTypes.func,
 		setBTCAmount: React.PropTypes.func,
@@ -96,6 +98,11 @@ let DepositBitCoin = React.createClass({
 		this.props.setAmount(amount);
 	},
 
+	changePromoCode(event){
+		let promo = event.currentTarget.value;
+		this.props.setPromoCode(promo);
+	},
+
 	/**
 	 * return the processor list
 	 *
@@ -119,20 +126,73 @@ let DepositBitCoin = React.createClass({
 		this.setState({loading: true});
 		let processorSelected = CashierStore.getProcessor();
 		let processorId = processorSelected.processorId;
-		TransactionService.getCryptoAddress(processorId, this.props.amount);
+		TransactionService.getCryptoAddress(processorId, this.props.amount, this.props.promoCode);
+	},
+
+	copyText(e){
+		let button = e.target;
+		let parent = button.parentElement;
+		let element = parent.getElementsByClassName('copiedText')[0];
+		let text = element.innerText;
+
+		let clipBoard = document.createElement("input");
+		clipBoard.setAttribute("value", text);
+		document.body.appendChild(clipBoard);
+		clipBoard.select();
+		document.execCommand("copy");
+		document.body.removeChild(clipBoard);
+
+		let tooltip = button.getElementsByClassName('buy-crypto-tooltip')[0];
+		tooltip.style.display = 'block';
+
+		setTimeout(function(){
+			let tooltips = document.getElementsByClassName('buy-crypto-tooltip');
+			for(let i = 0; i < tooltips.length; i++){
+				let tooltip = tooltips[i];
+				tooltip.style.display = 'none';
+			}
+		}, 1500);
+	},
+
+	startCrono(){
+		if(!this.cronoStarted){
+			this.cronoStarted = true;
+			let initialDate = new Date();
+			let initialTime = initialDate.getTime() + 15 * 60000;
+			let interval = setInterval(function(){
+				let currentDate = new Date();
+				let currentTime = currentDate.getTime();
+				let date = new Date(initialTime - currentTime);
+				let minutes = date.getMinutes();
+				let seconds = date.getSeconds();
+				let crono = document.getElementById('crono');
+				crono.innerHTML = minutes + ':' + seconds;
+				if(minutes == 0 && seconds == 0){
+					clearInterval(interval);
+				}
+			}, 1000);
+		}
 	},
 
 	render(){
 
+		$('[data-toggle="tooltip"]').tooltip();
+
 		let transaction = CashierStore.getLastTransactionResponse();
 		let cryptoInfo = false;
+		let rejectedTransaction = false;
 
 		if(this.state.loading){
 			return <LoadingSpinner/>
 		}
 
+		if(transaction.data && transaction.data.caTransactionStatus_Id == Cashier.TRANSACTION_STATUS_REJECTED){
+			rejectedTransaction = transaction.data;
+		}
+
 		if(transaction.details && transaction.details.bitCoinTransaction){
 			cryptoInfo = transaction.details.bitCoinTransaction;
+			this.startCrono();
 		}
 
 		let btcAmount = this.props.btcAmount;
@@ -168,8 +228,8 @@ let DepositBitCoin = React.createClass({
 			<div className="buy-crypto-background">
 				<div className="buy-crypto-content">
 					<form onSubmit={this.getCryptoAddress}>
-						<div className="col-sm-offset-2 col-sm-6">
-							<div className="buy-crypto-section buy-crypto-section1">
+						<div className={((!rejectedTransaction) ? "col-sm-offset-4 col-sm-6" : "col-sm-6")}>
+							<div className={((!rejectedTransaction) ? "buy-crypto-section" : "buy-crypto-section buy-crypto-section1")}>
 								<div className="buy-crypto-form-element">
 									<label className="buy-crypto-strongTitle">{translate('BUY_CRYPTOS_FUND_AMOUNT')}</label>
 								</div>
@@ -221,20 +281,97 @@ let DepositBitCoin = React.createClass({
 								</div>
 
 								<div className="buy-crypto-form-element">
+									<input type="text" value={this.props.promoCode} onChange={this.changePromoCode} placeholder={translate('BUY_CRYPTOS_PROMOCODE')} name="promoCode" id="promoCode" className="form-control buy-crypto-input-promo"/>
+								</div>
+
+								<div className="buy-crypto-form-element">
 									<button type="submit" className="buy-crypto-btn btn btn-lg btn-green">
 										{translate('BUY_CRYPTOS_BUTTON_GETADDRESS')}
 									</button>
 								</div>
-
 							</div>
 						</div>
+
+						{(() =>{
+							if(rejectedTransaction){
+								return (
+									<div className="col-sm-6">
+										<div className="buy-crypto-section">
+											<div className="buy-crypto-element-icon">
+												<div className="fa fa-exclamation-circle fa"></div>
+											</div>
+											<div className="buy-crypto-form-element">
+												<label className="buy-crypto-strongTitle">{translate('BUY_CRYPTOS_TRY_AGAIN')}</label>
+												<div className="buy-crypto-text">{translate('BUY_CRYPTOS_ERROR_TEXT')}</div>
+											</div>
+											<div className="buy-crypto-form-element">
+												<button type="submit" className="buy-crypto-btn btn btn-lg btn-green">
+													{translate('BUY_CRYPTOS_TRY_AGAIN')}
+												</button>
+											</div>
+										</div>
+									</div>);
+							}
+						})()}
+
 					</form>
 				</div>
 			</div>
 		);
 
 		const response = (
-			<div>response</div>
+			<div className="buy-crypto-background">
+				<div className="buy-crypto-content">
+					<div className="col-sm-offset-1 col-sm-10">
+						<div className="buy-crypto-section buy-crypto-section-large">
+							<div>
+								<div className="col-sm-3 buy-crypto-paddingtop">
+									<div className="buy-crypto-qr">
+										<QRCode value={cryptoInfo.Address}/>
+									</div>
+								</div>
+								<div className="col-sm-9 buy-crypto-paddingtop">
+									<div>
+										<label className="buy-crypto-strongTitle">
+											{translate('BUY_CRYPTOS_DEPOSIT_INFO')}
+										</label>
+										<div className="buy-crypto-newline">
+											<span className="buy-crypto-subTitle">{translate('BUY_CRYPTOS_SEND_TO')}</span>
+											<span className="buy-crypto-text-address copiedText">{cryptoInfo.Address}</span>
+											<button type="button" className="buy-crypto-btn-copy" onClick={this.copyText} title={translate('BUY_CRYPTOS_BUTTON_COPY')}>
+												<span className="buy-crypto-tooltip">{translate('BUY_CRYPTOS_TITLE_COPIED')}</span>
+											</button>
+										</div>
+										<div className="buy-crypto-newline">
+											<span className="buy-crypto-subTitle">{translate('BUY_CRYPTOS_AMOUNT')}</span>
+											<span className="buy-crypto-subTitle copiedText">  {cryptoInfo.BitcoinAmount}</span> <span className="buy-crypto-subTitle">BTC</span>
+											<button type="button" className="buy-crypto-btn-copy" onClick={this.copyText} title={translate('BUY_CRYPTOS_BUTTON_COPY')}>
+												<span className="buy-crypto-tooltip">{translate('BUY_CRYPTOS_TITLE_COPIED')}</span>
+											</button>
+										</div>
+										<div className="buy-crypto-newline">
+											<div className="buy-crypto-form-element">
+												<div>
+													<label className="buy-crypto-strongTitle">{translate('BUY_CRYPTOS_TIME')}</label>
+												</div>
+												<div>
+													<div className="buy-crypto-crono" id="crono">
+														15:00
+													</div>
+													<div className="buy-crypto-hurry buy-crypto-newline" data-toggle="tooltip" title={translate('BUY_CRYPTOS_TOOLTIP_CRONO')}>
+														{translate('BUY_CRYPTOS_HURRY')}
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		);
 
 		let showComponent = formComponent;

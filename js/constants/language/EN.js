@@ -438,15 +438,18 @@ let _langTags = {
 	BUY_CRYPTOS_BUTTON_BUY: "Buy",
 	BUY_CRYPTOS_BUTTON_GETADDRESS: "Get Address",
 	BUY_CRYPTOS_BUTTON_SAVECC: "Save card",
-	BUY_CRYPTOS_BUTTON_COPY: "Copy",
+	BUY_CRYPTOS_BUTTON_COPY: "Copy text",
+	BUY_CRYPTOS_TITLE_COPIED: "Copied text",
 	BUY_CRYPTOS_BUTTON_RETURN: "Return",
 	BUY_CRYPTOS_TRANSACTION_APPROVED: "Transaction approved",
 	BUY_CRYPTOS_TRANSACTION_REJECTED: "Transaction rejected",
 	BUY_CRYPTOS_TRANSACTION_PENDING: "Transaction pending",
 	BUY_CRYPTOS_ADDCC_LEYEND: "Please add a new card",
 	BUY_CRYPTOS_ADDCC_TEXT: "In order to buy bitcoins, you must have a VISA card on file. Please add one before processing.",
+	BUY_CRYPTOS_DEPOSIT_INFO: "Deposit Information",
 	BUY_CRYPTOS_FUND_AMOUNT: "Deposit Amount",
 	BUY_CRYPTOS_SEND_TO: "Send to:",
+	BUY_CRYPTOS_AMOUNT: "Amount:",
 	BUY_CRYPTOS_TIME: "Time's ticking!",
 	BUY_CRYPTOS_HURRY: "Why  the hurry?",
 	BUY_CRYPTOS_HOVER_FUND_OPTION: 'With this method you will deposit using your crypto balance.<br/>Available <strong>{customerBalance} {cryptoCurrencyCode}</strong>',
@@ -458,6 +461,10 @@ let _langTags = {
 	BUY_CRYPTOS_BTN_DEPOSIT_WITH: 'Deposit with {cryptoCurrencyName}',
 	BUY_CRYPTOS_INSUFFICIENT_FOUND: 'insufficient crypto available',
 	BUY_CRYPTOS_MIN_MAX_LIMITS: 'Please enter a valid amount',
+	BUY_CRYPTOS_TOOLTIP_CRONO: "This BTC transaction price is only valid for 15:00 minutes. After that, the transaction price will change, and you may receive a different amount than expected. Your funds should be available within 30 minutes of making the transfer from your wallet.",
+	BUY_CRYPTOS_TRY_AGAIN: "Try Again",
+	BUY_CRYPTOS_ERROR_TEXT: "Something went wrong, we’ve taken note of this, in the mean-time, please click “try again” to generate a new address and QR code.",
+	BUY_CRYPTOS_PROMOCODE: "Enter a promo code (optional)"
 
 };
 

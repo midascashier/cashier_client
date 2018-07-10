@@ -460,7 +460,7 @@ class transactionService {
 	 * @param processorId
 	 * @param amount
 	 */
-	getCryptoAddress(processorId, amount) {
+	getCryptoAddress(processorId, amount, promoCode = ''){
 		//clean current transaction response
 		CashierStore.getLastTransactionResponse().cleanTransaction();
 
@@ -471,6 +471,7 @@ class transactionService {
 			processorId: processorId,
 			payAccountId: 0,
 			amount: amount,
+			promoCode: promoCode,
 			dynamicParams: {account: customer.username}
 		};
 		rabbitRequest = assign(this.getProxyRequest(), rabbitRequest);
@@ -862,7 +863,7 @@ class transactionService {
 	 *
 	 * @param data
 	 */
-	getCryptoAddressResponse(data) {
+	getCryptoAddressResponse(data){
 		let processorSelected = CashierStore.getProcessor();
 		let processorId = processorSelected.processorId;
 		if(data.response){
@@ -881,14 +882,16 @@ class transactionService {
 							this.getCryptoTransaction(transaction.caTransaction_Id);
 							break;
 					}
-				} else if(transaction.caTransactionStatus_Id == cashier.TRANSACTION_STATUS_REJECTED){
-					UIService.changeUIState('/crypto/ticket/rejected');
+				}else if(transaction.caTransactionStatus_Id == cashier.TRANSACTION_STATUS_REJECTED){
+					if(CashierStore.getBuyCryptoUseBalance()){
+						UIService.changeUIState('/crypto/ticket/rejected');
+					}
 				}
-			} else {
+			}else{
 				CashierStore.setBuyCryptoIsLoadin(false);
 				CashierStore.emitChange();
 			}
-		} else {
+		}else{
 			CashierStore.setBuyCryptoIsLoadin(false);
 			CashierStore.emitChange();
 		}
@@ -897,11 +900,11 @@ class transactionService {
 	/**
 	 * make a crypto deposit using coindirect balance
 	 */
-	cryptoDepositWithBalance() {
-		if(CashierStore.getBuyCryptoUseBalance()) {
+	cryptoDepositWithBalance(){
+		if(CashierStore.getBuyCryptoUseBalance()){
 			CashierStore.setBuyCryptoUseBalance(false);
 			this.buyCryptoDepositWithBalance();
-		} else {
+		}else{
 			console.log('no voy a hacer nada');
 		}
 	};
@@ -909,7 +912,7 @@ class transactionService {
 	/**
 	 * execute deposit with coindirect balance
 	 */
-	buyCryptoDepositWithBalance() {
+	buyCryptoDepositWithBalance(){
 		let processor = CashierStore.getProcessor();
 		let transaction = CashierStore.getLastTransactionResponse();
 		let processorId = processor.processorId;
@@ -929,13 +932,13 @@ class transactionService {
 	 *
 	 * @param data
 	 */
-	buyCryptoDepositWithBalanceResponse(data) {
-		if(data.response) {
-			if(data.response.coinDirectData) {
+	buyCryptoDepositWithBalanceResponse(data){
+		if(data.response){
+			if(data.response.coinDirectData){
 				let coinDirectData = data.response.coinDirectData;
-				if(coinDirectData.success == 1 ) {
+				if(coinDirectData.success == 1){
 					UIService.changeUIState('/crypto/ticket/approved');
-				} else {
+				}else{
 					UIService.changeUIState('/crypto/ticket/rejected');
 				}
 			}
