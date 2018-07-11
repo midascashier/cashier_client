@@ -14,6 +14,8 @@ let WalletContent = React.createClass({
 	 * on component init
 	 */
 	getInitialState(){
+		UIService.buyCryptoIsActive();
+		UIService.buyCryptoGetCustomerBalance('BTC');
 		this.state = {buyTransactions: Cashier.WALLET_DEFAULT_TAB}
 
 		return this.refreshLocalState();
@@ -24,7 +26,9 @@ let WalletContent = React.createClass({
 	 */
 	refreshLocalState(){
 		return {
-			buyTransactions: CashierStore.showWalletTab()
+			buyTransactions: CashierStore.showWalletTab(),
+			isBuyCryptoActive: CashierStore.isActiveBuyCrypto(),
+			customerCryptoBalance: CashierStore.getCryptoBalance()
 		}
 	},
 
@@ -62,6 +66,8 @@ let WalletContent = React.createClass({
 		let view = CashierStore.showWalletTab();
 		let isWithdraw = UIService.getIsWithDraw();
 		let customerOpt = Cashier.VIEW_DEPOSIT;
+		let customerBalance = this.state.customerCryptoBalance;
+		let balance = customerBalance + ' ' + Cashier.CRYPTO_CURRENCY_BTC;
 		let classTabCustom = 'wallet-tablinks';
 		let classPendingActive = '';
 		let classPurchaseActive = '';
@@ -79,8 +85,10 @@ let WalletContent = React.createClass({
 		return (
 			<div>
 				<Info/>
-				<br/>
-				<br/>
+				<div className="wallet-customer-crypto-balance">
+					<input type="text" id="walletBalance" className="textbox-balance" value={balance} disabled/>
+						<span>{translate('WALLET_BITCOIN_BALANCE')}</span>
+				</div>
 				<div className="wallet-tab">
 					<a className={classTabCustom + ' ' + classPendingActive} onClick={this.showPendingTransactions}>{translate('WALLET_TAB_PENDING_DEPOSITS')}</a>
 					<a className={classTabCustom + ' ' + classPurchaseActive} onClick={this.showBuyCryptoTransactions}>{translate('WALLET_TAB_PURCHASES')}</a>
