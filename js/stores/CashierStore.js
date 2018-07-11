@@ -462,6 +462,18 @@ let _BuyCrypto = {
 	processorLimits: {}
 };
 
+/**
+ * Wallet object
+ *
+ * @type {{buyTransactions: *, pendingCryptoTransactions: *}}
+ * @private
+ */
+let _Wallet = {
+	buyTransactions: [],
+	pendingCryptoTransactions: [],
+	showTab: cashier.WALLET_DEFAULT_TAB
+};
+
 let CHANGE_EVENT = 'change';
 
 let CashierStore = assign({}, EventEmitter.prototype, {
@@ -1111,7 +1123,35 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getBuyCryptoCurrencyCode() {
 		return _BuyCrypto.currencyCode;
+	},
+
+	/**
+	 * get buy transactions list
+	 *
+	 * @return {*}
+	 */
+	getWalletBuyTransactions() {
+		return _Wallet.buyTransactions;
+	},
+
+	/**
+	 * get tab name to show
+	 *
+	 * @return {string|*}
+	 */
+	showWalletTab() {
+		return _Wallet.showTab;
+	},
+
+	/**
+	 * change wallet tab to show
+	 *
+	 * @param tabName
+	 */
+	setWalletTab(tabName) {
+		_Wallet.showTab = tabName;
 	}
+
 });
 
 /**
@@ -1173,7 +1213,14 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 				case actions.CUSTOMER_TRANSACTIONS_RESPONSE:
 					_customer.lastTransactions = data.response.transactions;
 					break;
-
+				case actions.GET_BUY_TRANSACTION_HISTORY:
+					if(data.response) {
+						if(data.response.purchaseList) {
+							_Wallet.buyTransactions = data.response.purchaseList;
+							CashierStore.emitChange();
+						}
+					}
+					break;
 				case actions.SET_EDITCC:
 					_UI.ccEdit = data.editMode;
 					CashierStore.emitChange();

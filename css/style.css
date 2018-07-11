@@ -1665,3 +1665,41 @@ input:checked + .slider:before{
 .buy-crypto-limit-alert{
     margin-top:20px;
 }
+
+/**
+ * Wallet style
+ */
+.wallet-tab {
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+    height: 33px;
+}
+
+.wallet-tablinks, .wallet-tablinks:visited, .wallet-tablinks:link {
+    text-decoration: none;
+    background: #d2d2d2;
+    color: #000;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.wallet-active {
+    background: #1A335A !important;
+    color: #FFF !important;
+}
+
+.wallet-tablinks:hover{
+    background: #868f95;
+    color: #FFF;
+}
+
+.wallet-tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 450px;
+    overflow: auto;
+    clear: both;
+}
