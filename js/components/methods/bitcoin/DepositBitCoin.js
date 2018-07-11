@@ -196,6 +196,10 @@ let DepositBitCoin = React.createClass({
 		}
 
 		let btcAmount = this.props.btcAmount;
+		if(btcAmount){
+			btcAmount = btcAmount.toFixed(8);
+		}
+
 		let limits = UIService.getProcessorLimitMinMax();
 		let customer = CashierStore.getCustomer();
 		let limitsErrorMsg;
