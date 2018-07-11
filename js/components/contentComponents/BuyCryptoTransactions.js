@@ -43,7 +43,7 @@ let BuyCryptoTransactions = React.createClass({
 		return (
 			<div className="transactions">
 				<h2>{translate('WALLET_BUY_TRANSACTION_TITLE')}</h2>
-				<div className="table-responsive" id="transactionHistoryTable">
+				<div className="table-responsive wallet-table-scroll" id="transactionHistoryTable">
 					<table className="table table-striped">
 						<tbody>
 						<tr>

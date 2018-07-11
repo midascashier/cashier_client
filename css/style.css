@@ -1655,3 +1655,25 @@ input:checked + .slider:before{
     overflow: auto;
     clear: both;
 }
+
+.wallet-customer-crypto-balance{
+    margin-left: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    max-width: 160px;
+    background: #EAE9E9;
+    border: solid 1px #999;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.wallet-customer-crypto-balance span{
+    display: block;
+}
+
+.textbox-balance{
+    width: 145px !important;
+    text-align: center;
+    background: #EAE9E9 !important;
+}
