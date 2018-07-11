@@ -5,7 +5,7 @@ import {CashierStore} from '../stores/CashierStore'
 import Cashier from '../constants/Cashier'
 import {Info} from './headerComponents/Info'
 import {translate} from '../constants/Translate'
-import { Link } from 'react-router'
+import {Link} from 'react-router'
 import {UIService} from '../services/UIService'
 
 let WalletContent = React.createClass({
@@ -78,7 +78,7 @@ let WalletContent = React.createClass({
 
 		if(view === Cashier.WALLET_PENDING_DEPOSITS){
 			classPendingActive = 'wallet-active';
-		} else {
+		}else{
 			classPurchaseActive = 'wallet-active';
 		}
 
@@ -87,7 +87,7 @@ let WalletContent = React.createClass({
 				<Info/>
 				<div className="wallet-customer-crypto-balance">
 					<input type="text" id="walletBalance" className="textbox-balance" value={balance} disabled/>
-						<span>{translate('WALLET_BITCOIN_BALANCE')}</span>
+					<span>{translate('WALLET_BITCOIN_BALANCE')}</span>
 				</div>
 				<div className="wallet-tab">
 					<a className={classTabCustom + ' ' + classPendingActive} onClick={this.showPendingTransactions}>{translate('WALLET_TAB_PENDING_DEPOSITS')}</a>
@@ -98,7 +98,7 @@ let WalletContent = React.createClass({
 						<div className="col-md-10 col-md-offset-1">
 							{(() =>{
 								if(view === Cashier.WALLET_PENDING_DEPOSITS){
-									return <CryptoPendingDepositTransaction/>
+									return <CryptoPendingDepositTransaction cryptoCustomerBalance={this.state.customerCryptoBalance}/>
 								}else{
 									return <BuyCryptoTransactions/>
 								}
@@ -108,7 +108,7 @@ let WalletContent = React.createClass({
 				</div>
 				<div className="row">
 					<div className="col-sm-2 col-md-offset-9 wallet-btn-deposit">
-						<Link to={"/"+customerOpt.toLowerCase()+"/"}>
+						<Link to={"/" + customerOpt.toLowerCase() + "/"}>
 							<button type="submit" className="btn btn-green">{translate(customerOpt.toUpperCase())}</button>
 						</Link>
 					</div>

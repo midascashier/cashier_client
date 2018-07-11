@@ -917,6 +917,10 @@ class transactionService {
 		let transaction = CashierStore.getLastTransactionResponse();
 		let processorId = processor.processorId;
 		let transactionId = transaction.transactionId;
+		this.buyCryptoCompleteDeposit(transactionId, processorId);
+	};
+
+	buyCryptoCompleteDeposit(transactionId, processorId){
 		let data = {
 			f: "coinDirectPayment",
 			tid: transactionId,

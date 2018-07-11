@@ -480,7 +480,8 @@ let _langTags = {
 	WALLET_BUY_TRANSACTION_TABLE_COL_DATE: 'Date',
 	WALLET_BUY_NO_RECORDS: "No records!",
 	WALLET_BUY_TRANSACTION_TABLE_COL_DATE: 'Date',
-	WALLET_BITCOIN_BALANCE: 'bitcoin balance'
+	WALLET_BITCOIN_BALANCE: 'bitcoin balance',
+	WALLET_BUTTON_COMPLETE_DEPOSIT: 'Complete deposit'
 
 };
 
