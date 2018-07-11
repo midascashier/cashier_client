@@ -61,8 +61,8 @@ let BuyCryptoTransactions = React.createClass({
 									rows.push(
 										<tr key={i} className={status}>
 											<td>{status}</td>
-											<td>**** **** **** {buyTransaction.Last4}</td>
-											<td>{buyTransaction.CustomerAmount + ' ' + buyTransaction.CustomerCurrency + '=>' + buyTransaction.AmountToProvider + '' + buyTransaction.CurrencyToProvider}</td>
+											<td>**** {buyTransaction.Last4}</td>
+											<td>{buyTransaction.CustomerAmount + ' ' + buyTransaction.CustomerCurrency} <i className="fa fa-long-arrow-right" aria-hidden="true"></i> <strong>{buyTransaction.AmountToProvider + ' ' + buyTransaction.CurrencyToProvider}</strong></td>
 											<td>{buyTransaction.DateTrans}</td>
 										</tr>
 									);

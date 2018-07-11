@@ -470,10 +470,10 @@ let _langTags = {
 
 	// Wallet
 	WALLET: 'Wallet',
-	WALLET_BUY_TRANSACTION_TITLE: 'Buy bitcoins transactions',
-	WALLET_PENDING_TRANSACTION_TITLE: 'Pending crypto deposits',
+	WALLET_BUY_TRANSACTION_TITLE: 'bitcoin purchases history',
+	WALLET_PENDING_TRANSACTION_TITLE: 'Pending bitcoin deposits',
 	WALLET_TAB_PURCHASES: 'Bitcoin Purchases',
-	WALLET_TAB_PENDING_DEPOSITS: 'Pending deposits',
+	WALLET_TAB_PENDING_DEPOSITS: 'Pending Deposits',
 	WALLET_BUY_TRANSACTION_TABLE_COL_STATUS: 'Status',
 	WALLET_BUY_TRANSACTION_TABLE_COL_CC: 'Credit Card',
 	WALLET_BUY_TRANSACTION_TABLE_COL_DETAILS: 'Details',

@@ -5,7 +5,7 @@ import {CashierStore} from '../stores/CashierStore'
 import Cashier from '../constants/Cashier'
 import {Info} from './headerComponents/Info'
 import {translate} from '../constants/Translate'
-import { Link } from 'react-router'
+import {Link} from 'react-router'
 import {UIService} from '../services/UIService'
 
 let WalletContent = React.createClass({
@@ -53,7 +53,7 @@ let WalletContent = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -78,20 +78,33 @@ let WalletContent = React.createClass({
 
 		if(view === Cashier.WALLET_PENDING_DEPOSITS){
 			classPendingActive = 'wallet-active';
-		} else {
+		}else{
 			classPurchaseActive = 'wallet-active';
 		}
 
 		return (
 			<div>
 				<Info/>
-				<div className="wallet-customer-crypto-balance">
-					<input type="text" id="walletBalance" className="textbox-balance" value={balance} disabled/>
-						<span>{translate('WALLET_BITCOIN_BALANCE')}</span>
+				<div className="row">
+					<div className="col-md-offset-9">
+						<div className="wallet-customer-crypto-balance">
+							<span className="textbox-balance">
+								{balance}
+							</span>
+							<hr/>
+							<span>{translate('WALLET_BITCOIN_BALANCE')}</span>
+						</div>
+					</div>
 				</div>
+
+
 				<div className="wallet-tab">
-					<a className={classTabCustom + ' ' + classPendingActive} onClick={this.showPendingTransactions}>{translate('WALLET_TAB_PENDING_DEPOSITS')}</a>
-					<a className={classTabCustom + ' ' + classPurchaseActive} onClick={this.showBuyCryptoTransactions}>{translate('WALLET_TAB_PURCHASES')}</a>
+					<div className={classTabCustom + ' ' + classPendingActive}>
+						<a onClick={this.showPendingTransactions}>{translate('WALLET_TAB_PENDING_DEPOSITS')}</a>
+					</div>
+					<div className={classTabCustom + ' ' + classPurchaseActive}>
+						<a onClick={this.showBuyCryptoTransactions}>{translate('WALLET_TAB_PURCHASES')}</a>
+					</div>
 				</div>
 				<div className="container-fluid">
 					<div className="row">
@@ -108,7 +121,7 @@ let WalletContent = React.createClass({
 				</div>
 				<div className="row">
 					<div className="col-sm-2 col-md-offset-9 wallet-btn-deposit">
-						<Link to={"/"+customerOpt.toLowerCase()+"/"}>
+						<Link to={"/" + customerOpt.toLowerCase() + "/"}>
 							<button type="submit" className="btn btn-green">{translate(customerOpt.toUpperCase())}</button>
 						</Link>
 					</div>
