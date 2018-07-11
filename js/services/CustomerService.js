@@ -131,7 +131,20 @@ class customerService{
 		let application = CashierStore.getApplication();
 		let request = Object.assign(data, application);
 		ConnectorServices.makeCustomerRequest(actions.GET_PAY_ACCOUNTS_CUSTOMER, request);
-	}
+	};
+
+	/**
+	 * get buy provider transaction by customer
+	 */
+	getBuyTransactionByCustomer() {
+		let data= {
+			f: "getBuyProviderTransactionByCustomer"
+		};
+
+		let application = CashierStore.getApplication();
+		let request = Object.assign(data, application);
+		ConnectorServices.makeCustomerRequest(actions.GET_BUY_TRANSACTION_HISTORY, request);
+	};
 
 }
 

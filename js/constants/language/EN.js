@@ -459,6 +459,16 @@ let _langTags = {
 	BUY_CRYPTOS_INSUFFICIENT_FOUND: 'insufficient crypto available',
 	BUY_CRYPTOS_MIN_MAX_LIMITS: 'Please enter a valid amount',
 
+	// Wallet
+	WALLET: 'Wallet',
+	WALLET_BUY_TRANSACTION_TITLE: 'Buy bitcoins transactions',
+	WALLET_TAB_PURCHASES: 'Bitcoin Purchases',
+	WALLET_TAB_PENDING_DEPOSITS: 'Pending deposits',
+	WALLET_BUY_TRANSACTION_TABLE_COL_STATUS: 'Status',
+	WALLET_BUY_TRANSACTION_TABLE_COL_CC: 'Credit Card',
+	WALLET_BUY_TRANSACTION_TABLE_COL_DETAILS: 'Details',
+	WALLET_BUY_TRANSACTION_TABLE_COL_DATE: 'Date'
+
 };
 
 export function EN(){

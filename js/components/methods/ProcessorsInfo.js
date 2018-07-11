@@ -92,6 +92,13 @@ let ProcessorsInfo = React.createClass({
 					&nbsp;
 					&nbsp;
 
+					<Link to={`/wallet/`}>
+						<span>{translate('WALLET')}</span>
+					</Link>
+
+					&nbsp;
+					&nbsp;
+
 					{(() =>{
 						let accounts = [
 							'MidasTP',

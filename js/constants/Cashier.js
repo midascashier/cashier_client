@@ -76,5 +76,9 @@ export default {
 
 	CRYPTO_CURRENCY_BTC: 'BTC',
 	REQUEST_DOCS_FILE_SAVE: '/cashierServices/DocsFileSave.class.php',
-	DEFAULT_CURRENCY: 'USD'
+	DEFAULT_CURRENCY: 'USD',
+
+	WALLET_DEFAULT_TAB: 'purchases',
+	WALLET_PURCHASES: 'purchases',
+	WALLET_PENDING_DEPOSITS: 'pendingDeposits'
 }

@@ -100,6 +100,7 @@ import {PendingControlNumber} from './components/PendingMTCNContent'
 import RouterContainer from './services/RouterContainer'
 import {CryptoTicketApproved} from './components/commonComponents/cryptos/tickets/ApprovedTicket'
 import {CryptoTicketRejected} from './components/commonComponents/cryptos/tickets/RejectedTicket'
+import {WalletContent} from './components/WalletContent'
 
 //method
 
@@ -134,6 +135,8 @@ let routes = (
 				<Route path="ticket/approved" component={CryptoTicketApproved}/>
 				<Route path="ticket/rejected" component={CryptoTicketRejected}/>
 			</Route>
+
+			<Route path="/wallet" component={WalletContent}></Route>
 
 			<Route path="/deposit/" component={Content}>
 				<IndexRoute component={ProcessorsInfo}/>
