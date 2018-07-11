@@ -146,6 +146,15 @@ class customerService{
 		ConnectorServices.makeCustomerRequest(actions.GET_BUY_TRANSACTION_HISTORY, request);
 	};
 
+	getCryptoPendingDeposit(){
+		let data = {
+			f: "getPendingCryptoTransactionByCustomer"
+		};
+		let application = CashierStore.getApplication();
+		let request = Object.assign(data, application);
+		ConnectorServices.makeCustomerRequest(actions.GET_PENDING_DEPOSIT_TRANSACTION_HISTORY, request);
+	}
+
 }
 
 export let CustomerService = new customerService();

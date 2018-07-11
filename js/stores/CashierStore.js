@@ -1099,10 +1099,10 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	},
 
 	/**
-	* get if the customer want to use his balance
-	*
-	* @return {boolean | _BuyCrypto.useBalance}
-	*/
+	 * get if the customer want to use his balance
+	 *
+	 * @return {boolean | _BuyCrypto.useBalance}
+	 */
 	getBuyCryptoUseBalance() {
 		return _BuyCrypto.useBalance;
 	},
@@ -1132,6 +1132,10 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getWalletBuyTransactions() {
 		return _Wallet.buyTransactions;
+	},
+
+	getWalletPendingCryptoDeposit(){
+		return _Wallet.pendingCryptoTransactions;
 	},
 
 	/**
@@ -1214,11 +1218,17 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					_customer.lastTransactions = data.response.transactions;
 					break;
 				case actions.GET_BUY_TRANSACTION_HISTORY:
-					if(data.response) {
-						if(data.response.purchaseList) {
+					if(data.response){
+						if(data.response.purchaseList){
 							_Wallet.buyTransactions = data.response.purchaseList;
 							CashierStore.emitChange();
 						}
+					}
+					break;
+				case actions.GET_PENDING_DEPOSIT_TRANSACTION_HISTORY:
+					if(data.response && data.response.pendingCryptoTransactionList){
+						_Wallet.pendingCryptoTransactions = data.response.pendingCryptoTransactionList;
+						CashierStore.emitChange();
 					}
 					break;
 				case actions.SET_EDITCC:
@@ -1789,7 +1799,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					}
 					break;
 				case actions.GET_BALANCE_BUY_CRYPTO:
-					if(data.response) {
+					if(data.response){
 						if(data.response.coinDirectData && data.response.coinDirectData.success == 1){
 							_BuyCrypto.customerBalance = data.response.coinDirectData.balance;
 							CashierStore.emitChange();

@@ -1,5 +1,6 @@
 import React from 'react'
 import {BuyCryptoTransactions} from './contentComponents/BuyCryptoTransactions'
+import {CryptoPendingDepositTransaction} from './contentComponents/CryptoPendingDepositTransaction'
 import {CashierStore} from '../stores/CashierStore'
 import Cashier from '../constants/Cashier'
 import {Info} from './headerComponents/Info'
@@ -89,7 +90,7 @@ let WalletContent = React.createClass({
 						<div className="col-md-10 col-md-offset-1">
 							{(() =>{
 								if(view === Cashier.WALLET_PENDING_DEPOSITS){
-									return <div>Pending deposits</div>
+									return <CryptoPendingDepositTransaction/>
 								}else{
 									return <BuyCryptoTransactions/>
 								}
@@ -98,7 +99,7 @@ let WalletContent = React.createClass({
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-sm-2 col-md-offset-9">
+					<div className="col-sm-2 col-md-offset-9 wallet-btn-deposit">
 						<Link to={"/"+customerOpt.toLowerCase()+"/"}>
 							<button type="submit" className="btn btn-green">{translate(customerOpt.toUpperCase())}</button>
 						</Link>
