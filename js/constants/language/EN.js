@@ -466,7 +466,7 @@ let _langTags = {
 	BUY_CRYPTOS_ERROR_TEXT: "Something went wrong, we’ve taken note of this, in the mean-time, please click “try again” to generate a new address and QR code.",
 	BUY_CRYPTOS_PROMOCODE: "Enter a promo code (optional)",
 	BUY_CRYPTO_MIN_LIMIT: "Please increase the amount and try again",
-	BUY_CRYPTO_MAX_LIMIT: "Please decrease the amount and try again"
+	BUY_CRYPTO_MAX_LIMIT: "Please decrease the amount and try again",
 
 	// Wallet
 	WALLET: 'Wallet',
