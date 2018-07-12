@@ -154,12 +154,14 @@ let DepositBitCoin = React.createClass({
 		}, 1500);
 	},
 
+	interval: null,
+
 	startCrono(){
 		if(!this.cronoStarted){
 			this.cronoStarted = true;
 			let initialDate = new Date();
 			let initialTime = initialDate.getTime() + 15 * 60000;
-			let interval = setInterval(function(){
+			this.interval = setInterval(function(){
 				let currentDate = new Date();
 				let currentTime = currentDate.getTime();
 				let date = new Date(initialTime - currentTime);
@@ -168,7 +170,7 @@ let DepositBitCoin = React.createClass({
 				let crono = document.getElementById('crono');
 				crono.innerHTML = minutes + ':' + seconds;
 				if(minutes == 0 && seconds == 0){
-					clearInterval(interval);
+					clearInterval(this.interval);
 				}
 			}, 1000);
 		}
@@ -196,6 +198,10 @@ let DepositBitCoin = React.createClass({
 		}
 
 		let btcAmount = this.props.btcAmount;
+		if(btcAmount){
+			btcAmount = btcAmount.toFixed(8);
+		}
+
 		let limits = UIService.getProcessorLimitMinMax();
 		let customer = CashierStore.getCustomer();
 		let limitsErrorMsg;
@@ -399,6 +405,7 @@ let DepositBitCoin = React.createClass({
 	 * React function to remove listener to this component once is unmounted
 	 */
 	componentWillUnmount(){
+		clearInterval(this.interval);
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

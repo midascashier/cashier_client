@@ -228,6 +228,8 @@ let CreditCardRegister = React.createClass({
 			zipValidation = 'rgxValidate';
 		}
 
+		let noCards = (0 == this.state.cardsLength);
+
 		if(this.state.loading){
 			return <LoadingSpinner/>
 		}
@@ -236,7 +238,7 @@ let CreditCardRegister = React.createClass({
 			<div className="buy-crypto-background">
 				<div className="buy-crypto-content buy-crypto-newcc">
 					<form onSubmit={this.addNewPayAccount}>
-						<div className="col-sm-8">
+						<div className={((noCards) ? "col-sm-8" : "col-sm-offset-2 col-sm-8")}>
 							<div className="buy-crypto-section buy-crypto-section-large">
 
 								<div className="row">
@@ -513,7 +515,7 @@ let CreditCardRegister = React.createClass({
 
 						</div>
 
-						<div className="col-sm-4" hidden={this.state.cardsLength > 0}>
+						<div className="col-sm-4" hidden={!noCards}>
 							<div className="buy-crypto-section">
 								<div className="form-group buy-crypto-form-element">
 									<div className="buy-crypto-main-title">{translate('BUY_CRYPTOS_ADDCC_LEYEND')}</div>

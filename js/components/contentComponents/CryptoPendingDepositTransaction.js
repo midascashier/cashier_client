@@ -6,8 +6,14 @@ import React from 'react'
 import {CustomerService} from '../../services/CustomerService'
 import {translate} from '../../constants/Translate'
 import {CashierStore} from '../../stores/CashierStore'
+import {TransactionService} from '../../services/TransactionService'
+import {LoadingSpinner} from '../loading/LoadingSpinner'
 
 let CryptoPendingDepositTransaction = React.createClass({
+
+	propTypes: {
+		cryptoCustomerBalance: React.PropTypes.number
+	},
 
 	/**
 	 * on component init
@@ -23,6 +29,7 @@ let CryptoPendingDepositTransaction = React.createClass({
 	refreshLocalState(){
 		let pendingTransactions = CashierStore.getWalletPendingCryptoDeposit();
 		return {
+			loading: false,
 			pendingTransactions: pendingTransactions
 		}
 	},
@@ -31,18 +38,30 @@ let CryptoPendingDepositTransaction = React.createClass({
 		this.setState(this.refreshLocalState());
 	},
 
+	completeDeposit(depositInfo){
+		this.setState({loading: true});
+		let transactionId = depositInfo.caTransaction_Id;
+		let processorId = depositInfo.caProcessor_Id_Selected;
+		TransactionService.buyCryptoCompleteDeposit(transactionId, processorId);
+	},
+
 	/**
 	 * render component
 	 */
 	render(){
 
+		if(this.state.loading){
+			return <LoadingSpinner/>
+		}
+
 		let transactions = this.state.pendingTransactions;
+		let balance = parseInt(this.props.cryptoCustomerBalance);
 
 		let html = (
 			<div className="transactions">
 				<h2>{translate('WALLET_PENDING_TRANSACTION_TITLE')}</h2>
 				<div className="table-responsive wallet-table-scroll">
-					<table className="table table-striped">
+					<table className="table table-striped table-hover">
 						<tbody>
 						<tr>
 							<th>{translate('WALLET_BUY_TRANSACTION_TABLE_COL_STATUS')}</th>
@@ -55,15 +74,28 @@ let CryptoPendingDepositTransaction = React.createClass({
 								let rows = [];
 								for(let i = 0; i < transactions.length; i++){
 									let row = transactions[i];
+									let cryptoAmount = row.CryptoAmount;
 									rows.push(
 										<tr>
 											<td>{row.caTransactionStatus}</td>
 											<td>
-												<div>{row.Amount} {row.CurrencyCode}</div>
-												<div>{row.CryptoAmount} {row.CryptoCurrencyCode}</div>
+												<div>{row.Amount} {row.CurrencyCode} ~</div>
+												<div>{cryptoAmount} {row.CryptoCurrencyCode}</div>
 											</td>
 											<td>{row.DateTrans_Modified}</td>
-											<td></td>
+											<td>
+												{(() =>{
+													if(0 < balance && cryptoAmount < balance){
+														return (
+															<div className="text-right">
+																<button onClick={() => this.completeDeposit(row)} className="btn btn-info btn-sm">
+																	{translate('WALLET_BUTTON_COMPLETE_DEPOSIT')}
+																</button>
+															</div>
+														);
+													}
+												})()}
+											</td>
 										</tr>
 									);
 								}
@@ -81,6 +113,7 @@ let CryptoPendingDepositTransaction = React.createClass({
 						</tbody>
 					</table>
 				</div>
+
 			</div>
 		);
 

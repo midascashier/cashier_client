@@ -53,7 +53,7 @@ let WalletContent = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange(){
+	_onChange() {
 		this.setState(this.refreshLocalState());
 	},
 
@@ -78,7 +78,7 @@ let WalletContent = React.createClass({
 
 		if(view === Cashier.WALLET_PENDING_DEPOSITS){
 			classPendingActive = 'wallet-active';
-		}else{
+		} else {
 			classPurchaseActive = 'wallet-active';
 		}
 
@@ -97,7 +97,6 @@ let WalletContent = React.createClass({
 					</div>
 				</div>
 
-
 				<div className="wallet-tab">
 					<div className={classTabCustom + ' ' + classPendingActive}>
 						<a onClick={this.showPendingTransactions}>{translate('WALLET_TAB_PENDING_DEPOSITS')}</a>
@@ -111,7 +110,7 @@ let WalletContent = React.createClass({
 						<div className="col-md-10 col-md-offset-1">
 							{(() =>{
 								if(view === Cashier.WALLET_PENDING_DEPOSITS){
-									return <CryptoPendingDepositTransaction/>
+									return <CryptoPendingDepositTransaction cryptoCustomerBalance={this.state.customerCryptoBalance}/>
 								}else{
 									return <BuyCryptoTransactions/>
 								}
