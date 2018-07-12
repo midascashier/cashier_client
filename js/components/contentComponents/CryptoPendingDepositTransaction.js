@@ -74,10 +74,14 @@ let CryptoPendingDepositTransaction = React.createClass({
 								let rows = [];
 								for(let i = 0; i < transactions.length; i++){
 									let row = transactions[i];
+									let status = row.caTransactionStatus;
+									if(row.caProviderTransaction_Id) {
+										status = row.caProviderTransactionStatus;
+									}
 									let cryptoAmount = row.CryptoAmount;
 									rows.push(
 										<tr>
-											<td>{row.caTransactionStatus}</td>
+											<td>{status}</td>
 											<td>
 												<div>{row.Amount} {row.CurrencyCode} ~</div>
 												<div>{cryptoAmount} {row.CryptoCurrencyCode}</div>
@@ -85,7 +89,7 @@ let CryptoPendingDepositTransaction = React.createClass({
 											<td>{row.DateTrans_Modified}</td>
 											<td>
 												{(() =>{
-													if(0 < balance && cryptoAmount < balance){
+													if(0 < balance && cryptoAmount < balance && status == 'Pending'){
 														return (
 															<div className="text-right">
 																<button onClick={() => this.completeDeposit(row)} className="btn btn-info btn-sm">

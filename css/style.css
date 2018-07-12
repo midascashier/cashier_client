@@ -1679,6 +1679,12 @@ input:checked + .slider:before{
     margin-top:20px;
 }
 
+.buy-crypto-ticket-text {
+    font-size: 15px;
+    text-align: center;
+    margin-top: 25px;
+}
+
 /**
  * Wallet style
  */
@@ -1757,3 +1763,4 @@ input:checked + .slider:before{
     border-top: 1px solid #999;
     margin: 0px !important;
 }
+
