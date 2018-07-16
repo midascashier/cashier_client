@@ -18,6 +18,7 @@
     <script>
       let sid = "<?php echo $_REQUEST['sid'] ?>";
       let tuid = "<?php echo $_REQUEST['tuid'] ?>";
+      let redirectSite = "<?php echo $_REQUEST['redirectSite'] ?>";
       let remoteAddr = "<?php echo $_REQUEST['remoteAddr'] ?>";
       let remoteCompany = "<?php $_REQUEST['remoteCompany'] ?>";
       let xForwardedFor = "<?php echo $_REQUEST['xForwardedFor'] ?>";
@@ -29,6 +30,7 @@
         tuid: tuid,
         lang: "en",
         platform: 'desktop',
+        redirectSite: redirectSite,
         remoteAddr: remoteAddr,
         remoteHost: remoteHost,
         remoteAddress: remoteAddr,
@@ -42,7 +44,7 @@
         let application = JSON.parse(localStorage.application);
         let ui = JSON.parse(localStorage.ui);
         let company = JSON.parse(localStorage.company);
-        loginInfo = {companyId: company.companyId, remoteCompany: localStorage.application.remoteCompany, option: ui.currentView, sid: application.sid};
+        loginInfo = {companyId: company.companyId, remoteCompany: localStorage.application.remoteCompany, option: ui.currentView, sid: application.sid, redirectSite: application.redirectSite};
       }else{
         let localApp = localStorage.application;
         if (localApp) {
@@ -56,6 +58,9 @@
         }
         if (xForwardedFor) {
           application.xForwardedFor = (application.xForwardedFor) ? application.xForwardedFor : xForwardedFor;
+        }
+        if (redirectSite) {
+          application.redirectSite = (application.redirectSite) ? application.redirectSite : redirectSite;
         }
 
         localStorage.setItem('application', JSON.stringify(application));

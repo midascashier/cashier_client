@@ -1,13 +1,14 @@
 import React from 'react'
-import { translate } from '../../constants/Translate'
-import { Loading } from '../loading/Loading'
-import { ApplicationService } from '../../services/ApplicationService'
-import { UIService } from '../../services/UIService'
+import {translate} from '../../constants/Translate'
+import {Loading} from '../loading/Loading'
+import {ApplicationService} from '../../services/ApplicationService'
+import {UIService} from '../../services/UIService'
 
 let CompanyInfo = React.createClass({
 	propTypes: {
 		customer: React.PropTypes.object,
-		company: React.PropTypes.object
+		company: React.PropTypes.object,
+		application: React.PropTypes.object
 	},
 
 	/**
@@ -27,6 +28,8 @@ let CompanyInfo = React.createClass({
 	render() {
 		let customerBalance = ApplicationService.currency_format(this.props.customer.balance);
 		let isWithdraw = UIService.getIsWithDraw();
+		let isMobile = UIService.getIsMobile();
+
 		return (
 			<div id="companyInfo" className="col-xs-8">
 				<div className="row">
@@ -38,7 +41,7 @@ let CompanyInfo = React.createClass({
 									{(() =>{
 										if(!this.props.customer.customerId){
 											return <Loading />;
-										} else{
+										}else{
 											return customerBalance + " " + this.props.customer.currency;
 										}
 									})()}
@@ -55,8 +58,14 @@ let CompanyInfo = React.createClass({
 								{(() =>{
 									if(!this.props.company.companyId){
 										return <Loading />;
-									} else{
+									}else{
 										return ' ' + translate('CUSTOMER_INFO_PHONE', 'Or') + " " + this.props.company.companyLabel.COMPANY_PHONE;
+									}
+								})()}
+
+								{(() =>{
+									if(isMobile && this.props.application.redirectSite){
+										return <a href={this.props.application.redirectSite}>  Back</a>;
 									}
 								})()}
 							</div>

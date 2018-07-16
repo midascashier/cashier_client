@@ -42,7 +42,9 @@ let _UI = {
 };
 
 /**
- * @type {{sid: null, tuid: null, lang: string, platform: string}}
+ * application object
+ *
+ * @type {{sid: null, lang: string, referrer: string, remoteAddr: string, remoteHost: string, xForwardedFor: string, platform: string, redirectSite: string, userAgent: string, isMobile: (())}}
  * @private
  */
 let _application = {
@@ -52,7 +54,8 @@ let _application = {
 	remoteAddr: '',
 	remoteHost: '',
 	xForwardedFor: '',
-	platform: 'desktop',
+	platform: '',
+	redirectSite: '',
 	userAgent: navigator.userAgent
 };
 
@@ -594,7 +597,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * get application object
 	 *
-	 * @returns {{sid: null, tuid: null, lang: string, platform: string}}
+	 * @returns {{sid: null, lang: string, referrer: string, remoteAddr: string, remoteHost: string, xForwardedFor: string, platform: string, redirectSite: string, userAgent: string, isMobile}}
 	 */
 	getApplication: () =>{
 		if(!_application.platform){
@@ -1025,6 +1028,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 						_application.remoteAddr = application.remoteAddr;
 						_application.remoteHost = application.remoteHost;
 						_application.xForwardedFor = application.xForwardedFor;
+						_application.redirectSite = application.redirectSite;
 					}
 
 					CashierStore.storeData("application", _application);

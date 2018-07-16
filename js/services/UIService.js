@@ -217,6 +217,16 @@ class UiService {
 	}
 
 	/**
+	 * get if is mobile
+	 *
+	 * @returns {*|int}
+	 */
+	getIsMobile(){
+		const application = CashierStore.getApplication();
+		return (application.platform === 'mobile');
+	}
+
+	/**
 	 * get current process name
 	 *
 	 * @returns {string}

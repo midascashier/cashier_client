@@ -41,11 +41,12 @@ let Info = React.createClass({
 	render() {
 		let customer = CashierStore.getCustomer();
 		let company = CashierStore.getCompany();
+		let application = CashierStore.getApplication();
 		return (
 			<div>
 				<div id="headerInfo" className="header-top">
 					<CustomerInfo customer={customer}/>
-					<CompanyInfo customer={customer} company={company}/>
+					<CompanyInfo customer={customer} company={company} application={application}/>
 				</div>
 
 				{(() =>{

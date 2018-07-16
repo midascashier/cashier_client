@@ -32,6 +32,7 @@ class ClientRedirect{
     $cashierParams["username"] = $_REQUEST["username"];
     $cashierParams["password"] = $_REQUEST["password"];
     $cashierParams["btnlogin"] = $_REQUEST["btnlogin"];
+    $cashierParams["redirectSite"] = $_REQUEST["redirectSite"];
     $cashierParams["sys_access_pass"] = ACCESS_PASSWORD;
     $cashierParams["atDeviceId"] = $_REQUEST["atDeviceId"];
     $cashierParams["userAgent"] = $_SERVER["HTTP_USER_AGENT"];
@@ -65,6 +66,7 @@ class ClientRedirect{
           <input type='hidden' id='remoteHost' name='remoteHost' value={$params['remoteHost']}>
           <input type='hidden' id='xForwardedFor' name='xForwardedFor' value={$params['xForwardedFor']}>
           <input type='hidden' id='remoteCompany' name='remoteCompany' value={$remoteCompany}>
+          <input type='hidden' id='redirectSite' name='redirectSite' value={$params['redirectSite']}>
         </form>
 
         <script>
