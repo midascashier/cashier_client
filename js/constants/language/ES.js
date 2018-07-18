@@ -421,8 +421,10 @@ let _langTags = {
 	AGENT_TRANSFER_INVALID_USER_ACCOUNT: "Verifique que la cuenta exista",
 	AGENT_TRANSFER_ACCOUNT_FROM: "Transferir desde",
 	AGENT_TRANSFER_ACCOUNT_TO_USERNAME: "Cuenta destino",
-	AGENT_TRANSFER_ACCOUNT_TO_FULLNAME: "Nombre"
+	AGENT_TRANSFER_ACCOUNT_TO_FULLNAME: "Nombre",
 
+    SECURITY_BLOCK_TITTLE : "Bloqueo de Seguridad",
+    SECURITY_BLOCK_MESSAGE : "El método de pago que estás intentando utilizar se encuentra asociado a otra cuenta. Para ayudarte a resolver el problema, por favor contáctanos."
 };
 
 export function ES(){

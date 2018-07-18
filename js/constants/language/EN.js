@@ -425,8 +425,10 @@ let _langTags = {
 	DOCFILE_FORM_LABEL_FILE_EWALLET : 'Photo of your e-wallet',
 	DOCFILE_FORM_LABEL_FILE_UTILITY : 'Public service receipt',
 
-	DOCS_FILE_TAB_VERIFICATIONREQUIRED : "Additional Information"
+	DOCS_FILE_TAB_VERIFICATIONREQUIRED : "Additional Information",
 
+    SECURITY_BLOCK_TITTLE : "Security Block",
+	SECURITY_BLOCK_MESSAGE : "This payment method is currently associated to another account. To help you fix this, please contact customer service."
 };
 
 export function EN(){

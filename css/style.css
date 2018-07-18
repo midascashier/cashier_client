@@ -1168,6 +1168,29 @@ input:checked + .slider:before{
     border: 16px solid rgba(255, 255, 255, 0.4);
 }
 
+#securityBlockTitle, #securityBlocProcessor{
+    width: 100%;
+    font-size: 25px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+#securityBlockIcon{
+    width: 100%;
+    font-size: 12em;
+    text-align: center;
+}
+
+#securityBlockText{
+    width: 60%;
+    padding: 10px;
+    font-size: 20px;
+    margin-left: 20%;
+    border-radius: 3px;
+    text-align: justify;
+    border: 1px solid #b5b5b5;
+}
+
 .prettyLoader,
 .prettyLoader:before,
 .prettyLoader:after {

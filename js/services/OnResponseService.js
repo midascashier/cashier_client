@@ -1,9 +1,10 @@
-import {CashierActions} from '../actions/CashierActions'
-import {CustomerService} from '../services/CustomerService'
-import {ApplicationService} from './ApplicationService'
-import {TransactionService} from './TransactionService'
+import {UIService} from "./UIService";
 import actions from '../constants/Actions'
 import Cashier from '../constants/Cashier'
+import {ApplicationService} from './ApplicationService'
+import {TransactionService} from './TransactionService'
+import {CashierActions} from '../actions/CashierActions'
+import {CustomerService} from '../services/CustomerService'
 
 /**
  * this class received all responses from cashier and trigger and action depends of the response
@@ -46,6 +47,10 @@ class OnResponseService {
 					}else{
 						TransactionService.getPreviousPayAccount(processorID);
 					}
+
+                    if(data.response.isAllowed === "0"){
+                        UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + '/securityBlock/');
+                    }
 				}
 				break;
 
