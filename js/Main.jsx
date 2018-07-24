@@ -128,14 +128,14 @@ let routes = (
 				<IndexRoute component={ProcessorsInfo}/>
 
 				<Route path="neteller_new/" component={Neteller}/>
-                <Route path="neteller_new/securityBlock/" component={SecurityBlock}/>
+				<Route path="neteller_new/securityBlock/" component={SecurityBlock}/>
 				<Route path="neteller_new/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
 				<Route path="skrill_ew/" component={Skrill}/>
-                <Route path="skrill_ew/securityBlock/" component={SecurityBlock}/>
+				<Route path="skrill_ew/securityBlock/" component={SecurityBlock}/>
 				<Route path="skrill_ew/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -143,7 +143,7 @@ let routes = (
 				</Route>
 
 				<Route path="crd3co/" component={Ecopayz}/>
-                <Route path="crd3co/securityBlock/" component={SecurityBlock}/>
+				<Route path="crd3co/securityBlock/" component={SecurityBlock}/>
 				<Route path="crd3co/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -151,14 +151,14 @@ let routes = (
 				</Route>
 
 				<Route path="skrill_1tap/" component={Skrill_1tap}/>
-                <Route path="skrill_1tap/securityBlock/" component={SecurityBlock}/>
+				<Route path="skrill_1tap/securityBlock/" component={SecurityBlock}/>
 				<Route path="skrill_1tap/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
 				<Route path="bitcoin/" component={BitCoin}/>
-                <Route path="bitcoin/securityBlock/" component={SecurityBlock}/>
+				<Route path="bitcoin/securityBlock/" component={SecurityBlock}/>
 				<Route path="bitcoin/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={BitCoinTicketPending}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -166,7 +166,7 @@ let routes = (
 
 				<Route path="visa/" component={Visa}/>
 				<Route path="visa/confirm/" component={VisaConfirm}/>
-                <Route path="visa/securityBlock/" component={SecurityBlock}/>
+				<Route path="visa/securityBlock/" component={SecurityBlock}/>
 				<Route path="visa/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={VisaApprovedTicket}/>
 					<Route path="rejected/" component={VisaRejectedTicket}/>
@@ -177,7 +177,7 @@ let routes = (
 
 				<Route path="etew_visa/" component={Visa}/>
 				<Route path="etew_visa/confirm/" component={VisaConfirm}/>
-                <Route path="etew_visa/securityBlock/" component={SecurityBlock}/>
+				<Route path="etew_visa/securityBlock/" component={SecurityBlock}/>
 				<Route path="etew_visa/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={VisaApprovedTicket}/>
 					<Route path="rejected/" component={VisaRejectedTicket}/>
@@ -187,7 +187,7 @@ let routes = (
 				</Route>
 
 				<Route path="pp_apcc/" component={Astropay}/>
-                <Route path="pp_apcc/securityBlock/" component={SecurityBlock}/>
+				<Route path="pp_apcc/securityBlock/" component={SecurityBlock}/>
 				<Route path="pp_apcc/ticket/" component={LoadingTicket}>
 					<Route path="rejected/" component={AstroPayRejectedTicket}/>
 					<Route path="approved/" component={AstroPayApprovedTicket}/>
@@ -195,7 +195,7 @@ let routes = (
 
 				<Route path="mastercard/" component={Visa}/>
 				<Route path="mastercard/confirm/" component={VisaConfirm}/>
-                <Route path="mastercard/securityBlock/" component={SecurityBlock}/>
+				<Route path="mastercard/securityBlock/" component={SecurityBlock}/>
 				<Route path="mastercard/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={VisaApprovedTicket}/>
 					<Route path="rejected/" component={VisaRejectedTicket}/>
@@ -206,7 +206,7 @@ let routes = (
 
 				<Route path="amex/" component={Visa}/>
 				<Route path="amex/confirm/" component={VisaConfirm}/>
-                <Route path="amex/securityBlock/" component={SecurityBlock}/>
+				<Route path="amex/securityBlock/" component={SecurityBlock}/>
 				<Route path="amex/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={VisaApprovedTicket}/>
 					<Route path="rejected/" component={VisaRejectedTicket}/>
@@ -217,7 +217,7 @@ let routes = (
 
 				<Route path="jcb/" component={Visa}/>
 				<Route path="jcb/confirm/" component={VisaConfirm}/>
-                <Route path="jcb/securityBlock/" component={SecurityBlock}/>
+				<Route path="jcb/securityBlock/" component={SecurityBlock}/>
 				<Route path="jcb/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={VisaApprovedTicket}/>
 					<Route path="rejected/" component={VisaRejectedTicket}/>
@@ -227,7 +227,7 @@ let routes = (
 				</Route>
 
 				<Route path="moneygram/" component={Person2Person}/>
-                <Route path="moneygram/securityBlock/" component={SecurityBlock}/>
+				<Route path="moneygram/securityBlock/" component={SecurityBlock}/>
 				<Route path="moneygram/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={P2PTicketPending}/>
 					<Route path="processing/" component={P2PTicketProcessing}/>
@@ -235,7 +235,7 @@ let routes = (
 				</Route>
 
 				<Route path="westernunion/" component={Person2Person}/>
-                <Route path="westernunion/securityBlock/" component={SecurityBlock}/>
+				<Route path="westernunion/securityBlock/" component={SecurityBlock}/>
 				<Route path="westernunion/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={P2PTicketPending}/>
 					<Route path="processing/" component={P2PTicketProcessing}/>
@@ -243,7 +243,7 @@ let routes = (
 				</Route>
 
 				<Route path="billpay/" component={Person2Person}/>
-                <Route path="billpay/securityBlock/" component={SecurityBlock}/>
+				<Route path="billpay/securityBlock/" component={SecurityBlock}/>
 				<Route path="billpay/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={P2PTicketPending}/>
 					<Route path="processing/" component={P2PTicketProcessing}/>
@@ -251,7 +251,7 @@ let routes = (
 				</Route>
 
 				<Route path="ria/" component={Person2Person}/>
-                <Route path="ria/securityBlock/" component={SecurityBlock}/>
+				<Route path="ria/securityBlock/" component={SecurityBlock}/>
 				<Route path="ria/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={P2PTicketPending}/>
 					<Route path="processing/" component={P2PTicketProcessing}/>
@@ -259,14 +259,14 @@ let routes = (
 				</Route>
 
 				<Route path="btc_crypto_transfer/" component={CryptoTransfer}/>
-                <Route path="btc_crypto_transfer/securityBlock/" component={SecurityBlock}/>
+				<Route path="btc_crypto_transfer/securityBlock/" component={SecurityBlock}/>
 				<Route path="btc_crypto_transfer/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={CryptoTransferTicketPending}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
 
 				<Route path="cryptoscreen/" component={CryptoScreen}/>
-                <Route path="cryptoscreen/securityBlock/" component={SecurityBlock}/>
+				<Route path="cryptoscreen/securityBlock/" component={SecurityBlock}/>
 				<Route path="cryptoscreen/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={CryptoScreenTicketPending}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -278,7 +278,7 @@ let routes = (
 
 				<Route path="bitcoin/" component={BitCoin}/>
 				<Route path="bitcoin/confirm/" component={BitCoinConfirmWithdraw}/>
-                <Route path="bitcoin/securityBlock/" component={SecurityBlock}/>
+				<Route path="bitcoin/securityBlock/" component={SecurityBlock}/>
 				<Route path="bitcoin/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -287,7 +287,7 @@ let routes = (
 
 				<Route path="moneygram/" component={Person2Person}/>
 				<Route path="moneygram/confirm/" component={P2PConfirmWithdraw}/>
-                <Route path="moneygram/securityBlock/" component={SecurityBlock}/>
+				<Route path="moneygram/securityBlock/" component={SecurityBlock}/>
 				<Route path="moneygram/ticket/" component={LoadingTicket}>
 					<Route path="deferred/" component={DeferredTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -295,7 +295,7 @@ let routes = (
 
 				<Route path="westernunion/" component={Person2Person}/>
 				<Route path="westernunion/confirm/" component={P2PConfirmWithdraw}/>
-                <Route path="westernunion/securityBlock/" component={SecurityBlock}/>
+				<Route path="westernunion/securityBlock/" component={SecurityBlock}/>
 				<Route path="westernunion/ticket/" component={LoadingTicket}>
 					<Route path="deferred/" component={DeferredTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -303,7 +303,7 @@ let routes = (
 
 				<Route path="genck/" component={Genck}/>
 				<Route path="genck/confirm/" component={CKConfirmWithdraw}/>
-                <Route path="genck/securityBlock/" component={SecurityBlock}/>
+				<Route path="genck/securityBlock/" component={SecurityBlock}/>
 				<Route path="genck/ticket/" component={LoadingTicket}>
 					<Route path="deferred/" component={DeferredTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -311,7 +311,7 @@ let routes = (
 
 				<Route path="crd3co/" component={Ecopayz}/>
 				<Route path="crd3co/confirm/" component={EcoConfirmWithdraw}/>
-                <Route path="crd3co/securityBlock/" component={SecurityBlock}/>
+				<Route path="crd3co/securityBlock/" component={SecurityBlock}/>
 				<Route path="crd3co/ticket/" component={LoadingTicket}>
 					<Route path="deferred/" component={DeferredTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -319,7 +319,7 @@ let routes = (
 
 				<Route path="neteller_new/" component={Neteller}/>
 				<Route path="neteller_new/confirm/" component={NetellerConfirmWithdraw}/>
-                <Route path="neteller_new/securityBlock/" component={SecurityBlock}/>
+				<Route path="neteller_new/securityBlock/" component={SecurityBlock}/>
 				<Route path="neteller_new/ticket/" component={LoadingTicket}>
 					<Route path="deferred/" component={DeferredTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -327,7 +327,7 @@ let routes = (
 
 				<Route path="ria/" component={Person2Person}/>
 				<Route path="ria/confirm/" component={P2PConfirmWithdraw}/>
-                <Route path="ria/securityBlock/" component={SecurityBlock}/>
+				<Route path="ria/securityBlock/" component={SecurityBlock}/>
 				<Route path="ria/ticket/" component={LoadingTicket}>
 					<Route path="deferred/" component={DeferredTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -335,7 +335,7 @@ let routes = (
 
 				<Route path="skrill_ew/" component={Skrill}/>
 				<Route path="skrill_ew/confirm/" component={SkrillConfirmWithdraw}/>
-                <Route path="skrill_ew/securityBlock/" component={SecurityBlock}/>
+				<Route path="skrill_ew/securityBlock/" component={SecurityBlock}/>
 				<Route path="skrill_ew/ticket/" component={LoadingTicket}>
 					<Route path="deferred/" component={DeferredTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -343,7 +343,7 @@ let routes = (
 
 				<Route path="debitcards/" component={DebitCards}/>
 				<Route path="debitcards/confirm/" component={DebitCardConfirmWithdraw}/>
-                <Route path="debitcards/securityBlock/" component={SecurityBlock}/>
+				<Route path="debitcards/securityBlock/" component={SecurityBlock}/>
 				<Route path="debitcards/ticket/" component={LoadingTicket}>
 					<Route path="deferred/" component={DeferredTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -351,7 +351,7 @@ let routes = (
 
 				<Route path="btc_crypto_transfer/" component={CryptoTransfer}/>
 				<Route path="btc_crypto_transfer/confirm/" component={CryptoTransferConfirmWithdraw}/>
-                <Route path="btc_crypto_transfer/securityBlock/" component={SecurityBlock}/>
+				<Route path="btc_crypto_transfer/securityBlock/" component={SecurityBlock}/>
 				<Route path="btc_crypto_transfer/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -360,7 +360,7 @@ let routes = (
 
 				<Route path="cryptoscreen/" component={CryptoScreen}/>
 				<Route path="cryptoscreen/confirm/" component={CryptoScreenConfirmWithdraw}/>
-                <Route path="cryptoscreen/securityBlock/" component={SecurityBlock}/>
+				<Route path="cryptoscreen/securityBlock/" component={SecurityBlock}/>
 				<Route path="cryptoscreen/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={ApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>
@@ -369,7 +369,7 @@ let routes = (
 
 				<Route path="player2agent/" component={Player2Agent}/>
 				<Route path="player2agent/confirm/" component={Player2AgentConfirmWithdraw}/>
-                <Route path="player2agent/securityBlock/" component={SecurityBlock}/>
+				<Route path="player2agent/securityBlock/" component={SecurityBlock}/>
 				<Route path="player2agent/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={Player2AgentApprovedTicket}/>
 					<Route path="rejected/" component={RejectedTicket}/>

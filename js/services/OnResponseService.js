@@ -48,9 +48,9 @@ class OnResponseService {
 						TransactionService.getPreviousPayAccount(processorID);
 					}
 
-                    if(data.response.isAllowed === "0"){
-                        UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + '/securityBlock/');
-                    }
+					if(data.response.isAllowed === "0"){
+						UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + '/securityBlock/');
+					}
 				}
 				break;
 
