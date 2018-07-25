@@ -1268,8 +1268,11 @@ input:checked + .slider:before{
 }
 
 .crypto-fund-background{
-    background: url("../images/buyCrypto/background.png") 75%;
-    height: 400px;
+    background: url("../images/buyCrypto/background.png") 75% no-repeat;
+    height: 423px;
+    margin-top: -10px;
+    margin-left: 6px;
+    margin-right: 7px;
 }
 
 .crypto-box-content{
@@ -1685,6 +1688,36 @@ input:checked + .slider:before{
     margin-top: 25px;
 }
 
+.content-crypto-img{
+    width: 123px;
+    height: 141px;
+    background-repeat: no-repeat;
+}
+
+.content-crypto-deposit{
+    background-image: url("/images/buyCrypto/boton_deposit.png");
+}
+
+.content-crypto-deposit:hover{
+    background-image: url("/images/buyCrypto/boton_deposit_hover.png");
+}
+
+.content-crypto-buy{
+    background-image: url("/images/buyCrypto/boton_buy.png");
+}
+
+.content-crypto-buy:hover{
+    background-image: url("/images/buyCrypto/boton_buy_hover.png");
+}
+
+.content-crypto-fund{
+    background-image: url("/images/buyCrypto/boton_fund.png");
+}
+
+.content-crypto-fund:hover{
+    background-image: url("/images/buyCrypto/boton_fund_hover.png");
+}
+
 /**
  * Wallet style
  */
@@ -1707,8 +1740,15 @@ input:checked + .slider:before{
     border-radius: 5px 5px 0px 0px;
 }
 
+.wallet-tablinks a {
+    text-decoration: none !important;
+}
+
 .wallet-active {
-    background: #1A335A !important;
+    background: #000 !important;
+}
+
+.wallet-active a {
     color: #FFF !important;
 }
 

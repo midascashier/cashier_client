@@ -30,6 +30,7 @@ let BuyCrypto = React.createClass({
 		coinDirect.message = '';
 		coinDirect.success = "";
 		this.setState({coinDirectData: coinDirect});
+		this.setState({cryptoAmountEstimated: 0});
 
 		return this.parameters();
 	},
@@ -79,7 +80,8 @@ let BuyCrypto = React.createClass({
 	rate(value){
 		let ratedAmount = "" + (value / this.state.coinDirectData.rate);
 		let str = ratedAmount.substr(0, 7);
-		$("#ratedAmount").val(str);
+		this.setState({buyCryptos:{amount: value}});
+		this.setState({cryptoAmountEstimated: str})
 	},
 
 	buyCryptos(e){
@@ -110,7 +112,7 @@ let BuyCrypto = React.createClass({
 		let currentAmount = parseInt(this.state.buyCryptos.amount) || 0;
 		let minAmount = parseInt(this.state.coinDirectData.buyLimits.minAmount);
 		let maxAmount = parseInt(this.state.coinDirectData.buyLimits.maxAmount);
-
+		let cryptoAmountEstimated = this.state.cryptoAmountEstimated;
 		let options = [];
 
 		let selectedCardNumber = '';
@@ -212,17 +214,17 @@ let BuyCrypto = React.createClass({
 											/>
 											<span className="buy-crypto-min">
 												<div>
-												Min:${this.state.coinDirectData.buyLimits.minAmount}
+												Min:${minAmount}
 												</div>
 											</span>
 											<span className="buy-crypto-max">
 												<div>
-												Max:${this.state.coinDirectData.buyLimits.minAmount}
+												Max:${maxAmount}
 												</div>
 											</span>
 
 											{(() =>{
-												if(this.state.startBuy && currentAmount < minAmount){
+												if(currentAmount < minAmount && currentAmount != 0){
 													return (
 														<div className="alert alert-danger buy-crypto-limit-alert" role="alert">
 															<i className="fa fa-thumbs-o-down red"></i>
@@ -230,7 +232,7 @@ let BuyCrypto = React.createClass({
 														</div>
 													);
 												}
-												if(this.state.startBuy && maxAmount < currentAmount){
+												if(maxAmount < currentAmount){
 													return (
 														<div className="alert alert-danger buy-crypto-limit-alert" role="alert">
 															<i className="fa fa-thumbs-o-down red"></i>
@@ -250,7 +252,7 @@ let BuyCrypto = React.createClass({
 										</div>
 										<div className="col-sm-10">
 											<div className="buy-crypto-disabled-input"></div>
-											<input type="text" value="" disabled="disabled" id="ratedAmount"/>
+											<input type="text" value={cryptoAmountEstimated} disabled="disabled" id="ratedAmount"/>
 										</div>
 									</div>
 								</div>

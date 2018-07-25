@@ -15,7 +15,6 @@ let WalletContent = React.createClass({
 	 */
 	getInitialState(){
 		UIService.buyCryptoIsActive();
-		UIService.buyCryptoGetCustomerBalance('BTC');
 		this.state = {buyTransactions: Cashier.WALLET_DEFAULT_TAB}
 
 		return this.refreshLocalState();

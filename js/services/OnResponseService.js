@@ -4,6 +4,7 @@ import {ApplicationService} from './ApplicationService'
 import {TransactionService} from './TransactionService'
 import actions from '../constants/Actions'
 import Cashier from '../constants/Cashier'
+import {UIService} from './UIService'
 
 /**
  * this class received all responses from cashier and trigger and action depends of the response
@@ -35,6 +36,10 @@ class OnResponseService {
 
 			case actions.PROCESS_GET_ADDRESS_RESPONSE:
 				TransactionService.getCryptoAddressResponse(data);
+				break;
+
+			case actions.IS_ACTIVE_BUY_CRYPTO:
+				UIService.buyCryptoGetCustomerBalance('BTC');
 				break;
 
 			case actions.GET_BITCOIN_TRANSACTION_RESPONSE:

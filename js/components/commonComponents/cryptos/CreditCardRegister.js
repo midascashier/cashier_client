@@ -153,7 +153,7 @@ let CreditCardRegister = React.createClass({
 			return true
 		}
 
-		CashierActions.showUserMessage(translate('CARDHOLDER_NAME', 'ERROR'));
+		CashierActions.showUserMessage(translate('BUY_CRYPTO_CARDHOLDER_NAME', 'ERROR'));
 
 		return false;
 	},
@@ -272,8 +272,8 @@ let CreditCardRegister = React.createClass({
 												id="ccName"
 												ref="ccName"
 												validate="isText"
-												placeholder={translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}
-												title={translate('CREDIT_CARD_HOLDER', 'Holder\'s Name')}
+												placeholder={translate('CREDIT_CARD_HOLDER')}
+												title={translate('CREDIT_CARD_HOLDER')}
 												onChange={this.changeValue.bind(null, 'extra3', '', 0)} value={this.state.payAccount.extra3}
 												require
 											/>
@@ -427,7 +427,6 @@ let CreditCardRegister = React.createClass({
 														type="text"
 														placeholder={translate('CREDIT_CARD_ZIP', 'Postal Code')}
 														title={translate('CREDIT_CARD_ZIP', 'Postal Code')}
-														validate={zipValidation}
 														value={this.state.payAccount.zip}
 														onChange={this.changeValue.bind(null, 'zip', '', 0)}
 														require

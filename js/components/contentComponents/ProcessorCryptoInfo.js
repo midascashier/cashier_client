@@ -70,7 +70,6 @@ let ProcessorCryptoInfo = React.createClass({
 	 */
 	getInitialState(){
 		UIService.buyCryptoIsActive();
-		UIService.buyCryptoGetCustomerBalance('BTC');
 		this.setState({hover: ''});
 		return this.refreshLocalState();
 	},
@@ -146,20 +145,17 @@ let ProcessorCryptoInfo = React.createClass({
 		this.setProcessorLimits();
 
 		const buyOption = (
-			<div id="buyOption" onClick={this.loadBuy} onMouseEnter={this.onHover} onMouseLeave={this.onLeave} className="center-block text-center content-crypto-buy">
-				<img src="/images/buyCrypto/boton_buy.png" alt="Buy"></img>
+			<div id="buyOption" onClick={this.loadBuy} onMouseEnter={this.onHover} onMouseLeave={this.onLeave} className="center-block text-center content-crypto-img content-crypto-buy">
 			</div>
 		);
 
 		const fundOption = (
-			<div id="fundOption" onMouseEnter={this.onHover} onMouseLeave={this.onLeave} onClick={this.loadFund} className="center-block text-center content-crypto-fund">
-				<img src="/images/buyCrypto/boton_fund.png" alt="Fund"></img>
+			<div id="fundOption" onMouseEnter={this.onHover} onMouseLeave={this.onLeave} onClick={this.loadFund} className="center-block text-center content-crypto-img content-crypto-fund">
 			</div>
 		);
 
 		const depositOption = (
-			<div id="depositOption" onMouseEnter={this.onHover} onMouseLeave={this.onLeave} onClick={this.startTransaction} className="center-block text-center content-crypto-deposit">
-				<img src="/images/buyCrypto/boton_deposit.png" alt="Deposit"></img>
+			<div id="depositOption" onMouseEnter={this.onHover} onMouseLeave={this.onLeave} onClick={this.startTransaction} className="center-block text-center content-crypto-img content-crypto-deposit">
 			</div>
 		);
 
