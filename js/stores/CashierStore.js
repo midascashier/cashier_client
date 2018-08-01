@@ -292,8 +292,19 @@ let _payAccount = {
  */
 let _payAccounts = [];
 
-let _customerPayAccounts;
+/**
+ * payAccount list
+ *
+ * @type array
+ */
+let _customerPayAccounts = [];
 
+/**
+ * check if payAccount was register
+ *
+ * @type {boolean}
+ *
+ */
 let _addedPayAccountInBitCoin = false;
 
 /**
@@ -1820,13 +1831,14 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					if(data.response){
 						let response = data.response.coinDirectData;
 						_BuyCrypto.success = response.success;
-						if(_BuyCrypto.success == "1"){
+						if(_BuyCrypto.success == "1" && response.coinDirectData){
 							_BuyCrypto.customerBalance = response.balance;
 						}
 						_BuyCrypto.message = response.message;
 					}
 					CashierStore.emitChange();
 					break;
+
 				case actions.BUY_CRYPTOS_RATE:
 					if(data.response){
 						_BuyCrypto.rate = data.response.result;

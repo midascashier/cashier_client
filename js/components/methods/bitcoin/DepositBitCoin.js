@@ -1,5 +1,4 @@
 import React from 'react'
-import {CreditCard} from '../../commonComponents/cryptos/BuyCrypto'
 import {UIService} from '../../../services/UIService'
 import {CashierStore} from '../../../stores/CashierStore'
 import {TransactionService} from '../../../services/TransactionService'
@@ -93,11 +92,21 @@ let DepositBitCoin = React.createClass({
 		})
 	},
 
+	/**
+	 * change amount value
+	 *
+	 * @param event
+	 */
 	changeAmount(event){
 		let amount = event.currentTarget.value;
 		this.props.setAmount(amount);
 	},
 
+	/**
+	 * change promocode value
+	 *
+	 * @param event
+	 */
 	changePromoCode(event){
 		let promo = event.currentTarget.value;
 		this.props.setPromoCode(promo);
@@ -112,6 +121,9 @@ let DepositBitCoin = React.createClass({
 		return this.state.customer.depositProcessors;
 	},
 
+	/**
+	 * redirect to crypto transfer method
+	 */
 	goToCryptoTransfer(){
 		UIService.selectProcessor(830);
 		TransactionService.startTransaction();
@@ -129,6 +141,11 @@ let DepositBitCoin = React.createClass({
 		TransactionService.getCryptoAddress(processorId, this.props.amount, this.props.promoCode);
 	},
 
+	/**
+	 * copy button
+	 *
+	 * @param e
+	 */
 	copyText(e){
 		let button = e.target;
 		let parent = button.parentElement;
@@ -156,7 +173,10 @@ let DepositBitCoin = React.createClass({
 
 	interval: null,
 
-	startCrono(){
+	/**
+	 * start chronometer (15 min)
+	 */
+	startChronometer(){
 		if(!this.cronoStarted){
 			this.cronoStarted = true;
 			let initialDate = new Date();
@@ -176,9 +196,16 @@ let DepositBitCoin = React.createClass({
 		}
 	},
 
+	/**
+	 * init bootstrap tooltip
+	 */
+	tooltipInit() {
+		$('[data-toggle="tooltip"]').tooltip();
+	},
+
 	render(){
 
-		$('[data-toggle="tooltip"]').tooltip();
+		this.tooltipInit();
 
 		let transaction = CashierStore.getLastTransactionResponse();
 		let cryptoInfo = false;
@@ -194,7 +221,7 @@ let DepositBitCoin = React.createClass({
 
 		if(transaction.details && transaction.details.bitCoinTransaction){
 			cryptoInfo = transaction.details.bitCoinTransaction;
-			this.startCrono();
+			this.startChronometer();
 		}
 
 		let btcAmount = this.props.btcAmount;

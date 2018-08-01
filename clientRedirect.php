@@ -22,7 +22,6 @@ class ClientRedirect{
     $cashierParams["format"] = "json";
     $cashierParams["f"] = "authCustomer";
     $cashierParams["platform"] = "desktop";
-    $cashierParams["XDEBUG_SESSION_START"] = "ECLIPSE_DBGP";
     $cashierParams["bd"] = $_REQUEST["bd"];
     $cashierParams["lang"] = $_REQUEST['lang'];
     $cashierParams["ioBB"] = $_REQUEST["ioBB"];

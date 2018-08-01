@@ -904,8 +904,6 @@ class transactionService {
 		if(CashierStore.getBuyCryptoUseBalance()){
 			CashierStore.setBuyCryptoUseBalance(false);
 			this.buyCryptoDepositWithBalance();
-		}else{
-			console.log('no voy a hacer nada');
 		}
 	};
 

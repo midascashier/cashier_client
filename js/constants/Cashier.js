@@ -75,7 +75,6 @@ export default {
 	REQUEST_DOCS_FILE_SAVE: '/cashierServices/DocsFileSave.class.php',
 
 	CRYPTO_CURRENCY_BTC: 'BTC',
-	REQUEST_DOCS_FILE_SAVE: '/cashierServices/DocsFileSave.class.php',
 	DEFAULT_CURRENCY: 'USD',
 
 	WALLET_DEFAULT_TAB: 'purchases',
