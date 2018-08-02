@@ -65,7 +65,7 @@ let CompanyInfo = React.createClass({
 
 								{(() =>{
 									if(isMobile && this.props.application.redirectSite){
-										return <a href={this.props.application.redirectSite}>  Back</a>;
+										return <a href={this.props.application.redirectSite}> {translate('PROCESSING_GO_BACK', 'Go Back')} </a>;
 									}
 								})()}
 							</div>

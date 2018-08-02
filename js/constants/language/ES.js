@@ -119,6 +119,7 @@ let _langTags = {
 	PROCESSING_FEE_TYPE_OPTIONS: "Pagar la carga con",
 	PROCESSING_FEE_ENOUGH_BALANCE: "No tiene saldo suficiente para cubrir las tarifas requeridas",
 	PROCESSING_BUTTON_EDIT_CARD: "Editar tarjeta",
+	PROCESSING_GO_BACK: "Regresar",
 	//Validations
 	PROCESSING_VALIDATION_DOB: "Por favor, verifique su fecha de nacimiento!",
 	PROCESSING_VALIDATION_DOB_SSN: "Por favor, verifique su fecha de nacimiento o número de seguro social (SSN)!",
