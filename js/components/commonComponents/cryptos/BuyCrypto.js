@@ -139,10 +139,10 @@ let BuyCrypto = React.createClass({
 				}else if(!selected){
 					options.push(<option selected="selected" key={payAccountId} value={payAccountId}>{cardNumber}</option>);
 					selectedCardNumber = card.Last4;
-					selected = true;
 				}else{
 					options.push(<option key={payAccountId} value={payAccountId}>{cardNumber}</option>);
 				}
+				selected = true;
 			}
 			options.push(<option key={"0"} value={"0"}>{translate('BUY_CRYPTOS_SELECTCC_ADD_NEW')}</option>);
 		}
