@@ -10,6 +10,8 @@ import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 
 let CryptoScreen = React.createClass({
 
+	disabledMethod : true,
+
 	/**
 	 * React function to set component initial state
 	 */
@@ -255,6 +257,39 @@ let CryptoScreen = React.createClass({
 	},
 
 	render(){
+		const message = (
+			<span className='messageAlert'>PLEASE NOTE: This payment solution is temporary disable due to an improvement we are performing, it will be available at 2pm EST.</span>
+		);
+
+		const askInfo = (
+            <AskInfo
+                getName={this.getName}
+                getSymbol={this.getSymbol}
+                rate={this.state.info.rate}
+                limits={this.state.info.limits}
+                setPromoCode={this.setPromoCode}
+                loadingLimits={this.loadingLimits}
+                setLimits={this.setCurrencyLimits}
+                promoCode={this.state.info.promoCode}
+                setCryptoAmount={this.setCryptoAmount}
+                getCurrencyRate={this.getCurrencyRate}
+                loadLimits={this.state.info.loadLimits}
+                setCryptoAddress={this.setCryptoAddress}
+                setAmountRateBTC={this.setAmountRateBTC}
+                limitsCheck={this.state.info.limitsCheck}
+                setCustomerAmount={this.setCustomerAmount}
+                cryptoAmount={this.state.info.cryptoAmount}
+                cryptoAddress={this.state.info.cryptoAddress}
+                customerAmount={this.state.info.customerAmount}
+                conversionRate={this.state.info.conversionRate}
+                amountToBTCCalculate={this.amountToBTCCalculate}
+                btcToAmountCalculate={this.btcToAmountCalculate}
+                setCryptoCurrencyISO={this.setCryptoCurrencyISO}
+                setCryptoCurrencyName={this.setCryptoCurrencyName}
+                cryptoAddressError={this.state.info.cryptoAddressError}
+            />
+		);
+
 		return (
 			<div id="crypto">
 				<div className="col-sm-6">
@@ -264,34 +299,7 @@ let CryptoScreen = React.createClass({
 							return <LoadingSpinner/>;
 						}
 
-						return(
-							<AskInfo
-								getName={this.getName}
-								getSymbol={this.getSymbol}
-								rate={this.state.info.rate}
-								limits={this.state.info.limits}
-								setPromoCode={this.setPromoCode}
-								loadingLimits={this.loadingLimits}
-								setLimits={this.setCurrencyLimits}
-								promoCode={this.state.info.promoCode}
-								setCryptoAmount={this.setCryptoAmount}
-								getCurrencyRate={this.getCurrencyRate}
-								loadLimits={this.state.info.loadLimits}
-								setCryptoAddress={this.setCryptoAddress}
-								setAmountRateBTC={this.setAmountRateBTC}
-								limitsCheck={this.state.info.limitsCheck}
-								setCustomerAmount={this.setCustomerAmount}
-								cryptoAmount={this.state.info.cryptoAmount}
-								cryptoAddress={this.state.info.cryptoAddress}
-								customerAmount={this.state.info.customerAmount}
-								conversionRate={this.state.info.conversionRate}
-								amountToBTCCalculate={this.amountToBTCCalculate}
-								btcToAmountCalculate={this.btcToAmountCalculate}
-								setCryptoCurrencyISO={this.setCryptoCurrencyISO}
-								setCryptoCurrencyName={this.setCryptoCurrencyName}
-								cryptoAddressError={this.state.info.cryptoAddressError}
-							/>
-						)
+						return (this.disabledMethod && !UIService.getIsWithDraw()) ? message : askInfo;
 					})()}
 				</div>
 

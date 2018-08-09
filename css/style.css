@@ -1191,6 +1191,11 @@ input:checked + .slider:before{
     border: 1px solid #b5b5b5;
 }
 
+.messageAlert{
+    font-size: 23px;
+    font-family: Oswald-Medium;
+}
+
 .prettyLoader,
 .prettyLoader:before,
 .prettyLoader:after {
