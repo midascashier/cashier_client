@@ -1018,7 +1018,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
                     _company.remoteCompany = data.remoteCompany;
 
                     ReactGA.set({'dimension1': _company.remoteCompany});
-                    ReactGA.set({'dimension2': data.newbie ? 'Newbie' : 'Returning'});
+                    ReactGA.set({'dimension2': (parseInt(data.newbie) == 1) ? 'Newbie' : 'Returning'});
                     ReactGA.set({'dimension3': data.vip});
                     ReactGA.set({'dimension4': data.country});
 
