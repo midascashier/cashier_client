@@ -16,8 +16,11 @@
   <body>
     <div id="app"></div>
     <script>
+      let vip = "<?php echo $_REQUEST['vip'] ?>";
       let sid = "<?php echo $_REQUEST['sid'] ?>";
       let tuid = "<?php echo $_REQUEST['tuid'] ?>";
+      let newbie = "<?php echo $_REQUEST['newbie'] ?>";
+      let country = "<?php echo $_REQUEST['country'] ?>";
       let redirectSite = "<?php echo $_REQUEST['redirectSite'] ?>";
       let remoteAddr = "<?php echo $_REQUEST['remoteAddr'] ?>";
       let remoteCompany = "<?php $_REQUEST['remoteCompany'] ?>";
@@ -26,9 +29,12 @@
       let loginInfo = <?php echo((count($_REQUEST)) > 0 ? json_encode($_REQUEST) : "null") ?>;
 
       let application = {
+        vip: vip,
         sid: sid,
         tuid: tuid,
         lang: "en",
+        newbie: newbie,
+        country: country,
         platform: 'desktop',
         redirectSite: redirectSite,
         remoteAddr: remoteAddr,

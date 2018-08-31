@@ -1012,23 +1012,23 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		try{
 			switch(action){
 				case actions.LOGIN_RESPONSE:
-					_UI.currentView = data.option;
-					_application.sid = data.sid;
-					_company.companyId = data.companyId;
-					_company.remoteCompany = data.remoteCompany;
+                    _application.sid = data.sid;
+                    _UI.currentView = data.option;
+                    _company.companyId = data.companyId;
+                    _company.remoteCompany = data.remoteCompany;
 
-					ReactGA.set({'dimension1' : _company.remoteCompany});
-          ReactGA.set({'dimension2' : data.isNewbie?'Newbie':'Returning'});
-          ReactGA.set({'dimension3' : data.vip});
-          ReactGA.set({'dimension4' : data.country});
-					if(_company.remoteCompany == 'AmericasCardroom'){
-						if (parseInt(data.isNewbie) == 1){
-              $('head').append("<!-- Hotjar Tracking Code for Cashier ACR --><script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:998973,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
-						}
-						else {
-              $('head').append("<!-- Hotjar Tracking Code for Cashier ACR --><script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:592695,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
-            }
-					}
+                    ReactGA.set({'dimension1': _company.remoteCompany});
+                    ReactGA.set({'dimension2': data.newbie ? 'Newbie' : 'Returning'});
+                    ReactGA.set({'dimension3': data.vip});
+                    ReactGA.set({'dimension4': data.country});
+
+                    if(_company.remoteCompany == 'AmericasCardroom'){
+                        if(parseInt(data.newbie) == 1){
+                            $('head').append("<!-- Hotjar Tracking Code for Cashier ACR --><script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:998973,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
+                        }else{
+                            $('head').append("<!-- Hotjar Tracking Code for Cashier ACR --><script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:592695,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
+                        }
+                    }
 
 					if(typeof Storage !== "undefined"){
 						let application = JSON.parse(localStorage.application);
