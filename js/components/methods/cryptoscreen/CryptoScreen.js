@@ -10,7 +10,7 @@ import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 
 let CryptoScreen = React.createClass({
 
-	disabledMethod : true,
+	disabledMethod : false,
 
 	/**
 	 * React function to set component initial state
@@ -299,7 +299,7 @@ let CryptoScreen = React.createClass({
 							return <LoadingSpinner/>;
 						}
 
-						return (this.disabledMethod && !UIService.getIsWithDraw()) ? message : askInfo;
+						return (this.disabledMethod) ? message : askInfo;
 					})()}
 				</div>
 

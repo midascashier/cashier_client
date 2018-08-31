@@ -3,7 +3,7 @@
  */
 let rabbitC = new Map();
 
-rabbitC.set("host", "10.0.223.144");
+rabbitC.set("host", "10.0.223.148");
 rabbitC.set("port", "15674");
 rabbitC.set("user", "midas");
 rabbitC.set("pass", "midas");
