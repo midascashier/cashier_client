@@ -1013,31 +1013,45 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 			switch(action){
 				case actions.LOGIN_RESPONSE:
                     _application.sid = data.sid;
+                    _application.vip = data.vip;
                     _UI.currentView = data.option;
+                    _application.newbie = data.newbie;
+                    _application.country = data.country;
                     _company.companyId = data.companyId;
                     _company.remoteCompany = data.remoteCompany;
 
+                    if(typeof Storage !== "undefined"){
+                        if(localStorage){
+                        	let company = JSON.parse(localStorage.company);
+                            let application = JSON.parse(localStorage.application);
+
+                            _application.vip = application.vip;
+                            _application.sid = application.sid;
+                            _application.newbie = application.newbie;
+                            _application.country = application.country;
+                            _application.referrer = application.referrer;
+                            _application.remoteAddr = application.remoteAddr;
+                            _application.remoteHost = application.remoteHost;
+                            _application.redirectSite = application.redirectSite;
+                            _application.xForwardedFor = application.xForwardedFor;
+
+                            _company.companyId = company.companyId;
+                            _company.remoteCompany = company.remoteCompany;
+                        }
+                    }
+
                     ReactGA.set({'dimension1': _company.remoteCompany});
-                    ReactGA.set({'dimension2': data.newbie ? 'Newbie' : 'Returning'});
-                    ReactGA.set({'dimension3': data.vip});
-                    ReactGA.set({'dimension4': data.country});
+                    ReactGA.set({'dimension2': parseInt(_application.newbie) ? 'Newbie' : 'Returning'});
+                    ReactGA.set({'dimension3': _application.vip});
+                    ReactGA.set({'dimension4': _application.country});
 
                     if(_company.remoteCompany == 'AmericasCardroom'){
-                        if(parseInt(data.newbie) == 1){
+                        if(parseInt(_application.newbie) == 1){
                             $('head').append("<!-- Hotjar Tracking Code for Cashier ACR --><script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:998973,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
                         }else{
                             $('head').append("<!-- Hotjar Tracking Code for Cashier ACR --><script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:592695,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
                         }
                     }
-
-					if(typeof Storage !== "undefined"){
-						let application = JSON.parse(localStorage.application);
-						_application.referrer = application.referrer;
-						_application.remoteAddr = application.remoteAddr;
-						_application.remoteHost = application.remoteHost;
-						_application.xForwardedFor = application.xForwardedFor;
-						_application.redirectSite = application.redirectSite;
-					}
 
 					CashierStore.storeData("application", _application);
 					CashierStore.storeData("ui", _UI);
