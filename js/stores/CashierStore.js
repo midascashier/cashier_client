@@ -1026,7 +1026,6 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
                             let application = JSON.parse(localStorage.application);
 
                             _application.vip = application.vip;
-                            _application.sid = application.sid;
                             _application.newbie = application.newbie;
                             _application.country = application.country;
                             _application.referrer = application.referrer;
@@ -1034,8 +1033,9 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
                             _application.remoteHost = application.remoteHost;
                             _application.redirectSite = application.redirectSite;
                             _application.xForwardedFor = application.xForwardedFor;
+                            _application.sid = (data.sid) ? data.sid : application.sid;
 
-                            _company.companyId = company.companyId;
+                            _company.companyId = coDOCS_FILES_GET_CUSTOMER_FORMS_INFORMATION_RESPONSEmpany.companyId;
                             _company.remoteCompany = company.remoteCompany;
                         }
                     }
