@@ -1035,7 +1035,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
                             _application.xForwardedFor = application.xForwardedFor;
                             _application.sid = (data.sid) ? data.sid : application.sid;
 
-                            _company.companyId = coDOCS_FILES_GET_CUSTOMER_FORMS_INFORMATION_RESPONSEmpany.companyId;
+                            _company.companyId = company.companyId;
                             _company.remoteCompany = company.remoteCompany;
                         }
                     }
