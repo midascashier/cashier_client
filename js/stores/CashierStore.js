@@ -1025,18 +1025,17 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
                         	let company = JSON.parse(localStorage.company);
                             let application = JSON.parse(localStorage.application);
 
-                            _application.vip = application.vip;
-                            _application.newbie = application.newbie;
-                            _application.country = application.country;
                             _application.referrer = application.referrer;
                             _application.remoteAddr = application.remoteAddr;
                             _application.remoteHost = application.remoteHost;
                             _application.redirectSite = application.redirectSite;
                             _application.xForwardedFor = application.xForwardedFor;
-                            _application.sid = (data.sid) ? data.sid : application.sid;
 
-                            _company.companyId = company.companyId;
-                            _company.remoteCompany = company.remoteCompany;
+                            _application.sid = (data.sid) ? data.sid : application.sid;
+                            _application.vip = (data.vip) ? data.vip : application.vip;
+                            _application.newbie = (data.newbie) ? data.newbie : application.newbie;
+                            _company.companyId = (data.companyId) ? data.companyId : company.companyId;
+                            _company.remoteCompany = (data.remoteCompany) ? data.remoteCompany : company.remoteCompany;
                         }
                     }
 
