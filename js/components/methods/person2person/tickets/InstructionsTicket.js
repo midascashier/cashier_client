@@ -143,10 +143,7 @@ let P2PTicketPending = React.createClass({
 								if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
 									return (
 										<ul>
-											<li>{translate('P2P_AGENCY_NAME', 'Agency_Name')}: Easypay - Phillgus</li>
-											<li>
-												{translate('P2P_ADDRESS', 'ADDRESS') + translate('P2P_ADDRESS_LOCATION', '')}
-											</li>
+											<li>{translate('P2P_AGENCY_NAME', 'Agency Name')}: {(transactionDetails.Agency) ? transactionDetails.Agency : 'EasyPay-Phillgus'}</li>
 											<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
 											<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
 											<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
