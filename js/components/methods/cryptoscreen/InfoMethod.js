@@ -90,9 +90,7 @@ let InfoMethod = React.createClass({
 
 		let isWithDraw = UIService.getIsWithDraw();
 		if(isWithDraw){
-			TransactionService.registerPayAccount({account: this.props.bitcoinAddress});
-			//@todo: replace with promise
-			UIService.confirmTransaction();
+			UIService.confirmTransaction(cryptoAddress);
 		}else{
 
 			let dynamicParams = {

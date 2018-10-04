@@ -70,12 +70,29 @@ class UiService {
 		this.changeUIState(route);
 	}
 
-	/**
+    /**
 	 * Redirects to confirm route
-	 */
-	confirmTransaction(){
-		CashierActions.setCurrentStep("confirm");
-		UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + "/confirm/");
+	 *
+     * @param account
+     */
+	confirmTransaction(account){
+	    if(account){
+            TransactionService.registerPayAccountAsync({account: account}).then((response)=>{
+                if(response.state == 'ok'){
+                    if(parseInt(response.response.isAllowed)){
+                        CashierActions.setCurrentStep("confirm");
+                        UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + "/confirm/");
+                    }else{
+                        UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + '/securityBlock/');
+                    }
+                }else{
+                    CashierActions.showUserMessage(response.userMessage);
+                }
+            });
+        }else{
+            CashierActions.setCurrentStep("confirm");
+            UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + "/confirm/");
+        }
 	}
 
 	/**
