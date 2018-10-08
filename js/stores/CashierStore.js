@@ -610,6 +610,9 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		}
 		if(_application.sid){
 			_application.referrer = document.URL || location.href;
+			if(!_application.country){
+				_application.country = _customer.personalInformation.country;
+			}
 		}
 
 		return _application;

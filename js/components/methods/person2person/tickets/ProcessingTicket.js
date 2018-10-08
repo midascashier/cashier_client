@@ -8,7 +8,7 @@ let P2PTicketProcessing = React.createClass({
 
 	/**
 	 * initialize the state
-	 * 
+	 *
 	 * @returns {*|{transaction}|{transaction: (*|{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array})}}
 	 */
 	getInitialState(){
@@ -99,49 +99,41 @@ let P2PTicketProcessing = React.createClass({
 												<div className="col-sm-12">
 													<div className="title">{translate('P2P_INSTRUCTIONS_RECEIVER', "Receiver's Information")}</div>
 													<div className="infoCol scroll">
-														<div className="row">
-															<p><a onClick={this.setFirstStep}>{translate('P2P_INSTRUCTIONS_GET_RECEIVER', "Get New Receiver")}</a></p>
-														</div>
+														<p><a onClick={this.setFirstStep}>{translate('P2P_INSTRUCTIONS_GET_RECEIVER', "Get New Receiver")}</a></p>
 
-														<div className="row">
-															{(() =>{
-																if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
-																	return (
-																		<ul>
-																			<li>{translate('P2P_AGENCY_NAME', 'Agency_Name')}: Easypay - Phillgus</li>
-																			<li>{translate('P2P_ADDRESS', 'ADDRESS')}: 150 mts Norte de la farmacia La Bomba, frente
-																				al
-																				hostel Cataluña, San Pedro de Montes de Oca
-																			</li>
-																			<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
-																			<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
-																			<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
-																		</ul>
-																	)
-																}
-
-																return(
+														{(() =>{
+															if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
+																return (
 																	<ul>
+																		<li>{translate('P2P_AGENCY_NAME', 'Agency Name')}: {(transactionDetails.Agency) ? transactionDetails.Agency : 'EasyPay-Phillgus'}</li>
 																		<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
 																		<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
 																		<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
 																	</ul>
 																)
-															})()}
-														</div>
+															}
+
+															return (
+																<ul>
+																	<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
+																	<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
+																	<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
+																</ul>
+															)
+														})()}
+
+														{(() =>{
+															if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
+																return <p>
+																	<strong>{translate('P2P_MAKE_PAYMENT', 'Make your payment in one of the following establishments')}</strong><br />
+																	<img src="/images/ria.jpg"/>
+																</p>
+															}
+														})()}
 													</div>
 
-													{(() =>{
-														if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
-															return <p>
-																<strong>{translate('P2P_MAKE_PAYMENT', 'Make your payment in one of the following establishments')}</strong><br />
-																<img src="/images/ria.jpg"/>
-															</p>
-														}
-													})()}
-
 													<p dangerouslySetInnerHTML={{__html: importantContent}}/>
-													<ul dangeroudlySetInnerHTML={{__html: makeContent}} />
+													<ul dangeroudlySetInnerHTML={{__html: makeContent}}/>
 												</div>
 											</div>
 										</div>

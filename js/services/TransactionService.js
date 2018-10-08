@@ -678,10 +678,13 @@ class transactionService{
 			};
 
 		}else{
+			//select processor
+			UIService.selectProcessor(p2pTransaction.caProcessor_Id_Root);
 			let Customer = CashierStore.getCustomer();
 			Customer.depositProcessors.map((processor) =>{
 				if(processor.caProcessor_Id == p2pTransaction.caProcessor_Id_Root){
 					processorName = processor.Name;
+					return processor;
 				}
 			});
 			this.setAmount(p2pTransaction.CurrencyAmount);
