@@ -896,8 +896,8 @@ class transactionService{
 		};
 
 		let application = CashierStore.getApplication();
-		let rabbitRequest = Object.assign({}, data, application, payAccount, payAccountInfo);
-		return ConnectorServices.makeBackendRequestAsync(rabbitRequest);
+		let request = Object.assign({}, data, application, payAccount, payAccountInfo);
+		return ConnectorServices.makeBackendRequestAsync(request);
 	};
 
 	/**

@@ -63,9 +63,7 @@ let InfoMethod = React.createClass({
 		TransactionService.setBitcoinAddress(this.props.bitcoinAddress);
 		TransactionService.setFeeAmount(this.props.feeCashValue);
 		if(isWithDraw){
-			TransactionService.registerPayAccount({account: this.props.bitcoinAddress});
-			//@todo: replace with promise
-			UIService.confirmTransaction();
+			UIService.confirmTransaction(this.props.bitcoinAddress);
 		}else{
 			//process the deposit
 			let customer = UIService.getCustomerInformation();
