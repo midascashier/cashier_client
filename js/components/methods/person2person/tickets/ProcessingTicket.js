@@ -130,10 +130,11 @@ let P2PTicketProcessing = React.createClass({
 																</p>
 															}
 														})()}
+
+														<p dangerouslySetInnerHTML={{__html: importantContent}}/>
+														<ul dangeroudlySetInnerHTML={{__html: makeContent}}/>
 													</div>
 
-													<p dangerouslySetInnerHTML={{__html: importantContent}}/>
-													<ul dangeroudlySetInnerHTML={{__html: makeContent}}/>
 												</div>
 											</div>
 										</div>

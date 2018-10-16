@@ -1,8 +1,7 @@
 // English Version, also applied for every other language than spanish
 function chat(){
 	//Live Person
-	//$("img[class*='LPMimage']").trigger('click');
-	window.open('https://lz.livepokersupport.com/chat.php?v=2&hcgs=MQ__&nct=MQ__&hfk=MQ__','','width=400,height=600,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes');
+	$("img[class*='LPMimage']").trigger('click');
 }
 
 function capitalize(string, a){
