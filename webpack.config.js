@@ -9,7 +9,7 @@ module.exports = {
 
 	output: {
 		// If in production mode we put the files into the dist folder instead
-		path: process.env.NODE_ENV === 'production' ? './dist/' : './build/',
+		path: process.env.NODE_ENV === 'production' ? './release/' : './build/',
 		filename: process.env.NODE_ENV === 'production' ? 'cashier_client-' + new Date().getTime() + '.min.js' : 'bundle.js'
 	},
 
