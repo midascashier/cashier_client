@@ -568,6 +568,12 @@ div[class*="col-"] > div[class*="col-"]:before {
     margin: 0 !important;
 }
 
+#extraInfo{
+  width: 95%;
+  float: left;
+  margin: 0 !important;
+}
+
 #helpAddress{
     width: 2%;
     float: left;
