@@ -704,9 +704,11 @@ class UiService {
 	 */
 	loadCryptoCurrencies(){
 		let company = this.getCompanyInformation();
+		let isWithdraw = CashierStore.getIsWithdraw();
 		let params = {
 			f: 'getCoins',
-			companyId: company.companyId
+			companyId: company.companyId,
+			isWithdraw: isWithdraw
 		};
 
 		ConnectorServices.makeCashierRequest(actions.GET_CRYPTO_CURRENCIES_RESPONSE, params);
