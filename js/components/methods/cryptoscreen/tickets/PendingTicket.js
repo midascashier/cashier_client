@@ -26,6 +26,8 @@ let CryptoScreenTicketPending = React.createClass({
 		let cryptoName = "Loading...";
 		let cryptoAmount = "Loading...";
 		let CryptoCurrencyISO = "Loading...";
+		let extraInfo = null;
+	  let extraInfoName = null;
 
 		let transaction = UIService.getLastTransactionResponse();
 		if(transaction && transaction.details && transaction.details.cryptoTransaction){
@@ -33,6 +35,8 @@ let CryptoScreenTicketPending = React.createClass({
 			cryptoName = transaction.details.cryptoTransaction.CurrencyName;
 			cryptoAmount = transaction.details.cryptoTransaction.CurrencyAmount;
 			CryptoCurrencyISO = transaction.details.cryptoTransaction.CurrencyCode;
+			extraInfo = transaction.details.cryptoTransaction.ExtraInfo;
+			extraInfoName = this.getExtraInfoName(CryptoCurrencyISO);
 		}else{
 			if(transaction.transactionId){
 				TransactionService.getCryptoTransaction(transaction.transactionId);
@@ -43,7 +47,9 @@ let CryptoScreenTicketPending = React.createClass({
 			address : address,
 			cryptoName : cryptoName,
 			cryptoAmount : cryptoAmount,
-			CryptoCurrencyISO : CryptoCurrencyISO
+			CryptoCurrencyISO : CryptoCurrencyISO,
+			extraInfo : extraInfo,
+			extraInfoName : extraInfoName
 		}
 	},
 
@@ -57,16 +63,36 @@ let CryptoScreenTicketPending = React.createClass({
 	},
 
 	/**
-	 * copy to clipboard the Crypto Address Address
+	 * copy to clipboard the Crypto Address or the extra info
 	 */
-	copyToClipboard() {
-		let address = this.state.address;
+	copyToClipboard: function(action) {
 		let clipBoard = document.createElement("input");
-		clipBoard.setAttribute("value", address);
-		document.body.appendChild(clipBoard);
-		clipBoard.select();
-		document.execCommand("copy");
-		document.body.removeChild(clipBoard);
+		if(action==1){
+			let address = this.state.address;
+			clipBoard.setAttribute("value", address);
+		}else{
+			let extraInfo = this.state.extraInfo;
+			clipBoard.setAttribute("value", extraInfo);
+		}
+			document.body.appendChild(clipBoard);
+			clipBoard.select();
+			document.execCommand("copy");
+			document.body.removeChild(clipBoard);
+	},
+
+	/*
+	 * Returns the extra info name label of the crypto
+	 */
+	getExtraInfoName(currencyCode){
+		let cryptoCurrrencies = CashierStore.getCryptoCurrencies();
+		let cryptoCurrenciesAvailable = cryptoCurrrencies.available;
+
+		let cryptoCurrency = cryptoCurrenciesAvailable.filter(cryptoCurrency => (cryptoCurrency.symbol).toUpperCase() == currencyCode.toUpperCase());
+		if(cryptoCurrency.length > 0){
+			return (cryptoCurrency[0]).extraInfoName;
+		}else{
+			return null;
+		}
 	},
 
 	render(){
@@ -74,6 +100,8 @@ let CryptoScreenTicketPending = React.createClass({
 		let cryptoAmount = this.state.cryptoAmount;
 		let cryptoSymbol = this.state.CryptoCurrencyISO;
 		let cryptoName = UIService.getCurrentCryptoName();
+		let extraInfo = this.state.extraInfo;
+		let extraInfoName = this.state.extraInfoName;
 		let amount = translate('CRYPTO_INSTRUCTIONS_AMOUNT', 'Send crypto Amount from your wallet', { cryptoAmount: cryptoAmount, cryptoCurrency : cryptoName });
 		let cryptoInstructions = translate('CRYPTO_INSTRUCTIONS', 'Now send your crypto currency to us.', { cryptoCurrency : cryptoName });
 		let addressInstructions = translate('CRYPTO_INSTRUCTIONS_ADDRESS', 'Send the crypto currency to the following address', { cryptoCurrency : cryptoName });
@@ -128,12 +156,37 @@ let CryptoScreenTicketPending = React.createClass({
 																	<input type="text" className="form-control" id="cryptoAddress" value={address} readOnly/>
 																</div>
 																<div className="col-sm-12 mod-center">
-																	<button type='button' onClick={this.copyToClipboard} disabled={!address} className='btn btn-green'>
+																	<button type='button' onClick={() => this.copyToClipboard(1)} disabled={!address} className='btn btn-green'>
 																		{translate('PROCESSING_BUTTON_COPY', 'Copy')}
 																	</button>
 																</div>
 															</div>
 														</div>
+													</div>
+
+													<div className="infoCol">
+														{(() =>{
+															if(extraInfo){
+																return (
+																	<div>
+																		<p>{extraInfoName}</p>
+
+																		<div className="row">
+																			<div id="extraInfo" className="form-group">
+																				<div className="col-sm-12">
+																					<input type="text" className="form-control" id="extraInfo" value={extraInfo} readOnly/>
+																				</div>
+																				<div className="col-sm-12 mod-center">
+																					<button type='button' onClick={() => this.copyToClipboard(2)} disabled={!extraInfo} className='btn btn-green' id='copyButtonExtraAddress'>
+																						{translate('PROCESSING_BUTTON_COPY', 'Copy')}
+																					</button>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																)
+															}
+														})()}
 													</div>
 												</div>
 											</div>
