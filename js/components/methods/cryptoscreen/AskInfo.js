@@ -37,7 +37,7 @@ let AskInfo = React.createClass({
 	cryptoScreen: {
 		currencyLimits: '',
 		processorLimits: '',
-		imgPath: '/htmlTemplates/mainTemplate/common/img/coins/{symbol}.png'
+		imgPath: '/images/coins/{symbol}.png'
 	},
 
 	/**
@@ -149,7 +149,7 @@ let AskInfo = React.createClass({
 	 */
 	currencyAvailableContent(currency){
 		let id = currency.name.toLowerCase().split(' ').join('');
-		let path = Cashier.REQUEST_CLIENT_CONTENT + this.cryptoScreen.imgPath.replace('{symbol}', currency.symbol);
+		let path = this.cryptoScreen.imgPath.replace('{symbol}', currency.symbol);
 
 		return(
 			<div id={id} className={'cryptoTransferCurrency'} onClick={this.currencyActions.bind(this)}>
@@ -169,7 +169,7 @@ let AskInfo = React.createClass({
 	 * @returns {XML}
 	 */
 	currencyUnavailableContent(currency){
-		let path = Cashier.REQUEST_CLIENT_CONTENT + this.cryptoScreen.imgPath.replace('{symbol}', currency.symbol);
+		let path = this.cryptoScreen.imgPath.replace('{symbol}', currency.symbol);
 
 		return(
 			<div className={'cryptoTransferCurrency unavailableCurrency'}>

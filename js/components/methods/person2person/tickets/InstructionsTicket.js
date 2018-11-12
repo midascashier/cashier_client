@@ -147,6 +147,8 @@ let P2PTicketPending = React.createClass({
 											<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
 											<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
 											<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
+											<li><strong className="red">{translate('P2P_INSTRUCTION_ONLY_USD')}</strong></li>
+											<li>{translate('P2P_INSTRUCTION_NEXT_HOURS')}</li>
 										</ul>
 									)
 								}
@@ -156,6 +158,7 @@ let P2PTicketPending = React.createClass({
 										<li>{translate('P2P_NAME', 'Name')}: {transactionDetails.Name}</li>
 										<li>{translate('P2P_COUNTRY', 'Country')}: {transactionDetails.Country}</li>
 										<li>{translate('P2P_CITY', 'City')}: {transactionDetails.State}</li>
+										<li>{translate('P2P_INSTRUCTION_NEXT_HOURS')}</li>
 									</ul>
 								)
 							})()}
@@ -169,14 +172,6 @@ let P2PTicketPending = React.createClass({
 								}
 							})()}
 
-							<p className="subtitle">
-								<em>{translate('P2P_INSTRUCTION_REJECT')}</em>
-							</p>
-							<ul>
-								<li>{translate('P2P_INSTRUCTION_NEXT_HOURS')}</li>
-								<li>{translate('P2P_INSTRUCTION_MIN_DEPOSIT')}</li>
-								<li>{translate('P2P_INSTRUCTION_ONLY_USD')}</li>
-							</ul>
 						</div>
 					</div>
 				</div>

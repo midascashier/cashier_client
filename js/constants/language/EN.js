@@ -222,7 +222,7 @@ let _langTags = {
 	P2P_INSTRUCTION_ONLY_USD: "Your transaction must be sent in USD and received in USD.",
 	P2P_IMPORTANCE_NOTICE: "<strong>Make your payment</strong><strong>Important Notice: Not following the instructions below will result in a rejected transaction details.</strong>",
 	P2P_INSTRUCTIONS_CORRECT_ADDRESS: "Ensure your address is correct. If you need to change your address, you can change it in the client. Then you may request your Money Transfer withdraw to the new address.",
-	P2P_INSTRUCTIONS_ONLY_VALID: "<li>This receiver's information is only valid for the next 48 hours.</li> <li>The minimum deposit is $50.00, and the maximum is $400.00</li> <li>Your transaction must be sent in USD and received in USD.</li>",
+	P2P_INSTRUCTIONS_ONLY_VALID: "<li><strong>Your transaction must be sent in USD and received in USD</strong>.</li><li>This receiver's information is only valid for the next 48 hours.</li>",
 	PENDING_MTCN: "Pending Control Numbers",
 	PENDING_MTCN_SENDER: "Sender",
 	PENDING_MTCN_RECEIVER: "Receiver",
