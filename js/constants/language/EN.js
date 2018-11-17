@@ -429,7 +429,9 @@ let _langTags = {
 	DOCS_FILE_TAB_VERIFICATIONREQUIRED : "Additional Information",
 
     SECURITY_BLOCK_TITTLE : "Security Block",
-	SECURITY_BLOCK_MESSAGE : "This payment method is currently associated to another account. To help you fix this, please contact customer service."
+	SECURITY_BLOCK_MESSAGE : "This payment method is currently associated to another account. To help you fix this, please contact customer service.",
+
+	CC_99CENTS__DEPOSIT_SUCCESSFUL: "<div class='title'>Your {currencyAmount} deposit was successful.</div><p>This charge will show up on your statement as <strong>{descriptor}</strong>.</p><p>Your balance is now {currencyFormat}</p><p>An email has been sent to {email} with the transaction details.</p>"
 };
 
 export function EN(){

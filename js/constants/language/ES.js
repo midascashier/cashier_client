@@ -425,7 +425,9 @@ let _langTags = {
 	AGENT_TRANSFER_ACCOUNT_TO_FULLNAME: "Nombre",
 
     SECURITY_BLOCK_TITTLE : "Bloqueo de Seguridad",
-    SECURITY_BLOCK_MESSAGE : "El método de pago que estás intentando utilizar se encuentra asociado a otra cuenta. Para ayudarte a resolver el problema, por favor contáctanos."
+    SECURITY_BLOCK_MESSAGE : "El método de pago que estás intentando utilizar se encuentra asociado a otra cuenta. Para ayudarte a resolver el problema, por favor contáctanos.",
+
+	CC_99CENTS__DEPOSIT_SUCCESSFUL: "<div class='title'>Tu depósito de {currencyAmount} fue exitoso.</div><p>Este cargo aparecerá en tu extracto como <strong>{descriptor}</strong>.</p><p>Tu saldo ahora es {currencyFormat}</p><p>Se ha enviado un correo electrónico a {email} con los detalles de la transacción.</p>"
 };
 
 export function ES(){

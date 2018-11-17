@@ -118,7 +118,7 @@ let InfoMethod = React.createClass({
 	render(){
 		let originPath = UIService.getOriginPath();
 		let isEditingCCInfo = UIService.getCCEditMode();
-		let processorDisplayName = UIService.getProcessorName().toUpperCase();
+		let processorDisplayName = UIService.getProcessorDisplayName().toUpperCase();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
 		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {

@@ -82,47 +82,61 @@ let ProcessorInfo = React.createClass({
         let pendingP2P = customer.pendingP2PTransactions;
         let waitLimits = (this.props.waitLimits) ? 'disabled' : '';
 
-        return (
-            <div id="processorInfo">
-                <div className="row">
-                    <div className="col-sm-12">
-                        <div className="deposit-limits">
-                            <div className="title">{title}</div>
-                            <div className="table-responsive">
-                                <table className="table table-striped">
-                                    <tbody>
-                                    <tr>
-                                        <td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-                                        {(() => {
-                                            if (this.props.waitLimits) {
-                                                return (
-                                                    <td><span><Loading/></span></td>
-                                                )
-                                            }
+			return (
+				<div id="processorInfo">
+					<div className="row">
+						<div className="col-sm-12">
+							<div className="deposit-limits">
+								<div className="title">{title}</div>
+								{(() =>{
+									if(this.props.selectedProcessor.processorId == cashier.PROCESSOR_ID_CC_99CENTS){
+										return (
+												<p>This text is for test</p>
+										)
+									}
+								})()}
+								{(() =>{
+										if(this.props.selectedProcessor.processorId != cashier.PROCESSOR_ID_CC_99CENTS){
+											return (
+												<div className="table-responsive">
+													<table className="table table-striped">
+														<tbody>
+														<tr>
+															<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+															{(() =>{
+																if(this.props.waitLimits){
+																	return (
+																		<td><span><Loading/></span></td>
+																	)
+																}
 
-                                            return (
-                                                <td><span>{minProcessorLimit} {currencyCode}</span></td>
-                                            )
-                                        })()}
-                                    </tr>
-                                    <tr>
-                                        <td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-                                        {(() => {
-                                            if (this.props.waitLimits) {
-                                                return (
-                                                    <td><span><Loading/></span></td>
-                                                )
-                                            }
+																return (
+																	<td><span>{minProcessorLimit} {currencyCode}</span></td>
+																)
+															})()}
+														</tr>
+														<tr>
+															<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
+															{(() =>{
+																if(this.props.waitLimits){
+																	return (
+																		<td><span><Loading/></span></td>
+																	)
+																}
 
-                                            return (
-                                                <td><span>{maxProcessorLimit} {currencyCode}</span></td>
-                                            )
-                                        })()}
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+																return (
+																	<td><span>{maxProcessorLimit} {currencyCode}</span></td>
+																)
+															})()}
+														</tr>
+														</tbody>
+													</table>
+												</div>
+											)
+										}
+									}
+									)()}
+									</div>
 
                         <div className="row mod-btns">
                             <div className="col-sm-6">

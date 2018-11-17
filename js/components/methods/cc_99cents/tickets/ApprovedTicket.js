@@ -67,10 +67,10 @@ let CC_99CentsApprovedTicket = React.createClass({
 		tags['descriptor'] = descriptor;
 		tags['currencyFormat'] = ApplicationService.currency_format(balance) + ' ' + currency;
 		tags['currencyAmount'] = ApplicationService.currency_format(currencyAmount) + ' ' + currency;
-		let content = translate('CREDIT_CARD_DEPOSIT_SUCCESSFUL', '', tags);
+		let content = translate('CC_99CENTS__DEPOSIT_SUCCESSFUL', '', tags);
 
 		return (
-			<div className="internal-content" id="visaApprovedTicket">
+			<div className="internal-content" id="cc_99centsApprovedTicket">
 				<div className="row">
 					<div className="col-sm-6">
 						<div className="box">

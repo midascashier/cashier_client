@@ -8,6 +8,7 @@ import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {CashierStore} from '../../../stores/CashierStore'
 import {LoadingSpinner} from '../../loading/LoadingSpinner'
+import {AmountController} from '../../commonComponents/AmountController'
 import {PayAccountDropDown} from '../../commonComponents/payaccount/PayAccountDropDown'
 
 let AskInfo = React.createClass({
@@ -58,10 +59,13 @@ let AskInfo = React.createClass({
 	},
 
 	render(){
+		let amount = '1.0';
 		let dobDay = this.props.dobDay;
 		let dobYear = this.props.dobYear;
 		let dobMonth = this.props.dobMonth;
+		let setAmount = this.props.setAmount;
 		let payAccount = this.props.payAccount;
+		let limitsCheck = this.props.limitsCheck;
 		let changeValue = this.props.changeValue;
 		let payAccountId = payAccount.payAccountId;
 		let payAccountDisplayName = payAccount.displayName;
@@ -108,6 +112,10 @@ let AskInfo = React.createClass({
 														return (
 															<div>
 																<PayAccountDropDown info={payAccount} amount={this.props.amount} msgDeleteBtn={deleteButton} setAmount={this.props.setAmount}/>
+
+																<div className="form-group" hidden="hidden">
+																	<AmountController amount={amount} setAmount={setAmount} limitsCheck={limitsCheck}/>
+																</div>
 
 																{extraInfo}
 																<TermsController />
