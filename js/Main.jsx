@@ -89,6 +89,13 @@ import {Player2Agent} from './components/methods/player2agent/Player2Agent'
 import {Player2AgentConfirmWithdraw} from './components/methods/player2agent/ConfirmWithdraw'
 import {Player2AgentApprovedTicket} from './components/methods/player2agent/tickets/ApprovedTicket'
 /**
+ * CC_99Cents set of components to create routes
+ */
+import {CC_99Cents} from './components/methods/cc_99cents/CC_99Cents'
+import {CC_99CentsConfirm} from './components/methods/cc_99cents/Confirm'
+import {CC_99CentsApprovedTicket} from './components/methods/cc_99cents/tickets/ApprovedTicket'
+import {CC_99CentsRejectedTicket} from './components/methods/cc_99cents/tickets/RejectedTicket'
+/**
  * Common components
  */
 import {ProcessorsInfo} from './components/methods/ProcessorsInfo'
@@ -270,6 +277,14 @@ let routes = (
 				<Route path="cryptoscreen/ticket/" component={LoadingTicket}>
 					<Route path="pending/" component={CryptoScreenTicketPending}/>
 					<Route path="rejected/" component={RejectedTicket}/>
+				</Route>
+
+				<Route path="cc_99cents/" component={CC_99Cents}/>
+				<Route path="cc_99cents/confirm/" component={CC_99CentsConfirm}/>
+				<Route path="cc_99cents/securityBlock/" component={SecurityBlock}/>
+				<Route path="cc_99cents/ticket/" component={LoadingTicket}>
+					<Route path="approved/" component={CC_99CentsApprovedTicket}/>
+					<Route path="rejected/" component={CC_99CentsRejectedTicket}/>
 				</Route>
 			</Route>
 

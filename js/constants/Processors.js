@@ -134,6 +134,12 @@ settings[Cashier.PROCESSOR_ID_AGENT_TRANSFER][WITHDRAW_STEPS] = ["selectMethod",
 settings[Cashier.PROCESSOR_ID_AGENT_TRANSFER][SETTING_ROUTE] = 'player2agent/';
 settings[Cashier.PROCESSOR_ID_AGENT_TRANSFER][REGISTER_ACCOUNTS_ALLOW] = 0;
 
+settings[Cashier.PROCESSOR_ID_CC_99CENTS] = [];
+settings[Cashier.PROCESSOR_ID_CC_99CENTS][LIMITS_VALIDATION_VERSION] = "full";
+settings[Cashier.PROCESSOR_ID_CC_99CENTS][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "confirm"];
+settings[Cashier.PROCESSOR_ID_CC_99CENTS][SETTING_ROUTE] = 'cc_99cents/';
+settings[Cashier.PROCESSOR_ID_CC_99CENTS][REGISTER_ACCOUNTS_ALLOW] = 1;
+
 export default {
 	settings: settings,
 	SETTING_ROUTE: SETTING_ROUTE,
