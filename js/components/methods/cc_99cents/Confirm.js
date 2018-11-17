@@ -59,7 +59,7 @@ let CC_99CentsConfirm = React.createClass({
 	 */
 	processTransaction(){
 		let transaction = CashierStore.getTransaction();
-		transaction.amount = 1;
+		transaction.amount = 0.99;
 		TransactionService.processCC();
 	},
 

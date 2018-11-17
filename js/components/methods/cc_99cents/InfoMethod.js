@@ -175,7 +175,7 @@ let InfoMethod = React.createClass({
 
 						<div className="row mod-btns">
 							<div className="col-sm-6">
-								<button type='button' className='btn btn-green' disabled={this.state.transaction.checkTermsAndConditions==false} onClick={this.continueTransaction}>
+								<button type='button' className='btn btn-green' disabled={payAccountInfo.payAccountId == null || this.state.transaction.checkTermsAndConditions==false} onClick={this.continueTransaction}>
 									{translate('PROCESSING_BUTTON_NEXT', 'Next')}
 								</button>
 								<p>
