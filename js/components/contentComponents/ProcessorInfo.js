@@ -94,9 +94,7 @@ let ProcessorInfo = React.createClass({
 												<p>This text is for test</p>
 										)
 									}
-								})()}
-								{(() =>{
-										if(this.props.selectedProcessor.processorId != cashier.PROCESSOR_ID_CC_99CENTS){
+										else{
 											return (
 												<div className="table-responsive">
 													<table className="table table-striped">
