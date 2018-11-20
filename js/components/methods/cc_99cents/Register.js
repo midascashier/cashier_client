@@ -209,8 +209,6 @@ let Register = React.createClass({
 			ccValidation = "isMC";
 		}else if(processor.processorId == cashier.PROCESSOR_ID_AMEX){
 			cvvValidation = "isCVV4";
-		}else if(processor.processorId == cashier.PROCESSOR_ID_JCB){
-			cvvValidation = "isCVV";
 		}
 
 		let country = this.state.payAccount.country;
@@ -288,7 +286,6 @@ let Register = React.createClass({
 								id="cvv"
 								ref="cvv"
 								type="text"
-								validate={cvvValidation}
 								value={this.state.payAccount.password}
 								onChange={this.changeValue.bind(null, 'password', '', 0)}
 								require

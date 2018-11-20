@@ -1219,7 +1219,10 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					let payAccounts_processor = {};
 					let payAccountTemp = Object.assign({}, _payAccount);
 					if(data.response && data.response.payAccounts){
-						if(data.response.payAccounts[0].processorIdRoot == _processor.processorId){
+						/*temporary code for the 99 cents processor*/
+						let processorRootAvailable = ["11000","11001","11005"];
+
+						if(data.response.payAccounts[0].processorIdRoot == _processor.processorId || (_processor.processorId == cashier.PROCESSOR_ID_CC_99CENTS && processorRootAvailable.indexOf(data.response.payAccounts[0].processorIdRoot)!=-1)){
 							data.response.payAccounts.forEach((payAccount) =>{
 								payAccount.limitsData.available = Math.floor(payAccount.limitsData.available);
 								payAccount.limitsData.availableWithdraw = Math.floor(payAccount.limitsData.availableWithdraw);

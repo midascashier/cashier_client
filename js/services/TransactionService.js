@@ -154,7 +154,10 @@ class transactionService{
 				getPayAccounts = true;
 			}
 		}
-
+		//Temporal code for CC 99 CENTS
+		if(processorID == cashier.PROCESSOR_ID_CC_99CENTS || CashierStore.getProcessorId() == cashier.PROCESSOR_ID_CC_99CENTS){
+			processorID = cashier.PROCESSOR_ID_CC_SCREEN;
+		}
 		if(getPayAccounts){
 			let data = {
 				f: "getPayAccountsByCustomer", processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()

@@ -121,9 +121,7 @@ let InfoMethod = React.createClass({
 		let processorDisplayName = UIService.getProcessorDisplayName().toUpperCase();
 		let currentView = UIService.getCurrentView().toUpperCase();
 		let transactionType = translate(currentView);
-		let title = translate('PROCESSING_LIMIT_INFORMATION_TITLE', 'Limits', {
-			processorName: processorDisplayName, transactionType: transactionType
-		});
+		let title = processorDisplayName;
 
 		let validateExtra = this.validateExtra();
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
