@@ -7,6 +7,7 @@ import {CustomerService} from '../../services/CustomerService'
 import {ProcessorInfo} from '../contentComponents/ProcessorInfo'
 import {ProcessorsList} from '../contentComponents/ProcessorsList'
 import {LoadingSpinner} from '../../components/loading/LoadingSpinner'
+import {ProcessorsNoAvailable} from '../contentComponents/ProcessorsNoAvailable'
 
 let ProcessorsInfo = React.createClass({
 
@@ -26,7 +27,7 @@ let ProcessorsInfo = React.createClass({
 	 * this function sets and return object with local states
 	 */
 	refreshLocalState() {
-		return{
+		return {
 			customer: CashierStore.getCustomer(),
 			waitLimits: CashierStore.getWaitLimits(),
 			selectedProcessor: CashierStore.getProcessor()
@@ -62,7 +63,7 @@ let ProcessorsInfo = React.createClass({
 		let customer = CashierStore.getCustomer();
 		if(!this.state.selectedProcessor.processorId && !customer.customerId){
 			let login = CashierStore.getLoginInfo();
-			if (customer.customerId){
+			if(customer.customerId){
 				CustomerService.startConnection();
 			}else{
 				CustomerService.connectionDone(login);
@@ -82,68 +83,71 @@ let ProcessorsInfo = React.createClass({
 		let processors = this.getProcessors();
 		return (
 			<div id="processorsInfo">
-				<div className="col-sm-6">
-					<Link to={`/transaction_history/`}>
-						<span>{translate('TRANSACTION_HISTORY')}</span>
-					</Link>
-
-					&nbsp;
-					&nbsp;
-
-					{(() =>{
-						let accounts = [
-							'MidasTP',
-							'MarioMidas',
-							'MidasACR',
-							'Jasonfxt',
-							'MissCantina',
-							'Kennycr',
-							'Guayo08',
-							'twofactoauth',
-							'CamilleSurf',
-							'tptech18',
-							'Natilla.Cr',
-							'bcp-mangos!!',
-							'acr2015',
-							'chipflip5',
-							'Tatii92',
-							'eso0402',
-							'Roachthekid',
-							'gracie87',
-							'csolis61',
-							'Gabrod',
-							'CrazyCatMan',
-							'Davimon',
-							'baillando',
-							'owenhascrabs',
-							'testing123456'
-						];
-
-						let account = UIService.getCustomerInformation();
-						if(accounts.indexOf(account.username) != -1){
-							return(
-								<Link to={`/requests/`}>
-									<span><b>{translate('METHOD_REQUESTS')}</b></span>
+				{(() =>{
+					if(this.state.customer.loadProcessors && processors && processors.length == 0){
+						return <ProcessorsNoAvailable/>
+					}else{
+						return <div>
+							<div className="col-sm-6">
+								<Link to={`/transaction_history/`}>
+									<span>{translate('TRANSACTION_HISTORY')}</span>
 								</Link>
-							)
-						}
-					})()}
 
-					<ProcessorsList
-						processors={processors}
-						waitLimits={this.waitLimits}
-						selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}
-					/>
-				</div>
-				<div className="col-sm-6">
-					{(() =>{
-						if(!this.state.selectedProcessor.processorId){
-							return <LoadingSpinner/>;
-						}
+								&nbsp;
+								&nbsp;
 
-						return <ProcessorInfo selectedProcessor={this.state.selectedProcessor} waitLimits={this.state.waitLimits}/>
-					})()}
-				</div>
+								{(() =>{
+									let accounts = [
+										'MidasTP',
+										'MarioMidas',
+										'MidasACR',
+										'Jasonfxt',
+										'MissCantina',
+										'Kennycr',
+										'Guayo08',
+										'twofactoauth',
+										'CamilleSurf',
+										'tptech18',
+										'Natilla.Cr',
+										'bcp-mangos!!',
+										'acr2015',
+										'chipflip5',
+										'Tatii92',
+										'eso0402',
+										'Roachthekid',
+										'gracie87',
+										'csolis61',
+										'Gabrod',
+										'CrazyCatMan',
+										'Davimon',
+										'baillando',
+										'owenhascrabs',
+										'testing123456'
+									];
+
+									let account = UIService.getCustomerInformation();
+									if(accounts.indexOf(account.username) != -1){
+										return (
+											<Link to={`/requests/`}>
+												<span><b>{translate('METHOD_REQUESTS')}</b></span>
+											</Link>
+										)
+									}
+								})()}
+
+								<ProcessorsList processors={processors} waitLimits={this.waitLimits} selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}/>
+							</div>
+							<div className="col-sm-6">
+								{(() =>{
+									if(!this.state.selectedProcessor.processorId){
+										return <LoadingSpinner/>;
+									}
+									return <ProcessorInfo selectedProcessor={this.state.selectedProcessor} waitLimits={this.state.waitLimits}/>
+								})()}
+							</div>
+						</div>
+					}
+				})()}
 			</div>
 		)
 	},

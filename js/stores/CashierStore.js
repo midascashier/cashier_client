@@ -62,7 +62,8 @@ let _application = {
 /**
  * Customer Data
  *
- * @type {{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, currency: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: Array, load: (function(*))}}
+ * @type {{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, currency: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, loadProcessors: boolean, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: Array, pendingPayouts: Array, load: ((data))}}
+ *
  * @private
  */
 let _customer = {
@@ -102,6 +103,7 @@ let _customer = {
 		city: '',
 		postalCode: ''
 	},
+	loadProcessors: false,
 	depositProcessors: [],
 	withdrawProcessors: [],
 	pendingP2PTransactions: [],
@@ -408,7 +410,7 @@ let _CryptoTransfer = {
 let _Player2Agent = {
 	account: '',
 	name: '',
-	feePaymentMethod : '',
+	feePaymentMethod: '',
 	waitForValidation: false,
 	consulted: false,
 	transfer: {
@@ -420,26 +422,26 @@ let _Player2Agent = {
 }
 
 let _DocsFile = {
-	step : 0,
-	currentStep : 1,
-	categoriesList : {},
-	checkOption : false,
-	responseUpload : false,
-	pendingRecovery : false,
-	currentOptionSelected : '',
-	pendingAdditionalInfo : false,
-	currentFormInputsCategories : [],
+	step: 0,
+	currentStep: 1,
+	categoriesList: {},
+	checkOption: false,
+	responseUpload: false,
+	pendingRecovery: false,
+	currentOptionSelected: '',
+	pendingAdditionalInfo: false,
+	currentFormInputsCategories: [],
 
-	forms : {},
+	forms: {},
 	formSelectedId: false,
-	kycIDApproved : false,
-	customerForms : false,
+	kycIDApproved: false,
+	customerForms: false,
 
-	readyCategories : false,
-	pendingKycIDApproved : true,
-	customerPendingForms : false,
-	pendingInputsCategory : true,
-	pendingCustomerFormInfo : true,
+	readyCategories: false,
+	pendingKycIDApproved: true,
+	customerPendingForms: false,
+	pendingInputsCategory: true,
+	pendingCustomerFormInfo: true,
 	readyPending(){
 		return (this.readyCategories && this.customerPendingForms && !this.pendingCustomerFormInfo && !this.pendingInputsCategory);
 	}
@@ -483,7 +485,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @return {{account: string, name: string, feePaymentMethod: string}}
 	 */
-	getPlayerAccount: () => {
+	getPlayerAccount: () =>{
 		return _Player2Agent.transfer.fullnameTo && _Player2Agent.transfer.fullnameTo.length > 0 ? _Player2Agent : null;
 	},
 
@@ -491,11 +493,11 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Sets the player2agent information
 	 * @param account: _Player2Agent
 	 */
-	setPlayerAccount: (account) => {
+	setPlayerAccount: (account) =>{
 		_Player2Agent = account;
 	},
 
-	cleanPlayerAccount: () => {
+	cleanPlayerAccount: () =>{
 		Object.assign(_Player2Agent.transfer, {
 			fullnameTo: '',
 			usernameFrom: '',
@@ -552,7 +554,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		return (_payAccounts[_processor['processorId']]);
 	},
 
-	getProcessorId: () => {
+	getProcessorId: () =>{
 		return _processor['processorId'];
 	},
 	/**
@@ -639,7 +641,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * get customer
 	 *
-	 * @returns {{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: Array, load: (function(*))}}
+	 * @returns {{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, currency: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, loadProcessors: boolean, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: Array, pendingPayouts: Array, load: data}}
 	 */
 	getCustomer: () =>{
 		return _customer;
@@ -1015,45 +1017,45 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 		try{
 			switch(action){
 				case actions.LOGIN_RESPONSE:
-                    _application.sid = data.sid;
-                    _application.vip = data.vip;
-                    _UI.currentView = data.option;
-                    _application.newbie = data.newbie;
-                    _application.country = data.country;
-                    _company.companyId = data.companyId;
-                    _company.remoteCompany = data.remoteCompany;
+					_application.sid = data.sid;
+					_application.vip = data.vip;
+					_UI.currentView = data.option;
+					_application.newbie = data.newbie;
+					_application.country = data.country;
+					_company.companyId = data.companyId;
+					_company.remoteCompany = data.remoteCompany;
 
-                    if(typeof Storage !== "undefined"){
-                        if(localStorage){
-                        	let company = JSON.parse(localStorage.company);
-                            let application = JSON.parse(localStorage.application);
+					if(typeof Storage !== "undefined"){
+						if(localStorage){
+							let company = JSON.parse(localStorage.company);
+							let application = JSON.parse(localStorage.application);
 
-                            _application.referrer = application.referrer;
-                            _application.remoteAddr = application.remoteAddr;
-                            _application.remoteHost = application.remoteHost;
-                            _application.redirectSite = application.redirectSite;
-                            _application.xForwardedFor = application.xForwardedFor;
+							_application.referrer = application.referrer;
+							_application.remoteAddr = application.remoteAddr;
+							_application.remoteHost = application.remoteHost;
+							_application.redirectSite = application.redirectSite;
+							_application.xForwardedFor = application.xForwardedFor;
 
-                            _application.sid = (data.sid) ? data.sid : application.sid;
-                            _application.vip = (data.vip) ? data.vip : application.vip;
-                            _application.newbie = (data.newbie) ? data.newbie : application.newbie;
-                            _company.companyId = (data.companyId) ? data.companyId : company.companyId;
-                            _company.remoteCompany = (data.remoteCompany) ? data.remoteCompany : company.remoteCompany;
-                        }
-                    }
+							_application.sid = (data.sid) ? data.sid : application.sid;
+							_application.vip = (data.vip) ? data.vip : application.vip;
+							_application.newbie = (data.newbie) ? data.newbie : application.newbie;
+							_company.companyId = (data.companyId) ? data.companyId : company.companyId;
+							_company.remoteCompany = (data.remoteCompany) ? data.remoteCompany : company.remoteCompany;
+						}
+					}
 
-                    ReactGA.set({'dimension1': _company.remoteCompany});
-                    ReactGA.set({'dimension2': parseInt(_application.newbie) ? 'Newbie' : 'Returning'});
-                    ReactGA.set({'dimension3': _application.vip});
-                    ReactGA.set({'dimension4': _application.country});
+					ReactGA.set({'dimension1': _company.remoteCompany});
+					ReactGA.set({'dimension2': parseInt(_application.newbie) ? 'Newbie' : 'Returning'});
+					ReactGA.set({'dimension3': _application.vip});
+					ReactGA.set({'dimension4': _application.country});
 
-                    if(_company.remoteCompany == 'AmericasCardroom'){
-                        if(parseInt(_application.newbie) == 1){
-                            $('head').append("<!-- Hotjar Tracking Code for Cashier ACR --><script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:998973,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
-                        }else{
-                            $('head').append("<!-- Hotjar Tracking Code for Cashier ACR --><script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:592695,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
-                        }
-                    }
+					if(_company.remoteCompany == 'AmericasCardroom'){
+						if(parseInt(_application.newbie) == 1){
+							$('head').append("<!-- Hotjar Tracking Code for Cashier ACR --><script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:998973,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
+						}else{
+							$('head').append("<!-- Hotjar Tracking Code for Cashier ACR --><script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:592695,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
+						}
+					}
 
 					CashierStore.storeData("application", _application);
 					CashierStore.storeData("ui", _UI);
@@ -1161,11 +1163,11 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					break;
 
 				case actions.PROCESSORS_RESPONSE:
+					_customer.loadProcessors = true;
 					_customer.depositProcessors = data.response.processors.deposit;
 					_customer.withdrawProcessors = data.response.processors.withdraw;
 
 					let processor = [];
-
 					let selectedProcessor = CashierStore.getUI();
 
 					if(!CashierStore.getIsWithdraw() && _customer.depositProcessors.length > 0 && !selectedProcessor.processorId){
@@ -1530,7 +1532,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					break;
 
 				case actions.VALIDATE_ACCOUNT:
-					if(!Array.isArray(data) && data.hasOwnProperty('response') && data.response.hasOwnProperty('transfer')) {
+					if(!Array.isArray(data) && data.hasOwnProperty('response') && data.response.hasOwnProperty('transfer')){
 						Object.assign(_Player2Agent.transfer, data.response.transfer);
 					}else{
 						Object.assign(_Player2Agent.transfer, {
