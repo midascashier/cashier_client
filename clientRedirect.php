@@ -38,7 +38,7 @@ class ClientRedirect{
     $cashierParams["userAgent"] = $_SERVER["HTTP_USER_AGENT"];
     $cashierParams["remoteSessionId"] = $_REQUEST["remoteSessionId"];
     $cashierParams["xForwardedFor"] = $this->customerIp();;
-    $cashierParams["remoteHost"] = gethostbyaddr($_SERVER['REMOTE_ADDR']);
+    $cashierParams["remoteHost"] = $_SERVER['HTTP_HOST'];
 
     echo $this->domHTML($cashierParams);
   }
