@@ -5,7 +5,8 @@ session_start();
 /**
  * @author Mario Vargas Ugalde
  */
-class ClientRedirect{
+class ClientRedirect
+{
 
   /**
    * session id after invoke login action
@@ -15,7 +16,8 @@ class ClientRedirect{
   /**
    * ClientRedirect constructor.
    */
-  function __construct(){
+  function __construct()
+  {
     $cashierParams = array();
     $cashierParams["sid"] = "";
     $cashierParams["tuid"] = "";
@@ -47,9 +49,11 @@ class ClientRedirect{
    * Render current DOM
    *
    * @param $params
+   *
    * @return string
    */
-  private function domHTML($params){
+  private function domHTML($params)
+  {
     $this->loginManager($params);
 
     if($this->sid){
@@ -94,7 +98,7 @@ class ClientRedirect{
         <h3>Loading Cashier</h3>
         <h3>Processing request over a secure connection...</h3><br>
         {$content}
-      </center> 
+      </center>
     ";
   }
 
@@ -103,7 +107,8 @@ class ClientRedirect{
    *
    * @param $params
    */
-  private function loginManager($params){
+  private function loginManager($params)
+  {
     $params['companyId'] = COMPANY_ID_POKER;
     $result = $this->wsRequest($params);
 
@@ -129,14 +134,15 @@ class ClientRedirect{
    *
    * @return string
    */
-  private function customerIp(){
+  private function customerIp()
+  {
     $clientIP = $_SERVER['HTTP_CLIENT_IP'];
-    if (!$clientIP){
-      if ($_SERVER['HTTP_X_FORWARDED_FOR'] && (strlen($_SERVER['HTTP_X_FORWARDED_FOR']) > 0)){
+    if(!$clientIP){
+      if($_SERVER['HTTP_X_FORWARDED_FOR'] && (strlen($_SERVER['HTTP_X_FORWARDED_FOR']) > 0)){
         $proxy = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        if (strpos($proxy, ",") !== false){
+        if(strpos($proxy, ",") !== false){
           $proxyA = explode(',', $proxy);
-          if (is_array($proxyA)){
+          if(is_array($proxyA)){
             array_pop($proxyA);
             $clientIP = trim(array_pop($proxyA));
           }
@@ -146,23 +152,23 @@ class ClientRedirect{
       }
     }
     // $_SERVER['HTTP_X_FORWARDED']
-    if (!$clientIP){
+    if(!$clientIP){
       $clientIP = $_SERVER['HTTP_X_FORWARDED'];
     }
     // $_SERVER['HTTP_FORWARDED_FOR']
-    if (!$clientIP){
+    if(!$clientIP){
       $clientIP = $_SERVER['HTTP_FORWARDED_FOR'];
     }
     // $_SERVER['HTTP_FORWARDED']
-    if (!$clientIP){
+    if(!$clientIP){
       $clientIP = $_SERVER['HTTP_FORWARDED'];
     }
     // $_SERVER['REMOTE_ADDR']
-    if (!$clientIP){
+    if(!$clientIP){
       $clientIP = $_SERVER['REMOTE_ADDR'];
     }
     // DEFAULT
-    if (!$clientIP){
+    if(!$clientIP){
       $clientIP = '127.0.0.1';
     }
 
@@ -173,6 +179,7 @@ class ClientRedirect{
    * Execute WS to cashier
    *
    * @param $params
+   *
    * @return mixed
    */
   private function wsRequest($params)
@@ -201,17 +208,17 @@ class ClientRedirect{
       //log in order to trace the issues on login
       $this->sid = null;
       //log in order to trace the issues on login
-      $logFile = "login_error_" . strtoupper($params["username"]) . ".txt";
-      $content = date('Y-m-d H:i:s') . ":\n";
+      $logFile = "login_error_".strtoupper($params["username"]).".txt";
+      $content = date('Y-m-d H:i:s').":\n";
       $content .= "request: \n";
       $strParams = json_encode($params);
-      $content .= $strParams ." \n";
+      $content .= $strParams." \n";
       $content .= "response: \n";
-      $content .= $resp ." \n";
+      $content .= $resp." \n";
       $content .= "\n";
       @file_put_contents($logFile, $content, FILE_APPEND);
-      //end of login trace
 
+      //end of login trace
       return false;
     }
 
