@@ -42,7 +42,12 @@ class ClientRedirect
     $cashierParams["xForwardedFor"] = $this->customerIp();;
     $cashierParams["remoteHost"] = $_SERVER['HTTP_HOST'];
 
-    echo $this->domHTML($cashierParams);
+    $content = $this->domHTML($cashierParams);
+    if($content){
+      echo $content;
+    }else{
+      include 'invalidLogin.php';
+    }
   }
 
   /**
@@ -89,17 +94,15 @@ class ClientRedirect
 
         <img src='images/loader-70x70.gif' />
       ";
-    }else{
-      $content = '<img src="images/loader-40x40.gif" />';
-    }
 
-    return "
+      return "
       <center>
         <h3>Loading Cashier</h3>
         <h3>Processing request over a secure connection...</h3><br>
         {$content}
       </center>
     ";
+    }
   }
 
   /**
@@ -189,26 +192,32 @@ class ClientRedirect
     }
 
     $curl = curl_init();
-    curl_setopt_array($curl, array(
-      CURLOPT_POST => 1,
-      CURLOPT_RETURNTRANSFER => 1,
-      CURLOPT_SSL_VERIFYHOST => 0,
-      CURLOPT_SSL_VERIFYPEER => 0,
-      CURLOPT_POSTFIELDS => $params,
-      CURLOPT_URL => CASHIER_CONTROLLER_WS,
-      CURLOPT_CONNECTTIMEOUT => WS_CONNECT_TIMEOUT,
-      CURLOPT_USERAGENT => "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)"
-    ));
+    try{
+      curl_setopt_array($curl, array(
+        CURLOPT_POST => 1,
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_SSL_VERIFYHOST => 0,
+        CURLOPT_SSL_VERIFYPEER => 0,
+        CURLOPT_POSTFIELDS => $params,
+        CURLOPT_URL => CASHIER_CONTROLLER_WS,
+        CURLOPT_TIMEOUT => WS_TIMEOUT,
+        CURLOPT_CONNECTTIMEOUT => WS_CONNECT_TIMEOUT,
+        CURLOPT_USERAGENT => "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)"
+      ));
 
-    $resp = curl_exec($curl);
-    $result = json_decode($resp);
+      $resp = curl_exec($curl);
+      $result = json_decode($resp);
+    }catch(Exception $e){
+      $result = json_decode(json_encode(array('code' => $e->getCode(), 'message' => $e->getMessage())));
+    }
+
     curl_close($curl);
 
     if(!$result || !$result->response){
       //log in order to trace the issues on login
       $this->sid = null;
       //log in order to trace the issues on login
-      $logFile = "login_error_".strtoupper($params["username"]).".txt";
+      $logFile = "logs/login_error_".strtoupper($params["username"]).".txt";
       $content = date('Y-m-d H:i:s').":\n";
       $content .= "request: \n";
       $strParams = json_encode($params);

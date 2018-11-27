@@ -89,7 +89,7 @@ class requestProxy
     $content .= $message;
     $content .= "\n";
 
-    @file_put_contents("poker-client.txt", $content, FILE_APPEND);
+    @file_put_contents("logs/poker-client.txt", $content, FILE_APPEND);
   }
 }
 
