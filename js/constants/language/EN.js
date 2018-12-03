@@ -433,7 +433,10 @@ let _langTags = {
 	METHODS_NO_AVAILABLE_DEPOSITS: 'Deposits',
 	METHODS_NO_AVAILABLE_WITHDRAWALS: 'Withdrawals',
 	METHODS_NO_AVAILABLE_TITLE: 'Security Block',
-	METHODS_NO_AVAILABLE_MESSAGE: 'Current selection is not available </br> Please get in touch with customer service in order obtain immediate assistance.'
+	METHODS_NO_AVAILABLE_MESSAGE: 'Current selection is not available </br> Please get in touch with customer service in order obtain immediate assistance.',
+
+	WITHDRAW_PASS_MODAL_TITTLE: 'Please Insert your Password',
+	WITHDRAW_PASS_MODAL_WRONG_MESSAGE: 'Wrong password, please try again.'
 };
 
 export function EN(){

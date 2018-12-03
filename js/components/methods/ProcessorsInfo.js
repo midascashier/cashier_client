@@ -11,6 +11,8 @@ import {ProcessorsNoAvailable} from '../contentComponents/ProcessorsNoAvailable'
 
 let ProcessorsInfo = React.createClass({
 
+	readyInit: false,
+
 	propTypes: {
 		setAmount: React.PropTypes.func
 	},
@@ -28,6 +30,8 @@ let ProcessorsInfo = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
+			validPass: false,
+            loadingPass: false,
 			customer: CashierStore.getCustomer(),
 			waitLimits: CashierStore.getWaitLimits(),
 			selectedProcessor: CashierStore.getProcessor()
@@ -81,6 +85,7 @@ let ProcessorsInfo = React.createClass({
 
 	render(){
 		let processors = this.getProcessors();
+
 		return (
 			<div id="processorsInfo">
 				{(() =>{
@@ -148,8 +153,64 @@ let ProcessorsInfo = React.createClass({
 						</div>
 					}
 				})()}
+
+                {(() =>{
+                    if(this.state.selectedProcessor.processorId && UIService.getIsWithDraw() && !this.state.validPass){
+                    	let wrongPassWord = (!this.state.validPass && this.readyInit);
+                    	let inputClass =  wrongPassWord ? 'withdrawPassInputPasswordWrong' : 'withdrawPassInputPassword';
+
+                        return(
+                            <div id='expiredSessionModal'>
+                                <div id="withdrawPassModal-content">
+									<div id="withdrawPassModal-frame">
+										<p id="withdrawPassModal-tittle">{translate('WITHDRAW_PASS_MODAL_TITTLE')}</p>
+										<form onSubmit={this.withdrawPassAuthorized}>
+											<input type='password' id="withdrawPassInputPassword" className={inputClass} required/>
+
+											{wrongPassWord? <p id='withdrawPassWrongMessage'>{translate('WITHDRAW_PASS_MODAL_WRONG_MESSAGE', 'Wrong password, please try again.')}</p> : ''}
+
+											{
+												this.state.loadingPass
+													? <LoadingSpinner/> :
+												<button type='submit' className='btn btn-green withdrawPassInputBTN'>
+													{translate('PROCESSING_BUTTON_NEXT', 'Next')}
+												</button>
+											}
+										</form>
+									</div>
+                                </div>
+                            </div>
+						)
+					}
+                })()}
 			</div>
 		)
+	},
+
+    /**
+	 * Send verification withdraw pass
+     */
+	withdrawPassAuthorized(event){
+		event.preventDefault();
+
+		let pass = document.getElementById('withdrawPassInputPassword');
+
+        this.readyInit = false;
+        let state = this.state;
+        state.loadingPass = true;
+
+		CustomerService.verifiedPassInWithdraw(pass.value).then((result)=>{
+			if(result.hasOwnProperty('response')){
+				if(result.response.hasOwnProperty('access')){
+                    this.readyInit = true;
+                    state.validPass = (result.response.access == '1');
+                    state.loadingPass = false;
+                    this.setState(state)
+				}
+			}
+		});
+
+        this.setState(state)
 	},
 
 	/**

@@ -122,6 +122,19 @@ class customerService{
 		let rabbitRequest = Object.assign(data, application);
 		ConnectorServices.makeCustomerRequest(actions.PROCESSORS_LIMIT_RULES_RESPONSE, rabbitRequest);
 	};
+
+    /**
+	 * Verified password in withdraw option
+	 *
+     * @param value
+     * @returns {Promise<any>}
+     */
+	verifiedPassInWithdraw(value){
+		return ConnectorServices.makeCashierRequestAsync({
+			password: value,
+			f: 'verifiedPassCustomer'
+		})
+	}
 }
 
 export let CustomerService = new customerService();

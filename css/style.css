@@ -440,6 +440,69 @@ div[class*="col-"] > div[class*="col-"]:before {
     background-color: rgb(254, 254, 254);
 }
 
+#withdrawPassModal-content{
+    margin: auto;
+    width: 600px;
+    height: 300px;
+    display: flex;
+    padding-top: 25px;
+    background-color: rgb(254, 254, 254);
+
+    align-items: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
+}
+
+#withdrawPassModal-frame{
+    width: 85%;
+    height: 90%;
+}
+
+#withdrawPassModal-tittle{
+    width: 100%;
+    padding: 5px;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    background-color: black;
+    font-family: Oswald-Medium;
+}
+
+#withdrawPassInputPassword{
+    width: 70%;
+    height: 40px;
+    color: black;
+    margin-top: 5%;
+    font-size: 30px;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.withdrawPassInputPassword{
+    border: solid 2px #999;
+}
+
+.withdrawPassInputPasswordWrong{
+    border: solid 2px #cc2724;
+}
+
+.withdrawPassInputBTN{
+    width: 15%;
+    height: 40px;
+    margin-top: 20px;
+    margin-left: 42.5%;
+}
+
+#withdrawPassWrongMessage{
+    width: 100%;
+    color: black;
+    font-size: 18px;
+    font-weight: 900;
+    margin-top: 15px;
+    text-align: center;
+}
+
 #restartIMG{
     width: 200px;
     margin: 0 auto;
