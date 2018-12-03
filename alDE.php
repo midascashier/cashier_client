@@ -12,12 +12,12 @@
     <?php
     require_once('config/phpConfig.php');
 
-    if(SECURITY_IOVATION_ENABLE === true){
+    if(SECURITY_IOVATION_ENABLE == true){
       echo '<script src="https://mpsnare.iesnare.com/snare.js"></script><script src="/js/libs/iovation.js"></script>';
     }else{
       echo '<script>isIovationReady = 1;</script>';
     }
-    if(SECURITY_ACUITYTEC_ENABLE === true){
+    if(SECURITY_ACUITYTEC_ENABLE == true){
       echo '<script src="https://service1.acuitytec.com/detect/detect3.min.js"></script><script src="/js/libs/acuitytec.js"></script>';
     }else{
       echo '<script>isAcuitytecReady = 1;</script>';
@@ -45,9 +45,10 @@
   <body>
     <center>
       <h3>Loading Cashier</h3>
-      <h3>Processing request over a secure connection...</h3>
+      <h3>Processing request over a secure connection</h3>
+      <h3>Please wait</h3>
       <br>
-      <img src="images/loader-70x70.gif"/>
+      <img src='images/loader-70x70.gif'/>
     </center>
 
     <form id="alForm" action="/clientRedirect.php" method="POST">
@@ -58,21 +59,27 @@
       <input type="hidden" id="atDeviceId" name="atDeviceId" value="">
       <input type="hidden" id="f" name="doLogin" value="1">
     </form>
-    <script>
 
+    <form id="invalidLoginForm" action="/invalidLogin.php" method="POST"></form>
+    <script>
       //clear local store since this is a new session
       localStorage.clear();
 
       var id = 0;
+
       function redirect(){
         if(isIovationReady == 1 && isAcuitytecReady == 1){
           clearInterval(id);
           var login_form = document.getElementById("alForm");
           if(login_form){
             login_form.submit();
+          }else{
+            var invalidLoginForm = document.getElementById("invalidLoginForm");
+            invalidLoginForm.submit();
           }
         }
       }
+
       id = setInterval(redirect, 300);
     </script>
   </body>
