@@ -1,5 +1,5 @@
 // ACUITYTEC
-var at_max_wait = 30;
+var at_max_wait = 3000;
 var atCompleted = false;
 function receiveData(data){
 	ctrlResponse(data, "acuitytec");

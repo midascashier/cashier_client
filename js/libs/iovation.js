@@ -3,7 +3,7 @@ var io_install_stm = false;
 var io_exclude_stm = 12;
 // Network Latency
 var io_submit_element_id = "btnlogin"; // Forms Submit Button
-var io_max_wait = 30; // If BB is not ready after this, submit
+var io_max_wait = 3000; // If BB is not ready after this, submit
 var io_submit_form_id = "alForm";
 var ioCompleted = false, atCompleted = false;
 
