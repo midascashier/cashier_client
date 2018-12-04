@@ -30,9 +30,9 @@ let ProcessorsInfo = React.createClass({
 	 */
 	refreshLocalState() {
 		return {
-			validPass: false,
             loadingPass: false,
 			customer: CashierStore.getCustomer(),
+            validPass: CashierStore.getValidPass(),
 			waitLimits: CashierStore.getWaitLimits(),
 			selectedProcessor: CashierStore.getProcessor()
 		}
@@ -205,6 +205,8 @@ let ProcessorsInfo = React.createClass({
                     this.readyInit = true;
                     state.validPass = (result.response.access == '1');
                     state.loadingPass = false;
+
+                    CashierStore.setValidPass(state.validPass);
                     this.setState(state)
 				}
 			}
