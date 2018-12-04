@@ -203,7 +203,7 @@ let ProcessorsInfo = React.createClass({
 			if(result.hasOwnProperty('response')){
 				if(result.response.hasOwnProperty('access')){
                     this.readyInit = true;
-                    state.validPass = (result.response.access == '1');
+                    state.validPass = result.response.access;
                     state.loadingPass = false;
 
                     CashierStore.setValidPass(state.validPass);
