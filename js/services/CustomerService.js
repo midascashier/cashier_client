@@ -124,15 +124,15 @@ class customerService{
 	};
 
     /**
-	 * Verified password in withdraw option
+	 * Authenticated customer
 	 *
      * @param value
      * @returns {Promise<any>}
      */
-	verifiedPassInWithdraw(value){
+	authenticateCustomer(value){
 		return ConnectorServices.makeCashierRequestAsync({
 			password: value,
-			f: 'verifiedPassCustomer'
+			f: 'authenticateCustomer'
 		})
 	}
 }

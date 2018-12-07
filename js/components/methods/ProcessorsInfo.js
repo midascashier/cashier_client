@@ -199,7 +199,7 @@ let ProcessorsInfo = React.createClass({
         let state = this.state;
         state.loadingPass = true;
 
-		CustomerService.verifiedPassInWithdraw(pass.value).then((result)=>{
+		CustomerService.authenticateCustomer(pass.value).then((result)=>{
 			if(result.hasOwnProperty('response')){
 				if(result.response.hasOwnProperty('access')){
                     this.readyInit = true;
