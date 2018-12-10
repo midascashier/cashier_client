@@ -122,6 +122,19 @@ class customerService{
 		let rabbitRequest = Object.assign(data, application);
 		ConnectorServices.makeCustomerRequest(actions.PROCESSORS_LIMIT_RULES_RESPONSE, rabbitRequest);
 	};
+
+    /**
+	 * Authenticated customer
+	 *
+     * @param value
+     * @returns {Promise<any>}
+     */
+	authenticateCustomer(value){
+		return ConnectorServices.makeCashierRequestAsync({
+			password: value,
+			f: 'authenticateCustomer'
+		})
+	}
 }
 
 export let CustomerService = new customerService();

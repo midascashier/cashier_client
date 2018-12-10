@@ -447,6 +447,10 @@ let _DocsFile = {
 	}
 };
 
+let _Withdraw = {
+	validPass: false
+};
+
 let CHANGE_EVENT = 'change';
 
 let CashierStore = assign({}, EventEmitter.prototype, {
@@ -1003,6 +1007,20 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	docFilesSetFormSelectedId(id){
 		_DocsFile.formSelectedId = id
+	},
+
+    /**
+     * @param validPass
+     */
+	setValidPass(validPass){
+        _Withdraw.validPass = validPass;
+	},
+
+    /**
+     * @returns {*}
+     */
+    getValidPass(){
+		return _Withdraw.validPass;
 	}
 });
 
