@@ -28,11 +28,11 @@ let ProcessorsInfo = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
-            loadingPass: false,
+			loadingPass: false,
 			customer: CashierStore.getCustomer(),
-            validPass: CashierStore.getValidPass(),
+			validPass: CashierStore.getValidPass(),
 			waitLimits: CashierStore.getWaitLimits(),
 			selectedProcessor: CashierStore.getProcessor()
 		}
@@ -88,7 +88,7 @@ let ProcessorsInfo = React.createClass({
 
 		return (
 			<div id="processorsInfo">
-				{(() =>{
+				{(() => {
 					if(this.state.customer.loadProcessors && processors && processors.length == 0){
 						return <ProcessorsNoAvailable/>
 					}else{
@@ -101,7 +101,7 @@ let ProcessorsInfo = React.createClass({
 								&nbsp;
 								&nbsp;
 
-								{(() =>{
+								{(() => {
 									let accounts = [
 										'MidasTP',
 										'MarioMidas',
@@ -143,7 +143,7 @@ let ProcessorsInfo = React.createClass({
 								<ProcessorsList processors={processors} waitLimits={this.waitLimits} selectedProcessor={parseInt(this.state.selectedProcessor.processorId)}/>
 							</div>
 							<div className="col-sm-6">
-								{(() =>{
+								{(() => {
 									if(!this.state.selectedProcessor.processorId){
 										return <LoadingSpinner/>;
 									}
@@ -154,65 +154,65 @@ let ProcessorsInfo = React.createClass({
 					}
 				})()}
 
-                {(() =>{
-                    if(this.state.selectedProcessor.processorId && UIService.getIsWithDraw() && !this.state.validPass){
-                    	let wrongPassWord = (!this.state.validPass && this.readyInit);
-                    	let inputClass =  wrongPassWord ? 'withdrawPassInputPasswordWrong' : 'withdrawPassInputPassword';
+				{(() => {
+					if(this.state.selectedProcessor.processorId && UIService.getIsWithDraw() && !this.state.validPass){
+						let wrongPassWord = (!this.state.validPass && this.readyInit);
+						let inputClass = wrongPassWord ? 'withdrawPassInputPasswordWrong' : 'withdrawPassInputPassword';
 
-                        return(
-                            <div id='expiredSessionModal'>
-                                <div id="withdrawPassModal-content">
+						return (
+							<div id='expiredSessionModal'>
+								<div id="withdrawPassModal-content">
 									<div id="withdrawPassModal-frame">
 										<p id="withdrawPassModal-tittle">{translate('WITHDRAW_PASS_MODAL_TITTLE')}</p>
 										<form onSubmit={this.withdrawPassAuthorized}>
 											<input type='password' id="withdrawPassInputPassword" className={inputClass} required/>
 
-											{wrongPassWord? <p id='withdrawPassWrongMessage'>{translate('WITHDRAW_PASS_MODAL_WRONG_MESSAGE', 'Wrong password, please try again.')}</p> : ''}
+											{wrongPassWord ? <p id='withdrawPassWrongMessage'>{translate('WITHDRAW_PASS_MODAL_WRONG_MESSAGE', 'Wrong password, please try again.')}</p> : ''}
 
 											{
 												this.state.loadingPass
 													? <LoadingSpinner/> :
-												<button type='submit' className='btn btn-green withdrawPassInputBTN'>
-													{translate('PROCESSING_BUTTON_NEXT', 'Next')}
-												</button>
+													<button type='submit' className='btn btn-green withdrawPassInputBTN'>
+														{translate('PROCESSING_BUTTON_NEXT', 'Next')}
+													</button>
 											}
 										</form>
 									</div>
-                                </div>
-                            </div>
+								</div>
+							</div>
 						)
 					}
-                })()}
+				})()}
 			</div>
 		)
 	},
 
-    /**
+	/**
 	 * Send verification withdraw pass
-     */
+	 */
 	withdrawPassAuthorized(event){
 		event.preventDefault();
 
 		let pass = document.getElementById('withdrawPassInputPassword');
 
-        this.readyInit = false;
-        let state = this.state;
-        state.loadingPass = true;
+		this.readyInit = false;
+		let state = this.state;
+		state.loadingPass = true;
 
-		CustomerService.authenticateCustomer(pass.value).then((result)=>{
+		CustomerService.authenticateCustomer(pass.value).then((result) => {
 			if(result.hasOwnProperty('response')){
 				if(result.response.hasOwnProperty('access')){
-                    this.readyInit = true;
-                    state.validPass = result.response.access;
-                    state.loadingPass = false;
+					this.readyInit = true;
+					state.validPass = result.response.access;
+					state.loadingPass = false;
 
-                    CashierStore.setValidPass(state.validPass);
-                    this.setState(state)
+					CashierStore.setValidPass(state.validPass);
+					this.setState(state)
 				}
 			}
 		});
 
-        this.setState(state)
+		this.setState(state)
 	},
 
 	/**

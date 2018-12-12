@@ -5,9 +5,8 @@ import {ConnectorServices} from './ConnectorServices'
 import {TransactionService} from './TransactionService'
 import {ApplicationService} from './ApplicationService'
 import {CashierActions} from '../actions/CashierActions'
-import {translate} from '../constants/Translate'
 
-class customerService{
+class customerService {
 
 	/**
 	 * Create RabbitMQ connection and login to client
@@ -41,7 +40,7 @@ class customerService{
 	 * Do some other actions after login response
 	 *
 	 * @param data
-     */
+	 */
 	connectionDone(data){
 		UIService.loginResponse(data);
 		ApplicationService.loginResponse();
@@ -72,7 +71,7 @@ class customerService{
 	 * Function to get Customer Last transactions
 	 */
 	getCustomerTransactions(){
-		let data = { f: "customerLastTransactions", limit: 10 };
+		let data = {f: "customerLastTransactions", limit: 10};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		ConnectorServices.makeCustomerRequest(actions.CUSTOMER_TRANSACTIONS_RESPONSE, rabbitRequest);
@@ -85,7 +84,7 @@ class customerService{
 		let customer = CashierStore.getCustomer();
 		let username = customer.username;
 		let companyId = customer.companyId;
-		let data = { f: "getAssignedP2PNames", username: username, companyId: companyId, processorId: 0 };
+		let data = {f: "getAssignedP2PNames", username: username, companyId: companyId, processorId: 0};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		ConnectorServices.makeCustomerRequest(actions.CUSTOMER_TRANSACTIONS_PENDING_MTCN_RESPONSE, rabbitRequest);
@@ -98,7 +97,7 @@ class customerService{
 		let customerId = CashierStore.getCustomer();
 		let payAccount = CashierStore.getCurrentPayAccount();
 
-		if(!payAccount || !payAccount.payAccountId) {
+		if(!payAccount || !payAccount.payAccountId){
 			return;
 		}
 		let data = {
@@ -123,12 +122,12 @@ class customerService{
 		ConnectorServices.makeCustomerRequest(actions.PROCESSORS_LIMIT_RULES_RESPONSE, rabbitRequest);
 	};
 
-    /**
+	/**
 	 * Authenticated customer
 	 *
-     * @param value
-     * @returns {Promise<any>}
-     */
+	 * @param value
+	 * @returns {Promise<any>}
+	 */
 	authenticateCustomer(value){
 		return ConnectorServices.makeCashierRequestAsync({
 			password: value,
