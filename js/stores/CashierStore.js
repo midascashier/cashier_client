@@ -161,7 +161,7 @@ let _company = {
 		this.phone = data.servicePhone;
 		//company labels
 		if(data.labels){
-			data.labels.map((item, i) =>{
+			data.labels.map((item, i) => {
 				this.companyLabel[item.Code] = item.Value;
 			})
 		}
@@ -194,13 +194,13 @@ let _processor = {
 	load(processorId){
 		let processor = [];
 		if(_UI.currentView == cashier.VIEW_DEPOSIT && _customer.depositProcessors.length > 0){
-			_customer.depositProcessors.map((item) =>{
+			_customer.depositProcessors.map((item) => {
 				if(processorId == item.caProcessor_Id){
 					processor = item;
 				}
 			});
 		}else if(_customer.withdrawProcessors.length > 0){
-			_customer.withdrawProcessors.map((item) =>{
+			_customer.withdrawProcessors.map((item) => {
 				if(processorId == item.caProcessor_Id){
 					processor = item;
 				}
@@ -447,6 +447,10 @@ let _DocsFile = {
 	}
 };
 
+let _Withdraw = {
+	validPass: false
+};
+
 let CHANGE_EVENT = 'change';
 
 let CashierStore = assign({}, EventEmitter.prototype, {
@@ -476,7 +480,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {{payAccountId: null, displayName: null, updateSuccess: number, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limitsData: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: function(*)}}
 	 */
-	getCurrentPayAccount: () =>{
+	getCurrentPayAccount: () => {
 		return _payAccount;
 	},
 
@@ -485,7 +489,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @return {{account: string, name: string, feePaymentMethod: string}}
 	 */
-	getPlayerAccount: () =>{
+	getPlayerAccount: () => {
 		return _Player2Agent.transfer.fullnameTo && _Player2Agent.transfer.fullnameTo.length > 0 ? _Player2Agent : null;
 	},
 
@@ -493,11 +497,11 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Sets the player2agent information
 	 * @param account: _Player2Agent
 	 */
-	setPlayerAccount: (account) =>{
+	setPlayerAccount: (account) => {
 		_Player2Agent = account;
 	},
 
-	cleanPlayerAccount: () =>{
+	cleanPlayerAccount: () => {
 		Object.assign(_Player2Agent.transfer, {
 			fullnameTo: '',
 			usernameFrom: '',
@@ -510,7 +514,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {{available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}|_payAccount.limitsData|{available, type, remaining, enabled, enabledOn, minAmount, maxAmount, availableWithdraw, remainingWithdraw, enabledWithdraw, enabledOnWithdraw, minAmountWithdraw, maxAmountWithdraw, depositLimits, withdrawLimits, limitsPassed}|{}|*}
 	 */
-	getCurrentPayAccountLimit: () =>{
+	getCurrentPayAccountLimit: () => {
 		return _payAccount.limitsData;
 	},
 
@@ -519,7 +523,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: function()}}
 	 */
-	getLastTransactionResponse: () =>{
+	getLastTransactionResponse: () => {
 		return _transactionResponse;
 	},
 
@@ -528,14 +532,14 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns object
 	 */
-	getLastDataTransactionResponse: () =>{
+	getLastDataTransactionResponse: () => {
 		return _transactionResponse.data;
 	},
 
 	/**
 	 * Get selected country
 	 */
-	getSelectedCountry: () =>{
+	getSelectedCountry: () => {
 		return _UI.selectedCountry;
 	},
 
@@ -543,18 +547,18 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * Return country selected states
 	 * @returns {{}|*}
 	 */
-	getCountryStates: () =>{
+	getCountryStates: () => {
 		return _UI.countryStates;
 	},
 
 	/**
 	 * get payAccounts by processor
 	 */
-	getProcessorPayAccount: () =>{
+	getProcessorPayAccount: () => {
 		return (_payAccounts[_processor['processorId']]);
 	},
 
-	getProcessorId: () =>{
+	getProcessorId: () => {
 		return _processor['processorId'];
 	},
 	/**
@@ -562,7 +566,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {string}
 	 */
-	getLanguage: () =>{
+	getLanguage: () => {
 		if(!_UI.language && _customer.lang){
 			let culture = _customer.lang.split('-');
 			_UI.language = culture[0].toUpperCase();
@@ -585,14 +589,14 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * Return current processor steps
 	 */
-	getCurrentProcessorSteps: () =>{
+	getCurrentProcessorSteps: () => {
 		return _UI.currentProcessorSteps;
 	},
 
 	/**
 	 * return current step
 	 */
-	getCurrentStep: () =>{
+	getCurrentStep: () => {
 		return _UI.currentStep;
 	},
 
@@ -601,7 +605,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {{sid: null, lang: string, referrer: string, remoteAddr: string, remoteHost: string, xForwardedFor: string, platform: string, redirectSite: string, userAgent: string, isMobile}}
 	 */
-	getApplication: () =>{
+	getApplication: () => {
 		if(!_application.platform){
 			let platform = 'desktop';
 			let userAgent = _application.userAgent;
@@ -625,7 +629,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {string}
 	 */
-	getCurrentView: () =>{
+	getCurrentView: () => {
 		return _UI.currentView;
 	},
 
@@ -634,7 +638,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {string}
 	 */
-	getOriginPath: () =>{
+	getOriginPath: () => {
 		return window.location.origin;
 	},
 
@@ -643,7 +647,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, currency: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, loadProcessors: boolean, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: Array, pendingPayouts: Array, load: data}}
 	 */
-	getCustomer: () =>{
+	getCustomer: () => {
 		return _customer;
 	},
 
@@ -652,14 +656,14 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {{companyId: number, companyName: string, phone: string, companyLabel: Array, load: (function(*))}}
 	 */
-	getCompany: () =>{
+	getCompany: () => {
 		return _company;
 	},
 
 	/**
 	 * Return actual BTC rate
 	 */
-	getBTCRate: () =>{
+	getBTCRate: () => {
 		let rate = 0;
 		if(_UI['currencies']['BTC']){
 			rate = _UI['currencies']['BTC'].Rate;
@@ -672,7 +676,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, rate: number, limits: Array, limitRules: Array, fees: {enableBP: number, enableCash: number, enableFree: number, cashType: string, structure: Array}, load: (function(*))}}
 	 */
-	getProcessor: () =>{
+	getProcessor: () => {
 		return _processor;
 	},
 
@@ -681,7 +685,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {{language: string, currentView: string, currentStep: string, currentProcessorSteps: Array, processorId: number, payAccountId: number, countryInfo: Array, countries: {}, selectedCountry: string, countryStates: Array, currencies: {}}}
 	 */
-	getUI: () =>{
+	getUI: () => {
 		return _UI;
 	},
 
@@ -689,7 +693,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {number}
 	 */
-	getConnectionStatus: () =>{
+	getConnectionStatus: () => {
 		return _UI.connectionError;
 	},
 
@@ -698,7 +702,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cryptoAddress: string, currencyName: string, currencySymbol: string, BTCConversionAmount: string, cleanTransaction, (): void}}
 	 */
-	getTransaction: () =>{
+	getTransaction: () => {
 		return _transaction;
 	},
 
@@ -707,7 +711,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {int}
 	 */
-	getIsWithdraw: () =>{
+	getIsWithdraw: () => {
 		return (_UI.currentView == cashier.VIEW_WITHDRAW) ? 1 : 0;
 	},
 
@@ -716,7 +720,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {string}
 	 */
-	getServerTime: () =>{
+	getServerTime: () => {
 		return _UI.serverTime;
 	},
 
@@ -736,11 +740,11 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 		_processor.waitLimits = true;
 	},
 
-	getWaitForValidation() {
+	getWaitForValidation(){
 		return _Player2Agent.waitForValidation;
 	},
 
-	waitForValidation() {
+	waitForValidation(){
 		_Player2Agent.waitForValidation = true;
 	},
 
@@ -1003,13 +1007,27 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	docFilesSetFormSelectedId(id){
 		_DocsFile.formSelectedId = id
+	},
+
+	/**
+	 * @param validPass
+	 */
+	setValidPass(validPass){
+		_Withdraw.validPass = validPass;
+	},
+
+	/**
+	 * @returns {*}
+	 */
+	getValidPass(){
+		return _Withdraw.validPass;
 	}
 });
 
 /**
  * register action
  */
-CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
+CashierStore.dispatchToken = CashierDispatcher.register((payload) => {
 	let action = payload.action;
 	let data = payload.data;
 
@@ -1106,7 +1124,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					let p2pTransactions = [];
 					if(data.response && data.response.P2PNames){
 						let p2pNames = data.response.P2PNames;
-						p2pNames.forEach((transaction) =>{
+						p2pNames.forEach((transaction) => {
 							p2pTransactions[transaction.caTransaction_Id] = transaction;
 						});
 					}else{
@@ -1175,7 +1193,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					}else if(_customer.withdrawProcessors.length > 0 && !selectedProcessor.processorId){
 						processor = _customer.withdrawProcessors[0];
 					}else if(selectedProcessor.processorId){
-						_customer.depositProcessors.map((item) =>{
+						_customer.depositProcessors.map((item) => {
 							if(item.caProcessor_Id == selectedProcessor.processorId){
 								processor = item;
 							}
@@ -1222,7 +1240,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 					let payAccountTemp = Object.assign({}, _payAccount);
 					if(data.response && data.response.payAccounts){
 						if(data.response.payAccounts[0].processorIdRoot == _processor.processorId){
-							data.response.payAccounts.forEach((payAccount) =>{
+							data.response.payAccounts.forEach((payAccount) => {
 								payAccount.limitsData.available = Math.floor(payAccount.limitsData.available);
 								payAccount.limitsData.availableWithdraw = Math.floor(payAccount.limitsData.availableWithdraw);
 								payAccount.limitsData.maxAmount = Math.floor(payAccount.limitsData.maxAmount);
@@ -1234,7 +1252,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) =>{
 							});
 							let payAccounts = data.response.payAccounts;
 							if(payAccounts){
-								payAccounts.map((item, key) =>{
+								payAccounts.map((item, key) => {
 									let payAccount = Object.assign({key: key}, payAccountTemp);
 									payAccount.load(item);
 									payAccounts_processor[payAccount.payAccountId] = payAccount;

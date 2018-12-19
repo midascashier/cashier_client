@@ -433,7 +433,7 @@ let _langTags = {
 
     WITHDRAW_PASS_MODAL_TITTLE: 'Por favor ingrese su contraseña',
     WITHDRAW_PASS_MODAL_WRONG_MESSAGE: 'Contraseña incorrecta, por favor intente de nuevo.',
-    VISA_FEE: 'Evite esta tarifa utilizando Amex, Mastercard o Crypto monedas'
+    VISA_FEE: 'Evite esta tarifa utilizando Amex, Mastercard o Crypto monedas.'
 };
 
 export function ES(){

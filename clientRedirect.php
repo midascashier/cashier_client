@@ -19,8 +19,6 @@ class ClientRedirect
   function __construct()
   {
     $cashierParams = array();
-    $cashierParams["sid"] = "";
-    $cashierParams["tuid"] = "";
     $cashierParams["format"] = "json";
     $cashierParams["f"] = "authCustomer";
     $cashierParams["platform"] = "desktop";
@@ -33,7 +31,6 @@ class ClientRedirect
     $cashierParams["referrer"] = $_REQUEST["referrer"];
     $cashierParams["username"] = $_REQUEST["username"];
     $cashierParams["password"] = $_REQUEST["password"];
-    $cashierParams["btnlogin"] = $_REQUEST["btnlogin"];
     $cashierParams["redirectSite"] = $_REQUEST["redirectSite"];
     $cashierParams["sys_access_pass"] = ACCESS_PASSWORD;
     $cashierParams["atDeviceId"] = $_REQUEST["atDeviceId"];
@@ -218,12 +215,15 @@ class ClientRedirect
       $this->sid = null;
       //log in order to trace the issues on login
       $logFile = "logs/login_error_".strtoupper($params["username"]).".txt";
-      $content = date('Y-m-d H:i:s').":\n";
+      $content = date('Y-m-d H:i:s')."\n";
       $content .= "request: \n";
       $strParams = json_encode($params);
       $content .= $strParams." \n";
       $content .= "response: \n";
       $content .= $resp." \n";
+      $strServer = json_encode($_SERVER);
+      $content .= "Server: \n";
+      $content .= $strServer." \n";
       $content .= "\n";
       @file_put_contents($logFile, $content, FILE_APPEND);
 
