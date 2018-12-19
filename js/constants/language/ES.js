@@ -429,7 +429,11 @@ let _langTags = {
 	METHODS_NO_AVAILABLE_DEPOSITS: 'Depósitos',
 	METHODS_NO_AVAILABLE_WITHDRAWALS: 'Retiros',
 	METHODS_NO_AVAILABLE_TITLE: 'Bloqueo de Seguridad',
-	METHODS_NO_AVAILABLE_MESSAGE: 'Selección actual no disponible </br> Por favor contactar a servicio al cliente para obtener asistencia inmediata.'
+	METHODS_NO_AVAILABLE_MESSAGE: 'Selección actual no disponible </br> Por favor contactar a servicio al cliente para obtener asistencia inmediata.',
+
+    WITHDRAW_PASS_MODAL_TITTLE: 'Por favor ingrese su contraseña',
+    WITHDRAW_PASS_MODAL_WRONG_MESSAGE: 'Contraseña incorrecta, por favor intente de nuevo.',
+    VISA_FEE: 'Evite esta tarifa utilizando Amex, Mastercard o Crypto monedas'
 };
 
 export function ES(){

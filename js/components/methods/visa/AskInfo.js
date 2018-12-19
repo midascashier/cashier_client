@@ -118,6 +118,20 @@ let AskInfo = React.createClass({
 																	<AmountController amount={amount} setAmount={setAmount} limitsCheck={limitsCheck}/>
 																</div>
 
+                                                                {(() =>{
+                                                                    if(UIService.getProcessorId() == cashier.PROCESSOR_ID_VISA && this.props.amount != ""){
+                                                                    	let percent = this.props.amount * 0.1;
+                                                                        let customer = CashierStore.getCustomer();
+
+                                                                        return (
+                                                                        	<div>
+																				<label>Fee (10.0%) = {`${percent} ${customer.currency}`}</label>
+																				<label>{translate('VISA_FEE', 'Avoid this fee by using Amex, Mastercard, or Cryptocurrencies')}</label>
+																			</div>
+                                                                        )
+                                                                    }
+                                                                })()}
+
 																<div className="form-group">
 																	<PromoCode setPromoCode={this.props.setPromoCode} promoCode={this.props.promoCode}/>
 																</div>
