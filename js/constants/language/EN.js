@@ -436,7 +436,8 @@ let _langTags = {
 	METHODS_NO_AVAILABLE_MESSAGE: 'Current selection is not available </br> Please get in touch with customer service in order obtain immediate assistance.',
 
 	WITHDRAW_PASS_MODAL_TITTLE: 'Please type your Password',
-	WITHDRAW_PASS_MODAL_WRONG_MESSAGE: 'Wrong password, please try again.'
+	WITHDRAW_PASS_MODAL_WRONG_MESSAGE: 'Wrong password, please try again.',
+	VISA_FEE: 'Avoid this fee by using Amex, Mastercard, or Cryptocurrencies'
 };
 
 export function EN(){
