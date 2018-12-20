@@ -2,7 +2,7 @@ import React from 'react'
 
 let RequestedTicket = React.createClass({
 
-	render() {
+	render(){
 		return (
 			<div className="internal-content">
 				<div className="row">

@@ -26,7 +26,7 @@ let DebitCards = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			selectedProcessor: CashierStore.getProcessor(),
 			payAccount: TransactionService.getCurrentPayAccount()
@@ -38,7 +38,7 @@ let DebitCards = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -63,9 +63,9 @@ let DebitCards = React.createClass({
 					</div>
 
 					<div className="col-sm-6">
-						{(() =>{
+						{(() => {
 							if(!this.state.selectedProcessor.processorId){
-								return <LoadingSpinner />;
+								return <LoadingSpinner/>;
 							}
 
 							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}/>;
@@ -96,21 +96,21 @@ let DebitCards = React.createClass({
 			)
 		}
 
-		return <div className="col-sm-12"><LoadingSpinner /></div>;
+		return <div className="col-sm-12"><LoadingSpinner/></div>;
 	},
 
 	/**
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

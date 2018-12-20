@@ -134,7 +134,7 @@ let BitCoin = React.createClass({
 					/>
 				</div>
 				<div className="col-sm-6">
-					{(() =>{
+					{(() => {
 						if(!this.state.info.selectedProcessor.processorId){
 							return <LoadingSpinner/>;
 						}

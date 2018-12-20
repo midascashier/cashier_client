@@ -42,7 +42,7 @@ let Welcome = React.createClass({
 		return (
 			<div id="welcome" className="welcome-page">
 				<div className="internal-content">
-					{(() =>{
+					{(() => {
 						if(this.state.UI.userMessage){
 							if(this.state.UI.userMessage == 'expired' || this.state.UI.userMessage == 'Your session has expired'){
 								ConnectorServices.stop = true;

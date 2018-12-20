@@ -1,5 +1,5 @@
 import React from 'react'
-import { UIService } from '../../services/UIService'
+import {UIService} from '../../services/UIService'
 
 let Processor = React.createClass({
 	propTypes: {
@@ -25,9 +25,9 @@ let Processor = React.createClass({
 
 		return (
 			<div className="col-sm-6">
-				<div className={"method "+ isActive} onClick={this.selectProcessor}>
+				<div className={"method " + isActive} onClick={this.selectProcessor}>
 					<a href="javascript:;" className={this.props.name.toLowerCase()}/>
-					{(() =>{
+					{(() => {
 						if(this.props.selected){
 							return <i className='fa fa-check-circle'/>;
 						}

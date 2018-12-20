@@ -3,7 +3,7 @@ import cashier from '../constants/Cashier'
 import {CashierStore} from '../stores/CashierStore'
 import {onResponseService} from './OnResponseService'
 
-class connectorServices{
+class connectorServices {
 
 	/**
 	 * ConnectorServices constructor
@@ -48,7 +48,7 @@ class connectorServices{
 	 * @param request: any
 	 * @returns {Promise<any>}
 	 */
-	makeCashierRequestAsync(request) {
+	makeCashierRequestAsync(request){
 		return this.httpServiceAsync(cashier.CASHIER_WS, request);
 	}
 
@@ -96,7 +96,7 @@ class connectorServices{
 	 * Send files to Docs Files Save
 	 *
 	 * @param request
-     */
+	 */
 	makeDocsFileSave(request){
 		let url = cashier.REQUEST_DOCS_FILE_SAVE;
 		let action = actions.DOCS_FILE_SAVE_RESPONSE;
@@ -200,7 +200,7 @@ class connectorServices{
 	 * @param url
 	 * @param action
 	 * @param request
-   */
+	 */
 	httpSimpleService(url, action, request){
 		$.ajax({
 			url: url,

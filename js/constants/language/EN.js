@@ -435,9 +435,11 @@ let _langTags = {
 	METHODS_NO_AVAILABLE_TITLE: 'Security Block',
 	METHODS_NO_AVAILABLE_MESSAGE: 'Current selection is not available </br> Please get in touch with customer service in order obtain immediate assistance.',
 
-    VISA_FEE_MAIN: 'Note there is a 10% surcharge on all Visa deposits',
-    VISA_FEE_ONE_LINE: 'For every $100 deposited, your card will be charged $110',
-    VISA_FEE_TWO_LINE: 'For every $100 deposit you will receive $90 in your account'
+	VISA_FEE_MAIN: 'Note there is a 10% surcharge on all Visa deposits',
+	VISA_FEE_ONE_LINE: 'For every $100 deposited, your card will be charged $110',
+	VISA_FEE_TWO_LINE: 'For every $100 deposit you will receive $90 in your account',
+	WITHDRAW_PASS_MODAL_TITTLE: 'Please type your Password',
+	WITHDRAW_PASS_MODAL_WRONG_MESSAGE: 'Wrong password, please try again.'
 };
 
 export function EN(){

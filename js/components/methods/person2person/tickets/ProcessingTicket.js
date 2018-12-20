@@ -101,7 +101,7 @@ let P2PTicketProcessing = React.createClass({
 													<div className="infoCol scroll">
 														<p><a onClick={this.setFirstStep}>{translate('P2P_INSTRUCTIONS_GET_RECEIVER', "Get New Receiver")}</a></p>
 
-														{(() =>{
+														{(() => {
 															if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
 																return (
 																	<ul>
@@ -122,10 +122,10 @@ let P2PTicketProcessing = React.createClass({
 															)
 														})()}
 
-														{(() =>{
+														{(() => {
 															if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
 																return <p>
-																	<strong>{translate('P2P_MAKE_PAYMENT', 'Make your payment in one of the following establishments')}</strong><br />
+																	<strong>{translate('P2P_MAKE_PAYMENT', 'Make your payment in one of the following establishments')}</strong><br/>
 																	<img src="/images/ria.jpg"/>
 																</p>
 															}
@@ -171,14 +171,14 @@ let P2PTicketProcessing = React.createClass({
 	/**
 	 * component is ready
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

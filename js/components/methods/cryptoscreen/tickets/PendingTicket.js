@@ -1,9 +1,9 @@
 import React from 'react'
 import QRCode from 'qrcode.react'
-import { UIService } from '../../../../services/UIService'
-import { CashierStore } from '../../../../stores/CashierStore'
-import { translate } from '../../../../constants/Translate'
-import { TransactionService } from '../../../../services/TransactionService'
+import {UIService} from '../../../../services/UIService'
+import {CashierStore} from '../../../../stores/CashierStore'
+import {translate} from '../../../../constants/Translate'
+import {TransactionService} from '../../../../services/TransactionService'
 
 let CryptoScreenTicketPending = React.createClass({
 
@@ -21,13 +21,13 @@ let CryptoScreenTicketPending = React.createClass({
 	 *
 	 * @returns {{address: string, cryptoName: string, cryptoAmount: string, CryptoCurrencyISO: string}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let address = "Loading...";
 		let cryptoName = "Loading...";
 		let cryptoAmount = "Loading...";
 		let CryptoCurrencyISO = "Loading...";
 		let extraInfo = null;
-	  let extraInfoName = null;
+		let extraInfoName = null;
 
 		let transaction = UIService.getLastTransactionResponse();
 		if(transaction && transaction.details && transaction.details.cryptoTransaction){
@@ -44,12 +44,12 @@ let CryptoScreenTicketPending = React.createClass({
 		}
 
 		return {
-			address : address,
-			cryptoName : cryptoName,
-			cryptoAmount : cryptoAmount,
-			CryptoCurrencyISO : CryptoCurrencyISO,
-			extraInfo : extraInfo,
-			extraInfoName : extraInfoName
+			address: address,
+			cryptoName: cryptoName,
+			cryptoAmount: cryptoAmount,
+			CryptoCurrencyISO: CryptoCurrencyISO,
+			extraInfo: extraInfo,
+			extraInfoName: extraInfoName
 		}
 	},
 
@@ -58,26 +58,26 @@ let CryptoScreenTicketPending = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
 	/**
 	 * copy to clipboard the Crypto Address or the extra info
 	 */
-	copyToClipboard: function(action) {
+	copyToClipboard: function(action){
 		let clipBoard = document.createElement("input");
-		if(action==1){
+		if(action == 1){
 			let address = this.state.address;
 			clipBoard.setAttribute("value", address);
 		}else{
 			let extraInfo = this.state.extraInfo;
 			clipBoard.setAttribute("value", extraInfo);
 		}
-			document.body.appendChild(clipBoard);
-			clipBoard.select();
-			document.execCommand("copy");
-			document.body.removeChild(clipBoard);
+		document.body.appendChild(clipBoard);
+		clipBoard.select();
+		document.execCommand("copy");
+		document.body.removeChild(clipBoard);
 	},
 
 	/*
@@ -102,10 +102,10 @@ let CryptoScreenTicketPending = React.createClass({
 		let cryptoName = UIService.getCurrentCryptoName();
 		let extraInfo = this.state.extraInfo;
 		let extraInfoName = this.state.extraInfoName;
-		let amount = translate('CRYPTO_INSTRUCTIONS_AMOUNT', 'Send crypto Amount from your wallet', { cryptoAmount: cryptoAmount, cryptoCurrency : cryptoName });
-		let cryptoInstructions = translate('CRYPTO_INSTRUCTIONS', 'Now send your crypto currency to us.', { cryptoCurrency : cryptoName });
-		let addressInstructions = translate('CRYPTO_INSTRUCTIONS_ADDRESS', 'Send the crypto currency to the following address', { cryptoCurrency : cryptoName });
-		let addressInfoInstructions = translate('CRYPTO_INSTRUCTIONS_ADDRESS_INFO', 'Please include any Miners Fee your crypto currency wallet charges.', { cryptoCurrency : cryptoName });
+		let amount = translate('CRYPTO_INSTRUCTIONS_AMOUNT', 'Send crypto Amount from your wallet', {cryptoAmount: cryptoAmount, cryptoCurrency: cryptoName});
+		let cryptoInstructions = translate('CRYPTO_INSTRUCTIONS', 'Now send your crypto currency to us.', {cryptoCurrency: cryptoName});
+		let addressInstructions = translate('CRYPTO_INSTRUCTIONS_ADDRESS', 'Send the crypto currency to the following address', {cryptoCurrency: cryptoName});
+		let addressInfoInstructions = translate('CRYPTO_INSTRUCTIONS_ADDRESS_INFO', 'Please include any Miners Fee your crypto currency wallet charges.', {cryptoCurrency: cryptoName});
 
 		let tags = {
 			'cryptoName': cryptoName,
@@ -165,7 +165,7 @@ let CryptoScreenTicketPending = React.createClass({
 													</div>
 
 													<div className="infoCol">
-														{(() =>{
+														{(() => {
 															if(extraInfo){
 																return (
 																	<div>
@@ -197,7 +197,7 @@ let CryptoScreenTicketPending = React.createClass({
 
 							<div className="col-sm-2">
 								<div id="QRCode">
-									{(() =>{
+									{(() => {
 										if(address){
 											return (
 												<div className="mod-center img-responsive center-block">
@@ -218,14 +218,14 @@ let CryptoScreenTicketPending = React.createClass({
 	/**
 	 * component is ready
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

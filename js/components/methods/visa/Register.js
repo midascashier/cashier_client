@@ -16,7 +16,7 @@ let Register = React.createClass({
 	 *
 	 * @returns {*|{step, processorSteps}}
 	 */
-	getInitialState() {
+	getInitialState(){
 		return this.refreshLocalState();
 	},
 
@@ -24,7 +24,7 @@ let Register = React.createClass({
 	 * this function sets and return object with local states
 	 *
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let states = UIService.getCountryStates();
 		let customer = CashierStore.getCustomer();
 		let country = CashierStore.getSelectedCountry();
@@ -39,7 +39,7 @@ let Register = React.createClass({
 		let address1 = customer.personalInformation.addressOne ? customer.personalInformation.addressOne : "";
 		let customerState = customer.personalInformation.state ? customer.personalInformation.state : states[0]['Small'];
 
-		return{
+		return {
 			displaySaveButton: true,
 			payAccount: {
 				dob: '',
@@ -70,7 +70,7 @@ let Register = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		let displaySave = false;
 		let UI = CashierStore.getUI();
 		let payAccount = this.state.payAccount;
@@ -90,12 +90,12 @@ let Register = React.createClass({
 
 	/**
 	 * Set visa New Account Info
-	 * 
+	 *
 	 * @param propertyName
 	 * @param property
 	 * @param isSelectComponent
-     * @param event
-     */
+	 * @param event
+	 */
 	changeValue(propertyName, property = null, isSelectComponent = 0, event){
 		let value = event;
 		let actualState = this.state;
@@ -143,7 +143,7 @@ let Register = React.createClass({
 	 * @returns {boolean}
 	 */
 	addNewPayAccount(e){
-		if (!ApplicationService.emptyInput(e)) {
+		if(!ApplicationService.emptyInput(e)){
 			let actualState = this.state;
 
 			if(!this.checkCardHolderName()){
@@ -176,7 +176,7 @@ let Register = React.createClass({
 	/**
 	 * Cancel button
 	 */
-	cancel() {
+	cancel(){
 		let payAccounts = CashierStore.getProcessorPayAccount();
 		if(Object.keys(payAccounts).length > 0){
 			let processorID = CashierStore.getProcessor();
@@ -218,7 +218,7 @@ let Register = React.createClass({
 			zipValidation = 'rgxValidate';
 		}
 
-		return(
+		return (
 			<div id="visaRegister">
 				<form onSubmit={this.addNewPayAccount}>
 
@@ -448,7 +448,7 @@ let Register = React.createClass({
 									<button type='submit' className='btn btn-green'>
 										{translate('PROCESSING_BUTTON_SAVE', 'Save')}
 									</button>
-								: null}
+									: null}
 							</div>
 							<div className="col-sm-6">
 								<button type='button' onClick={this.cancel} className='btn btn-green'>
@@ -466,14 +466,14 @@ let Register = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

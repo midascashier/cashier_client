@@ -15,7 +15,7 @@ let Register = React.createClass({
 	 *
 	 * @returns {*|{step, processorSteps}}
 	 */
-	getInitialState() {
+	getInitialState(){
 		return this.refreshLocalState();
 	},
 
@@ -103,7 +103,7 @@ let Register = React.createClass({
 	 * @returns {boolean}
 	 */
 	addNewPayAccount(e){
-		if (!ApplicationService.emptyInput(e)) {
+		if(!ApplicationService.emptyInput(e)){
 
 			let actualState = this.state;
 
@@ -115,7 +115,7 @@ let Register = React.createClass({
 				actualState
 			});
 
-			TransactionService.registerPayAccount(this.state.payAccount);	
+			TransactionService.registerPayAccount(this.state.payAccount);
 		}
 	},
 
@@ -124,7 +124,7 @@ let Register = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		const payAccount = this.state.payAccount;
 		payAccount.state = "";
 		this.setState(
@@ -140,13 +140,13 @@ let Register = React.createClass({
 		if(Object.keys(payAccounts).length > 0){
 			let processorID = CashierStore.getProcessor();
 			let previousPayAccount = 0;
-			
+
 			for(let payAccount in payAccounts){
 				if(previousPayAccount == 0){
 					previousPayAccount = payAccount;
 				}
 			}
-			
+
 			CashierActions.changePayAccount(previousPayAccount, processorID.processorId);
 		}else{
 			UIService.changeUIState('/' + UIService.getCurrentView() + '/');
@@ -163,27 +163,27 @@ let Register = React.createClass({
 		let countryOptionNodes = [];
 
 		for(let i = 0; i < countries.length; i++){
-			countryOptionNodes.push(UIService.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
+			countryOptionNodes.push(UIService.renderOption({label: countries[i]['Name']}, countries[i]['Small']));
 		}
 
 		let stateOptionNodes = [];
-		stateOptionNodes.push(UIService.renderOption({ label: translate('PROCESSING_OPTION_SELECT', 'Select option') }, ''));
+		stateOptionNodes.push(UIService.renderOption({label: translate('PROCESSING_OPTION_SELECT', 'Select option')}, ''));
 
 		for(let i = 0; i < states.length; i++){
-			stateOptionNodes.push(UIService.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
+			stateOptionNodes.push(UIService.renderOption({label: states[i]['Name']}, states[i]['Small']));
 		}
 
 		for(let i = 1; i < 32; i++){
-			selectDays.push(UIService.renderOption({ label: i }, i));
+			selectDays.push(UIService.renderOption({label: i}, i));
 		}
 
 		for(let i = 1; i < 13; i++){
 			i = ('0' + i).slice(-2);
-			selectMonths.push(UIService.renderOption({ label: i }, i));
+			selectMonths.push(UIService.renderOption({label: i}, i));
 		}
 
 		for(let i = 1940; i < 2016; i++){
-			selectYears.push(UIService.renderOption({ label: i }, i));
+			selectYears.push(UIService.renderOption({label: i}, i));
 		}
 
 		return (
@@ -192,7 +192,7 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CK_FIRST_NAME', 'First Name')}:</label>
 						<div className="col-sm-8">
-							<Input type="text" id="firstName" ref="firstName" validate="isString" onChange={this.changeValue.bind(null, 'firstName', 0)} value={this.state.payAccount.firstName} require />
+							<Input type="text" id="firstName" ref="firstName" validate="isString" onChange={this.changeValue.bind(null, 'firstName', 0)} value={this.state.payAccount.firstName} require/>
 						</div>
 					</div>
 
@@ -234,7 +234,7 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CK_COUNTRY', 'Country')}:</label>
 						<div className="col-sm-8">
-							<select className="form-control" id="country" data-validation='isString'  value={this.state.payAccount.country} onChange={this.changeValue.bind(null, 'country',1)}>
+							<select className="form-control" id="country" data-validation='isString' value={this.state.payAccount.country} onChange={this.changeValue.bind(null, 'country', 1)}>
 								{countryOptionNodes}
 							</select>
 						</div>
@@ -243,13 +243,13 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CK_STATE', 'State')}:</label>
 						<div className="col-sm-8">
-							{(() =>{
+							{(() => {
 								if(!states.length){
-									return <LoadingSpinnerSmall />;
+									return <LoadingSpinnerSmall/>;
 								}
 
 								return (
-									<select className="form-control" data-validation='isString' id="countryState" value={this.state.payAccount.state} onChange={this.changeValue.bind(null, 'state',1)} disabled={!states.length}>
+									<select className="form-control" data-validation='isString' id="countryState" value={this.state.payAccount.state} onChange={this.changeValue.bind(null, 'state', 1)} disabled={!states.length}>
 										{stateOptionNodes}
 									</select>
 								)
@@ -281,19 +281,19 @@ let Register = React.createClass({
 					<div className="form-group">
 						<label className="col-sm-4 control-label">{translate('CREDIT_CARD_DOB')}:</label>
 						<div className="col-sm-2">
-							<select className="form-control" data-validation='isNumber' id="dobMonth" ref="dobMonth" name="dobMonth" onChange={this.changeValue.bind(null,'dobMonth', 1)}>
+							<select className="form-control" data-validation='isNumber' id="dobMonth" ref="dobMonth" name="dobMonth" onChange={this.changeValue.bind(null, 'dobMonth', 1)}>
 								{selectMonths}
 							</select>
 						</div>
 
 						<div className="col-sm-2">
-							<select className="form-control" data-validation='isNumber' id="dobDay" ref="dobDay" name="dobDay" onChange={this.changeValue.bind(null,'dobDay', 1)}>
+							<select className="form-control" data-validation='isNumber' id="dobDay" ref="dobDay" name="dobDay" onChange={this.changeValue.bind(null, 'dobDay', 1)}>
 								{selectDays}
 							</select>
 						</div>
 
 						<div className="col-sm-4">
-							<select className="form-control" id="dobYear" data-validation='isNumber' ref="dobYear" name="dobYear" onChange={this.changeValue.bind(null,'dobYear', 1)}>
+							<select className="form-control" id="dobYear" data-validation='isNumber' ref="dobYear" name="dobYear" onChange={this.changeValue.bind(null, 'dobYear', 1)}>
 								{selectYears}
 							</select>
 						</div>

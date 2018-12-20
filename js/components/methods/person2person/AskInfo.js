@@ -1,6 +1,6 @@
 import React from 'react'
 import {Register} from './Register.js'
-import  cashier  from '../../../constants/Cashier'
+import cashier from '../../../constants/Cashier'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {FeeController} from '../../commonComponents/FeeController'
@@ -27,11 +27,11 @@ let AskInfo = React.createClass({
 	 *
 	 * @returns {*}
 	 */
-	getProps() {
+	getProps(){
 		return this.props
 	},
 
-	render() {
+	render(){
 		let selectHours = [];
 		let setAmount = this.props.setAmount;
 		let amount = this.props.amount;
@@ -53,15 +53,15 @@ let AskInfo = React.createClass({
 		if(timeFrameDay == "TOMORROW"){
 			for(let i = 0; i < 24; i++){
 				let hour = i + ":00";
-				selectHours.push(UIService.renderOption({ label: hour }, i));
+				selectHours.push(UIService.renderOption({label: hour}, i));
 			}
 		}else{
 			if(!serverTime){
-				selectHours.push(UIService.renderOption({ label: "Loading" }, "Loading"));
+				selectHours.push(UIService.renderOption({label: "Loading"}, "Loading"));
 			}else{
 				for(let i = serverTime; i < 24; i++){
 					let hour = i + ":00";
-					selectHours.push(UIService.renderOption({ label: hour }, i));
+					selectHours.push(UIService.renderOption({label: hour}, i));
 				}
 			}
 		}
@@ -104,7 +104,7 @@ let AskInfo = React.createClass({
 						<div className="col-sm-12">
 							<div className="form-horizontal">
 
-								{(() =>{
+								{(() => {
 
 									if(payAccountDisplayName == cashier.NO_RESPONSE || payAccountId == 0){
 										return <Register/>

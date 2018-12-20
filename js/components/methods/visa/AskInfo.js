@@ -2,7 +2,7 @@ import React from 'react'
 import {ExtraInfo} from './ExtraInfo'
 import {Register} from './Register.js'
 import {EditPayAccount} from './EditPayAccount'
-import  cashier  from '../../../constants/Cashier'
+import cashier from '../../../constants/Cashier'
 import {TermsController} from '../../TermsController'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
@@ -89,7 +89,7 @@ let AskInfo = React.createClass({
 							<div className="row">
 								<div className="col-sm-12">
 									<div className="form-horizontal">
-										{(() =>{
+										{(() => {
 											if(!payAccountDisplayName){
 												return <LoadingSpinner/>;
 											}else{
@@ -99,7 +99,7 @@ let AskInfo = React.createClass({
 												}
 
 												if(payAccountId == 0){
-													return <Register />
+													return <Register/>
 												}else{
 													if(isEditingCCInfo == 0){
 
@@ -118,24 +118,24 @@ let AskInfo = React.createClass({
 																	<AmountController amount={amount} setAmount={setAmount} limitsCheck={limitsCheck}/>
 																</div>
 
-                                                                {(() =>{
-                                                                    if(UIService.getProcessorId() == cashier.PROCESSOR_ID_VISA){
-                                                                        return (
-                                                                        	<div>
+																{(() => {
+																	if(UIService.getProcessorId() == cashier.PROCESSOR_ID_VISA){
+																		return (
+																			<div>
 																				<label>{translate('VISA_FEE_MAIN', 'Note there is a 10% surcharge on all Visa deposits made at Americas Cardroom')}</label>
 																				<p>{translate('VISA_FEE_ONE_LINE', 'For every $100 deposited, your card will be charged $110')}</p>
-                                                                                <p>{translate('VISA_FEE_TWO_LINE', 'For every $100 deposit you will receive $90 in your account')}</p>
+																				<p>{translate('VISA_FEE_TWO_LINE', 'For every $100 deposit you will receive $90 in your account')}</p>
 																			</div>
-                                                                        )
-                                                                    }
-                                                                })()}
+																		)
+																	}
+																})()}
 
 																<div className="form-group">
 																	<PromoCode setPromoCode={this.props.setPromoCode} promoCode={this.props.promoCode}/>
 																</div>
 
 																{extraInfo}
-																<TermsController />
+																<TermsController/>
 															</div>
 														)
 													}
@@ -147,7 +147,7 @@ let AskInfo = React.createClass({
 											}
 										})()}
 									</div>
-									{(() =>{
+									{(() => {
 										if(payAccountId != 0 && payAccountDisplayName != cashier.NO_RESPONSE){
 											let information = translate('CREDIT_CARD_INFO', '');
 											return (

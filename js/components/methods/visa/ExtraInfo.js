@@ -44,7 +44,7 @@ let ExtraInfo = React.createClass({
 
 		return (
 			<div id="visaExtraInfo">
-				{(() =>{
+				{(() => {
 					let country = this.props.country;
 					if(!country){
 						country = CashierStore.getSelectedCountry();

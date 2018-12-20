@@ -1,5 +1,5 @@
 import Cashier from './Cashier';
-import { translate } from './Translate'
+import {translate} from './Translate'
 
 let limitsMsgs = [];
 limitsMsgs[Cashier.M_BELOW_MIN] = translate('M_BELOW_MIN', 'Min.');

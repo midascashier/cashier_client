@@ -1,13 +1,13 @@
 import React from 'react'
-import { translate } from '../../constants/Translate'
-import { Loading } from '../loading/Loading'
+import {translate} from '../../constants/Translate'
+import {Loading} from '../loading/Loading'
 
 let CustomerInfo = React.createClass({
 	propTypes: {
 		customer: React.PropTypes.object
 	},
 
-	render() {
+	render(){
 		return (
 			<div id="customerInfo" className="col-xs-4">
 				<div className="row">
@@ -16,10 +16,10 @@ let CustomerInfo = React.createClass({
 
 							<div className="col-sm-5">{translate('CUSTOMER_INFO_USER', 'User')}:
 								<span>
-									{(() =>{
+									{(() => {
 										if(!this.props.customer.customerId){
-											return <Loading />;
-										} else{
+											return <Loading/>;
+										}else{
 											return this.props.customer.username
 										}
 									})()}
@@ -28,10 +28,10 @@ let CustomerInfo = React.createClass({
 
 							<div className="col-sm-7">{translate('CUSTOMER_INFO_EMAIL', 'Email')}:
 								<span>
-									{(() =>{
+									{(() => {
 										if(!this.props.customer.customerId){
-											return <Loading />;
-										} else{
+											return <Loading/>;
+										}else{
 											return this.props.customer.personalInformation.email
 										}
 									})()}

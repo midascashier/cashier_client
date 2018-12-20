@@ -1,9 +1,9 @@
 import React from 'react'
-import { translate } from '../../../constants/Translate'
+import {translate} from '../../../constants/Translate'
 import Cashier from '../../../constants/Cashier'
-import { CashierStore } from '../../../stores/CashierStore'
-import { TransactionService } from '../../../services/TransactionService'
-import { UIService } from '../../../services/UIService'
+import {CashierStore} from '../../../stores/CashierStore'
+import {TransactionService} from '../../../services/TransactionService'
+import {UIService} from '../../../services/UIService'
 
 let InfoMethod = React.createClass({
 	propTypes: {
@@ -24,14 +24,14 @@ let InfoMethod = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	},
 
@@ -40,7 +40,7 @@ let InfoMethod = React.createClass({
 	 *
 	 * @returns {{processor: (*|{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}), currentPayAccount: *, originPath: (*|string)}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			processor: CashierStore.getProcessor(),
 			currentPayAccount: CashierStore.getCurrentPayAccount()
@@ -52,7 +52,7 @@ let InfoMethod = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -69,9 +69,7 @@ let InfoMethod = React.createClass({
 
 		if(checkAmount){
 			return true;
-		}
-
-		else if(checkAmount && isWithDraw){
+		}else if(checkAmount && isWithDraw){
 			return true
 		}
 
@@ -81,7 +79,7 @@ let InfoMethod = React.createClass({
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
@@ -94,15 +92,14 @@ let InfoMethod = React.createClass({
 		TransactionService.setAmount(this.props.amount);
 		if(isWithDraw){
 			UIService.confirmTransaction();
-		}
-		else{
+		}else{
 			//process the deposit
 			let dynamicParams = {};
 			TransactionService.process("", "ticket");
 		}
 	},
 
-	render() {
+	render(){
 		let limitsCheck = this.allowProcess();
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
 		let originPath = UIService.getOriginPath();

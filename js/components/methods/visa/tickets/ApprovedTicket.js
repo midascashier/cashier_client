@@ -1,8 +1,8 @@
 import React from 'react'
 import {UIService} from '../../../../services/UIService'
-import  {translate} from '../../../../constants/Translate'
+import {translate} from '../../../../constants/Translate'
 import {CashierStore} from '../../../../stores/CashierStore'
-import {ApplicationService} from  '../../../../services/ApplicationService'
+import {ApplicationService} from '../../../../services/ApplicationService'
 
 let VisaApprovedTicket = React.createClass({
 

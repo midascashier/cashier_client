@@ -1,9 +1,9 @@
 import React from 'react'
 import QRCode from 'qrcode.react'
-import { UIService } from '../../../../services/UIService'
-import { CashierStore } from '../../../../stores/CashierStore'
-import { translate } from '../../../../constants/Translate'
-import { TransactionService } from '../../../../services/TransactionService'
+import {UIService} from '../../../../services/UIService'
+import {CashierStore} from '../../../../stores/CashierStore'
+import {translate} from '../../../../constants/Translate'
+import {TransactionService} from '../../../../services/TransactionService'
 
 let CryptoTransferTicketPending = React.createClass({
 
@@ -21,7 +21,7 @@ let CryptoTransferTicketPending = React.createClass({
 	 *
 	 * @returns {{address: string, amount: string, minutes: number}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let address = "Loading...";
 		let cryptoName = "Loading...";
 		let cryptoAmount = "Loading...";
@@ -40,10 +40,10 @@ let CryptoTransferTicketPending = React.createClass({
 		}
 
 		return {
-			address : address,
-			cryptoName : cryptoName,
-			cryptoAmount : cryptoAmount,
-			CryptoCurrencyISO : CryptoCurrencyISO
+			address: address,
+			cryptoName: cryptoName,
+			cryptoAmount: cryptoAmount,
+			CryptoCurrencyISO: CryptoCurrencyISO
 		}
 	},
 
@@ -52,14 +52,14 @@ let CryptoTransferTicketPending = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
 	/**
 	 * copy to clipboard the Crypto Address Address
 	 */
-	copyToClipboard() {
+	copyToClipboard(){
 		let address = this.state.address;
 		let clipBoard = document.createElement("input");
 		clipBoard.setAttribute("value", address);
@@ -69,15 +69,15 @@ let CryptoTransferTicketPending = React.createClass({
 		document.body.removeChild(clipBoard);
 	},
 
-	render() {
+	render(){
 
 		let address = this.state.address;
 		let cryptoName = this.state.cryptoName;
 		let cryptoAmount = this.state.cryptoAmount;
-		let amount = translate('CRYPTO_INSTRUCTIONS_AMOUNT', 'Send crypto Amount from your wallet', { cryptoAmount: cryptoAmount, cryptoCurrency : cryptoName });
-		let cryptoInstructions = translate('CRYPTO_INSTRUCTIONS', 'Now send your crypto currency to us.', { cryptoCurrency : cryptoName });
-		let addressInstructions = translate('CRYPTO_INSTRUCTIONS_ADDRESS', 'Send the crypto currency to the following address', { cryptoCurrency : cryptoName });
-		let addressInfoInstructions = translate('CRYPTO_INSTRUCTIONS_ADDRESS_INFO', 'Please include any Miners Fee your crypto currency wallet charges.', { cryptoCurrency : cryptoName });
+		let amount = translate('CRYPTO_INSTRUCTIONS_AMOUNT', 'Send crypto Amount from your wallet', {cryptoAmount: cryptoAmount, cryptoCurrency: cryptoName});
+		let cryptoInstructions = translate('CRYPTO_INSTRUCTIONS', 'Now send your crypto currency to us.', {cryptoCurrency: cryptoName});
+		let addressInstructions = translate('CRYPTO_INSTRUCTIONS_ADDRESS', 'Send the crypto currency to the following address', {cryptoCurrency: cryptoName});
+		let addressInfoInstructions = translate('CRYPTO_INSTRUCTIONS_ADDRESS_INFO', 'Please include any Miners Fee your crypto currency wallet charges.', {cryptoCurrency: cryptoName});
 
 		return (
 			<div id="CryptoAddressTicketInstructions">
@@ -139,7 +139,7 @@ let CryptoTransferTicketPending = React.createClass({
 
 							<div className="col-sm-2">
 								<div id="QRCode">
-									{(() =>{
+									{(() => {
 										if(address){
 											return (
 												<div className="mod-center img-responsive center-block">
@@ -160,14 +160,14 @@ let CryptoTransferTicketPending = React.createClass({
 	/**
 	 * component is ready
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

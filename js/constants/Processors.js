@@ -14,7 +14,7 @@ let settings = [];
 
 settings[0] = [];
 settings[0][DEPOSIT_STEPS] = ["selectMethod", "askInfo"];
-settings[0][WITHDRAW_STEPS] = ["selectMethod","askInfo", "confirm"];
+settings[0][WITHDRAW_STEPS] = ["selectMethod", "askInfo", "confirm"];
 
 settings[Cashier.PROCESSOR_ID_NETELLER] = [];
 settings[Cashier.PROCESSOR_ID_NETELLER][LIMITS_VALIDATION_VERSION] = "lite";

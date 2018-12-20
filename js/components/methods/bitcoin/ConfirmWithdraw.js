@@ -1,9 +1,9 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
-import { translate } from '../../../constants/Translate'
-import { UIService } from '../../../services/UIService'
-import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
+import {CashierStore} from '../../../stores/CashierStore'
+import {translate} from '../../../constants/Translate'
+import {UIService} from '../../../services/UIService'
+import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
 
 let BitCoinConfirmWithdraw = React.createClass({
 
@@ -17,7 +17,7 @@ let BitCoinConfirmWithdraw = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			transaction: CashierStore.getTransaction(),
 			payAccount: CashierStore.getCurrentPayAccount()
@@ -29,7 +29,7 @@ let BitCoinConfirmWithdraw = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -39,7 +39,7 @@ let BitCoinConfirmWithdraw = React.createClass({
 	 */
 	processTransaction(){
 		let transaction = this.state.transaction;
-		TransactionService.processBTC({ account: transaction.bitcoinAddress }, 'ticket');
+		TransactionService.processBTC({account: transaction.bitcoinAddress}, 'ticket');
 	},
 
 	/**
@@ -52,7 +52,7 @@ let BitCoinConfirmWithdraw = React.createClass({
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
@@ -137,14 +137,14 @@ let BitCoinConfirmWithdraw = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

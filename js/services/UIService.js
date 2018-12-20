@@ -70,29 +70,29 @@ class UiService {
 		this.changeUIState(route);
 	}
 
-    /**
+	/**
 	 * Redirects to confirm route
 	 *
-     * @param account
-     */
+	 * @param account
+	 */
 	confirmTransaction(account){
-	    if(account){
-            TransactionService.registerPayAccountAsync({account: account}).then((response)=>{
-                if(response.state == 'ok'){
-                    if(parseInt(response.response.isAllowed)){
-                        CashierActions.setCurrentStep("confirm");
-                        UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + "/confirm/");
-                    }else{
-                        UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + '/securityBlock/');
-                    }
-                }else{
-                    CashierActions.showUserMessage(response.userMessage);
-                }
-            });
-        }else{
-            CashierActions.setCurrentStep("confirm");
-            UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + "/confirm/");
-        }
+		if(account){
+			TransactionService.registerPayAccountAsync({account: account}).then((response) => {
+				if(response.state == 'ok'){
+					if(parseInt(response.response.isAllowed)){
+						CashierActions.setCurrentStep("confirm");
+						UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + "/confirm/");
+					}else{
+						UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + '/securityBlock/');
+					}
+				}else{
+					CashierActions.showUserMessage(response.userMessage);
+				}
+			});
+		}else{
+			CashierActions.setCurrentStep("confirm");
+			UIService.changeUIState('/' + UIService.getCurrentView() + '/' + UIService.getProcessorName().toLowerCase() + "/confirm/");
+		}
 	}
 
 	/**
@@ -730,7 +730,7 @@ class UiService {
 	 * @param processorId
 	 * @param minAmount
 	 * @param maxAmount
-     */
+	 */
 	loadCurrencyLimits(cryptoCurrencyCode, processorId, minAmount, maxAmount){
 		let company = this.getCompanyInformation();
 		let customer = this.getCustomerInformation();
@@ -897,7 +897,7 @@ class UiService {
 	 *
 	 * @param name
 	 * @returns {boolean}
-     */
+	 */
 	cryptoAddressRequired(name){
 		if(this.getIsWithDraw()){
 			return true;
@@ -915,8 +915,8 @@ class UiService {
 	 * @param currencyCode
 	 * @param address
 	 * @param processorId
-     * @returns {*}
-     */
+	 * @returns {*}
+	 */
 	validateCryptoAddress(currencyCode, address, processorId){
 		let company = UIService.getCompanyInformation();
 		let companyId = company.companyId;
@@ -953,7 +953,7 @@ class UiService {
 	 * Retrieve from the storage the account to be accredited
 	 * @return {*}
 	 */
-	getPlayerAccount() {
+	getPlayerAccount(){
 		return CashierStore.getPlayerAccount();
 	}
 
@@ -963,9 +963,9 @@ class UiService {
 	 * @param {string} account
 	 * @returns Promise<any>
 	 */
-	accountExists(account) {
+	accountExists(account){
 		return new Promise(((resolve, reject) => {
-			if(!account) {
+			if(!account){
 				return reject(new Error('account is empty'));
 			}
 
@@ -997,7 +997,7 @@ class UiService {
 	 *
 	 * @returns {Promise<any>}
 	 */
-	getTransferLink() {
+	getTransferLink(){
 		const processor = CashierStore.getProcessorId();
 
 		const request = {
@@ -1276,7 +1276,7 @@ class UiService {
 
 		let imgName = capitalize(label.toLowerCase());
 
-		return "../images/docsOnFiles/" + prefixAdd + imgName +".svg"
+		return "../images/docsOnFiles/" + prefixAdd + imgName + ".svg"
 	}
 
 	/**

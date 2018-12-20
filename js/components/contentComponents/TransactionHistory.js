@@ -24,7 +24,7 @@ let TransactionHistory = React.createClass({
 	 *
 	 * @returns {{transactions: Array}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			cancelPayoutButton: true
 		}
@@ -34,12 +34,12 @@ let TransactionHistory = React.createClass({
 	 * cancel a pending payout
 	 *
 	 */
-	cancelPendingPayout(journalId) {
+	cancelPendingPayout(journalId){
 		$('#' + journalId).hide();
 		TransactionService.cancelPendingPayout(journalId);
 	},
 
-	render() {
+	render(){
 
 		let transactions = this.props.transactions;
 		let pendingPayouts = this.props.pendingPayouts;
@@ -58,10 +58,10 @@ let TransactionHistory = React.createClass({
 							<th>{translate('TRANSACTION_HISTORY_TABLE_COL_STATUS', 'Status')}</th>
 							<th></th>
 						</tr>
-						{(() =>{
+						{(() => {
 							if(transactions){
 								let rows = [];
-								transactions.map((transaction, i) =>{
+								transactions.map((transaction, i) => {
 									let status = transaction.TransactionStatus.toLowerCase();
 									let fontColor = "black";
 									switch(status){
@@ -98,7 +98,7 @@ let TransactionHistory = React.createClass({
 									let cancelButton = "";
 
 									if(transaction.caTransactionType_Id == cashier.TRANSACTION_TYPE_PAYOUT && (transaction.caTransactionStatus_Id == cashier.TRANSACTION_STATUS_DEFERRED || transaction.caTransactionStatus_Id == cashier.TRANSACTION_STATUS_PRE_APPROVE)){
-										pendingPayouts.map((payout) =>{
+										pendingPayouts.map((payout) => {
 											if(transaction.caJournal_Id == payout['caJournal_Id'] && cancelPayoutButton){
 												cancelButton = <button type="button" id={transaction.caJournal_Id} className="btn btn-grey"
 																							 onClick={this.cancelPendingPayout.bind(this, transaction.caJournal_Id)}
@@ -115,7 +115,7 @@ let TransactionHistory = React.createClass({
 											<td>{transaction.Method}</td>
 											<td>{ApplicationService.currency_format(transaction.CurrencyAmount) + ' ' + transaction.CurrencyCode}</td>
 											<td className={status}>
-												{(() =>{
+												{(() => {
 													if(transaction.TransactionStatus.toUpperCase() == 'DEFERRED'){
 														return <span className={fontColor}>{translate('TRANSACTION_STATUS_PENDING', 'Penging')}</span>
 													}else{

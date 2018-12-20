@@ -1,13 +1,13 @@
 import React from 'react'
-import { Steps } from './headerComponents/Steps'
-import { Info } from './headerComponents/Info'
+import {Steps} from './headerComponents/Steps'
+import {Info} from './headerComponents/Info'
 
 let Header = React.createClass({
-	render() {
+	render(){
 		return (
 			<div id="header">
-				<Steps />
-				<Info />
+				<Steps/>
+				<Info/>
 			</div>
 		)
 	}

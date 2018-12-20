@@ -1,7 +1,7 @@
 import React from 'react'
-import { UIService } from '../../../../services/UIService'
-import { translate } from '../../../../constants/Translate'
-import { CashierStore } from '../../../../stores/CashierStore'
+import {UIService} from '../../../../services/UIService'
+import {translate} from '../../../../constants/Translate'
+import {CashierStore} from '../../../../stores/CashierStore'
 
 let Player2AgentApprovedTicket = React.createClass({
 
@@ -24,7 +24,7 @@ let Player2AgentApprovedTicket = React.createClass({
 		let transaction = UIService.getTransactionInformation();
 		let transactionResponse = UIService.getLastTransactionResponse();
 		let descriptor = translate('LOADING', 'Loading...');
-		if (transactionResponse && transactionResponse.details && transactionResponse.details.creditCardTransaction){
+		if(transactionResponse && transactionResponse.details && transactionResponse.details.creditCardTransaction){
 			descriptor = transactionResponse.details.creditCardTransaction.Descriptor;
 		}
 		return {
@@ -85,7 +85,7 @@ let Player2AgentApprovedTicket = React.createClass({
 	/**
 	 * component is ready
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	}
 });

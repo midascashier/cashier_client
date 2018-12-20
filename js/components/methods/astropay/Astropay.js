@@ -25,7 +25,7 @@ let Astropay = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let now = new Date();
 		let actualYear = now.getFullYear();
 		return {
@@ -52,7 +52,7 @@ let Astropay = React.createClass({
 	 * @param propertyName
 	 * @param isSelectComponent
 	 * @param event
-     */
+	 */
 	changeValue(propertyName, isSelectComponent = 0, event){
 		let value = event;
 		let actualState = this.state;
@@ -72,7 +72,7 @@ let Astropay = React.createClass({
 
 	},
 
-	render() {
+	render(){
 		return (
 			<div id="astropay">
 				<div className="col-sm-6">
@@ -87,19 +87,19 @@ let Astropay = React.createClass({
 					/>
 				</div>
 				<div className="col-sm-6">
-					{(() =>{
+					{(() => {
 						if(!this.state.selectedProcessor.processorId){
-							return <LoadingSpinner />;
+							return <LoadingSpinner/>;
 						}
 
-						return(
+						return (
 							<InfoMethod
 								check={this.state.check}
 								amount={this.props.amount}
 								payAccount={this.state.payAccount}
 								formValidator={this.formValidator}
 								limitsCheck={this.props.limitsCheck}
-								currencyId= {this.state.currencyId}
+								currencyId={this.state.currencyId}
 							/>
 						)
 					})()}

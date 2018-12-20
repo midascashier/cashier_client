@@ -1,9 +1,9 @@
 /**
  * Created by jobando on 03-Jun-16.
  */
-import { CashierStore } from '../stores/CashierStore'
-import { EN } from './language/EN'
-import { ES } from './language/ES'
+import {CashierStore} from '../stores/CashierStore'
+import {EN} from './language/EN'
+import {ES} from './language/ES'
 
 /**
  * translation label

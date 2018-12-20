@@ -1,8 +1,8 @@
 import React from 'react'
-import { ModalContainer, ModalDialog } from 'react-modal-dialog';
-import { translate } from '../constants/Translate'
-import { TransactionService } from './../services/TransactionService'
-import { CashierStore } from './../stores/CashierStore'
+import {ModalContainer, ModalDialog} from 'react-modal-dialog';
+import {translate} from '../constants/Translate'
+import {TransactionService} from './../services/TransactionService'
+import {CashierStore} from './../stores/CashierStore'
 
 let TermsController = React.createClass({
 
@@ -11,7 +11,7 @@ let TermsController = React.createClass({
 	 *
 	 * @returns {*|{transactions}}
 	 */
-	getInitialState() {
+	getInitialState(){
 		return this.refreshLocalState();
 	},
 
@@ -20,7 +20,7 @@ let TermsController = React.createClass({
 	 *
 	 * @returns {{transactions: {}}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let transaction = CashierStore.getTransaction();
 		let termsCheck = transaction.checkTermsAndConditions;
 		return {
@@ -33,7 +33,7 @@ let TermsController = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -42,9 +42,9 @@ let TermsController = React.createClass({
 	 *
 	 * @param event
 	 */
-	changeValue(event) {
+	changeValue(event){
 		let checked = event.currentTarget.checked;
-		this.setState({ check: checked });
+		this.setState({check: checked});
 		TransactionService.setTermsAndConditions(checked);
 	},
 
@@ -52,34 +52,34 @@ let TermsController = React.createClass({
 	 *
 	 */
 	openTermsConditions(){
-		this.setState({ showModal: true });
+		this.setState({showModal: true});
 	},
 
 	/**
 	 *
 	 */
 	closeTermsConditions(){
-		this.setState({ showModal: false });
+		this.setState({showModal: false});
 	},
 
-	render() {
+	render(){
 		let content = translate('CREDIT_CARD_CHECK_TERMENS');
 		let contentLink = translate('CREDIT_CARD_TERMS_COND');
 		return (
-				<div className="checkbox">
-					<label className="control-label" title={content}>
-						<input type="checkbox" id="checkTermsAndConditions" name="checkTermsAndConditions"
-									 onChange={this.changeValue}
-									 checked={this.state.check}/>
-						<span>{content}&nbsp;</span>
-					</label>
-					<a href="#" onClick={this.openTermsConditions}>
-						{contentLink}
-					</a>
-					{this.state.showModal ?
-						<FirstModal onClose={this.closeTermsConditions}/>
+			<div className="checkbox">
+				<label className="control-label" title={content}>
+					<input type="checkbox" id="checkTermsAndConditions" name="checkTermsAndConditions"
+								 onChange={this.changeValue}
+								 checked={this.state.check}/>
+					<span>{content}&nbsp;</span>
+				</label>
+				<a href="#" onClick={this.openTermsConditions}>
+					{contentLink}
+				</a>
+				{this.state.showModal ?
+					<FirstModal onClose={this.closeTermsConditions}/>
 					: null}
-				</div>
+			</div>
 		)
 	},
 
@@ -87,14 +87,14 @@ let TermsController = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });
@@ -104,7 +104,7 @@ let FirstModal = React.createClass({
 		onClose: React.PropTypes.func
 	},
 
-	render() {
+	render(){
 		return <ModalContainer onClose={this.props.onClose}>
 			<ModalDialog onClose={this.props.onClose}>
 				<ul>
@@ -114,11 +114,11 @@ let FirstModal = React.createClass({
 						your purchase so long as your reason is valid. To apply for a refund e-mail us
 					</li>
 					<li>It is recommended you may only participate in any gambling events if it is legal for you to do so
-						according to the laws that apply in the jurisdiction from where you are connecting or calling.<br /> You
+						according to the laws that apply in the jurisdiction from where you are connecting or calling.<br/> You
 						must understand and accept that we are unable to provide you any legal advice or assurances
 					</li>
 					<li>After purchase you will receive an e-mail notification. We recommend the cardholder to print out all
-						transactions data, the rules of the game, <br />the cancellation regulations, and the payment methods in
+						transactions data, the rules of the game, <br/>the cancellation regulations, and the payment methods in
 						order to avoid misconceptions and discussions at a later time and keep them at an easily accesible place.
 					</li>
 					<li>All customer queries will be answered within two working days.</li>

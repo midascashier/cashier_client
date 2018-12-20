@@ -1,6 +1,6 @@
 import React from 'react'
 import {Register} from './Register'
-import  cashier  from '../../../constants/Cashier'
+import cashier from '../../../constants/Cashier'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {PromoCode} from '../../commonComponents/PromoCode'
@@ -76,7 +76,7 @@ let AskInfo = React.createClass({
 						<div className="col-sm-12">
 							<div className="form-horizontal">
 								<div>
-									{((() =>{
+									{((() => {
 
 										if(payAccountDisplayName == cashier.NO_RESPONSE || payAccountId == 0){
 											return <Register/>
@@ -90,7 +90,7 @@ let AskInfo = React.createClass({
 													<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 												</div>
 
-												{(() =>{
+												{(() => {
 													if(!isWithDraw){
 														return (
 															<div className="form-group">

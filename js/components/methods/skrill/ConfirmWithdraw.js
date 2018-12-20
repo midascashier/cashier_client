@@ -1,9 +1,9 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
-import { translate } from '../../../constants/Translate'
-import { UIService } from '../../../services/UIService'
-import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
+import {CashierStore} from '../../../stores/CashierStore'
+import {translate} from '../../../constants/Translate'
+import {UIService} from '../../../services/UIService'
+import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
 
 let SkrillConfirmWithdraw = React.createClass({
 
@@ -18,21 +18,21 @@ let SkrillConfirmWithdraw = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	},
 
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			transaction: CashierStore.getTransaction(),
 			payAccount: CashierStore.getCurrentPayAccount()
@@ -44,7 +44,7 @@ let SkrillConfirmWithdraw = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -53,7 +53,7 @@ let SkrillConfirmWithdraw = React.createClass({
 	 *
 	 */
 	processTransaction(){
-		TransactionService.process(null,'ticket');
+		TransactionService.process(null, 'ticket');
 	},
 
 	/**
@@ -66,7 +66,7 @@ let SkrillConfirmWithdraw = React.createClass({
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
@@ -98,28 +98,28 @@ let SkrillConfirmWithdraw = React.createClass({
 										<div className="row">
 											<div className="col-sm-12">
 												<div className="title">{translate('METHOD_DETAILS_WITHDRAW', 'Withdraw Details')}</div>
-													<div className="table-responsive">
-														<table className="table table-striped">
-															<tbody>
-																<tr>
-																	<td>{translate('SKRILL_ACCOUNT', 'Skrill Account')}</td>
-																	<td><span>{secureData.account}</span></td>
-																</tr>
-																<tr>
-																	<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
-																	<td><span>{ApplicationService.currency_format(transaction.amount)}</span></td>
-																</tr>
-																<tr>
-																	<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
-																	<td><span>{ApplicationService.currency_format(transaction.fee)}</span></td>
-																</tr>
-															</tbody>
-														</table>
-													</div>
-													<p>
-														<i className="fa fa-pencil green"></i>
-														<a onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>
-													</p>
+												<div className="table-responsive">
+													<table className="table table-striped">
+														<tbody>
+														<tr>
+															<td>{translate('SKRILL_ACCOUNT', 'Skrill Account')}</td>
+															<td><span>{secureData.account}</span></td>
+														</tr>
+														<tr>
+															<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
+															<td><span>{ApplicationService.currency_format(transaction.amount)}</span></td>
+														</tr>
+														<tr>
+															<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
+															<td><span>{ApplicationService.currency_format(transaction.fee)}</span></td>
+														</tr>
+														</tbody>
+													</table>
+												</div>
+												<p>
+													<i className="fa fa-pencil green"></i>
+													<a onClick={this.editWithdraw}>{translate('METHOD_EDIT_DETAILS_WITHDRAW', 'Edit the withdraw details')}</a>
+												</p>
 												<div className="row">
 													<div className="col-sm-6">
 														<button type="button" onClick={this.processTransaction} className="btn btn-green">{translate('PROCESSING_BUTTON_COMPLETE_WITHDRAW', 'Complete Withdraw')}</button>

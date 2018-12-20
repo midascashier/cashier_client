@@ -117,7 +117,7 @@ let InfoMethod = React.createClass({
 		let processor = UIService.getProcessorId();
 		let needCryptoAddress = UIService.cryptoAddressRequired(name);
 		if(needCryptoAddress || processor == Cashier.PROCESSOR_ID_CRYPTO_TRANSFER){
-			this.props.checkCryptoAddress((valid) =>{
+			this.props.checkCryptoAddress((valid) => {
 				if(valid){
 					this.goTransaction()
 				}else{
@@ -188,14 +188,14 @@ let InfoMethod = React.createClass({
 					<div className="table-responsive">
 						<table className="table table-striped">
 							<tbody>
-								<tr>
-									<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-									<td><span>{this.props.limits.minAmount + ' ' + currency}</span></td>
-								</tr>
-								<tr>
-									<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-									<td><span>{this.props.limits.maxAmount + ' ' + currency}</span></td>
-								</tr>
+							<tr>
+								<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+								<td><span>{this.props.limits.minAmount + ' ' + currency}</span></td>
+							</tr>
+							<tr>
+								<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
+								<td><span>{this.props.limits.maxAmount + ' ' + currency}</span></td>
+							</tr>
 							</tbody>
 						</table>
 					</div>

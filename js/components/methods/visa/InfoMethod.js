@@ -138,7 +138,7 @@ let InfoMethod = React.createClass({
 			isNextDisabled = "";
 		}
 
-		return(
+		return (
 			<div id="InfoMethodVisa">
 				<div className="row">
 					<div className="col-sm-12">
@@ -146,55 +146,55 @@ let InfoMethod = React.createClass({
 						<div className="table-responsive">
 							<table className="table table-striped">
 								<tbody>
-									<tr>
-										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-										{(() =>{
-											if(payAccountInfo.minPayAccount){
-												return (<td><span>{payAccountInfo.minPayAccount}</span></td>)
-											}else{
-												return (<td><span><Loading/></span></td>)
-											}
-										})()}
-									</tr>
-									<tr>
-										<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-										{(() =>{
-											if(payAccountInfo.maxPayAccount){
-												return (<td><span>{payAccountInfo.maxPayAccount}</span></td>)
-											}else{
-												return (<td><span><Loading/></span></td>)
-											}
-										})()}
-									</tr>
-									<tr>
-										<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
-										{(() =>{
-											if(payAccountInfo.remaining){
-												return (<td><span>{payAccountInfo.remaining}</span></td>)
-											}else{
-												return (<td><span><Loading/></span></td>)
-											}
-										})()}
-									</tr>
-									<tr className="red">
-										{(() =>{
-											if(payAccountInfo.payAccountId && !validateExtra.check){
-												return (
-													<td colSpan="2">
-														<i className="fa fa-exclamation-circle"></i>
-														<span>{validateExtra.message}</span>
-													</td>
-												)
-											}
-										})()}
-									</tr>
-									<tr>
-										{(() =>{
-											if(payAccountInfo.errorLimitMessage){
-												return (<td colSpan={2} dangerouslySetInnerHTML={{__html: payAccountInfo.errorLimitMessage}}></td>)
-											}
-										})()}
-									</tr>
+								<tr>
+									<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+									{(() => {
+										if(payAccountInfo.minPayAccount){
+											return (<td><span>{payAccountInfo.minPayAccount}</span></td>)
+										}else{
+											return (<td><span><Loading/></span></td>)
+										}
+									})()}
+								</tr>
+								<tr>
+									<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
+									{(() => {
+										if(payAccountInfo.maxPayAccount){
+											return (<td><span>{payAccountInfo.maxPayAccount}</span></td>)
+										}else{
+											return (<td><span><Loading/></span></td>)
+										}
+									})()}
+								</tr>
+								<tr>
+									<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
+									{(() => {
+										if(payAccountInfo.remaining){
+											return (<td><span>{payAccountInfo.remaining}</span></td>)
+										}else{
+											return (<td><span><Loading/></span></td>)
+										}
+									})()}
+								</tr>
+								<tr className="red">
+									{(() => {
+										if(payAccountInfo.payAccountId && !validateExtra.check){
+											return (
+												<td colSpan="2">
+													<i className="fa fa-exclamation-circle"></i>
+													<span>{validateExtra.message}</span>
+												</td>
+											)
+										}
+									})()}
+								</tr>
+								<tr>
+									{(() => {
+										if(payAccountInfo.errorLimitMessage){
+											return (<td colSpan={2} dangerouslySetInnerHTML={{__html: payAccountInfo.errorLimitMessage}}></td>)
+										}
+									})()}
+								</tr>
 								</tbody>
 							</table>
 						</div>

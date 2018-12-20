@@ -20,7 +20,7 @@ let AskInfo = React.createClass({
 		cryptoAmount: React.PropTypes.node,
 		cryptoAddress: React.PropTypes.node,
 		limitsCheck: React.PropTypes.string,
-		conversionRate:React.PropTypes.node,
+		conversionRate: React.PropTypes.node,
 		customerAmount: React.PropTypes.node,
 		getCurrencyRate: React.PropTypes.func,
 		setCryptoAmount: React.PropTypes.func,
@@ -52,7 +52,7 @@ let AskInfo = React.createClass({
 	 */
 	refreshLocalState(){
 		return {
-			currencies : UIService.getCryptoCurrencies()
+			currencies: UIService.getCryptoCurrencies()
 		}
 	},
 
@@ -72,7 +72,7 @@ let AskInfo = React.createClass({
 		UIService.loadCryptoCurrencies();
 		this.cryptoScreen.processorLimits = UIService.getProcessorLimitMinMax();
 
-		window.onclick = function (event){
+		window.onclick = function(event){
 			if(event.target == document.getElementById('cryptoTransferModal')){
 				$('#cryptoTransferModal').css('display', 'none');
 			}
@@ -87,7 +87,7 @@ let AskInfo = React.createClass({
 	 * Execute any action when select any crypto currency
 	 *
 	 * @param event
-     */
+	 */
 	currencyActions(event){
 		UIService.loadingLimits();
 		let symbolSelect = event.currentTarget.id;
@@ -117,9 +117,9 @@ let AskInfo = React.createClass({
 		$('#cryptoTransfer-Btn-content').css('display', 'block');
 
 		$('#cryptoTransfer-Btn').css({
-			'color' : '#fff',
-			'border' : 'none',
-			'background-color' : '#fff'
+			'color': '#fff',
+			'border': 'none',
+			'background-color': '#fff'
 		});
 
 		this.hideCurrencies();
@@ -130,7 +130,7 @@ let AskInfo = React.createClass({
 	 */
 	moneroActions(){
 		$('#moneroMsgModal').css({
-			'display' : 'flex'
+			'display': 'flex'
 		});
 	},
 
@@ -151,7 +151,7 @@ let AskInfo = React.createClass({
 		let id = currency.name.toLowerCase().split(' ').join('');
 		let path = this.cryptoScreen.imgPath.replace('{symbol}', currency.symbol);
 
-		return(
+		return (
 			<div id={id} className={'cryptoTransferCurrency'} onClick={this.currencyActions.bind(this)}>
 				<img src={path} alt={currency.name}/>
 				<span id={id + 'Name'} className="currentName">{currency.name}</span>
@@ -171,7 +171,7 @@ let AskInfo = React.createClass({
 	currencyUnavailableContent(currency){
 		let path = this.cryptoScreen.imgPath.replace('{symbol}', currency.symbol);
 
-		return(
+		return (
 			<div className={'cryptoTransferCurrency unavailableCurrency'}>
 				<img src={path} alt={currency.name}/>
 				<span className="unavailableName">{translate('CRYPTO_UNAVAILABLE_TXT', 'Temporarily disabled')}</span>
@@ -191,7 +191,7 @@ let AskInfo = React.createClass({
 			let availableCurrencies = this.state.currencies.available;
 			let unavailableCurrencies = this.state.currencies.unavailable;
 
-			return(
+			return (
 				<div id='cryptoTransferModal'>
 					<div id='cryptoTransferModal-content'>
 						<div id='cryptoTransferModal-header'>
@@ -295,12 +295,12 @@ let AskInfo = React.createClass({
 
 					<p id="refundErrorMsg">{helpMSG}</p>
 
-					{(() =>{
-						$('#helpAddress').mouseenter(function () {
+					{(() => {
+						$('#helpAddress').mouseenter(function(){
 							$('#refundErrorMsg').css({
 								'display': 'block'
 							})
-						}).mouseleave(function () {
+						}).mouseleave(function(){
 							$('#refundErrorMsg').css({
 								'display': 'none'
 							})
@@ -323,7 +323,7 @@ let AskInfo = React.createClass({
 							setCustomerAmount={this.props.setCustomerAmount}
 						/>
 
-						{(() =>{
+						{(() => {
 							if(this.props.cryptoAddressError){
 								return (
 									<div className="alert alert-danger" role="alert">
@@ -333,11 +333,11 @@ let AskInfo = React.createClass({
 							}
 						})()}
 
-						{(() =>{
+						{(() => {
 							let name = this.props.getName();
 							let needAddress = UIService.cryptoAddressRequired(name);
 							if(needAddress){
-								return(
+								return (
 									<div id="cryptoAddressContainer">
 										<input
 											type="text"
@@ -356,7 +356,7 @@ let AskInfo = React.createClass({
 							}
 						})()}
 
-						{(() =>{
+						{(() => {
 							if(!isWithDraw){
 								return (
 									<div>
@@ -380,7 +380,7 @@ let AskInfo = React.createClass({
 			)
 		}
 
-		return(
+		return (
 			<div id="cryptoAskInfo" className="box">
 				<div className="row">
 					<div className="col-sm-12">

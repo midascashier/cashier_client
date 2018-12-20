@@ -1,7 +1,7 @@
 import React from 'react'
-import { UIService } from '../../services/UIService'
-import { CashierStore } from '../../stores/CashierStore'
-import { ApplicationService } from '../../services/ApplicationService'
+import {UIService} from '../../services/UIService'
+import {CashierStore} from '../../stores/CashierStore'
+import {ApplicationService} from '../../services/ApplicationService'
 
 let DeferredTicket = React.createClass({
 
@@ -19,7 +19,7 @@ let DeferredTicket = React.createClass({
 	 *
 	 * @returns {{email: string, currency: string, balance: string}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let customer = UIService.getCustomerInformation();
 		return {
 			email: customer.personalInformation.email,
@@ -33,11 +33,11 @@ let DeferredTicket = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
-	render() {
+	render(){
 		let originPath = UIService.getOriginPath();
 		let email = this.state.email;
 		let currency = this.state.currency;
@@ -53,10 +53,10 @@ let DeferredTicket = React.createClass({
 							</a>
 						</div>
 					</div>
-					
+
 					<div className="col-sm-6">
 						<div className="success-message">
-							<img src={originPath + '/images/u16.png'} />
+							<img src={originPath + '/images/u16.png'}/>
 							<div className="title">Your withdraw was successfully submitted.</div>
 							<p>Your balance is now {ApplicationService.currency_format(balance) + ' ' + currency}</p>
 							<p>An email has been sent to {email} with the transaction details.</p>
@@ -70,7 +70,7 @@ let DeferredTicket = React.createClass({
 	/**
 	 * component is ready
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	}
 });

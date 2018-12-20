@@ -1,9 +1,9 @@
 import React from 'react'
-import { Input } from '../../../commonComponents/Inputs'
-import { UIService } from '../../../../services/UIService'
-import { translate } from '../../../../constants/Translate'
-import { CashierStore } from '../../../../stores/CashierStore'
-import { TransactionService } from '../../../../services/TransactionService'
+import {Input} from '../../../commonComponents/Inputs'
+import {UIService} from '../../../../services/UIService'
+import {translate} from '../../../../constants/Translate'
+import {CashierStore} from '../../../../stores/CashierStore'
+import {TransactionService} from '../../../../services/TransactionService'
 
 let VisaRejectCardTicket = React.createClass({
 
@@ -21,7 +21,7 @@ let VisaRejectCardTicket = React.createClass({
 	 *
 	 * @returns {{payAccount: (*|{payAccountId: null, displayName: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limitsData: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: (function(*))}), currency: string, currencyAmount: string}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let transaction = UIService.getTransactionInformation();
 		let payAccount = UIService.getPayAccountInformation();
 		let customer = UIService.getCustomerInformation();
@@ -35,14 +35,14 @@ let VisaRejectCardTicket = React.createClass({
 	/**
 	 * component is ready
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	},
 
@@ -51,7 +51,7 @@ let VisaRejectCardTicket = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -80,14 +80,14 @@ let VisaRejectCardTicket = React.createClass({
 
 		const payAccount = this.state.payAccount;
 		payAccount.updateSuccess = 0;
-		this.setState({ displaySaveButton: false, payAccount: payAccount });
+		this.setState({displaySaveButton: false, payAccount: payAccount});
 		TransactionService.updateCreditCardSecure();
 	},
 
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
@@ -103,10 +103,10 @@ let VisaRejectCardTicket = React.createClass({
 			value = value.target.value;
 		}
 		payAccount.secure[propertyName] = value;
-		this.setState({ payAccount: payAccount });
+		this.setState({payAccount: payAccount});
 	},
 
-	render() {
+	render(){
 
 		let payAccount = this.state.payAccount;
 		let updateSuccess = payAccount.updateSuccess;
@@ -124,11 +124,11 @@ let VisaRejectCardTicket = React.createClass({
 
 		for(let i = 1; i < 13; i++){
 			i = ('0' + i).slice(-2);
-			selectMonths.push(UIService.renderOption({ label: i }, i));
+			selectMonths.push(UIService.renderOption({label: i}, i));
 		}
 
 		for(let i = now.getFullYear(); i < now.getFullYear() + 15; i++){
-			selectYears.push(UIService.renderOption({ label: i }, i));
+			selectYears.push(UIService.renderOption({label: i}, i));
 		}
 
 		return (
@@ -148,7 +148,7 @@ let VisaRejectCardTicket = React.createClass({
 							className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 						<div className="infoCol">
 							<div class="col-sm-12">
-								{(() =>{
+								{(() => {
 									if(updateSuccess != 1){
 										return <div className="loader"></div>;
 									}
@@ -203,7 +203,7 @@ let VisaRejectCardTicket = React.createClass({
 															 value={password}/>
 											</div>
 										</div>
-										{(() =>{
+										{(() => {
 											if(updateSuccess == 1){
 												return <button type='button' className='btn btn-green'
 																			 onClick={this.updateCreditCardSecure}>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button>;

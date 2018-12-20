@@ -86,7 +86,7 @@ let AskInfo = React.createClass({
 	 */
 	componentDidMount(){
 		TransactionService.getTransferLinks()
-			.then(values =>{
+			.then(values => {
 				this.setState({
 					links: values.map(link => link['Username_To'])
 				});

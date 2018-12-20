@@ -3,7 +3,7 @@ import {Header} from './Header'
 import Cashier from '../constants/Cashier'
 import {UIService} from '../services/UIService'
 import {CashierStore} from './../stores/CashierStore'
-import  ProcessorSettings from '../constants/Processors'
+import ProcessorSettings from '../constants/Processors'
 import {TransactionService} from '../services/TransactionService'
 
 let Content = React.createClass({

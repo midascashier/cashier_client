@@ -50,7 +50,7 @@ let AskInfo = React.createClass({
 							<div className="row">
 								<div className="col-sm-12">
 									<div className="form-horizontal">
-										{(() =>{
+										{(() => {
 											if(isWithDraw){
 												return (
 													<div className="form-group">
@@ -67,7 +67,7 @@ let AskInfo = React.createClass({
 											<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 										</div>
 
-										{(() =>{
+										{(() => {
 											if(!isWithDraw){
 												return (
 													<div>

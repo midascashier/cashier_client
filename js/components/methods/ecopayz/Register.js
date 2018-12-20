@@ -14,7 +14,7 @@ let Register = React.createClass({
 	 *
 	 * @returns {*|{step, processorSteps}}
 	 */
-	getInitialState() {
+	getInitialState(){
 		return this.refreshLocalState();
 	},
 
@@ -22,7 +22,7 @@ let Register = React.createClass({
 	 * this function sets and return object with local states
 	 *
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			displaySaveButton: true,
 			displayCancelButton: true,
@@ -52,7 +52,7 @@ let Register = React.createClass({
 	 * @returns {boolean}
 	 */
 	addNewPayAccount(e){
-		if (!ApplicationService.emptyInput(e)) {
+		if(!ApplicationService.emptyInput(e)){
 
 			this.setState({
 				displaySaveButton: false
@@ -65,19 +65,19 @@ let Register = React.createClass({
 	/**
 	 * Cancel button
 	 */
-	cancel() {
+	cancel(){
 		let payAccounts = CashierStore.getProcessorPayAccount();
 		if(Object.keys(payAccounts).length > 0){
-			
+
 			let processor = CashierStore.getProcessor();
 			let previousPayAccount = 0;
-			
+
 			for(let payAccount in payAccounts){
 				if(previousPayAccount == 0){
 					previousPayAccount = payAccount;
 				}
 			}
-			
+
 			CashierActions.changePayAccount(previousPayAccount, processor.processorId);
 		}else{
 			UIService.changeUIState('/' + UIService.getCurrentView() + '/');
@@ -93,7 +93,7 @@ let Register = React.createClass({
 						<div className="col-sm-8">
 							<Input
 								className="form-control" type="text" id="openPayzNewAccount" name="openPayzNewAccount" ref="account"
-							    validate="isNumber" onChange={this.changeValue} value={this.state.payAccount.account} require
+								validate="isNumber" onChange={this.changeValue} value={this.state.payAccount.account} require
 							/>
 						</div>
 					</div>
@@ -103,13 +103,13 @@ let Register = React.createClass({
 							<div className="col-sm-6">
 								{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>
 									{translate('PROCESSING_BUTTON_SAVE', 'Save')}
-								</button> : null }
+								</button> : null}
 							</div>
 
 							<div className="col-sm-6">
 								{this.state.displayCancelButton ? <button type='button' onClick={this.cancel} className='btn btn-green'>
 									{translate('PROCESSING_BUTTON_CANCEL', 'Save')}
-								</button> : null }
+								</button> : null}
 							</div>
 						</div>
 					</div>

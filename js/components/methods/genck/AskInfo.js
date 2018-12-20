@@ -64,25 +64,25 @@ let AskInfo = React.createClass({
 		}
 
 		let sendByOptionNodes = [];
-		sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_FEDEX', 'FedEx') }, 'FedEx'));
-		
+		sendByOptionNodes.push(UIService.renderOption({label: translate('CK_SEND_BY_FEDEX', 'FedEx')}, 'FedEx'));
+
 		if(processorFees.enableFree == 1){
-			sendByOptionNodes.push(UIService.renderOption({ label: translate('CK_SEND_BY_REGULAR', 'Regular mail') }, 'Mail'));
+			sendByOptionNodes.push(UIService.renderOption({label: translate('CK_SEND_BY_REGULAR', 'Regular mail')}, 'Mail'));
 		}
 
 		let feeOptions = [];
-		
+
 		if(processorFees){
 			if(sendBy == 'Mail'){
 				if(processorFees.enableFree == 1){
-					feeOptions.push(UIService.renderOption({ label: "Free" }, "Free"));
+					feeOptions.push(UIService.renderOption({label: "Free"}, "Free"));
 					if(feeType != "Free"){
 						setFeeType("Free");
 					}
 				}
 			}else{
 				if(processorFees.enableCash == 1){
-					feeOptions.push(UIService.renderOption({ label: "Cash" }, "Cash"));
+					feeOptions.push(UIService.renderOption({label: "Cash"}, "Cash"));
 					if(feeType != "Cash"){
 						setFeeType("Cash");
 					}
@@ -94,7 +94,7 @@ let AskInfo = React.createClass({
 			withdrawFee = (
 				<div className="form-group">
 					<div id="feeControllerGenCK">
-						{(() =>{
+						{(() => {
 
 							if(feeOptions && (processorFees.enableFree == 1 || processorFees.enableCash == 1)){
 								return (
@@ -134,9 +134,9 @@ let AskInfo = React.createClass({
 						<div className="col-sm-12">
 							<div className="form-horizontal">
 
-								{(() =>{
+								{(() => {
 									if(!payAccountDisplayName){
-										return <LoadingSpinner />;
+										return <LoadingSpinner/>;
 									}
 
 									if(payAccountDisplayName == cashier.NO_RESPONSE || payAccountId == 0){

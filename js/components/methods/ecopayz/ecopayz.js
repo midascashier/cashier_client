@@ -27,7 +27,7 @@ let Ecopayz = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			selectedProcessor: CashierStore.getProcessor(),
 			payAccount: TransactionService.getCurrentPayAccount()
@@ -39,17 +39,17 @@ let Ecopayz = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
 	/**
 	 * Set ecopayz New Account Info
-	 * 
+	 *
 	 * @param propertyName
 	 * @param isSelectComponent
 	 * @param event
-     */
+	 */
 	changeValue(propertyName, isSelectComponent = 0, event){
 		let actualState = this.state;
 
@@ -67,7 +67,7 @@ let Ecopayz = React.createClass({
 
 	},
 
-	render() {
+	render(){
 		return (
 			<div id="ecopayz">
 				<div className="col-sm-6">
@@ -78,25 +78,25 @@ let Ecopayz = React.createClass({
 						payAccount={this.state.payAccount}
 						feeCashValue={this.props.feeCashValue}
 						feeCheck={this.props.feeCheck}
-						changeValue = {this.changeValue}
+						changeValue={this.changeValue}
 						setPromoCode={this.props.setPromoCode}
 						promoCode={this.props.promoCode}
 					/>
 				</div>
 				<div className="col-sm-6">
-					{(() =>{
-						
+					{(() => {
+
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner/>;
 						}
 
-						return(
+						return (
 							<InfoMethod
 								amount={this.props.amount}
 								limitsCheck={this.props.limitsCheck}
 								feeCheck={this.props.feeCheck}
 								feeCashValue={this.props.feeCashValue}
-								payAccount = {this.state.payAccountId}
+								payAccount={this.state.payAccountId}
 							/>
 						)
 					})()}
@@ -109,14 +109,14 @@ let Ecopayz = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

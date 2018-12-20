@@ -64,7 +64,7 @@ let AmountController = React.createClass({
 					/>
 					<span>{translate('PROCESSING_MIN', 'Min')}: {ApplicationService.currency_format(limits.minAmount)} {customer.currency}
 						- {translate('PROCESSING_MAX', 'Max')}: {ApplicationService.currency_format(limits.maxAmount)} {customer.currency}</span><br/>
-					{(() =>{
+					{(() => {
 						if(!limitsOK && this.props.amount != ""){
 							return (
 								<div className="alert alert-danger" role="alert">

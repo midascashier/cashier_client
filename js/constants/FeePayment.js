@@ -1,4 +1,3 @@
-
 const feePeyment = {
 	CASH: "CASH",
 	BP: "BETPOINTS"

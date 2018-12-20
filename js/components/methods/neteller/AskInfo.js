@@ -30,7 +30,7 @@ let AskInfo = React.createClass({
 	 *
 	 * @returns {*}
 	 */
-	getProps() {
+	getProps(){
 		return this.props
 	},
 
@@ -86,7 +86,7 @@ let AskInfo = React.createClass({
 						<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 					</div>
 
-					{(() =>{
+					{(() => {
 						if(!isWithDraw){
 							return (
 								<div className="form-group">
@@ -108,7 +108,7 @@ let AskInfo = React.createClass({
 					<div className="infoCol">
 						<div className="col-sm-12">
 							<div className="form-horizontal">
-								{(() =>{
+								{(() => {
 									if(!payAccountDisplayName){
 										return <LoadingSpinner/>;
 									}

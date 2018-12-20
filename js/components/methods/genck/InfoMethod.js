@@ -103,18 +103,18 @@ let InfoMethod = React.createClass({
 					<div className="table-responsive">
 						<table className="table table-striped">
 							<tbody>
-								<tr>
-									<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-									<td><span>{payAccountInfo.minPayAccount}</span></td>
-								</tr>
-								<tr>
-									<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-									<td><span>{payAccountInfo.maxPayAccount}</span></td>
-								</tr>
-								<tr>
-									<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
-									<td><span>{payAccountInfo.remaining}</span></td>
-								</tr>
+							<tr>
+								<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+								<td><span>{payAccountInfo.minPayAccount}</span></td>
+							</tr>
+							<tr>
+								<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
+								<td><span>{payAccountInfo.maxPayAccount}</span></td>
+							</tr>
+							<tr>
+								<td>{translate('PROCESSING_LIMIT_REMAINING', 'Remaining Limit')}:</td>
+								<td><span>{payAccountInfo.remaining}</span></td>
+							</tr>
 							</tbody>
 						</table>
 					</div>
@@ -140,14 +140,14 @@ let InfoMethod = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

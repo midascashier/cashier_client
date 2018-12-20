@@ -1,10 +1,10 @@
 import React from 'react'
 import Cashier from '../../../constants/Cashier'
-import { UIService } from '../../../services/UIService'
-import { translate } from '../../../constants/Translate'
-import { CashierStore } from '../../../stores/CashierStore'
-import { TransactionService } from '../../../services/TransactionService'
-import { LoadingSpinnerSmall } from '../../../components/loading/LoadingSpinnerSmall'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {TransactionService} from '../../../services/TransactionService'
+import {LoadingSpinnerSmall} from '../../../components/loading/LoadingSpinnerSmall'
 
 let InfoMethod = React.createClass({
 
@@ -40,9 +40,9 @@ let InfoMethod = React.createClass({
 	 *
 	 * @returns {{checkIn: boolean, processor: *|{processorClass: number, processorId: number, Name: string, displayName: string, bonus: Array, rate: number, limits: Array, limitRules: Array, fees: {enableBP: number, enableCash: number, enableFree: number, cashType: string, structure: Array}, load: function(*)}, currentPayAccount: *|{payAccountId: null, displayName: null, personal: {firstName: null, middleName: null, lastName: null, lastName2: null, phone: null, email: null, personalId: null, personalIdType: null}, address: {country: null, countryName: null, state: null, stateName: null, city: null, address1: null, address2: null, zip: null}, secure: {account: null, password: null, extra1: null, extra2: null, extra3: null}, extra: {ssn: null, dob: null, dobDay: null, dobMonth: null, dobYear: null}, limitsData: {available: null, type: null, remaining: null, enabled: null, enabledOn: null, minAmount: null, maxAmount: null, availableWithdraw: null, remainingWithdraw: null, enabledWithdraw: null, enabledOnWithdraw: null, minAmountWithdraw: null, maxAmountWithdraw: null, depositLimits: {}, withdrawLimits: {}, limitsPassed: boolean}, load: function(*)}, transaction: *|{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cleanTransaction}}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
-			checkIn : false,
+			checkIn: false,
 			processor: CashierStore.getProcessor(),
 			currentPayAccount: CashierStore.getCurrentPayAccount(),
 			transaction: CashierStore.getTransaction()
@@ -54,14 +54,14 @@ let InfoMethod = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
@@ -71,7 +71,7 @@ let InfoMethod = React.createClass({
 	 */
 	continueTransaction(){
 
-		this.setState({checkIn : true});
+		this.setState({checkIn: true});
 		let promoCode = this.props.promoCode;
 		let amount = this.props.customerAmount;
 		let fee = this.props.feeCashValue;
@@ -109,13 +109,13 @@ let InfoMethod = React.createClass({
 					TransactionService.processCryptoTransfer(dynamicParams, 'instructions');
 				}
 			}else{
-				this.setState({checkIn : false});
+				this.setState({checkIn: false});
 				this.props.setCryptoAddressError(true);
 			}
 		});
 	},
 
-	render() {
+	render(){
 
 		let limitsCheck = false;
 		let isNextDisabled = "disabled";
@@ -200,14 +200,14 @@ let InfoMethod = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });
