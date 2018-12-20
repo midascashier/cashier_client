@@ -48,7 +48,7 @@
 		Frame.sizeOfUTF8 = function(s){
 			if(s){
 				return encodeURI(s).match(/%..|./g).length;
-			} else{
+			}else{
 				return 0;
 			}
 		};
@@ -73,7 +73,7 @@
 			if(headers['content-length']){
 				len = parseInt(headers['content-length']);
 				body = ('' + data).substring(start, start + len);
-			} else{
+			}else{
 				chr = null;
 				for(i = _j = start, _ref1 = data.length; start <= _ref1 ? _j < _ref1 : _j > _ref1; i = start <= _ref1 ? ++_j : --_j){
 					chr = data.charAt(i);
@@ -105,7 +105,7 @@
 			last_frame = frames.slice(-1)[0];
 			if(last_frame === Byte.LF || (last_frame.search(RegExp("" + Byte.NULL + Byte.LF + "*$"))) !== -1){
 				r.frames.push(unmarshallSingle(last_frame));
-			} else{
+			}else{
 				r.partial = last_frame;
 			}
 			return r;
@@ -145,7 +145,7 @@
 		now = function(){
 			if(Date.now){
 				return Date.now();
-			} else{
+			}else{
 				return new Date().valueOf;
 			}
 		};
@@ -163,7 +163,7 @@
 					if(typeof this.debug === "function"){
 						this.debug("remaining = " + out.length);
 					}
-				} else{
+				}else{
 					return this.ws.send(out);
 				}
 			}
@@ -227,7 +227,7 @@
 				case 3:
 					if(args[1] instanceof Function){
 						headers = args[0], connectCallback = args[1], errorCallback = args[2];
-					} else{
+					}else{
 						headers.login = args[0], headers.passcode = args[1], connectCallback = args[2];
 					}
 					break;
@@ -304,7 +304,7 @@
 										return client.nack(messageID, subscription, headers);
 									};
 									_results.push(onreceive(frame));
-								} else{
+								}else{
 									_results.push(typeof _this.debug === "function" ? _this.debug("Unhandled received MESSAGE: " + frame) : void 0);
 								}
 								break;
@@ -482,7 +482,7 @@
 			return window.clearInterval(id);
 		};
 		window.Stomp = Stomp;
-	} else if(!exports){
+	}else if(!exports){
 		self.Stomp = Stomp;
 	}
 

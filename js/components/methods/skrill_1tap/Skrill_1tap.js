@@ -1,8 +1,8 @@
 import React from 'react'
-import { CashierStore } from '../../../stores/CashierStore'
-import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
-import { AskInfo } from './AskInfo'
-import { InfoMethod } from './InfoMethod'
+import {CashierStore} from '../../../stores/CashierStore'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
+import {AskInfo} from './AskInfo'
+import {InfoMethod} from './InfoMethod'
 
 let Skrill_1tap = React.createClass({
 
@@ -26,9 +26,9 @@ let Skrill_1tap = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
-		let account = "" ;
-		if (this.state && this.state.info){
+	refreshLocalState(){
+		let account = "";
+		if(this.state && this.state.info){
 			account = this.state.info.account;
 		}
 		return {
@@ -45,7 +45,7 @@ let Skrill_1tap = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -56,7 +56,7 @@ let Skrill_1tap = React.createClass({
 	 * @param isSelectComponent
 	 * @param event
 	 * @param validAccount
-     */
+	 */
 	changeValue(propertyName, isSelectComponent = 0, event, validAccount){
 		let actualState = this.state;
 
@@ -75,7 +75,7 @@ let Skrill_1tap = React.createClass({
 
 	},
 
-	render() {
+	render(){
 		return (
 			<div id="1tap">
 				<div className="col-sm-6">
@@ -85,23 +85,23 @@ let Skrill_1tap = React.createClass({
 						limitsCheck={this.props.limitsCheck}
 						feeCashValue={this.props.feeCashValue}
 						feeCheck={this.props.feeCheck}
-						changeValue = {this.changeValue}
-						account = {this.state.info.account}
+						changeValue={this.changeValue}
+						account={this.state.info.account}
 						setPromoCode={this.props.setPromoCode}
 						promoCode={this.props.promoCode}
 					/>
 				</div>
 				<div className="col-sm-6">
-					{(() =>{
+					{(() => {
 						if(!this.state.info.selectedProcessor.processorId){
-							return <LoadingSpinner />;
+							return <LoadingSpinner/>;
 						}else{
-							return(
+							return (
 								<InfoMethod
 									amount={this.props.amount}
 									limitsCheck={this.props.limitsCheck}
-									account = {this.state.info.account}
-									validAccount = {this.state.info.validAccount}
+									account={this.state.info.account}
+									validAccount={this.state.info.validAccount}
 								/>
 							)
 						}
@@ -115,14 +115,14 @@ let Skrill_1tap = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

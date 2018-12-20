@@ -88,7 +88,7 @@ let Visa = React.createClass({
 								actualState['payAccount'].extra[propertyName] = value;
 							}
 						default:
-							//do nothing
+						//do nothing
 					}
 				}
 			}
@@ -133,7 +133,7 @@ let Visa = React.createClass({
 					/>
 				</div>
 				<div className="col-sm-6">
-					{(() =>{
+					{(() => {
 						if(!this.state.selectedProcessor.processorId){
 							return <LoadingSpinner/>;
 						}else{

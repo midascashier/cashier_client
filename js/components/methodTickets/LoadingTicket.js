@@ -1,7 +1,7 @@
 import React from 'react'
-import { translate } from '../../constants/Translate'
-import { CashierStore } from '../../stores/CashierStore'
-import  cashier  from '../../constants/Cashier'
+import {translate} from '../../constants/Translate'
+import {CashierStore} from '../../stores/CashierStore'
+import cashier from '../../constants/Cashier'
 
 let LoadingTicket = React.createClass({
 
@@ -18,7 +18,7 @@ let LoadingTicket = React.createClass({
 	 *
 	 * @returns {{transactionResponse: *}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			transactionResponse: CashierStore.getLastTransactionResponse()
 		}
@@ -29,21 +29,21 @@ let LoadingTicket = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
-	render() {
+	render(){
 		let transactionResponse = this.state.transactionResponse;
 		let processor = CashierStore.getProcessor();
 		let processorClassId = processor.processorClass;
 
 		return (
 			<div id="loadingTicket">
-				{(() =>{
+				{(() => {
 					if((transactionResponse.status === "") && (!transactionResponse.userMessage)){
 
-						return(
+						return (
 							<div className="col-sm-12">
 								<div className="modules">
 									<div className="row">
@@ -53,11 +53,11 @@ let LoadingTicket = React.createClass({
 										</div>
 									</div>
 								</div>
-							</div>		
+							</div>
 						)
 					}
 
-					if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && !transactionResponse.details.creditCardTransaction && 
+					if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && !transactionResponse.details.creditCardTransaction &&
 						transactionResponse.status != cashier.TRANSACTION_STATUS_APPROVED && transactionResponse.transactionId != ""){
 
 						return (
@@ -70,7 +70,7 @@ let LoadingTicket = React.createClass({
 										</div>
 									</div>
 								</div>
-							</div>		
+							</div>
 						)
 					}
 
@@ -84,14 +84,14 @@ let LoadingTicket = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

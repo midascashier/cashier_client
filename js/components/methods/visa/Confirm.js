@@ -1,10 +1,10 @@
 import React from 'react'
-import { Input } from '../../commonComponents/Inputs'
-import { UIService } from '../../../services/UIService'
-import { translate } from '../../../constants/Translate'
-import { CashierStore } from '../../../stores/CashierStore'
-import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
+import {Input} from '../../commonComponents/Inputs'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
 
 let VisaConfirm = React.createClass({
 
@@ -18,7 +18,7 @@ let VisaConfirm = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let isEditEnabled;
 		if(this.state != null){
 			if(this.state.info.editMode == 1){
@@ -46,7 +46,7 @@ let VisaConfirm = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		let payAccount = this.state.payAccount;
 		this.setState({
 			payAccount
@@ -64,14 +64,14 @@ let VisaConfirm = React.createClass({
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
 	/**
 	 * send the customer to select the payAccount again
 	 */
-	startTransaction() {
+	startTransaction(){
 		UIService.startTransaction();
 		UIService.setCCEditMode(1);
 	},
@@ -87,7 +87,7 @@ let VisaConfirm = React.createClass({
 		if(option == 0){
 			this._onChange();
 		}else{
-			this.setState({ info: actualState });
+			this.setState({info: actualState});
 		}
 	},
 
@@ -130,17 +130,17 @@ let VisaConfirm = React.createClass({
 		payAccountEdit['payAccountId'] = this.state.info.payAccount['payAccountId'];
 
 		TransactionService.updatePayAccount(payAccountEdit);
-		this.setState({ info: actualState });
+		this.setState({info: actualState});
 	},
 
 	/**
 	 * Edit inputs info
-	 * 
+	 *
 	 * @param section
 	 * @param propertyName
 	 * @param isSelectComponent
-     * @param value
-     */
+	 * @param value
+	 */
 	changeValue(section, propertyName, isSelectComponent = 0, value){
 		let actualState = this.state.info;
 		if(isSelectComponent){
@@ -152,7 +152,7 @@ let VisaConfirm = React.createClass({
 		}
 
 		actualState.payAccount[section][propertyName] = value;
-		this.setState({ info: actualState });
+		this.setState({info: actualState});
 	},
 
 	render(){
@@ -185,13 +185,13 @@ let VisaConfirm = React.createClass({
 
 		if(isEditMode){
 			for(let i = 0; i < countries.length; i++){
-				countryOptionNodes.push(UIService.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
+				countryOptionNodes.push(UIService.renderOption({label: countries[i]['Name']}, countries[i]['Small']));
 			}
 
 			if(states){
 				for(let i = 0; i < states.length; i++){
 					if(states[i]['Name']){
-						stateOptionNodes.push(UIService.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
+						stateOptionNodes.push(UIService.renderOption({label: states[i]['Name']}, states[i]['Small']));
 					}
 				}
 			}
@@ -207,7 +207,7 @@ let VisaConfirm = React.createClass({
 								<div className="col-sm-12">
 									<div className="title">{translate('PROCESSING_BILLING_INFO_TITLE', 'Double-check Your Billing Information')}</div>
 
-									{(() =>{
+									{(() => {
 										if(isEditMode){
 											return (
 												<div className="infoCol scroll">
@@ -326,7 +326,7 @@ let VisaConfirm = React.createClass({
 										}
 									})()}
 
-									{(() =>{
+									{(() => {
 										if(!isEditMode){
 											return (
 												<div className="infoCol">
@@ -415,14 +415,14 @@ let VisaConfirm = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

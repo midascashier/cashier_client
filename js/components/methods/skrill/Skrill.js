@@ -7,7 +7,7 @@ import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 
 let Skrill = React.createClass({
 
-	propTypes:{
+	propTypes: {
 		amount: React.PropTypes.string,
 		setAmount: React.PropTypes.func,
 		feeCheck: React.PropTypes.number,
@@ -44,10 +44,10 @@ let Skrill = React.createClass({
 	},
 
 	render(){
-		return(
+		return (
 			<div id="skrill">
 				<div className="col-sm-6">
-					<AskInfo 
+					<AskInfo
 						amount={this.props.amount}
 						setAmount={this.props.setAmount}
 						payAccount={this.state.payAccount}
@@ -59,9 +59,9 @@ let Skrill = React.createClass({
 					/>
 				</div>
 				<div className="col-sm-6">
-					{(() =>{
+					{(() => {
 						if(!this.state.selectedProcessor.processorId){
-							return <LoadingSpinner />;
+							return <LoadingSpinner/>;
 						}else{
 							return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck}/>;
 						}

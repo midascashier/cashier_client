@@ -25,7 +25,7 @@ let SecondFactor = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			info: {
 				customer: CashierStore.getCustomer(), code: "", requestedCode: false, verifyCodeSent: false
@@ -62,7 +62,7 @@ let SecondFactor = React.createClass({
 	 *
 	 * @param propertyName
 	 * @param event
-     */
+	 */
 	changeValue(propertyName, event){
 
 		let actualState = this.state.info;
@@ -131,7 +131,7 @@ let SecondFactor = React.createClass({
 				<div className="form-group">
 					<div id="requestedCodeHash">
 						<label className="col-sm-12 control-label text-left">{translate('SECOND_FACTOR_PHONE_REGISTERED')}</label>
-						{(() =>{
+						{(() => {
 							if(phoneDisabled == "disabled"){
 								return (
 									<div id="phoneCountryCode">
@@ -159,7 +159,7 @@ let SecondFactor = React.createClass({
 						})()}
 
 						<div className="col-sm-1">
-							{(() =>{
+							{(() => {
 								if(requestedCode && hash == ""){
 									return (<img src={originPath + '/images/loader-xs_17x17.gif'}/>)
 								}
@@ -178,7 +178,7 @@ let SecondFactor = React.createClass({
 
 					<div id="verificationCodeContent" className="form-group">
 						<label className="col-sm-12 control-label text-left">{translate('SECOND_FACTOR_ENTER_CODE')}</label>
-						{(() =>{
+						{(() => {
 							if(disableVerifyButton){
 								return (
 									<div className="col-sm-7">
@@ -201,7 +201,7 @@ let SecondFactor = React.createClass({
 						})()}
 
 						<div className="col-sm-1">
-							{(() =>{
+							{(() => {
 								if(verifyMsg != null && verifyMsg != "" && isCodeValid == 0){
 									return null;
 								}
@@ -223,7 +223,7 @@ let SecondFactor = React.createClass({
 						</div>
 					</div>
 
-					{(() =>{
+					{(() => {
 						if(verifyMsg != null && verifyMsg != ""){
 							return (
 								<div className="alert alert-danger" role="alert">

@@ -1,12 +1,12 @@
 import React from 'react'
-import { AskInfo } from './AskInfo'
-import { InfoMethod } from './InfoMethod'
+import {AskInfo} from './AskInfo'
+import {InfoMethod} from './InfoMethod'
 import Cashier from '../../../constants/Cashier'
-import { UIService } from '../../../services/UIService'
-import { CashierStore } from '../../../stores/CashierStore'
-import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
-import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
+import {UIService} from '../../../services/UIService'
+import {CashierStore} from '../../../stores/CashierStore'
+import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 
 let CryptoTransfer = React.createClass({
 
@@ -23,20 +23,20 @@ let CryptoTransfer = React.createClass({
 	 */
 	refreshLocalState(){
 		return {
-			info : {
-				rate : '',
+			info: {
+				rate: '',
 				promoCode: '',
-				limitsCheck : '',
-				cryptoAmount : '',
-				cryptoAddress : '',
-				amountRateBTC : '',
-				customerAmount : '',
-				cryptoCurrencyISO : '',
-				cryptoCurrencyName : '',
-				cryptoAddressError : false,
-				transaction : CashierStore.getTransaction(),
-				limits : UIService.getProcessorLimitMinMax(),
-				selectedProcessor : CashierStore.getProcessor()
+				limitsCheck: '',
+				cryptoAmount: '',
+				cryptoAddress: '',
+				amountRateBTC: '',
+				customerAmount: '',
+				cryptoCurrencyISO: '',
+				cryptoCurrencyName: '',
+				cryptoAddressError: false,
+				transaction: CashierStore.getTransaction(),
+				limits: UIService.getProcessorLimitMinMax(),
+				selectedProcessor: CashierStore.getProcessor()
 			}
 		}
 	},
@@ -163,7 +163,7 @@ let CryptoTransfer = React.createClass({
 	 */
 	setCurrencyRate(rate){
 		let actualState = this.state.info;
-		actualState.rate = rate ;
+		actualState.rate = rate;
 		this.setState({info: actualState});
 	},
 
@@ -174,7 +174,7 @@ let CryptoTransfer = React.createClass({
 	 */
 	setCurrencyLimits(limits){
 		let actualState = this.state.info;
-		actualState.limits = limits ;
+		actualState.limits = limits;
 		this.setState({info: actualState});
 	},
 
@@ -185,7 +185,7 @@ let CryptoTransfer = React.createClass({
 	 */
 	setCryptoAddress(cryptoAddress){
 		let actualState = this.state.info;
-		actualState.cryptoAddress = cryptoAddress ;
+		actualState.cryptoAddress = cryptoAddress;
 		this.setState({info: actualState}, function afterAmountChange(){
 			this.setCryptoAddressError(false);
 		});
@@ -196,7 +196,7 @@ let CryptoTransfer = React.createClass({
 	 */
 	setCryptoAddressError(cryptoAddressError){
 		let actualState = this.state.info;
-		actualState.cryptoAddressError = cryptoAddressError ;
+		actualState.cryptoAddressError = cryptoAddressError;
 		this.setState({info: actualState});
 	},
 
@@ -205,7 +205,7 @@ let CryptoTransfer = React.createClass({
 	 */
 	setAmountRateBTC(rateBTC){
 		let actualState = this.state.info;
-		actualState.amountRateBTC = rateBTC ;
+		actualState.amountRateBTC = rateBTC;
 		this.setState({info: actualState});
 	},
 
@@ -214,7 +214,7 @@ let CryptoTransfer = React.createClass({
 	 */
 	setCryptoCurrencyISO(currencyISO){
 		let actualState = this.state.info;
-		actualState.cryptoCurrencyISO = currencyISO ;
+		actualState.cryptoCurrencyISO = currencyISO;
 		this.setState({info: actualState});
 	},
 
@@ -223,7 +223,7 @@ let CryptoTransfer = React.createClass({
 	 */
 	setCryptoCurrencyName(currencyName){
 		let actualState = this.state.info;
-		actualState.cryptoCurrencyName = currencyName ;
+		actualState.cryptoCurrencyName = currencyName;
 		this.setState({info: actualState});
 	},
 
@@ -235,7 +235,7 @@ let CryptoTransfer = React.createClass({
 	setPromoCode(promoCode){
 		TransactionService.setPromoCode(promoCode);
 		let actualState = this.state.info;
-		actualState.promoCode = promoCode ;
+		actualState.promoCode = promoCode;
 		this.setState({info: actualState});
 	},
 
@@ -263,12 +263,12 @@ let CryptoTransfer = React.createClass({
 		return (
 			<div id="crypto">
 				<div className="col-sm-6">
-					{(() =>{
+					{(() => {
 						if(!this.state.info.selectedProcessor.processorId){
 							return <LoadingSpinner/>;
 						}
 
-						return(
+						return (
 							<AskInfo
 								rate={this.state.info.rate}
 								limits={this.state.info.limits}
@@ -295,12 +295,12 @@ let CryptoTransfer = React.createClass({
 				</div>
 
 				<div className="col-sm-6">
-					{(() =>{
+					{(() => {
 						if(!this.state.info.selectedProcessor.processorId){
 							return <LoadingSpinner/>;
 						}
 
-						return(
+						return (
 							<InfoMethod
 								rate={this.state.info.rate}
 								limits={this.state.info.limits}

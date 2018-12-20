@@ -1,7 +1,7 @@
 import React from 'react'
-import { UIService } from '../../../../services/UIService'
-import { CashierStore } from '../../../../stores/CashierStore'
-import { ApplicationService } from '../../../../services/ApplicationService'
+import {UIService} from '../../../../services/UIService'
+import {CashierStore} from '../../../../stores/CashierStore'
+import {ApplicationService} from '../../../../services/ApplicationService'
 
 let VisaRejectedTicket = React.createClass({
 
@@ -15,7 +15,7 @@ let VisaRejectedTicket = React.createClass({
 	/**
 	 * build the state
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let company = UIService.getCompanyInformation();
 		let customer = UIService.getCustomerInformation();
 		let transaction = UIService.getTransactionInformation();
@@ -23,7 +23,7 @@ let VisaRejectedTicket = React.createClass({
 
 		let transactionResponse = UIService.getLastTransactionResponse();
 		let creditCardTransaction = [];
-		if (transactionResponse && transactionResponse.details && transactionResponse.details.creditCardTransaction){
+		if(transactionResponse && transactionResponse.details && transactionResponse.details.creditCardTransaction){
 			creditCardTransaction = transactionResponse.details.creditCardTransaction;
 		}
 		return {
@@ -38,14 +38,14 @@ let VisaRejectedTicket = React.createClass({
 	/**
 	 * component is ready
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	},
 
@@ -54,14 +54,14 @@ let VisaRejectedTicket = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
@@ -72,7 +72,7 @@ let VisaRejectedTicket = React.createClass({
 		chat();
 	},
 
-	render() {
+	render(){
 		let creditCardTransaction = this.state.creditCardTransaction;
 
 		let currencyAmount = this.state.currencyAmount;
@@ -89,7 +89,7 @@ let VisaRejectedTicket = React.createClass({
 
 		return (
 			<div id="visaRejectedTicket">
-				{(() =>{
+				{(() => {
 					if(!creditCardTransaction || (!creditCardTransaction.PendingReprocess || !creditCardTransaction.PendingReprocess == 0)){
 						return (
 							<div className="col-sm-12">

@@ -18,7 +18,7 @@ let CryptoTransferConfirmWithdraw = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			transaction: CashierStore.getTransaction(),
 			payAccount: CashierStore.getCurrentPayAccount()
@@ -29,7 +29,7 @@ let CryptoTransferConfirmWithdraw = React.createClass({
 	 * Set true or false if code is verify for  next button
 	 *
 	 * @param check
-     */
+	 */
 	setVerifyCode(check){
 		this.setState({
 			verifyCode: check
@@ -41,7 +41,7 @@ let CryptoTransferConfirmWithdraw = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -64,7 +64,7 @@ let CryptoTransferConfirmWithdraw = React.createClass({
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
@@ -112,14 +112,14 @@ let CryptoTransferConfirmWithdraw = React.createClass({
 												<div className="table-responsive">
 													<table className="table table-striped">
 														<tbody>
-															<tr>
-																<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
-																<td><span>{transaction.amount + ' ' + limits.currencyCode}</span></td>
-															</tr>
-															<tr>
-																<td>{translate('CRYPTO_DEPOSIT_ADDRESS', 'Address')}</td>
-																<td><span>{transaction.cryptoAddress}</span></td>
-															</tr>
+														<tr>
+															<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
+															<td><span>{transaction.amount + ' ' + limits.currencyCode}</span></td>
+														</tr>
+														<tr>
+															<td>{translate('CRYPTO_DEPOSIT_ADDRESS', 'Address')}</td>
+															<td><span>{transaction.cryptoAddress}</span></td>
+														</tr>
 														</tbody>
 													</table>
 												</div>
@@ -157,14 +157,14 @@ let CryptoTransferConfirmWithdraw = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

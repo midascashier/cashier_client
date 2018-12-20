@@ -27,7 +27,7 @@ let Neteller = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			selectedProcessor: CashierStore.getProcessor(),
 			payAccount: TransactionService.getCurrentPayAccount()
@@ -39,7 +39,7 @@ let Neteller = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -49,11 +49,11 @@ let Neteller = React.createClass({
 	 * @param value
 	 * @constructor
 	 */
-	netellerPassword(value) {
-		this.setState({ password: value });
+	netellerPassword(value){
+		this.setState({password: value});
 	},
 
-	render() {
+	render(){
 		return (
 			<div id="neteller">
 				<div className="col-sm-6">
@@ -72,9 +72,9 @@ let Neteller = React.createClass({
 				</div>
 
 				<div className="col-sm-6">
-					{(() =>{
+					{(() => {
 						if(!this.state.selectedProcessor.processorId){
-							return <LoadingSpinner />;
+							return <LoadingSpinner/>;
 						}
 
 						return <InfoMethod amount={this.props.amount} limitsCheck={this.props.limitsCheck} password={this.state.password}/>;
@@ -88,14 +88,14 @@ let Neteller = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

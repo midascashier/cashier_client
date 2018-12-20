@@ -1,12 +1,11 @@
 import React from 'react'
-import { Input } from '../../commonComponents/Inputs'
-import { UIService } from '../../../services/UIService'
-import { translate } from '../../../constants/Translate'
-import { CashierStore } from '../../../stores/CashierStore'
-import { CashierActions } from '../../../actions/CashierActions'
-import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
-
+import {Input} from '../../commonComponents/Inputs'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {CashierActions} from '../../../actions/CashierActions'
+import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
 
 let Register = React.createClass({
 	/**
@@ -14,7 +13,7 @@ let Register = React.createClass({
 	 *
 	 * @returns {*|{step, processorSteps}}
 	 */
-	getInitialState() {
+	getInitialState(){
 		return this.refreshLocalState();
 	},
 
@@ -22,7 +21,7 @@ let Register = React.createClass({
 	 * this function sets and return object with local states
 	 *
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			displaySaveButton: true,
 			payAccount: {
@@ -51,7 +50,7 @@ let Register = React.createClass({
 	 * @returns {boolean}
 	 */
 	addNewPayAccount(e){
-		if (!ApplicationService.emptyInput(e)) {
+		if(!ApplicationService.emptyInput(e)){
 			this.setState({
 				displaySaveButton: false
 			});
@@ -63,7 +62,7 @@ let Register = React.createClass({
 	/**
 	 * Cancel button
 	 */
-	cancel() {
+	cancel(){
 		let payAccounts = CashierStore.getProcessorPayAccount();
 		if(Object.keys(payAccounts).length > 0){
 			let processorID = CashierStore.getProcessor();
@@ -79,7 +78,7 @@ let Register = React.createClass({
 		}
 	},
 
-	render() {
+	render(){
 		return (
 			<div id="netellerRegister">
 				<form onSubmit={this.addNewPayAccount}>
@@ -103,10 +102,10 @@ let Register = React.createClass({
 					<div className="col-md-4 col-md-offset-4">
 						<div className="row">
 							<div className="col-sm-6">
-								{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null }
+								{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button> : null}
 							</div>
 							<div className="col-sm-6">
-								{this.state.displaySaveButton ? <button type='button' onClick={this.cancel} className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Cancel')}</button> : null }
+								{this.state.displaySaveButton ? <button type='button' onClick={this.cancel} className='btn btn-green'>{translate('PROCESSING_BUTTON_CANCEL', 'Cancel')}</button> : null}
 							</div>
 						</div>
 					</div>

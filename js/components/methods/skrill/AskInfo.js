@@ -1,6 +1,6 @@
 import React from 'react'
 import {Register} from './Register.js'
-import cashier  from '../../../constants/Cashier'
+import cashier from '../../../constants/Cashier'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
 import {PromoCode} from '../../commonComponents/PromoCode'
@@ -26,14 +26,14 @@ let AskInfo = React.createClass({
 	 *
 	 * @returns {*}
 	 */
-	getProps() {
+	getProps(){
 		return this.props
 	},
 
 	/**
 	 * Remove current selected PayAccount
 	 */
-	disablePayAccount() {
+	disablePayAccount(){
 		CustomerService.getDisablePayAccount();
 	},
 
@@ -60,7 +60,7 @@ let AskInfo = React.createClass({
 						<div className="col-sm-12">
 							<div className="form-horizontal">
 
-								{(() =>{
+								{(() => {
 									if(payAccountDisplayName == cashier.NO_RESPONSE || payAccountId == 0){
 										return <Register/>
 									}
@@ -79,7 +79,7 @@ let AskInfo = React.createClass({
 									)
 								})()}
 
-								{(() =>{
+								{(() => {
 									if(!isWithDraw){
 										return (
 											<div className="form-group">

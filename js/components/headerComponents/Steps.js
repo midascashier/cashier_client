@@ -1,18 +1,18 @@
 import React from 'react'
-import { translate } from '../../constants/Translate'
-import { Link } from 'react-router'
-import { UIService } from '../../services/UIService'
-import { TransactionService } from '../../services/TransactionService'
-import { CashierStore } from '../../stores/CashierStore'
+import {translate} from '../../constants/Translate'
+import {Link} from 'react-router'
+import {UIService} from '../../services/UIService'
+import {TransactionService} from '../../services/TransactionService'
+import {CashierStore} from '../../stores/CashierStore'
 
 let Steps = React.createClass({
-	
+
 	/**
 	 * React function to set component initial state
 	 *
 	 * @returns {*|{step, processorSteps}}
 	 */
-	getInitialState() {
+	getInitialState(){
 		return this.refreshLocalState();
 	},
 
@@ -21,7 +21,7 @@ let Steps = React.createClass({
 	 *
 	 * @returns {{step: (*|string), processorSteps: *}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			currentProcessor: TransactionService.getCurrentProcessor(),
 			currentProcessorSteps: UIService.getCurrentProcessorSteps(),
@@ -35,18 +35,18 @@ let Steps = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
-	render() {
+	render(){
 		let stepTexts = {
 			"selectMethod": UIService.getIsWithDraw() ? translate('STEPS_WITHDRAW_METHOD', 'Withdraw Method') : translate('STEPS_DEPOSIT_METHOD', 'Deposit Method'),
 			"askInfo": UIService.getIsWithDraw() ? translate('STEPS_HOW_MUCH_WITHDRAW', 'How Much?') : translate('STEPS_HOW_MUCH_DEPOSIT', 'How Much?'),
@@ -56,14 +56,14 @@ let Steps = React.createClass({
 
 		let processorSteps = this.state.currentProcessorSteps;
 		let stepsNumber = processorSteps.length;
-		let stepsClass = (stepsNumber == 2)?'two-steps':'steps';
+		let stepsClass = (stepsNumber == 2) ? 'two-steps' : 'steps';
 		let currentView = this.state.currentView;
 		let currentStep = this.state.currentStep;
 		let currentPosition = processorSteps.indexOf(currentStep);
 
 		return (
 			<div id="steps" className={stepsClass}>
-				{(() =>{
+				{(() => {
 					let stepDisplay = [];
 
 					for(let i = 0; i < stepsNumber; i++){
@@ -80,7 +80,7 @@ let Steps = React.createClass({
 									}else{
 										className += " inactive";
 									}
-								break;
+									break;
 
 								case 2:
 									if(currentPosition == 1){
@@ -88,7 +88,7 @@ let Steps = React.createClass({
 									}else{
 										className += " normal";
 									}
-								break;
+									break;
 
 								default:
 									className += " inactive";
@@ -98,7 +98,7 @@ let Steps = React.createClass({
 						let step;
 						if(i == 0){
 							step = (
-								<Link key={i+1} to={currentView}>
+								<Link key={i + 1} to={currentView}>
 									<div onClick={this.setFirstStep} className={className}>
 										<p>
 											<span>{i + 1}</span>
@@ -109,7 +109,7 @@ let Steps = React.createClass({
 							);
 						}else{
 							step = (
-								<div key={i+1} className={className}>
+								<div key={i + 1} className={className}>
 									<p>
 										<span>{i + 1}</span>
 										{stepTexts[stepName]}
@@ -129,14 +129,14 @@ let Steps = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

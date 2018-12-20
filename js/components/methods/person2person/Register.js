@@ -1,11 +1,11 @@
 import React from 'react'
-import { Input } from '../../commonComponents/Inputs'
-import { UIService } from '../../../services/UIService'
-import { translate } from '../../../constants/Translate'
-import { CashierStore } from '../../../stores/CashierStore'
-import { CashierActions } from '../../../actions/CashierActions'
-import { TransactionService } from '../../../services/TransactionService'
-import { ApplicationService } from '../../../services/ApplicationService'
+import {Input} from '../../commonComponents/Inputs'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {CashierStore} from '../../../stores/CashierStore'
+import {CashierActions} from '../../../actions/CashierActions'
+import {TransactionService} from '../../../services/TransactionService'
+import {ApplicationService} from '../../../services/ApplicationService'
 
 let Register = React.createClass({
 
@@ -14,7 +14,7 @@ let Register = React.createClass({
 	 *
 	 * @returns {*|{step, processorSteps}}
 	 */
-	getInitialState() {
+	getInitialState(){
 		return this.refreshLocalState();
 	},
 
@@ -22,7 +22,7 @@ let Register = React.createClass({
 	 * this function sets and return object with local states
 	 *
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let country = CashierStore.getSelectedCountry();
 		let states = UIService.getCountryStates();
 
@@ -55,7 +55,7 @@ let Register = React.createClass({
 	 * @param propertyName
 	 * @param isSelectComponent
 	 * @param event
-     */
+	 */
 	changeValue(propertyName, isSelectComponent = 0, event){
 		let payAccount = this.state.payAccount;
 
@@ -80,7 +80,7 @@ let Register = React.createClass({
 	/**
 	 * Cancel button
 	 */
-	cancel() {
+	cancel(){
 		let payAccounts = CashierStore.getProcessorPayAccount();
 		if(Object.keys(payAccounts).length > 0){
 			let processorID = CashierStore.getProcessor();
@@ -106,7 +106,7 @@ let Register = React.createClass({
 	 */
 	addNewPayAccount(e){
 
-		if (!ApplicationService.emptyInput(e)) {
+		if(!ApplicationService.emptyInput(e)){
 
 			this.setState({
 				displaySaveButton: false
@@ -120,14 +120,14 @@ let Register = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	},
 
@@ -136,7 +136,7 @@ let Register = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		let payAccount = this.state.payAccount;
 		this.setState(
 			payAccount
@@ -149,12 +149,12 @@ let Register = React.createClass({
 
 		let countryOptionNodes = [];
 		for(let i = 0; i < countries.length; i++){
-			countryOptionNodes.push(UIService.renderOption({ label: countries[i]['Name'] }, countries[i]['Small']));
+			countryOptionNodes.push(UIService.renderOption({label: countries[i]['Name']}, countries[i]['Small']));
 		}
 
 		let stateOptionNodes = [];
 		for(let i = 0; i < states.length; i++){
-			stateOptionNodes.push(UIService.renderOption({ label: states[i]['Name'] }, states[i]['Small']));
+			stateOptionNodes.push(UIService.renderOption({label: states[i]['Name']}, states[i]['Small']));
 		}
 
 		return (
@@ -272,12 +272,12 @@ let Register = React.createClass({
 							<div className="col-sm-6">
 								{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>
 									{translate('PROCESSING_BUTTON_SAVE', 'Save')}
-								</button> : null }
+								</button> : null}
 							</div>
 							<div className="col-sm-6">
 								{this.state.displaySaveButton ? <button type='button' onClick={this.cancel} className='btn btn-green'>
 									{translate('PROCESSING_BUTTON_CANCEL', 'Save')}
-								</button> : null }
+								</button> : null}
 							</div>
 						</div>
 					</div>

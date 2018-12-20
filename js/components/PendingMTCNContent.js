@@ -1,12 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router'
-import { Info } from './headerComponents/Info'
-import { translate } from '../constants/Translate'
+import {Link} from 'react-router'
+import {Info} from './headerComponents/Info'
+import {translate} from '../constants/Translate'
 import cashier from '../constants/Cashier'
-import { CashierStore } from '../stores/CashierStore'
-import { LoadingSpinner } from './loading/LoadingSpinner'
-import { TransactionPendingMTCN } from '../components/contentComponents/TransactionPendingMTCN'
-import { UIService } from './../services/UIService'
+import {CashierStore} from '../stores/CashierStore'
+import {LoadingSpinner} from './loading/LoadingSpinner'
+import {TransactionPendingMTCN} from '../components/contentComponents/TransactionPendingMTCN'
+import {UIService} from './../services/UIService'
 
 let PendingControlNumber = React.createClass({
 
@@ -24,7 +24,7 @@ let PendingControlNumber = React.createClass({
 	 *
 	 * @returns {{transactions: Array}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let customer = CashierStore.getCustomer();
 		let lastTransactions = customer.pendingP2PTransactions;
 		return {
@@ -37,35 +37,35 @@ let PendingControlNumber = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
-	render() {
+	render(){
 
 		let pendingP2PTransactions = this.state.transactions;
 		let isWithdraw = UIService.getIsWithDraw();
 		let customerOpt = "DEPOSIT";
-		if (isWithdraw == 1 ){
+		if(isWithdraw == 1){
 			customerOpt = "WITHDRAW";
 		}
 
 		return (
 			<div id="pendingControlNumber">
-				<Info />
+				<Info/>
 				<div id="pendingControlNumberTransactions" className="internal-content">
 					<div className="row">
 						<div className="col-sm-12">
 							<div className="modules">
 								<div className="title text-center">{translate('PENDING_MTCN', 'Pending Control Numbers')}</div>
 
-								{(() =>{
+								{(() => {
 									if(pendingP2PTransactions && pendingP2PTransactions.length > 0){
-										if (this.state.transactions == cashier.NO_RESPONSE){
-											return(
+										if(this.state.transactions == cashier.NO_RESPONSE){
+											return (
 												<div>
 													<p>No records!</p>
-													<Link to={"/"+customerOpt.toLowerCase()+"/"}>
+													<Link to={"/" + customerOpt.toLowerCase() + "/"}>
 														<button type="button" className="btn btn-green center-block">{translate(customerOpt)}</button>
 													</Link>
 												</div>
@@ -78,10 +78,10 @@ let PendingControlNumber = React.createClass({
 									return <LoadingSpinner/>
 								})()}
 
-								{(() =>{
+								{(() => {
 									if(!pendingP2PTransactions || pendingP2PTransactions.length == 0){
 										return (
-											<Link to={"/"+customerOpt.toLowerCase()+"/"}>
+											<Link to={"/" + customerOpt.toLowerCase() + "/"}>
 												<button type="button" className="btn btn-green center-block">{translate(customerOpt)}</button>
 											</Link>
 										)
@@ -99,14 +99,14 @@ let PendingControlNumber = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

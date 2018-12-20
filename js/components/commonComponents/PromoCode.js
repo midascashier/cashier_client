@@ -24,7 +24,7 @@ let PromoCode = React.createClass({
 	 *
 	 * @returns {{promoCode: string}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let transaction = CashierStore.getTransaction();
 		let promoCode = transaction.promoCode;
 		return {
@@ -37,7 +37,7 @@ let PromoCode = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -46,12 +46,12 @@ let PromoCode = React.createClass({
 	 *
 	 * @param event
 	 */
-	changeValue(event) {
+	changeValue(event){
 		let promoCode = event.currentTarget.value;
 		TransactionService.setPromoCode(promoCode);
 	},
 
-	render() {
+	render(){
 		return (
 			<div id="promoCodeController">
 				<label className="col-sm-4 control-label">{translate('TRANSACTION_PROMO_CODE', 'Promo code')}:</label>
@@ -66,14 +66,14 @@ let PromoCode = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 

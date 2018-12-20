@@ -30,8 +30,10 @@
                               <div id="securityBlock">
                                 <p id="securityBlocProcessor">Authentication failed</p>
                                 <i id="securityBlockIcon" class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                                <p id="securityBlockTitle">Invalid Login</p>
+                                <p id="securityBlockTitle">Temporarily Disabled</p>
                                 <p id="securityBlockText" style="text-align: center;">
+                                  YOUR ACCOUNT MIGHT HAVE LIMITED ACCESS
+                                  <br>
                                   Please get in touch with customer service in order obtain immediate assistance.
                                 </p>
                               </div>

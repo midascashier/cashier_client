@@ -115,18 +115,17 @@ let EditPayAccount = React.createClass({
 							</select>
 						</div>
 					</div>
-					{(() =>{
+					{(() => {
 						if(
-								(
-									(payAccount.extra.dob == '' || payAccount.extra.dob == null)
-									||
-									(payAccount.extra.ssn == null || payAccount.extra.ssn == '')
-									||
-									isEditingCCInfo
-								) &&
-								(payAccount.address.country == cashier.USA_COUNTRY_CODE)
-						)
-						{
+							(
+								(payAccount.extra.dob == '' || payAccount.extra.dob == null)
+								||
+								(payAccount.extra.ssn == null || payAccount.extra.ssn == '')
+								||
+								isEditingCCInfo
+							) &&
+							(payAccount.address.country == cashier.USA_COUNTRY_CODE)
+						){
 							return <ExtraInfo changeValue={this.props.changeValue} ssn={payAccount.extra.ssn} dobMonth={payAccount.extra.dobMonth} dobDay={payAccount.extra.dobDay} dobYear={payAccount.extra.dobYear} country={payAccount.address.country}/>;
 						}
 					})()}

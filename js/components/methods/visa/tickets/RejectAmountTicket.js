@@ -1,9 +1,9 @@
 import React from 'react'
-import { translate } from '../../../../constants/Translate'
-import { UIService } from '../../../../services/UIService'
-import { CashierStore } from '../../../../stores/CashierStore'
-import { TransactionService } from '../../../../services/TransactionService'
-import { ApplicationService } from '../../../../services/ApplicationService'
+import {translate} from '../../../../constants/Translate'
+import {UIService} from '../../../../services/UIService'
+import {CashierStore} from '../../../../stores/CashierStore'
+import {TransactionService} from '../../../../services/TransactionService'
+import {ApplicationService} from '../../../../services/ApplicationService'
 
 let VisaRejectAmountTicket = React.createClass({
 
@@ -14,7 +14,7 @@ let VisaRejectAmountTicket = React.createClass({
 	 */
 	getInitialState(){
 		let transactionResponse = UIService.getLastTransactionResponse();
-		let state = Object.assign(this.refreshLocalState(), { transactionAmount: transactionResponse.amount });
+		let state = Object.assign(this.refreshLocalState(), {transactionAmount: transactionResponse.amount});
 		return state;
 	},
 
@@ -23,7 +23,7 @@ let VisaRejectAmountTicket = React.createClass({
 	 *
 	 * @returns {{currency: string, currencyAmount: string}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let limits = UIService.getPayAccountLimits();
 		let customer = UIService.getCustomerInformation();
 		let transaction = UIService.getTransactionInformation();
@@ -85,9 +85,9 @@ let VisaRejectAmountTicket = React.createClass({
 		let maxCurrencyAmount = Number(this.state.transactionAmount);
 
 		if(limits.minAmount <= amount && amount < maxCurrencyAmount){
-			this.setState({ enableReprocess: true });
-		} else{
-			this.setState({ enableReprocess: false });
+			this.setState({enableReprocess: true});
+		}else{
+			this.setState({enableReprocess: false});
 		}
 	},
 
@@ -101,7 +101,7 @@ let VisaRejectAmountTicket = React.createClass({
 		tags['currencyFormat'] = ApplicationService.currency_format(transactionAmount) + ' ' + currency;
 		let content = translate('CREDIT_CARD_DEPOSIT_REJECTED', '', tags);
 
-		return(
+		return (
 			<div id="visaRejectAmountTicket">
 				<div className="title">Quick fix...</div>
 				<div className="col-sm-12">
@@ -111,11 +111,11 @@ let VisaRejectAmountTicket = React.createClass({
 						<div className="form-group col-md-6 col-md-offset-3">
 							<label for="">{translate('')}</label>
 							<input type="number" id="amount" className="form-control center-block" value={currencyAmount}
-							onChange={this.changeValue}/>
+										 onChange={this.changeValue}/>
 							<small>{translate('PROCESSING_MIN', 'Min')}: {ApplicationService.currency_format(limits.minAmount) + ' ' + currency} - Max: Check your credit card limit.</small>
 						</div>
 					</div>
-					<br />
+					<br/>
 					<button type="button" className="btn btn-green" disabled={!this.state.enableReprocess} onClick={this.reProcessTransaction}>
 						Complete this deposit
 					</button>

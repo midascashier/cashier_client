@@ -22,7 +22,7 @@ let Input = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			isValid: true,
 			errorMessage: "",
@@ -82,7 +82,7 @@ let Input = React.createClass({
 					value: e
 				}
 			);
-		} else {
+		}else{
 
 			isValid = true;
 			this.setState(
@@ -124,17 +124,17 @@ let Input = React.createClass({
 	 *
 	 * @param e
 	 */
-	changeHandler(e) {
+	changeHandler(e){
 		let isValid = true;
 		let value = e.target.value;
 
-		if(typeof this.props.onChange === 'function') {
-			if(this.props.validate) {
+		if(typeof this.props.onChange === 'function'){
+			if(this.props.validate){
 				isValid = this.validateData(value);
 			}
-			if(!isValid && value.length > 0) {
+			if(!isValid && value.length > 0){
 				e.target.style['border-color'] = 'red';
-			} else {
+			}else{
 				e.target.style['border-color'] = '';
 			}
 
@@ -142,13 +142,13 @@ let Input = React.createClass({
 		}
 	},
 
-	handleCustomValidations(currentValue) {
+	handleCustomValidations(currentValue){
 		let isValid = true;
-		if (this.props.customValidations) {
+		if(this.props.customValidations){
 			let obj = this.props.customValidations;
 			let error = Object.keys(obj).find((key) => obj[key] === true);
 
-			if(error) {
+			if(error){
 				isValid = false;
 				this.setState({
 					isValid: false,
@@ -160,7 +160,7 @@ let Input = React.createClass({
 		return isValid;
 	},
 
-	render() {
+	render(){
 		let require = 0;
 		if(typeof this.props.require !== "undefined"){
 			require = 1;
@@ -183,7 +183,7 @@ let Input = React.createClass({
 		let isValid = this.state.isValid;
 		let value = this.state.value || this.props.value;
 
-		if(this.props.customValidations && isValid) {
+		if(this.props.customValidations && isValid){
 			isValid = this.handleCustomValidations(value);
 		}
 

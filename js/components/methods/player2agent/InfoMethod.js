@@ -33,7 +33,7 @@ let InfoMethod = React.createClass({
 	 *
 	 * @returns {{processor: (*|{processorClass: number, processorId: number, displayName: string, bonus: Array, fees: Array}), currentPayAccount: *, originPath: (*|string)}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			processor: CashierStore.getProcessor(),
 			currentPayAccount: CashierStore.getCurrentPayAccount(),
@@ -48,21 +48,21 @@ let InfoMethod = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
 	/**
 	 * this function sends deposit info to cashier
 	 */
-	continueTransaction() {
+	continueTransaction(){
 		this.props.invalidAccount(false);
 		TransactionService.setAmount(this.props.amount);
 
@@ -76,16 +76,16 @@ let InfoMethod = React.createClass({
 				TransactionService.registerPayAccountAsync({
 					account: TransactionService.getCustomer().username.toUpperCase()
 				}).then(() => resolve())
-			} else {
+			}else{
 				resolve()
 			}
 		}).then(() => {
 			UIService.accountExists(this.props.account)
 				.then(exists => {
-					if(exists) {
+					if(exists){
 						this.props.invalidAccount(false);
 						UIService.confirmTransaction();
-					} else {
+					}else{
 						this.props.invalidAccount(true);
 					}
 					currentState.waitForValidation = false;
@@ -99,7 +99,7 @@ let InfoMethod = React.createClass({
 		this.setState(currentState);
 	},
 
-	render() {
+	render(){
 		let limitsCheck = false;
 
 		if(this.props.limitsCheck === Cashier.LIMIT_NO_ERRORS){
@@ -107,7 +107,6 @@ let InfoMethod = React.createClass({
 		}
 
 		let allowContinueToConfirm = true;
-
 
 		let processorDisplayName = UIService.getProcessorDisplayName().toUpperCase();
 		let payAccountInfo = UIService.getDisplayLimits(this.props.amount);
@@ -151,11 +150,11 @@ let InfoMethod = React.createClass({
 					<div className="row mod-btns">
 						<div className="col-sm-6">
 							{(() => {
-								if(this.state.waitForValidation) {
+								if(this.state.waitForValidation){
 									return (
 										<LoadingSpinner/>
 									);
-								} else{
+								}else{
 									return (
 										<button type='button' onClick={this.continueTransaction} disabled={isNextDisabled} className='btn btn-green'>
 											{translate('PROCESSING_BUTTON_NEXT', 'Next')}
@@ -178,14 +177,14 @@ let InfoMethod = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

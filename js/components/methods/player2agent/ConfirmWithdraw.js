@@ -17,7 +17,7 @@ let Player2AgentConfirmWithdraw = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			transaction: CashierStore.getTransaction(),
 			payAccount: CashierStore.getCurrentPayAccount(),
@@ -30,7 +30,7 @@ let Player2AgentConfirmWithdraw = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -54,7 +54,7 @@ let Player2AgentConfirmWithdraw = React.createClass({
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
@@ -105,14 +105,14 @@ let Player2AgentConfirmWithdraw = React.createClass({
 												<div className="table-responsive">
 													<table className="table table-striped">
 														<tbody>
-															<tr>
-																<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
-																<td><span>{ApplicationService.currency_format(transaction.amount)}</span></td>
-															</tr>
-															<tr>
-																<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
-																<td><span>{ApplicationService.currency_format(transaction.fee)}</span></td>
-															</tr>
+														<tr>
+															<td>{translate('TRANSACTION_AMOUNT', 'Amount')}</td>
+															<td><span>{ApplicationService.currency_format(transaction.amount)}</span></td>
+														</tr>
+														<tr>
+															<td>{translate('TRANSACTION_FEE_AMOUNT', 'Fee')}</td>
+															<td><span>{ApplicationService.currency_format(transaction.fee)}</span></td>
+														</tr>
 														</tbody>
 													</table>
 												</div>
@@ -149,14 +149,14 @@ let Player2AgentConfirmWithdraw = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

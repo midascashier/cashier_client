@@ -1,8 +1,8 @@
 import React from 'react'
 import QRCode from 'qrcode.react'
-import { UIService } from '../../../../services/UIService'
-import { CashierStore } from '../../../../stores/CashierStore'
-import { translate } from '../../../../constants/Translate'
+import {UIService} from '../../../../services/UIService'
+import {CashierStore} from '../../../../stores/CashierStore'
+import {translate} from '../../../../constants/Translate'
 
 let BitCoinTicketPending = React.createClass({
 
@@ -12,7 +12,7 @@ let BitCoinTicketPending = React.createClass({
 	 * @returns {*|{address, amount, minutes}|{address: string, amount: string, minutes: number}}
 	 */
 	getInitialState(){
-		return Object.assign(this.refreshLocalState(), { timer: '15:00' });
+		return Object.assign(this.refreshLocalState(), {timer: '15:00'});
 	},
 
 	/**
@@ -20,7 +20,7 @@ let BitCoinTicketPending = React.createClass({
 	 *
 	 * @returns {{address: string, amount: string, minutes: number}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let address = translate('LOADING', 'Loading...');
 		let btcAmount = translate('LOADING', 'Loading...');
 		let rateExpiration = 15;
@@ -47,14 +47,14 @@ let BitCoinTicketPending = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
 	/**
 	 * copy to clipboard the BitCoin Address
 	 */
-	copyToClipboard() {
+	copyToClipboard(){
 		let address = this.state.address;
 		let clipBoard = document.createElement("input");
 		clipBoard.setAttribute("value", address);
@@ -82,17 +82,17 @@ let BitCoinTicketPending = React.createClass({
 			minutes = (minutes >= 10) ? minutes : '0' + minutes;
 			seconds = (seconds >= 10) ? seconds : '0' + seconds;
 			let score = minutes + ":" + seconds;
-			this.setState({ timer: score });
+			this.setState({timer: score});
 		}
 	},
 
-	render() {
+	render(){
 
 		let address = this.state.address;
 		let amount = this.state.amount;
 		let timer = this.state.timer;
 
-		let btcAmount = translate('BITCOIN_INSTRUCTIONS_AMOUNT', 'Send BTC amount from your wallet', { btcAmount: amount });
+		let btcAmount = translate('BITCOIN_INSTRUCTIONS_AMOUNT', 'Send BTC amount from your wallet', {btcAmount: amount});
 
 		return (
 			<div id="BitCoinTicketInstructions">
@@ -106,7 +106,7 @@ let BitCoinTicketPending = React.createClass({
 				<div className="col-sm-12">
 					<div className="modules">
 						<div className="row">
-							
+
 							<div className="col-sm-4">
 								<div className="box">
 									<div className="row">
@@ -127,11 +127,11 @@ let BitCoinTicketPending = React.createClass({
 											<div className="row">
 												<div className="col-sm-12">
 													<div className="title">#2</div>
-													
+
 													<div className="infoCol">
 														<div className="subtitle">{translate('BITCOIN_INSTRUCTIONS_ADDRESS', 'Send the BitCoin to the following address')}</div>
 														<p>{translate('BITCOIN_INSTRUCTIONS_ADDRESS_INFO', 'Please include any Miners Fee your BitCoin wallet charges.')}</p>
-														
+
 														<div className="row">
 															<div id="btcAddress" className="form-group">
 																<div className="col-sm-12">
@@ -146,9 +146,9 @@ let BitCoinTicketPending = React.createClass({
 																</div>
 															</div>
 														</div>
-														
+
 														<div id="QRCode">
-															{(() =>{
+															{(() => {
 																if(address){
 																	return (
 																		<div className="img-responsive center-block">
@@ -193,7 +193,7 @@ let BitCoinTicketPending = React.createClass({
 	/**
 	 * component is ready
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		this.interval = setInterval(this.timerTick, 500);
 		CashierStore.addChangeListener(this._onChange);
 	},
@@ -201,7 +201,7 @@ let BitCoinTicketPending = React.createClass({
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

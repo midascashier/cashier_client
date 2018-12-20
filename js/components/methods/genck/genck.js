@@ -25,7 +25,7 @@ let Genck = React.createClass({
 	/**
 	 * this function sets and return object with local states
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			selectedProcessor: CashierStore.getProcessor(),
 			payAccount: TransactionService.getCurrentPayAccount()
@@ -37,7 +37,7 @@ let Genck = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -45,28 +45,28 @@ let Genck = React.createClass({
 	 * set local state
 	 *
 	 * @param element
-     */
-	setSendBy(element) {
+	 */
+	setSendBy(element){
 		let value = '';
 
-		if (typeof element != "object") {
+		if(typeof element != "object"){
 			value = element;
-		} else {
+		}else{
 			value = element.target.value;
 		}
 
-		this.setState({ sendBy: value});
+		this.setState({sendBy: value});
 	},
 
-	setFeeType(value) {
-		this.setState({ feeType: value });
+	setFeeType(value){
+		this.setState({feeType: value});
 	},
 
-	render() {
+	render(){
 		return (
 			<div id="genck">
 				<div className="col-sm-6">
-					<AskInfo 
+					<AskInfo
 						amount={this.props.amount}
 						setAmount={this.props.setAmount}
 						limitsCheck={this.props.limitsCheck}
@@ -80,12 +80,12 @@ let Genck = React.createClass({
 					/>
 				</div>
 				<div className="col-sm-6">
-					{(() =>{
+					{(() => {
 						if(!this.state.selectedProcessor.processorId){
-							return <LoadingSpinner />;
+							return <LoadingSpinner/>;
 						}
 
-						return(
+						return (
 							<InfoMethod
 								amount={this.props.amount}
 								setSendBy={this.setSendBy}
@@ -107,14 +107,14 @@ let Genck = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount()  {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

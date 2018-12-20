@@ -23,15 +23,15 @@ let AskInfo = React.createClass({
 		let selectMonths = [];
 		let selectYears = [];
 		let now = new Date();
-		let actualMonth  = now.getMonth() + 2;
+		let actualMonth = now.getMonth() + 2;
 
 		for(let i = 1; i < 13; i++){
 			i = ('0' + i).slice(-2);
-			selectMonths.push(UIService.renderOption({ label: i }, i));
+			selectMonths.push(UIService.renderOption({label: i}, i));
 		}
 
 		for(let i = now.getFullYear(); i < now.getFullYear() + 15; i++){
-			selectYears.push(UIService.renderOption({ label: i }, i));
+			selectYears.push(UIService.renderOption({label: i}, i));
 		}
 
 		return (
@@ -50,16 +50,16 @@ let AskInfo = React.createClass({
 												<Input type="text" id="creditCardNumber" ref="creditCardNumber" validate="isCreditNumber" onChange={this.props.changeValue.bind(null, 'ccNumber', 0)} require/>
 											</div>
 										</div>
-										
+
 										<div className="form-group">
 											<label className="col-sm-4 control-label">{translate('CREDIT_CARD_EXPIRATION', 'Expiration Date')}:</label>
 											<div className="col-sm-4">
-												<select className="form-control" id="ccExpMonth" onChange={this.props.changeValue.bind(null, 'ccExpMonth',1)} value = {actualMonth}>
+												<select className="form-control" id="ccExpMonth" onChange={this.props.changeValue.bind(null, 'ccExpMonth', 1)} value={actualMonth}>
 													{selectMonths}
 												</select>
 											</div>
 											<div className="col-sm-4">
-												<select className="form-control" id="ccExpYear" onChange={this.props.changeValue.bind(null, 'ccExpYear',1)}>
+												<select className="form-control" id="ccExpYear" onChange={this.props.changeValue.bind(null, 'ccExpYear', 1)}>
 													{selectYears}
 												</select>
 											</div>
@@ -76,7 +76,7 @@ let AskInfo = React.createClass({
 											<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 										</div>
 
-										<TermsController />
+										<TermsController/>
 									</div>
 								</div>
 

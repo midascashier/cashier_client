@@ -2,7 +2,7 @@ import React from 'react'
 import {ExtraInfo} from './ExtraInfo'
 import {Register} from './Register.js'
 import {EditPayAccount} from './EditPayAccount'
-import  cashier  from '../../../constants/Cashier'
+import cashier from '../../../constants/Cashier'
 import {TermsController} from '../../TermsController'
 import {UIService} from '../../../services/UIService'
 import {translate} from '../../../constants/Translate'
@@ -89,7 +89,7 @@ let AskInfo = React.createClass({
 							<div className="row">
 								<div className="col-sm-12">
 									<div className="form-horizontal">
-										{(() =>{
+										{(() => {
 											if(!payAccountDisplayName){
 												return <LoadingSpinner/>;
 											}else{
@@ -99,7 +99,7 @@ let AskInfo = React.createClass({
 												}
 
 												if(payAccountId == 0){
-													return <Register />
+													return <Register/>
 												}else{
 													if(isEditingCCInfo == 0){
 
@@ -124,16 +124,16 @@ let AskInfo = React.createClass({
                                                                         	<div>
 																				<label>{translate('VISA_FEE_MAIN', 'Please note WPN charges 10% on all Visa Transactions. If for example you deposit $100 with Visa, $90 will be credited to your poker account.')}</label>
 																			</div>
-                                                                        )
-                                                                    }
-                                                                })()}
+																		)
+																	}
+																})()}
 
 																<div className="form-group">
 																	<PromoCode setPromoCode={this.props.setPromoCode} promoCode={this.props.promoCode}/>
 																</div>
 
 																{extraInfo}
-																<TermsController />
+																<TermsController/>
 															</div>
 														)
 													}
@@ -145,7 +145,7 @@ let AskInfo = React.createClass({
 											}
 										})()}
 									</div>
-									{(() =>{
+									{(() => {
 										if(payAccountId != 0 && payAccountDisplayName != cashier.NO_RESPONSE){
 											let information = translate('CREDIT_CARD_INFO', '');
 											return (

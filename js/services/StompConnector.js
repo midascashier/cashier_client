@@ -1,7 +1,7 @@
-import { rabbitConfig } from '../../config/rabbitConfig';
-import { onResponseService } from './OnResponseService'
-import { UIService } from './UIService'
-import { CashierActions } from '../actions/CashierActions'
+import {rabbitConfig} from '../../config/rabbitConfig';
+import {onResponseService} from './OnResponseService'
+import {UIService} from './UIService'
+import {CashierActions} from '../actions/CashierActions'
 
 class StompConnector {
 
@@ -14,7 +14,7 @@ class StompConnector {
 		 * Use to verify if the system is not blocked
 		 *
 		 * @type {boolean}
-         */
+		 */
 		this.sending = true;
 
 		/**
@@ -24,7 +24,7 @@ class StompConnector {
 		let wsPort = (rabbitConfig.get('port') ? ':' + rabbitConfig.get('port') : '');
 		let wsType = rabbitConfig.get('type');
 		let ws = rabbitConfig.get('protocol') + '://' + rabbitConfig.get('host') + wsPort + '/' + wsType;
-		if (wsType == "c.php") {
+		if(wsType == "c.php"){
 			//temporary live configuration, @todo FIXME
 			ws = 'wss://den.secureprivate.com/c.php';
 		}
@@ -46,7 +46,7 @@ class StompConnector {
 		/**
 		 * Promise to be fulfilled when the connection is finalized.
 		 */
-		this.resolveConnection = () =>{
+		this.resolveConnection = () => {
 		};
 	}
 
@@ -62,11 +62,11 @@ class StompConnector {
 	 * @returns {Promise}
 	 */
 	initConnection(){
-		return new Promise((resolve, reject) =>{
+		return new Promise((resolve, reject) => {
 			if(this.stompClient.connected){
 				resolve();
 			}else{
-				this.makeConnection().then(() =>{
+				this.makeConnection().then(() => {
 					//set reply queue
 					this.prepareReplyQueue();
 					resolve();
@@ -79,7 +79,7 @@ class StompConnector {
 	 * Create Rabbit Connection
 	 */
 	makeConnection(){
-		return new Promise((resolve) =>{
+		return new Promise((resolve) => {
 			this.resolveConnection = resolve;
 			this.stompClient.connect(rabbitConfig.get('user'), rabbitConfig.get('pass'), this.on_connect.bind(this), this.on_error.bind(this), rabbitConfig.get('virtual'));
 		});
@@ -116,7 +116,7 @@ class StompConnector {
 	 */
 	prepareReplyQueue(){
 		this.replyQueue = Math.random().toString(36).substring(7);
-		this.stompClient.send(this.replyQueue, { "exclusive": true, "auto-delete": true }, "");
+		this.stompClient.send(this.replyQueue, {"exclusive": true, "auto-delete": true}, "");
 		this.reply_queue_subscription = this.stompClient.subscribe("/queue/" + this.replyQueue, this.processMessage);
 	};
 
@@ -191,7 +191,7 @@ class StompConnector {
 	 * timeout function
 	 *
 	 * @param ms
-     */
+	 */
 	sleep(ms){
 		$('#msjs').show();
 		let start = new Date().getTime();
@@ -203,16 +203,16 @@ class StompConnector {
 
 	/**
 	 * get the message and the queue y send them to Rabbit
-	 * 
+	 *
 	 * @param queue
 	 * @param headers
 	 * @param message
-     */
+	 */
 	sendMessage(queue, headers, message){
 		if(this.sending){
 			let correlation_id = message.f + "Response";
 			if(!headers){
-				headers = { "reply-to": this.replyQueue, "correlation_id": correlation_id, "expiration": 60000 };
+				headers = {"reply-to": this.replyQueue, "correlation_id": correlation_id, "expiration": 60000};
 			}
 			if(this.stompClient.connected){
 				this.stompClient.send(`/queue/${queue}`, headers, JSON.stringify(message));

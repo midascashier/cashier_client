@@ -1,11 +1,11 @@
 import React from 'react'
-import { FAQ } from './FAQ'
-import { Amount } from './Amount'
+import {FAQ} from './FAQ'
+import {Amount} from './Amount'
 import Cashier from '../../../constants/Cashier'
-import { CryptoCurrencies } from './CryptoCurrencies'
-import { UIService } from '../../../services/UIService'
-import { translate } from '../../../constants/Translate'
-import { LoadingSpinner } from '../../../components/loading/LoadingSpinner'
+import {CryptoCurrencies} from './CryptoCurrencies'
+import {UIService} from '../../../services/UIService'
+import {translate} from '../../../constants/Translate'
+import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 
 let AskInfo = React.createClass({
 
@@ -31,20 +31,20 @@ let AskInfo = React.createClass({
 		setCryptoCurrencyName: React.PropTypes.func
 	},
 
-	componentWillMount() {
+	componentWillMount(){
 		this.setState({
-			load : false,
-			currencies : false
+			load: false,
+			currencies: false
 		});
 
 		this.getCurrencies();
 
-		window.onclick = function (event) {
-			if (event.target == document.getElementById('cryptoTransferModal')) {
+		window.onclick = function(event){
+			if(event.target == document.getElementById('cryptoTransferModal')){
 				$('#cryptoTransferModal').css('display', 'none');
 			}
 
-			if (event.target == document.getElementById('moneroMsgModal')) {
+			if(event.target == document.getElementById('moneroMsgModal')){
 				$('#moneroMsgModal').css('display', 'none');
 			}
 		};
@@ -53,16 +53,16 @@ let AskInfo = React.createClass({
 	/**
 	 * Get currencies list available and unavailable to execute crypto transfer
 	 */
-	getCurrencies() {
+	getCurrencies(){
 		let url = Cashier.CRYPTO_API_URL + Cashier.CRYPTO_API_GET_COINS;
 		fetch(url).then((response) => {
 			return response.json()
 		}).then((currencies) => {
 			this.setState({
-				load : true,
-				currencies : currencies
+				load: true,
+				currencies: currencies
 			});
-		}).catch(function(err) {
+		}).catch(function(err){
 			console.error(err);
 		});
 	},
@@ -73,9 +73,9 @@ let AskInfo = React.createClass({
 	 * @param currency
 	 * @returns {XML}
 	 */
-	currencyContent(currency) {
+	currencyContent(currency){
 		currency = this.state.currencies[currency];
-		return(
+		return (
 			<CryptoCurrencies
 				currency={currency}
 				rate={this.props.rate}
@@ -95,7 +95,7 @@ let AskInfo = React.createClass({
 	 *
 	 * @returns {XML}
 	 */
-	buildCurrenciesContainer() {
+	buildCurrenciesContainer(){
 		let currency = [];
 		let orderCurrencies = [];
 		let availableCurrencies = [];
@@ -110,14 +110,14 @@ let AskInfo = React.createClass({
 
 		if(currencies){
 			currency = Object.keys(currencies);
-			availableCurrencies = currency.filter(function (current) {
+			availableCurrencies = currency.filter(function(current){
 				return ((current != 'BTC' && current != 'XRP' && current != 'NEO') && currencies[current].status == 'available');
 			});
 
-			unavailableCurrencies = currency.filter(function (current) {
+			unavailableCurrencies = currency.filter(function(current){
 				if((current != 'BTC' && current != 'XRP' && current != 'NEO') && currencies[current].status != 'available'){
 					if(orderCurrencies.includes(current)){
-						orderCurrencies.forEach(function(k, v) {
+						orderCurrencies.forEach(function(k, v){
 							if(v == current){
 								this.splice(k, 1);
 							}
@@ -130,8 +130,8 @@ let AskInfo = React.createClass({
 				return false;
 			});
 
-			availableCurrencies.forEach(function (current, k) {
-				orderCurrencies.forEach(function (v) {
+			availableCurrencies.forEach(function(current, k){
+				orderCurrencies.forEach(function(v){
 					if(current == v){
 						availableCurrencies.splice(k, 1);
 					}
@@ -141,7 +141,7 @@ let AskInfo = React.createClass({
 			availableCurrencies = orderCurrencies.concat(availableCurrencies);
 		}
 
-		return(
+		return (
 			<div id='cryptoTransferModal'>
 				<div id='cryptoTransferModal-content'>
 					<div id='cryptoTransferModal-header'>
@@ -163,9 +163,9 @@ let AskInfo = React.createClass({
 	 *
 	 * @param event
 	 */
-	searchCurrency(event) {
+	searchCurrency(event){
 		let txtSearch = event.target.value.toLowerCase();
-		if(txtSearch == '') {
+		if(txtSearch == ''){
 			$('.cryptoTransferCurrency').show();
 		}else{
 			$('.cryptoTransferCurrency').show().not('[id ^= "' + txtSearch + '"]').hide().filter('[id = "' + txtSearch + '"]').show();
@@ -233,12 +233,12 @@ let AskInfo = React.createClass({
 
 					<p id="refundErrorMsg">{helpMSG}</p>
 
-					{(() =>{
-						$('#helpAddress').mouseenter(function () {
+					{(() => {
+						$('#helpAddress').mouseenter(function(){
 							$('#refundErrorMsg').css({
 								'display': 'block'
 							})
-						}).mouseleave(function () {
+						}).mouseleave(function(){
 							$('#refundErrorMsg').css({
 								'display': 'none'
 							})
@@ -259,7 +259,7 @@ let AskInfo = React.createClass({
 							setCustomerAmount={this.props.setCustomerAmount}
 						/>
 
-						{(() =>{
+						{(() => {
 							if(this.props.cryptoAddressError){
 								return (
 									<div className="alert alert-danger" role="alert">
@@ -284,7 +284,7 @@ let AskInfo = React.createClass({
 							<span id="helpAddress">?</span>
 						</div>
 
-						{(() =>{
+						{(() => {
 							if(!isWithDraw){
 								return (
 									<input type="text" className="form-control" placeholder={promoCodeTXT} onInput={this.changePromoCode} value={this.props.promoCode}/>
@@ -292,7 +292,7 @@ let AskInfo = React.createClass({
 							}
 						})()}
 
-						{(() =>{
+						{(() => {
 							if(!isWithDraw){
 								return (
 									<FAQ/>

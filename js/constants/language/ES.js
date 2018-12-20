@@ -431,8 +431,8 @@ let _langTags = {
 	METHODS_NO_AVAILABLE_TITLE: 'Bloqueo de Seguridad',
 	METHODS_NO_AVAILABLE_MESSAGE: 'Selección actual no disponible </br> Por favor contactar a servicio al cliente para obtener asistencia inmediata.',
 
-    WITHDRAW_PASS_MODAL_TITTLE: 'Por favor ingrese su contraseña',
-    WITHDRAW_PASS_MODAL_WRONG_MESSAGE: 'Contraseña incorrecta, por favor intente de nuevo.',
+	WITHDRAW_PASS_MODAL_TITTLE: 'Por favor ingrese su contraseña',
+	WITHDRAW_PASS_MODAL_WRONG_MESSAGE: 'Contraseña incorrecta, por favor intente de nuevo.',
 
     VISA_FEE_MAIN: 'Tenga en cuenta que WPN cobra 10% en todas las transacciones de Visa. Si, por ejemplo, usted deposita $100 con Visa, se acreditarán $90 en su cuenta de póker.'
 };

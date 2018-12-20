@@ -43,7 +43,7 @@ class ClientRedirect
     if($content){
       echo $content;
     }else{
-      include 'invalidLogin.php';
+      include 'rejectLogin.php';
     }
   }
 

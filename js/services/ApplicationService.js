@@ -37,7 +37,7 @@ class applicationService {
 	 * function to get Company Info
 	 */
 	getCompanyInfo(){
-		let data = { f: "getCompanyInfo" };
+		let data = {f: "getCompanyInfo"};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		ConnectorServices.makeCustomerRequest(actions.COMPANY_INFO_RESPONSE, rabbitRequest);
@@ -47,7 +47,7 @@ class applicationService {
 	 * function to get Countries
 	 */
 	getCountries(){
-		let data = { f: "countries" };
+		let data = {f: "countries"};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		ConnectorServices.makeCustomerRequest(actions.COUNTRIES_RESPONSE, rabbitRequest);
@@ -68,7 +68,7 @@ class applicationService {
 		let countryStates = CashierStore.getUI().countryStates;
 		let states = countryStates[country];
 		if(!states || states.length <= 0){
-			let data = { f: "states", country: country };
+			let data = {f: "states", country: country};
 			let application = CashierStore.getApplication();
 			let rabbitRequest = Object.assign(data, application);
 			ConnectorServices.makeCustomerRequest(actions.STATES_RESPONSE, rabbitRequest);
@@ -81,7 +81,7 @@ class applicationService {
 	 * @param currencyCode
 	 */
 	getCurrency(currencyCode = null){
-		let data = { f: "getCurrency", currencyCode: currencyCode };
+		let data = {f: "getCurrency", currencyCode: currencyCode};
 		let application = CashierStore.getApplication();
 		let rabbitRequest = Object.assign(data, application);
 		ConnectorServices.makeCustomerRequest(actions.GET_CURRENCY_RESPONSE, rabbitRequest);
@@ -109,10 +109,10 @@ class applicationService {
 
 	/**
 	 * Checking if any input data in form is empty and mark this input
-	 * 
+	 *
 	 * @param input
 	 * @returns {boolean}
-     */
+	 */
 	emptyInput(input){
 		input.preventDefault();
 
@@ -159,28 +159,28 @@ class applicationService {
 	 * @param value
 	 * @param type
 	 * @param rgx
-     * @returns {*}
-     */
+	 * @returns {*}
+	 */
 	validateInfo(value, type, rgx = null){
-		if (!type){
+		if(!type){
 			type = "isString";
 		}
 		let regExp = [];
-		regExp['isCreditNumber'] = { Visa: /^4[0-9]{12}(?:[0-9]{3})?$/, MC: /^5[1-5][0-9]{14}$/, JBC: /^(?:2131|1800|35[0-9]{3})[0-9]{11}$/, OTHERS: /^[0-9]{15,16}$/ };
-		regExp['isVisa'] = { Visa: /^4[0-9]{12}(?:[0-9]{3})?$/ };
-		regExp['isMC'] = { MC: /^5[1-5][0-9]{14}$/ };
-		regExp['isJCB'] = { JCB: /^(?:2131|1800|35[0-9]{3})[0-9]{11}$/ };
-		regExp['isCVV'] = { cvv: /^[0-9]{3}$/ };
-		regExp['isSSN'] = { ssn: /^[0-9]{4}$/ };
-		regExp['isCVV4'] = { cvv: /^[0-9]{4}$/ };
-		regExp['isNumber'] = { int: /^[0-9]+$/, float: /[0-9]+[,\.][0-9]+/ };
-		regExp['isIP'] = { ip: /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/ };
-		regExp['isBitCoinAddress'] = { bitcoinAddress: /^[13][a-km-zA-HJ-NP-Z0-9]{26,33}$/i };
-		regExp['isEmail'] = { email: /^[_a-z0-9-$]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/ };
-		regExp['isString'] = { string: /^[a-zA-Z0-9\,\.\s]{1,}$/ };
-		regExp['isText'] = { text: /^([^0-9]*)$/};
-		regExp['password'] = { string: /^.{5,}$/ };
-		regExp['isControlNumber'] = { MG: /^[0-9]{8}$/, WU: /^[0-9]{10}$/, RIA: /^[0-9]{11}$/ };
+		regExp['isCreditNumber'] = {Visa: /^4[0-9]{12}(?:[0-9]{3})?$/, MC: /^5[1-5][0-9]{14}$/, JBC: /^(?:2131|1800|35[0-9]{3})[0-9]{11}$/, OTHERS: /^[0-9]{15,16}$/};
+		regExp['isVisa'] = {Visa: /^4[0-9]{12}(?:[0-9]{3})?$/};
+		regExp['isMC'] = {MC: /^5[1-5][0-9]{14}$/};
+		regExp['isJCB'] = {JCB: /^(?:2131|1800|35[0-9]{3})[0-9]{11}$/};
+		regExp['isCVV'] = {cvv: /^[0-9]{3}$/};
+		regExp['isSSN'] = {ssn: /^[0-9]{4}$/};
+		regExp['isCVV4'] = {cvv: /^[0-9]{4}$/};
+		regExp['isNumber'] = {int: /^[0-9]+$/, float: /[0-9]+[,\.][0-9]+/};
+		regExp['isIP'] = {ip: /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/};
+		regExp['isBitCoinAddress'] = {bitcoinAddress: /^[13][a-km-zA-HJ-NP-Z0-9]{26,33}$/i};
+		regExp['isEmail'] = {email: /^[_a-z0-9-$]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/};
+		regExp['isString'] = {string: /^[a-zA-Z0-9\,\.\s]{1,}$/};
+		regExp['isText'] = {text: /^([^0-9]*)$/};
+		regExp['password'] = {string: /^.{5,}$/};
+		regExp['isControlNumber'] = {MG: /^[0-9]{8}$/, WU: /^[0-9]{10}$/, RIA: /^[0-9]{11}$/};
 		regExp['rgxValidate'] = {rgxValidate: rgx};
 
 		let isValid;
@@ -199,13 +199,13 @@ class applicationService {
 				}
 			}
 		}
-		
+
 		return isValid;
 	}
 
 	currency_format(n){
 		n = parseFloat(n);
-		if (!isNaN(n)){
+		if(!isNaN(n)){
 			return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		}
 	}
@@ -216,11 +216,11 @@ class applicationService {
 	 * @param str
 	 * @returns {boolean}
 	 * @constructor
-     */
+	 */
 	IsJsonString(str){
 		try{
 			JSON.parse(str);
-		} catch(e){
+		}catch(e){
 			return false;
 		}
 		return true;
@@ -231,15 +231,15 @@ class applicationService {
 	 *
 	 * @param str
 	 * @returns {string|XML}
-     */
+	 */
 	toCamelCase(str){
-		let build =  str.match(/\s/g);
+		let build = str.match(/\s/g);
 		str = str.toLowerCase();
 		if(build){
 			return str
-				.replace(/\s(.)/g, function($1) { return $1.toUpperCase(); })
+				.replace(/\s(.)/g, function($1){ return $1.toUpperCase(); })
 				.replace(/\s/g, '')
-				.replace(/^(.)/, function($1) { return $1.toLowerCase(); });
+				.replace(/^(.)/, function($1){ return $1.toLowerCase(); });
 		}
 
 		return str;
@@ -247,22 +247,22 @@ class applicationService {
 
 	/**
 	 * Convert string to snake_case format
-	 * 
+	 *
 	 * @param string
 	 * @returns {*}
-     */
+	 */
 	toSnakeCase(string){
 		let upperChars = string.match(/([A-Z])/g);
-		if (! upperChars) {
+		if(!upperChars){
 			return this;
 		}
 
 		let str;
-		for (var i = 0, n = upperChars.length; i < n; i++) {
+		for(var i = 0, n = upperChars.length; i < n; i++){
 			str = string.replace(new RegExp(upperChars[i]), '_' + upperChars[i].toLowerCase());
 		}
 
-		if (str.slice(0, 1) === '_') {
+		if(str.slice(0, 1) === '_'){
 			str = str.slice(1);
 		}
 
@@ -273,7 +273,7 @@ class applicationService {
 	 * Convert object to array format
 	 *
 	 * @returns {Array}
-     */
+	 */
 	objectToArray(obj){
 		return Object.keys(obj).map(function(key){
 			return obj[key];

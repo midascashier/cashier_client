@@ -1,7 +1,7 @@
 import React from 'react'
 
 let LoadingSpinner = React.createClass({
-	render() {
+	render(){
 		return (
 			<div className="loader" id="loadingSpinner">
 			</div>

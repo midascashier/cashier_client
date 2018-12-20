@@ -1,7 +1,7 @@
 import React from 'react'
-import { UIService } from '../../services/UIService'
-import { CashierStore } from '../../stores/CashierStore'
-import { ApplicationService } from '../../services/ApplicationService'
+import {UIService} from '../../services/UIService'
+import {CashierStore} from '../../stores/CashierStore'
+import {ApplicationService} from '../../services/ApplicationService'
 
 let ApprovedTicket = React.createClass({
 
@@ -19,7 +19,7 @@ let ApprovedTicket = React.createClass({
 	 *
 	 * @returns {{balance: string, email: string, currencyAmount: string}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let customer = UIService.getCustomerInformation();
 		let transaction = UIService.getTransactionInformation();
 		return {
@@ -35,11 +35,11 @@ let ApprovedTicket = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
-	render() {
+	render(){
 		let originPath = UIService.getOriginPath();
 		let currencyAmount = this.state.currencyAmount;
 		let currency = this.state.currency;
@@ -74,7 +74,7 @@ let ApprovedTicket = React.createClass({
 	/**
 	 * component is ready
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	}
 });

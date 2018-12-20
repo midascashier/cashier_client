@@ -10,7 +10,7 @@ import {LoadingSpinner} from '../../../components/loading/LoadingSpinner'
 
 let CryptoScreen = React.createClass({
 
-	disabledMethod : false,
+	disabledMethod: false,
 
 	/**
 	 * React function to set component initial state
@@ -25,20 +25,20 @@ let CryptoScreen = React.createClass({
 	 */
 	refreshLocalState(){
 		return {
-			info : {
+			info: {
 				promoCode: '',
-				limitsCheck : '',
-				cryptoAmount : '',
-				cryptoAddress : '',
-				amountRateBTC : '',
-				customerAmount : '',
-				cryptoAddressError : false,
-				rate : UIService.getCurrentCryptoRate(),
+				limitsCheck: '',
+				cryptoAmount: '',
+				cryptoAddress: '',
+				amountRateBTC: '',
+				customerAmount: '',
+				cryptoAddressError: false,
+				rate: UIService.getCurrentCryptoRate(),
 				validAddress: UIService.getValidAddress(),
-				limits : UIService.getProcessorLimitMinMax(),
-				cryptoCurrencyName : UIService.getCurrentCryptoName(),
-				cryptoCurrencyISO : UIService.getCurrentCryptoSymbol(),
-				conversionRate : UIService.getCurrentCryptoConvertionRate()
+				limits: UIService.getProcessorLimitMinMax(),
+				cryptoCurrencyName: UIService.getCurrentCryptoName(),
+				cryptoCurrencyISO: UIService.getCurrentCryptoSymbol(),
+				conversionRate: UIService.getCurrentCryptoConvertionRate()
 			}
 		}
 	},
@@ -56,7 +56,7 @@ let CryptoScreen = React.createClass({
 	 * Get symbol currency name
 	 *
 	 * @returns {*}
-     */
+	 */
 	getSymbol(){
 		let symbol = this.state.info;
 		return symbol.cryptoCurrencyISO;
@@ -64,9 +64,9 @@ let CryptoScreen = React.createClass({
 
 	/**
 	 * Get name currency
-	 * 
+	 *
 	 * @returns {*}
-     */
+	 */
 	getName(){
 		let name = this.state.info;
 		return name.cryptoCurrencyName;
@@ -167,7 +167,7 @@ let CryptoScreen = React.createClass({
 	 */
 	setCurrencyRate(rate){
 		let actualState = this.state.info;
-		actualState.rate = rate ;
+		actualState.rate = rate;
 		this.setState({info: actualState});
 	},
 
@@ -178,7 +178,7 @@ let CryptoScreen = React.createClass({
 	 */
 	setCryptoAddress(cryptoAddress){
 		let actualState = this.state.info;
-		actualState.cryptoAddress = cryptoAddress ;
+		actualState.cryptoAddress = cryptoAddress;
 		this.setState({info: actualState}, function afterAmountChange(){
 			this.setCryptoAddressError(false);
 		});
@@ -189,7 +189,7 @@ let CryptoScreen = React.createClass({
 	 */
 	setCryptoAddressError(cryptoAddressError){
 		let actualState = this.state.info;
-		actualState.cryptoAddressError = cryptoAddressError ;
+		actualState.cryptoAddressError = cryptoAddressError;
 		this.setState({info: actualState});
 	},
 
@@ -198,7 +198,7 @@ let CryptoScreen = React.createClass({
 	 */
 	setAmountRateBTC(rateBTC){
 		let actualState = this.state.info;
-		actualState.amountRateBTC = rateBTC ;
+		actualState.amountRateBTC = rateBTC;
 		this.setState({info: actualState});
 	},
 
@@ -232,7 +232,7 @@ let CryptoScreen = React.createClass({
 	setPromoCode(promoCode){
 		TransactionService.setPromoCode(promoCode);
 		let actualState = this.state.info;
-		actualState.promoCode = promoCode ;
+		actualState.promoCode = promoCode;
 		this.setState({info: actualState});
 	},
 
@@ -262,38 +262,38 @@ let CryptoScreen = React.createClass({
 		);
 
 		const askInfo = (
-            <AskInfo
-                getName={this.getName}
-                getSymbol={this.getSymbol}
-                rate={this.state.info.rate}
-                limits={this.state.info.limits}
-                setPromoCode={this.setPromoCode}
-                loadingLimits={this.loadingLimits}
-                setLimits={this.setCurrencyLimits}
-                promoCode={this.state.info.promoCode}
-                setCryptoAmount={this.setCryptoAmount}
-                getCurrencyRate={this.getCurrencyRate}
-                loadLimits={this.state.info.loadLimits}
-                setCryptoAddress={this.setCryptoAddress}
-                setAmountRateBTC={this.setAmountRateBTC}
-                limitsCheck={this.state.info.limitsCheck}
-                setCustomerAmount={this.setCustomerAmount}
-                cryptoAmount={this.state.info.cryptoAmount}
-                cryptoAddress={this.state.info.cryptoAddress}
-                customerAmount={this.state.info.customerAmount}
-                conversionRate={this.state.info.conversionRate}
-                amountToBTCCalculate={this.amountToBTCCalculate}
-                btcToAmountCalculate={this.btcToAmountCalculate}
-                setCryptoCurrencyISO={this.setCryptoCurrencyISO}
-                setCryptoCurrencyName={this.setCryptoCurrencyName}
-                cryptoAddressError={this.state.info.cryptoAddressError}
-            />
+			<AskInfo
+				getName={this.getName}
+				getSymbol={this.getSymbol}
+				rate={this.state.info.rate}
+				limits={this.state.info.limits}
+				setPromoCode={this.setPromoCode}
+				loadingLimits={this.loadingLimits}
+				setLimits={this.setCurrencyLimits}
+				promoCode={this.state.info.promoCode}
+				setCryptoAmount={this.setCryptoAmount}
+				getCurrencyRate={this.getCurrencyRate}
+				loadLimits={this.state.info.loadLimits}
+				setCryptoAddress={this.setCryptoAddress}
+				setAmountRateBTC={this.setAmountRateBTC}
+				limitsCheck={this.state.info.limitsCheck}
+				setCustomerAmount={this.setCustomerAmount}
+				cryptoAmount={this.state.info.cryptoAmount}
+				cryptoAddress={this.state.info.cryptoAddress}
+				customerAmount={this.state.info.customerAmount}
+				conversionRate={this.state.info.conversionRate}
+				amountToBTCCalculate={this.amountToBTCCalculate}
+				btcToAmountCalculate={this.btcToAmountCalculate}
+				setCryptoCurrencyISO={this.setCryptoCurrencyISO}
+				setCryptoCurrencyName={this.setCryptoCurrencyName}
+				cryptoAddressError={this.state.info.cryptoAddressError}
+			/>
 		);
 
 		return (
 			<div id="crypto">
 				<div className="col-sm-6">
-					{(() =>{
+					{(() => {
 						let processor = CashierStore.getProcessor();
 						if(!processor.processorId){
 							return <LoadingSpinner/>;
@@ -304,13 +304,13 @@ let CryptoScreen = React.createClass({
 				</div>
 
 				<div className="col-sm-6">
-					{(() =>{
+					{(() => {
 						let processor = CashierStore.getProcessor();
 						if(!processor.processorId){
 							return <LoadingSpinner/>;
 						}
 
-						return(
+						return (
 							<InfoMethod
 								getName={this.getName}
 								getSymbol={this.getSymbol}

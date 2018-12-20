@@ -13,7 +13,7 @@ let Register = React.createClass({
 	 *
 	 * @returns {*|{step, processorSteps}}
 	 */
-	getInitialState() {
+	getInitialState(){
 		return this.refreshLocalState();
 	},
 
@@ -21,7 +21,7 @@ let Register = React.createClass({
 	 * this function sets and return object with local states
 	 *
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			displaySaveButton: true,
 			payAccount: {
@@ -50,7 +50,7 @@ let Register = React.createClass({
 	 * @returns {boolean}
 	 */
 	addNewPayAccount(e){
-		if (!ApplicationService.emptyInput(e)) {
+		if(!ApplicationService.emptyInput(e)){
 
 			this.setState({
 				displaySaveButton: false
@@ -63,9 +63,9 @@ let Register = React.createClass({
 	/**
 	 * Cancel button
 	 */
-	cancel() {
+	cancel(){
 		let payAccounts = CashierStore.getProcessorPayAccount();
-		
+
 		if(Object.keys(payAccounts).length > 0){
 			let processorID = CashierStore.getProcessor();
 			let previousPayAccount = 0;
@@ -109,16 +109,16 @@ let Register = React.createClass({
 							<div className="col-sm-6">
 								{this.state.displaySaveButton ? <button type='submit' className='btn btn-green'>
 									{translate('PROCESSING_BUTTON_SAVE', 'Save')}
-								</button> : null }
+								</button> : null}
 							</div>
 
 							<div className="col-sm-6">
 								{
-									this.state.displaySaveButton ? 
+									this.state.displaySaveButton ?
 										<button type='button' onClick={this.cancel} className='btn btn-green'>
 											{translate('PROCESSING_BUTTON_CANCEL', 'Cancel')}
 										</button>
-									: null 
+										: null
 								}
 							</div>
 						</div>

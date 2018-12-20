@@ -25,7 +25,7 @@ let AskInfo = React.createClass({
 	 *
 	 * @returns {*|{step, processorSteps}}
 	 */
-	getInitialState() {
+	getInitialState(){
 		return this.refreshLocalState();
 	},
 
@@ -33,7 +33,7 @@ let AskInfo = React.createClass({
 	 * this function sets and return object with local states
 	 *
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			payAccount: {
 				account: ""
@@ -41,7 +41,7 @@ let AskInfo = React.createClass({
 		}
 	},
 
-	render() {
+	render(){
 		let limitsCheck = this.props.limitsCheck;
 		let setAmount = this.props.setAmount;
 		let changeValue = this.props.changeValue;
@@ -79,9 +79,9 @@ let AskInfo = React.createClass({
 											<AmountController setAmount={setAmount} amount={amount} limitsCheck={limitsCheck}/>
 										</div>
 
-										{(() =>{
+										{(() => {
 											if(isWithDraw){
-												return(
+												return (
 													<div className="form-group">
 														<FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
 													</div>

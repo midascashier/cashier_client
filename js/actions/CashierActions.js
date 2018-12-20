@@ -1,180 +1,181 @@
 import actions from '../constants/Actions'
+
 let CashierDispatcher = require('../dispatcher/CashierDispatcher');
 
 let CashierActions = {
-	changePayAccount: (payAccountID, processorID) =>{
+	changePayAccount: (payAccountID, processorID) => {
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_PAYACCOUNT,
-			data: { payAccountID: payAccountID, processorID: processorID }
+			data: {payAccountID: payAccountID, processorID: processorID}
 		});
 	},
 
-	setTransactionAmount: (amount) =>{
+	setTransactionAmount: (amount) => {
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_AMOUNT,
-			data: { amount: amount }
+			data: {amount: amount}
 		});
 	},
 
-	setCVV: (CVV) =>{
+	setCVV: (CVV) => {
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_CVV,
-			data: { cvv: CVV }
+			data: {cvv: CVV}
 		});
 	},
 
-	setTransactionResponse:(tStatus) => {
+	setTransactionResponse: (tStatus) => {
 		CashierDispatcher.dispatch({
 			action: actions.RESTART_TRANSACTION_RESPONSE,
-			data: { tStatus: tStatus }
+			data: {tStatus: tStatus}
 		});
 	},
 
-	setFeeAmount: (amount) =>{
+	setFeeAmount: (amount) => {
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_FEE_AMOUNT,
-			data: { amount: amount }
+			data: {amount: amount}
 		});
 	},
 
-	setTransactionTerms: (checked) =>{
+	setTransactionTerms: (checked) => {
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_TERMS,
-			data: { checked: checked }
+			data: {checked: checked}
 		});
 	},
 
-	setTransactionControlNumber: (controlNumber) =>{
+	setTransactionControlNumber: (controlNumber) => {
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_CONTROL_NUMBER,
-			data: { controlNumber: controlNumber }
+			data: {controlNumber: controlNumber}
 		});
 	},
 
-	setTransactionSendBy: (sendBy) =>{
+	setTransactionSendBy: (sendBy) => {
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_SEND_BY,
-			data: { sendBy: sendBy }
+			data: {sendBy: sendBy}
 		});
 	},
 
-	setTransactionPromoCode: (promoCode) =>{
+	setTransactionPromoCode: (promoCode) => {
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_PROMO_CODE,
-			data: { promoCode: promoCode }
+			data: {promoCode: promoCode}
 		});
 	},
 
-	setCryptoAddress: (cryptoAddress) =>{
+	setCryptoAddress: (cryptoAddress) => {
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_CRYPTO_ADDRESS,
-			data: { cryptoAddress: cryptoAddress }
+			data: {cryptoAddress: cryptoAddress}
 		});
 	},
-	setCryptoCurrencyName: (currencyName) =>{
+	setCryptoCurrencyName: (currencyName) => {
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_CURRENCY_NAME,
-			data: { currencyName: currencyName }
+			data: {currencyName: currencyName}
 		});
 	},
 
-	setCryptoCurrencyISO: (currencySymbol) =>{
+	setCryptoCurrencyISO: (currencySymbol) => {
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_CURRENCY_SYM,
-			data: { currencySymbol: currencySymbol }
+			data: {currencySymbol: currencySymbol}
 		});
 	},
 
-	setTransactionBTCConversionAmount: (BTCConversionAmount) =>{
+	setTransactionBTCConversionAmount: (BTCConversionAmount) => {
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_BTC_CONVERTION_AMOUNT,
-			data: { BTCConversionAmount: BTCConversionAmount }
+			data: {BTCConversionAmount: BTCConversionAmount}
 		});
 	},
 
-	setTransactionTimeFrame: (timeFrame) =>{
+	setTransactionTimeFrame: (timeFrame) => {
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_TIMEFRAME,
-			data: { timeFrame: timeFrame }
+			data: {timeFrame: timeFrame}
 		});
 	},
 
-	selectProcessor: (processorId, processorSteps, currentStep) =>{
+	selectProcessor: (processorId, processorSteps, currentStep) => {
 		CashierDispatcher.dispatch({
 			action: actions.SELECT_PROCESSOR,
-			data: { processorId: processorId, processorSteps: processorSteps, currentStep: currentStep }
+			data: {processorId: processorId, processorSteps: processorSteps, currentStep: currentStep}
 		});
 	},
 
-	startTransaction: () =>{
+	startTransaction: () => {
 		CashierDispatcher.dispatch({
 			action: actions.START_TRANSACTION
 		});
 	},
 
-	switchAction: () =>{
+	switchAction: () => {
 		CashierDispatcher.dispatch({
 			action: actions.SWITCH_ACTION
 		});
 	},
 
-	setCurrentStep: (step) =>{
+	setCurrentStep: (step) => {
 		CashierDispatcher.dispatch({
 			action: actions.SET_STEP,
-			data: { step: step }
+			data: {step: step}
 		});
 	},
 
-	responses: (action, data) =>{
+	responses: (action, data) => {
 		CashierDispatcher.dispatch({
 			action: action,
 			data: data
 		});
 	},
 
-	setSelectedCountry: (data) =>{
+	setSelectedCountry: (data) => {
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_APPLICATION_SELECTED_COUNTRY,
-			data: { country: data }
+			data: {country: data}
 		});
 	},
 
-	showUserMessage: (data) =>{
+	showUserMessage: (data) => {
 		CashierDispatcher.dispatch({
 			action: actions.USER_MESSAGE,
-			data: { message: data }
+			data: {message: data}
 		});
 	},
 
 	connectionError: (data) => {
 		CashierDispatcher.dispatch({
 			action: actions.CONNECTION_ERRROR,
-			data: { opt: data }
+			data: {opt: data}
 		});
 	},
 
-	setTransactionFee: (data) =>{
+	setTransactionFee: (data) => {
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_FEE,
-			data: { fee: data }
+			data: {fee: data}
 		});
 	},
 
-	setTransactionFeeType: (data) =>{
+	setTransactionFeeType: (data) => {
 		CashierDispatcher.dispatch({
 			action: actions.CHANGE_TRANSACTION_FEETYPE,
-			data: { feeType: data }
+			data: {feeType: data}
 		});
 	},
 
-	setBitcoinAddress: (data) =>{
+	setBitcoinAddress: (data) => {
 		CashierDispatcher.dispatch({
 			action: actions.SET_BITCOIN_ADDRESS,
-			data: { bitcoinaddress: data }
+			data: {bitcoinaddress: data}
 		});
 	},
 
-	startSecondFactorProcess: () =>{
+	startSecondFactorProcess: () => {
 		CashierDispatcher.dispatch({
 			action: actions.START_SECOND_FACTOR
 		});
@@ -183,21 +184,21 @@ let CashierActions = {
 	setsPayAccount: (data) => {
 		CashierDispatcher.dispatch({
 			action: actions.SETS_PAYACCOUNT,
-			data: { payAccount: data}
+			data: {payAccount: data}
 		});
 	},
 
-	setTransactionRandomTuid: (tuid) =>{
+	setTransactionRandomTuid: (tuid) => {
 		CashierDispatcher.dispatch({
 			action: actions.SET_TUID,
-			data: { tuid: tuid }
+			data: {tuid: tuid}
 		});
 	},
 
-	setCCEditMode: (editMode) =>{
+	setCCEditMode: (editMode) => {
 		CashierDispatcher.dispatch({
 			action: actions.SET_EDITCC,
-			data: { editMode: editMode }
+			data: {editMode: editMode}
 		});
 	},
 

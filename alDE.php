@@ -23,6 +23,14 @@
       echo '<script>isAcuitytecReady = 1;</script>';
     }
 
+    $username = $_REQUEST["username"];
+    $password = $_REQUEST["password"];
+    echo "<script>
+            var uid = '$username';
+            var pwd = '$password';
+          </script>";
+
+
     ?>
     <script>
       function ctrlResponse(data, service){
@@ -61,6 +69,7 @@
     </form>
 
     <form id="invalidLoginForm" action="/invalidLogin.php" method="POST"></form>
+    <form id="rejectLoginForm" action="/rejectLogin.php" method="POST"></form>
     <script>
       //clear local store since this is a new session
       localStorage.clear();
@@ -70,9 +79,14 @@
       function redirect(){
         if(isIovationReady == 1 && isAcuitytecReady == 1){
           clearInterval(id);
-          var login_form = document.getElementById("alForm");
-          if(login_form){
-            login_form.submit();
+          if(uid && pwd){
+            var login_form = document.getElementById("alForm");
+            if(login_form){
+              login_form.submit();
+            }else{
+              var rejectLoginForm = document.getElementById("rejectLoginForm");
+              rejectLoginForm.submit();
+            }
           }else{
             var invalidLoginForm = document.getElementById("invalidLoginForm");
             invalidLoginForm.submit();

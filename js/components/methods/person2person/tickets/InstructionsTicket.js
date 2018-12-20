@@ -1,11 +1,11 @@
 import React from 'react'
 import Cashier from '../../../../constants/Cashier'
-import { Input } from '../../../commonComponents/Inputs'
-import { UIService } from '../../../../services/UIService'
-import { translate } from '../../../../constants/Translate'
-import { CashierStore } from '../../../../stores/CashierStore'
-import { ApplicationService } from '../../../../services/ApplicationService'
-import { TransactionService } from '../../../../services/TransactionService'
+import {Input} from '../../../commonComponents/Inputs'
+import {UIService} from '../../../../services/UIService'
+import {translate} from '../../../../constants/Translate'
+import {CashierStore} from '../../../../stores/CashierStore'
+import {ApplicationService} from '../../../../services/ApplicationService'
+import {TransactionService} from '../../../../services/TransactionService'
 
 let P2PTicketPending = React.createClass({
 
@@ -23,7 +23,7 @@ let P2PTicketPending = React.createClass({
 	 *
 	 * @returns {{transaction: (*|{transactionId: number, journalId: number, status: number, userMessage: string, state: string, details: Array})}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		let transactionResponse = UIService.getLastTransactionResponse();
 		let transaction = UIService.getTransactionInformation();
 		let processor = CashierStore.getProcessor();
@@ -46,14 +46,14 @@ let P2PTicketPending = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
 	/**
 	 * send the customer to select the processor again
 	 */
-	setFirstStep() {
+	setFirstStep(){
 		UIService.setFirstStep();
 	},
 
@@ -68,7 +68,7 @@ let P2PTicketPending = React.createClass({
 	 * @param attribute
 	 * @param value
 	 */
-	changeValue(attribute, value) {
+	changeValue(attribute, value){
 
 		if(attribute == 'controlNumber'){
 			let enableSubmit = ApplicationService.validateInfo(value, "isControlNumber");
@@ -87,24 +87,24 @@ let P2PTicketPending = React.createClass({
 				enableSubmit = false;
 			}
 
-			this.setState({ enableReprocess: enableSubmit, controlNumber: value });
+			this.setState({enableReprocess: enableSubmit, controlNumber: value});
 			TransactionService.setControlNumber(value);
 		}
 
 		if(attribute == 'amount'){
-			this.setState({ currencyAmount: value });
+			this.setState({currencyAmount: value});
 			TransactionService.setAmount(value);
 		}
 
 		if(attribute == 'fee'){
-			this.setState({ fee: value });
+			this.setState({fee: value});
 			TransactionService.setFeeAmount(value);
 		}
 
 		return true;
 	},
 
-	render() {
+	render(){
 		let transactionDetails = this.state.transactionDetails;
 		let controlNumber = this.state.controlNumber;
 		let currencyAmount = this.state.currencyAmount;
@@ -138,7 +138,7 @@ let P2PTicketPending = React.createClass({
 								onClick={this.setFirstStep}>{translate('P2P_INSTRUCTIONS_GET_RECEIVER', "Get New Receiver")}</a>
 							</p>
 
-							{(() =>{
+							{(() => {
 
 								if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
 									return (
@@ -163,10 +163,10 @@ let P2PTicketPending = React.createClass({
 								)
 							})()}
 
-							{(() =>{
+							{(() => {
 								if(transactionDetails.caProcessor_Id == Cashier.PROCESSOR_ID_RIA_PROCESSOR){
 									return <p>
-										<strong>{translate('P2P_MAKE_PAYMENT')}</strong><br />
+										<strong>{translate('P2P_MAKE_PAYMENT')}</strong><br/>
 										<img src="/images/ria.jpg"/>
 									</p>
 								}
@@ -236,14 +236,14 @@ let P2PTicketPending = React.createClass({
 	/**
 	 * component is ready
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });

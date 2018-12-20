@@ -7,33 +7,33 @@
  * @param removeThumbnail function  - execute to click any thumbnails
  * @constructor
  */
-let ReaderImages = (files, element, className, removeThumbnail) =>{
-    for (let i = 0, f; f = files[i]; i++){
-        if (!f.type.match('image.*')) {
-            continue;
-        }
+let ReaderImages = (files, element, className, removeThumbnail) => {
+	for(let i = 0, f; f = files[i]; i++){
+		if(!f.type.match('image.*')){
+			continue;
+		}
 
-        let reader = new FileReader();
+		let reader = new FileReader();
 
-        //Closure to capture the file information.
-        reader.onload = (function (theFile){
-            return function (e){
-                let span = document.createElement('span');
-                span.id = theFile.name + 'Content';
-                span.innerHTML = ['<img class="', className ,'" src="', e.target.result, '" title="', escape(theFile.name), '"/>' +
-                '<span id='+ theFile.name +' class="DocsFileRemoveThumbnail">&times;</span>'].join('');
-                element.insertBefore(span, null);
+		//Closure to capture the file information.
+		reader.onload = (function(theFile){
+			return function(e){
+				let span = document.createElement('span');
+				span.id = theFile.name + 'Content';
+				span.innerHTML = ['<img class="', className, '" src="', e.target.result, '" title="', escape(theFile.name), '"/>' +
+				'<span id=' + theFile.name + ' class="DocsFileRemoveThumbnail">&times;</span>'].join('');
+				element.insertBefore(span, null);
 
-                let remove = document.getElementById(theFile.name);
-                remove.addEventListener("click", function(){
-                    removeThumbnail(theFile.name)
-                });
-            };
-        })(f);
+				let remove = document.getElementById(theFile.name);
+				remove.addEventListener("click", function(){
+					removeThumbnail(theFile.name)
+				});
+			};
+		})(f);
 
-        // Read in the image file as a data URL.
-        reader.readAsDataURL(f);
-    }
+		// Read in the image file as a data URL.
+		reader.readAsDataURL(f);
+	}
 };
 
 module.exports.ReaderImages = ReaderImages;

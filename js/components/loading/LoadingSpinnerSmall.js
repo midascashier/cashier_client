@@ -1,7 +1,7 @@
 import React from 'react'
 
 let LoadingSpinnerSmall = React.createClass({
-	render() {
+	render(){
 		return (
 			<div className="form-control loader-xs" id="loadingSpinnerSmall"></div>
 		)

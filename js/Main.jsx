@@ -104,7 +104,7 @@ import RouterContainer from './services/RouterContainer'
  */
 ReactGA.initialize('UA-88898718-12');
 
-let fireTracking = () =>{
+let fireTracking = () => {
 	if(window.location.pathname != "/"){
 		ReactGA.pageview(window.location.pathname);
 	}

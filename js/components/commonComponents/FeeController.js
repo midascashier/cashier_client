@@ -17,7 +17,7 @@ let FeeController = React.createClass({
 	 *
 	 * @returns {*|{step, processorSteps}}
 	 */
-	getInitialState() {
+	getInitialState(){
 		return this.refreshLocalState();
 	},
 
@@ -26,7 +26,7 @@ let FeeController = React.createClass({
 	 *
 	 * @returns {{step: (*|string), processorSteps: *}}
 	 */
-	refreshLocalState() {
+	refreshLocalState(){
 		return {
 			processor: CashierStore.getProcessor()
 		}
@@ -37,7 +37,7 @@ let FeeController = React.createClass({
 	 *
 	 * @private
 	 */
-	_onChange() {
+	_onChange(){
 		this.setState(this.refreshLocalState());
 	},
 
@@ -51,16 +51,16 @@ let FeeController = React.createClass({
 		TransactionService.setTransactionFee(transactionFee);
 	},
 
-	render() {
+	render(){
 		let fees = this.state.processor.fees;
 		let customer = CashierStore.getCustomer();
 		let options = [];
-		if(fees.enableFree == 1){ options.push(UIService.renderOption({ label: "Free" }, "Free")) }
-		if(fees.enableBP == 1){ options.push(UIService.renderOption({ label: "Betpoints" }, "BetPoints")) }
-		if(fees.enableCash == 1){ options.push(UIService.renderOption({ label: "Cash" }, "Cash")) }
+		if(fees.enableFree == 1){ options.push(UIService.renderOption({label: "Free"}, "Free")) }
+		if(fees.enableBP == 1){ options.push(UIService.renderOption({label: "Betpoints"}, "BetPoints")) }
+		if(fees.enableCash == 1){ options.push(UIService.renderOption({label: "Cash"}, "Cash")) }
 		return (
 			<div id="feeController">
-				{(() =>{
+				{(() => {
 					if(fees.enableBP == 1 || fees.enableFree == 1 || fees.enableCash == 1){
 						return (
 							<div id="feeSelection">
@@ -76,7 +76,7 @@ let FeeController = React.createClass({
 					}
 				})()}
 
-				{(() =>{
+				{(() => {
 					if(this.props.feeCheck && this.props.amount != ""){
 						return (
 							<div className="col-sm-8">
@@ -96,14 +96,14 @@ let FeeController = React.createClass({
 	 * React function to add listener to this component once is mounted
 	 * here the component listen changes from the store
 	 */
-	componentDidMount() {
+	componentDidMount(){
 		CashierStore.addChangeListener(this._onChange);
 	},
 
 	/**
 	 * React function to remove listener to this component once is unmounted
 	 */
-	componentWillUnmount() {
+	componentWillUnmount(){
 		CashierStore.removeChangeListener(this._onChange);
 	}
 });
