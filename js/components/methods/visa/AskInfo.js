@@ -118,10 +118,10 @@ let AskInfo = React.createClass({
 																	<AmountController amount={amount} setAmount={setAmount} limitsCheck={limitsCheck}/>
 																</div>
 
-                                                                {(() =>{
-                                                                    if(UIService.getProcessorId() == cashier.PROCESSOR_ID_VISA){
-                                                                        return (
-                                                                        	<div>
+																{(() => {
+																	if(UIService.getProcessorId() == cashier.PROCESSOR_ID_VISA){
+																		return (
+																			<div>
 																				<label>{translate('VISA_FEE_MAIN', 'Please note WPN charges 10% on all Visa Transactions. If for example you deposit $100 with Visa, $90 will be credited to your poker account.')}</label>
 																			</div>
 																		)

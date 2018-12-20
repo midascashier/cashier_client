@@ -433,8 +433,7 @@ let _langTags = {
 
 	WITHDRAW_PASS_MODAL_TITTLE: 'Por favor ingrese su contraseña',
 	WITHDRAW_PASS_MODAL_WRONG_MESSAGE: 'Contraseña incorrecta, por favor intente de nuevo.',
-
-    VISA_FEE_MAIN: 'Tenga en cuenta que WPN cobra 10% en todas las transacciones de Visa. Si, por ejemplo, usted deposita $100 con Visa, se acreditarán $90 en su cuenta de póker.'
+	VISA_FEE_MAIN: 'Tenga en cuenta que WPN cobra 10% en todas las transacciones de Visa. Si, por ejemplo, usted deposita $100 con Visa, se acreditarán $90 en su cuenta de póker.'
 };
 
 export function ES(){
