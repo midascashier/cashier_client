@@ -118,6 +118,18 @@ let AskInfo = React.createClass({
 																	<AmountController amount={amount} setAmount={setAmount} limitsCheck={limitsCheck}/>
 																</div>
 
+                                                                {(() =>{
+                                                                    if(UIService.getProcessorId() == cashier.PROCESSOR_ID_VISA){
+                                                                        return (
+                                                                        	<div>
+																				<label>{translate('VISA_FEE_MAIN', 'Note there is a 10% surcharge on all Visa deposits made at Americas Cardroom')}</label>
+																				<p>{translate('VISA_FEE_ONE_LINE', 'For every $100 deposited, your card will be charged $110')}</p>
+                                                                                <p>{translate('VISA_FEE_TWO_LINE', 'For every $100 deposit you will receive $90 in your account')}</p>
+																			</div>
+                                                                        )
+                                                                    }
+                                                                })()}
+
 																<div className="form-group">
 																	<PromoCode setPromoCode={this.props.setPromoCode} promoCode={this.props.promoCode}/>
 																</div>
