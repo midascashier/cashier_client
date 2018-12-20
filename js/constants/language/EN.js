@@ -435,7 +435,9 @@ let _langTags = {
 	METHODS_NO_AVAILABLE_TITLE: 'Security Block',
 	METHODS_NO_AVAILABLE_MESSAGE: 'Current selection is not available </br> Please get in touch with customer service in order obtain immediate assistance.',
 
-	VISA_FEE: 'Avoid this fee by using Amex, Mastercard, or Cryptocurrencies'
+    VISA_FEE_MAIN: 'Note there is a 10% surcharge on all Visa deposits',
+    VISA_FEE_ONE_LINE: 'For every $100 deposited, your card will be charged $110',
+    VISA_FEE_TWO_LINE: 'For every $100 deposit you will receive $90 in your account'
 };
 
 export function EN(){
