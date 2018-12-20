@@ -434,9 +434,7 @@ let _langTags = {
     WITHDRAW_PASS_MODAL_TITTLE: 'Por favor ingrese su contraseña',
     WITHDRAW_PASS_MODAL_WRONG_MESSAGE: 'Contraseña incorrecta, por favor intente de nuevo.',
 
-    VISA_FEE_MAIN: 'Tenga en cuenta que hay un recargo del 10% en todos los depósitos de Visa',
-    VISA_FEE_ONE_LINE: 'Por cada $ 100 depositados, su tarjeta será cargada $ 110',
-    VISA_FEE_TWO_LINE: 'Por cada depósito de $ 100, recibirá $ 90 en su cuenta'
+    VISA_FEE_MAIN: 'Tenga en cuenta que WPN cobra 10% en todas las transacciones de Visa. Si, por ejemplo, usted deposita $100 con Visa, se acreditarán $90 en su cuenta de póker.'
 };
 
 export function ES(){
