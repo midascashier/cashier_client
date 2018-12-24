@@ -1037,7 +1037,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) => {
 				case actions.LOGIN_RESPONSE:
 					_application.sid = data.sid;
 					_application.vip = data.vip;
-					_UI.currentView = data.option;
+					_UI.currentView = (data.option) ? data.option : cashier.VIEW_DEPOSIT;
 					_application.newbie = data.newbie;
 					_application.country = data.country;
 					_company.companyId = data.companyId;
