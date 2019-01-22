@@ -1,0 +1,31 @@
+{
+  "state": "ok",
+  "userMessage": "",
+  "systemMessage": null,
+  "response": {
+    "transaction": {
+      "caJournal_Id": "38924483",
+      "caTransaction_Id": "22669809",
+      "caTransactionStatus_Id": "1",
+      "Amount": "100.000000000000000000000000000000",
+      "caCurrency_Id_ToProcessor": "1",
+      "userMessage": "OK",
+      "errorType": "default",
+      "CurrencyAmount": "100",
+      "PayAccountId": "587705",
+      "BonusId": "0",
+      "Descriptor": "TLV 1-888-2580557",
+      "token": "DHW4X",
+      "gotoURLAction": "https:\/\/secure.panamericanpayments.com\/external\/run\/elcyKzZuczRESTJsQ3c3alZUWDhsa01QU1VISGYwRXpoNDFMbG40ZkNrYnhwaFU1WVR2K1dLZTdlVEExR2FRZ0NvMXA3SFUxcTBDYzkyZm5SZVhBbFFYdEFNZGowTStMZFNVcFhSRjJLOHN5eXZLdDl0dVA2QzVHNHM1NlFlSytjclcydmR1U0N5dlZ5WUI5R0F6dFozRTVSMFdwWVVhaEdwYmJXOTM0blY4OUYwSmFaVHpNMFJoWjJHOCtETXRxcEJaMkpHOHBUYVZmNE0zWXNRb2grZz09",
+      "gotoURL": {
+        "elements": {
+          "redirectMsg": {
+            "type": "value",
+            "value": "You are being redirected",
+            "label": "Note"
+          }
+        }
+      }
+    }
+  }
+}

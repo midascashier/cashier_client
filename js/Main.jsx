@@ -53,6 +53,7 @@ import {BitCoinTicketPending} from './components/methods/bitcoin/tickets/Pending
 import {Visa} from './components/methods/visa/Visa'
 import {VisaConfirm} from './components/methods/visa/Confirm'
 import {VisaApprovedTicket} from './components/methods/visa/tickets/ApprovedTicket'
+import {VisaPendingTicket} from './components/methods/visa/tickets/PendingTicket'
 import {VisaRejectedTicket} from './components/methods/visa/tickets/RejectedTicket'
 import {VisaRejectBankTicket} from './components/methods/visa/tickets/RejectBankTicket'
 import {VisaRejectAmountTicket} from './components/methods/visa/tickets/RejectAmountTicket'
@@ -169,6 +170,7 @@ let routes = (
 				<Route path="visa/securityBlock/" component={SecurityBlock}/>
 				<Route path="visa/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={VisaApprovedTicket}/>
+					<Route path="pending/" component={VisaPendingTicket}/>
 					<Route path="rejected/" component={VisaRejectedTicket}/>
 					<Route path="rejected/blockByBank/" component={VisaRejectBankTicket}/>
 					<Route path="rejected/invalidAmount/" component={VisaRejectAmountTicket}/>
@@ -198,6 +200,7 @@ let routes = (
 				<Route path="mastercard/securityBlock/" component={SecurityBlock}/>
 				<Route path="mastercard/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={VisaApprovedTicket}/>
+					<Route path="pending/" component={VisaPendingTicket}/>
 					<Route path="rejected/" component={VisaRejectedTicket}/>
 					<Route path="rejected/blockByBank/" component={VisaRejectBankTicket}/>
 					<Route path="rejected/invalidAmount/" component={VisaRejectAmountTicket}/>
@@ -209,6 +212,7 @@ let routes = (
 				<Route path="amex/securityBlock/" component={SecurityBlock}/>
 				<Route path="amex/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={VisaApprovedTicket}/>
+					<Route path="pending/" component={VisaPendingTicket}/>
 					<Route path="rejected/" component={VisaRejectedTicket}/>
 					<Route path="rejected/blockByBank/" component={VisaRejectBankTicket}/>
 					<Route path="rejected/invalidAmount/" component={VisaRejectAmountTicket}/>
@@ -220,6 +224,7 @@ let routes = (
 				<Route path="jcb/securityBlock/" component={SecurityBlock}/>
 				<Route path="jcb/ticket/" component={LoadingTicket}>
 					<Route path="approved/" component={VisaApprovedTicket}/>
+					<Route path="pending/" component={VisaPendingTicket}/>
 					<Route path="rejected/" component={VisaRejectedTicket}/>
 					<Route path="rejected/blockByBank/" component={VisaRejectBankTicket}/>
 					<Route path="rejected/invalidAmount/" component={VisaRejectAmountTicket}/>

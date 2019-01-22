@@ -47,7 +47,7 @@ let RedirectTicket = React.createClass({
 			let params = Object.keys(this.props.elements);
 
 			return (
-				<div>
+				<div id="redirectTicket">
 					<h2>{translate('REDIRECT', 'You are being redirected')}</h2>
 					<form method="POST" id="message" name="message" action={this.props.url}>
 						{params.map(this.genInputs)}

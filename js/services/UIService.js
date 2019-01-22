@@ -148,13 +148,18 @@ class UiService {
 		}
 
 		if(transactionResponse.status != cashier.TRANSACTION_STATUS_APPROVED){
-			let ticketResult = 'rejected';
-			if(layout == 'card'){
-				ticketResult += '/blockByBank';
-			}else if(layout == 'amount'){
-				ticketResult += '/invalidAmount';
-			}else if(layout == 'invalid-card'){
-				ticketResult += '/invalidCard';
+			let ticketResult = '';
+			if(transactionResponse.status == cashier.TRANSACTION_STATUS_PENDING && transactionResponse.data && transactionResponse.data.gotoURLAction){
+				ticketResult = 'pending';
+			}else{
+				ticketResult = 'rejected';
+				if(layout == 'card'){
+					ticketResult += '/blockByBank';
+				}else if(layout == 'amount'){
+					ticketResult += '/invalidAmount';
+				}else if(layout == 'invalid-card'){
+					ticketResult += '/invalidCard';
+				}
 			}
 
 			this.changeUIState('/' + this.getCurrentView() + '/' + this.getProcessorName().toLowerCase() + '/ticket/' + ticketResult + '/');

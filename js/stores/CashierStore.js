@@ -357,7 +357,8 @@ let _transaction = {
 /**
  * Stores transaction result
  *
- * @type {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, status: string, details: Array, data: null, cleanTransaction: Function}}
+ * @type {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, status: string, details: Array, data: {Amount: number, BonusId: number, CurrencyAmount: number, PayAccountId: number, caCurrency_Id_ToProcessor: number, caJournal_Id: number, caTransactionStatus_Id: number, caTransaction_Id: number, errorType: string, gotoURLAction: string, token: string, userMessage: string}, cleanTransaction(): void}}
+ *
  * @private
  */
 let _transactionResponse = {
@@ -370,7 +371,20 @@ let _transactionResponse = {
 	state: "",
 	status: "",
 	details: [],
-	data: null,
+	data: {
+		Amount: 0,
+		BonusId: 0,
+		CurrencyAmount: 0,
+		PayAccountId: 0,
+		caCurrency_Id_ToProcessor: 0,
+		caJournal_Id: 0,
+		caTransactionStatus_Id: 0,
+		caTransaction_Id: 0,
+		errorType: '',
+		gotoURLAction: '',
+		token: '',
+		userMessage: ''
+	},
 	cleanTransaction(){
 		this.transactionId = 0;
 		this.journalId = 0;
@@ -381,7 +395,20 @@ let _transactionResponse = {
 		this.state = "";
 		this.status = "";
 		this.details = [];
-		this.data = null;
+		this.data = {
+			Amount: 0,
+			BonusId: 0,
+			CurrencyAmount: 0,
+			PayAccountId: 0,
+			caCurrency_Id_ToProcessor: 0,
+			caJournal_Id: 0,
+			caTransactionStatus_Id: 0,
+			caTransaction_Id: 0,
+			errorType: '',
+			gotoURLAction: '',
+			token: '',
+			userMessage: ''
+		};
 	}
 };
 
@@ -521,7 +548,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * Return last transaction cashier response
 	 *
-	 * @returns {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, details: Array, cleanTransaction: function()}}
+	 * @returns {{transactionId: number, journalId: number, amount: string, feeType: string, fee: number, userMessage: string, state: string, status: string, details: Array, data: {Amount: number, BonusId: number, CurrencyAmount: number, PayAccountId: number, caCurrency_Id_ToProcessor: number, caJournal_Id: number, caTransactionStatus_Id: number, caTransaction_Id: number, errorType: string, gotoURLAction: string, token: string, userMessage: string}, cleanTransaction, (): void}}
 	 */
 	getLastTransactionResponse: () => {
 		return _transactionResponse;
@@ -530,7 +557,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	/**
 	 * Return last data transaction cashier response
 	 *
-	 * @returns object
+	 * @returns {_transactionResponse.data|{Amount, BonusId, CurrencyAmount, PayAccountId, caCurrency_Id_ToProcessor, caJournal_Id, caTransactionStatus_Id, caTransaction_Id, errorType, gotoURLAction, token, userMessage}|*}
 	 */
 	getLastDataTransactionResponse: () => {
 		return _transactionResponse.data;
