@@ -1054,7 +1054,11 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 * @returns {any}
 	 */
 	getRestartTransaction(){
-		return JSON.parse(localStorage.restartInfo);
+		if(localStorage.restartInfo){
+			return JSON.parse(localStorage.restartInfo);
+		}else{
+			return null;
+		}
 	},
 
 	/**
