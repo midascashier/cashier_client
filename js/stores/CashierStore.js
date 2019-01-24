@@ -1243,11 +1243,13 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) => {
 					}
 
 					let processorId = processor.caProcessor_Id;
-					const restartInfo = JSON.parse(localStorage.restartInfo);
-					if(restartInfo && restartInfo.restart){
-						processorId = restartInfo.processorId;
-						_transactionResponse.status = restartInfo.Tstatus;
-						_transactionResponse.userMessage = "Restart";
+					if(localStorage.restartInfo){
+						const restartInfo = JSON.parse(localStorage.restartInfo);
+						if(restartInfo && restartInfo.restart){
+							processorId = restartInfo.processorId;
+							_transactionResponse.status = restartInfo.Tstatus;
+							_transactionResponse.userMessage = "Restart";
+						}
 					}
 
 					// set default processor
