@@ -484,21 +484,24 @@ class UiService {
 		if(processorId){
 			const restartTransaction = CashierStore.getRestartTransaction();
 			if(restartTransaction){
+
 				let route = ProcessorSettings.settings[processorId].route;
 				let processorSteps = CashierStore.getCurrentProcessorSteps();
 				CashierActions.setCurrentStep(processorSteps[processorSteps.length - 1]);
 
 				let nextPath = "/" + this.customerAction + "/";
 				if(restartTransaction.Tstatus == 2){
-					if(selectedProcessor.processorClass == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS){
-						TransactionService.creditCardTransaction(restartTransaction.transactionId);
-					}
 					nextPath += route + "ticket/approved/";
 					this.changeUIState(nextPath);
 				}else{
 					nextPath += route + "ticket/rejected/";
 					this.changeUIState(nextPath);
 				}
+				if(selectedProcessor.processorClass == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS){
+					TransactionService.creditCardTransaction(restartTransaction.transactionId);
+				}
+
+				CashierStore.cleanRestartTransaction();
 			}
 		}
 	};

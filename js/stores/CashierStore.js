@@ -1055,6 +1055,14 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getRestartTransaction(){
 		return JSON.parse(localStorage.restartInfo);
+	},
+
+	/**
+	 *
+	 */
+	cleanRestartTransaction(){
+		localStorage.setItem('restartInfo', null);
+		localStorage.removeItem('restartInfo')
 	}
 });
 
