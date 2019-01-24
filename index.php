@@ -70,6 +70,11 @@
         }
 
         localStorage.setItem('application', JSON.stringify(application));
+        if(loginInfo && loginInfo.restart){
+          localStorage.setItem('restartInfo', JSON.stringify(loginInfo));
+        }else{
+          localStorage.removeItem('restartInfo')
+        }
       }
     </script>
     <script src="/js/libs/jquery.min.js"></script>

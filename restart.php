@@ -62,6 +62,7 @@ class restart
               <input type='hidden' id='restart' name='restart' value='1'>
               <input type='hidden' id='processorId' name='processorId' value={$result->response->processorIdSelected}>
               <input type='hidden' id='Tstatus' name='Tstatus' value={$result->response->tStatusId}>
+              <input type='hidden' id='transactionId' name='transactionId' value={$result->response->transactionId}>
             </form>
             <script>
               var login_form = document.getElementById('alForm');

@@ -1048,6 +1048,13 @@ let CashierStore = assign({}, EventEmitter.prototype, {
 	 */
 	getValidPass(){
 		return _Withdraw.validPass;
+	},
+
+	/**
+	 * @returns {any}
+	 */
+	getRestartTransaction(){
+		return JSON.parse(localStorage.restartInfo);
 	}
 });
 
@@ -1227,9 +1234,17 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) => {
 						});
 					}
 
+					let processorId = processor.caProcessor_Id;
+					const restartInfo = JSON.parse(localStorage.restartInfo);
+					if(restartInfo && restartInfo.restart){
+						processorId = restartInfo.processorId;
+						_transactionResponse.status = restartInfo.Tstatus;
+						_transactionResponse.userMessage = "Restart";
+					}
+
 					// set default processor
-					_UI.processorId = processor.caProcessor_Id;
-					_processor.load(processor.caProcessor_Id);
+					_UI.processorId = processorId;
+					_processor.load(processorId);
 					break;
 
 				case actions.CHANGE_TRANSACTION_FEE_AMOUNT:

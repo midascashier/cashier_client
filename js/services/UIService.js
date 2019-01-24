@@ -17,6 +17,19 @@ class UiService {
 	};
 
 	/**
+	 * Set current action
+	 *
+	 * @param action
+	 */
+	setCurrentAction(){
+		if(CashierStore.getIsWithdraw()){
+			this.customerAction = "withdraw";
+		}else{
+			this.customerAction = "deposit";
+		}
+	}
+
+	/**
 	 * Do some other actions after login response
 	 */
 	loginResponse(data){
@@ -465,8 +478,29 @@ class UiService {
 	 * Do some actions after processors response
 	 */
 	customerProcessorsResponse(processor){
-		let selectedProcessor = CashierStore.getProcessor();
-		this.selectProcessor(selectedProcessor.processorId);
+		const selectedProcessor = CashierStore.getProcessor();
+		const processorId = selectedProcessor.processorId;
+		this.selectProcessor(processorId);
+		if(processorId){
+			const restartTransaction = CashierStore.getRestartTransaction();
+			if(restartTransaction){
+				let route = ProcessorSettings.settings[processorId].route;
+				let processorSteps = CashierStore.getCurrentProcessorSteps();
+				CashierActions.setCurrentStep(processorSteps[processorSteps.length - 1]);
+
+				let nextPath = "/" + this.customerAction + "/";
+				if(restartTransaction.Tstatus == 2){
+					if(selectedProcessor.processorClass == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS){
+						TransactionService.creditCardTransaction(restartTransaction.transactionId);
+					}
+					nextPath += route + "ticket/approved/";
+					this.changeUIState(nextPath);
+				}else{
+					nextPath += route + "ticket/rejected/";
+					this.changeUIState(nextPath);
+				}
+			}
+		}
 	};
 
 	/**
