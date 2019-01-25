@@ -105,9 +105,7 @@ let VisaRejectedTicket = React.createClass({
 													</strong>
 												</div>
 												<div className="ticket-body">
-													<p>
-														<strong>Unfortunately</strong>, we were unable to process your <strong>{processorName}</strong> {action} for <strong>{ApplicationService.currency_format(currencyAmount) + ' ' + currency}</strong> at this time.
-													</p>
+													<p><strong>Unfortunately</strong>, we were unable to process your <strong>{processorName}</strong> {action}.</p>
 													<p>
 														Perhaps our Customer Support team can help.
 													</p>
