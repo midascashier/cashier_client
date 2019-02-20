@@ -105,12 +105,8 @@ let VisaRejectedTicket = React.createClass({
 													</strong>
 												</div>
 												<div className="ticket-body">
-													<p><strong>Unfortunately</strong>, we were unable to process your <strong>{processorName}</strong> {action}.</p>
 													<p>
-														Perhaps our Customer Support team can help.
-													</p>
-													<p>
-														Call us at {companyPhone} or <a onClick={this.openChat}>Live Chat</a> or you could try a <a onClick={this.setFirstStep}>different deposit method</a>.
+														At this moment your transaction has been declined. We suggest you try depositing using alternative options such as Mastercard or Bitcoin. You can also call our poker solutions team at 1-877-314-4195 or visit our Live Chat and we will assist you with the transaction.
 													</p>
 												</div>
 
