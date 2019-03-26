@@ -4,6 +4,7 @@ import {UIService} from '../../../../services/UIService'
 import {CashierStore} from '../../../../stores/CashierStore'
 import {TransactionService} from '../../../../services/TransactionService'
 import {ApplicationService} from '../../../../services/ApplicationService'
+import cashier from '../../../../constants/Cashier'
 
 let VisaRejectAmountTicket = React.createClass({
 
@@ -100,6 +101,7 @@ let VisaRejectAmountTicket = React.createClass({
 		let transactionAmount = this.state.transactionAmount;
 		tags['currencyFormat'] = ApplicationService.currency_format(transactionAmount) + ' ' + currency;
 		let content = translate('CREDIT_CARD_DEPOSIT_REJECTED', '', tags);
+    let processorId = UIService.getProcessorId();
 
 		return (
 			<div id="visaRejectAmountTicket">
@@ -121,6 +123,12 @@ let VisaRejectAmountTicket = React.createClass({
 					</button>
 					<p><a onClick={this.setFirstStep}>No thanks. I'll deposit a different way.</a></p>
 				</div>
+        {(() =>{
+          if(processorId == cashier.PROCESSOR_ID_VISA){
+            lpTag.section = ["VisaRejected"];
+          }
+          return <div></div>
+        })()}
 			</div>
 		)
 	}

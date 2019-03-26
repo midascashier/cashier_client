@@ -1,6 +1,7 @@
 import React from 'react'
 import {UIService} from '../../../../services/UIService'
 import {TransactionService} from '../../../../services/TransactionService'
+import cashier from '../../../../constants/Cashier'
 
 let VisaRejectBankTicket = React.createClass({
 
@@ -69,6 +70,8 @@ let VisaRejectBankTicket = React.createClass({
 	},
 
 	render(){
+    let processorId = UIService.getProcessorId();
+
 		return (
 			<div className="internal-content" id="visaRejectBankTicket">
 				<div className="row">
@@ -83,6 +86,12 @@ let VisaRejectBankTicket = React.createClass({
 						</div>
 					</div>
 				</div>
+        {(() =>{
+          if(processorId == cashier.PROCESSOR_ID_VISA){
+            lpTag.section = ["VisaRejected"];
+          }
+          return <div></div>
+        })()}
 			</div>
 		)
 	}

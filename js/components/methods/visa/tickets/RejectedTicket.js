@@ -2,6 +2,7 @@ import React from 'react'
 import {UIService} from '../../../../services/UIService'
 import {CashierStore} from '../../../../stores/CashierStore'
 import {ApplicationService} from '../../../../services/ApplicationService'
+import cashier from '../../../../constants/Cashier'
 
 let VisaRejectedTicket = React.createClass({
 
@@ -80,6 +81,7 @@ let VisaRejectedTicket = React.createClass({
 		let processorName = this.state.processorName;
 		let companyPhone = this.state.companyPhone;
 		let isWithDraw = UIService.getIsWithDraw();
+    let processorId = UIService.getProcessorId();
 		let action;
 		if(isWithDraw){
 			action = "withdraw";
@@ -120,6 +122,12 @@ let VisaRejectedTicket = React.createClass({
 						return this.props.children;
 					}
 				})()}
+        {(() =>{
+          if(processorId == cashier.PROCESSOR_ID_VISA){
+            lpTag.section = ["VisaRejected"];
+          }
+          return <div></div>
+        })()}
 			</div>
 		)
 	}

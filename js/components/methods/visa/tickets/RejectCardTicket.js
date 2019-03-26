@@ -4,6 +4,7 @@ import {UIService} from '../../../../services/UIService'
 import {translate} from '../../../../constants/Translate'
 import {CashierStore} from '../../../../stores/CashierStore'
 import {TransactionService} from '../../../../services/TransactionService'
+import cashier from '../../../../constants/Cashier'
 
 let VisaRejectCardTicket = React.createClass({
 
@@ -118,6 +119,7 @@ let VisaRejectCardTicket = React.createClass({
 		let account = secureData.account.replace(/\d(?=\d{4})/g, "*");
 		let password = secureData.password;
 
+    let processorId = UIService.getProcessorId();
 		let selectMonths = [];
 		let selectYears = [];
 		let now = new Date();
@@ -209,7 +211,12 @@ let VisaRejectCardTicket = React.createClass({
 																			 onClick={this.updateCreditCardSecure}>{translate('PROCESSING_BUTTON_SAVE', 'Save')}</button>;
 											}
 										})()}
-
+                    {(() =>{
+                      if(processorId == cashier.PROCESSOR_ID_VISA){
+                        lpTag.section = ["VisaRejected"];
+                      }
+                      return <div></div>
+                    })()}
 									</div>
 								</form>
 							</div>
