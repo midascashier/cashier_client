@@ -104,11 +104,11 @@ let Register = React.createClass({
 			value.target.style['border-color'] = '';
 			value = value.target.value;
 		}
-		if(propertyName == 'country'){
+		if(propertyName === 'country'){
 			UIService.getCountryStates(value);
 			UIService.setCurrentSelectedCountry(value);
 		}
-		if(propertyName == 'extra3'){
+		if(propertyName === 'extra3'){
 			CashierActions.showUserMessage('');
 		}
 
@@ -146,9 +146,6 @@ let Register = React.createClass({
 		if(!ApplicationService.emptyInput(e)){
 			let actualState = this.state;
 
-			if(!this.checkCardHolderName()){
-				return false;
-			}
 			if(!this.state.dobDay){
 				actualState.payAccount.dobDay = e.target.querySelector('[name="dobDay"]').value;
 			}
