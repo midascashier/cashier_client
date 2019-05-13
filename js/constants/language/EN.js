@@ -5,6 +5,7 @@ let _langTags = {
 	//Sorts words
 	IMPORTANT: "Important: ",
 	WARNING_MINER_DEPOSIT_CC: "Only send {cryptoName} {cryptoSymbol} to this address. Sending any other digital asset will result in permanent loss.",
+	WARNING_MINER_DEPOSIT_EXTRA: "Only send <strong>{cryptoName} ({cryptoSymbol})</strong> to this address and ensure you use the corresponding <strong>{extraInfoName}</strong>. Sending any other digital asset or failing to add the <strong>{extraInfoName}</strong> will result in permanent loss.",
 	WARNING_MINER_DEPOSIT: "If your deposit is less than ",
 	WARNING_MINER_DEPOSIT_END: "  might not qualify for refund.",
 	PROCESSING_SPINNER: 'Processing... please wait!',
