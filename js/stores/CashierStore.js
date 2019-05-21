@@ -1113,7 +1113,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) => {
 					ReactGA.set({'dimension3': _application.vip});
 					ReactGA.set({'dimension4': _application.country});
 
-					if(_company.remoteCompany == 'AmericasCardroom'){
+					if(_company.remoteCompany == 'ACR'){
 						if(parseInt(_application.newbie) == 1){
 							$('head').append("<!-- Hotjar Tracking Code for Cashier ACR --><script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:998973,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>");
 						}else{
