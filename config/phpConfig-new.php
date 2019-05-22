@@ -31,10 +31,15 @@
    */
   const COMPANY_ID_POKER = '50';
 
-  /**
-   * CompanyId
-   */
-  const COMPANY_ID_YAPOKER = '60';
+ /**
+  * CompanyId Poker Nuts
+  */
+  const COMPANY_ID_PN = '51';
+
+ /**
+  * CompanyId Poker King
+  */
+  const COMPANY_ID_PK = '52';
 
   /**
    * debug active

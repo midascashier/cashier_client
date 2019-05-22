@@ -18,6 +18,14 @@ class ClientRedirect
    */
   function __construct()
   {
+    $companyId = COMPANY_ID_POKER;
+    $referer = $_REQUEST["HTTP_REFERER"];
+    if(strrpos($referer, '/PN/' )){
+      $companyId = COMPANY_ID_PK;
+    }elseif(strrpos($referer, '/PK/' )){
+      $companyId = COMPANY_ID_PN;
+    }
+
     $cashierParams = array();
     $cashierParams["format"] = "json";
     $cashierParams["f"] = "authCustomer";
@@ -25,7 +33,7 @@ class ClientRedirect
     $cashierParams["bd"] = $_REQUEST["bd"];
     $cashierParams["lang"] = $_REQUEST['lang'];
     $cashierParams["ioBB"] = $_REQUEST["ioBB"];
-    $cashierParams["companyId"] = COMPANY_ID_POKER;
+    $cashierParams["companyId"] = $companyId;
     $cashierParams["doLogin"] = $_REQUEST["doLogin"];
     $cashierParams["remoteAddr"] = $this->customerIp();
     $cashierParams["referrer"] = $_REQUEST["referrer"];
@@ -109,7 +117,6 @@ class ClientRedirect
    */
   private function loginManager($params)
   {
-    $params['companyId'] = COMPANY_ID_POKER;
     $result = $this->wsRequest($params);
 
     $this->sid = $result->sid;
