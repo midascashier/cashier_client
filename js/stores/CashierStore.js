@@ -59,10 +59,14 @@ let _application = {
 	userAgent: navigator.userAgent
 };
 
+let _Withdraw = {
+	validPass: false
+};
+
 /**
  * Customer Data
  *
- * @type {{atDeviceId: string, ioBB: string, companyId: number, customerId: number, username: string, password: string, currencySymbol: string, currency: string, balance: string, balanceBP: string, lang: string, personalInformation: {level: string, firstName: string, middleName: string, lastName: string, secondLastName: string, dateOfBirth: string, ssn: string, email: string, mobile: string, phone: string, fax: string, docsOnFile: string, isAgent: string, personalId: string, addressOne: string, addressTwo: string, country: string, countryName: string, countryPhoneCode: string, state: string, stateName: string, city: string, postalCode: string}, loadProcessors: boolean, depositProcessors: Array, withdrawProcessors: Array, pendingP2PTransactions: Array, lastTransactions: Array, pendingPayouts: Array, load: ((data))}}
+ * @type {{balanceBP: string, pendingP2PTransactions: Array, loadProcessors: boolean, withdrawProcessors: Array, personalInformation: {lastName: string, secondLastName: string, country: string, personalId: string, level: string, city: string, postalCode: string, mobile: string, dateOfBirth: string, docsOnFile: string, ssn: string, firstName: string, countryPhoneCode: string, isAgent: string, phone: string, stateName: string, addressTwo: string, middleName: string, countryName: string, state: string, fax: string, addressOne: string, email: string}, atDeviceId: string, currencySymbol: string, pendingPayouts: Array, companyId: number, password: string, balance: string, load(*): void, ioBB: string, customerId: number, depositProcessors: Array, lastTransactions: Array, currency: string, lang: string, username: string}}
  *
  * @private
  */
@@ -141,6 +145,9 @@ let _customer = {
 		this.personalInformation.city = data.city;
 		this.personalInformation.postalCode = data.postalCode;
 		this.personalInformation.isAgent = data.isAgent;
+		this.personalInformation.authenticated = data.authenticated;
+		//authenticated
+		_Withdraw.validPass = data.authenticated;
 	}
 };
 
@@ -472,10 +479,6 @@ let _DocsFile = {
 	readyPending(){
 		return (this.readyCategories && this.customerPendingForms && !this.pendingCustomerFormInfo && !this.pendingInputsCategory);
 	}
-};
-
-let _Withdraw = {
-	validPass: false
 };
 
 let CHANGE_EVENT = 'change';
@@ -1091,8 +1094,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) => {
 
 					if(typeof Storage !== "undefined"){
 						if(localStorage){
-							let company = JSON.parse(localStorage.company);
-							let application = JSON.parse(localStorage.application);
+							let company = localStorage.company ? JSON.parse(localStorage.company) : {};
+							let application = localStorage.application ? JSON.parse(localStorage.application) : {};
 
 							_application.referrer = application.referrer;
 							_application.remoteAddr = application.remoteAddr;

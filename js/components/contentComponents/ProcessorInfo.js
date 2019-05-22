@@ -82,102 +82,78 @@ let ProcessorInfo = React.createClass({
 		let pendingP2P = customer.pendingP2PTransactions;
 		let waitLimits = (this.props.waitLimits) ? 'disabled' : '';
 
-    let ticoTime = new Date().toLocaleString("en-US", {timeZone: "America/Costa_Rica"});
-    ticoTime = new Date(ticoTime);
-    let payoutDownTime = new Date(2019,4,19,22,0,0);
+		return (
+			<div id="processorInfo">
+				<div className="row">
+					<div className="col-sm-12">
+						<div className="deposit-limits">
+							<div className="title">{title}</div>
+							<div className="table-responsive">
+								<table className="table table-striped">
+									<tbody>
+									<tr>
+										<td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
+										{(() => {
+											if(this.props.waitLimits){
+												return (
+													<td><span><Loading/></span></td>
+												)
+											}
 
-		if(isWithDraw && ticoTime >= payoutDownTime){
-      return (
-          <div id="processorInfo">
-            <div className="row">
-              <div className="col-sm-12">
-                <div className="deposit-limits">
-                  <div className="title">We are currently working on a software upgrade. Please place your payout request later.</div>
-                  <div className="col-sm-6">
-                    <button type="button" className="btn btn-grey" onClick={this.switchAction}>
-                      {switch_button}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-      )
-    }
-    else{
-      return (
-          <div id="processorInfo">
-            <div className="row">
-              <div className="col-sm-12">
-                <div className="deposit-limits">
-                  <div className="title">{title}</div>
-                  <div className="table-responsive">
-                    <table className="table table-striped">
-                      <tbody>
-                      <tr>
-                        <td>{translate('PROCESSING_MIN', 'Min.') + ' ' + transactionType}:</td>
-                        {(() => {
-                          if(this.props.waitLimits){
-                            return (
-                                <td><span><Loading/></span></td>
-                            )
-                          }
+											return (
+												<td><span>{minProcessorLimit} {currencyCode}</span></td>
+											)
+										})()}
+									</tr>
+									<tr>
+										<td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
+										{(() => {
+											if(this.props.waitLimits){
+												return (
+													<td><span><Loading/></span></td>
+												)
+											}
 
-                          return (
-                              <td><span>{minProcessorLimit} {currencyCode}</span></td>
-                          )
-                        })()}
-                      </tr>
-                      <tr>
-                        <td>{translate('PROCESSING_MAX', 'Max.') + ' ' + transactionType}:</td>
-                        {(() => {
-                          if(this.props.waitLimits){
-                            return (
-                                <td><span><Loading/></span></td>
-                            )
-                          }
+											return (
+												<td><span>{maxProcessorLimit} {currencyCode}</span></td>
+											)
+										})()}
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
 
-                          return (
-                              <td><span>{maxProcessorLimit} {currencyCode}</span></td>
-                          )
-                        })()}
-                      </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                <div className="row mod-btns">
-                  <div className="col-sm-6">
-                    <button onClick={this.startTransaction} type="button" className="btn btn-green" disabled={waitLimits}>
-                      {buttonNext} {processorDisplayName}
-                    </button>
-                  </div>
-                  <div className="col-sm-6">
-                    {(() => {
-                      if(!isWithDraw && pendingP2P.length > 0 && pendingP2P != cashier.NO_RESPONSE){
-                        return (
-                            <p>
-                              <Link to={`/pendingControlNumber/`}>
-                                {translate('PENDING_MTCN', 'Pending Control Numbers')}
-                              </Link>
-                            </p>
-                        )
-                      }
-                    })()}
-                    <img src={originPath + '/images/ssl.png'} alt="ssl"/>
-                  </div>
-                  <div className="col-sm-6">
-                    <button type="button" className="btn btn-grey" onClick={this.switchAction}>
-                      {switch_button}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-      )
-    }
+						<div className="row mod-btns">
+							<div className="col-sm-6">
+								<button onClick={this.startTransaction} type="button" className="btn btn-green" disabled={waitLimits}>
+									{buttonNext} {processorDisplayName}
+								</button>
+							</div>
+							<div className="col-sm-6">
+								{(() => {
+									if(!isWithDraw && pendingP2P.length > 0 && pendingP2P != cashier.NO_RESPONSE){
+										return (
+											<p>
+												<Link to={`/pendingControlNumber/`}>
+													{translate('PENDING_MTCN', 'Pending Control Numbers')}
+												</Link>
+											</p>
+										)
+									}
+								})()}
+								<img src={originPath + '/images/ssl.png'} alt="ssl"/>
+							</div>
+							<div className="col-sm-6">
+								<button type="button" className="btn btn-grey" onClick={this.switchAction}>
+									{switch_button}
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
 	}
 });
 
