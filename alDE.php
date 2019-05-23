@@ -63,6 +63,7 @@
       <input type="hidden" id="username" name="username" value=<?php echo $_REQUEST["username"] ?>>
       <input type="hidden" id="password" name="password" value=<?php echo $_REQUEST["password"] ?>>
       <input type="hidden" id="option" name="option" value=<?php echo $_REQUEST["option"] ?>>
+      <input type="hidden" id="skin" name="skin" value=<?php echo $_REQUEST["skinAcronym"] ?>>
       <input type="hidden" id="referrer" name="referrer" value=<?php echo $_SERVER['HTTP_REFERER'] ?>>
       <input type="hidden" id="ioBB" name="ioBB" value="">
       <input type="hidden" id="atDeviceId" name="atDeviceId" value="">

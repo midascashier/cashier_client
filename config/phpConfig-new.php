@@ -34,12 +34,12 @@
  /**
   * CompanyId Poker Nuts
   */
-  const COMPANY_ID_PN = '51';
+  const COMPANY_ID_POKER_PN = '51';
 
  /**
   * CompanyId Poker King
   */
-  const COMPANY_ID_PK = '52';
+  const COMPANY_ID_POKER_PK = '52';
 
   /**
    * debug active

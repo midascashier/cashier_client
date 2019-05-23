@@ -19,11 +19,9 @@ class ClientRedirect
   function __construct()
   {
     $companyId = COMPANY_ID_POKER;
-    $referer = $_REQUEST["HTTP_REFERER"];
-    if(strrpos($referer, '/PN/' )){
-      $companyId = COMPANY_ID_PK;
-    }elseif(strrpos($referer, '/PK/' )){
-      $companyId = COMPANY_ID_PN;
+    $skin = strtoupper($_REQUEST["skin"]);
+    if(defined("COMPANY_ID_POKER_".$skin)){
+      $companyId = constant("COMPANY_ID_POKER_".$skin);
     }
 
     $cashierParams = array();
