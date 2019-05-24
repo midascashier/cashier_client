@@ -28,13 +28,13 @@
                           <div id="processorsNoAvailable" class="col-sm-12">
                             <div class="row">
                               <div id="securityBlock">
-                                <p id="securityBlocProcessor">Authentication failed</p>
+                                <p id="securityBlocProcessor">
+                                  <br><br>
+                                </p>
                                 <i id="securityBlockIcon" class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                                <p id="securityBlockTitle">Temporarily Disabled</p>
+                                <p id="securityBlockTitle">Your account has been restricted</p>
                                 <p id="securityBlockText" style="text-align: center;">
-                                  YOUR ACCOUNT MIGHT HAVE LIMITED ACCESS
-                                  <br>
-                                  Please get in touch with customer service in order obtain immediate assistance.
+                                  Please contact customer service
                                 </p>
                               </div>
                             </div>

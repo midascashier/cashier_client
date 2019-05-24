@@ -14,6 +14,13 @@ class ClientRedirect
   private $sid;
 
   /**
+   * validate if is invalid login
+   *
+   * @var bool
+   */
+  private $isInvalid = false;
+
+  /**
    * ClientRedirect constructor.
    */
   function __construct()
@@ -49,7 +56,11 @@ class ClientRedirect
     if($content){
       echo $content;
     }else{
-      include 'rejectLogin.php';
+      if($this->isInvalid){
+        include 'invalidLogin.php';
+      }else{
+        include 'rejectLogin.php';
+      }
     }
   }
 
@@ -232,6 +243,7 @@ class ClientRedirect
       $content .= "\n";
       @file_put_contents($logFile, $content, FILE_APPEND);
 
+      $this->isInvalid = $result->userMessage == 'Invalid information';
       //end of login trace
       return false;
     }

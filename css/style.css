@@ -1255,9 +1255,7 @@ input:checked + .slider:before{
     padding: 10px;
     font-size: 20px;
     margin-left: 20%;
-    border-radius: 3px;
     text-align: justify;
-    border: 1px solid #b5b5b5;
 }
 
 .messageAlert{

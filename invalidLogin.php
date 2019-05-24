@@ -28,11 +28,13 @@
                           <div id="processorsNoAvailable" class="col-sm-12">
                             <div class="row">
                               <div id="securityBlock">
-                                <p id="securityBlocProcessor">Authentication failed</p>
+                                <p id="securityBlocProcessor">
+                                  <br><br>
+                                </p>
                                 <i id="securityBlockIcon" class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                                <p id="securityBlockTitle">Invalid Login</p>
+                                <p id="securityBlockTitle">Oops!.....There was a problem loading the page!</p>
                                 <p id="securityBlockText" style="text-align: center;">
-                                  Please get in touch with customer service in order obtain immediate assistance.
+                                  Please try again.  If the problem persists, contact customer service.
                                 </p>
                               </div>
                             </div>
