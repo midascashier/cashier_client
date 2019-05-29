@@ -44,7 +44,8 @@ let _UI = {
 /**
  * application object
  *
- * @type {{sid: null, lang: string, referrer: string, remoteAddr: string, remoteHost: string, xForwardedFor: string, platform: string, redirectSite: string, userAgent: string, isMobile: (())}}
+ * @type {{country: string, remoteHost: string, newbie: string, userAgent: string, tuid: string, platform: string, sid: null, redirectSite: string, referrer: string, remoteCompany: string, xForwardedFor: string, lang: string, vip: string, remoteAddress: string, remoteAddr: string}}
+ *
  * @private
  */
 let _application = {
@@ -53,10 +54,16 @@ let _application = {
 	referrer: '',
 	remoteAddr: '',
 	remoteHost: '',
+	remoteCompany: '',
 	xForwardedFor: '',
 	platform: '',
 	redirectSite: '',
-	userAgent: navigator.userAgent
+	userAgent: navigator.userAgent,
+	vip: '',
+	tuid: '',
+	newbie: '',
+	country: '',
+	remoteAddress: ''
 };
 
 let _Withdraw = {
@@ -1101,6 +1108,7 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) => {
 							_application.remoteAddr = application.remoteAddr;
 							_application.remoteHost = application.remoteHost;
 							_application.redirectSite = application.redirectSite;
+							_application.remoteCompany = application.remoteCompany;
 							_application.xForwardedFor = application.xForwardedFor;
 
 							_application.sid = (data.sid) ? data.sid : application.sid;
@@ -1125,8 +1133,8 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) => {
 					}
 
 					CashierStore.storeData("application", _application);
-					CashierStore.storeData("ui", _UI);
 					CashierStore.storeData("company", _company);
+					CashierStore.storeData("ui", _UI);
 					CashierStore.emitChange();
 					break;
 

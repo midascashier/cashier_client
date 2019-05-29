@@ -27,7 +27,7 @@
       let country = "<?php echo $_REQUEST['country'] ?>";
       let redirectSite = "<?php echo $_REQUEST['redirectSite'] ?>";
       let remoteAddr = "<?php echo $_REQUEST['remoteAddr'] ?>";
-      let remoteCompany = "<?php $_REQUEST['remoteCompany'] ?>";
+      let remoteCompany = "<?php echo $_REQUEST['remoteCompany'] ?>";
       let xForwardedFor = "<?php echo $_REQUEST['xForwardedFor'] ?>";
       let remoteHost = "<?php echo gethostbyaddr($_SERVER['REMOTE_ADDR']) ?>";
       let loginInfo = <?php echo((count($_REQUEST)) > 0 ? json_encode($_REQUEST) : "null") ?>;
