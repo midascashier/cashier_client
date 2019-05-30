@@ -134,6 +134,18 @@ settings[Cashier.PROCESSOR_ID_AGENT_TRANSFER][WITHDRAW_STEPS] = ["selectMethod",
 settings[Cashier.PROCESSOR_ID_AGENT_TRANSFER][SETTING_ROUTE] = 'player2agent/';
 settings[Cashier.PROCESSOR_ID_AGENT_TRANSFER][REGISTER_ACCOUNTS_ALLOW] = 0;
 
+settings[Cashier.PROCESSOR_ID_CCECOMMPAY] = [];
+settings[Cashier.PROCESSOR_ID_CCECOMMPAY][LIMITS_VALIDATION_VERSION] = "lite";
+settings[Cashier.PROCESSOR_ID_CCECOMMPAY][DEPOSIT_STEPS] = ["selectMethod", "askInfo"];
+settings[Cashier.PROCESSOR_ID_CCECOMMPAY][SETTING_ROUTE] = 'cc_ecommpay/';
+settings[Cashier.PROCESSOR_ID_CCECOMMPAY][REGISTER_ACCOUNTS_ALLOW] = 0;
+
+settings[Cashier.PROCESSOR_ID_WMECOMMPAY] = [];
+settings[Cashier.PROCESSOR_ID_WMECOMMPAY][LIMITS_VALIDATION_VERSION] = "lite";
+settings[Cashier.PROCESSOR_ID_WMECOMMPAY][DEPOSIT_STEPS] = ["selectMethod", "askInfo"];
+settings[Cashier.PROCESSOR_ID_WMECOMMPAY][SETTING_ROUTE] = 'wm_ecommpay/';
+settings[Cashier.PROCESSOR_ID_WMECOMMPAY][REGISTER_ACCOUNTS_ALLOW] = 0;
+
 export default {
 	settings: settings,
 	SETTING_ROUTE: SETTING_ROUTE,

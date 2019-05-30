@@ -10,6 +10,7 @@ import {RejectedTicket} from './components/methodTickets/RejectedTicket'
 import {ApprovedTicket} from './components/methodTickets/ApprovedTicket'
 import {DeferredTicket} from './components/methodTickets/DeferredTicket'
 import {SecurityBlock} from "./components/methodTickets/SecurityBlock"
+import {PendingTicket} from "./components/methodTickets/PendingTicket"
 /**
  * Neteller set of components to create routes
  */
@@ -89,6 +90,16 @@ import {CryptoScreenTicketPending} from './components/methods/cryptoscreen/ticke
 import {Player2Agent} from './components/methods/player2agent/Player2Agent'
 import {Player2AgentConfirmWithdraw} from './components/methods/player2agent/ConfirmWithdraw'
 import {Player2AgentApprovedTicket} from './components/methods/player2agent/tickets/ApprovedTicket'
+/**
+ * CCEcommpay set of components to create routes
+ */
+import {CCEcommpay} from './components/methods/ccecommpay/CCEcommpay'
+import {CCEcommpayTicketPending} from './components/methods/ccecommpay/tickets/PendingTicket'
+/**
+ * WMEcommpay set of components to create routes
+ */
+import {WMEcommpay} from './components/methods/wmecommpay/WMEcommpay'
+import {WMEcommpayTicketPending} from './components/methods/wmecommpay/tickets/PendingTicket'
 /**
  * Common components
  */
@@ -276,6 +287,23 @@ let routes = (
 					<Route path="pending/" component={CryptoScreenTicketPending}/>
 					<Route path="rejected/" component={RejectedTicket}/>
 				</Route>
+
+        <Route path="cc_ecommpay/" component={CCEcommpay}/>
+        <Route path="cc_ecommpay/securityBlock/" component={SecurityBlock}/>
+        <Route path="cc_ecommpay/ticket/" component={LoadingTicket}>
+          <Route path="approved/" component={ApprovedTicket}/>
+          <Route path="rejected/" component={RejectedTicket}/>
+          <Route path="pending/" component={CCEcommpayTicketPending}/>
+        </Route>
+
+        <Route path="wm_ecommpay/" component={WMEcommpay}/>
+        <Route path="wm_ecommpay/securityBlock/" component={SecurityBlock}/>
+        <Route path="wm_ecommpay/ticket/" component={LoadingTicket}>
+          <Route path="approved/" component={ApprovedTicket}/>
+          <Route path="rejected/" component={RejectedTicket}/>
+          <Route path="pending/" component={WMEcommpayTicketPending}/>
+        </Route>
+
 			</Route>
 
 			<Route path="/withdraw/" component={Content}>
@@ -380,6 +408,7 @@ let routes = (
 					<Route path="rejected/" component={RejectedTicket}/>
 					<Route path="deferred/" component={DeferredTicket}/>
 				</Route>
+
 			</Route>
 		</Route>
 	</Router>

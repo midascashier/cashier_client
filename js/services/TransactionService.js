@@ -398,7 +398,7 @@ class transactionService {
 		let rabbitRequest = {
 			f: "process",
 			processorId: processorSelected.processorId,
-			payAccountId: payAccountSelected.payAccountId,
+			payAccountId: payAccountSelected.payAccountId || 0,
 			amount: transaction.amount,
 			promoCode: transaction.promoCode,
 			dynamicParams: dynamicParams
