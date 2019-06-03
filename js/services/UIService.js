@@ -164,8 +164,7 @@ class UiService {
 			let ticketResult = '';
 			if(transactionResponse.status == cashier.TRANSACTION_STATUS_PENDING && transactionResponse.data && transactionResponse.data.gotoURLAction){
 				ticketResult = 'pending';
-			}
-      else if(transactionResponse.status == cashier.TRANSACTION_STATUS_PENDING && cashier.PROCESSOR_ID_CCECOMMPAY){
+			}else if(transactionResponse.status == cashier.TRANSACTION_STATUS_PENDING && cashier.PROCESSOR_ID_CCECOMMPAY){
         ticketResult = 'pending';
       }
 			else{
@@ -500,8 +499,7 @@ class UiService {
 				}else if(restartTransaction.Tstatus == 1){
           nextPath += route + "ticket/pending/";
           this.changeUIState(nextPath);
-        }
-				else{
+        }else{
 					nextPath += route + "ticket/rejected/";
 					this.changeUIState(nextPath);
 				}
