@@ -114,7 +114,7 @@ import RouterContainer from './services/RouterContainer'
 /**
  * initialize GA account and basic page view
  */
-ReactGA.initialize('UA-88898718-12');
+ReactGA.initialize('UA-36534718-32');
 
 let fireTracking = () => {
 	if(window.location.pathname != "/"){

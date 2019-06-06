@@ -130,7 +130,6 @@ let BitCoinTicketPending = React.createClass({
 
 													<div className="infoCol">
 														<div className="subtitle">{translate('BITCOIN_INSTRUCTIONS_ADDRESS', 'Send the BitCoin to the following address')}</div>
-														<p>{translate('BITCOIN_INSTRUCTIONS_ADDRESS_INFO', 'Please include any Miners Fee your BitCoin wallet charges.')}</p>
 
 														<div className="row">
 															<div id="btcAddress" className="form-group">

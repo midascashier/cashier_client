@@ -77,7 +77,6 @@ let CryptoTransferTicketPending = React.createClass({
 		let amount = translate('CRYPTO_INSTRUCTIONS_AMOUNT', 'Send crypto Amount from your wallet', {cryptoAmount: cryptoAmount, cryptoCurrency: cryptoName});
 		let cryptoInstructions = translate('CRYPTO_INSTRUCTIONS', 'Now send your crypto currency to us.', {cryptoCurrency: cryptoName});
 		let addressInstructions = translate('CRYPTO_INSTRUCTIONS_ADDRESS', 'Send the crypto currency to the following address', {cryptoCurrency: cryptoName});
-		let addressInfoInstructions = translate('CRYPTO_INSTRUCTIONS_ADDRESS_INFO', 'Please include any Miners Fee your crypto currency wallet charges.', {cryptoCurrency: cryptoName});
 
 		return (
 			<div id="CryptoAddressTicketInstructions">
@@ -115,7 +114,6 @@ let CryptoTransferTicketPending = React.createClass({
 													<div className="title">#2</div>
 													<div className="infoCol">
 														<div className="subtitle">{addressInstructions}</div>
-														<p>{addressInfoInstructions}</p>
 
 														<div className="row">
 															<div id="cryptoAddress" className="form-group">
