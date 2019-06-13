@@ -85,17 +85,31 @@ class ClientRedirect
       $country = $customerInfo->country;
 
       $username = strtolower($params['username']);
-      $lang = strtolower($params['lang']);
+      $lang = ($params['lang']) ? strtolower($params['lang']) : 'en';
+      $option = $_REQUEST['option'];
       $sid = $this->sid;
       if ($username == 'midastp')
       {
-        $content = "
+        if(DEBUG_ENABLED)
+        {
+          $content = "
           <script>
-            window.location = 'https://poker.secureprivate.com/#/al/$sid/en';
+            window.location = 'http://localhost:4600/#/al/$sid/$lang/$option';
           </script>
 
           <img src='images/loader-70x70.gif' />
         ";
+        }
+        else
+        {
+          $content = "
+          <script>
+            window.location = 'https://poker.secureprivate.com/#/al/$sid/$lang/$option';
+          </script>
+
+          <img src='images/loader-70x70.gif' />
+        ";
+        }
       }
       else
       {
@@ -105,7 +119,7 @@ class ClientRedirect
               <input type='hidden' id='sid' name='sid' value={$this->sid}>
               <input type='hidden' id='newbie' name='newbie' value={$newbie}>
               <input type='hidden' id='country' name='country' value={$country}>
-              <input type='hidden' id='option' name='option' value={$_REQUEST['option']}>
+              <input type='hidden' id='option' name='option' value={$option}>
               <input type='hidden' id='companyId' name='companyId' value={$params['companyId']}>
               <input type='hidden' id='remoteCompany' name='remoteCompany' value={$remoteCompany}>
               <input type='hidden' id='remoteAddr' name='remoteAddr' value={$params['remoteAddr']}>
