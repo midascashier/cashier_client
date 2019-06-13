@@ -10,3 +10,4 @@ poker-client.txt
 login_error_*
 dist/
 release/
+.htaccess
