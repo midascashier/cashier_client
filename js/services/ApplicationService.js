@@ -170,6 +170,7 @@ class applicationService {
 		regExp['isVisa'] = {Visa: /^4[0-9]{12}(?:[0-9]{3})?$/};
 		regExp['isMC'] = {MC: /^5[1-5][0-9]{14}$/};
 		regExp['isJCB'] = {JCB: /^(?:2131|1800|35[0-9]{3})[0-9]{11}$/};
+    regExp['isDiscover'] = {Discover: /^(?:6011\d{12})|(?:65\d{14})|(?:64\d{14})|(622(1(2[6-9]|[3-9]\d)|[2-8]\d{2}|9([01]\d|2[0-5]))\d{10})$/};
 		regExp['isCVV'] = {cvv: /^[0-9]{3}$/};
 		regExp['isSSN'] = {ssn: /^[0-9]{4}$/};
 		regExp['isCVV4'] = {cvv: /^[0-9]{4}$/};

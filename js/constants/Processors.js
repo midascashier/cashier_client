@@ -74,6 +74,12 @@ settings[Cashier.PROCESSOR_ID_JCB][DEPOSIT_STEPS] = ["selectMethod", "askInfo", 
 settings[Cashier.PROCESSOR_ID_JCB][SETTING_ROUTE] = 'jcb/';
 settings[Cashier.PROCESSOR_ID_JCB][REGISTER_ACCOUNTS_ALLOW] = 1;
 
+settings[Cashier.PROCESSOR_ID_DISCOVER] = [];
+settings[Cashier.PROCESSOR_ID_DISCOVER][LIMITS_VALIDATION_VERSION] = "full";
+settings[Cashier.PROCESSOR_ID_DISCOVER][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "confirm"];
+settings[Cashier.PROCESSOR_ID_DISCOVER][SETTING_ROUTE] = 'discover/';
+settings[Cashier.PROCESSOR_ID_DISCOVER][REGISTER_ACCOUNTS_ALLOW] = 1;
+
 settings[Cashier.PROCESSOR_ID_MONEYGRAM] = [];
 settings[Cashier.PROCESSOR_ID_MONEYGRAM][LIMITS_VALIDATION_VERSION] = "lite";
 settings[Cashier.PROCESSOR_ID_MONEYGRAM][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "instructions"];

@@ -10,7 +10,6 @@ import {RejectedTicket} from './components/methodTickets/RejectedTicket'
 import {ApprovedTicket} from './components/methodTickets/ApprovedTicket'
 import {DeferredTicket} from './components/methodTickets/DeferredTicket'
 import {SecurityBlock} from "./components/methodTickets/SecurityBlock"
-import {PendingTicket} from "./components/methodTickets/PendingTicket"
 /**
  * Neteller set of components to create routes
  */
@@ -241,6 +240,18 @@ let routes = (
 					<Route path="rejected/invalidAmount/" component={VisaRejectAmountTicket}/>
 					<Route path="rejected/invalidCard/" component={VisaRejectCardTicket}/>
 				</Route>
+
+        <Route path="discover/" component={Visa}/>
+        <Route path="discover/confirm/" component={VisaConfirm}/>
+        <Route path="discover/securityBlock/" component={SecurityBlock}/>
+        <Route path="discover/ticket/" component={LoadingTicket}>
+          <Route path="approved/" component={VisaApprovedTicket}/>
+          <Route path="pending/" component={VisaPendingTicket}/>
+          <Route path="rejected/" component={VisaRejectedTicket}/>
+          <Route path="rejected/blockByBank/" component={VisaRejectBankTicket}/>
+          <Route path="rejected/invalidAmount/" component={VisaRejectAmountTicket}/>
+          <Route path="rejected/invalidCard/" component={VisaRejectCardTicket}/>
+        </Route>
 
 				<Route path="moneygram/" component={Person2Person}/>
 				<Route path="moneygram/securityBlock/" component={SecurityBlock}/>
