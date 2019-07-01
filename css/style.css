@@ -223,6 +223,8 @@ div#header .alert {margin: 10px 10px 5px;}
 .modules .box .method .discover{background-image:url(../images/processors/11007.png);}
 .modules .box .method .cc_ecommpay{background-image:url(../images/processors/40.png); background-size: 75%;}
 .modules .box .method .wm_ecommpay{background-image:url(../images/processors/41.png); background-size: 71%;}
+.modules .box .method .banktransfer{background-image:url(../images/processors/100200100.png);}
+.modules .box .method .cashagents{background-image:url(../images/processors/100200200.png);}
 
 /*---------*/
 .modules .box .method, .modules .card-details img {border:1px solid #DDD; background:#FFF;  margin-bottom:15px; text-align:center; }

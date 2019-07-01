@@ -438,7 +438,10 @@ let _langTags = {
 	VISA_FEE_MAIN: 'Please note WPN charges 10% on all Visa Transactions. If for example you deposit $100 with Visa, $90 will be credited to your poker account.',
 
 	WITHDRAW_PASS_MODAL_TITTLE: 'Please enter your password',
-	WITHDRAW_PASS_MODAL_WRONG_MESSAGE: 'Wrong password, please try again.'
+	WITHDRAW_PASS_MODAL_WRONG_MESSAGE: 'Wrong password, please try again.',
+
+  ASK_INFO_100200100: 'We accept Bank Transfers to local bank. No fees. At local currency.',
+  ASK_INFO_100200200: 'We have cash deposit method in Israel. For the nearest agent, please contact support@pokernuts.eu.'
 };
 
 export function EN(){

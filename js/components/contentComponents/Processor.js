@@ -26,7 +26,7 @@ let Processor = React.createClass({
 		return (
 			<div className="col-sm-6">
 				<div className={"method " + isActive} onClick={this.selectProcessor}>
-					<a href="javascript:;" className={this.props.name.toLowerCase()}/>
+					<a href="javascript:;" className={this.props.name.toLowerCase().replace(' ', '')}/>
 					{(() => {
 						if(this.props.selected){
 							return <i className='fa fa-check-circle'/>;

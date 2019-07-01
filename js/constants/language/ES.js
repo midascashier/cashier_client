@@ -434,7 +434,10 @@ let _langTags = {
 
 	WITHDRAW_PASS_MODAL_TITTLE: 'Por favor ingrese su contraseña',
 	WITHDRAW_PASS_MODAL_WRONG_MESSAGE: 'Contraseña incorrecta, por favor intente de nuevo.',
-	VISA_FEE_MAIN: 'Tenga en cuenta que WPN cobra 10% en todas las transacciones de Visa. Si, por ejemplo, usted deposita $100 con Visa, se acreditarán $90 en su cuenta de póker.'
+	VISA_FEE_MAIN: 'Tenga en cuenta que WPN cobra 10% en todas las transacciones de Visa. Si, por ejemplo, usted deposita $100 con Visa, se acreditarán $90 en su cuenta de póker.',
+
+  ASK_INFO_100200100: 'Aceptamos transferencias bancarias al banco local. Sin cargos. En moneda local.',
+  ASK_INFO_100200200: 'Tenemos método de depósito en efectivo en Israel. Para el agente más cercano, póngase en contacto con support@pokernuts.eu.'
 };
 
 export function ES(){
