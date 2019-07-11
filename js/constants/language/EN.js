@@ -440,7 +440,7 @@ let _langTags = {
 	WITHDRAW_PASS_MODAL_TITTLE: 'Please enter your password',
 	WITHDRAW_PASS_MODAL_WRONG_MESSAGE: 'Wrong password, please try again.',
 
-  ASK_INFO_100200100: 'We accept Bank Transfers to local bank. No fees. At local currency.',
+  ASK_INFO_100200100: 'We accept Bank Transfers to local bank. No fees. At local currency. For more details, please contact support@pokernuts.eu.',
   ASK_INFO_100200200: 'We have cash deposit method in Israel. For the nearest agent, please contact support@pokernuts.eu.'
 };
 
