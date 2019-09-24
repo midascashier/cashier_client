@@ -29,12 +29,13 @@
                             <div class="row">
                               <div id="securityBlock">
                                 <p id="securityBlocProcessor">
-                                  <br><br>
+                                  <br>
+                                  <br>
                                 </p>
                                 <i id="securityBlockIcon" class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                 <p id="securityBlockTitle">Oops!.....There was a problem loading the page!</p>
                                 <p id="securityBlockText" style="text-align: center;">
-                                  Please try again.  If the problem persists, contact customer service.
+                                  Please try again. If the problem persists, contact customer service.
                                 </p>
                               </div>
                             </div>
@@ -53,5 +54,10 @@
     <script src="/js/libs/jquery.min.js"></script>
     <script src="/js/libs/bootstrap.min.js"></script>
     <script src="/js/libs/general.js"></script>
+    <script id="liveChat" defer>
+      (function(){
+        liveChatLoad();
+      })();
+    </script>
   </body>
 </html>

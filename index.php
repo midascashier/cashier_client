@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cashier Client">
@@ -57,19 +57,19 @@
         loginInfo = {companyId: company.companyId, remoteCompany: localStorage.application.remoteCompany, option: ui.currentView, sid: application.sid, redirectSite: application.redirectSite};
       }else{
         let localApp = localStorage.application;
-        if (localApp) {
+        if(localApp){
           application = JSON.parse(localApp);
         }
-        if (remoteAddr) {
+        if(remoteAddr){
           application.remoteAddr = (application.remoteAddr) ? application.remoteAddr : remoteAddr;
         }
-        if (remoteHost) {
+        if(remoteHost){
           application.remoteHost = (application.remoteHost) ? application.remoteHost : remoteHost;
         }
-        if (xForwardedFor) {
+        if(xForwardedFor){
           application.xForwardedFor = (application.xForwardedFor) ? application.xForwardedFor : xForwardedFor;
         }
-        if (redirectSite) {
+        if(redirectSite){
           application.redirectSite = (application.redirectSite) ? application.redirectSite : redirectSite;
         }
 
@@ -81,8 +81,22 @@
         }
       }
     </script>
+    <script id="liveChat" defer>
+      (function(){
+        var application = JSON.parse(localStorage.application);
+        if(application && application.remoteCompany && application.remoteCompany == "PN"){
+          var bsa = document.createElement('script');
+          bsa.type = 'text/javascript';
+          bsa.id = 'ze-snippet';
+          bsa.async = true;
+          bsa.src = 'https://static.zdassets.com/ekr/snippet.js?key=7c83333d-3499-4548-9263-6f1785e43264';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(bsa);
+        }else{
+          liveChatLoad();
+        }
+      })();
+    </script>
     <script src="/build/bundle.js"></script>
   </body>
-
   <form id="reloadMeForm" name="reloadMeForm" action="/"></form>
 </html>
