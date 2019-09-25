@@ -1,11 +1,14 @@
 function chat(){
-  if($zopim){
-    $zopim(function() {
-      $zopim.livechat.window.show();
-    });
-  }else{
-    $('img[class*=\'LPMimage\']').trigger('click')
-  }
+  try{
+    if($zopim){
+      $zopim(function(){
+        $zopim.livechat.window.show()
+      })
+      return
+    }
+  }catch(x){}
+
+  $('img[class*=\'LPMimage\']').trigger('click')
 }
 
 function capitalize(string, a){
@@ -58,4 +61,5 @@ function liveChatLoad(){
     ev: lpTag.ev || []
   }, lpTag.init()) : window.lpTag._tagCount += 1
 }
+
 <!-- END LivePerson Monitor. -->
