@@ -225,6 +225,7 @@ div#header .alert {margin: 10px 10px 5px;}
 .modules .box .method .wm_ecommpay{background-image:url(../images/processors/41.png); background-size: 71%;}
 .modules .box .method .banktransfer{background-image:url(../images/processors/100200100.png);}
 .modules .box .method .cashagents{background-image:url(../images/processors/100200200.png);}
+.modules .box .method .paytocard{background-image:url(../images/processors/1100.png);}
 
 /*---------*/
 .modules .box .method, .modules .card-details img {border:1px solid #DDD; background:#FFF;  margin-bottom:15px; text-align:center; }

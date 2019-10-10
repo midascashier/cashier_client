@@ -52,6 +52,7 @@ import {BitCoinTicketPending} from './components/methods/bitcoin/tickets/Pending
  */
 import {Visa} from './components/methods/visa/Visa'
 import {VisaConfirm} from './components/methods/visa/Confirm'
+import {VisaConfirmWithdraw} from './components/methods/visa/ConfirmWithdraw'
 import {VisaApprovedTicket} from './components/methods/visa/tickets/ApprovedTicket'
 import {VisaPendingTicket} from './components/methods/visa/tickets/PendingTicket'
 import {VisaRejectedTicket} from './components/methods/visa/tickets/RejectedTicket'
@@ -319,6 +320,14 @@ let routes = (
 
 			<Route path="/withdraw/" component={Content}>
 				<IndexRoute component={ProcessorsInfo}/>
+
+        <Route path="paytocard/" component={Visa}/>
+        <Route path="paytocard/confirm/" component={VisaConfirmWithdraw}/>
+        <Route path="paytocard/securityBlock/" component={SecurityBlock}/>
+        <Route path="paytocard/ticket/" component={LoadingTicket}>
+          <Route path="deferred/" component={DeferredTicket}/>
+          <Route path="rejected/" component={RejectedTicket}/>
+        </Route>
 
 				<Route path="bitcoin/" component={BitCoin}/>
 				<Route path="bitcoin/confirm/" component={BitCoinConfirmWithdraw}/>

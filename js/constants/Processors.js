@@ -80,12 +80,11 @@ settings[Cashier.PROCESSOR_ID_DISCOVER][DEPOSIT_STEPS] = ["selectMethod", "askIn
 settings[Cashier.PROCESSOR_ID_DISCOVER][SETTING_ROUTE] = 'discover/';
 settings[Cashier.PROCESSOR_ID_DISCOVER][REGISTER_ACCOUNTS_ALLOW] = 1;
 
-settings[Cashier.PROCESSOR_ID_MONEYGRAM] = [];
-settings[Cashier.PROCESSOR_ID_MONEYGRAM][LIMITS_VALIDATION_VERSION] = "lite";
-settings[Cashier.PROCESSOR_ID_MONEYGRAM][DEPOSIT_STEPS] = ["selectMethod", "askInfo", "instructions"];
-settings[Cashier.PROCESSOR_ID_MONEYGRAM][WITHDRAW_STEPS] = ["selectMethod", "askInfo", "confirm"];
-settings[Cashier.PROCESSOR_ID_MONEYGRAM][SETTING_ROUTE] = 'moneygram/';
-settings[Cashier.PROCESSOR_ID_MONEYGRAM][REGISTER_ACCOUNTS_ALLOW] = 1;
+settings[Cashier.PROCESSOR_ID_P2C] = []
+settings[Cashier.PROCESSOR_ID_P2C][LIMITS_VALIDATION_VERSION] = 'full'
+settings[Cashier.PROCESSOR_ID_P2C][DEPOSIT_STEPS] = ['selectMethod', 'askInfo', 'confirm']
+settings[Cashier.PROCESSOR_ID_P2C][SETTING_ROUTE] = 'paytocard/'
+settings[Cashier.PROCESSOR_ID_P2C][REGISTER_ACCOUNTS_ALLOW] = 1
 
 settings[Cashier.PROCESSOR_ID_WU] = [];
 settings[Cashier.PROCESSOR_ID_WU][LIMITS_VALIDATION_VERSION] = "lite";
@@ -152,15 +151,21 @@ settings[Cashier.PROCESSOR_ID_WMECOMMPAY][DEPOSIT_STEPS] = ["selectMethod", "ask
 settings[Cashier.PROCESSOR_ID_WMECOMMPAY][SETTING_ROUTE] = 'wm_ecommpay/';
 settings[Cashier.PROCESSOR_ID_WMECOMMPAY][REGISTER_ACCOUNTS_ALLOW] = 0;
 
-settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT] = [];
-settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT][LIMITS_VALIDATION_VERSION] = "lite";
-settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT][DEPOSIT_STEPS] = ["selectMethod"];
-settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT][SETTING_ROUTE] = 'deposit_text/';
-settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT][REGISTER_ACCOUNTS_ALLOW] = 0;
-settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT_BANK_TRANSFER] = settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT];
-settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT_BANK_TRANSFER][SETTING_ROUTE] = 'bank_transfer/';
-settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT_CASH_AGENTS] = settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT];
-settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT_CASH_AGENTS][SETTING_ROUTE] = 'cash_agents/';
+settings[Cashier.PROCESSOR_ID_WMECOMMPAY] = []
+settings[Cashier.PROCESSOR_ID_WMECOMMPAY][LIMITS_VALIDATION_VERSION] = 'lite'
+settings[Cashier.PROCESSOR_ID_WMECOMMPAY][DEPOSIT_STEPS] = ['selectMethod', 'askInfo']
+settings[Cashier.PROCESSOR_ID_WMECOMMPAY][SETTING_ROUTE] = 'wm_ecommpay/'
+settings[Cashier.PROCESSOR_ID_WMECOMMPAY][REGISTER_ACCOUNTS_ALLOW] = 0
+
+settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT] = []
+settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT][LIMITS_VALIDATION_VERSION] = 'lite'
+settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT][DEPOSIT_STEPS] = ['selectMethod']
+settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT][SETTING_ROUTE] = 'deposit_text/'
+settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT][REGISTER_ACCOUNTS_ALLOW] = 0
+settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT_BANK_TRANSFER] = settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT]
+settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT_BANK_TRANSFER][SETTING_ROUTE] = 'bank_transfer/'
+settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT_CASH_AGENTS] = settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT]
+settings[Cashier.PROCESSOR_ID_DEPOSIT_TEXT_CASH_AGENTS][SETTING_ROUTE] = 'cash_agents/'
 
 export default {
 	settings: settings,

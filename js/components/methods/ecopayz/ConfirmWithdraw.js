@@ -79,7 +79,7 @@ let EcoConfirmWithdraw = React.createClass({
 												<div className="title">{translate('IMPORTANT_REMINDERS', 'reminder')}</div>
 												<div className="infoCol text-justify">
 													<p>
-														{translate('ECOPAYZ_WITHDRAWS_PROCESS', 'Withdraws will be process inside 24 hours, but are typically processed within an hour.')}
+														{translate('ECOPAYZ_WITHDRAWS_PROCESS', 'All payouts are processed in the order in which they are received. The average processing time takes between 24 to 72 hours though some cases may take up to 15 business days to process as all requests are subject to extensive review.')}
 													</p>
 												</div>
 											</div>

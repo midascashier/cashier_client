@@ -592,6 +592,24 @@ let CashierStore = assign({}, EventEmitter.prototype, {
   },
 
   /**
+   * get pay accounts
+   *
+   * @returns {Array}
+   */
+  getPayAccounts: () => {
+    return (_payAccounts)
+  },
+
+  /**
+   * set pay accounts
+   *
+   * @returns {Array}
+   */
+  setPayAccounts: (payAccounts) => {
+    _payAccounts = payAccounts
+  },
+
+  /**
    * get payAccounts by processor
    */
   getProcessorPayAccount: () => {
@@ -744,7 +762,7 @@ let CashierStore = assign({}, EventEmitter.prototype, {
   /**
    * get transaction
    *
-   * @returns {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cryptoAddress: string, currencyName: string, currencySymbol: string, BTCConversionAmount: string, cleanTransaction, (): void}}
+   * @returns {{amount: string, fee: number, feeType: string, bonusId: number, secondFactorAuth: number, bitcoinAddress: string, checkTermsAndConditions: number, controlNumber: string, sendBy: string, timeFrameDay: null, timeFrameTime: null, dobMonth: string, dobDay: string, dobYear: string, ssn: string, expirationMonth: string, expirationYear: string, randomTuid: string, hash: string, isCodeValid: number, secondFactorMessage: string, secondFactorMaxAttempts: boolean, promoCode: string, cryptoAddress: string, currencyName: string, currencySymbol: string, BTCConversionAmount: string, cleanTransaction: Function}}
    */
   getTransaction: () => {
     return _transaction
@@ -1399,6 +1417,49 @@ CashierStore.dispatchToken = CashierDispatcher.register((payload) => {
             }
           }
           _payAccounts[_processor.processorId] = payAccounts_processor
+          CashierStore.emitChange()
+          break
+
+        case actions.CUSTOMER_PAYACCOUNTS_BY_PROCESSOR_RESPONSE:
+          let payAccountSelect = 0
+          let payAccountsProcessor = [].concat(_payAccounts[_processor.processorId])
+
+          if(payAccountsProcessor && payAccountsProcessor.length <= 0){
+            if(processors.settings[_processor.processorId][processors.REGISTER_ACCOUNTS_ALLOW]){
+              let addPayAccountOption = Object.assign({}, _payAccount)
+              addPayAccountOption.payAccountId = 0
+              addPayAccountOption.displayName = translate('REGISTER_NEW_ACCOUNT_CC', 'register')
+              payAccountsProcessor[addPayAccountOption.payAccountId] = addPayAccountOption
+            }
+          }
+
+          if(data.response && data.response.payAccounts){
+            data.response.payAccounts.forEach((payAccount) => {
+              payAccount.limitsData.available = Math.floor(payAccount.limitsData.available)
+              payAccount.limitsData.availableWithdraw = Math.floor(payAccount.limitsData.availableWithdraw)
+              payAccount.limitsData.maxAmount = Math.floor(payAccount.limitsData.maxAmount)
+              payAccount.limitsData.maxAmountWithdraw = Math.floor(payAccount.limitsData.maxAmountWithdraw)
+              payAccount.limitsData.minAmount = Math.ceil(payAccount.limitsData.minAmount)
+              payAccount.limitsData.minAmountWithdraw = Math.ceil(payAccount.limitsData.minAmountWithdraw)
+              payAccount.limitsData.remaining = Math.ceil(payAccount.limitsData.remaining)
+              payAccount.limitsData.remainingWithdraw = Math.ceil(payAccount.limitsData.remainingWithdraw)
+            })
+            let payAccounts = data.response.payAccounts
+            if(payAccounts && payAccounts.length > 0){
+              payAccounts.map((item, key) => {
+                let payAccountsTmp = Object.assign({key: key}, _payAccount)
+                payAccountsTmp.load(item)
+                payAccountsProcessor[payAccountsTmp.payAccountId] = payAccountsTmp
+                if(!payAccountSelect){
+                  payAccountSelect = payAccountsTmp.payAccountId
+                }
+              })
+              _payAccount = payAccountsProcessor[payAccountSelect]
+            }
+
+            _payAccounts[_processor.processorId] = payAccountsProcessor
+          }
+
           CashierStore.emitChange()
           break
 

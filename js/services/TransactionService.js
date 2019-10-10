@@ -161,12 +161,29 @@ class transactionService {
     }
 
     if(getPayAccounts){
-      let data = {
-        f: 'getPayAccountsByCustomer', processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
-      }
+
       let application = CashierStore.getApplication()
-      let rabbitRequest = Object.assign(data, application)
-      ConnectorServices.makeCustomerRequest(actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE, rabbitRequest)
+      if(processorID == cashier.PROCESSOR_ID_P2C){
+
+        // removed preview pay accounts
+        let payAccounts = CashierStore.getPayAccounts()
+        payAccounts[processorID] = []
+        CashierStore.setPayAccounts(payAccounts)
+
+        let data = {
+          f: 'getPayAccountsByCustomer', isWithdraw: CashierStore.getIsWithdraw()
+        }
+
+        ConnectorServices.makeCustomerRequest(actions.CUSTOMER_PAYACCOUNTS_BY_PROCESSOR_RESPONSE, Object.assign(data, {processorId: cashier.PROCESSOR_ID_MC}, application))
+        ConnectorServices.makeCustomerRequest(actions.CUSTOMER_PAYACCOUNTS_BY_PROCESSOR_RESPONSE, Object.assign(data, {processorId: cashier.PROCESSOR_ID_VISA}, application))
+      }else{
+        let data = {
+          f: 'getPayAccountsByCustomer', processorId: processorID, isWithdraw: CashierStore.getIsWithdraw()
+        }
+        let rabbitRequest = Object.assign(data, application)
+        ConnectorServices.makeCustomerRequest(actions.PAYACCOUNTS_BY_PROCESSOR_RESPONSE, rabbitRequest)
+      }
+
     }
   };
 
@@ -834,7 +851,10 @@ class transactionService {
   processResponse(data){
     let processor = CashierStore.getProcessor()
     let processorClassId = processor.processorClass
-    if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && data.response.transaction.caTransactionStatus_Id != cashier.TRANSACTION_STATUS_APPROVED && data.response.transaction.caTransaction_Id != ''){
+    if(processorClassId == cashier.PROCESSOR_CLASS_ID_CREDIT_CARDS && processor.processorId != cashier.PROCESSOR_ID_P2C &&
+        data.response.transaction.caTransactionStatus_Id != cashier.TRANSACTION_STATUS_APPROVED &&
+        data.response.transaction.caTransaction_Id != ''
+    ){
       this.processResponseCC()
     }else{
       this.getTransactionDetails()
