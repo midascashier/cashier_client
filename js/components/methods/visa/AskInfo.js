@@ -10,6 +10,7 @@ import {CashierStore} from '../../../stores/CashierStore'
 import {PromoCode} from '../../commonComponents/PromoCode'
 import {LoadingSpinner} from '../../loading/LoadingSpinner'
 import {AmountController} from '../../commonComponents/AmountController'
+import {FeeController} from '../../commonComponents/FeeController'
 import {PayAccountDropDown} from '../../commonComponents/payaccount/PayAccountDropDown'
 
 let AskInfo = React.createClass({
@@ -24,7 +25,10 @@ let AskInfo = React.createClass({
     payAccount: React.PropTypes.object,
     limitsCheck: React.PropTypes.string,
     setPromoCode: React.PropTypes.func,
-    promoCode: React.PropTypes.string
+    promoCode: React.PropTypes.string,
+
+    feeCashValue: React.PropTypes.number,
+    feeCheck: React.PropTypes.number,
   },
 
   /**
@@ -70,6 +74,7 @@ let AskInfo = React.createClass({
     let changeValue = this.props.changeValue
     let payAccountId = payAccount.payAccountId
     let payAccountDisplayName = payAccount.displayName
+    let {feeCheck, feeCashValue} = this.props;
 
     let isEditingCCInfo = UIService.getCCEditMode()
     let transaction = CashierStore.getTransaction()
@@ -117,6 +122,16 @@ let AskInfo = React.createClass({
                                     <div className="form-group">
                                       <AmountController amount={amount} setAmount={setAmount} limitsCheck={limitsCheck}/>
                                     </div>
+
+                                    {(() => {
+                                      if(UIService.getIsWithDraw()){
+                                        return (
+                                            <div className="form-group">
+                                              <FeeController feeCashValue={feeCashValue} feeCheck={feeCheck} amount={amount}/>
+                                            </div>
+                                        )
+                                      }
+                                    })()}
 
                                     {(() => {
                                       if(!UIService.getIsWithDraw()){

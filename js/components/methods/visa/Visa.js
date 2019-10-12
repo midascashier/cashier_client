@@ -16,7 +16,9 @@ let Visa = React.createClass({
 		limitsCheck: React.PropTypes.string,
 		amount: React.PropTypes.string,
 		promoCode: React.PropTypes.string,
-		setPromoCode: React.PropTypes.func
+		setPromoCode: React.PropTypes.func,
+    feeCashValue: React.PropTypes.number,
+    feeCheck: React.PropTypes.number
 	},
 
 	/**
@@ -130,6 +132,8 @@ let Visa = React.createClass({
 						changeValue={this.changeValue}
 						setPromoCode={this.props.setPromoCode}
 						promoCode={this.props.promoCode}
+            feeCashValue={this.props.feeCashValue}
+            feeCheck={this.props.feeCheck}
 					/>
 				</div>
 				<div className="col-sm-6">
@@ -141,6 +145,7 @@ let Visa = React.createClass({
 								<InfoMethod
 									amount={this.props.amount}
 									limitsCheck={this.props.limitsCheck}
+                  feeCashValue={this.props.feeCashValue}
 									payAccount={this.state.payAccount} formValidator={this.formValidator}
 								/>
 							)

@@ -11,7 +11,8 @@ let InfoMethod = React.createClass({
 	propTypes: {
 		amount: React.PropTypes.string,
 		limitsCheck: React.PropTypes.string,
-		formValidator: React.PropTypes.func
+    feeCashValue: React.PropTypes.number,
+		formValidator: React.PropTypes.func,
 	},
 
 	/**
@@ -78,6 +79,7 @@ let InfoMethod = React.createClass({
 	 */
 	continueTransaction(){
 		TransactionService.setAmount(this.props.amount);
+    TransactionService.setFeeAmount(this.props.feeCashValue);
 		if(this.state.currentPayAccount.password){
 			TransactionService.setCVV(this.state.currentPayAccount.password);
 			TransactionService.updateCreditCardSecure();
