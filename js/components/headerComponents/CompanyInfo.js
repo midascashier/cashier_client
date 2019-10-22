@@ -4,6 +4,7 @@ import {Loading} from '../loading/Loading'
 import {ApplicationService} from '../../services/ApplicationService'
 import {UIService} from '../../services/UIService'
 import cashier from '../../constants/Cashier'
+import {CashierStore} from "../../stores/CashierStore";
 
 let CompanyInfo = React.createClass({
 	propTypes: {
@@ -23,17 +24,22 @@ let CompanyInfo = React.createClass({
 	 * function to open chat window
 	 */
 	openFAQ(){
+		let urlToFAQ = 'https://den.secureprivate.com/FAQ.html';
+		
 		switch(+this.props.company.companyId){
 			case cashier.POKER_KING_ID:
-			  if (this.props.customer.lang.toLowerCase() == "ru") {
-          window.open('https://www.pokerking.com/metody-depozita/%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d0%ba%d0%b0-%d0%b2%d1%8b%d0%b2%d0%be%d0%b4%d0%b0-%d1%81%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%b2/', 'FAQ', 'toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=1,resizable=0,width=800,height=680');
-        } else {
-          window.open('https://www.pokerking.com/payment-methods/cashout-policy/', 'FAQ', 'toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=1,resizable=0,width=800,height=680');
+				urlToFAQ = 'https://www.pokerking.com/payment-methods/cashout-policy/';
+				
+			  if (CashierStore.getLanguage() == "RU") {
+					urlToFAQ = 'https://www.pokerking.com/metody-depozita/%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d0%ba%d0%b0-%d0%b2%d1%8b%d0%b2%d0%be%d0%b4%d0%b0-%d1%81%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%b2/';
         }
 				break;
 			default:
-				window.open('https://den.secureprivate.com/FAQ.html', 'FAQ', 'toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=1,resizable=0,width=800,height=680');
+				urlToFAQ = 'https://den.secureprivate.com/FAQ.html';
 		}
+
+		window.open(urlToFAQ, 'FAQ', 'toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=1,resizable=0,width=800,height=680');
+
 	},
 
 	render(){
