@@ -3,6 +3,7 @@ import {translate} from '../../constants/Translate'
 import {Loading} from '../loading/Loading'
 import {ApplicationService} from '../../services/ApplicationService'
 import {UIService} from '../../services/UIService'
+import cashier from '../../constants/Cashier'
 
 let CompanyInfo = React.createClass({
 	propTypes: {
@@ -22,7 +23,13 @@ let CompanyInfo = React.createClass({
 	 * function to open chat window
 	 */
 	openFAQ(){
-		window.open('https://den.secureprivate.com/FAQ.html', 'FAQ', 'toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=1,resizable=0,width=800,height=680');
+		switch(this.props.company.companyId){
+			case cashier.POKER_KING_ID:
+				window.open('https://www.pokerking.com/payment-methods/cashout-policy/', 'FAQ', 'toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=1,resizable=0,width=800,height=680');
+				break;
+			default:
+				window.open('https://den.secureprivate.com/FAQ.html', 'FAQ', 'toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=1,resizable=0,width=800,height=680');
+		}
 	},
 
 	render(){
