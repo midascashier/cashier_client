@@ -27,10 +27,10 @@ let CompanyInfo = React.createClass({
 		let urlToFAQ = 'https://den.secureprivate.com/FAQ.html';
 		
 		if(+this.props.company.companyId == cashier.POKER_KING_ID) {
-			urlToFAQ = 'https://www.pokerking.com/payment-methods/cashout-policy/';
+			urlToFAQ = 'https://den.secureprivate.com/FAQ-PK.html';
 
 			if (CashierStore.getLanguage() == "RU") {
-				urlToFAQ = 'https://www.pokerking.com/metody-depozita/%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d0%ba%d0%b0-%d0%b2%d1%8b%d0%b2%d0%be%d0%b4%d0%b0-%d1%81%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%b2/';
+				urlToFAQ = 'https://den.secureprivate.com/FAQ-PK-RU.html';
 			}
 		}
 
