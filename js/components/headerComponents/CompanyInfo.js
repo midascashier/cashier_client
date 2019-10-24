@@ -22,7 +22,7 @@ let CompanyInfo = React.createClass({
       let lastName = this.props.customer.personalInformation.lastName;
       let email = this.props.customer.personalInformation.email;
       let fullName = firstName + ' ' + lastName;
-      window.open('https://support.pokerking.com/visitor/index.php?/Pokerking/LiveChat/Chat/Request/_sessionID=/_promptType=chat/_proactive=0/_filterDepartmentID=5%2C6/_randomNumber=s4gs51xoh03v31xqyxbdk1xrtamaz1xs/_fullName=' + fullName + '/_email=' + email + '/');
+      window.open('https://support.pokerking.com/visitor/index.php?/Pokerking/LiveChat/Chat/Request/_sessionID=/_promptType=chat/_proactive=0/_filterDepartmentID=5%2C6/_randomNumber=s4gs51xoh03v31xqyxbdk1xrtamaz1xs/_fullName=' + fullName + '/_email=' + email + '/', 'Chat', 'toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=1,resizable=0,width=800,height=680');
     }else{
       chat();
     }
