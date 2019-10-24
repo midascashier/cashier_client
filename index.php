@@ -91,7 +91,7 @@
           bsa.async = true;
           bsa.src = 'https://static.zdassets.com/ekr/snippet.js?key=7c83333d-3499-4548-9263-6f1785e43264';
           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(bsa);
-        }else{
+        }else if(application && application.remoteCompany && application.remoteCompany != "PK"){
           liveChatLoad();
         }
       })();
