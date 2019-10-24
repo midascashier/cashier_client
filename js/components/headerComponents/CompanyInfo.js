@@ -17,7 +17,15 @@ let CompanyInfo = React.createClass({
 	 * function to open chat window
 	 */
 	openChat(event){
-		chat();
+    if(+this.props.company.companyId == cashier.POKER_KING_ID){
+      let firstName = this.props.customer.personalInformation.firstName;
+      let lastName = this.props.customer.personalInformation.lastName;
+      let email = this.props.customer.personalInformation.email;
+      let fullName = firstName + ' ' + lastName;
+      window.open('https://support.pokerking.com/visitor/index.php?/Pokerking/LiveChat/Chat/Request/_sessionID=/_promptType=chat/_proactive=0/_filterDepartmentID=5%2C6/_randomNumber=s4gs51xoh03v31xqyxbdk1xrtamaz1xs/_fullName=' + fullName + '/_email=' + email + '/');
+    }else{
+      chat();
+    }
 	},
 
 	/**
@@ -25,7 +33,7 @@ let CompanyInfo = React.createClass({
 	 */
 	openFAQ(){
 		let urlToFAQ = 'https://den.secureprivate.com/FAQ.html';
-		
+
 		if(+this.props.company.companyId == cashier.POKER_KING_ID) {
 			urlToFAQ = 'https://den.secureprivate.com/FAQ-PK.html';
 
